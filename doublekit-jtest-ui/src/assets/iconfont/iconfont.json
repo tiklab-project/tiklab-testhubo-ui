@@ -1,0 +1,79 @@
+{
+  "id": "2517386",
+  "name": "s",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "19100194",
+      "name": "api",
+      "font_class": "api",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "15838481",
+      "name": "folder-close",
+      "font_class": "folder-close",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "15838485",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "15838487",
+      "name": "file-open",
+      "font_class": "file-open",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "15838505",
+      "name": "modular",
+      "font_class": "modular",
+      "unicode": "e678",
+      "unicode_decimal": 59000
+    },
+    {
+      "icon_id": "15838542",
+      "name": "toggle-left",
+      "font_class": "toggle-left",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "15838543",
+      "name": "toggle-right",
+      "font_class": "toggle-right",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "15838607",
+      "name": "setting-filling",
+      "font_class": "setting-filling",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "11372647",
+      "name": "创作",
+      "font_class": "chuangzuo",
+      "unicode": "e8ad",
+      "unicode_decimal": 59565
+    },
+    {
+      "icon_id": "11372693",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e8b6",
+      "unicode_decimal": 59574
+    }
+  ]
+}

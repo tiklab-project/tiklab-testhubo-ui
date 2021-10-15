@@ -1,0 +1,36 @@
+
+.testcase-detail-form{
+  margin:10px 0 0 0;
+}
+
+.testcase-detail-form-header{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  .teststep-title{
+    font-size: 25px;
+    color: #000;
+    font-weight: 500;
+    border: 1px solid #fff;
+    cursor: pointer;
+    outline:0;
+    margin: 0 0 10px 10px;
+    padding: 0 10px 0 0;
+  }
+  .teststep-title:hover{
+    box-shadow: 0 0 0 2px #1890ff33;
+  }
+}
+
+.testcase-detail-form2{
+  margin: 0 0 0 10px;
+  .ant-form-item-label>label{
+    color: #8e8e8e;
+  }
+  .ant-input[disabled]{
+    color: #8e8e8e;
+  }
+}
+
+
+

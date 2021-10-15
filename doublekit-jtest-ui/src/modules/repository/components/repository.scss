@@ -1,0 +1,30 @@
+.tc-contant{
+    display: flex;
+    height: 100%
+}
+
+ .tc-main{
+    width: 100%;
+}
+
+// tc左侧导航
+.tc-menu-ul {
+    padding: 0;
+    .tc-menu-li {
+        padding: 0 40px;
+        height: 40px;
+        width: 200px;
+        line-height: 40px;
+        display: block;
+        cursor: pointer;
+    }
+
+    .tc-menu-li:hover{
+        background-color:#EDF0F5;
+    }
+    .tc-menu-li-action{
+        background-color: #e3e8f0;
+        border-right: 3px solid #1296db;
+    }
+}
+
