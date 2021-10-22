@@ -2,15 +2,53 @@
  * @description：
  * @date: 2021-08-24 16:01
  */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {inject, observer} from "mobx-react";
-import TableResult from "../common/tableResult";
+import {Table} from "antd";
 
 const PerformanceTestResult = (props) => {
     const {performanceStore,testCaseId} = props;
     const {taskResult,executeType,testResultList} = performanceStore;
+    //列表头
+    const columns = [
+        {
+            title:`总耗时`,
+            dataIndex: "allResponseTime",
+            key: "allResponseTime",
+            align:"center",
+        },
+        {
+            title: `平均响应时间`,
+            dataIndex: "averageResponseTime",
+            key: "averageResponseTime",
+            align:"center",
+        },
+        {
+            title: `中位数`,
+            dataIndex: "middleResponseTime",
+            key: "middleResponseTime",
+            align:"center",
+        },
+        {
+            title: `最小响应时间`,
+            dataIndex: 'minimumResponseTime',
+            key: "minimumResponseTime",
+            align:"center",
+        },
+        {
+            title: `最大响应时间`,
+            dataIndex: "maxuimumResponseTime",
+            key: "maxuimumResponseTime",
+            align:"center",
+        },
+        {
+            title: `错误率`,
+            dataIndex: "errorRate",
+            key: "errorRate",
+            align:"center",
 
-    // const [data,setData] =useState([])
+        },
+    ]
 
     useEffect(() => {
         let timer
@@ -26,8 +64,11 @@ const PerformanceTestResult = (props) => {
     },[executeType])
 
     return(
-        <TableResult
+        <Table
+            className="tablelist"
+            columns={columns}
             dataSource={testResultList}
+            rowKey={record => record.id}
             pagination={false}
         />
     )

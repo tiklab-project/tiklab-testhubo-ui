@@ -14,9 +14,11 @@ export class TestcaseStore {
     @observable testcaseInfo = {};
     @observable totalRecord ;
     @observable repositoryId = '';
+    @observable param = {}
 
     @action
     findTestcasePage = async (id,param) => {
+        this.param = param
         this.repositoryId=id;
         const params = {
             repositoryId:id,
@@ -32,28 +34,20 @@ export class TestcaseStore {
     }
 
     @action
-    findTestcase = (id) => {
-        const that =this;
+    findTestcase = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findTestcase(param).then((res) => {
-                if(res.code === 0){
-                    that.testcaseInfo = res.data;
-                    resolve(res.data)
-                }
-            }).catch(error => {
-                console.log(error)
-                reject(error)
-            })
-        })
+        const res = await findTestcase(param)
+        if(res.code === 0){
+            return this.testcaseInfo = res.data;
+        }
     }
 
     @action
     createTestcase = async (values) => {
         const res = await createTestcase(values)
         if(res.code === 0){
-            this.findTestcasePage(this.repositoryId)
+            this.findTestcasePage(this.repositoryId,this.param)
         }
     }
 
@@ -61,7 +55,7 @@ export class TestcaseStore {
     updateTestcase = async (values) => {
         const res = await updateTestcase(values)
         if(res.code === 0){
-            this.findTestcasePage(this.repositoryId);
+            this.findTestcasePage(this.repositoryId,this.param);
         }
     }
 
@@ -71,7 +65,7 @@ export class TestcaseStore {
         param.append('id', id);
         const res = await deleteTestcase(param)
         if(res.code === 0) {
-            this.findTestcasePage(this.repositoryId);
+            this.findTestcasePage(this.repositoryId,this.param);
         }
     }
 
@@ -82,7 +76,7 @@ export class TestcaseStore {
         param.append('categoryId', categoryId);
         const res = await releModule(param)
         if(res.code === 0) {
-            this.findTestcasePage(this.repositoryId);
+            this.findTestcasePage(this.repositoryId,this.param);
         }
     }
 

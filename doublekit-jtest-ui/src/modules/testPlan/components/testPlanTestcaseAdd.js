@@ -1,16 +1,15 @@
 /**
  * @description：
- * @date: 2021-08-25 09:56
+ * @date: 2021-08-20 17:00
  */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Modal, Button, Table} from 'antd';
 
-
 // 添加与编辑
-const TestcaseAdd = (props) => {
-    const { performanceStore, repositoryId, testType } = props;
-    const {findTestCaseByType,testcaseList,testRecord,getTestcase} = performanceStore;
+const TestPlanTestcaseAdd = (props) => {
+    const { testPlanDetailStore,testPlanId} = props;
+    const {findTesCase,testPlanTestcaseList,createTestPlanDetaillList,tcTotalRecord} = testPlanDetailStore;
 
     const columns = [
         {
@@ -41,32 +40,43 @@ const TestcaseAdd = (props) => {
             currentPage: currentPage
         }
     })
-
     const [visible, setVisible] = useState(false);
     const [selectRow,setSelectRow]=useState()
+    const [tableLoading,setTableLoading] = useState(true);
 
     // 弹框展示
     const showModal = () => {
-        findTestCaseByType(repositoryId,testType)
         setVisible(true)
     };
 
+    useEffect(()=>{
+        findTesCase(testPlanId,params).then(()=>
+            setTableLoading(false)
+        )
+    },[testPlanId,params])
+
     //提交
     const onFinish = () => {
-        getTestcase(selectRow)
+        let newData = []
+        selectRow&&selectRow.map(item=>{
+            let obj={
+                testPlan:{id: testPlanId},
+                testCase:item
+            }
+            newData.push(obj)
+        })
+        debugger
+        createTestPlanDetaillList(newData)
         setVisible(false)
     }
 
-    //取消
-    const onCancel = () => setVisible(false) ;
+    const onCancel = () => { setVisible(false) };
 
     const rowSelection = {
-        type:'radio',
         onChange: (selectedRowKeys, selectedRows) => {
-            setSelectRow(selectedRows[0])
+            setSelectRow(selectedRows)
             console.log(selectedRowKeys, selectedRows)
         },
-
     };
 
     //分页
@@ -84,7 +94,7 @@ const TestcaseAdd = (props) => {
 
     return (
         <>
-            <a  onClick={showModal}>关联</a>
+            <Button className="important-btn" onClick={showModal}>添加用例</Button>
             <Modal
                 destroyOnClose={true}
                 title='添加用例'
@@ -99,21 +109,21 @@ const TestcaseAdd = (props) => {
                 <Table
                     className="tablelist"
                     columns={columns}
-                    dataSource={testcaseList}
+                    dataSource={testPlanTestcaseList}
                     rowKey={record => record.id}
                     rowSelection={{...rowSelection}}
                     pagination={{
                         current:currentPage,
                         pageSize:pageSize,
-                        total:testRecord,
+                        total:tcTotalRecord,
                     }}
                     onChange = {(pagination) => onTableChange(pagination)}
+                    loading={tableLoading}
                 />
-
 
             </Modal>
         </>
     );
 };
 
-export default inject('performanceStore')(observer(TestcaseAdd));
+export default inject('testPlanDetailStore')(observer(TestPlanTestcaseAdd));

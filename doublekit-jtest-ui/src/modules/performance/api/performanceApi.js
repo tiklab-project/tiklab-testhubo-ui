@@ -45,9 +45,9 @@ export function updatePerformance(data){
 }
 
 //关联用例查询
-export function findTestCaseAll(data){
+export function findTestCaseByType(data){
     return service.request({
-        url: "/performanceTest/findTestCaseAll",
+        url: "/performanceTest/findTestCaseByType",
         method: "post",
         data
     })

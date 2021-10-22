@@ -9,13 +9,9 @@ import { Menu } from 'antd';
 
 const { SubMenu } = Menu;
 
-const TaskResult = (props) => {
-
+const TestResultAPI = (props) => {
     const {performanceStore} = props;
-
     const {mergeList,getTestData}  = performanceStore;
-
-    const [dataList,setDataList] = useState()
 
     useEffect(() => {
             console.log(mergeList)
@@ -26,12 +22,11 @@ const TaskResult = (props) => {
         return(
             <Menu mode="inline">
                 {
-
                     data&&data.map((item,index)=>{
-                        let testSteps = item.perTestSteps
+                        let testSteps = item.perTestStepVos
                         return <SubMenu key={index} title={item.testCaseName}>
                             {
-                                testSteps.map((childItem,childIndex)=>{
+                                testSteps&&testSteps.map((childItem,childIndex)=>{
                                     return <Menu.Item key={index+"child"+childIndex} onClick={()=>selectItem(childItem)}>
                                         {childItem.testStepName}
                                     </Menu.Item>
@@ -44,7 +39,7 @@ const TaskResult = (props) => {
         )
     }
 
-    //
+    //点击左侧列表获取值
     const selectItem = (data) => {
         getTestData(data)
     }
@@ -59,4 +54,4 @@ const TaskResult = (props) => {
     )
 }
 
-export default inject('performanceStore')(observer(TaskResult));
+export default inject('performanceStore')(observer(TestResultAPI));

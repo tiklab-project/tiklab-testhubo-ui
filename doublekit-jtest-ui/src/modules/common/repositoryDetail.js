@@ -15,6 +15,11 @@ const RepositoryDetail = (props) => {
             key: `/repositorypage`
         },
         {
+            title: '测试计划',
+            icon: 'icon-modular',
+            key: `/repositorypage/testplan`
+        },
+        {
             title: `测试用例`,
             icon: 'icon-modular',
             key: `/repositorypage/Testcase`

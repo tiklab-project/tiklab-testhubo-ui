@@ -13,8 +13,6 @@ const TaskResultDetail = (props) => {
     const {performanceStore} = props;
     const {testcaseResData,testcaseReqData} = performanceStore;
 
-
-
     return(
         <Tabs type={'card'} className={'task-result-tabs'} >
             <TabPane tab="请求" key="requestHeader">

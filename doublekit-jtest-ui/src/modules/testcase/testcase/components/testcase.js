@@ -31,12 +31,6 @@ const TestcaseList = (props) => {
             )
         },
         {
-            title:`仓库`,
-            dataIndex: ["repository",'name'],
-            key: "repository",
-            align:"center",
-        },
-        {
             title:`类型`,
             dataIndex: "type",
             key: "type",

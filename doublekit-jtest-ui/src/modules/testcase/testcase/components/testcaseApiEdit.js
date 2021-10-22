@@ -42,7 +42,6 @@ const TestcaseApiEdit = (props) => {
         values.repository={id:repositoryId};
         values.type = 'API';
         if(props.name === "API" ){
-            debugger
             createTestcase(values);
         }else{
             values.id=testcaseId;

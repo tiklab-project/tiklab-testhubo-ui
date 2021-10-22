@@ -39,8 +39,6 @@ import {
 
     AppTestcase,
     APPSTEP_STORE, AppStepStore,
-
-
 } from './testcase'
 
 import TestReport from './testReport/components/testReport';
@@ -56,6 +54,10 @@ import {FUNCTIONALTESTSTEP_STORE,FunctionalTestStepStore} from './testcase/funct
 import CategoryList from "./category/components/category";
 import {CATEGORY_STORE,CategoryStore} from "./category/store/categoryStore";
 
+import TestPlan  from './testPlan/components/testPlan';
+import TestPlanDetail from "./testPlan/components/testPlanDetail";
+import {TESTPLAN_STORE, TestPlanStore} from './testPlan/store/testPlanStore';
+import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './testPlan/store/testPlanDetailStore'
 export {
     Login,
     Home,
@@ -114,5 +116,8 @@ export {
     CategoryList,
     CATEGORY_STORE,CategoryStore,
 
+    TestPlan,TestPlanDetail,
+    TESTPLAN_STORE, TestPlanStore,
+    TESTPLANDETAIL_STORE, TestPlanDetailStore,
 }
 

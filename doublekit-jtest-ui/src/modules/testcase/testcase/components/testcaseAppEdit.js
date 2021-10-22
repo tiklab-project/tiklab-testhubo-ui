@@ -115,7 +115,6 @@ const TestcaseAppEdit = (props) => {
                     <Form.Item label="App包名" name="appPackage"><Input /></Form.Item>
                     <Form.Item label="App入口" name="appActivity"><Input /></Form.Item>
                     <Form.Item label="说明" name="desc"><Input /></Form.Item>
-
                 </Form>
             </Modal>
         </>

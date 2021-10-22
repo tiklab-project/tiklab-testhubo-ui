@@ -9,7 +9,7 @@ import {
     createPerformance,
     deletePerformance,
     updatePerformance,
-    findTestCaseAll,
+    findTestCaseByType,
     executeTest,
     taskResult,
     endOrPauseTest
@@ -19,7 +19,9 @@ import {
 export class PerformanceStore {
     @observable performanceList = [];
     @observable performanceInfo = {};
-    @observable totalRecord ;
+    @observable repositoryId;
+    @observable param;
+    @observable totalRecord;
     @observable testcaseList;
     @observable testRecord;
     @observable testcaseInfo;
@@ -32,98 +34,69 @@ export class PerformanceStore {
     @observable testcaseId
 
     @action
-    findPerformancePage = (id,param) => {
+    findPerformancePage = async (id,param) => {
+        this.repositoryId = id;
+        this.param = param;
         const params = {
             repositoryId:id,
             ...param,
-            orderParams: [{
-                name:'name',
-                orderType:'asc'
-            }],
+            orderParams: [{name:'name', orderType:'asc'}],
         }
-
-        const that = this;
-        return new Promise(function(resolve, reject){
-            findPerformancePage(params).then(res => {
-                if(res.code === 0) {
-                    that.performanceList = res.data.dataList;
-                    that.totalRecord = res.data.totalRecord;
-                    resolve(res);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+        const res = await  findPerformancePage(params)
+        if(res.code === 0) {
+            this.totalRecord = res.data.totalRecord;
+            return this.performanceList = res.data.dataList;
+        }
     }
 
     @action
-    findPerformance = (id) => {
-        const that =this;
+    findPerformance = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findPerformance(param).then((res) => {
-                if(res.code === 0){
-                    that.performanceInfo = res.data;
-                    that.testcaseId = res.data.testCase.id;
-                    resolve(res.data)
-                }
-            }).catch(error => {
-                console.log(error)
-                reject(error)
-            })
-        })
+        const res = await findPerformance(param)
+        if(res.code === 0){
+            this.performanceInfo = res.data;
+            this.testcaseId = res.data.testCase.id
+        }
     }
 
     @action
-    createPerformance = (values) => {
-        return createPerformance(values).then((res) => {
-            if(res.code === 0){
-                this.findPerformancePage()
-            }
-            return res
-        }).catch(error => {
-            console.log(error)
-        })
+    createPerformance = async (values) => {
+        const res = await createPerformance(values)
+        if(res.code === 0){
+            return this.findPerformancePage(this.repositoryId,this.param)
+        }
     }
 
     @action
-    updatePerformance = (values) => {
-        updatePerformance(values).then((res) => {
-            if(res.code === 0){
-                this.findPerformancePage();
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    updatePerformance = async (values) => {
+        const res = await updatePerformance(values)
+        if(res.code === 0){
+            this.findPerformancePage(this.repositoryId,this.param)
+        }
     }
 
     @action
-    deletePerformance = (id) => {
+    deletePerformance =  async (id) => {
         const param = new FormData();
         param.append('id', id);
-        deletePerformance(param).then((res) => {
-            this.findPerformancePage();
-        }).catch(error => {
-            console.log(error)
-        })
+        const res = await deletePerformance(param)
+        if(res.code === 0){
+            this.findPerformancePage(this.repositoryId,this.param)
+        }
     }
 
     @action
-    findTestCaseAll = () => {
-        const that =this;
-        return new Promise(function(resolve, reject){
-            findTestCaseAll().then((res) => {
-                if(res.code === 0){
-                    that.testcaseList = res.data;
-                    that.testRecord = null
-                    resolve(res.data)
-                }
-            }).catch(error => {
-                console.log(error)
-                reject(error)
-            })
-        })
+    findTestCaseByType = async (id,testType) => {
+        const param = {
+            repositoryId: id,
+            testType:testType
+        }
+        const res = await findTestCaseByType(param);
+        if(res.code === 0){
+            this.testcaseList = res.data;
+            this.testRecord = null
+        }
     }
 
     //获取关联用例数据

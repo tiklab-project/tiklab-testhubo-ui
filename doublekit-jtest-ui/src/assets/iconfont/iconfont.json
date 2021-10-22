@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1727469",
+      "name": "232编辑、输入-线性",
+      "font_class": "bianjishuru-xianxing",
+      "unicode": "e8cc",
+      "unicode_decimal": 59596
+    },
+    {
+      "icon_id": "17814456",
+      "name": "返回 (1)",
+      "font_class": "fanhui1",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
       "icon_id": "19100194",
       "name": "api",
       "font_class": "api",

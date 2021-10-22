@@ -33,7 +33,10 @@ import {
     FUNCTIONALTEST_STORE, TestcaseFunctionalStore,
     FUNCTIONALTESTSTEP_STORE,FunctionalTestStepStore,
 
-    CATEGORY_STORE,CategoryStore
+    CATEGORY_STORE,CategoryStore,
+
+    TESTPLAN_STORE, TestPlanStore,
+    TESTPLANDETAIL_STORE, TestPlanDetailStore,
 
 } from './modules/index';
 
@@ -72,6 +75,9 @@ function createStores() {
         [FUNCTIONALTESTSTEP_STORE]:new FunctionalTestStepStore(),
 
         [CATEGORY_STORE]:new CategoryStore(),
+
+        [TESTPLAN_STORE]: new TestPlanStore(),
+        [TESTPLANDETAIL_STORE]: new TestPlanDetailStore()
     };
 }
 

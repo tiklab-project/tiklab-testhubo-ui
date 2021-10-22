@@ -4,10 +4,10 @@
  */
 import React, {useEffect, useState} from "react";
 import {Form, Divider, Input, Breadcrumb, Select} from "antd";
-// import './webTestcase.scss';
 import {inject, observer} from "mobx-react";
 import FunctionalTestStep from "./functionalTestStep";
 import BindModules from "./bindModules";
+import './functionalTest.scss'
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -79,9 +79,7 @@ const FunctionalTestDetail = (props) => {
         const values = await form.getFieldsValue()
         values.name=updataValue.name
         values.id=testcaseId;
-        values.repository={
-            id:updataValue.repository.id
-        }
+        values.repository={id:updataValue.repository.id}
         updateTestcase(values)
     }
 
@@ -90,9 +88,7 @@ const FunctionalTestDetail = (props) => {
         debugger
         const values = {
             preExplain:data,
-            testCase:{
-                id:testcaseId
-            }
+            testCase:{id:testcaseId}
         }
         if(preDesc){
             values.id=preId
@@ -112,23 +108,26 @@ const FunctionalTestDetail = (props) => {
                     <Breadcrumb.Item>功能测试详情</Breadcrumb.Item>
                 </Breadcrumb>
             </div>
-            <div className={'testcase-webUI-form'}>
-                <div className="web-form-header">
-                    <div
-                        className='teststep-title'
-                        contentEditable={true}
-                        suppressContentEditableWarning  //去掉contentEditable 提示的页面警告
-                        onBlur={updateTitle}
-                    >
-                        {editTitle}
-                    </div>
-                </div>
+            <div className={'testcase-detail'}>
+                {/*<div className="web-form-header">*/}
+                {/*    <div*/}
+                {/*        className='teststep-title'*/}
+                {/*        contentEditable={true}*/}
+                {/*        suppressContentEditableWarning  //去掉contentEditable 提示的页面警告*/}
+                {/*        onBlur={updateTitle}*/}
+                {/*    >*/}
+                {/*        {editTitle}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <Form
                     className={'form-edit1'}
                     layout="inline"
                     form={form}
 
                 >
+                    <Form.Item name="name" className={'title-name'}>
+                        <Input onBlur={updataDetail} bordered={false}/>
+                    </Form.Item>
                     <Form.Item label="等级" name="grade">
                         <Select onChange={updataDetail} style={{width:150}}>
                             <Option value='L1'>L1</Option>

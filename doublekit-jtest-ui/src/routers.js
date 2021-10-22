@@ -22,9 +22,10 @@ import {
 
     PerformanceList,
     PerformanceDetail,
-
     FunctionalTestDetail,
-    CategoryList
+    CategoryList,
+    TestPlan,
+    TestPlanDetail,
 } from './modules';
 
 import {
@@ -114,6 +115,19 @@ const routers =  [
                         component: Testcase,
                     },
                     {
+                        path: "/repositorypage/testplan",
+                        key:'TestPlan',
+                        exact: true,
+                        component: TestPlan,
+                    },
+                    {
+                        path: "/repositorypage/testplandetail",
+                        key:'TestPlan',
+                        exact: true,
+                        component: TestPlanDetail,
+                    },
+
+                    {
                         path: "/repositorypage/performance",
                         component: PerformanceList,
                         exact: true,
@@ -176,10 +190,22 @@ const routers =  [
                 key:'outTestcase',
             },
             {
-                path: "/performanceDetail",
+                path: "/performanceapi",
                 component: PerformanceDetail,
                 exact: true,
                 key:'PerformanceDetail',
+            },
+            {
+                path: "/performanceweb",
+                component: PerformanceDetail,
+                exact: true,
+                key:'PerformanceDetail',
+            },
+            {
+                path: "/performanceapp",
+                component: PerformanceDetail,
+                exact: true,
+                key:'PerformanceApp',
             },
             {
                 path:'/systemManagement',

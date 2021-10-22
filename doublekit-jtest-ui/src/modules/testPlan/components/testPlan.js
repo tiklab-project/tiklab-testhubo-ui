@@ -1,64 +1,64 @@
-/**
- * @description：
- * @date: 2021-08-24 15:17
+/*
+ * @Description: 测试计划列表页
+ * @LastEditTime: 2021-10-21 13:20:46
  */
-import React, { useEffect, useState } from 'react';
-import { observer, inject } from "mobx-react";
-import {Breadcrumb, Input, Table, Space, Popconfirm} from 'antd';
-import PerformanceEdit from './performanceEdit';
-import  { useTranslation } from 'react-i18next'
-import './performanceStyle.scss'
 
-const PerformanceList = (props) => {
-    const { performanceStore } = props;
+import React, { Fragment, useEffect, useState } from 'react';
+import { observer, inject } from "mobx-react";
+import {Breadcrumb, Input, Table, Space,  Popconfirm} from 'antd';
+import TestPlanEdit from './testPlanEdit';
+import  { useTranslation } from 'react-i18next'
+
+const TestPlan = (props) => {
+    const { testPlanStore } = props;
     const {
-        findPerformancePage,
-        deletePerformance,
-        performanceList,
-        totalRecord
-    } = performanceStore;
+        findTestPlanPage,
+        deleteTestPlan,
+        testPlanList,
+        totalRecord,
+    } = testPlanStore;
 
     const { t } = useTranslation();
 
     //列表头
     const columns = [
         {
-            title:`名称`,
+            title:`计划名称`,
             dataIndex: "name",
             key: "name",
             align:"center",
             render: (text,record) =>(
-                <a onClick = {()=>setLocalStorage(record.testType,record.id)}>{text}</a>
+                <a onClick = {()=>setLocalStorage(record.id)}>{text}</a>
             )
         },
         {
-            title: `类型`,
-            dataIndex: "testType",
-            key: "testType",
+            title:`起始时间`,
+            dataIndex: "startTime",
+            key: "startTIme",
             align:"center",
         },
         {
-            title: `线程数`,
-            dataIndex: "threadCount",
-            key: "threadCount",
+            title: `结束时间`,
+            dataIndex: "endTime",
+            key: "endTime",
             align:"center",
         },
         {
-            title: `执行次数`,
-            dataIndex: "executeCount",
-            key: "executeCount",
+            title: `用例数`,
+            dataIndex: "testcaseNumber",
+            key: "testcaseNumber",
             align:"center",
         },
         {
-            title: `创建人`,
-            dataIndex: ['user', 'name'],
-            key: "user",
+            title: `进度`,
+            dataIndex: "state",
+            key: "desc",
             align:"center",
         },
         {
-            title: `测试时间`,
-            dataIndex: "time",
-            key: "time",
+            title: `描述`,
+            dataIndex: "desc",
+            key: "desc",
             align:"center",
         },
         {
@@ -68,11 +68,11 @@ const PerformanceList = (props) => {
             render: (text, record) => (
                 <Space size="middle">
                     <div>
-                        <PerformanceEdit name="编辑"  performanceId={record.id} />
+                        <TestPlanEdit name={`${t('tcedit')}`}  testPlanId={record.id} />
                     </div>
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deletePerformance(record.id)}
+                        onConfirm={() =>deleteTestPlan(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -95,26 +95,15 @@ const PerformanceList = (props) => {
     const repositoryId = localStorage.getItem('repositoryId')
 
     useEffect(()=> {
-        findPerformancePage(repositoryId,params).then(()=>{
+        findTestPlanPage(repositoryId,params).then(()=>{
             setTableLoading(false)
         });
     },[params])
 
     // 保存id到缓存
-    const setLocalStorage = (type,id) => {
-        localStorage.setItem('performanceId',id);
-        const toDetail = props.history.push;
-        switch (type) {
-            case "API":
-                toDetail('/performanceapi');
-                break;
-            case "WEB":
-                toDetail('/performanceweb');
-                break;
-            case "APP":
-                toDetail('/performanceapp');
-                break;
-        }
+    const setLocalStorage = (id) => {
+        localStorage.setItem('testPlanId',id);
+        props.history.push('/repositorypage/testplandetail');
     }
 
     //分页
@@ -151,28 +140,28 @@ const PerformanceList = (props) => {
         setParams(newParams)
     }
 
-
     return(
-        <div className={'inner-box'}>
+        <Fragment>
             <div className='breadcrumb'>
-                <Breadcrumb separator=">" >
-                    <Breadcrumb.Item>仓库</Breadcrumb.Item>
-                    <Breadcrumb.Item>性能测试列表</Breadcrumb.Item>
+                <Breadcrumb separator=">"  >
+                    <Breadcrumb.Item>用例库</Breadcrumb.Item>
+                    <Breadcrumb.Item>用例库</Breadcrumb.Item>
                 </Breadcrumb>
             </div>
             <div className='search-btn'>
                 <Input
-                    placeholder={`搜索`}
+                    placeholder={`${t('tcsearch')}`}
                     onPressEnter={onSearch}
                     className='search-input'
                 />
-                <PerformanceEdit className="important-btn" name='添加' {...props}/>
+                <TestPlanEdit className="important-btn" name={`添加计划`}/>
             </div>
 
             <Table
+                bordered
                 className="tablelist"
                 columns={columns}
-                dataSource={performanceList}
+                dataSource={testPlanList}
                 rowKey={record => record.id}
                 pagination={{
                     current:currentPage,
@@ -182,8 +171,8 @@ const PerformanceList = (props) => {
                 onChange = {(pagination) => onTableChange(pagination)}
                 loading={tableLoading}
             />
-        </div>
+        </Fragment>
     )
 }
 
-export default inject('performanceStore')(observer(PerformanceList));
+export default inject('testPlanStore')(observer(TestPlan));

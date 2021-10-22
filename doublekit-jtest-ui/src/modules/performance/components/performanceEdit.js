@@ -4,10 +4,10 @@
  */
 import React, {useEffect, useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input} from 'antd';
+import {Form, Modal, Button, Input, Select} from 'antd';
 import TestcaseAdd from "./testcaseAdd";
 
-
+const {Option} = Select;
 const layout = {
     labelCol: {span: 4,},
     wrapperCol: {span: 19,}
@@ -39,6 +39,7 @@ const PerformanceEdit = (props) => {
                 setTestcase(res.testCase.id)
                 form.setFieldsValue({
                     name: res.name,
+                    testType:res.testType,
                     threadCount:res.threadCount,
                     executeCount:res.executeCount,
                     testcase:res.testCase.name
@@ -59,6 +60,7 @@ const PerformanceEdit = (props) => {
             createPerformance(values).then((res)=>{
                 localStorage.setItem('performanceId',res.data)
                 props.history.push('/performanceDetail')
+
             });
         }else{
             values.id=performanceId;
@@ -71,6 +73,11 @@ const PerformanceEdit = (props) => {
         }
         setVisible(false);
     };
+
+    const [testType, setTestType] = useState('');
+    const selectType = (data) => {
+        setTestType(data)
+    }
 
     //关闭弹窗
     const onCancel = () => { setVisible(false) };
@@ -108,6 +115,17 @@ const PerformanceEdit = (props) => {
                         <Input />
                     </Form.Item>
                     <Form.Item
+                        label="类型"
+                        rules={[{ required: true, }]}
+                        name="testType"
+                    >
+                        <Select onChange={selectType}>
+                            <Option value='API'>API</Option>
+                            <Option value='WEB'>WEB</Option>
+                            <Option value='APP'>APP</Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
                         label="线程数"
                         rules={[{ required: true, }]}
                         name="threadCount"
@@ -125,7 +143,7 @@ const PerformanceEdit = (props) => {
                         label="关联用例"
                         name="testcase"
                     >
-                        <Input addonAfter={<TestcaseAdd />}/>
+                        <Input addonAfter={<TestcaseAdd testType={testType} repositoryId={repositoryId}/>}/>
                     </Form.Item>
 
                 </Form>
