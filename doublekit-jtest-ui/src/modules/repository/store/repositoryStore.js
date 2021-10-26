@@ -12,7 +12,7 @@ export class RepositoryStore {
     @observable repositoryList = [];
     @observable repositoryInfo = {};
     @observable totalRecord ;
-    @observable envUrl;
+    @observable envUrlId;
     @observable repositoryName;
 
     @action
@@ -24,7 +24,6 @@ export class RepositoryStore {
 
         const res = await findRepositoryPage(params)
         if(res.code === 0) {
-
             this.totalRecord = res.data.totalRecord;
             return this.repositoryList = res.data.dataList;
         }
@@ -36,7 +35,8 @@ export class RepositoryStore {
         param.append('id', id);
         const res = await findRepository(param)
         if(res.code === 0){
-            this.envUrl = res.data.testEnvironment!==null?res.data.testEnvironment.id:null
+            this.envUrlId = res.data.testEnvironment!==null?res.data.testEnvironment.id:null;
+            this.envUrl = res.data.testEnvironment?res.data.testEnvironment.prepositionUrl:null;
             this.repositoryName = res.data.name
             return this.repositoryInfo = res.data;
         }

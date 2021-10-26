@@ -43,6 +43,19 @@
     overflow: hidden;
 }
 
+.task-result-info{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0 0 0;
+    .task-result-info-item{
+        background: #f5f5f5;
+        width: 135px;
+        height: 80px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+}
+
 .task-result{
     display: flex;
     height: 100%;

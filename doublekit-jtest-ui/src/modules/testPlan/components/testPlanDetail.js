@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {Breadcrumb, Button, Form, Input} from "antd";
-import ToggleItemEdit from "../../performance/common/toggleItemEdit";
+import ToggleItemEdit from "../../common/toggleItemEdit";
 import {inject, observer} from "mobx-react";
 import TestPlanTestcase from "./testPlanTestcase";
 
@@ -36,11 +36,11 @@ const TestPlanDetail = (props) =>{
             name:'endTime',
             title:'结束时间'
         },
-        {
-            value:executeDate?.principal,
-            name:'principal',
-            title:'结束时间'
-        },
+        // {
+        //     value:executeDate?.principal,
+        //     name:'principal',
+        //     title:'结束时间'
+        // },
         {
             value:executeDate?.state,
             name:'state',
@@ -64,7 +64,7 @@ const TestPlanDetail = (props) =>{
 
     //返回
     const goBack = () => {
-        props.history.push('/repositorypage/performance');
+        props.history.push('/repositorypage/testplan');
     }
 
     return(

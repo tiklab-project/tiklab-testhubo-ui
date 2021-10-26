@@ -13,9 +13,10 @@ const layout = {
 };
 
 const TestReportApi= (props) => {
-    const {performCaseStore,stepStore,testInstanceStore,testcaseId} = props;
+    const {performCaseStore,stepStore,testInstanceStore,repositoryStore,testcaseId} = props;
     const {performCase} = performCaseStore;
-    const {selectItem} = stepStore
+    const {selectItem} = stepStore;
+    const {envUrl} = repositoryStore;
     const {findInstancesReposter,findApiResultByInstanceId} = testInstanceStore
 
     const [visible, setVisible] = useState(false);
@@ -62,10 +63,11 @@ const TestReportApi= (props) => {
     ]
 
     const repositoryId = localStorage.getItem('repositoryId');
-    const userId = document.cookie.split(";")[4].split("=")[1];
     const [historyData,setHistoryData] = useState({});
     const [stepList,setStepList] = useState([]);
-    const [isResult,setIsResult] = useState()
+    const [isResult,setIsResult] = useState();
+
+
     //弹窗显示
     const showDrawer = () => {
         setVisible(true);
@@ -74,23 +76,29 @@ const TestReportApi= (props) => {
                 repositoryId:repositoryId,
                 testCaseId:testcaseId,
                 apiStepList:selectItem,
-                userId:userId,
+                prepositionUrl:envUrl
             }
             //执行测试接口
             performCase(param).then(res=>{
-                let detail = res[0].testInstanceCollent;
-                setHistoryData(res);
-                setStepList(detail.stepList);
-                setFieldsValues(detail)
+                debugger
+                setFieldsValues(res)
+                setStepList(res.stepList);
+                onHistory(testcaseId)
             });
+
+            //测试历史列表
+            onHistory(testcaseId);
         }
 
-        if(props.name === '测试历史') {
-            findInstancesReposter(testcaseId).then(res=>{
-                setHistoryData(res);
-            })
-        }
+        if(props.name === '测试历史') {onHistory(testcaseId)}
     };
+
+    //历史查找
+    const onHistory = (id) => {
+        findInstancesReposter(id).then(res=>{
+            setHistoryData(res);
+        });
+    }
 
     // 关闭弹框
     const onClose = () => {
@@ -130,7 +138,7 @@ const TestReportApi= (props) => {
                 }
                 <div className='history-item-detail'>
                     <div>{item.createTime}</div>
-                    <div>{item.user.name}</div>
+                    <div>{item.user?.name}</div>
                     <div>步骤数: {item.stepNum}</div>
                 </div>
             </div>
@@ -215,4 +223,4 @@ const TestReportApi= (props) => {
     );
 }
 
-export default inject('performCaseStore','stepStore','testInstanceStore')(observer(TestReportApi));
+export default inject('performCaseStore','stepStore','testInstanceStore','repositoryStore')(observer(TestReportApi));

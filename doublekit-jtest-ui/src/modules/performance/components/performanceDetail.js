@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Breadcrumb, Button, Col, Form, Input, Row} from "antd";
-import ToggleItemEdit from "../common/toggleItemEdit";
+import ToggleItemEdit from "../../common/toggleItemEdit";
 import PerformanceTestResult from './performanceTestResult'
 import TestResultAPI from "./testResultAPI";
 import TestResultWebApp from "./testResultWebApp";
@@ -29,17 +29,24 @@ const PerformanceDetail = (props) => {
 
     //执行测试
     const handExecuteTest = (type) => {
-        const params = {
+        const param = {
             threadCount:executeDate.threadCount,
             executeCount:executeDate.executeCount,
             testCaseId:executeDate.testCase.id,
-            environmentId:executeDate.testCase.repository.testEnvironment.id,
             repositoryId:executeDate.testCase.repository.id,
             testCaseName:executeDate.testCase.name,
             executeType:type,
             testType:executeDate.testType
         }
-        executeTest(params)
+        if(executeDate.testType==='APP'){
+            executeTest(param)
+        }else {
+            let env = { environmentId:executeDate.testCase.repository.testEnvironment.id,}
+            let params = {...param,...env}
+            executeTest(params)
+        }
+
+
     }
 
     //暂停或停止
@@ -66,9 +73,9 @@ const PerformanceDetail = (props) => {
                     </>
                 )
             case 'WEB':
-                return  <TestResultWebApp />
+                return  <TestResultWebApp testCaseId={executeDate?.testCase.id}/>
             case 'APP':
-                return  <TestResultWebApp />
+                return  <TestResultWebApp testCaseId={executeDate?.testCase.id}/>
         }
     }
 

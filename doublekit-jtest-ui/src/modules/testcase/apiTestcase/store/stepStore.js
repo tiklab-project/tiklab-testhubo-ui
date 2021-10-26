@@ -16,11 +16,10 @@ export class StepStore {
     @observable selectItem=[]
 
     @action
-    findStepPage = (id,param) => {
+    findStepPage = (id) => {
         this.testcaseId=id;
         const params = {
             testCaseId: id,
-            ...param,
             orderParams: [{
                 name:'name',
                 orderType:'asc'
@@ -32,7 +31,6 @@ export class StepStore {
             findStepPage(params).then(res => {
                 if(res.code === 0) {
                     that.stepList = res.data.dataList;
-                    that.totalRecord = res.data.totalRecord;
                     resolve(res);
                 }
             }).catch(error => {

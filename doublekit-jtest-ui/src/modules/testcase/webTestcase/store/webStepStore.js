@@ -13,7 +13,6 @@ import {
     findAllTestDictionaries
 } from '../api/webStepApi';
 
-
 export class WebStepStore {
     @observable webStepList = [];
     @observable webStepInfo = {};
@@ -60,8 +59,6 @@ export class WebStepStore {
             if(res.code === 0){
                 this.findWebStepList(this.testcaseId)
             }
-        }).catch(error => {
-            console.log(error)
         })
     }
 
@@ -71,8 +68,6 @@ export class WebStepStore {
             if(res.code === 0){
                 this.findWebStepList(this.testcaseId);
             }
-        }).catch(error => {
-            console.log(error)
         })
     }
 
@@ -83,8 +78,6 @@ export class WebStepStore {
 
         deleteWebStep(param).then((res) => {
             this.findWebStepList(this.testcaseId);
-        }).catch(error => {
-            console.log(error)
         })
     }
 

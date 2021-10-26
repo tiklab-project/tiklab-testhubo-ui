@@ -31,7 +31,8 @@ export class PerformanceStore {
     @observable executeType;
     @observable mergeList;
     @observable testResultList;
-    @observable testcaseId
+    @observable testcaseId;
+    @observable testResultInfo;
 
     @action
     findPerformancePage = async (id,param) => {
@@ -55,7 +56,7 @@ export class PerformanceStore {
         param.append('id', id);
         const res = await findPerformance(param)
         if(res.code === 0){
-            this.performanceInfo = res.data;
+           return  this.performanceInfo = res.data;
             this.testcaseId = res.data.testCase.id
         }
     }
@@ -122,24 +123,28 @@ export class PerformanceStore {
     //测试结果
     @action
     taskResult = (id) => {
+
         const param = new FormData();
         param.append('testCaseId', id);
         return taskResult(param).then(res=> {
             if(res.code===0){
-                if(res.data.executeType){
-                    this.executeType = res.data.executeType
-                }else {
-                    this.testList = res.data.performanceTestList;
+                debugger
+                let timer= setInterval(()=>{
+                    if(res.data.executeType){
+                        this.executeType = res.data.executeType
+                        clearInterval(timer)
+                    }else {
+                        this.testList = res.data.performanceTestList;
 
-                    if(res.data.performanceStatistics){
-                        this.testResultList = [res.data.performanceStatistics]
+                        if(res.data.performanceStatistics){
+                            this.testResultList = [res.data.performanceStatistics]
+                            this.testResultInfo = res.data.performanceStatistics
+                        }
+                        this.merge(res.data.performanceTestList)
+                        clearInterval(timer)
+                        return res.data
                     }
-
-                    this.merge(res.data.performanceTestList)
-                    return res.data
-                }
-
-
+                },4000)
             }
         })
     }

@@ -25,7 +25,9 @@ class Entry extends Component {
             ...portalStores,
             ...orgStores,
             ...messageModuleStores,
-        }
+        };
+
+        console.log(orgStores)
 
         allStore.authConfigStore.getFindAuthConfig()
         //获取系统权限

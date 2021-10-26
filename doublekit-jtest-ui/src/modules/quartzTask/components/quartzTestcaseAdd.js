@@ -33,6 +33,15 @@ const QuartzTestcaseAdd = (props) => {
         },
     ]
 
+    const [pageSize] = useState(8);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [params, setParams] = useState({
+        pageParam: {
+            pageSize: pageSize,
+            currentPage: currentPage
+        }
+    })
+
     const [visible, setVisible] = useState(false);
     const [selectRow,setSelectRow]=useState()
 
@@ -71,6 +80,41 @@ const QuartzTestcaseAdd = (props) => {
         },
     };
 
+    //分页
+    const onTableChange = (pagination) => {
+        setCurrentPage(pagination.current)
+        const newParams = {
+            ...params,
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: pagination.current
+            },
+        }
+        setParams(newParams)
+    }
+
+
+    //搜索
+    const onSearch = (e) => {
+        setCurrentPage(1)
+        let newParams = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: 1
+            },
+        }
+        if (e.target.value) {
+            newParams = {
+                pageParam: {
+                    pageSize: pageSize,
+                    currentPage: 1
+                },
+                name:e.target.value,
+            }
+        }
+        setParams(newParams)
+    }
+
     return (
         <>
             <Button className="important-btn" onClick={showModal}>添加用例</Button>
@@ -85,6 +129,13 @@ const QuartzTestcaseAdd = (props) => {
                 centered
                 width={600}
             >
+                <div>
+                    <Input
+                        placeholder={`搜索名字`}
+                        onPressEnter={onSearch}
+                        className='search-input'
+                    />
+                </div>
                 <Table
                     className="tablelist"
                     columns={columns}

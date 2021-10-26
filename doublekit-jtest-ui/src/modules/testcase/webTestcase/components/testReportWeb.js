@@ -61,6 +61,7 @@ const TestReportWeb= (props) => {
     const userId = document.cookie.split(";")[4].split("=")[1];
     const [historyData,setHistoryData] = useState({});
     const [stepList,setStepList] = useState([])
+
     //弹窗显示
     const showDrawer = () => {
         setVisible(true);
@@ -69,12 +70,11 @@ const TestReportWeb= (props) => {
                 repositoryId:repositoryId,
                 testCaseId:testcaseId,
                 webStepList:selectItem,
-                userId:userId
             }
 
             //执行测试接口
             performCaseWeb(param);
-
+            onHistory(testcaseId)
             let resultParam = {
                 testCaseId:testcaseId,
                 userId:userId
@@ -84,23 +84,27 @@ const TestReportWeb= (props) => {
                 findCaseWebResult(resultParam).then(res=>{
                     if (res === 'end') {
                         clearInterval(timer)
+                        onHistory(testcaseId)
                     }
                     if(res&&res!=='end'){
-                        let detail = res[0].testInstanceCollent;
-                        setHistoryData(res);
-                        setStepList(detail.objectList);
-                        setFieldsValues(detail)
+                        setStepList(res.objectList);
+                        setFieldsValues(res)
                     }
                 })
             },2000)
         }
 
         if(props.name === '测试历史') {
-            findInstancesReposter(testcaseId).then(res=>{
-                setHistoryData(res);
-            })
+            onHistory(testcaseId)
         }
     };
+
+    //历史查找
+    const onHistory = (id) => {
+        findInstancesReposter(id).then(res=>{
+            setHistoryData(res);
+        });
+    }
 
     // 关闭弹框
     const onClose = () => {
@@ -138,7 +142,7 @@ const TestReportWeb= (props) => {
                 }
                 <div className='history-item-detail'>
                     <div>{item.createTime}</div>
-                    <div>{item.user.name}</div>
+                    <div>{item.user?.name}</div>
                     <div>步骤数: {item.stepNum}</div>
                 </div>
             </div>

@@ -21,7 +21,8 @@ const PerformanceEdit = (props) => {
     const [form] = Form.useForm();
     const [visible, setVisible] = React.useState(false);
     const [testcase,setTestcase] = useState();
-    const repositoryId = localStorage.getItem('repositoryId')
+    const repositoryId = localStorage.getItem('repositoryId');
+    const [type,setType] =useState('')
 
     //关联用例变化时更新弹窗
     useEffect(() => {
@@ -36,6 +37,7 @@ const PerformanceEdit = (props) => {
     const showModal = () => {
         if(props.name === "编辑"){
             findPerformance(performanceId).then((res)=>{
+                setType(res.testType);
                 setTestcase(res.testCase.id)
                 form.setFieldsValue({
                     name: res.name,
@@ -143,7 +145,7 @@ const PerformanceEdit = (props) => {
                         label="关联用例"
                         name="testcase"
                     >
-                        <Input addonAfter={<TestcaseAdd testType={testType} repositoryId={repositoryId}/>}/>
+                        <Input addonAfter={<TestcaseAdd testType={testType?testType:type} repositoryId={repositoryId}/>}/>
                     </Form.Item>
 
                 </Form>

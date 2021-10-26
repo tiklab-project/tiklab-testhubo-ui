@@ -3,7 +3,8 @@
  */
 import React, {useRef, useState} from "react";
 import {Form, Input,InputNumber} from "antd";
-import './toggleItemEdit.scss'
+import './toggleItemEdit.scss';
+
 const ToggleItemEdit = (props) =>{
     const {editValue,itemName,updataFn,allData,label,showUI} = props;
     const inputRef = useRef(null);
@@ -18,7 +19,18 @@ const ToggleItemEdit = (props) =>{
     const nameChange = (e) => {
         setIsEdit(true)
         let obj = {};
-        obj[itemName] = e;
+        if(allData.type==="APP"){
+            let app = {};
+            app[itemName]=e
+            obj={
+                testCaseApp:{
+                    ...allData.testCaseApp,
+                    ...app
+                }
+            }
+        }else {
+            obj[itemName] = e;
+        }
         setNewEdit(e)
         setAllValue({
             ...allData,
@@ -28,10 +40,9 @@ const ToggleItemEdit = (props) =>{
 
     //input框失去焦点保存
     const inputBlur = () =>{
+        debugger
         if(isEdit){
             updataFn(allValue)
-        }else {
-            updataFn(allData)
         }
         setEdit(false)
     }

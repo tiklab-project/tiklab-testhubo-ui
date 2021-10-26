@@ -38,6 +38,8 @@ import {
     TESTPLAN_STORE, TestPlanStore,
     TESTPLANDETAIL_STORE, TestPlanDetailStore,
 
+    USERSELECT_STORE, UserSelectStore,
+
 } from './modules/index';
 
 function createStores() {
@@ -77,7 +79,9 @@ function createStores() {
         [CATEGORY_STORE]:new CategoryStore(),
 
         [TESTPLAN_STORE]: new TestPlanStore(),
-        [TESTPLANDETAIL_STORE]: new TestPlanDetailStore()
+        [TESTPLANDETAIL_STORE]: new TestPlanDetailStore(),
+
+        [USERSELECT_STORE]: new UserSelectStore()
     };
 }
 

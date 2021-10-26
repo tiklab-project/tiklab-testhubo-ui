@@ -45,8 +45,8 @@ const TestPlan = (props) => {
         },
         {
             title: `用例数`,
-            dataIndex: "testcaseNumber",
-            key: "testcaseNumber",
+            dataIndex: "testCaseNum",
+            key: "testCaseNum",
             align:"center",
         },
         {
@@ -54,13 +54,20 @@ const TestPlan = (props) => {
             dataIndex: "state",
             key: "desc",
             align:"center",
+            render: (text,record) =>(showState(record.state))
         },
         {
-            title: `描述`,
-            dataIndex: "desc",
-            key: "desc",
+            title: `执行人`,
+            dataIndex: ["principal",'name'],
+            key: "principal",
             align:"center",
         },
+        // {
+        //     title: `描述`,
+        //     dataIndex: "desc",
+        //     key: "desc",
+        //     align:"center",
+        // },
         {
             title: ` ${t('tcoperation')}`,
             key: "action",
@@ -83,7 +90,7 @@ const TestPlan = (props) => {
         },
     ]
 
-    const [pageSize] = useState(5);
+    const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [params, setParams] = useState({
         pageParam: {
@@ -104,6 +111,17 @@ const TestPlan = (props) => {
     const setLocalStorage = (id) => {
         localStorage.setItem('testPlanId',id);
         props.history.push('/repositorypage/testplandetail');
+    };
+
+    const showState = (type)=>{
+        switch (type){
+            case 0 :
+                return '未开始'
+            case 1 :
+                return '进行中'
+            case 2 :
+                return '结束'
+        }
     }
 
     //分页

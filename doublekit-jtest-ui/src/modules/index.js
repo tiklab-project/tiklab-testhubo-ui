@@ -57,7 +57,8 @@ import {CATEGORY_STORE,CategoryStore} from "./category/store/categoryStore";
 import TestPlan  from './testPlan/components/testPlan';
 import TestPlanDetail from "./testPlan/components/testPlanDetail";
 import {TESTPLAN_STORE, TestPlanStore} from './testPlan/store/testPlanStore';
-import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './testPlan/store/testPlanDetailStore'
+import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './testPlan/store/testPlanDetailStore';
+import {USERSELECT_STORE, UserSelectStore} from './common/userSelect/store/userSelectStore'
 export {
     Login,
     Home,
@@ -119,5 +120,7 @@ export {
     TestPlan,TestPlanDetail,
     TESTPLAN_STORE, TestPlanStore,
     TESTPLANDETAIL_STORE, TestPlanDetailStore,
+
+    USERSELECT_STORE, UserSelectStore,
 }
 

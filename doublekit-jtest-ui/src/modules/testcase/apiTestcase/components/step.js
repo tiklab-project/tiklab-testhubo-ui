@@ -67,15 +67,6 @@ const StepList = (props) => {
         },
     ]
 
-    const [pageSize] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [params, setParams] = useState({
-        pageParam: {
-            pageSize: pageSize,
-            currentPage: currentPage
-        }
-    })
-
     const [baseInfo,setBaseInfo]=useState();
     const [editTitle,setEditTitle] = useState()
     const [form] = Form.useForm()
@@ -94,8 +85,8 @@ const StepList = (props) => {
     },[])
 
     useEffect(()=> {
-        findStepPage(testcaseId,params);
-    },[testcaseId,params])
+        findStepPage(testcaseId);
+    },[testcaseId])
 
     const goBack = () => {
         props.history.push('/repositorypage/testcase');
@@ -105,40 +96,6 @@ const StepList = (props) => {
     const setLocalStorage = (stepId,id) => {
         localStorage.setItem(stepId,id);
         props.history.push('/repositorypage/steppage');
-    }
-
-    //分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
-        const newParams = {
-            ...params,
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: pagination.current
-            },
-        }
-        setParams(newParams)
-    }
-
-    //搜索
-    const onSearch = (e) => {
-        setCurrentPage(1)
-        let newParams = {
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: 1
-            },
-        }
-        if (e.target.value) {
-            newParams = {
-                pageParam: {
-                    pageSize: pageSize,
-                    currentPage: 1
-                },
-                name:e.target.value,
-            }
-        }
-        setParams(newParams)
     }
 
     //
@@ -207,12 +164,7 @@ const StepList = (props) => {
             <div>测试步骤</div>
         </div>
         <div >
-            <div className='search-btn'>
-                <Input
-                    placeholder={`搜索`}
-                    onPressEnter={onSearch}
-                    className='search-input'
-                />
+            <div className='flex-right'>
                 <StepEdit  name='添加步骤' btn={'btn'}/>
             </div>
 
@@ -221,49 +173,9 @@ const StepList = (props) => {
                 columns={columns}
                 dataSource={stepList}
                 rowKey={record => record.id}
-                pagination={{
-                    current:currentPage,
-                    pageSize:pageSize,
-                    total:totalRecord,
-                }}
-                onChange = {(pagination) => onTableChange(pagination)}
-
                 rowSelection={{...rowSelection}}
             />
         </div>
-        {/*<Tabs defaultActiveKey="1"  type="card">*/}
-        {/*    <TabPane tab="测试步骤" key="1">*/}
-        {/*        <div >*/}
-        {/*            <div className='search-btn'>*/}
-        {/*                <Input*/}
-        {/*                    placeholder={`搜索`}*/}
-        {/*                    onPressEnter={onSearch}*/}
-        {/*                    className='search-input'*/}
-        {/*                />*/}
-        {/*                <StepEdit  name='添加步骤' btn={'btn'}/>*/}
-        {/*            </div>*/}
-
-        {/*            <Table*/}
-        {/*                className="tablelist"*/}
-        {/*                columns={columns}*/}
-        {/*                dataSource={stepList}*/}
-        {/*                rowKey={record => record.id}*/}
-        {/*                pagination={{*/}
-        {/*                    current:currentPage,*/}
-        {/*                    pageSize:pageSize,*/}
-        {/*                    total:totalRecord,*/}
-        {/*                }}*/}
-        {/*                onChange = {(pagination) => onTableChange(pagination)}*/}
-
-        {/*                rowSelection={{...rowSelection}}*/}
-        {/*            />*/}
-        {/*        </div>*/}
-        {/*    </TabPane>*/}
-        {/*    <TabPane tab="测试报告" key="2">*/}
-        {/*        <TestReport/>*/}
-        {/*    </TabPane>*/}
-
-        {/*</Tabs>*/}
     </>
     )
 

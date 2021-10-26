@@ -30,8 +30,6 @@ export class EnvironmentStore {
 					that.environmentList = res.data;
 					resolve(res);
 				}
-			}).catch(error => {
-				reject(error)
 			})
 		})
 	}
@@ -42,8 +40,6 @@ export class EnvironmentStore {
 		param.append('id', id);
 		deleteEnvironment(param).then(() => {
 			this.findEnvironmentList(this.repositoryId)
-        }).catch(error => {
-            console.log(error)
         })
 	}
 
@@ -65,8 +61,6 @@ export class EnvironmentStore {
 			if(res.code === 0) {
 				this.findEnvironmentList(this.repositoryId)
 			}
-        }).catch(error => {
-            console.log(error)
         })
 	}
 
@@ -80,8 +74,6 @@ export class EnvironmentStore {
 				if( res.code === 0){
                 	resolve(res.data);
 				}
-            }).catch(error => {
-                reject(error)
             })
         })
 	}

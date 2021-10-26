@@ -62,7 +62,7 @@ const TestReportApp= (props) => {
     const userId = document.cookie.split(";")[4].split("=")[1];
     const [historyData,setHistoryData] = useState({});
     const [stepList,setStepList] = useState([]);
-    const [isResult,setIsResult] = useState()
+
     //弹窗显示
     const showDrawer = () => {
         if(props.name === '执行测试'){
@@ -73,7 +73,7 @@ const TestReportApp= (props) => {
                 userId:userId
             }
             performCaseApp(performParam);
-
+            onHistory(testcaseId);
             let resultParam = {
                 testCaseId:testcaseId,
                 userId:userId
@@ -82,24 +82,29 @@ const TestReportApp= (props) => {
                 findCaseAppResult(resultParam).then(res=>{
                     if (res === 'end') {
                         clearInterval(timer)
+                        onHistory(testcaseId)
                     }
                     if(res&&res!=='end') {
-                        let detail = res[0].testInstanceCollent;
-                        setHistoryData(res);
-                        setStepList(detail.objectList);
-                        setFieldsValues(detail);
+                        setStepList(res.objectList);
+                        setFieldsValues(res)
                     }
                 })
             },2000)
+
         }
 
         if(props.name === '测试历史') {
-            findInstancesReposter(testcaseId).then(res=>{
-                setHistoryData(res);
-            })
+            onHistory(testcaseId)
         }
         setVisible(true);
     };
+
+    //历史查找
+    const onHistory = (id) => {
+        findInstancesReposter(id).then(res=>{
+            setHistoryData(res);
+        });
+    }
 
     // 关闭弹框
     const onClose = () => {
@@ -110,13 +115,13 @@ const TestReportApp= (props) => {
 
     const onHistoryItem = (id) =>{
         findResultByInstanceId(id).then(res=>{
+            debugger
             setStepList(res.objectList)
             setFieldsValues(res)
         })
     }
 
     const setFieldsValues = (res)=>{
-        // setIsResult(res.result)
         form.setFieldsValue({
             result:res.result==='succeed'?'成功':'失败',
             testNumber:res.testNumber,

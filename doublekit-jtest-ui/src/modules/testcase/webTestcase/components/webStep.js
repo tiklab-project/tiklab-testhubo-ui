@@ -62,7 +62,6 @@ const WebStep = (props) =>{
         }
     ]
 
-
     const testcaseId = localStorage.getItem('testcaseId');
     useEffect( ()=>{
         findWebStepList(testcaseId)
@@ -75,11 +74,14 @@ const WebStep = (props) =>{
         },
     };
 
-
     return (
         <>
-            <WebStepEdit name={'添加步骤'} btn={'btn'}/>
-            
+            <div className={'test-title'}>
+                <div>测试步骤</div>
+            </div>
+            <div className={'flex-right'}>
+                <WebStepEdit name={'添加步骤'} btn={'btn'}/>
+            </div>
             <Table
                 columns={columns}
                 dataSource={webStepList}

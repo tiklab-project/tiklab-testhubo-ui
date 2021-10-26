@@ -54,25 +54,8 @@ const FunctionalTestDetail = (props) => {
                     preDesc:data.preExplain
                 })
             }
-
         })
     },[testcaseId])
-
-    //名称编辑
-    const updateTitle = (value) =>{
-        const param = {
-            id:updataValue.id,
-            name:value.target.innerText,
-            grade:updataValue.grade,
-            user:updataValue.user,
-            desc:updataValue.desc,
-            status:updataValue.status,
-            repository:{
-                id:updataValue.repository.id
-            }
-        }
-        updateTestcase(param)
-    }
 
     //明细编辑
     const updataDetail = async () =>{
@@ -85,7 +68,6 @@ const FunctionalTestDetail = (props) => {
 
     //前置编辑
     const preDescEdit = (data) =>{
-        debugger
         const values = {
             preExplain:data,
             testCase:{id:testcaseId}
@@ -109,16 +91,6 @@ const FunctionalTestDetail = (props) => {
                 </Breadcrumb>
             </div>
             <div className={'testcase-detail'}>
-                {/*<div className="web-form-header">*/}
-                {/*    <div*/}
-                {/*        className='teststep-title'*/}
-                {/*        contentEditable={true}*/}
-                {/*        suppressContentEditableWarning  //去掉contentEditable 提示的页面警告*/}
-                {/*        onBlur={updateTitle}*/}
-                {/*    >*/}
-                {/*        {editTitle}*/}
-                {/*    </div>*/}
-                {/*</div>*/}
                 <Form
                     className={'form-edit1'}
                     layout="inline"

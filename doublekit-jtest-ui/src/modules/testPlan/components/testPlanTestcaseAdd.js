@@ -4,7 +4,7 @@
  */
 import React, {useEffect, useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Modal, Button, Table} from 'antd';
+import {Modal, Button, Table, Input} from 'antd';
 
 // 添加与编辑
 const TestPlanTestcaseAdd = (props) => {
@@ -17,22 +17,33 @@ const TestPlanTestcaseAdd = (props) => {
             dataIndex: "name",
             key: "name",
             align:"center",
+            width:'25%'
         },
         {
             title:`类型`,
             dataIndex: "type",
             key: "type",
             align:"center",
+            width:'20%'
         },
         {
             title: `创建人`,
             dataIndex: ['user', 'name'],
             key: "user",
             align:"center",
+            width:'20%'
+        },
+        {
+            title: `描述`,
+            dataIndex: 'desc',
+            key: "desc",
+            align:"center",
+            width:'30%'
         },
     ]
 
-    const [pageSize] = useState(5);
+    const [tableLoading,setTableLoading] = useState(true);
+    const [pageSize] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
     const [params, setParams] = useState({
         pageParam: {
@@ -42,12 +53,6 @@ const TestPlanTestcaseAdd = (props) => {
     })
     const [visible, setVisible] = useState(false);
     const [selectRow,setSelectRow]=useState()
-    const [tableLoading,setTableLoading] = useState(true);
-
-    // 弹框展示
-    const showModal = () => {
-        setVisible(true)
-    };
 
     useEffect(()=>{
         findTesCase(testPlanId,params).then(()=>
@@ -65,11 +70,13 @@ const TestPlanTestcaseAdd = (props) => {
             }
             newData.push(obj)
         })
-        debugger
         createTestPlanDetaillList(newData)
         setVisible(false)
     }
 
+    // 弹框展示
+    const showModal = () => { setVisible(true)};
+    // 关闭弹框
     const onCancel = () => { setVisible(false) };
 
     const rowSelection = {
@@ -92,6 +99,28 @@ const TestPlanTestcaseAdd = (props) => {
         setParams(newParams)
     }
 
+    //搜索
+    const onSearch = (e) => {
+        setCurrentPage(1)
+        let newParams = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: 1
+            },
+        }
+        if (e.target.value) {
+            newParams = {
+                pageParam: {
+                    pageSize: pageSize,
+                    currentPage: 1
+                },
+                name:e.target.value,
+            }
+        }
+        setParams(newParams)
+    }
+
+
     return (
         <>
             <Button className="important-btn" onClick={showModal}>添加用例</Button>
@@ -104,8 +133,15 @@ const TestPlanTestcaseAdd = (props) => {
                 okText="提交"
                 cancelText="取消"
                 centered
-                width={600}
+                width={800}
             >
+                <div>
+                    <Input
+                        placeholder={`搜索名字`}
+                        onPressEnter={onSearch}
+                        className='search-input'
+                    />
+                </div>
                 <Table
                     className="tablelist"
                     columns={columns}
@@ -120,7 +156,6 @@ const TestPlanTestcaseAdd = (props) => {
                     onChange = {(pagination) => onTableChange(pagination)}
                     loading={tableLoading}
                 />
-
             </Modal>
         </>
     );

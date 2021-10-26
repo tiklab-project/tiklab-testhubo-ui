@@ -53,8 +53,9 @@ const EnvironmentEdit = (props) => {
     return (
         <>
         {
-            props.type === 'add' ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
-                                 : <a style={{'cursor':'pointer'}} onClick={showModal}>{props.name}</a>
+            props.type === 'add'
+                ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
+                : <a style={{'cursor':'pointer'}} onClick={showModal}>{props.name}</a>
         }
 
         <Modal

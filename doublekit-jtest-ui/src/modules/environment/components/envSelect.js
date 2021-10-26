@@ -13,7 +13,7 @@ const EnvSelect = (props) => {
     const {environmentStore,repositoryStore} = props;
     const {findEnvironmentList,environmentList} = environmentStore;
 
-    const {findRepository,updateRepository,envUrl} = repositoryStore;
+    const {findRepository,updateRepository,envUrlId} = repositoryStore;
 
     const repositoryId = localStorage.getItem('repositoryId')
 
@@ -39,7 +39,7 @@ const EnvSelect = (props) => {
         <Select
             className={'env-select'}
             onChange={onChange}
-            defaultValue={envUrl}
+            defaultValue={envUrlId}
             dropdownRender={(list)=>
                 <div>
                     {list}

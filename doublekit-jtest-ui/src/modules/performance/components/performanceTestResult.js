@@ -46,7 +46,6 @@ const PerformanceTestResult = (props) => {
             dataIndex: "errorRate",
             key: "errorRate",
             align:"center",
-
         },
     ]
 
