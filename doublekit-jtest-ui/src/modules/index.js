@@ -44,8 +44,10 @@ import {
 import TestReport from './testReport/components/testReport';
 
 import {PERFORMANCE_STORE, PerformanceStore} from './performance/store/performanceStore';
+import {PERFORMANCESTATISTICS_STORE, PerformanceStatisticsStore} from './performance/store/PerformanceStatisticsStore';
 import PerformanceList from './performance/components/performance';
 import PerformanceDetail from './performance/components/performanceDetail';
+import PerformanceHistory from "./performance/components/performanceHistory";
 
 import FunctionalTestDetail from './testcase/functionalTest/components/functionalTestDetail';
 import {FUNCTIONALTEST_STORE, TestcaseFunctionalStore} from './testcase/functionalTest/store/testcaseFunctionalStore';
@@ -60,16 +62,12 @@ import {TESTPLAN_STORE, TestPlanStore} from './testPlan/store/testPlanStore';
 import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './testPlan/store/testPlanDetailStore';
 import {USERSELECT_STORE, UserSelectStore} from './common/userSelect/store/userSelectStore'
 export {
-    Login,
-    Home,
+    Login, Home,
     ENVIRONMENT_STORE, EnvironmentStore,
 
-    Repository,
-    RepositoryList,
+    Repository, RepositoryList,
     REPOSITORY_STORE, RepositoryStore,
-    RepositoryDetail,
-    RepositoryDetailPage,
-
+    RepositoryDetail, RepositoryDetailPage,
 
     Testcase,
     TESTCASE_STORE, TestcaseStore,
@@ -100,15 +98,15 @@ export {
     AppTestcase,
     APPSTEP_STORE, AppStepStore,
 
-    QuartzTaskList,
-    QuartzTask,
+    QuartzTaskList, QuartzTask,
     QUARTZTASK_STORE, QuartzMasterStore,
     QUARTZTESTCASE_STORE, QuartzTestcaseStore,
 
     TestReport,
 
-    PerformanceList,PerformanceDetail,
+    PerformanceList,PerformanceDetail, PerformanceHistory,
     PERFORMANCE_STORE, PerformanceStore,
+    PERFORMANCESTATISTICS_STORE, PerformanceStatisticsStore,
 
     FunctionalTestDetail,
     FUNCTIONALTEST_STORE, TestcaseFunctionalStore,

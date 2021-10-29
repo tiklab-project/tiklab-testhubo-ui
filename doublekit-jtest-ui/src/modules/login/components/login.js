@@ -5,7 +5,7 @@
  */
 import React,{ Component } from 'react';
 import contentImg from '../../../assets/img/contentimg.jpg';
-import { ProjectLogin, LOGIN_STATUS } from 'doublekit-framework-ui'
+import { ProjectLogin, LOGIN_STATUS } from 'doublekit-frame-ui'
 
 import {inject, observer} from 'mobx-react'
 // 登录
@@ -31,12 +31,12 @@ const Login = (props)=> {
 
     return(
         <ProjectLogin
+            {...props}
             title={'测试管理'}
             contentImg={contentImg}
-            {...props}
             loginGoRouter={'/'}
-            fetchMethod={fetchMethod}
-            languageUrl={pluginAddressUrl}
+            // fetchMethod={fetchMethod}
+            // languageUrl={pluginAddressUrl}
             pickerData={pickerData}
         />
     )

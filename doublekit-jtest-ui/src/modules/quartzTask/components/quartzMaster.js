@@ -170,7 +170,7 @@ const QuartzMasterList = (props) => {
                     onPressEnter={onSearch}
                     className='search-input'
                 />
-                <QuartzMasterEdit className="important-btn" name={`添加任务`} {...props}/>
+                <QuartzMasterEdit btn={'btn'} name={`添加任务`} {...props}/>
             </div>
 
             <Table

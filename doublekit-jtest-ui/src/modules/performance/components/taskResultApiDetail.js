@@ -9,7 +9,7 @@ import {inject, observer} from "mobx-react";
 
 const {TabPane} = Tabs;
 
-const TaskResultDetail = (props) => {
+const TaskResultApiDetail = (props) => {
     const {performanceStore} = props;
     const {testcaseResData,testcaseReqData} = performanceStore;
 
@@ -38,4 +38,4 @@ const TaskResultDetail = (props) => {
         </Tabs>
     )
 }
-export default inject('performanceStore')(observer(TaskResultDetail))
+export default inject('performanceStore')(observer(TaskResultApiDetail))

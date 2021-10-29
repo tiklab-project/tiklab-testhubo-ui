@@ -9,7 +9,7 @@ import { HashRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import 'antd/dist/antd.css';
 import App from './app';
-import { stores as portalStores,getUser } from 'doublekit-framework-ui';
+import { getUser } from 'doublekit-frame-ui';
 import { orgStores } from 'doublekit-user-ui';
 import { privilegeStores } from 'doublekit-privilege-ui';
 import { messageModuleStores } from 'doublekit-message-ui'
@@ -22,12 +22,9 @@ class Entry extends Component {
         let allStore = {
             ...stores,
             ...privilegeStores,
-            ...portalStores,
             ...orgStores,
             ...messageModuleStores,
         };
-
-        console.log(orgStores)
 
         allStore.authConfigStore.getFindAuthConfig()
         //获取系统权限

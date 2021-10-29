@@ -9,7 +9,6 @@ const RepositoryName = (props) => {
     const {findRepositoryPage,findRepository,repositoryList,repositoryName} = repositoryStore;
     const repositoryId = localStorage.getItem('repositoryId');
 
-
     useEffect(()=>{
         findRepositoryPage(repositoryId)
     },[repositoryId])

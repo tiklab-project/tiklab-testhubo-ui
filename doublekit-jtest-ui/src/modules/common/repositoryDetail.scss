@@ -51,3 +51,28 @@
         width: 140px;
     }
 }
+
+
+.repository-name-box{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+
+    .repository-name-icon{
+        width: 18px;
+        height: 18px;
+        vertical-align: -0.15 em;
+        margin: 2px 0 0  0;
+    }
+}
+
+.repository-name-menu{
+    position: absolute;
+    left: 200px;
+    width: 175px;
+    height: 200px;
+    background: #fff;
+    margin: -42px 0 0 0;
+    box-shadow: 0px 0px 13px 0px #cacaca;
+    z-index: 1;
+}

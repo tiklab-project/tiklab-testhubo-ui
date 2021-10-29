@@ -247,7 +247,7 @@ const QuartzMasterEdit = (props) => {
     return (
         <>
             {
-                props.name === "添加任务"
+                props.btn === 'btn'
                     ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
                     : <a onClick={showModal}>{props.name}</a>
             }

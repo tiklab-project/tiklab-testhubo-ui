@@ -102,7 +102,6 @@ const StepEdit = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="描述"
-                        rules={[{ required: true }]}
                         name="desc"
                     >
                         <Input />

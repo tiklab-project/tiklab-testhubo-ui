@@ -149,12 +149,12 @@ const TestReportApi= (props) => {
         <>
             {
                 props.name==='执行测试'
-                    ?<Button className="important-btn" type="primary" onClick={showDrawer}>{props.name}</Button>
+                    ?<Button className="important-btn" onClick={showDrawer}>{props.name}</Button>
                     :<a style={{marginRight:10}}  onClick={showDrawer}>{props.name}</a>
             }
 
             <Drawer
-                title="测试报告"
+                title={props.name}
                 placement="right"
                 closable={false}
                 onClose={onClose}

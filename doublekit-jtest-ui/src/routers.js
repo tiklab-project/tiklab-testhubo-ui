@@ -1,47 +1,30 @@
 
 import React from 'react'
 import Poroute from './common/header';
-import {LogOut} from 'doublekit-framework-ui';
+import {LogOut} from 'doublekit-frame-ui';
 import {AuthConfig} from 'doublekit-user-ui'
 import {
-    Login,
-    Home,
+    Login, Home,
     Repository,
-    RepositoryList,
-    RepositoryDetail,
+    RepositoryList, RepositoryDetail,
     RepositoryDetailPage,
-    Testcase,
-    Step,
-    StepDetail,
-    WebTestcase,
-    AppTestcase,
+    Testcase, Step, StepDetail, WebTestcase, AppTestcase,
 
-    QuartzTaskList,
-    QuartzTask,
-    TestReport,
+    QuartzTaskList, QuartzTask, TestReport,
 
-    PerformanceList,
-    PerformanceDetail,
+    PerformanceList, PerformanceDetail,PerformanceHistory,
     FunctionalTestDetail,
     CategoryList,
-    TestPlan,
-    TestPlanDetail,
+    TestPlan, TestPlanDetail,
+
 } from './modules';
 
 import {
     SystemManagement,
     Org, Usermgr,
-
-    ProjectFeature,
-    ProjectRole,
-    SystemFeature,
-    SystemRole,
-    MessageManagement,
-    MessageSendType,
-    MessageTemplate,
-    MessageType,
-    MessageUser,
-
+    ProjectFeature, ProjectRole,
+    SystemFeature, SystemRole,
+    MessageManagement, MessageSendType, MessageTemplate, MessageType, MessageUser,
 } from './modules/sysmgr'
 
 import {Redirect} from "react-router";
@@ -126,12 +109,23 @@ const routers =  [
                         exact: true,
                         component: TestPlanDetail,
                     },
-
                     {
                         path: "/repositorypage/performance",
                         component: PerformanceList,
                         exact: true,
                         key:'performance',
+                    },
+                    {
+                        path: "/repositorypage/performancehistory",
+                        component: PerformanceHistory,
+                        exact: true,
+                        key:'performancehistory',
+                    },
+                    {
+                        path: "/repositorypage/performancedetail",
+                        component: PerformanceDetail,
+                        exact: true,
+                        key:'PerformanceDetail',
                     },
                     {
                         path: `/repositorypage/quartzMaster`,
@@ -188,24 +182,6 @@ const routers =  [
                 component: Testcase,
                 exact: true,
                 key:'outTestcase',
-            },
-            {
-                path: "/performanceapi",
-                component: PerformanceDetail,
-                exact: true,
-                key:'PerformanceDetail',
-            },
-            {
-                path: "/performanceweb",
-                component: PerformanceDetail,
-                exact: true,
-                key:'PerformanceDetail',
-            },
-            {
-                path: "/performanceapp",
-                component: PerformanceDetail,
-                exact: true,
-                key:'PerformanceApp',
             },
             {
                 path:'/systemManagement',

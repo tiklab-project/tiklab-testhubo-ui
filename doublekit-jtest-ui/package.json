@@ -82,6 +82,7 @@
     "blueimp-md5": "^2.18.0",
     "chromedriver": "^92.0.2",
     "doublekit-core-ui": "^1.0.1",
+    "doublekit-frame-ui": "^1.0.0",
     "doublekit-framework-ui": "^1.0.1",
     "doublekit-message-ui": "^1.0.0",
     "doublekit-plugin-ui": "^1.0.0",

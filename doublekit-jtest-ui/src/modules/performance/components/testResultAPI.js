@@ -4,7 +4,7 @@
  */
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import TaskResultDetail from "./taskResultDetail";
+import TaskResultDetail from "./taskResultApiDetail";
 import { Menu } from 'antd';
 
 const { SubMenu } = Menu;
@@ -12,10 +12,6 @@ const { SubMenu } = Menu;
 const TestResultAPI = (props) => {
     const {performanceStore} = props;
     const {mergeList,getTestData}  = performanceStore;
-
-    useEffect(() => {
-            console.log(mergeList)
-    },[mergeList])
 
     //左侧显示名称
     const nameView = (data) => {

@@ -19,6 +19,7 @@ import {
 export class PerformanceStore {
     @observable performanceList = [];
     @observable performanceInfo = {};
+    @observable performanceId;
     @observable repositoryId;
     @observable param;
     @observable totalRecord;
@@ -30,7 +31,6 @@ export class PerformanceStore {
     @observable testList;
     @observable executeType;
     @observable mergeList;
-    @observable testResultList;
     @observable testcaseId;
     @observable testResultInfo;
 
@@ -52,12 +52,14 @@ export class PerformanceStore {
 
     @action
     findPerformance = async (id) => {
+        this.performanceId = id
         const param = new FormData();
         param.append('id', id);
         const res = await findPerformance(param)
         if(res.code === 0){
-           return  this.performanceInfo = res.data;
+            debugger
             this.testcaseId = res.data.testCase.id
+            return  this.performanceInfo = res.data;
         }
     }
 
@@ -73,6 +75,7 @@ export class PerformanceStore {
     updatePerformance = async (values) => {
         const res = await updatePerformance(values)
         if(res.code === 0){
+            this.findPerformance(this.performanceId)
             this.findPerformancePage(this.repositoryId,this.param)
         }
     }
@@ -122,36 +125,34 @@ export class PerformanceStore {
 
     //测试结果
     @action
-    taskResult = (id) => {
-
-        const param = new FormData();
-        param.append('testCaseId', id);
+    taskResult = (param) => {
         return taskResult(param).then(res=> {
-            if(res.code===0){
-                debugger
-                let timer= setInterval(()=>{
-                    if(res.data.executeType){
-                        this.executeType = res.data.executeType
-                        clearInterval(timer)
-                    }else {
-                        this.testList = res.data.performanceTestList;
-
-                        if(res.data.performanceStatistics){
-                            this.testResultList = [res.data.performanceStatistics]
-                            this.testResultInfo = res.data.performanceStatistics
-                        }
-                        this.merge(res.data.performanceTestList)
-                        clearInterval(timer)
-                        return res.data
+            if(res.code===0&&res.data){
+                if(res.data.executeType){
+                    this.executeType = res.data.executeType
+                }else {
+                    this.testList = res.data.performanceTestList;
+                    if(res.data.performanceStatistics){
+                        this.testResultInfo = res.data.performanceStatistics
                     }
-                },4000)
+                    this.merge(res.data.performanceTestList)
+                    return res.data
+                }
             }
         })
     }
+
+    @action
+    clearData = () =>{
+        this.testResultInfo={};
+        this.mergeList=[];
+        this.testcaseReqData={};
+        this.testcaseResData={}
+    }
+
     //保存之前结果 合并
     @action
     merge = (data) => {
-        debugger
         if(this.mergeList&&data.length>0){
             this.mergeList = [...data,...this.mergeList]
         }else {

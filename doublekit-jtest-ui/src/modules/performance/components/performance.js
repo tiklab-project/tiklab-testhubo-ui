@@ -56,12 +56,6 @@ const PerformanceList = (props) => {
             align:"center",
         },
         {
-            title: `测试时间`,
-            dataIndex: "time",
-            key: "time",
-            align:"center",
-        },
-        {
             title: ` ${t('tcoperation')}`,
             key: "action",
             align:"center",
@@ -103,18 +97,7 @@ const PerformanceList = (props) => {
     // 保存id到缓存
     const setLocalStorage = (type,id) => {
         localStorage.setItem('performanceId',id);
-        const toDetail = props.history.push;
-        switch (type) {
-            case "API":
-                toDetail('/performanceapi');
-                break;
-            case "WEB":
-                toDetail('/performanceweb');
-                break;
-            case "APP":
-                toDetail('/performanceapp');
-                break;
-        }
+        props.history.push('/repositorypage/performancedetail')
     }
 
     //分页

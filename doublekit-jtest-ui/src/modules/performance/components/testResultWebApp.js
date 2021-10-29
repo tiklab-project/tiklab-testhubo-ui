@@ -1,10 +1,10 @@
-import React,{useEffect,useState} from "react";
+import React,{useState} from "react";
 import {Menu, Table} from "antd";
 import {inject, observer} from "mobx-react";
 
 const TestResultWebApp = (props) => {
-    const {performanceStore,testCaseId} = props;
-    const {mergeList,executeType,taskResult,testResultInfo}  = performanceStore;
+    const {dataSource} = props;
+
     let columns= [
         {
             title: '操作方法',
@@ -31,8 +31,14 @@ const TestResultWebApp = (props) => {
             align:'center',
         },
         {
+            title: '耗时',
+            dataIndex: 'elaTime',
+            width: '10%',
+            align:'center',
+        },
+        {
             title: '是否通过',
-            width: '8%',
+            width: '5%',
             dataIndex: 'result',
             align:'center',
             render: (text, record) => (
@@ -42,23 +48,6 @@ const TestResultWebApp = (props) => {
             )
         },
     ]
-
-    useEffect(() => {
-        let timer
-        if(executeType==='start'||executeType==='continue'){
-            timer = setInterval(()=>{
-                taskResult(testCaseId)
-            },2000)
-        }
-        return () => {
-            //清除定时器
-            clearInterval(timer)
-        }
-    },[executeType])
-
-    useEffect(() => {
-        console.log(mergeList)
-    },[mergeList])
 
     const [selectItem, setSelectItem] = useState([]);
 
@@ -70,7 +59,18 @@ const TestResultWebApp = (props) => {
                     data&&data.map((item,index)=>{
                         let testSteps = item?.webOrAPPTestStepVos
                         return <Menu.Item key={item.id} onClick={()=>setSelectItem(testSteps)}>
-                            {item.testCaseName}
+                            <span style={{display:"flex",justifyContent:'space-between'}}>
+                                <span>{item.testCaseName}</span>
+                                <span style={{fontSize:'12px'}}>
+                                    <span>耗时:{item.testCaseTime}ms</span>
+                                    <span
+                                        className={`${item.result==='succeed'?'isSucceed':'isFailed'}`}
+                                        style={{color:"white"}}
+                                    >
+                                        {item.result==='succeed'?'成功':'失败'}
+                                    </span>
+                                </span>
+                            </span>
                         </Menu.Item>
                     })
                 }
@@ -78,55 +78,11 @@ const TestResultWebApp = (props) => {
         )
     }
 
-    const testResultInfoObj = [
-        {
-            title:'总耗时',
-            value:testResultInfo?.allResponseTime
-        },{
-            title:'平均响应时间',
-            value:testResultInfo?.averageResponseTime
-        },{
-            title:'错误率',
-            value:testResultInfo?.errorRate
-        },{
-            title:'最大响应时间',
-            value:testResultInfo?.maxuimumResponseTime
-        },{
-            title:'中位数',
-            value:testResultInfo?.middleResponseTime
-        },{
-            title:'最小响应时间',
-            value:testResultInfo?.minimumResponseTime
-        },{
-            title:'执行次数',
-            value:testResultInfo?.requestData
-        },{
-            title:'结果',
-            value:testResultInfo?.result
-        }
-    ]
-
-    const resultView = (data) => {
-        return data&&data.map(item=>{
-            return(
-                <div className={'task-result-info-item'}>
-                    <div>{item.title}</div>
-                    <div>{item.value}</div>
-                </div>
-            )
-        })
-    }
-
     return(
         <>
-            <div className={'task-result-info'}>
-                {
-                    resultView(testResultInfoObj)
-                }
-            </div>
             <div className={'task-result'}>
                 <div className={'task-result-left'}>
-                    {nameView(mergeList)}
+                    {nameView(dataSource)}
                 </div>
                 <div className={'task-result-right'}>
                     <div className={'task-result-title'}>用例步骤</div>

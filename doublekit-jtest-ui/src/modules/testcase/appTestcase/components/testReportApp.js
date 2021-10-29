@@ -65,6 +65,7 @@ const TestReportApp= (props) => {
 
     //弹窗显示
     const showDrawer = () => {
+        onHistory(testcaseId)
         if(props.name === '执行测试'){
             let performParam = {
                 repositoryId:repositoryId,
@@ -73,7 +74,6 @@ const TestReportApp= (props) => {
                 userId:userId
             }
             performCaseApp(performParam);
-            onHistory(testcaseId);
             let resultParam = {
                 testCaseId:testcaseId,
                 userId:userId
@@ -93,9 +93,6 @@ const TestReportApp= (props) => {
 
         }
 
-        if(props.name === '测试历史') {
-            onHistory(testcaseId)
-        }
         setVisible(true);
     };
 
@@ -158,7 +155,7 @@ const TestReportApp= (props) => {
             }
 
             <Drawer
-                title="测试报告"
+                title={props.name}
                 placement="right"
                 closable={false}
                 onClose={onClose}

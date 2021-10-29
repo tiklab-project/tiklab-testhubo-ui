@@ -44,7 +44,7 @@ const TestPlanDetail = (props) =>{
         {
             value:executeDate?.state,
             name:'state',
-            title:'结束时间'
+            title:'状态'
         },
     ]
 
@@ -69,17 +69,12 @@ const TestPlanDetail = (props) =>{
 
     return(
         <Fragment>
-            <div className='breadcrumb'>
+            <div className='header-flexbox'>
                 <Breadcrumb separator=">"  >
                     <Breadcrumb.Item>用例步骤</Breadcrumb.Item>
                     <Breadcrumb.Item>步骤详情</Breadcrumb.Item>
                 </Breadcrumb>
-            </div>
-            <div className="apidetail-header-btn">
-                <div className="title">基本信息</div>
-                <div className={'apidetail-title-tool'}>
-                    <Button onClick={goBack}>返回</Button>
-                </div>
+                <Button onClick={goBack}>返回</Button>
             </div>
             <Form className="form-info" form={form} layout="inline">
                 <div className="form-header-title-btn">
@@ -90,7 +85,6 @@ const TestPlanDetail = (props) =>{
                         allData={executeDate}
                         showUI={'input'}
                     />
-                    
                 </div>
                 <div className={'form-edit-detail'}>
                     {itemView(itemDataObj)}

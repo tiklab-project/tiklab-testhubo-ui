@@ -1,3 +1,4 @@
+import { LoginStore,LOGIN_STATUS } from 'doublekit-frame-ui';
 import {
     ENVIRONMENT_STORE, EnvironmentStore,
 
@@ -29,6 +30,7 @@ import {
     QUARTZTESTCASE_STORE, QuartzTestcaseStore,
 
     PERFORMANCE_STORE, PerformanceStore,
+    PERFORMANCESTATISTICS_STORE, PerformanceStatisticsStore,
 
     FUNCTIONALTEST_STORE, TestcaseFunctionalStore,
     FUNCTIONALTESTSTEP_STORE,FunctionalTestStepStore,
@@ -72,6 +74,7 @@ function createStores() {
         [QUARTZTESTCASE_STORE]: new QuartzTestcaseStore(),
 
         [PERFORMANCE_STORE]: new PerformanceStore(),
+        [PERFORMANCESTATISTICS_STORE]: new PerformanceStatisticsStore(),
 
         [FUNCTIONALTEST_STORE]: new TestcaseFunctionalStore(),
         [FUNCTIONALTESTSTEP_STORE]:new FunctionalTestStepStore(),
@@ -81,7 +84,8 @@ function createStores() {
         [TESTPLAN_STORE]: new TestPlanStore(),
         [TESTPLANDETAIL_STORE]: new TestPlanDetailStore(),
 
-        [USERSELECT_STORE]: new UserSelectStore()
+        [USERSELECT_STORE]: new UserSelectStore(),
+        [LOGIN_STATUS]: new LoginStore()
     };
 }
 

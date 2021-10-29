@@ -158,7 +158,7 @@ const TestReportWeb= (props) => {
             }
             
             <Drawer
-                title="测试报告"
+                title={props.name}
                 placement="right"
                 closable={false}
                 onClose={onClose}

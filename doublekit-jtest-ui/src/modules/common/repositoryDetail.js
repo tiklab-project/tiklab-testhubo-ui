@@ -3,6 +3,7 @@ import { renderRoutes } from "react-router-config";
 import './repositoryDetail.scss';
 import MenuAside from "./menuAside";
 import RepositoryName from "./repositoryName";
+import RepositoryNameTitle from "./repositoryNameTitle";
 
 const RepositoryDetail = (props) => {
 
@@ -49,6 +50,7 @@ const RepositoryDetail = (props) => {
     return(
         <div className='tccontant'>
             <div className='tc-side'>
+                <RepositoryNameTitle/>
                 <RepositoryName {...props}/>
                 <MenuAside data={routers} {...props}/>
             </div>

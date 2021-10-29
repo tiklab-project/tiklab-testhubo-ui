@@ -3,9 +3,10 @@
  * @date: 2021-08-19 17:01
  */
 import React, {useEffect, useState} from "react";
-import {Button, Form, Input} from "antd";
+import {Breadcrumb, Button, Form, Input} from "antd";
 import {inject, observer} from "mobx-react";
 import QuartzTestcase from "./quartzTestcase";
+import QuartzMasterEdit from "./quartzMasterEdit";
 
 const QuartzTask = (props) => {
     const {quartzMasterStore} = props;
@@ -40,9 +41,19 @@ const QuartzTask = (props) => {
     return(
         <>
             <div className='header-flexbox'>
-                <Button className="important-btn" onClick={goBack}>返回</Button>
+                    <Breadcrumb separator=">"  >
+                        <Breadcrumb.Item>定时任务</Breadcrumb.Item>
+                        <Breadcrumb.Item>定时任务详情</Breadcrumb.Item>
+                    </Breadcrumb>
             </div>
-            <div className="title ex-title">基本信息</div>
+            <div style={{display:"flex",justifyContent:"space-between"}}>
+                <div className="title ex-title">基本信息</div>
+                <div>
+                    <Button className="important-btn" onClick={goBack}>返回</Button>
+                    <QuartzMasterEdit name={'编辑'} btn={'btn'}  quartzMasterId={quartzMasterId}/>
+                </div>
+            </div>
+
             <Form className="apx-form form-info" form={form}>
                 <Form.Item label='任务名称' name='name' >
                     <Input  disabled bordered={false}/>

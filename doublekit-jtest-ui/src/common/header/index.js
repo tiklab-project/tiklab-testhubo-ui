@@ -5,7 +5,7 @@
  */
 import React,{ Component } from 'react';
 import { renderRoutes } from "react-router-config";
-import { Portal, LOGIN_STATUS } from 'doublekit-framework-ui';
+import { Portal, LOGIN_STATUS } from 'doublekit-frame-ui';
 import {inject, observer} from 'mobx-react'
 // import { Search } from '../../modules/index';
 import './portalStyle.scss'

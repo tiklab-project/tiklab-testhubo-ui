@@ -50,7 +50,7 @@ const StepDetail = (props) => {
                 <div className="title">基本信息</div>
                 <div className={'apidetail-title-tool'}>
                     <Button onClick={goBack}>返回</Button>
-                    <StepEdit name="编辑"  btn={'btn'}/>
+                    <StepEdit name="编辑"  btn={'btn'} stepId={stepId}/>
                     <Button danger onClick={()=>handleDeleteStep(stepId)}>删除</Button>
                 </div>
             </div>

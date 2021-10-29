@@ -8,6 +8,7 @@ import {inject, observer} from "mobx-react";
 import FunctionalTestStep from "./functionalTestStep";
 import BindModules from "./bindModules";
 import './functionalTest.scss'
+import UserSelect from "../../../common/userSelect/components/userSelect";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -17,9 +18,10 @@ const layout = {
 };
 
 const FunctionalTestDetail = (props) => {
-    const {testcaseStore,testcaseFunctionalStore} = props;
+    const {testcaseStore,testcaseFunctionalStore,userSelectStore} = props;
     const {findTestcase,updateTestcase} = testcaseStore;
     const {findTestCaseFunctionalList,createTestCaseFunctional,updateTestCaseFunctional} = testcaseFunctionalStore;
+    const {userSelectId} = userSelectStore;
     const [form] =  Form.useForm();
     const [editTitle,setEditTitle] = useState();
     const [updataValue,setUpdataValue] = useState();
@@ -27,7 +29,6 @@ const FunctionalTestDetail = (props) => {
     const [preDesc,setPreDesc] = useState('');
     const [preId,setPreId] = useState('')
     const testcaseId = localStorage.getItem('testcaseId');
-
 
     useEffect(()=> {
         findTestcase(testcaseId).then(res=>{
@@ -60,8 +61,10 @@ const FunctionalTestDetail = (props) => {
     //明细编辑
     const updataDetail = async () =>{
         const values = await form.getFieldsValue()
+        debugger
         values.name=updataValue.name
         values.id=testcaseId;
+        values.user={id:userSelectId}
         values.repository={id:updataValue.repository.id}
         updateTestcase(values)
     }
@@ -110,7 +113,7 @@ const FunctionalTestDetail = (props) => {
                         </Select>
                     </Form.Item>
                     <Form.Item label="执行人" name="user">
-                        <Input onBlur={updataDetail} bordered={false}/>
+                        <UserSelect/>
                     </Form.Item>
                     <Form.Item label="所属模块" name="need">
                         {
@@ -155,4 +158,4 @@ const FunctionalTestDetail = (props) => {
     )
 }
 
-export default inject('testcaseStore','testcaseFunctionalStore')(observer(FunctionalTestDetail));
+export default inject('testcaseStore','testcaseFunctionalStore','userSelectStore')(observer(FunctionalTestDetail));

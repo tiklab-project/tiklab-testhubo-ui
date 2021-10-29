@@ -85,7 +85,7 @@ const RepositoryEdit = (props) => {
                     <Form.Item
                         label="管理员"
                         name="master"
-                        rules={[{ required: true, }]}
+                        // rules={[{ required: true, }]}
                     >
                         <Input />
                     </Form.Item>
