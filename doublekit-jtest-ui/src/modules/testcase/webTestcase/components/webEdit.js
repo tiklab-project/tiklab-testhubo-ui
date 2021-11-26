@@ -56,10 +56,12 @@ const WebStepEdit = (props) => {
             >
                 {
                     data&&data.map(item=>{
-                        return <Option key={item.name} value={item.name}>
+                        return (
+                            <Option key={item.name} value={item.name}>
                                 <div>{item.name}</div>
                                 <div style={{color:'#a9a9a9',fontSize:12}}>{item.description}</div>
                             </Option>
+                        )
                     })
                 }
             </Select>

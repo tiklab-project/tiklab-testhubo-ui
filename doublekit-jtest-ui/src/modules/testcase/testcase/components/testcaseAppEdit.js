@@ -108,8 +108,9 @@ const TestcaseAppEdit = (props) => {
                     >
                         <Input defaultValue='APP' disabled />
                     </Form.Item>
-                    <Form.Item label="平台" name="platformName"><Input /></Form.Item>
+                    <Form.Item label="appium路径" name="mainjsPath"><Input /></Form.Item>
                     <Form.Item label="appium地址" name="appiumSever"><Input /></Form.Item>
+                    <Form.Item label="平台" name="platformName"><Input /></Form.Item>
                     <Form.Item label="设备名" name="deviceName"><Input /></Form.Item>
                     <Form.Item label="设备地址" name="udId"><Input /></Form.Item>
                     <Form.Item label="App包名" name="appPackage"><Input /></Form.Item>

@@ -41,8 +41,9 @@ const TestReportApp= (props) => {
         {
             title: '定位器的值',
             dataIndex: 'locationPrice',
-            width: '15%',
-            align:'center',
+            width: '30%',
+            // align:'center',
+            ellipsis:true
         },
         {
             title: '是否通过',
@@ -80,11 +81,11 @@ const TestReportApp= (props) => {
             }
             let timer = setInterval(()=>{
                 findCaseAppResult(resultParam).then(res=>{
-                    if (res === 'end') {
+                    if (res.executeType === 'end') {
                         clearInterval(timer)
                         onHistory(testcaseId)
                     }
-                    if(res&&res!=='end') {
+                    if(res&&res.executeType!=='end') {
                         setStepList(res.objectList);
                         setFieldsValues(res)
                     }

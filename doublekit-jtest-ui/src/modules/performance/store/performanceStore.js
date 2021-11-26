@@ -57,7 +57,6 @@ export class PerformanceStore {
         param.append('id', id);
         const res = await findPerformance(param)
         if(res.code === 0){
-            debugger
             this.testcaseId = res.data.testCase.id
             return  this.performanceInfo = res.data;
         }

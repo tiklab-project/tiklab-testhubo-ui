@@ -18,6 +18,9 @@ fetchMethod = JSON.stringify(fetchMethod);
 
 const userProduction = false;
 
+//本地联调，认证配置前端sso的地址
+const accUrl_env = JSON.stringify('http://192.168.2.7:8090/')
+
 const appKey = JSON.stringify('appkey');
 const appSecret = JSON.stringify('appsecret');
 const version = JSON.stringify('1.0.1');
@@ -30,6 +33,7 @@ module.exports = {
     pluginAddressUrl,
     fetchMethod,
     userProduction,
+    accUrl_env,
     appKey,
     appSecret,
     version,

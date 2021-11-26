@@ -50,7 +50,7 @@ const RepositoryDetail = (props) => {
     return(
         <div className='tccontant'>
             <div className='tc-side'>
-                <RepositoryNameTitle/>
+                {/*<RepositoryNameTitle/>*/}
                 <RepositoryName {...props}/>
                 <MenuAside data={routers} {...props}/>
             </div>

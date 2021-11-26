@@ -4,7 +4,7 @@
  */
 import React, { useEffect } from 'react';
 import { observer, inject } from "mobx-react";
-import {Space, Popconfirm, Table, Button} from 'antd';
+import {Space, Popconfirm, Table} from 'antd';
 import AppStepEdit from "./appStepEdit";
 
 const AppStep = (props) =>{
@@ -39,8 +39,9 @@ const AppStep = (props) =>{
         {
             title: '定位器的值',
             dataIndex: 'locationPrice',
-            width: '20%',
-            align:'center',
+            width: '30%',
+            // align:'center',
+            ellipsis:true
         },
         {
             title: '操作',

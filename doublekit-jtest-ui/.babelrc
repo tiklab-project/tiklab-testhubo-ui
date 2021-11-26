@@ -16,7 +16,7 @@
     ],
     "plugins": [
         "@babel/plugin-transform-react-jsx",
-        "@babel/plugin-transform-arrow-functions",
+        ["@babel/plugin-transform-arrow-functions"],
         ["import", {
             "libraryName": "antd",
             "libraryDirectory": "es",
@@ -31,7 +31,7 @@
                 "regenerator": true
             }
         ],
-        "@babel/plugin-transform-async-to-generator",
+        "@babel/plugin-transform-regenerator",
         "react-hot-loader/babel"
     ]
 }

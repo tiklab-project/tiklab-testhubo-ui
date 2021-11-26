@@ -82,11 +82,11 @@ const TestReportWeb= (props) => {
             //设置定时器,获取测试结果
             let timer = setInterval(()=>{
                 findCaseWebResult(resultParam).then(res=>{
-                    if (res === 'end') {
+                    if (res.executeType === 'end') {
                         clearInterval(timer)
                         onHistory(testcaseId)
                     }
-                    if(res&&res!=='end'){
+                    if(res&&res.executeType!=='end'){
                         setStepList(res.objectList);
                         setFieldsValues(res)
                     }

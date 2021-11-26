@@ -18,11 +18,8 @@ fetchMethod = JSON.stringify(fetchMethod);
 //false 为公司内部
 const userProduction = false;
 
-const appKey =  JSON.stringify('ghuyuhh');
-const appSecret = JSON.stringify('koon');
-const version = JSON.stringify('1.0.1');
-const client = JSON.stringify('1.1.0');
-
+//本地联调，认证配置前端sso的地址
+const accUrl_env = JSON.stringify('http://192.168.2.7:8090/')
 
 module.exports = {
     base_url,
@@ -30,10 +27,6 @@ module.exports = {
     pluginAddressUrl,
     fetchMethod,
     userProduction,
-    appKey,
-    appSecret,
-    version,
-    client,
-
+    accUrl_env
 }
 
