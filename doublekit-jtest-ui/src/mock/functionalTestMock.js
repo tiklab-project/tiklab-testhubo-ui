@@ -39,7 +39,7 @@ let findFunctionalTestPage = () => {
         data : {dataList:data},
     }
 }
-Mock.mock("/functionalTest/findFunctionalTestPage", findFunctionalTestPage);
+Mock.mock("/unitcase/findFunctionalTestPage", findFunctionalTestPage);
 
 let findFunctionalTest = (values) => {
     debugger
@@ -56,7 +56,7 @@ let findFunctionalTest = (values) => {
         data:dataList[0]
     }
 }
-Mock.mock("/functionalTest/findFunctionalTest", findFunctionalTest);
+Mock.mock("/unitcase/findFunctionalTest", findFunctionalTest);
 
 
 let deleteFunctionalTest =  (values)=>{
@@ -73,7 +73,7 @@ let deleteFunctionalTest =  (values)=>{
         data : {dataList:data},
     }
 }
-Mock.mock("/functionalTest/deleteFunctionalTest", deleteFunctionalTest);
+Mock.mock("/unitcase/deleteFunctionalTest", deleteFunctionalTest);
 
 
 let createFunctionalTest = (values) => {
@@ -90,7 +90,7 @@ let createFunctionalTest = (values) => {
         data: data
     }
 }
-Mock.mock("/functionalTest/createFunctionalTest", createFunctionalTest);
+Mock.mock("/unitcase/createFunctionalTest", createFunctionalTest);
 
 
 let updateFunctionalTest = (values) => {
@@ -108,4 +108,4 @@ let updateFunctionalTest = (values) => {
         data: data
     }
 }
-Mock.mock("/functionalTest/updateFunctionalTest", updateFunctionalTest);
+Mock.mock("/unitcase/updateFunctionalTest", updateFunctionalTest);

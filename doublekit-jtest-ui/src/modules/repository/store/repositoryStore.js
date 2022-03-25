@@ -1,6 +1,7 @@
 import {observable,action} from "mobx";
 import {
     findRepositoryPage,
+    findRepositoryList,
     findRepository,
     createRepository,
     deleteRepository,
@@ -25,9 +26,24 @@ export class RepositoryStore {
         const res = await findRepositoryPage(params)
         if(res.code === 0) {
             this.totalRecord = res.data.totalRecord;
-            return this.repositoryList = res.data.dataList;
+            this.repositoryList = res.data.dataList;
+            return res.data.dataList
         }
     }
+
+    @action
+    findRepositoryList = async (userId) => {
+        this.params = {
+            // userId:userId,
+            orderParams:[{name:'name', orderType:'asc'}],
+        }
+        const res = await findRepositoryList(this.params)
+        if(res.code === 0 ) {
+            this.repositoryList = res.data;
+            return res.data;
+        }
+    }
+
 
     @action
     findRepository = async (id) => {

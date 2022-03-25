@@ -40,7 +40,6 @@ const ToggleItemEdit = (props) =>{
 
     //input框失去焦点保存
     const inputBlur = () =>{
-        debugger
         if(isEdit){
             updataFn(allValue)
         }

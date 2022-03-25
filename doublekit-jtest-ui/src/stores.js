@@ -1,4 +1,6 @@
 import { LoginStore,LOGIN_STATUS } from 'doublekit-frame-ui';
+import {PluginStore, PLUGIN_STORE} from "doublekit-plugin-ui"
+
 import {
     ENVIRONMENT_STORE, EnvironmentStore,
 
@@ -22,6 +24,8 @@ import {
     RESPONSERESULT_STORE, ResponseResultStore,
     TESTINSTANCE_STORE, TestInstanceStore,
     PERFORMCASE_STORE, PerformCaseStore,
+
+    APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
     WEBSTEP_STORE, WebStepStore,
     APPSTEP_STORE, AppStepStore,
@@ -67,6 +71,8 @@ function createStores() {
         [TESTINSTANCE_STORE]: new TestInstanceStore(),
         [PERFORMCASE_STORE]: new PerformCaseStore(),
 
+        [APIUNIT_INSTANCE_STORE]:new ApiUnitInstanceStore(),
+
         [WEBSTEP_STORE]: new WebStepStore(),
         [APPSTEP_STORE]: new AppStepStore(),
 
@@ -85,7 +91,8 @@ function createStores() {
         [TESTPLANDETAIL_STORE]: new TestPlanDetailStore(),
 
         [USERSELECT_STORE]: new UserSelectStore(),
-        [LOGIN_STATUS]: new LoginStore()
+        [LOGIN_STATUS]: new LoginStore(),
+        [PLUGIN_STORE]: new PluginStore(),
     };
 }
 

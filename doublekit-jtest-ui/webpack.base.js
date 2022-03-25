@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');//压缩css
 const path = require('path');
-const CheckVersion = require('check-package-version')
+// const CheckVersion = require('check-package-version')
 const DIST_PATH = path.resolve(__dirname, 'dist');
 const envData = require(`./env/env-${process.env.API_ENV}`);
 
@@ -30,7 +30,7 @@ module.exports = {
                     // loader: "happypack/loader?id=portal"
                     loader: 'babel-loader'
                 }],
-                exclude: /node_modules/,
+                exclude: /node_modules/
             },
             {
                 test: /\.(sc|sa|c)ss$/,
@@ -42,9 +42,9 @@ module.exports = {
                     {
                         loader: "css-loader",
                     },
-                    {
-                        loader: "postcss-loader",
-                    },
+                    // {
+                    //     loader: "postcss-loader",
+                    // },
                     {
                         loader: "sass-loader",
                     }
@@ -79,11 +79,6 @@ module.exports = {
             },
         ]
     },
-    node:{
-        fs:'empty',
-        child_process:'empty',
-        net:'empty'
-    },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
@@ -109,9 +104,7 @@ module.exports = {
 
         new webpack.DefinePlugin( envData),
 
-        new CheckVersion(),
-    ],
-    externals: [{
-        xmlhttprequest:'{XMLHttpRequest:XMLHttpRequest}'
-    }]
+        // new CheckVersion(),
+
+    ]
 };

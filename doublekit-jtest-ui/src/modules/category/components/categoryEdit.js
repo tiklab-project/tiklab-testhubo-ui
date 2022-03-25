@@ -23,7 +23,7 @@ const CategoryEdit =(props)=>{
 
     const [parentCategory,setParentCategory] = useState()
 
-    const repositoryId = localStorage.getItem('repositoryId');
+    const repositoryId = sessionStorage.getItem('repositoryId');
     // 弹框展示
     const showModal = () => {
         setVisible(true);
@@ -45,18 +45,12 @@ const CategoryEdit =(props)=>{
     // 弹框提交
     const onFinish = () => {
         form.validateFields().then((values)=>{
-            values.repository = {
-                id:repositoryId,
-            }
+            values.repository = { id:repositoryId }
             if(props.name === '添加模块'||props.name === '添加子模块'){
-                values.parentCategory = {
-                    id:props.categoryId,
-                }
+                values.parentCategory = { id:props.categoryId }
                 createCategory(values);
             }else{
-                values.parentCategory={
-                    id:parentCategory
-                }
+                values.parentCategory={ id:parentCategory }
                 values.id=props.categoryId
                 updateCategory(values);
             }
@@ -95,7 +89,7 @@ const CategoryEdit =(props)=>{
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item label="目录名称" name="desc"><Input /></Form.Item>
+                    <Form.Item label="描述" name="desc"><Input /></Form.Item>
                 </Form>
             </Modal>
         </Fragment>

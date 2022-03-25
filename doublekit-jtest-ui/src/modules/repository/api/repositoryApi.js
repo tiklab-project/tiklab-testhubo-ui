@@ -1,4 +1,7 @@
-import {Axios as service} from "doublekit-core-ui";
+// import {Axios as service} from "doublekit-core-ui";
+
+import service from "../../../common/utils/localrequest";
+import "../../../mock/repositoryMock"
 
 export function findRepositoryPage(data){
     return service.request({
@@ -7,6 +10,15 @@ export function findRepositoryPage(data){
         data
     })
 }
+
+export function findRepositoryList(data){
+    return service.request({
+        url: "/repository/findRepositoryList",
+        method: "post",
+        data
+    })
+}
+
 
 export function findRepository(data){
     return service.request({

@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://118.178.122.35:8081/repository/npm-hosted/"
+    "registry": "http://192.168.2.102:8081/repository/npm-hosted/"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -81,13 +81,13 @@
     "axios": "^0.21.0",
     "blueimp-md5": "^2.18.0",
     "chromedriver": "^92.0.2",
-    "doublekit-core-ui": "^1.0.1",
-    "doublekit-frame-ui": "^1.0.0",
-    "doublekit-framework-ui": "^1.0.1",
+    "doublekit-core-ui": "^1.0.0",
+    "doublekit-frame-ui": "^1.0.3",
     "doublekit-message-ui": "^1.0.0",
+    "doublekit-plugin-manage": "^1.0.0",
     "doublekit-plugin-ui": "^1.0.0",
     "doublekit-privilege-ui": "^1.0.0",
-    "doublekit-user-ui": "^1.0.1",
+    "doublekit-user-ui": "^1.0.0",
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "json-server": "^0.16.3",

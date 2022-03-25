@@ -3,18 +3,12 @@
  * @Author: sunxiancheng
  * @LastEditTime: 2021-05-27 13:53:54
  */
-// const api =  'http://192.168.2.2:8070/';
-const api =  'http://192.168.2.8:8050/';
-const base_url = JSON.stringify(api);
+// const apitest =  'http://192.168.2.2:8070/';
 
-let plugin_base_url = "http://127.0.0.1:3001/";
-plugin_base_url= JSON.stringify(plugin_base_url);
-
-let pluginAddressUrl = 'http://127.0.0.1:3001/config.json';
-pluginAddressUrl = JSON.stringify(pluginAddressUrl);
-
-let fetchMethod = "get";
-fetchMethod = JSON.stringify(fetchMethod);
+const base_url =  JSON.stringify('http://192.168.10.16:8050');
+const plugin_base_url = JSON.stringify("http://127.0.0.1:4000");
+const pluginAddressUrl = JSON.stringify('http://127.0.0.1:4000/config.json');
+const fetchMethod = JSON.stringify("get");
 
 const userProduction = false;
 
@@ -26,6 +20,7 @@ const appSecret = JSON.stringify('appsecret');
 const version = JSON.stringify('1.0.1');
 const client = JSON.stringify('1.1.0');
 
+const ISCEEESAAS = JSON.stringify('ce');
 
 module.exports = {
     base_url,
@@ -38,5 +33,5 @@ module.exports = {
     appSecret,
     version,
     client,
-
+    ISCEEESAAS
 }

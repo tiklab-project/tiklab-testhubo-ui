@@ -22,9 +22,9 @@ const RepositoryList = (props) => {
 
     const { t } = useTranslation();
 
-    // let json = dk.header.set("a","b")
+
     let json = execute('dk.md5("b")')
-    // let json2 = md5('dk.md5("b")')
+
     console.log(json)
 
     //空间列表头
@@ -35,19 +35,13 @@ const RepositoryList = (props) => {
             key: "name",
             align:"center",
             render: (text,record) =>(
-                <a onClick = {()=>setLocalStorage('repositoryId',record.id)}>{text}</a>
+                <a onClick = {()=>toRepositoryDetail(record.id)}>{text}</a>
             )
         },
         {
             title:` ${t('tcId')}`,
             dataIndex: "id",
             key: "id",
-            align:"center",
-        },
-        {
-            title: ` 管理员`,
-            dataIndex: "master",
-            key: "master",
             align:"center",
         },
         {
@@ -94,9 +88,13 @@ const RepositoryList = (props) => {
         });
     },[params])
 
-    // 保存id到缓存
-    const setLocalStorage = (repositoryId,id) => {
-        localStorage.setItem(repositoryId,id);
+    // 保存id到缓存,跳往详情页
+    const toRepositoryDetail = (id) => {
+        sessionStorage.setItem("repositoryId",id);
+
+        //给左侧导航设置一个选择项
+        localStorage.setItem("leftRouter","/repositorypage/detail")
+
         props.history.push('/repositorypage');
     }
 

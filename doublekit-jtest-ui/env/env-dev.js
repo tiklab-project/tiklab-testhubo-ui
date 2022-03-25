@@ -3,23 +3,26 @@
  * @Author: sunxiancheng
  * @LastEditTime: 2021-06-01 10:24:30
  */
-const api =  'http://114.215.202.90:8050';
-const base_url = JSON.stringify(api);
 
-let plugin_base_url = "http://127.0.0.1:3001/";
-plugin_base_url = JSON.stringify(plugin_base_url);
+const base_url =  JSON.stringify('http://192.168.10.16:8050');
+const plugin_base_url = JSON.stringify("http://127.0.0.1:4000");
+const pluginAddressUrl = JSON.stringify('http://127.0.0.1:4000/config.json');
 
-let pluginAddressUrl = 'http://127.0.0.1:3001/config.json';
-pluginAddressUrl = JSON.stringify(pluginAddressUrl);
-
-let fetchMethod = "get";
-fetchMethod = JSON.stringify(fetchMethod);
+//请求方式
+const fetchMethod = JSON.stringify("get");
 
 //false 为公司内部
 const userProduction = false;
 
 //本地联调，认证配置前端sso的地址
-const accUrl_env = JSON.stringify('http://192.168.2.7:8090/')
+const accUrl_env = JSON.stringify('http://127.0.0.1:4000/')
+
+const appKey =  JSON.stringify('ghuyuhh');
+const appSecret = JSON.stringify('koon');
+const version = JSON.stringify('1.0.1');
+const client = JSON.stringify('1.1.0');
+
+const ISCEEESAAS = JSON.stringify('ce');
 
 module.exports = {
     base_url,
@@ -27,6 +30,11 @@ module.exports = {
     pluginAddressUrl,
     fetchMethod,
     userProduction,
-    accUrl_env
+    accUrl_env,
+    appKey,
+    appSecret,
+    version,
+    client,
+    ISCEEESAAS
 }
 

@@ -1,12 +1,11 @@
 
 import React from 'react'
-import Poroute from './common/header';
 import {LogOut} from 'doublekit-frame-ui';
 import {AuthConfig} from 'doublekit-user-ui'
 import {
     Login, Home,
     Repository,
-    RepositoryList, RepositoryDetail,
+    RepositoryList,
     RepositoryDetailPage,
     Testcase, Step, StepDetail, WebTestcase, AppTestcase,
 
@@ -29,6 +28,25 @@ import {
 
 import {Redirect} from "react-router";
 import Demo from "./modules/repository/components/demo";
+import PortalHeader from "./modules/header/portalHeader";
+import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
+import ApiUnitcaseList from "./modules/apitest/unitcase/components/apiUnitcaseList";
+import ApiScenecaseList from "./modules/apitest/scenecase/components/apiScenecaseList";
+import ApiPerformcaseList from "./modules/apitest/performcase/components/apiPerformcaseList";
+import ApiContant from "./modules/apitest/apitest/apiContant";
+import WebContant from "./modules/webtest/webtest/webContant";
+import FuncContant from "./modules/functest/functest/funcContant";
+import AppContant from "./modules/apptest/apptest/appContant";
+import AppUnitcaseList from "./modules/apptest/unitcase/components/appUnitcaseList";
+import WebPerformcaseList from "./modules/webtest/performcase/components/webPerformcaseList";
+import WebUnitcaseList from "./modules/webtest/unitcase/components/webUnitcaseList";
+import WebScenecaseList from "./modules/webtest/scenecase/components/webScenecaseList";
+import AppScenecaseList from "./modules/apptest/scenecase/components/appScenecaseList";
+import AppPerformcaseList from "./modules/apptest/performcase/components/appPerformcaseList";
+import FuncUnitcaseList from "./modules/functest/unitcase/components/funcUnitcaseList";
+import FuncScenecaseList from "./modules/functest/scenecase/components/funcScenecaseList";
+import ApiUnitcaseDetail from "./modules/apitest/unitcase/components/apiUnitcaseDetail";
+import ApiUnitcaseInstance from "./modules/apitest/unitcase/components/apiUnitcaseInstance";
 
 
 const routers =  [
@@ -45,7 +63,7 @@ const routers =  [
         key:'logout',
     },
     {
-        component: Poroute,
+        component: PortalHeader,
         path: '/',
         key:'poroute',
         routes:[
@@ -76,14 +94,122 @@ const routers =  [
             },
             {
                 path:'/repositorypage',
-                component:RepositoryDetail,
-                key:'ProjectDetail',
+                component:RepositoryDetailLayout,
+                key:'RepositoryDetailLayout',
                 routes:[
                     {
-                        path: "/repositorypage",
+                        path: "/repositorypage/detail",
                         exact: true,
-                        key:'ProjectDetailPage',
+                        key:'detail',
                         component: RepositoryDetailPage,
+                    },
+                    {
+                        path: "/repositorypage/apitest",
+                        key:'apitest',
+                        component: ApiContant,
+                        routes:[
+                            {
+                                path: "/repositorypage/apitest/unitcase",
+                                key:'unitcase',
+                                component: ApiUnitcaseList,
+                            },{
+                                path: "/repositorypage/apitest/scenecase",
+                                key:'scenecase',
+                                component: ApiScenecaseList,
+                            },{
+                                path: "/repositorypage/apitest/performcase",
+                                key:'performcase',
+                                component: ApiPerformcaseList,
+                            },{
+                                path: "/repositorypage/apitest/unitdetail",
+                                key:'unitdetail',
+                                component: ApiUnitcaseDetail,
+                            },{
+                                path: "/repositorypage/apitest/unitcase-instance",
+                                key:'history',
+                                component: ApiUnitcaseInstance,
+                            },
+                            {
+                                path:"/repositorypage/apitest",
+                                exact: true,
+                                key:'ridapitest',
+                                component: ()=><Redirect to='/repositorypage/apitest/unitcase'/>,
+                            },
+                        ]
+                    },
+                    {
+                        path: "/repositorypage/webtest",
+                        key:'webtest',
+                        component: WebContant,
+                        routes:[
+                            {
+                                path: "/repositorypage/webtest/unitcase",
+                                key:'unitcase',
+                                component: WebUnitcaseList,
+                            },{
+                                path: "/repositorypage/webtest/scenecase",
+                                key:'scenecase',
+                                component: WebScenecaseList,
+                            },{
+                                path: "/repositorypage/webtest/performcase",
+                                key:'performcase',
+                                component: WebPerformcaseList,
+                            },
+                            {
+                                path:"/repositorypage/webtest",
+                                exact: true,
+                                key:'ridapitest',
+                                component: ()=><Redirect to='/repositorypage/webtest/unitcase'/>,
+                            },
+                        ]
+                    },
+                    {
+                        path: "/repositorypage/apptest",
+                        key:'apptest',
+                        component: AppContant,
+                        routes:[
+                            {
+                                path: "/repositorypage/apptest/unitcase",
+                                key:'unitcase',
+                                component: AppUnitcaseList,
+                            },{
+                                path: "/repositorypage/apptest/scenecase",
+                                key:'scenecase',
+                                component: AppScenecaseList,
+                            },{
+                                path: "/repositorypage/apptest/performcase",
+                                key:'performcase',
+                                component: AppPerformcaseList,
+                            },
+                            {
+                                path:"/repositorypage/apptest",
+                                exact: true,
+                                key:'ridapitest',
+                                component: ()=><Redirect to='/repositorypage/apptest/unitcase'/>,
+                            },
+                        ]
+                    },
+                    {
+                        path: "/repositorypage/functest",
+                        key:'functest',
+                        component: FuncContant,
+                        routes:[
+                            {
+                                path: "/repositorypage/functest/unitcase",
+                                key:'unitcase',
+                                component: FuncUnitcaseList,
+                            },{
+                                path: "/repositorypage/functest/scenecase",
+                                key:'scenecase',
+                                component: FuncScenecaseList,
+                            },
+                            {
+                                path:"/repositorypage/functest",
+                                exact: true,
+                                key:'ridapitest',
+                                component: ()=><Redirect to='/repositorypage/functest/unitcase'/>,
+                            },
+                        ]
                     },
                     {
                         path: "/repositorypage/category",
@@ -92,46 +218,10 @@ const routers =  [
                         component: CategoryList,
                     },
                     {
-                        path: "/repositorypage/Testcase",
-                        key:'testcase',
-                        exact: true,
-                        component: Testcase,
-                    },
-                    {
                         path: "/repositorypage/testplan",
                         key:'TestPlan',
                         exact: true,
                         component: TestPlan,
-                    },
-                    {
-                        path: "/repositorypage/testplandetail",
-                        key:'TestPlan',
-                        exact: true,
-                        component: TestPlanDetail,
-                    },
-                    {
-                        path: "/repositorypage/performance",
-                        component: PerformanceList,
-                        exact: true,
-                        key:'performance',
-                    },
-                    {
-                        path: "/repositorypage/performancehistory",
-                        component: PerformanceHistory,
-                        exact: true,
-                        key:'performancehistory',
-                    },
-                    {
-                        path: "/repositorypage/performancedetail",
-                        component: PerformanceDetail,
-                        exact: true,
-                        key:'PerformanceDetail',
-                    },
-                    {
-                        path: `/repositorypage/quartzMaster`,
-                        exact: true,
-                        key:'quartzTask',
-                        component: QuartzTaskList,
                     },
                     {
                         path: `/repositorypage/quartzTask`,
@@ -139,41 +229,78 @@ const routers =  [
                         key:'quartzTask',
                         component: QuartzTask,
                     },
+                    // {
+                    //     path: "/repositorypage/testReport",
+                    //     exact: true,
+                    //     key:'step',
+                    //     component: TestReport,
+                    // },
+                    // {
+                    //     path: "/repositorypage/testplandetail",
+                    //     key:'TestPlan',
+                    //     exact: true,
+                    //     component: TestPlanDetail,
+                    // },
+                    // {
+                    //     path: "/repositorypage/performance",
+                    //     component: PerformanceList,
+                    //     exact: true,
+                    //     key:'performance',
+                    // },
+                    // {
+                    //     path: "/repositorypage/performancehistory",
+                    //     component: PerformanceHistory,
+                    //     exact: true,
+                    //     key:'performancehistory',
+                    // },
+                    // {
+                    //     path: "/repositorypage/performancedetail",
+                    //     component: PerformanceDetail,
+                    //     exact: true,
+                    //     key:'PerformanceDetail',
+                    // },
+                    // {
+                    //     path: `/repositorypage/quartzMaster`,
+                    //     exact: true,
+                    //     key:'quartzTask',
+                    //     component: QuartzTaskList,
+                    // },
+                    //
+                    // {
+                    //     path: "/repositorypage/apitest",
+                    //     exact: true,
+                    //     key:'step',
+                    //     component: Step,
+                    // },
+                    // {
+                    //     path: "/repositorypage/webtest",
+                    //     exact: true,
+                    //     key:'webtest',
+                    //     component: WebTestcase,
+                    // },
+                    // {
+                    //     path: "/repositorypage/apptest",
+                    //     exact: true,
+                    //     key:'apptest',
+                    //     component: AppTestcase,
+                    // },
+                    // {
+                    //     path: "/repositorypage/steppage",
+                    //     exact: true,
+                    //     key:'step',
+                    //     component: StepDetail,
+                    // },
+                    // {
+                    //     path: "/repositorypage/functionaltest",
+                    //     exact: true,
+                    //     key:'functionaltest',
+                    //     component: FunctionalTestDetail,
+                    // },
                     {
-                        path: "/repositorypage/apitest",
+                        path:"/repositorypage",
                         exact: true,
-                        key:'step',
-                        component: Step,
-                    },
-                    {
-                        path: "/repositorypage/webtest",
-                        exact: true,
-                        key:'webtest',
-                        component: WebTestcase,
-                    },
-                    {
-                        path: "/repositorypage/apptest",
-                        exact: true,
-                        key:'apptest',
-                        component: AppTestcase,
-                    },
-                    {
-                        path: "/repositorypage/steppage",
-                        exact: true,
-                        key:'step',
-                        component: StepDetail,
-                    },
-                    {
-                        path: "/repositorypage/functionaltest",
-                        exact: true,
-                        key:'functionaltest',
-                        component: FunctionalTestDetail,
-                    },
-                    {
-                        path: "/repositorypage/testReport",
-                        exact: true,
-                        key:'step',
-                        component: TestReport,
+                        key:'ridapitest',
+                        component: ()=><Redirect to='/repositorypage/detail'/>,
                     },
                 ]
             },

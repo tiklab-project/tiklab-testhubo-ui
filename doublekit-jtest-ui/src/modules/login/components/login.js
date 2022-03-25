@@ -3,7 +3,7 @@
  * @Author: sunxiancheng
  * @LastEditTime: 2021-06-01 10:37:36
  */
-import React,{ Component } from 'react';
+import React from 'react';
 import contentImg from '../../../assets/img/contentimg.jpg';
 import { ProjectLogin, LOGIN_STATUS } from 'doublekit-frame-ui'
 
@@ -35,9 +35,9 @@ const Login = (props)=> {
             title={'测试管理'}
             contentImg={contentImg}
             loginGoRouter={'/'}
-            // fetchMethod={fetchMethod}
-            // languageUrl={pluginAddressUrl}
-            pickerData={pickerData}
+            fetchMethod={fetchMethod}
+            languageUrl={pluginAddressUrl}
+            // pickerData={pickerData}
         />
     )
 }

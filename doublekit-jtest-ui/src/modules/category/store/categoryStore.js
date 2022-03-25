@@ -14,19 +14,18 @@ export class CategoryStore{
     @observable categoryName='';
 
     @action
-    findCategoryListTree = async (id,categoryName) => {
-        this.repositoryId = id;
+    findCategoryListTree = async (value,categoryName) => {
+        this.repositoryId = value.id;
         const params = {
             name:categoryName,
-            repositoryId: id,
-            orderParams:[{
-                name:'name',
-                orderType:'asc'
-            }],
+            ...value,
+            orderParams:[{ name:'name',  orderType:'asc' }],
         }
+
         const res = await findCategoryListTree(params)
         if(res.code === 0) {
-           return this.categoryList = res.data;
+           this.categoryList = res.data;
+           return res.data;
         }
     }
 
@@ -35,6 +34,7 @@ export class CategoryStore{
         this.categoryId = id;
         const param = new FormData();
         param.append('id', id);
+
         const res = await findCategory(param)
         if(res.code === 0) {
             return this.categoryInfo = res.data;
