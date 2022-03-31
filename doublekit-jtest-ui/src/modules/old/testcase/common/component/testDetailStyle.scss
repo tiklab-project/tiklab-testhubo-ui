@@ -10,35 +10,7 @@
     width: 100%;
   }
 
-  .test-detail-from{
-    display: flex;
-    margin: 20px 0;
-    justify-content: space-between;
 
-    .test-detail-form-item{
-      width: 130px;
-      background: #efefef;
-      padding: 15px;
-      border-radius: 5px;
-    }
-
-    .test-detail-form-label{
-      font-size: 13px;
-    }
-
-    .ant-form-item{
-      margin: 0;
-
-      .ant-input{
-        width: 110px;
-        border:0;
-        background-color: #efefef;
-        padding: 0;
-        font-size: 22px;
-        color: #000;
-      }
-    }
-  }
 
   .test-detail-step-title{
     background: #f5f5f5;
@@ -51,3 +23,32 @@
   }
 }
 
+.test-detail-from{
+  display: flex;
+  margin: 20px 0;
+  justify-content: space-between;
+
+  .test-detail-form-item{
+    width: 130px;
+    background: #efefef;
+    padding: 15px;
+    border-radius: 5px;
+  }
+
+  .test-detail-form-label{
+    font-size: 13px;
+  }
+
+  .ant-form-item{
+    margin: 0;
+
+    .ant-input{
+      width: 110px;
+      border:0;
+      background-color: #efefef;
+      padding: 0;
+      font-size: 22px;
+      color: #000;
+    }
+  }
+}

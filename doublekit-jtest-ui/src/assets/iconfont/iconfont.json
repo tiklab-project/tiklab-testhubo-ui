@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "687392",
+      "name": "返回",
+      "font_class": "fanhui2",
+      "unicode": "e6ff",
+      "unicode_decimal": 59135
+    },
+    {
+      "icon_id": "755540",
+      "name": "back",
+      "font_class": "back",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
       "icon_id": "431543",
       "name": "节点-APP",
       "font_class": "jiedianapp",

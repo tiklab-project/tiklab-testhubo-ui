@@ -69,6 +69,7 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd{
     border-bottom: 1px solid #e5e5e5;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .bread-cursor{
@@ -185,7 +186,7 @@ table .icon{
 
 .flex-right{
     display: flex;
-    justify-content: flex-end;
+    //justify-content: flex-end;
     margin: 10px;
 }
 //详情页中的表单

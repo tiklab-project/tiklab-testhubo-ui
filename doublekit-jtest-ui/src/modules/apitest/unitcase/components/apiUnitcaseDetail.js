@@ -3,10 +3,10 @@ import { observer, inject } from 'mobx-react';
 import StepEdit from './apiUnitcaseEdit';
 import { Button } from 'antd';
 import Request from './request';
-import BreadcrumbCommon from "../../../common/breadcrumbCommon";
 import RequestType from "../../../common/requestType";
 import Response from "./response";
 import './unitcase.scss'
+import BackCommon from "../../../common/backCommon";
 
 const ApiUnitcaseDetail = (props) => {
     const { stepStore } = props;
@@ -14,6 +14,7 @@ const ApiUnitcaseDetail = (props) => {
 
     const addRouter = props.history.push;
 
+    let caseType = localStorage.getItem("caseType")
     const stepId = localStorage.getItem('stepId');
 
     const [showResponse,setShowResponse] = useState(false);
@@ -55,8 +56,15 @@ const ApiUnitcaseDetail = (props) => {
 
     //返回
     const  goBack = () => {
-        addRouter({pathname:'/repositorypage/apitest/unitcase'})
+
+        if(caseType==="unitcase"){
+            addRouter("/repositorypage/apitest/unitcase")
+        }else if(caseType==="scenecase"){
+            addRouter("/repositorypage/apitest/scenedetail")
+        }
+
     }
+
 
 
     const toHistory = () =>{
@@ -65,15 +73,17 @@ const ApiUnitcaseDetail = (props) => {
 
     return(
         <Fragment>
-            <BreadcrumbCommon breadArray={["API","用例详情"]}/>
-
+            <BackCommon clickBack={goBack} />
             <div className="apidetail-header-btn">
                 <div className={"method-name"}>{name}</div>
                 <div className={'apidetail-title-tool'}>
-                    <Button onClick={toHistory}>历史</Button>
-                    <Button onClick={goBack}>返回</Button>
+                    {
+                        caseType === "unitcase"
+                            ?<Button onClick={toHistory}>历史</Button>
+                            :null
+                    }
+
                     <Button className="important-btn" onClick={actionTest}>测试</Button>
-                    <StepEdit name="编辑"  btn={'btn'} stepId={stepId}/>
                     <Button danger onClick={()=>handleDeleteStep(stepId)}>删除</Button>
                 </div>
             </div>

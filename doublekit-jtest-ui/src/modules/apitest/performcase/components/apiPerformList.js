@@ -2,16 +2,19 @@ import React, {useEffect, useState} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import {useTranslation} from "react-i18next";
 import BreadcrumbCommon from "../../../common/breadcrumbCommon";
-import ApiPerformcaseEdit from "./apiPerformcaseEdit";
+import ApiPerformcaseEdit from "./apiPerformEdit";
+import {inject, observer} from "mobx-react";
+import ApiPerformEdit from "./apiPerformEdit";
+import "./performanceStyle.scss"
 
-const ApiPerformcaseList = (props) =>{
-    // const { performanceStore } = props;
-    // const {
-    //     findPerformancePage,
-    //     deletePerformance,
-    //     performanceList,
-    //     totalRecord
-    // } = performanceStore;
+const ApiPerformList = (props) =>{
+    const { apiPerformStore } = props;
+    const {
+        findApiPerformPage,
+        deletePerform,
+        apiPerformList,
+        totalRecord
+    } = apiPerformStore;
 
     const { t } = useTranslation();
 
@@ -31,9 +34,9 @@ const ApiPerformcaseList = (props) =>{
             key: "testType",
         },
         {
-            title: `创建人`,
-            dataIndex: ['user', 'name'],
-            key: "user",
+            title: `等级`,
+            dataIndex: "level",
+            key: "level",
         },
         {
             title: ` ${t('tcoperation')}`,
@@ -41,12 +44,10 @@ const ApiPerformcaseList = (props) =>{
             align:"center",
             render: (text, record) => (
                 <Space size="middle">
-                    <div>
-                        {/*<PerformanceEdit name="编辑"  performanceId={record.id} />*/}
-                    </div>
+                    <ApiPerformEdit name={"编辑"}/>
                     <Popconfirm
                         title="确定删除？"
-                        // onConfirm={() =>deletePerformance(record.id)}
+                        // onConfirm={() =>deletePerform(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -69,15 +70,15 @@ const ApiPerformcaseList = (props) =>{
     const repositoryId = sessionStorage.getItem('repositoryId')
 
     useEffect(()=> {
-        // findPerformancePage(repositoryId,params).then(()=>{
-        //     setTableLoading(false)
-        // });
+        findApiPerformPage(1).then(()=>{
+            setTableLoading(false)
+        });
     },[params])
 
     // 保存id到缓存
     const setLocalStorage = (type,id) => {
-        localStorage.setItem('performanceId',id);
-        props.history.push('/repositorypage/performancedetail')
+        sessionStorage.setItem('performId',id);
+        props.history.push('/repositorypage/apitest/performdetail')
     }
 
     //分页
@@ -130,7 +131,7 @@ const ApiPerformcaseList = (props) =>{
             <Table
                 className="tablelist"
                 columns={columns}
-                // dataSource={performanceList}
+                dataSource={apiPerformList}
                 rowKey={record => record.id}
                 pagination={{
                     current:currentPage,
@@ -144,4 +145,4 @@ const ApiPerformcaseList = (props) =>{
     )
 }
 
-export default ApiPerformcaseList;
+export default inject("apiPerformStore")(observer(ApiPerformList));

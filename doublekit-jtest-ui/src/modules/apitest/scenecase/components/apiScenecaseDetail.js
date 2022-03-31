@@ -1,14 +1,14 @@
 import React,{useEffect,useState} from 'react';
-import {Input, Tabs, Table, Space, Popconfirm, Button, Form, Divider, Breadcrumb} from 'antd';
+import { Form, Button} from 'antd';
 import { inject,observer } from 'mobx-react';
-import StepEdit from '../../unitcase/components/apiUnitcaseEdit';
 import EnvSelect from "../../../integration/environment/components/envSelect";
-import TestReportApi from "../../unitcase/components/testReportApi";
+import ApiSceneStepList from "./apiSceneStepList";
+import ApiSceneTest from "./apiSceneTest";
+import BackCommon from "../../../common/backCommon";
 
-
-const StepList = (props) => {
-    const {testcaseStore,stepStore} = props;
-    const {findTestcase,updateTestcase} = testcaseStore;
+const ApiScenecaseDetail = (props) => {
+    const {apiSceneStore,stepStore} = props;
+    const {findApiScene,updateApiScene} = apiSceneStore;
     const {
         findStepPage,
         deleteStep,
@@ -17,65 +17,27 @@ const StepList = (props) => {
         getSelectItem
     } = stepStore;
 
-    //列表头
-    const columns = [
-        {
-            title:`名称`,
-            dataIndex: "name",
-            key: "name",
-            align:"center",
-            render: (text,record) =>(
-                <a onClick = {()=>setLocalStorage('stepId',record.id)}>{text}</a>
-            )
-        },
-        {
-            title:`类型`,
-            dataIndex: "stepType",
-            key: "stepType",
-            align:"center",
-        },
-        {
-            title: `地址`,
-            dataIndex: "path",
-            key: "path",
-            align:"center",
-        },
-        {
-            title: `描述`,
-            dataIndex: "desc",
-            key: "desc",
-            align:"center",
-        },
-        {
-            title: `操作`,
-            key: "action",
-            align:"center",
-            render: (text, record) => (
-            <Space size="middle">
-                {/*<a onClick={()=>onPerformCase([record])}>测试</a>*/}
-                <StepEdit name="编辑"  stepId={record.id} />
-                <Popconfirm
-                    title="确定删除？"
-                    onConfirm={() =>deleteStep(record.id)}
-                    okText='确定'
-                    cancelText='取消'
-                >
-                    <a href="#" style={{color:'red'}}>删除</a>
-                </Popconfirm>
-            </Space>
-            ),
-        },
-    ]
+    const [showResponse, setShowResponse] = useState(false);
 
     const [baseInfo,setBaseInfo]=useState();
-    const [editTitle,setEditTitle] = useState()
+    const [editTitle,setEditTitle] = useState("SceneName")
+    const [createUser, setCreateUser] = useState("user");
+    const [updataUser, setUpdataUser] = useState("user");
+    const [category, setCategory] = useState("目录");
+    const [updateTime, setUpdateTime] = useState("2022-22-22-");
+
+
     const [form] = Form.useForm()
 
-    const testcaseId = localStorage.getItem('testcaseId');
+    const sceneId = sessionStorage.getItem('sceneId');
     useEffect(()=>{
-        findTestcase(testcaseId).then(res=>{
+        findApiScene(sceneId).then(res=>{
             setBaseInfo(res);
             setEditTitle(res.name)
+            setCreateUser(res.createUser?.name);
+            setUpdataUser(res.updateUser?.name);
+            setCategory(res.category?.name);
+            setUpdateTime(res.updateTime);
             form.setFieldsValue({
                 type:res.type,
                 person:res.user.name,
@@ -85,18 +47,9 @@ const StepList = (props) => {
     },[])
 
     useEffect(()=> {
-        findStepPage(testcaseId);
-    },[testcaseId])
+        findStepPage(sceneId);
+    },[sceneId])
 
-    const goBack = () => {
-        props.history.push('/repositorypage/testcase');
-    }
-
-    // 保存id到缓存
-    const setLocalStorage = (stepId,id) => {
-        localStorage.setItem(stepId,id);
-        props.history.push('/repositorypage/steppage');
-    }
 
     //
     const rowSelection = {
@@ -115,71 +68,60 @@ const StepList = (props) => {
                 id:baseInfo.repository.id
             }
         }
-        updateTestcase(param)
+        updateApiScene(param)
+    }
+
+    const toHistory = () =>{
+        props.history.push("/repositorypage/apitest/scenecase-instance")
+    }
+
+
+    const onTest = ()=>{
+        setShowResponse(true)
+    }
+
+    const goback = () =>{
+        props.history.push("/repositorypage/apitest/scenecase")
     }
 
     return(
         <>
-        <div className='header-flexbox'>
-            <Breadcrumb separator=">" >
-                <Breadcrumb.Item ><a onClick={goBack}>测试用例 </a></Breadcrumb.Item>
-                <Breadcrumb.Item>接口</Breadcrumb.Item>
-            </Breadcrumb>
-            <EnvSelect belong={'testcaseEnv'}/>
-        </div>
-        <div className={'testcase-webUI-form'}>
-            <div className="web-form-header">
-                <div
-                    className='teststep-title'
-                    contentEditable={true}
-                    suppressContentEditableWarning  //去掉contentEditable 提示的页面警告
-                    onBlur={updateTitle}
-                >
-                    {editTitle}
-                </div>
-                <div>
-                    <TestReportApi testcaseId={testcaseId} name={'测试历史'} />
-                    <TestReportApi testcaseId={testcaseId} name={'执行测试'} />
-                </div>
+            <BackCommon clickBack={goback}  right={<EnvSelect belong={'testcaseEnv'}/>} />
+            <div className={'testcase-webUI-form'}>
+                <div className="web-form-header">
+                    <div
+                        className='teststep-title'
+                        contentEditable={true}
+                        suppressContentEditableWarning  //去掉contentEditable 提示的页面警告
+                        onBlur={updateTitle}
+                    >
+                        {editTitle}
+                    </div>
+                    <div>
+                        <a onClick={toHistory}>测试历史</a>
+                        <Button onClick={onTest}>执行测试</Button>
+                    </div>
 
+                </div>
+                <div className={"method-people-info"}>
+                    <span className={"people-item "}>分组: {category}</span>
+                    <span className={"people-item "}>创建人: {createUser}</span>
+                    <span className={"people-item "}>更新者: {updataUser}</span>
+                    <span className={"people-item "}>更新时间: {updateTime}</span>
+                </div>
             </div>
-            <Form
-                className={'web-form2'}
-                layout="inline"
-                form={form}
-            >
-                <Form.Item label="类型" name="type">
-                    <Input disabled bordered={false}/>
-                </Form.Item>
-                <Form.Item label="创建人" name="person">
-                    <Input disabled bordered={false}/>
-                </Form.Item>
-                <Form.Item label="创建时间" name="createTime">
-                    <Input disabled bordered={false}/>
-                </Form.Item>
-            </Form>
-        </div>
-        <Divider  />
-        <div className={'test-title'}>
-            <div>测试步骤</div>
-        </div>
-        <div >
-            <div className='flex-right'>
-                <StepEdit  name='添加步骤' btn={'btn'}/>
+            <div className={'test-title'}>
+                <div>测试步骤</div>
             </div>
-
-            <Table
-                className="tablelist"
-                columns={columns}
-                dataSource={stepList}
-                rowKey={record => record.id}
-                rowSelection={{...rowSelection}}
-            />
-        </div>
-    </>
+            <ApiSceneStepList {...props}/>
+            <div className={'test-title'}>
+                <div>测试结果</div>
+            </div>
+            <ApiSceneTest showResponse={showResponse}/>
+        </>
     )
 
 
 }
 
-export default inject('testcaseStore','stepStore','performCaseStore')(observer(StepList));
+export default inject('apiSceneStore','stepStore')(observer(ApiScenecaseDetail));

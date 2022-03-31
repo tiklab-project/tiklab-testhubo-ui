@@ -11,7 +11,7 @@ const layout = {
 
 // 添加与编辑
 const ApiUnitcaseEdit = (props) => {
-    const { stepStore, stepId } = props;
+    const { stepStore, stepId,unitcaseId } = props;
     const {findStep, createStep, updateStep} = stepStore;
 
     const [form] = Form.useForm();
@@ -38,7 +38,7 @@ const ApiUnitcaseEdit = (props) => {
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
-        values.testCase={id:testcaseId};
+        values.testCase={id:unitcaseId};
         if(props.name === "添加用例" ){
             createStep(values);
         }else{

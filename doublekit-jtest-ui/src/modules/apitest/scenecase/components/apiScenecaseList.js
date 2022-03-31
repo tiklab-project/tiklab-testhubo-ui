@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import BreadcrumbCommon from "../../../common/breadcrumbCommon";
 import ApiScenecaseEdit from "./apiScenecaseEdit";
+import {inject, observer} from "mobx-react";
 
 const ApiScenecaseList = (props)=>{
+    const {apiSceneStore} = props;
+    const {findApiScenePage,apiSceneList} = apiSceneStore;
     const column =[
         {
             title: '用例名称',
@@ -11,8 +14,7 @@ const ApiScenecaseList = (props)=>{
             key: 'name',
             // width: "30%",
             render: (text, record) => (
-                <></>
-                // <a onClick={() => setLocalStorage(record.id)}>{text}</a>
+                <a onClick={() => setSessionStorage(record.id)}>{text}</a>
             )
         },{
             title: '类型',
@@ -50,9 +52,18 @@ const ApiScenecaseList = (props)=>{
                 </Space>
             )
         },
-
     ]
 
+    const categoryId = sessionStorage.getItem("categoryId")
+
+    useEffect(()=>{
+        findApiScenePage(categoryId)
+    },[categoryId])
+
+    const setSessionStorage = (id) =>{
+        sessionStorage.setItem("apiSceneId",id);
+        props.history.push("/repositorypage/apitest/scenedetail")
+    }
 
     return(
         <>
@@ -69,11 +80,11 @@ const ApiScenecaseList = (props)=>{
             </div>
             <Table
                 columns={column}
-                // dataSource={}
+                dataSource={apiSceneList}
                 rowKey = {record => record.id}
             />
         </>
     )
 }
 
-export default ApiScenecaseList;
+export default inject("apiSceneStore")(observer(ApiScenecaseList));

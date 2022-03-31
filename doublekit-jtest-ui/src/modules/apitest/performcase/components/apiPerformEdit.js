@@ -11,7 +11,7 @@ const layout = {
 };
 
 // 添加与编辑
-const ApiPerformcaseEdit = (props) => {
+const ApiPerformEdit = (props) => {
     const {   } = props;
 
     const [form] = Form.useForm();
@@ -78,4 +78,4 @@ const ApiPerformcaseEdit = (props) => {
     );
 };
 
-export default inject()(observer(ApiPerformcaseEdit));
+export default inject()(observer(ApiPerformEdit));

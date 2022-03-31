@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {Button, Dropdown, Input, Menu, Popconfirm} from "antd";
-import {inject, observer} from "mobx-react";
+import React, {useEffect,useState} from "react";
 import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
-import StepEdit from "../../apitest/unitcase/components/apiUnitcaseEdit";
+import {Dropdown, Input, Menu, Popconfirm} from "antd";
+import StepEdit from "../../unitcase/components/apiUnitcaseEdit";
+import {inject, observer} from "mobx-react";
+import ApiScenecaseEdit from "./apiScenecaseEdit";
 
-const CaseNavCommon = (props) =>{
-    const {categoryStore,tabKey} = props;
+const ApiSceneCategory = props =>{
+    const {categoryStore,tabKey,addRouter} = props;
     const {findCategoryListTree,categoryList} = categoryStore;
     const [clickKey, setClickKey] = useState();
     const [expandedTree, setExpandedTree] = useState([]);
@@ -27,7 +28,7 @@ const CaseNavCommon = (props) =>{
 
     const list = [
         {
-            "name":"目录",
+            "name":"目录scene",
             "id":"113331",
             "children":[
                 {
@@ -48,7 +49,7 @@ const CaseNavCommon = (props) =>{
                 }
             ]
         },{
-            "name":"目录2",
+            "name":"目录scene2",
             "id":"14511",
             "children":[
                 {
@@ -98,34 +99,34 @@ const CaseNavCommon = (props) =>{
 
         localStorage.setItem('categoryId',item.id);
 
-        props.history.push('/repositorypage/apitest/unitcase');
+        addRouter('/repositorypage/apitest/scenecase');
     }
 
     //保存接口id，跳往接口详情页
     const onNode = (item) => {
         setClickKey(item.id);
 
-
         localStorage.setItem('nodeId',item.id);
-        props.history.push('/repositorypage/apitest/unitdetail');
+        addRouter('/repositorypage/apitest/scenedetail');
     }
 
     //目录悬浮的操作项
     const menu = (id)=>(
         <Menu>
             <Menu.Item >
-                <StepEdit name="添加用例"  unitcaseId={id}/>
+                <ApiScenecaseEdit name={"添加用例"}/>
+                {/*<StepEdit name="添加用例"  unitcaseId={id}/>*/}
             </Menu.Item>
-            <Menu.Item>
-                <Popconfirm
-                    title="确定删除？"
-                    // onConfirm={() =>delCategory(id)}
-                    okText='确定'
-                    cancelText='取消'
-                >
-                    <a>删除</a>
-                </Popconfirm>
-            </Menu.Item>
+            {/*<Menu.Item>*/}
+            {/*    <Popconfirm*/}
+            {/*        title="确定删除？"*/}
+            {/*        // onConfirm={() =>delCategory(id)}*/}
+            {/*        okText='确定'*/}
+            {/*        cancelText='取消'*/}
+            {/*    >*/}
+            {/*        <a>删除</a>*/}
+            {/*    </Popconfirm>*/}
+            {/*</Menu.Item>*/}
         </Menu>
     );
 
@@ -164,7 +165,7 @@ const CaseNavCommon = (props) =>{
             </div>
         )
     }
-    
+
 
     //接口
     const methodView = (data) => {
@@ -252,6 +253,7 @@ const CaseNavCommon = (props) =>{
     //     </Menu>
     // );
 
+
     return(
         <>
             <div className={"category-nav-header"}>
@@ -268,7 +270,7 @@ const CaseNavCommon = (props) =>{
             </ul>
         </>
     )
+
 }
 
-
-export default inject("categoryStore")(observer(CaseNavCommon));
+export default inject("categoryStore")(observer(ApiSceneCategory));

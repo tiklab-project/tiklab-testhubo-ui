@@ -27,6 +27,13 @@ import {
 
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
+    APISCENE_STORE, ApiSceneStore,
+    APISCENESTEP_STORE, ApiSceneStepStore,
+    API_SCENEINSTANCE_STORE, ApiSceneInstanceStore,
+    API_PERFORM_STORE, ApiPerformStore,
+    API_PERFORMSCENE_STORE, ApiPerformSceneStore,
+    API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore,
+
     WEBSTEP_STORE, WebStepStore,
     APPSTEP_STORE, AppStepStore,
 
@@ -72,6 +79,13 @@ function createStores() {
         [PERFORMCASE_STORE]: new PerformCaseStore(),
 
         [APIUNIT_INSTANCE_STORE]:new ApiUnitInstanceStore(),
+
+        [APISCENE_STORE]: new ApiSceneStore(),
+        [APISCENESTEP_STORE]: new ApiSceneStepStore(),
+        [API_SCENEINSTANCE_STORE]: new ApiSceneInstanceStore(),
+        [API_PERFORM_STORE]:new ApiPerformStore(),
+        [API_PERFORMSCENE_STORE]: new ApiPerformSceneStore(),
+        [API_PERFORMINSTANCE_STORE]: new  ApiPerformInstanceStore(),
 
         [WEBSTEP_STORE]: new WebStepStore(),
         [APPSTEP_STORE]: new AppStepStore(),

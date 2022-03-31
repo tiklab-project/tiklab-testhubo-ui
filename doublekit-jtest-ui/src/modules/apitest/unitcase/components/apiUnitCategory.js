@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Button, Dropdown, Input, Menu, Popconfirm} from "antd";
-import {inject, observer} from "mobx-react";
+import {Dropdown, Input, Menu, Popconfirm} from "antd";
 import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
-import StepEdit from "../../apitest/unitcase/components/apiUnitcaseEdit";
+import StepEdit from "./apiUnitcaseEdit";
+import {inject, observer} from "mobx-react";
 
-const CaseNavCommon = (props) =>{
-    const {categoryStore,tabKey} = props;
+const ApiUnitCategory = (props) =>{
+    const {categoryStore,tabKey,addRouter} = props;
     const {findCategoryListTree,categoryList} = categoryStore;
     const [clickKey, setClickKey] = useState();
     const [expandedTree, setExpandedTree] = useState([]);
@@ -98,16 +98,15 @@ const CaseNavCommon = (props) =>{
 
         localStorage.setItem('categoryId',item.id);
 
-        props.history.push('/repositorypage/apitest/unitcase');
+        addRouter('/repositorypage/apitest/unitcase');
     }
 
     //保存接口id，跳往接口详情页
     const onNode = (item) => {
         setClickKey(item.id);
 
-
         localStorage.setItem('nodeId',item.id);
-        props.history.push('/repositorypage/apitest/unitdetail');
+        addRouter('/repositorypage/apitest/unitdetail');
     }
 
     //目录悬浮的操作项
@@ -164,7 +163,7 @@ const CaseNavCommon = (props) =>{
             </div>
         )
     }
-    
+
 
     //接口
     const methodView = (data) => {
@@ -252,6 +251,7 @@ const CaseNavCommon = (props) =>{
     //     </Menu>
     // );
 
+
     return(
         <>
             <div className={"category-nav-header"}>
@@ -270,5 +270,4 @@ const CaseNavCommon = (props) =>{
     )
 }
 
-
-export default inject("categoryStore")(observer(CaseNavCommon));
+export default inject("categoryStore")(observer(ApiUnitCategory));

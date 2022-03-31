@@ -3,13 +3,15 @@
  * @date: 2021-09-02 15:06
  */
 import React from "react";
+import TestDargCommon from "../../common/testDargCommon";
 
 const Demo = (props) => {
 
     return(
 
         <>
-11111111111
+
+            <TestDargCommon {...props}/>
         </>
     )
 

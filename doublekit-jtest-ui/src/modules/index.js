@@ -64,6 +64,13 @@ import {TESTPLAN_STORE, TestPlanStore} from './testplan/store/testPlanStore';
 import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './testplan/store/testPlanDetailStore';
 import {USERSELECT_STORE, UserSelectStore} from './common/userSelect/store/userSelectStore'
 
+import {APISCENE_STORE, ApiSceneStore} from "./apitest/scenecase/store/apiSceneStore";
+import {APISCENESTEP_STORE, ApiSceneStepStore} from "./apitest/scenecase/store/apiSceneStepStore";
+import {API_SCENEINSTANCE_STORE, ApiSceneInstanceStore} from "./apitest/scenecase/store/apiSceneInstanceStore";
+import { API_PERFORM_STORE, ApiPerformStore} from "./apitest/performcase/store/apiPerformStore"
+import {API_PERFORMSCENE_STORE, ApiPerformSceneStore} from "./apitest/performcase/store/apiPerformSceneStore";
+import {API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore} from "./apitest/performcase/store/apiPerformInstanceStore";
+
 
 export {
     Login, Home,
@@ -98,6 +105,14 @@ export {
     PERFORMCASE_STORE, PerformCaseStore,
 
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
+
+
+    APISCENE_STORE, ApiSceneStore,
+    APISCENESTEP_STORE, ApiSceneStepStore,
+    API_SCENEINSTANCE_STORE, ApiSceneInstanceStore,
+    API_PERFORM_STORE, ApiPerformStore,
+    API_PERFORMSCENE_STORE, ApiPerformSceneStore,
+    API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore,
 
     WebTestcase,
     WEBSTEP_STORE, WebStepStore,

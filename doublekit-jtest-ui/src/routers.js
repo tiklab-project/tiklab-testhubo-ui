@@ -32,7 +32,7 @@ import PortalHeader from "./modules/header/portalHeader";
 import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
 import ApiUnitcaseList from "./modules/apitest/unitcase/components/apiUnitcaseList";
 import ApiScenecaseList from "./modules/apitest/scenecase/components/apiScenecaseList";
-import ApiPerformcaseList from "./modules/apitest/performcase/components/apiPerformcaseList";
+import ApiPerformList from "./modules/apitest/performcase/components/apiPerformList";
 import ApiContant from "./modules/apitest/apitest/apiContant";
 import WebContant from "./modules/webtest/webtest/webContant";
 import FuncContant from "./modules/functest/functest/funcContant";
@@ -47,6 +47,12 @@ import FuncUnitcaseList from "./modules/functest/unitcase/components/funcUnitcas
 import FuncScenecaseList from "./modules/functest/scenecase/components/funcScenecaseList";
 import ApiUnitcaseDetail from "./modules/apitest/unitcase/components/apiUnitcaseDetail";
 import ApiUnitcaseInstance from "./modules/apitest/unitcase/components/apiUnitcaseInstance";
+import ApiScenecaseDetail from "./modules/apitest/scenecase/components/apiScenecaseDetail";
+import ApiUnitDetailView from "./modules/apitest/unitcase/components/apiUnitDetailView";
+import ApiSceneInstance from "./modules/apitest/scenecase/components/apiSceneInstance";
+import ApiPerformDetail from "./modules/apitest/performcase/components/apiPerformDetail";
+import ApiPerformInstance from "./modules/apitest/performcase/components/apiPerformInstance";
+import ApiPerfomDetailContant from "./modules/apitest/performcase/components/apiPerfomDetailContant";
 
 
 const routers =  [
@@ -113,14 +119,6 @@ const routers =  [
                                 key:'unitcase',
                                 component: ApiUnitcaseList,
                             },{
-                                path: "/repositorypage/apitest/scenecase",
-                                key:'scenecase',
-                                component: ApiScenecaseList,
-                            },{
-                                path: "/repositorypage/apitest/performcase",
-                                key:'performcase',
-                                component: ApiPerformcaseList,
-                            },{
                                 path: "/repositorypage/apitest/unitdetail",
                                 key:'unitdetail',
                                 component: ApiUnitcaseDetail,
@@ -128,6 +126,34 @@ const routers =  [
                                 path: "/repositorypage/apitest/unitcase-instance",
                                 key:'history',
                                 component: ApiUnitcaseInstance,
+                            },{
+                                path: "/repositorypage/apitest/scenecase",
+                                key:'scenecase',
+                                component: ApiScenecaseList,
+                            },{
+                                path: "/repositorypage/apitest/scenedetail",
+                                key:'unitdetail',
+                                component: ApiScenecaseDetail,
+                            },{
+                                path: "/repositorypage/apitest/scenecase-instance",
+                                key:'history',
+                                component: ApiSceneInstance,
+                            },{
+                                path: "/repositorypage/apitest/scenestep",
+                                key:'history',
+                                component: ApiUnitcaseDetail,
+                            },{
+                                path: "/repositorypage/apitest/performcase",
+                                key:'performcase',
+                                component: ApiPerformList,
+                            },{
+                                path: "/repositorypage/apitest/performdetail",
+                                key:'performcase',
+                                component: ApiPerfomDetailContant,
+                            },{
+                                path: "/repositorypage/apitest/perform-instance",
+                                key:'history',
+                                component: ApiPerformInstance,
                             },
                             {
                                 path:"/repositorypage/apitest",
