@@ -25,10 +25,10 @@ import {APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore} from "./store/apiUnitInsta
 
 
 import WebTestcase from '../../webtest/scenecase/components/webTestcase';
-import {WEBSTEP_STORE, WebStepStore} from '../../webtest/scenecase/store/webStepStore';
+import {WEBSTEP_STORE, WebUnitStepStore} from '../../webtest/unitcase/store/webUnitStepStore';
 
 import AppTestcase from "../../apptest/scenecase/components/appTestcase";
-import {APPSTEP_STORE, AppStepStore} from '../../apptest/scenecase/store/appStepStore'
+import {APPSTEP_STORE, AppSceneStepStore} from '../../apptest/scenecase/store/appSceneStepStore'
 
 export{
 
@@ -59,8 +59,8 @@ export{
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
     WebTestcase,
-    WEBSTEP_STORE, WebStepStore,
+    WEBSTEP_STORE, WebUnitStepStore,
 
     AppTestcase,
-    APPSTEP_STORE, AppStepStore,
+    APPSTEP_STORE, AppSceneStepStore,
 }

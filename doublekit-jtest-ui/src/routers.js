@@ -37,22 +37,33 @@ import ApiContant from "./modules/apitest/apitest/apiContant";
 import WebContant from "./modules/webtest/webtest/webContant";
 import FuncContant from "./modules/functest/functest/funcContant";
 import AppContant from "./modules/apptest/apptest/appContant";
-import AppUnitcaseList from "./modules/apptest/unitcase/components/appUnitcaseList";
-import WebPerformcaseList from "./modules/webtest/performcase/components/webPerformcaseList";
-import WebUnitcaseList from "./modules/webtest/unitcase/components/webUnitcaseList";
-import WebScenecaseList from "./modules/webtest/scenecase/components/webScenecaseList";
-import AppScenecaseList from "./modules/apptest/scenecase/components/appScenecaseList";
-import AppPerformcaseList from "./modules/apptest/performcase/components/appPerformcaseList";
-import FuncUnitcaseList from "./modules/functest/unitcase/components/funcUnitcaseList";
-import FuncScenecaseList from "./modules/functest/scenecase/components/funcScenecaseList";
+import AppUnitList from "./modules/apptest/unitcase/components/appUnitList";
+import WebPerformList from "./modules/webtest/performcase/components/webPerformList";
+import WebUnitList from "./modules/webtest/unitcase/components/webUnitList";
+import WebSceneList from "./modules/webtest/scenecase/components/webSceneList";
+import AppSceneList from "./modules/apptest/scenecase/components/appSceneList";
+import AppPerformList from "./modules/apptest/performcase/components/appPerformList";
+import FuncUnitList from "./modules/functest/unitcase/components/funcUnitList";
+import FuncSceneList from "./modules/functest/scenecase/components/funcSceneList";
 import ApiUnitcaseDetail from "./modules/apitest/unitcase/components/apiUnitcaseDetail";
 import ApiUnitcaseInstance from "./modules/apitest/unitcase/components/apiUnitcaseInstance";
 import ApiScenecaseDetail from "./modules/apitest/scenecase/components/apiScenecaseDetail";
-import ApiUnitDetailView from "./modules/apitest/unitcase/components/apiUnitDetailView";
 import ApiSceneInstance from "./modules/apitest/scenecase/components/apiSceneInstance";
-import ApiPerformDetail from "./modules/apitest/performcase/components/apiPerformDetail";
 import ApiPerformInstance from "./modules/apitest/performcase/components/apiPerformInstance";
 import ApiPerfomDetailContant from "./modules/apitest/performcase/components/apiPerfomDetailContant";
+import FuncUnitDetail from "./modules/functest/unitcase/components/funcUnitDetail";
+import FuncSceneDetail from "./modules/functest/scenecase/components/funcSceneDetail";
+import WebUnitDetail from "./modules/webtest/unitcase/components/webUnitDetail";
+import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
+import WebUnitDetailContant from "./modules/webtest/unitcase/components/webUnitDetailContant";
+import WebUnitInstance from "./modules/webtest/unitcase/components/webUnitInstance";
+import WebSceneDetailContant from "./modules/webtest/scenecase/components/webSceneDetailContant";
+import WebSceneInstance from "./modules/webtest/scenecase/components/webSceneInstance";
+import WebPerformDetail from "./modules/webtest/performcase/components/webPerformDetail";
+import WebPerformDetailContant from "./modules/webtest/performcase/components/webPerformDetailContant";
+import WebPerformInstance from "./modules/webtest/performcase/components/webPerformInstance";
+import AppUnitDetailContant from "./modules/apptest/unitcase/components/appUnitDetailContant";
+import AppUnitInstance from "./modules/apptest/unitcase/components/appUnitInstance";
 
 
 const routers =  [
@@ -171,15 +182,39 @@ const routers =  [
                             {
                                 path: "/repositorypage/webtest/unitcase",
                                 key:'unitcase',
-                                component: WebUnitcaseList,
+                                component: WebUnitList,
+                            }, {
+                                path: "/repositorypage/webtest/unitdetail",
+                                key:'unitcase',
+                                component: WebUnitDetailContant,
+                            }, {
+                                path: "/repositorypage/webtest/unitcase-instance",
+                                key:'unitcase',
+                                component: WebUnitInstance,
                             },{
                                 path: "/repositorypage/webtest/scenecase",
                                 key:'scenecase',
-                                component: WebScenecaseList,
+                                component: WebSceneList,
+                            },{
+                                path: "/repositorypage/webtest/scenedetail",
+                                key:'scenecase',
+                                component: WebSceneDetailContant,
+                            },{
+                                path: "/repositorypage/webtest/scenecase-instance",
+                                key:'scenecase',
+                                component: WebSceneInstance,
                             },{
                                 path: "/repositorypage/webtest/performcase",
                                 key:'performcase',
-                                component: WebPerformcaseList,
+                                component: WebPerformList,
+                            },{
+                                path: "/repositorypage/webtest/performdetail",
+                                key:'performcase',
+                                component: WebPerformDetailContant,
+                            },{
+                                path: "/repositorypage/webtest/perform-instance",
+                                key:'performcase',
+                                component: WebPerformInstance,
                             },
                             {
                                 path:"/repositorypage/webtest",
@@ -197,15 +232,23 @@ const routers =  [
                             {
                                 path: "/repositorypage/apptest/unitcase",
                                 key:'unitcase',
-                                component: AppUnitcaseList,
+                                component: AppUnitList,
+                            },{
+                                path: "/repositorypage/apptest/unitdetail",
+                                key:'unitcase',
+                                component: AppUnitDetailContant,
+                            }, {
+                                path: "/repositorypage/apptest/unitcase-instance",
+                                key:'unitcase',
+                                component: AppUnitInstance,
                             },{
                                 path: "/repositorypage/apptest/scenecase",
                                 key:'scenecase',
-                                component: AppScenecaseList,
+                                component: AppSceneList,
                             },{
                                 path: "/repositorypage/apptest/performcase",
                                 key:'performcase',
-                                component: AppPerformcaseList,
+                                component: AppPerformList,
                             },
                             {
                                 path:"/repositorypage/apptest",
@@ -223,11 +266,20 @@ const routers =  [
                             {
                                 path: "/repositorypage/functest/unitcase",
                                 key:'unitcase',
-                                component: FuncUnitcaseList,
+                                component: FuncUnitList,
+                            },{
+                                path: "/repositorypage/functest/unitdetail",
+                                key:'unitcase',
+                                component: FuncUnitDetail,
                             },{
                                 path: "/repositorypage/functest/scenecase",
                                 key:'scenecase',
-                                component: FuncScenecaseList,
+                                component: FuncSceneList,
+                            },
+                            {
+                                path: "/repositorypage/functest/scenedetail",
+                                key:'scenecase',
+                                component: FuncSceneDetail,
                             },
                             {
                                 path:"/repositorypage/functest",

@@ -4,7 +4,6 @@ import {inject, observer} from "mobx-react";
 import BackCommon from "../../../common/backCommon";
 import ApiPerformSceneConfig from "./apiPerformSceneConfig";
 import ApiPerformCofig from "./apiPerformCofig";
-import ApiPerformTest from "./apiPerformTest";
 
 const { TabPane } = Tabs;
 
@@ -94,7 +93,6 @@ const ApiPerformDetail = (props) =>{
                     </TabPane>
                 </Tabs>
             </div>
-            {/*<ApiPerformTest showResponse={showResponse} />*/}
         </>
     )
 }

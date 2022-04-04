@@ -37,10 +37,10 @@ import {
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
     WebTestcase,
-    WEBSTEP_STORE, WebStepStore,
+
 
     AppTestcase,
-    APPSTEP_STORE, AppStepStore,
+    APPSTEP_STORE, AppSceneStepStore,
 } from './apitest/unitcase'
 
 import TestReport from './old/testReport/components/testReport';
@@ -70,6 +70,23 @@ import {API_SCENEINSTANCE_STORE, ApiSceneInstanceStore} from "./apitest/scenecas
 import { API_PERFORM_STORE, ApiPerformStore} from "./apitest/performcase/store/apiPerformStore"
 import {API_PERFORMSCENE_STORE, ApiPerformSceneStore} from "./apitest/performcase/store/apiPerformSceneStore";
 import {API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore} from "./apitest/performcase/store/apiPerformInstanceStore";
+
+import {WEB_UNIT_STORE, WebUnitStore} from "./webtest/unitcase/store/webUnitStore"
+import {WEB_UNITSTEP_STORE,WebUnitStepStore} from "./webtest/unitcase/store/webUnitStepStore";
+import {WEB_UNITINSTANCE_STORE,WebUnitInstanceStore} from "./webtest/unitcase/store/webUnitInstanceStore";
+import {WEB_SCENE_STORE, WebSceneStore} from "./webtest/scenecase/store/webSceneStore";
+import {WEB_SCENESTEP_STORE,WebSceneStepStore} from "./webtest/scenecase/store/webSceneStepStore";
+import {WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore} from "./webtest/scenecase/store/webSceneInstanceStore";
+import {WEB_PERFORM_STORE,WebPerformStore} from "./webtest/performcase/store/webPerformStore";
+import {WEB_PERFORMSCENE_STORE,WebPerformSceneStore} from "./webtest/performcase/store/webPerformSceneStore";
+import {WEB_PERFORMINSTANCE_STORE,WebPerformInstanceStore} from "./webtest/performcase/store/webPerformInstanceStore";
+import {APP_UNIT_STORE,AppUnitStore} from "./apptest/unitcase/store/appUnitStore";
+import {APP_UNITSTEP_STORE,AppUnitStepStore} from "./apptest/unitcase/store/appUnitStepStore";
+import {APP_UNITINSTANCE_STORE,AppUnitInstanceStore} from "./apptest/unitcase/store/appUnitInstanceStore";
+import {FUNC_UNIT_STORE , FuncUnitStore} from "./functest/unitcase/store/funcUnitStore";
+import {FUNC_UNITSTEP_STORE , FuncUnitStepStore} from "./functest/unitcase/store/funcUnitStepStore";
+import { FUNC_SCENE_STORE, FuncSceneStore} from "./functest/scenecase/store/funcSceneStore";
+import {FUNC_SCENESTEP_STORE, FuncSceneStepStore} from "./functest/scenecase/store/funcSceneStepStore"
 
 
 export {
@@ -105,8 +122,6 @@ export {
     PERFORMCASE_STORE, PerformCaseStore,
 
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
-
-
     APISCENE_STORE, ApiSceneStore,
     APISCENESTEP_STORE, ApiSceneStepStore,
     API_SCENEINSTANCE_STORE, ApiSceneInstanceStore,
@@ -114,11 +129,31 @@ export {
     API_PERFORMSCENE_STORE, ApiPerformSceneStore,
     API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore,
 
+    WEB_UNIT_STORE, WebUnitStore,
+    WEB_UNITSTEP_STORE,WebUnitStepStore,
+    WEB_UNITINSTANCE_STORE,WebUnitInstanceStore,
+    WEB_SCENE_STORE,WebSceneStore,
+    WEB_SCENESTEP_STORE,WebSceneStepStore,
+    WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore,
+    WEB_PERFORM_STORE,WebPerformStore,
+    WEB_PERFORMSCENE_STORE,WebPerformSceneStore,
+    WEB_PERFORMINSTANCE_STORE,WebPerformInstanceStore,
+
+    APP_UNIT_STORE,AppUnitStore,
+    APP_UNITSTEP_STORE,AppUnitStepStore,
+    APP_UNITINSTANCE_STORE,AppUnitInstanceStore,
+
+
+    FUNC_UNIT_STORE, FuncUnitStore,
+    FUNC_UNITSTEP_STORE, FuncUnitStepStore,
+    FUNC_SCENE_STORE, FuncSceneStore,
+    FUNC_SCENESTEP_STORE, FuncSceneStepStore,
+
     WebTestcase,
-    WEBSTEP_STORE, WebStepStore,
+
 
     AppTestcase,
-    APPSTEP_STORE, AppStepStore,
+    APPSTEP_STORE, AppSceneStepStore,
 
     QuartzTaskList, QuartzTask,
     QUARTZTASK_STORE, QuartzMasterStore,

@@ -40,12 +40,6 @@ const ApiLeft =(props) =>{
 
 
     return(
-        // <CaseLeftCommon
-        //     routerData={routerData}
-        //     tabPaneValue={tabPaneValue}
-        //     {...props}
-        // />
-
         <>
             <div className={"case-tab"}>
                 <Tabs defaultActiveKey={caseType} onChange={changeTab}>

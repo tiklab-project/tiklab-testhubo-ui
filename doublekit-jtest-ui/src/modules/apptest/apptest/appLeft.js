@@ -1,7 +1,14 @@
 import React from "react";
-import CaseLeftCommon from "../../common/caseCommon/caseLeftCommon";
+import {Tabs} from "antd";
+import AppUnitCategory from "../unitcase/components/appUnitCategory";
+import AppSceneCategory from "../scenecase/components/appSceneCategory";
+import AppPerformCategory from "../performcase/components/appPerformCategory";
+const { TabPane } = Tabs;
 
 const AppLeft =(props) =>{
+
+    let addRouter = props.history.push;
+    const caseType = localStorage.getItem("caseType")
 
     const routerData={
         "unitcase": "/repositorypage/apptest/unitcase",
@@ -9,26 +16,43 @@ const AppLeft =(props) =>{
         "performcase": "/repositorypage/apptest/performcase"
     }
 
-    const tabPaneValue = [
-        {
-            name:"测试用例",
-            key:"unitcase"
-        },{
-            name:"场景用例",
-            key:"scenecase"
-        },{
-            name:"性能用例",
-            key:"performcase"
+    const switchRouter = (type)=>{
+        switch (type){
+            case "unitcase":
+                addRouter(routerData.unitcase);
+                break;
+            case "scenecase":
+                addRouter(routerData.scenecase);
+                break;
+            case "performcase":
+                addRouter(routerData.performcase);
+                break;
         }
-    ]
+    }
+
+    const changeTab = (tabKey) =>{
+
+        switchRouter(tabKey);
+
+        localStorage.setItem("caseType",tabKey)
+    }
+
 
 
     return(
-        <CaseLeftCommon
-            routerData={routerData}
-            tabPaneValue={tabPaneValue}
-            {...props}
-        />
+        <div className={"case-tab"}>
+            <Tabs defaultActiveKey={caseType} onChange={changeTab}>
+                <TabPane tab="测试用例" key="unitcase">
+                    <AppUnitCategory addRouter={addRouter} />
+                </TabPane>
+                <TabPane tab="场景用例" key="scenecase">
+                    <AppSceneCategory addRouter={addRouter} />
+                </TabPane>
+                <TabPane tab="性能用例" key="performcase">
+                    <AppPerformCategory addRouter={addRouter} />
+                </TabPane>
+            </Tabs>
+        </div>
     )
 }
 

@@ -1,15 +1,21 @@
 import React from "react";
-import CaseContantCommon from "../../common/caseCommon/caseContantCommon";
 import AppLeft from "./appLeft";
+import {renderRoutes} from "react-router-config";
 
 const AppContant =(props)=>{
     const routes = props.route.routes;
 
     return(
-        <CaseContantCommon
-            leftComponent={<AppLeft {...props}/>}
-            routes={routes}
-        />
+        <div className={"test-box"}>
+            <div className={"test-left"}>
+                <AppLeft {...props}/>
+            </div>
+            <div className={"test-right"}>
+                {
+                    renderRoutes(routes)
+                }
+            </div>
+        </div>
     )
 }
 

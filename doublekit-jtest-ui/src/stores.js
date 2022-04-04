@@ -34,8 +34,27 @@ import {
     API_PERFORMSCENE_STORE, ApiPerformSceneStore,
     API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore,
 
-    WEBSTEP_STORE, WebStepStore,
-    APPSTEP_STORE, AppStepStore,
+    WEB_UNIT_STORE, WebUnitStore,
+    WEB_SCENE_STORE,WebSceneStore,
+    WEB_PERFORM_STORE,WebPerformStore,
+    WEB_UNITSTEP_STORE,WebUnitStepStore,
+    WEB_SCENESTEP_STORE,WebSceneStepStore,
+    WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore,
+    WEB_UNITINSTANCE_STORE,WebUnitInstanceStore,
+    WEB_PERFORMSCENE_STORE,WebPerformSceneStore,
+    WEB_PERFORMINSTANCE_STORE,WebPerformInstanceStore,
+
+    APP_UNIT_STORE,AppUnitStore,
+    APP_UNITSTEP_STORE,AppUnitStepStore,
+    APP_UNITINSTANCE_STORE,AppUnitInstanceStore,
+
+    FUNC_UNIT_STORE , FuncUnitStore,
+    FUNC_UNITSTEP_STORE, FuncUnitStepStore,
+    FUNC_SCENE_STORE, FuncSceneStore,
+    FUNC_SCENESTEP_STORE, FuncSceneStepStore,
+
+
+    APPSTEP_STORE, AppSceneStepStore,
 
     QUARTZTASK_STORE, QuartzMasterStore,
     QUARTZTESTCASE_STORE, QuartzTestcaseStore,
@@ -87,8 +106,27 @@ function createStores() {
         [API_PERFORMSCENE_STORE]: new ApiPerformSceneStore(),
         [API_PERFORMINSTANCE_STORE]: new  ApiPerformInstanceStore(),
 
-        [WEBSTEP_STORE]: new WebStepStore(),
-        [APPSTEP_STORE]: new AppStepStore(),
+        [WEB_UNIT_STORE]:new WebUnitStore(),
+        [WEB_SCENE_STORE]:new WebSceneStore(),
+        [WEB_PERFORM_STORE]:new WebPerformStore(),
+        [WEB_UNITSTEP_STORE]: new WebUnitStepStore(),
+        [WEB_SCENESTEP_STORE]: new WebSceneStepStore(),
+        [WEB_SCENEINSTANCE_STORE]: new WebSceneInstanceStore(),
+        [WEB_UNITINSTANCE_STORE]:new WebUnitInstanceStore(),
+        [WEB_PERFORMSCENE_STORE]: new WebPerformSceneStore(),
+        [WEB_PERFORMINSTANCE_STORE]: new WebPerformInstanceStore(),
+
+        [APP_UNIT_STORE]: new AppUnitStore(),
+        [APP_UNITSTEP_STORE]: new AppUnitStepStore(),
+        [APP_UNITINSTANCE_STORE]: new AppUnitInstanceStore(),
+
+        [FUNC_UNIT_STORE]: new FuncUnitStore(),
+        [FUNC_UNITSTEP_STORE]:new FuncUnitStepStore(),
+        [FUNC_SCENE_STORE]: new FuncSceneStore(),
+        [FUNC_SCENESTEP_STORE]:new FuncSceneStepStore(),
+
+
+        [APPSTEP_STORE]: new AppSceneStepStore(),
 
         [QUARTZTASK_STORE]: new QuartzMasterStore(),
         [QUARTZTESTCASE_STORE]: new QuartzTestcaseStore(),

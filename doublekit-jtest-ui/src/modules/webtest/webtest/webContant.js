@@ -1,15 +1,21 @@
 import React from "react";
-import CaseContantCommon from "../../common/caseCommon/caseContantCommon";
 import WebLeft from "./webLeft";
+import {renderRoutes} from "react-router-config";
 
 const WebContant =(props)=>{
     const routes = props.route.routes;
 
     return(
-        <CaseContantCommon
-            leftComponent={<WebLeft {...props}/>}
-            routes={routes}
-        />
+        <div className={"test-box"}>
+            <div className={"test-left"}>
+                <WebLeft {...props}/>
+            </div>
+            <div className={"test-right"}>
+                {
+                    renderRoutes(routes)
+                }
+            </div>
+        </div>
     )
 }
 

@@ -6,7 +6,7 @@ import React, {useEffect, useState} from "react";
 import {Form, Divider,Input,Breadcrumb} from "antd";
 import './webTestcase.scss';
 import {inject, observer} from "mobx-react";
-import WebStep from "./webStep";
+import WebStep from "../../unitcase/components/webUnitStepList";
 import TestReportWeb from './testReportWeb'
 
 const WebTestcase = (props) => {

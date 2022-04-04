@@ -1,7 +1,13 @@
 import React from "react";
-import CaseLeftCommon from "../../common/caseCommon/caseLeftCommon";
+import {Tabs} from "antd";
+import FuncUnitCategory from "../unitcase/components/funcUnitCategory";
+import FuncSceneCategory from "../scenecase/components/funcSceneCategory";
+const { TabPane } = Tabs;
 
 const FuncLeft =(props) =>{
+
+    let addRouter = props.history.push;
+    const caseType = localStorage.getItem("caseType")
 
     const routerData={
         "unitcase": "/repositorypage/functest/unitcase",
@@ -19,12 +25,39 @@ const FuncLeft =(props) =>{
     ]
 
 
+    const switchRouter = (type)=>{
+
+        switch (type){
+            case "unitcase":
+                addRouter(routerData.unitcase);
+                break;
+            case "scenecase":
+                addRouter(routerData.scenecase);
+                break;
+        }
+    }
+
+
+    const changeTab = (tabKey) =>{
+
+        switchRouter(tabKey);
+
+        localStorage.setItem("caseType",tabKey)
+    }
+
+
+
     return(
-        <CaseLeftCommon
-            routerData={routerData}
-            tabPaneValue={tabPaneValue}
-            {...props}
-        />
+        <div className={"case-tab"}>
+            <Tabs defaultActiveKey={caseType} onChange={changeTab}>
+                <TabPane tab="测试用例" key="unitcase">
+                    <FuncUnitCategory  addRouter={addRouter}/>
+                </TabPane>
+                <TabPane tab="场景用例" key="scenecase">
+                    <FuncSceneCategory addRouter={addRouter} />
+                </TabPane>
+            </Tabs>
+        </div>
     )
 }
 

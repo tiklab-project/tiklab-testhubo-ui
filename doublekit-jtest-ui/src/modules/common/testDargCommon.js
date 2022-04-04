@@ -52,7 +52,7 @@ const TestDargCommon = (props) =>{
                 ref={ref}
                 onMouseDown={changeBox}
             ></div>
-            <div style={{background:"#dad7f1",height:`${bottomBoxHeight}px`}}>
+            <div style={{background:"#dad7f1"}}>
                 {props.bottom}
             </div>
 

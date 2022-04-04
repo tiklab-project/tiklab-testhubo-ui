@@ -61,7 +61,6 @@ const FunctionalTestDetail = (props) => {
     //明细编辑
     const updataDetail = async () =>{
         const values = await form.getFieldsValue()
-        debugger
         values.name=updataValue.name
         values.id=testcaseId;
         values.user={id:userSelectId}

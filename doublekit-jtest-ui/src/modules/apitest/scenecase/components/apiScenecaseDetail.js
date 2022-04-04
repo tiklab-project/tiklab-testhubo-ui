@@ -22,7 +22,7 @@ const ApiScenecaseDetail = (props) => {
     const [baseInfo,setBaseInfo]=useState();
     const [editTitle,setEditTitle] = useState("SceneName")
     const [createUser, setCreateUser] = useState("user");
-    const [updataUser, setUpdataUser] = useState("user");
+    const [updateUser, setUpdateUser] = useState("user");
     const [category, setCategory] = useState("目录");
     const [updateTime, setUpdateTime] = useState("2022-22-22-");
 
@@ -35,7 +35,7 @@ const ApiScenecaseDetail = (props) => {
             setBaseInfo(res);
             setEditTitle(res.name)
             setCreateUser(res.createUser?.name);
-            setUpdataUser(res.updateUser?.name);
+            setUpdateUser(res.updateUser?.name);
             setCategory(res.category?.name);
             setUpdateTime(res.updateTime);
             form.setFieldsValue({
@@ -106,7 +106,7 @@ const ApiScenecaseDetail = (props) => {
                 <div className={"method-people-info"}>
                     <span className={"people-item "}>分组: {category}</span>
                     <span className={"people-item "}>创建人: {createUser}</span>
-                    <span className={"people-item "}>更新者: {updataUser}</span>
+                    <span className={"people-item "}>更新者: {updateUser}</span>
                     <span className={"people-item "}>更新时间: {updateTime}</span>
                 </div>
             </div>
