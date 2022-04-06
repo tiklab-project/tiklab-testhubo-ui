@@ -7,7 +7,7 @@ import BackCommon from "../../../common/backCommon";
 const {TextArea} = Input;
 const { Panel } = Collapse;
 
-const ApiUnitcaseInstance = (props) =>{
+const ApiUnitInstance = (props) =>{
     const {apiUnitInstanceStore} = props;
     const {findInstanceList,instanceList,findInstance} = apiUnitInstanceStore;
 
@@ -172,4 +172,4 @@ const ApiUnitcaseInstance = (props) =>{
     )
 }
 
-export default inject("apiUnitInstanceStore")(observer(ApiUnitcaseInstance));
+export default inject("apiUnitInstanceStore")(observer(ApiUnitInstance));

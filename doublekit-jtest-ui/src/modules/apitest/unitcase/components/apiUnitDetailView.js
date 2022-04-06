@@ -1,5 +1,5 @@
 import React from "react";
-import ApiUnitcaseDetail from "./apiUnitcaseDetail";
+import ApiUnitcaseDetail from "./apiUnitDetail";
 
 const ApiUnitDetailView = (props) =>{
 

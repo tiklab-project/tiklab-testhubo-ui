@@ -27,7 +27,7 @@ const HeaderMenu = (props) =>{
             key: 'Repository'
         },
         {
-            to:'/systemManagement/envMana',
+            to:'/systemManagement',
             title:'系统管理',
             key: 'systemManagement'
         }
@@ -36,7 +36,7 @@ const HeaderMenu = (props) =>{
     // 切换空间
     const switchRepository=(id)=>{
         localStorage.setItem('repositoryId',id);
-        sessionStorage.setItem("isAllApi","isAllApi");
+        localStorage.setItem("leftRouter","/repositorypage/detail");
         props.history.push({pathname:'/repositorypage'});
         setClickIcon(false)
     }

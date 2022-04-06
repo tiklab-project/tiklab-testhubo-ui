@@ -1,10 +1,10 @@
 import React,{useEffect,useState} from 'react';
 import { Form, Button} from 'antd';
 import { inject,observer } from 'mobx-react';
-import EnvSelect from "../../../integration/environment/components/envSelect";
 import ApiSceneStepList from "./apiSceneStepList";
 import ApiSceneTest from "./apiSceneTest";
 import BackCommon from "../../../common/backCommon";
+import ApiEnvSelect from "../../apitest/apiEnvSelect";
 
 const ApiScenecaseDetail = (props) => {
     const {apiSceneStore,stepStore} = props;
@@ -80,13 +80,13 @@ const ApiScenecaseDetail = (props) => {
         setShowResponse(true)
     }
 
-    const goback = () =>{
+    const goBack = () =>{
         props.history.push("/repositorypage/apitest/scenecase")
     }
 
     return(
         <>
-            <BackCommon clickBack={goback}  right={<EnvSelect belong={'testcaseEnv'}/>} />
+            <BackCommon clickBack={goBack} right={<ApiEnvSelect history={props.history}/>} />
             <div className={'testcase-webUI-form'}>
                 <div className="web-form-header">
                     <div

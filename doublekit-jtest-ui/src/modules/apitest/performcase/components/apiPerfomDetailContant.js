@@ -7,7 +7,7 @@ const ApiPerfomDetailContant = (props) =>{
 
     return(
         <TestDargCommon
-            top={<ApiPerformDetail />}
+            top={<ApiPerformDetail {...props}/>}
             bottom={<ApiPerformTest />}
         />
     )

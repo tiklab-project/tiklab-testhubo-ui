@@ -1,34 +1,29 @@
 import { observable,  action } from "mobx";
 import {
-    findWebSceneInstancePage,
-    createWebSceneInstance,
-    findWebSceneInstance,
-    updateWebSceneInstance,
-    deleteWebSceneInstance,
-    findWebSceneInstanceList
-} from '../api/webSceneInstanceApi'
+    findAppSceneInstancePage,
+    createAppSceneInstance,
+    findAppSceneInstance,
+    updateAppSceneInstance,
+    deleteAppSceneInstance,
+    findAppSceneInstanceList
+} from '../api/appSceneInstanceApi'
 
-export class WebSceneInstanceStore {
+export class AppSceneInstanceStore {
 
     @observable instanceList = [];
     @observable instanceId = '';
     @observable	totalRecord = "";
     @observable params
-    @observable responseBodyData;
-    @observable responseHeaderData;
-    @observable requestBodyData;
-    @observable requestHeaderData;
-    @observable assertList;
 
     @action
-    findWebSceneInstancePage = async (id,value) => {
+    findAppSceneInstancePage = async (id,value) => {
         this.params = {
             ...value,
             testcaseId:id,
             orderParams:[{name:'createTime', orderType:'asc' }]
         }
 
-        const res = await findWebSceneInstancePage(this.params );
+        const res = await findAppSceneInstancePage(this.params );
         if(res.code === 0) {
             this.instanceList = res.data.dataList;
             this.totalRecord = res.data.totalRecord;
@@ -37,13 +32,13 @@ export class WebSceneInstanceStore {
     }
 
     @action
-    findWebSceneInstanceList = async (id) =>{
+    findAppSceneInstanceList = async (id) =>{
         let param = {
             "testcaseId":id,
             orderParams:[{name:'createTime', orderType:'asc' }]
         }
 
-        const res = await findWebSceneInstanceList(param);
+        const res = await findAppSceneInstanceList(param);
         if(res.code===0){
             this.instanceList = res.data;
             return res.data;
@@ -51,13 +46,13 @@ export class WebSceneInstanceStore {
     }
 
     @action
-    findWebSceneInstance = async (id) => {
+    findAppSceneInstance = async (id) => {
         this.instanceId = id;
 
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findWebSceneInstance(param)
+        const res = await findAppSceneInstance(param)
         if(res.code === 0){
 
             return res.data;
@@ -65,22 +60,22 @@ export class WebSceneInstanceStore {
     }
 
     @action
-    createWebSceneInstance = async (values) => {
-        const res = await createWebSceneInstance(values)
+    createAppSceneInstance = async (values) => {
+        const res = await createAppSceneInstance(values)
         if(res.code === 0) {
-            this.findWebSceneInstanceList(this.params );
+            this.findAppSceneInstanceList(this.params );
             return res.data
         }
     }
 
     @action
-    deleteWebSceneInstance = async (id) => {
+    deleteAppSceneInstance = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteWebSceneInstance(param)
+        const res = await deleteAppSceneInstance(param)
         if(res.code === 0) {
-            this.findWebSceneInstanceList(this.params )
+            this.findAppSceneInstanceList(this.params )
         }
     }
 
@@ -88,4 +83,4 @@ export class WebSceneInstanceStore {
 }
 
 
-export const APP_SCENEINSTANCE_STORE = 'webSceneInstanceStore';
+export const APP_SCENEINSTANCE_STORE = 'appSceneInstanceStore';

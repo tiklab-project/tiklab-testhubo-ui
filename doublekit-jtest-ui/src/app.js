@@ -7,7 +7,7 @@ import './common/styles/base.scss';
 import './common/language/i18n';
 import "./assets/iconfont/iconfont";
 import "./assets/iconfont/iconfont.css";
-import {setCookie} from "doublekit-core-ui";
+// import {setCookie} from "doublekit-core-ui";
 import {inject, observer} from "mobx-react";
 
  const App = (props) => {
@@ -20,7 +20,7 @@ import {inject, observer} from "mobx-react";
      const [resourcesLanguage,setResources] = useState({});
 
      useEffect(() => {
-         setCookie("ticket", "6032a32d20404dc98445cdc5aba9e73601")
+         // setCookie("ticket", "6032a32d20404dc98445cdc5aba9e73601")
          if (isInitLoadPlugin) {
              setLoading(true);
              loadLanguage(i18n, resources, languages, fetchMethod, 'zh').then(res => {

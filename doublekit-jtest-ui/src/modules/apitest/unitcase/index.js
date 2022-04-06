@@ -2,7 +2,7 @@
 import Testcase from '../../old/testcase/testcase/components/testcase';
 import {TESTCASE_STORE, TestcaseStore} from '../../old/testcase/testcase/store/testcaseStore';
 import Step from "../scenecase/components/apiScenecaseDetail";
-import StepDetail from './components/apiUnitcaseDetail';
+import StepDetail from './components/apiUnitDetail';
 import {STEP_STORE,StepStore}from './store/stepStore';
 import { REQUESTBODY_STORE, RequestBodyStore } from './store/requestBodyStore';
 import {REQUESTHEADER_STORE, RequestHeaderStore} from './store/requestHeaderStore';

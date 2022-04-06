@@ -30,7 +30,7 @@ import {Redirect} from "react-router";
 import Demo from "./modules/repository/components/demo";
 import PortalHeader from "./modules/header/portalHeader";
 import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
-import ApiUnitcaseList from "./modules/apitest/unitcase/components/apiUnitcaseList";
+import ApiUnitList from "./modules/apitest/unitcase/components/apiUnitList";
 import ApiScenecaseList from "./modules/apitest/scenecase/components/apiScenecaseList";
 import ApiPerformList from "./modules/apitest/performcase/components/apiPerformList";
 import ApiContant from "./modules/apitest/apitest/apiContant";
@@ -45,8 +45,8 @@ import AppSceneList from "./modules/apptest/scenecase/components/appSceneList";
 import AppPerformList from "./modules/apptest/performcase/components/appPerformList";
 import FuncUnitList from "./modules/functest/unitcase/components/funcUnitList";
 import FuncSceneList from "./modules/functest/scenecase/components/funcSceneList";
-import ApiUnitcaseDetail from "./modules/apitest/unitcase/components/apiUnitcaseDetail";
-import ApiUnitcaseInstance from "./modules/apitest/unitcase/components/apiUnitcaseInstance";
+import ApiUnitcaseDetail from "./modules/apitest/unitcase/components/apiUnitDetail";
+import ApiUnitcaseInstance from "./modules/apitest/unitcase/components/apiUnitInstance";
 import ApiScenecaseDetail from "./modules/apitest/scenecase/components/apiScenecaseDetail";
 import ApiSceneInstance from "./modules/apitest/scenecase/components/apiSceneInstance";
 import ApiPerformInstance from "./modules/apitest/performcase/components/apiPerformInstance";
@@ -64,6 +64,11 @@ import WebPerformDetailContant from "./modules/webtest/performcase/components/we
 import WebPerformInstance from "./modules/webtest/performcase/components/webPerformInstance";
 import AppUnitDetailContant from "./modules/apptest/unitcase/components/appUnitDetailContant";
 import AppUnitInstance from "./modules/apptest/unitcase/components/appUnitInstance";
+import AppSceneDetailContant from "./modules/apptest/scenecase/components/appSceneDetailContant";
+import AppSceneInstance from "./modules/apptest/scenecase/components/appSceneInstance";
+import AppPerformDetailContant from "./modules/apptest/performcase/components/appPerformDetailContant";
+import AppPerformInstance from "./modules/apptest/performcase/components/appPerformInstance";
+import EnvContant from "./modules/sysmgr/environment/components/envContant";
 
 
 const routers =  [
@@ -128,7 +133,7 @@ const routers =  [
                             {
                                 path: "/repositorypage/apitest/unitcase",
                                 key:'unitcase',
-                                component: ApiUnitcaseList,
+                                component: ApiUnitList,
                             },{
                                 path: "/repositorypage/apitest/unitdetail",
                                 key:'unitdetail',
@@ -237,7 +242,7 @@ const routers =  [
                                 path: "/repositorypage/apptest/unitdetail",
                                 key:'unitcase',
                                 component: AppUnitDetailContant,
-                            }, {
+                            },{
                                 path: "/repositorypage/apptest/unitcase-instance",
                                 key:'unitcase',
                                 component: AppUnitInstance,
@@ -246,11 +251,26 @@ const routers =  [
                                 key:'scenecase',
                                 component: AppSceneList,
                             },{
+                                path: "/repositorypage/apptest/scenedetail",
+                                key:'scenecase',
+                                component: AppSceneDetailContant,
+                            },{
+                                path: "/repositorypage/apptest/scenecase-instance",
+                                key:'scenecase',
+                                component: AppSceneInstance,
+                            },{
                                 path: "/repositorypage/apptest/performcase",
                                 key:'performcase',
                                 component: AppPerformList,
-                            },
-                            {
+                            },{
+                                path: "/repositorypage/apptest/performdetail",
+                                key:'performcase',
+                                component: AppPerformDetailContant,
+                            },{
+                                path: "/repositorypage/apptest/perform-instance",
+                                key:'performcase',
+                                component: AppPerformInstance,
+                            },{
                                 path:"/repositorypage/apptest",
                                 exact: true,
                                 key:'ridapitest',
@@ -394,6 +414,12 @@ const routers =  [
                 component:SystemManagement,
                 routes:[
                     {
+                        path: "/systemManagement/envMana",
+                        key:'env',
+                        exact: true,
+                        component: EnvContant,
+                    },
+                    {
                         path: "/systemManagement/organ/org",
                         key:'org',
                         exact: true,
@@ -458,6 +484,11 @@ const routers =  [
                         key:'authConfig',
                         exact: true,
                         component: AuthConfig,
+                    },{
+                        path:"/systemManagement",
+                        exact: true,
+                        key:'ridenvtest',
+                        component: ()=><Redirect to='/systemManagement/envMana'/>,
                     },
                 ]
             },

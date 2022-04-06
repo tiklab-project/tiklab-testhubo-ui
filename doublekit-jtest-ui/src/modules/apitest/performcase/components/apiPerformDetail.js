@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import BackCommon from "../../../common/backCommon";
 import ApiPerformSceneConfig from "./apiPerformSceneConfig";
 import ApiPerformCofig from "./apiPerformCofig";
+import ApiEnvSelect from "../../apitest/apiEnvSelect";
 
 const { TabPane } = Tabs;
 
@@ -50,14 +51,14 @@ const ApiPerformDetail = (props) =>{
 
     }
 
-    const goback = () =>{
+    const goBack = () =>{
         props.history.push("/repositorypage/apitest/performcase")
     }
 
     return(
         <>
             <div>
-                <BackCommon clickBack={goback}  />
+                <BackCommon clickBack={goBack} right={<ApiEnvSelect history={props.history}/>} />
                 <div className={'testcase-webUI-form'}>
                     <div className="web-form-header">
                         <div

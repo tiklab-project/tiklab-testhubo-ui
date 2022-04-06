@@ -6,8 +6,9 @@ import RequestType from "../../../common/requestType";
 import Response from "./response";
 import './unitcase.scss'
 import BackCommon from "../../../common/backCommon";
+import ApiEnvSelect from "../../apitest/apiEnvSelect";
 
-const ApiUnitcaseDetail = (props) => {
+const ApiUnitDetail = (props) => {
     const { stepStore } = props;
     const { findStep,deleteStep } = stepStore;
 
@@ -72,7 +73,7 @@ const ApiUnitcaseDetail = (props) => {
 
     return(
         <Fragment>
-            <BackCommon clickBack={goBack} />
+            <BackCommon clickBack={goBack} right={<ApiEnvSelect history={props.history}/>} />
             <div className="apidetail-header-btn">
                 <div className={"method-name"}>{name}</div>
                 <div className={'apidetail-title-tool'}>
@@ -108,4 +109,4 @@ const ApiUnitcaseDetail = (props) => {
     )
 }
 
-export default inject('stepStore')(observer(ApiUnitcaseDetail));
+export default inject('stepStore')(observer(ApiUnitDetail));

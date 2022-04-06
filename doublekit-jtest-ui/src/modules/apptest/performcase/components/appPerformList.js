@@ -2,16 +2,17 @@ import React, {useEffect, useState} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import {useTranslation} from "react-i18next";
 import BreadcrumbCommon from "../../../common/breadcrumbCommon";
-import AppPerformcaseEdit from "./appPerformEdit";
+import AppPerformEdit from "./appPerformEdit";
+import {inject, observer} from "mobx-react";
 
 const AppPerformList = (props) =>{
-    // const { performanceStore } = props;
-    // const {
-    //     findPerformancePage,
-    //     deletePerformance,
-    //     performanceList,
-    //     totalRecord
-    // } = performanceStore;
+    const { appPerformStore } = props;
+    const {
+        findAppPerformPage,
+        deleteAppPerform,
+        appPerformList,
+        totalRecord
+    } = appPerformStore;
 
     const { t } = useTranslation();
 
@@ -32,7 +33,7 @@ const AppPerformList = (props) =>{
         },
         {
             title: `创建人`,
-            dataIndex: ['user', 'name'],
+            dataIndex: ['createUser', 'name'],
             key: "user",
         },
         {
@@ -42,11 +43,11 @@ const AppPerformList = (props) =>{
             render: (text, record) => (
                 <Space size="middle">
                     <div>
-                        {/*<PerformanceEdit name="编辑"  performanceId={record.id} />*/}
+                        {/*<AppPerformEdit name="编辑"  appPerformId={record.id} />*/}
                     </div>
                     <Popconfirm
                         title="确定删除？"
-                        // onConfirm={() =>deletePerformance(record.id)}
+                        // onConfirm={() =>deleteAppPerform(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -66,18 +67,16 @@ const AppPerformList = (props) =>{
         }
     })
     const [tableLoading,setTableLoading] = useState(true);
-    const repositoryId = sessionStorage.getItem('repositoryId')
+    const categoryId = sessionStorage.getItem('categoryId')
 
     useEffect(()=> {
-        // findPerformancePage(repositoryId,params).then(()=>{
-        //     setTableLoading(false)
-        // });
+        findAppPerformPage("1")
     },[params])
 
     // 保存id到缓存
     const setLocalStorage = (type,id) => {
-        localStorage.setItem('performanceId',id);
-        props.history.push('/repositorypage/performancedetail')
+        sessionStorage.setItem('appPerformId',id);
+        props.history.push('/repositorypage/apptest/performdetail')
     }
 
     //分页
@@ -117,20 +116,20 @@ const AppPerformList = (props) =>{
 
     return(
         <div className={'inner-box'}>
-            <BreadcrumbCommon breadArray={["API","性能测试"]}/>
+            <BreadcrumbCommon breadArray={["APP","性能测试"]}/>
             <div className='case-header'>
                 <Input
                     placeholder={`搜索`}
                     onPressEnter={onSearch}
                     className='search-input'
                 />
-                <AppPerformcaseEdit  name='添加用例' btn={"btn"} />
+                <AppPerformEdit  name='添加用例' btn={"btn"} />
             </div>
 
             <Table
                 className="tablelist"
                 columns={columns}
-                // dataSource={performanceList}
+                dataSource={appPerformList}
                 rowKey={record => record.id}
                 pagination={{
                     current:currentPage,
@@ -144,4 +143,4 @@ const AppPerformList = (props) =>{
     )
 }
 
-export default AppPerformList;
+export default inject("appPerformStore")(observer(AppPerformList));

@@ -1,32 +1,36 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import BreadcrumbCommon from "../../../common/breadcrumbCommon";
-import AppScenecaseEdit from "./appSceneEdit";
+import AppSceneEdit from "./appSceneEdit";
+import {inject, observer} from "mobx-react";
 
 const AppSceneList = (props) => {
+    const {appSceneStore} = props;
+    const {findAppScenePage,appSceneList,deleteAppScene}=appSceneStore;
 
     const column = [
         {
-            title: '用例名称',
-            dataIndex: 'name',
-            key: 'name',
-            width: "30%",
-            render: (text, record) => (
-                <></>
-                // <a onClick={() => setLocalStorage(record.id)}>{text}</a>
+            title:`用场景名称`,
+            dataIndex: "name",
+            key: "name",
+            render: (text,record) =>(
+                <a onClick = {()=>setSessionStorage(record.id)}>{text}</a>
             )
         },
         {
-            title: '请求路径',
-            dataIndex: 'baseUrl',
-            key: 'baseUrl',
-            width: "20%",
+            title: `类型`,
+            dataIndex: "testType",
+            key: "testType",
         },
         {
-            title: '路径',
-            dataIndex: ['method', 'path'],
-            key: 'method',
-            width: "20%",
+            title: `等级`,
+            dataIndex: "level",
+            key: "level",
+        },
+        {
+            title: `创建人`,
+            dataIndex: ['createUser', 'name'],
+            key: "user",
         },
         {
             title: '操作',
@@ -36,12 +40,10 @@ const AppSceneList = (props) => {
             width: "15%",
             render: (text, record) => (
                 <Space size="middle">
-                    <div>
-                        <div>编辑</div>
-                    </div>
+                    <AppSceneEdit name={"编辑"}/>
                     <Popconfirm
                         title="确定删除？"
-                        // onConfirm={() => deleteTestCase(record.id)}
+                        onConfirm={() => deleteAppScene(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -52,22 +54,33 @@ const AppSceneList = (props) => {
         },
     ]
 
+    useEffect(()=>{
+        findAppScenePage()
+    },[])
+
+    const setSessionStorage = (id) =>{
+        sessionStorage.setItem("funcUnitId",id);
+
+        props.history.push("/repositorypage/apptest/scenedetail")
+    }
+
+
 
     return(
         <>
-            <BreadcrumbCommon breadArray={["API","测试用例"]}/>
+            <BreadcrumbCommon breadArray={["APP","场景用例"]}/>
             <div className='case-header'>
+                <AppSceneEdit name={"添加用例"} btn={"btn"}/>
                 <Input
                     placeholder={`搜索`}
                     // onPressEnter={onSearch}
                     className='search-input'
                     style={{width:240}}
                 />
-                <AppScenecaseEdit name={"添加用例"} btn={"btn"}/>
             </div>
             <Table
                 columns={column}
-                // dataSource={}
+                dataSource={appSceneList}
                 rowKey = {record => record.id}
             />
 
@@ -77,4 +90,4 @@ const AppSceneList = (props) => {
 
 }
 
-export default AppSceneList
+export default inject("appSceneStore")(observer(AppSceneList))

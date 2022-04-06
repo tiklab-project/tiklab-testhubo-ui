@@ -40,7 +40,6 @@ import {
 
 
     AppTestcase,
-    APPSTEP_STORE, AppSceneStepStore,
 } from './apitest/unitcase'
 
 import TestReport from './old/testReport/components/testReport';
@@ -83,11 +82,20 @@ import {WEB_PERFORMINSTANCE_STORE,WebPerformInstanceStore} from "./webtest/perfo
 import {APP_UNIT_STORE,AppUnitStore} from "./apptest/unitcase/store/appUnitStore";
 import {APP_UNITSTEP_STORE,AppUnitStepStore} from "./apptest/unitcase/store/appUnitStepStore";
 import {APP_UNITINSTANCE_STORE,AppUnitInstanceStore} from "./apptest/unitcase/store/appUnitInstanceStore";
+import {APP_SCENE_STORE,AppSceneStore} from "./apptest/scenecase/store/appSceneStore";
+import {APP_SCENESTEP_STORE,AppSceneStepStore} from "./apptest/scenecase/store/appSceneStepStore";
+import {APP_SCENEINSTANCE_STORE,AppSceneInstanceStore} from "./apptest/scenecase/store/appSceneInstanceStore";
+import {APP_PERFORM_STORE,AppPerformStore} from "./apptest/performcase/store/appPerformStore";
+import {APP_PERFORMSCENE_STORE,AppPerformSceneStore} from "./apptest/performcase/store/appPerformSceneStore";
+import {APP_PERFORMINSTANCE_STORE,AppPerformInstanceStore} from "./apptest/performcase/store/appPerformInstanceStore";
 import {FUNC_UNIT_STORE , FuncUnitStore} from "./functest/unitcase/store/funcUnitStore";
 import {FUNC_UNITSTEP_STORE , FuncUnitStepStore} from "./functest/unitcase/store/funcUnitStepStore";
 import { FUNC_SCENE_STORE, FuncSceneStore} from "./functest/scenecase/store/funcSceneStore";
 import {FUNC_SCENESTEP_STORE, FuncSceneStepStore} from "./functest/scenecase/store/funcSceneStepStore"
 
+import {API_ENV_STORE,ApiEnvStore} from "./sysmgr/environment/store/apiEnvStore";
+import {WEB_ENV_STORE,WebEnvStore} from "./sysmgr/environment/store/webEnvStore";
+import {APP_ENV_STORE,AppEnvStore} from "./sysmgr/environment/store/appEnvStore";
 
 export {
     Login, Home,
@@ -142,6 +150,12 @@ export {
     APP_UNIT_STORE,AppUnitStore,
     APP_UNITSTEP_STORE,AppUnitStepStore,
     APP_UNITINSTANCE_STORE,AppUnitInstanceStore,
+    APP_SCENE_STORE,AppSceneStore,
+    APP_SCENESTEP_STORE, AppSceneStepStore,
+    APP_SCENEINSTANCE_STORE,AppSceneInstanceStore,
+    APP_PERFORM_STORE,AppPerformStore,
+    APP_PERFORMSCENE_STORE,AppPerformSceneStore,
+    APP_PERFORMINSTANCE_STORE,AppPerformInstanceStore,
 
 
     FUNC_UNIT_STORE, FuncUnitStore,
@@ -149,11 +163,14 @@ export {
     FUNC_SCENE_STORE, FuncSceneStore,
     FUNC_SCENESTEP_STORE, FuncSceneStepStore,
 
+    API_ENV_STORE,ApiEnvStore,
+    WEB_ENV_STORE,WebEnvStore,
+    APP_ENV_STORE,AppEnvStore,
+
     WebTestcase,
-
-
     AppTestcase,
-    APPSTEP_STORE, AppSceneStepStore,
+
+
 
     QuartzTaskList, QuartzTask,
     QUARTZTASK_STORE, QuartzMasterStore,
@@ -177,6 +194,7 @@ export {
     TESTPLANDETAIL_STORE, TestPlanDetailStore,
 
     USERSELECT_STORE, UserSelectStore,
+
 
 
 

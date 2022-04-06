@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import BreadcrumbCommon from "../../../common/breadcrumbCommon";
-import WebScenecaseEdit from "./webSceneEdit";
+import WebSceneEdit from "./webSceneEdit";
 import {inject, observer} from "mobx-react";
 
 const WebSceneList = (props) => {
@@ -40,7 +40,7 @@ const WebSceneList = (props) => {
             width: "15%",
             render: (text, record) => (
                 <Space size="middle">
-                    <WebScenecaseEdit name={"编辑"}/>
+                    <WebSceneEdit name={"编辑"}/>
                     <Popconfirm
                         title="确定删除？"
                         onConfirm={() => deleteWebScene(record.id)}
@@ -70,7 +70,7 @@ const WebSceneList = (props) => {
         <>
             <BreadcrumbCommon breadArray={["WEB","场景用例"]}/>
             <div className='case-header'>
-                <WebScenecaseEdit name={"添加用例"} btn={"btn"}/>
+                <WebSceneEdit name={"添加用例"} btn={"btn"}/>
                 <Input
                     placeholder={`搜索`}
                     // onPressEnter={onSearch}

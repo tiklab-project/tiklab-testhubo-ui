@@ -68,7 +68,7 @@ const AppUnitList = (props) => {
 
     return(
         <>
-            <BreadcrumbCommon breadArray={["WEB","测试用例"]}/>
+            <BreadcrumbCommon breadArray={["APP","测试用例"]}/>
             <div className='case-header'>
                 <AppUnitEdit name={"添加用例"} btn={"btn"}/>
                 <Input

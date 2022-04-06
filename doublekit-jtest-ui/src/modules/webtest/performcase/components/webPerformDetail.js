@@ -4,6 +4,7 @@ import BackCommon from "../../../common/backCommon";
 import {inject, observer} from "mobx-react";
 import WebPerformSceneConfig from "./webPerformSceneConfig";
 import WebPerformCofig from "./webPerformCofig";
+import WebEnvSelect from "../../webtest/webEnvSelect";
 const { TabPane } = Tabs;
 
 const WebPerformDetail = (props) =>{
@@ -49,14 +50,14 @@ const WebPerformDetail = (props) =>{
 
     }
 
-    const goback = () =>{
+    const goBack = () =>{
         props.history.push("/repositorypage/webtest/performcase")
     }
 
 
     return(
         <>
-            <BackCommon clickBack={goback}  />
+            <BackCommon clickBack={goBack} right={<WebEnvSelect history={props.history}/>}/>
             <div className={'testcase-webUI-form'}>
                 <div className="web-form-header">
                     <div

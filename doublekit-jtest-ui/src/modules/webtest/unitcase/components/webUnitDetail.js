@@ -7,6 +7,7 @@ import {inject, observer} from "mobx-react";
 import BackCommon from "../../../common/backCommon";
 import WebUnitStepList from "./webUnitStepList";
 import {Button} from "antd";
+import WebEnvSelect from "../../webtest/webEnvSelect";
 
 const WebUnitDetail = (props) => {
     const {webUnitStore} = props;
@@ -50,7 +51,7 @@ const WebUnitDetail = (props) => {
 
     return(
         <>
-            <BackCommon clickBack={goBack} />
+            <BackCommon clickBack={goBack} right={<WebEnvSelect history={props.history}/>}/>
             <div className={'testcase-detail'}>
                 <div className="apidetail-header-btn">
                     <div className={"method-name"}>{allValue?.name}</div>

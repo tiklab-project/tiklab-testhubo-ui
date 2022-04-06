@@ -52,7 +52,9 @@ const EnvSelect = (props) => {
                     return <Option key={item.id} value={item.id}>{item.name}</Option>
                 })
             }
-        </Select></>
+        </Select>
+
+        </>
     )
 }
 

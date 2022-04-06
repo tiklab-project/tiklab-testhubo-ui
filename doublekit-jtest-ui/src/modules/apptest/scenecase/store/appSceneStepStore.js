@@ -9,22 +9,18 @@ import {
     createAppSceneStep,
     deleteAppSceneStep,
     updateAppSceneStep,
-    findAllLocation,
-    findActionTypeList
-} from '../api/appSceneSceneStepApi';
+} from '../api/appSceneStepApi';
 
 
-export class AppSceneSceneStore {
+export class AppSceneStepStore {
     @observable appSceneStepList = [];
     @observable appSceneStepInfo = {};
-    @observable testcaseId;
-    @observable locationList;
-    @observable fuctionList;
+    @observable categoryId;
     @observable selectItem;
 
     @action
     findAppSceneStepList = async (id,param) => {
-        this.testcaseId=id;
+        this.categoryId=id;
         const params = {
             testCaseId: id,
             ...param,
@@ -52,7 +48,7 @@ export class AppSceneSceneStore {
     createAppSceneStep = async (values) => {
         const res = await createAppSceneStep(values);
         if(res.code === 0){
-            this.findAppSceneStepList(this.testcaseId)
+            this.findAppSceneStepList(this.categoryId)
         }
     }
 
@@ -60,7 +56,7 @@ export class AppSceneSceneStore {
     updateAppSceneStep = async (values) => {
         const res = await updateAppSceneStep(values);
         if(res.code === 0){
-            this.findAppSceneStepList(this.testcaseId);
+            this.findAppSceneStepList(this.categoryId);
         }
     }
 
@@ -70,33 +66,11 @@ export class AppSceneSceneStore {
         param.append('id', id)
         const res = await deleteAppSceneStep(param);
         if(res.code === 0){
-            this.findAppSceneStepList(this.testcaseId);
+            this.findAppSceneStepList(this.categoryId);
         }
     }
 
-    //添加框中，下拉选择框获取所有定位器
-    @action
-    findAllLocation = async (param) => {
-        const res = await findAllLocation(param);
-        if(res.code === 0) {
-            this.locationList = res.data;
-        }
-    }
-
-    //添加框中，下拉选择框获取所有方法
-    @action
-    findActionTypeList = async (param) => {
-        const res = await findActionTypeList(param);
-        if(res.code === 0) {
-            this.fuctionList = res.data;
-        }
-    }
-
-    @action
-    getSelectItem = (data) => {
-        this.selectItem = data
-    }
-
+  
 }
 
 export const APP_SCENESTEP_STORE = 'appSceneStepStore';

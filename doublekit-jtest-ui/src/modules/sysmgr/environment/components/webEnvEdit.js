@@ -8,13 +8,13 @@ import { observer, inject } from "mobx-react";
 import { Form, Modal, Button, Input } from 'antd';
 
 // 添加与编辑空间
-const EnvironmentEdit = (props) => {
-    const { environmentStore, environmentId } = props;
+const ApiEnvEdit = (props) => {
+    const { webEnvStore, webEnvId } = props;
     const { 
-        findEnvironment,
-        createEnvironment,
-        updateEnvironment
-     } = environmentStore;
+        findWebEnv,
+        createWebEnv,
+        updateWebEnv
+     } = webEnvStore;
 
     const [form] = Form.useForm();
     
@@ -22,23 +22,23 @@ const EnvironmentEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
-        setVisible(true);
         if(props.type === "edit"){
-            findEnvironment(environmentId).then((res)=>{
+            findWebEnv(webEnvId).then((res)=>{
                 form.setFieldsValue({
                     name: res.name,
                     url:res.url
                 })
             })
         }
+        setVisible(true);
     };
     
     // 提交
     const onFinish = (values) => {
         if(props.type === "add" ){
-            createEnvironment(values);
+            createWebEnv(values);
         }else{
-            updateEnvironment(values);
+            updateWebEnv(values);
         }
         setVisible(false);
     };
@@ -92,4 +92,4 @@ const EnvironmentEdit = (props) => {
     );
 };
 
-export default inject('environmentStore')(observer(EnvironmentEdit));
+export default inject('webEnvStore')(observer(ApiEnvEdit));

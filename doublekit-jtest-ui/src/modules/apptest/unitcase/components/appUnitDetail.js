@@ -7,6 +7,7 @@ import {inject, observer} from "mobx-react";
 import BackCommon from "../../../common/backCommon";
 import AppUnitStepList from "./appUnitStepList";
 import {Button} from "antd";
+import AppEnvSelect from "../../apptest/appEnvSelect";
 
 const AppUnitDetail = (props) => {
     const {appUnitStore} = props;
@@ -50,7 +51,7 @@ const AppUnitDetail = (props) => {
 
     return(
         <>
-            <BackCommon clickBack={goBack} />
+            <BackCommon clickBack={goBack} right={<AppEnvSelect history={props.history}/>}/>
             <div className={'testcase-detail'}>
                 <div className="apidetail-header-btn">
                     <div className={"method-name"}>{allValue?.name}</div>

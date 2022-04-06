@@ -1,9 +1,9 @@
 import React from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import BreadcrumbCommon from "../../../common/breadcrumbCommon";
-import ApiUnitcaseEdit from "./apiUnitcaseEdit";
+import ApiUnitcaseEdit from "./apiUnitEdit";
 
-const ApiUnitcaseList = (props) => {
+const ApiUnitList = (props) => {
 
     const column = [
         {
@@ -77,4 +77,4 @@ const ApiUnitcaseList = (props) => {
 
 }
 
-export default ApiUnitcaseList
+export default ApiUnitList

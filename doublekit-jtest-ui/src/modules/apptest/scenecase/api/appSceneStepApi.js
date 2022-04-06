@@ -2,7 +2,10 @@
  * @description：
  * @date: 2021-09-03 13:32
  */
-import {Axios as service} from "doublekit-core-ui";
+// import {Axios as service} from "doublekit-core-ui";
+
+import service from "../../../../common/utils/localrequest";
+import "../../../../mock/appSceneStepMock"
 
 export function findAppSceneStepList(data){
     return service.request({
@@ -44,20 +47,3 @@ export function updateAppSceneStep(data){
     })
 }
 
-//查询定位器
-export function findAllLocation(data){
-    return service.request({
-        url: "/location/findAllLocation",
-        method: "post",
-        data
-    })
-}
-
-//查询所有操作方法
-export function findActionTypeList(data){
-    return service.request({
-        url: "/actionType/findActionTypeList",
-        method: "post",
-        data
-    })
-}

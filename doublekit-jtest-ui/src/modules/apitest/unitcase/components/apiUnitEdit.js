@@ -10,7 +10,7 @@ const layout = {
 };
 
 // 添加与编辑
-const ApiUnitcaseEdit = (props) => {
+const ApiUnitEdit = (props) => {
     const { stepStore, stepId,unitcaseId } = props;
     const {findStep, createStep, updateStep} = stepStore;
 
@@ -112,4 +112,4 @@ const ApiUnitcaseEdit = (props) => {
     );
 };
 
-export default inject('stepStore')(observer(ApiUnitcaseEdit));
+export default inject('stepStore')(observer(ApiUnitEdit));

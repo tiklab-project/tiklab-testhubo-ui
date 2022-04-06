@@ -1,15 +1,27 @@
-import React, { Fragment ,useState } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import { renderRoutes } from "react-router-config";
-import { Layout, Menu, Row, Col } from 'antd';
+import { Layout } from 'antd';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
 import { PrivilegeSystem } from "doublekit-privilege-ui";
+
 import './sysMana.scss'
+import {inject, observer} from "mobx-react";
 
 const { Sider, Content } = Layout;
 
 const SystemManagement = (props) => {
+    const {pluginsStore} = props;
+    const {pluginConfig, isInitLoadPlugin} = pluginsStore;
+    const routers = props.route.routes
 
-    const router = [
+    const settingMenu = [
+
+        {
+            title: '环境管理',
+            icon: 'laptop',
+            key: '/systemManagement/envMana',
+            encoded: "environment"
+        },
         {
             title: '组织中心',
             icon: 'laptop',
@@ -100,18 +112,59 @@ const SystemManagement = (props) => {
                     icon: 'laptop',
                     key: '/systemManagement/messageSendType',
                     encoded: "SysMessageSendType",
+                },
+                {
+                    title: '邮箱配置',
+                    icon: 'laptop',
+                    key: '/systemManagement/emailconfig',
+                    encoded: "emailconfig",
                 }
             ]
         },
         {
-            title: '认证设置',
+            title: '目录管理',
             icon: 'laptop',
             key: '/systemManagement/authConfig',
             encoded: "authConfig",
+        },
+        {
+            title: '插件管理',
+            icon: 'laptop',
+            key: '/systemManagement/pluginmanage',
+            encoded: "pluginmanage",
+        },
+        {
+            title: 'licence管理',
+            icon: 'laptop',
+            key: '/systemManagement/licence',
+            encoded: "licence",
         }
     ]
 
     const [selectKey,setSelectKey] = useState('/systemManagement/envMana')
+
+    const [router,setRouter] = useState()
+
+    useEffect(() => {
+        let data = pluginConfig("settingMenu").filter(item => item.menuTitle);
+
+        if(data.length > 0){
+            let newRouter;
+            data&&data.map(item => {
+                return newRouter = item.menuTitle.map((routerItem)=> {
+                    return {
+                        title: routerItem.menuTitle,
+                        icon: 'laptop',
+                        key: '/'+routerItem.mount + routerItem.router
+                    }
+                })
+            })
+            setRouter(settingMenu.concat(newRouter));
+        }else {
+            setRouter(settingMenu);
+        }
+    }, [isInitLoadPlugin])
+
 
     const select = (key)=>{
         setSelectKey(key)
@@ -151,58 +204,61 @@ const SystemManagement = (props) => {
         )
     }
 
-
-     // 子级菜单处理
-     const renderSubMenu = ({title,key,children,encoded},deep)=> {
+    // 子级菜单处理
+    const renderSubMenu = ({title,key,children,encoded},deep)=> {
         return (
-              <PrivilegeSystem code={encoded} disabled ={"hidden"} key={key}>
-                  <li key={key} title={title} >
-                      <div className="orga-aside-item aside-li"
-                           onClick={() => setOpenOrClose(key)}
-                           style={{paddingLeft:`${deep*20+5}px`}}
-                      >
-                          <span to={key}>
+            <PrivilegeSystem code={encoded} disabled ={"hidden"} key={key}>
+                <li key={key} title={title} >
+                    <div className="orga-aside-item aside-li"
+                         onClick={() => setOpenOrClose(key)}
+                         style={{paddingLeft:`${deep*20+5}px`}}
+                    >
+                          <span key={key}>
                               {title}
                           </span>
-                          <div className="orga-aside-item-icon">
-                              {
-                                  children ?
-                                  (isExpandedTree(key)
-                                       ? <DownOutlined  style={{fontSize: "12px"}}/>
-                                       : <UpOutlined  style={{fontSize: "12px"}}/>
-                                  ): ""
-                              }
-                          </div>
-                      </div>
+                        <div className="orga-aside-item-icon">
+                            {
+                                children ?
+                                    (isExpandedTree(key)
+                                            ? <DownOutlined  style={{fontSize: "12px"}}/>
+                                            : <UpOutlined  style={{fontSize: "12px"}}/>
+                                    ): ""
+                            }
+                        </div>
+                    </div>
 
-                      <ul key={key} title={title} className={`orga-aside-ul ${isExpandedTree(key) ? null: 'orga-aside-hidden'}`}>
-                          {
-                              children && children.map(item =>{
-                                  let deep = 1;
-                                  return item.children && item.children.length
-                                      ? renderSubMenu(item,deep)
-                                      : renderMenu(item,deep)
-                                  })
-                          }
-                      </ul>
-                  </li>
-               </PrivilegeSystem>
+                    <ul key={key} title={title} className={`orga-aside-ul ${isExpandedTree(key) ? null: 'orga-aside-hidden'}`}>
+                        {
+                            children && children.map(item =>{
+                                let deep = 1;
+                                return item.children && item.children.length
+                                    ? renderSubMenu(item,deep)
+                                    : renderMenu(item,deep)
+                            })
+                        }
+                    </ul>
+                </li>
+            </PrivilegeSystem>
         )
     }
 
+    const showLi = (data)=>{
+        return data && data.map(firstItem => {
+            return firstItem.children && firstItem.children.length > 0
+                ?renderSubMenu(firstItem)
+                :renderMenu(firstItem)
+        })
+    }
 
-    const routers = props.route.routes
+
     return (
         <Fragment>
             <Layout className = 'sysmana-layout'>
-                <Sider className = 'sysmana-sider' width={200}>
+                <Sider className = 'sysmana-sider' width={240}>
                     <div className="doublekit-orga-aside">
                         <ul style={{padding: 0}} >
                             {
-                                router && router.map(firstItem => {
-                                    return firstItem.children && firstItem.children.length > 0 ?
-                                            renderSubMenu(firstItem) : renderMenu(firstItem)
-                                })
+                                // showLi(router)
                             }
                         </ul>
                     </div>
@@ -216,4 +272,4 @@ const SystemManagement = (props) => {
 }
 
 
-export default SystemManagement;
+export default inject("pluginsStore")(observer(SystemManagement));
