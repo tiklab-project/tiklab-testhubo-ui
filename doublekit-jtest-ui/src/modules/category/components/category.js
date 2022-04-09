@@ -6,14 +6,14 @@
 
 import React, { Fragment, useEffect, useState } from 'react';
 import { observer, inject } from "mobx-react";
-import {Breadcrumb, Input, Table, Space, Button, Popconfirm} from 'antd';
+import {Breadcrumb, Input, Table, Space, Popconfirm} from 'antd';
 import CategoryEdit from './categoryEdit';
 import  { useTranslation } from 'react-i18next'
 
 const CategoryList = (props) => {
     const { categoryStore } = props;
     const {
-        findCategoryListTree,
+        findCategoryListTreeTable,
         deleteCategory,
         categoryList
     } = categoryStore;
@@ -56,11 +56,11 @@ const CategoryList = (props) => {
             ),
         },
     ]
-    const repositoryId = localStorage.getItem('repositoryId')
+    const repositoryId = sessionStorage.getItem('repositoryId')
     const [tableLoading,setTableLoading] = useState(true)
 
     useEffect(()=> {
-        findCategoryListTree(repositoryId).then(res=>{
+        findCategoryListTreeTable(repositoryId).then(res=>{
             setTableLoading(false)
         });
     },[repositoryId])
@@ -76,11 +76,11 @@ const CategoryList = (props) => {
                 </Breadcrumb>
             </div>
             <div className='search-btn'>
+                <CategoryEdit name={`添加模块`} />
                 <Input
                     placeholder={`${t('tcsearch')}`}
                     className='search-input'
                 />
-                <CategoryEdit name={`添加模块`} />
             </div>
              <Table
                 bordered

@@ -1,6 +1,6 @@
 
 import React from 'react'
-import {LogOut} from 'doublekit-frame-ui';
+import {LogOut} from 'doublekit-portal-ui';
 import {AuthConfig} from 'doublekit-user-ui'
 import {
     Login, Home,
@@ -30,10 +30,10 @@ import {Redirect} from "react-router";
 import Demo from "./modules/repository/components/demo";
 import PortalHeader from "./modules/header/portalHeader";
 import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
-import ApiUnitList from "./modules/apitest/unitcase/components/apiUnitList";
-import ApiScenecaseList from "./modules/apitest/scenecase/components/apiScenecaseList";
-import ApiPerformList from "./modules/apitest/performcase/components/apiPerformList";
-import ApiContant from "./modules/apitest/apitest/apiContant";
+import ApiUnitList from "./modules/apitest/http/unitcase/components/apiUnitList";
+import ApiScenecaseList from "./modules/apitest/http/scenecase/components/apiScenecaseList";
+import ApiPerformList from "./modules/apitest/http/performcase/components/apiPerformList";
+import ApiContant from "./modules/apitest/http/apitest/apiContant";
 import WebContant from "./modules/webtest/webtest/webContant";
 import FuncContant from "./modules/functest/functest/funcContant";
 import AppContant from "./modules/apptest/apptest/appContant";
@@ -45,12 +45,12 @@ import AppSceneList from "./modules/apptest/scenecase/components/appSceneList";
 import AppPerformList from "./modules/apptest/performcase/components/appPerformList";
 import FuncUnitList from "./modules/functest/unitcase/components/funcUnitList";
 import FuncSceneList from "./modules/functest/scenecase/components/funcSceneList";
-import ApiUnitcaseDetail from "./modules/apitest/unitcase/components/apiUnitDetail";
-import ApiUnitcaseInstance from "./modules/apitest/unitcase/components/apiUnitInstance";
-import ApiScenecaseDetail from "./modules/apitest/scenecase/components/apiScenecaseDetail";
-import ApiSceneInstance from "./modules/apitest/scenecase/components/apiSceneInstance";
-import ApiPerformInstance from "./modules/apitest/performcase/components/apiPerformInstance";
-import ApiPerfomDetailContant from "./modules/apitest/performcase/components/apiPerfomDetailContant";
+import ApiUnitcaseDetail from "./modules/apitest/http/unitcase/components/apiUnitDetail";
+import ApiUnitcaseInstance from "./modules/apitest/http/unitcase/components/apiUnitInstance";
+import ApiScenecaseDetail from "./modules/apitest/http/scenecase/components/apiScenecaseDetail";
+import ApiSceneInstance from "./modules/apitest/http/scenecase/components/apiSceneInstance";
+import ApiPerformInstance from "./modules/apitest/http/performcase/components/apiPerformInstance";
+import ApiPerfomDetailContant from "./modules/apitest/http/performcase/components/apiPerfomDetailContant";
 import FuncUnitDetail from "./modules/functest/unitcase/components/funcUnitDetail";
 import FuncSceneDetail from "./modules/functest/scenecase/components/funcSceneDetail";
 import WebUnitDetail from "./modules/webtest/unitcase/components/webUnitDetail";

@@ -26,7 +26,6 @@ const RepositoryEdit = (props) => {
             findRepository(repositoryId).then((res)=>{
                 form.setFieldsValue({
                     name: res.name,
-                    master:res.master,
                     desc:res.desc
                 })
             })
@@ -79,13 +78,6 @@ const RepositoryEdit = (props) => {
                         label="名称"
                         rules={[{ required: true, message:'名称未添加'}]}
                         name="name"
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        label="管理员"
-                        name="master"
-                        // rules={[{ required: true, }]}
                     >
                         <Input />
                     </Form.Item>

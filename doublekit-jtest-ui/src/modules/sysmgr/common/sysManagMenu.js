@@ -258,7 +258,7 @@ const SystemManagement = (props) => {
                     <div className="doublekit-orga-aside">
                         <ul style={{padding: 0}} >
                             {
-                                // showLi(router)
+                                showLi(router)
                             }
                         </ul>
                     </div>

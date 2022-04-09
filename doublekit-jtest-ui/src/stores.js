@@ -1,4 +1,4 @@
-import { LoginStore,LOGIN_STATUS } from 'doublekit-frame-ui';
+import { LoginStore,LOGIN_STATUS } from 'doublekit-portal-ui';
 import {PluginStore, PLUGIN_STORE} from "doublekit-plugin-ui"
 
 import {

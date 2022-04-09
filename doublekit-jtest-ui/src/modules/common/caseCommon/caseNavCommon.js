@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Dropdown, Input, Menu, Popconfirm} from "antd";
 import {inject, observer} from "mobx-react";
 import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
-import StepEdit from "../../apitest/unitcase/components/apiUnitEdit";
+import StepEdit from "../../apitest/http/unitcase/components/apiUnitEdit";
 
 const CaseNavCommon = (props) =>{
     const {categoryStore,tabKey} = props;

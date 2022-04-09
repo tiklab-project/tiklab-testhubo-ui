@@ -71,7 +71,7 @@ const TestReportApp= (props) => {
                 width={1200}
                 destroyOnClose={true}
             >
-                <div className='test-detail-contant '>
+                <div className='test-WebUnitInstance'>
                     <div className='test-report-detail'>
                         <Form
                             initialValues={{ remember: true }}

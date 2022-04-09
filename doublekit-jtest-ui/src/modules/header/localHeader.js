@@ -1,5 +1,5 @@
 import React from 'react';
-import { loginOutLocal, LOGIN_STATUS } from 'doublekit-frame-ui';
+import { loginOutLocal, LOGIN_STATUS } from 'doublekit-portal-ui';
 import CommonHeader from "./commonHeader";
 import {inject, observer} from "mobx-react";
 

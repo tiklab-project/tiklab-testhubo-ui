@@ -81,11 +81,12 @@
     "axios": "^0.21.0",
     "blueimp-md5": "^2.18.0",
     "chromedriver": "^92.0.2",
-    "doublekit-core-ui": "^1.0.0",
-    "doublekit-frame-ui": "^1.0.3",
+    "doublekit-core-ui": "^1.0.1",
+    "doublekit-licence-ui": "^1.0.1",
     "doublekit-message-ui": "^1.0.0",
     "doublekit-plugin-manage": "^1.0.0",
     "doublekit-plugin-ui": "^1.0.0",
+    "doublekit-portal-ui": "^1.0.0",
     "doublekit-privilege-ui": "^1.0.0",
     "doublekit-user-ui": "^1.0.0",
     "i18next": "^19.8.4",
@@ -101,6 +102,7 @@
     "react-json-view": "^1.21.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "sass": "^1.32.2"
+    "sass": "^1.32.2",
+    "uuid": "^8.3.2"
   }
 }

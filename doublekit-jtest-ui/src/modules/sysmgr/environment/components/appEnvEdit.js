@@ -3,6 +3,11 @@ import React from 'react';
 import { observer, inject } from "mobx-react";
 import { Form, Modal, Button, Input } from 'antd';
 
+const layout = {
+    labelCol: {span: 4},
+    wrapperCol: {span: 20},
+};
+
 // 添加与编辑app环境
 const ApiEnvEdit = (props) => {
     const { appEnvStore, appEnvId } = props;
@@ -55,6 +60,9 @@ const ApiEnvEdit = (props) => {
             visible={visible}
             onCancel={onCancel}
             footer={null}
+            onOk={onFinish}
+            okText="提交"
+            cancelText="取消"
             centered
         >
             <Form
@@ -64,6 +72,7 @@ const ApiEnvEdit = (props) => {
                 form={form}
                 onFinish={onFinish}
                 preserve={false}
+                {...layout}
             >
                 <Form.Item
                     label="环境名称"
@@ -72,16 +81,16 @@ const ApiEnvEdit = (props) => {
                 >
                     <Input />
                 </Form.Item>
-                <Form.Item
-                    label="环境地址"
-                    rules={[{ required: true, message: '用户名不能包含非法字符，如&,%，&，#……等' }]}
-                    name="url"
-                >
-                     <Input />
-                </Form.Item>
-                <Form.Item  >
-                    <Button type="primary" htmlType="submit">提交</Button>
-                </Form.Item>
+                {/*<Form.Item label="appium路径" name="mainjsPath"><Input /></Form.Item>*/}
+                <Form.Item label="appium地址" name="appiumSever"><Input /></Form.Item>
+                <Form.Item label="平台" name="platformName"><Input /></Form.Item>
+                <Form.Item label="设备名" name="deviceName"><Input /></Form.Item>
+                <Form.Item label="设备地址" name="udId"><Input /></Form.Item>
+                <Form.Item label="App包名" name="appPackage"><Input /></Form.Item>
+                <Form.Item label="App入口" name="appActivity"><Input /></Form.Item>
+                {/*<Form.Item  >*/}
+                {/*    <Button type="primary" htmlType="submit">提交</Button>*/}
+                {/*</Form.Item>*/}
             </Form>
         </Modal>
         </>

@@ -35,9 +35,12 @@ const HeaderMenu = (props) =>{
 
     // 切换空间
     const switchRepository=(id)=>{
-        localStorage.setItem('repositoryId',id);
+        sessionStorage.setItem('repositoryId',id);
+
         localStorage.setItem("leftRouter","/repositorypage/detail");
+
         props.history.push({pathname:'/repositorypage'});
+
         setClickIcon(false)
     }
 

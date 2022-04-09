@@ -1,4 +1,4 @@
-import { portal_cn} from 'doublekit-frame-ui';
+import { portal_cn} from 'doublekit-portal-ui';
 import { privilege_en, privilege_cn } from 'doublekit-privilege-ui';
 import { message_cn, message_en } from 'doublekit-message-ui';
 import { orga_cn, orga_en } from 'doublekit-user-ui';

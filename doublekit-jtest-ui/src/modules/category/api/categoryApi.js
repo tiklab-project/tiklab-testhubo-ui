@@ -48,3 +48,12 @@ export function findCategoryListTree(data){
         data
     })
 }
+
+export function findCategoryListTreeTable(data){
+    return service.request({
+        url: "/category/findCategoryListTreeTable",
+        method: "post",
+        data
+    })
+}
+

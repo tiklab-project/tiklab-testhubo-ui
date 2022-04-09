@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import contentImg from '../../../assets/img/contentimg.jpg';
-import { ProjectLogin, LOGIN_STATUS } from 'doublekit-frame-ui'
+import { ProjectLogin, LOGIN_STATUS } from 'doublekit-portal-ui'
 
 import {inject, observer} from 'mobx-react'
 // 登录

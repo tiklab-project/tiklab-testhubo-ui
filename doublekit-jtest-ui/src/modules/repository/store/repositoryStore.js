@@ -51,10 +51,9 @@ export class RepositoryStore {
         param.append('id', id);
         const res = await findRepository(param)
         if(res.code === 0){
-            this.envUrlId = res.data.testEnvironment!==null?res.data.testEnvironment.id:null;
-            this.envUrl = res.data.testEnvironment?res.data.testEnvironment.prepositionUrl:null;
             this.repositoryName = res.data.name
-            return this.repositoryInfo = res.data;
+            this.repositoryInfo = res.data;
+            return res.data;
         }
     }
 

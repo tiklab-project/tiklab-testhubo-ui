@@ -1,5 +1,5 @@
 import React from 'react';
-import {useAccountConfig, useBasePortal} from "doublekit-frame-ui";
+import {useAccountConfig, useBasePortal} from "doublekit-portal-ui";
 import LocalHeader from './localHeader';
 import AccountHeader from './accountHeader';
 import { inject, observer } from 'mobx-react';

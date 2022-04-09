@@ -1,11 +1,13 @@
-/*
- * @Description: 
- * @Author: sunxiancheng
- * @LastEditTime: 2021-10-13 17:05:48
- */
+
 import React from 'react';
 import { observer, inject } from "mobx-react";
 import { Form, Modal, Button, Input } from 'antd';
+
+const layout = {
+    labelCol: {span: 4},
+    wrapperCol: {span: 20},
+};
+
 
 // 添加与编辑空间
 const ApiEnvEdit = (props) => {
@@ -59,15 +61,18 @@ const ApiEnvEdit = (props) => {
             visible={visible}
             onCancel={onCancel}
             footer={null}
+            onOk={onFinish}
+            okText="提交"
+            cancelText="取消"
             centered
         >
             <Form
-               
                 name="basic"
                 initialValues={{ remember: true }}
                 form={form}
                 onFinish={onFinish}
                 preserve={false}
+                {...layout}
             >
                 <Form.Item
                     label="环境名称"
@@ -82,9 +87,6 @@ const ApiEnvEdit = (props) => {
                     name="url"
                 >
                      <Input />
-                </Form.Item>
-                <Form.Item  >
-                    <Button type="primary" htmlType="submit">提交</Button>
                 </Form.Item>
             </Form>
         </Modal>

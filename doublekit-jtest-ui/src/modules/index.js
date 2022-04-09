@@ -40,7 +40,7 @@ import {
 
 
     AppTestcase,
-} from './apitest/unitcase'
+} from './apitest/http/unitcase'
 
 import TestReport from './old/testReport/components/testReport';
 
@@ -63,12 +63,12 @@ import {TESTPLAN_STORE, TestPlanStore} from './testplan/store/testPlanStore';
 import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './testplan/store/testPlanDetailStore';
 import {USERSELECT_STORE, UserSelectStore} from './common/userSelect/store/userSelectStore'
 
-import {APISCENE_STORE, ApiSceneStore} from "./apitest/scenecase/store/apiSceneStore";
-import {APISCENESTEP_STORE, ApiSceneStepStore} from "./apitest/scenecase/store/apiSceneStepStore";
-import {API_SCENEINSTANCE_STORE, ApiSceneInstanceStore} from "./apitest/scenecase/store/apiSceneInstanceStore";
-import { API_PERFORM_STORE, ApiPerformStore} from "./apitest/performcase/store/apiPerformStore"
-import {API_PERFORMSCENE_STORE, ApiPerformSceneStore} from "./apitest/performcase/store/apiPerformSceneStore";
-import {API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore} from "./apitest/performcase/store/apiPerformInstanceStore";
+import {APISCENE_STORE, ApiSceneStore} from "./apitest/http/scenecase/store/apiSceneStore";
+import {APISCENESTEP_STORE, ApiSceneStepStore} from "./apitest/http/scenecase/store/apiSceneStepStore";
+import {API_SCENEINSTANCE_STORE, ApiSceneInstanceStore} from "./apitest/http/scenecase/store/apiSceneInstanceStore";
+import { API_PERFORM_STORE, ApiPerformStore} from "./apitest/http/performcase/store/apiPerformStore"
+import {API_PERFORMSCENE_STORE, ApiPerformSceneStore} from "./apitest/http/performcase/store/apiPerformSceneStore";
+import {API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore} from "./apitest/http/performcase/store/apiPerformInstanceStore";
 
 import {WEB_UNIT_STORE, WebUnitStore} from "./webtest/unitcase/store/webUnitStore"
 import {WEB_UNITSTEP_STORE,WebUnitStepStore} from "./webtest/unitcase/store/webUnitStepStore";

@@ -4,7 +4,8 @@ import {
     createCategory,
     deleteCategory,
     updateCategory,
-    findCategoryListTree
+    findCategoryListTree,
+    findCategoryListTreeTable
 } from '../api/categoryApi';
 export class CategoryStore{
     @observable categoryList = [];
@@ -18,14 +19,30 @@ export class CategoryStore{
         this.repositoryId = value.id;
         const params = {
             name:categoryName,
-            ...value,
             orderParams:[{ name:'name',  orderType:'asc' }],
+            ...value,
         }
 
         const res = await findCategoryListTree(params)
         if(res.code === 0) {
            this.categoryList = res.data;
            return res.data;
+        }
+    }
+
+    @action
+    findCategoryListTreeTable = async (id,categoryName) => {
+        this.repositoryId = id;
+        const params = {
+            name:categoryName,
+            repositoryId:id,
+            orderParams:[{ name:'name',  orderType:'asc' }],
+        }
+
+        const res = await findCategoryListTreeTable(params)
+        if(res.code === 0) {
+            this.categoryList = res.data;
+            return res.data;
         }
     }
 
