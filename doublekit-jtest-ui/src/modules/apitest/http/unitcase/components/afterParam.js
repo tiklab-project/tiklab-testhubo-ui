@@ -6,13 +6,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react';
-import { toJS } from 'mobx'
-import { AFTERPARAM_STORE } from '../store/afterParamStore';
 import { Input, Button, Form } from 'antd';
 const { TextArea } = Input;
 
 const BackParam = (props) => {
-    const {afterParamStore,radioValue  }  = props;
+    const {afterParamStore  }  = props;
 
     const { 
         createAfterScript, 
@@ -25,31 +23,25 @@ const BackParam = (props) => {
     
     const [form] = Form.useForm();
 
-    const  stepId = localStorage.getItem('stepId');
+    const  apiUnitId = sessionStorage.getItem('apiUnitId');
 
     useEffect(()=>{
-        findAfterScript(stepId).then((res)=>{
-            if(res.code === 0){
-                const data = res.data;
-                if(data !== null){
-                    form.setFieldsValue({
-                        scriptex: data.scriptex,
-                    })
-                }
-            }
+        findAfterScript(apiUnitId).then((res)=>{
+            form.setFieldsValue({
+                scriptex: data.scriptex,
+            })
         })
-    },[radioValue])
+    },[apiUnitId])
 
     /**
      * 提交数据
      * @param {*} values 
      */
     const onFinish = (values) => {
-        const data = toJS(afterScriptInfo)
-        if(data === null){
-            createAfterScript(values)
-        }else{
+        if(afterScriptInfo){
             updateAfterScript(values)
+        }else{
+            createAfterScript(values)
         }
 
         setFocus(false)
@@ -77,4 +69,4 @@ const BackParam = (props) => {
     )
 }
 
-export default inject(AFTERPARAM_STORE)(observer(BackParam));
+export default inject("afterParamStore")(observer(BackParam));

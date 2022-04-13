@@ -2,9 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react';
 import { toJS } from 'mobx';
-import { Input, Button, Form } from 'antd';
+import {Input, Button, Form, Select} from 'antd';
 
 const { TextArea } = Input;
+const { Option } = Select;
 
 const RawResponse = (props) => {
     const { rawResponseStore, radioValue }  = props;
@@ -19,16 +20,16 @@ const RawResponse = (props) => {
     const [focus, setFocus] = useState(false);
     
     const [form] = Form.useForm();
+    const apiUnitId = sessionStorage.getItem('apiUnitId');
 
-
-    const stepId = localStorage.getItem('stepId');
     useEffect(()=>{
-        findRawResponse(stepId).then((res)=>{
+        findRawResponse(apiUnitId).then((res)=>{
             if( res.data.code === 0){
                 const data = res.data.data;
                 if(data !== null){
                     form.setFieldsValue({
                         raw: data.raw,
+                        type:res.type
                     })
                 }
             } 
@@ -53,6 +54,13 @@ const RawResponse = (props) => {
         >
             <div className={` ${focus === true ? 'textArea-focus' : 'textArea-blur'}`}>
                 <div className='mock-textarea'>
+                    <Form.Item name='type'>
+                        <Select style={{ width: 100 }} >
+                            <Option value="json">Json</Option>
+                            <Option value="text">Text</Option>
+                            {/*<Option value="html">html</Option>*/}
+                        </Select>
+                    </Form.Item>
                     <Form.Item>
                         <Button>格式化</Button>
                         <Button  htmlType="submit" >保存</Button> 

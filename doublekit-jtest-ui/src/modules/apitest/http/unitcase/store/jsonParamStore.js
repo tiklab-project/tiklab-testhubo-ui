@@ -11,8 +11,8 @@ export class JsonParamStore {
 
     @observable jsonParamList = [];
     @observable jsonParamDataSource = [];
-    @observable jsonParamInfo = [];
-    @observable stepId = '';
+    @observable jsonParamInfo ;
+    @observable apiUnitId = '';
     @observable jsonParamId= '';
 
 
@@ -22,102 +22,80 @@ export class JsonParamStore {
     }
 
     @action
-    findJsonParamListTree = (id) => {
-        this.stepId = id;
+    findJsonParamListTree = async (id) => {
+        this.apiUnitId = id;
         const params = {
-            stepId: id,
-            orderParams:[{
-                    name:'paramName',
-                    orderType:'asc'
-                }],
+            apiUnitId: id,
+            orderParams:[{  name:'paramName', orderType:'asc' }],
         }
-        const that = this;
         const newRow =[ { id: 'jsonParamInitRow'}]
-        return new Promise(function(resolve, reject){
-            findJsonParamListTree(params).then(res => {
-                if(res.code === 0) {
-                    that.jsonParamDataSource = res.data;
-                    if( res.data.length === 0){
-                        that.jsonParamList=newRow
-                    }else {
-                        that.jsonParamList = [...that.jsonParamDataSource, ...newRow];
-                    }
-                    resolve(res.data);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    }
 
-    @action
-    findJsonParam = (id) => {
-        this.jsonParamId = id;
-        const that =this;
-        const param = new FormData();
-        param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findJsonParam(param).then((res) => {
-                if( res.code === 0){
-                    that.jsonParamInfo = res.data;
-                    resolve(res)
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    }
-
-
-    @action
-    createJsonParam = (values) => {
-        values.step = {
-            id:this.stepId
+        const res = await findJsonParamListTree(params)
+        if(res.code === 0) {
+            this.jsonParamDataSource = res.data;
+            if( res.data.length === 0){
+                this.jsonParamList=newRow
+            }else {
+                this.jsonParamList = [...res.data, ...newRow];
+            }
+            return res.data;
         }
-        createJsonParam(values).then((res) => {
-            if( res.code === 0){
-                this.findJsonParamListTree(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
     }
 
     @action
-	updateJsonParam = (values) => {
-		return updateJsonParam(values).then((res) => {
-            if( res.code === 0){
-                return his.findJsonParamListTree(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    @action
-	deleteJsonParam = (id) => {
+    findJsonParam = async (id) => {
+        this.jsonParamId = id;
         const param = new FormData();
         param.append('id', id);
-		deleteJsonParam(param).then((res) => {
-            if( res.code === 0){
-                this.findJsonParamListTree(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+
+        const res = await findJsonParam(param)
+        if( res.code === 0){
+            this.jsonParamInfo = res.data;
+            return  res.data;
+        }
+    }
+
+
+    @action
+    createJsonParam =async (values) => {
+        values.apiUnit = { id:this.apiUnitId }
+
+        const res = await createJsonParam(values)
+        if( res.code === 0){
+            this.findJsonParamListTree(this.apiUnitId);
+        }
+
     }
 
     @action
-	setJsonParamListChild = (parentId) => {
-        const pid = ({
-            id: parentId
-        })
+    updateJsonParam = async (values) => {
+        const res = await updateJsonParam(values)
+
+        if( res.code === 0){
+            return this.findJsonParamListTree(this.apiUnitId);
+        }
+    }
+
+    @action
+    deleteJsonParam = async (id) => {
+        const param = new FormData();
+        param.append('id', id);
+
+        const res = await deleteJsonParam(param)
+        if( res.code === 0){
+            this.findJsonParamListTree(this.apiUnitId);
+        }
+    }
+
+    @action
+    setJsonParamListChild = (parentId) => {
+        const pid = ({ id: parentId  })
         const newChild = {
             id:'jsonParamInitRowChild',
             parent: pid
         }
         const loop = (data,newChild)=>{
-             let newdata = data.map((item) => {
+            let newdata = data.map((item) => {
                 if(item.id && item.id === parentId) {
                     if(item.children === null){
                         item.children = [newChild]
@@ -136,9 +114,8 @@ export class JsonParamStore {
         const data = toJS(this.jsonParamList);
         let result = loop(data,newChild);
         this.jsonParamList = result;
-
-
     }
+
 
 }
 

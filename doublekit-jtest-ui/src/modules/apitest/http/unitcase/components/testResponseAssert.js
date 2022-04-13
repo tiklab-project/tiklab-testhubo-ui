@@ -5,8 +5,8 @@ import { Table } from 'antd';
 
 // 测试过后的断言
 const TestResponseAssert = (props) =>{
-    const { stepStore } = props;
-    const { assertResponse } = stepStore;
+    const { apiUnitStore } = props;
+    const { assertResponse } = apiUnitStore;
     let columns= [
         {
             title: '来源',
@@ -75,4 +75,4 @@ const TestResponseAssert = (props) =>{
 
 
 
-export default inject('stepStore')(observer(TestResponseAssert));
+export default inject('apiUnitStore')(observer(TestResponseAssert));

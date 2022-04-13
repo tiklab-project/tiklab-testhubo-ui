@@ -102,10 +102,10 @@ const JsonResponse = (props) => {
         }
     ]
 
-    const stepId =  localStorage.getItem('stepId');
+    const apiUnitId =  sessionStorage.getItem('apiUnitId');
 
     useEffect(()=>{
-        findJsonResponseListTree(stepId)
+        findJsonResponseListTree(apiUnitId)
     },[radioValue])
 
     // 表格checked
@@ -123,15 +123,6 @@ const JsonResponse = (props) => {
         handleSave(data)
     }
 
-    // 表格select选择事件
-    const onSelect = (value, row) => {
-        const data = {
-            ...row,
-            dataType: value
-        }
-        handleSave(data)
-    }
-
     // 点击子按钮，添加子行
     const addChild = (dataType,  parentid) => {
         if(dataType === 'object'){
@@ -145,7 +136,7 @@ const JsonResponse = (props) => {
         const values = data;
         delete values.id;
         values.step = {
-            id: stepId
+            id: apiUnitId
         }
         createJsonResponse(values)
 

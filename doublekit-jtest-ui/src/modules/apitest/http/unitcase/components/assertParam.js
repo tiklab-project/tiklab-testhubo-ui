@@ -84,9 +84,10 @@ const AssertParam = (props) =>{
                     item.id === record.id
                         ?<Space key={item.id}>
                             {
-                                item.source === record.source &&
-                                item.propertyName === record.propertyName && item.value === record.value
-                                    ?''
+                                item.source === record.source 
+                                && item.propertyName === record.propertyName 
+                                && item.value === record.value
+                                    ?null
                                     :<a onClick={() =>upData(record)}>更新</a>
                             }
                             <Popconfirm
@@ -98,17 +99,17 @@ const AssertParam = (props) =>{
                                 <a href="#">删除</a>
                             </Popconfirm>
                         </Space>
-                        :''
+                        :null
                 )
             })
         }
     }
 
     const [dataSource,setDataSoure] =useState([])
+    const apiUnitId = localStorage.getItem('apiUnitId');
 
-    const stepId = localStorage.getItem('stepId');
     useEffect( ()=>{
-        findAssertParamList(stepId).then(res => setDataSoure(res));
+        findAssertParamList(apiUnitId).then(res => setDataSoure(res));
     },[dataLength])
 
     //更新
@@ -145,12 +146,9 @@ const AssertParam = (props) =>{
 
     // 保存数据
     const handleSave = (row) => {
-        const newData = [...assertParamList];
-
+        const newData = assertParamList;
         const index = newData.findIndex((item) => row.id === item.id);
-
         newData.splice(index, 1, { ...newData[index], ...row });
-
         setList(newData)
     };
 

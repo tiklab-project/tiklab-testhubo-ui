@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from "mobx-react";
 import {Space, Checkbox, Popconfirm} from 'antd';
-import {mockValueDictionary,dataTypeDictionary} from '../../../../../common/dictionary/dictionary';
+import {mockValueDictionary} from '../../../../../common/dictionary/dictionary';
 import ExSelect from "../../../../common/exSelect";
 import {ExTable}from '../../../../common/editTable';
 
@@ -24,84 +24,70 @@ const QueryParam = (props) =>{
         queryParamDataSource
     } = queryParamStore;
 
-    /**
-     * 表格头部信息
-     */
+
+    const [dataSource,setDataSource] = useState([])
+    const apiUnitId = sessionStorage.getItem('apiUnitId');
+
+    useEffect( ()=>{
+        findQueryParamList(apiUnitId).then(res=>setDataSource(res))
+    },[dataLength])
+
     let columns= [
         {
-            title: '标签',
+            title: '参数名称',
             dataIndex: 'paramName',
-            width: '18%',
-            align:'center',
+            width: '20%',
             editable: true,
-        },
-        {
-            title: '数据类型',
-            width: '10%',
-            dataIndex: 'dataType',
-            align:'center',
-            render: (text, record)=>(
-                <ExSelect
-                    dictionary={dataTypeDictionary}
-                    defaultValue={record.dataType}
-                    handleSave={handleSave}
-                    rowData={record}
-                    dataIndex={'dataType'}
-                />
-            )
         },
         {
             title: '必须',
             dataIndex: 'required',
-            width: '10%',
-            align:'center',
+            width: '6%',
             render:(text,record) =>  (
-                <Checkbox defaultChecked={record.required} onChange={(value) => toggleChecked(value, record)}/>
+                <Checkbox
+                    defaultChecked={record.required}
+                    onChange={(value) => toggleChecked(value, record)}
+                />
             )
-        },
-        {
+        },{
+            title: '示例值',
+            width: '20%',
+            dataIndex: 'value',
+            render: (text, record)=>(
+                <ExSelect
+                    dictionary={mockValueDictionary}
+                    defaultValue={record.value}
+                    handleSave={handleSave}
+                    rowData={record}
+                    dataIndex={'value'}
+                />
+            )
+
+        },{
             title: '说明',
-            width: '18%',
+            width: '30%',
             dataIndex: 'desc',
-            align:'center',
             editable: true,
 
         },
         {
-            title: '示例',
-            width: '18%',
-            dataIndex: 'eg',
-            align:'center',
-            render: (text, record)=>(
-                <ExSelect
-                    dictionary={mockValueDictionary}
-                    defaultValue={record.eg}
-                    handleSave={handleSave}
-                    rowData={record}
-                    dataIndex={'eg'}
-                />
-            )
-        },
-        {
             title: '操作',
-            align:'center',
+            width: '10%',
             dataIndex: 'operation',
-            render: (text, record,index) =>(operation(record,dataSource))
+            render: (text, record) =>(operation(record,dataSource))
         }
     ]
 
     // 必须项的checked
     const toggleChecked = (e,row) => {
-        let checked = '';
+        let checked;
         if(e.target.checked){
             checked = 1
         }else{
             checked = 0
         }
-        const data = {
-            ...row,
-            required: checked
-        }
+        const data = {...row,  required: checked}
+
         handleSave(data)
     }
 
@@ -110,38 +96,43 @@ const QueryParam = (props) =>{
         if(record.id === 'QueryParamInitRow'){
             return <a onClick={() =>onCreated(record)} >添加</a>
         }else{
-            return data&&data.map((item) => {
-                return (
-                    item.id === record.id
-                    ?<Space key={item.id}>
-                        {
-                            item.paramName === record.paramName &&
-                            item.dataType === record.dataType && item.required === record.required &&
-                            item.desc === record.desc && item.eg === record.eg
-                                ?''
-                                :<a onClick={() =>upData(record)} > 更新</a>
-                        }
-                        <Popconfirm
-                            title="确定删除？"
-                            onConfirm={() =>deleteQueryParam(record.id)}
-                            okText='确定'
-                            cancelText='取消'
-                        >
-                            <a href="#">删除</a>
-                        </Popconfirm>
-                    </Space>
-                    :''
-                )
-            })
+            return <Space key={record.id}>
+                {
+                    updateView(record,data)
+                }
+                <Popconfirm
+                    title="确定删除？"
+                    onConfirm={() => deleteQueryParam(record.id)}
+                    okText='确定'
+                    cancelText='取消'
+                >
+                    <a href="#">删除</a>
+                </Popconfirm>
+            </Space>
         }
     }
 
-    const [dataSource,setDataSource] = useState([])
+    //本地编辑的值和返回的值比较，不想同的会显示更新按钮
+    const updateView = (record,data)=>{
+        return data&&data.map((item) => {
+            return (
+                item.id === record.id
+                    ?<>
+                        {
+                            item.paramName === record.paramName
+                            && item.dataType === record.dataType
+                            && item.required === record.required
+                            && item.desc === record.desc
+                            && item.value === record.value
+                                ? null
+                                : <a onClick={() => upData(record)}>更新</a>
+                        }
+                    </>
+                    :null
+            )
+        })
+    }
 
-    const stepId = localStorage.getItem('stepId');
-    useEffect( ()=>{
-        findQueryParamList(stepId).then(res=>setDataSource(res))
-    },[dataLength])
 
     // 添加
     const onCreated = (values) => {
@@ -161,12 +152,9 @@ const QueryParam = (props) =>{
 
     // 保存数据
     const handleSave = (row) => {
-        const newData = [...queryParamList];
-
+        const newData = queryParamList;
         const index = newData.findIndex((item) => row.id === item.id);
-
         newData.splice(index, 1, { ...newData[index], ...row });
-
         setList(newData)
     };
 

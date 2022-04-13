@@ -47,7 +47,8 @@ export class ApiUnitStore {
         const param = new FormData();
         param.append('id', id)
 
-        await deleteApiUnit(param)
+        return await deleteApiUnit(param)
+
     }
     
 }

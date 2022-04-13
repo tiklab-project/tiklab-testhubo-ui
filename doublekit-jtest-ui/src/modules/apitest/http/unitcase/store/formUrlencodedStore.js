@@ -10,7 +10,7 @@ import {
 export class FormUrlencodedStore {
 
     @observable formUrlencodedList = [];
-    @observable formUrlencodedInfo = [];
+    @observable formUrlencodedInfo;
     @observable formUrlencodedDataSource = [];
     @observable apiUnitcaseId;
     @observable dataLength;
@@ -22,22 +22,22 @@ export class FormUrlencodedStore {
 
     @action
     findFormUrlencodedList = async (id) => {
-        this.apiUnitcaseId = id;
+        this.apiUnitId = id;
         const params = {
-            httpId: id,
+            apiUnitId: id,
             orderParams:[{name:'paramName', orderType:'asc'}],
         }
         const newRow =[ { id: 'FormUrlencodedInitRow'}];
         const res = await findFormUrlencodedList(params);
-
         if(res.code === 0) {
             this.dataLength = res.data.length
+            this.formUrlencodedDataSource = res.data;
             if( res.data.length === 0 ){
                 this.formUrlencodedList= newRow;
             }else {
-                this.formUrlencodedList = [...this.formUrlencodedDataSource,...newRow];
+                this.formUrlencodedList = [...res.data,...newRow];
             }
-            return this.formUrlencodedDataSource = res.data;
+            return  res.data;
         }
     }
 
@@ -48,18 +48,19 @@ export class FormUrlencodedStore {
 
         const res = await findFormUrlencoded(param);
         if( res.code === 0){
-            return  this.formUrlencodedInfo = res.data;
+            this.formUrlencodedInfo = res.data;
+            return res.data;
         }
     }
 
 
     @action
     createFormUrlencoded = async (values) => {
-        values.http = {id: this.apiUnitcaseId}
+        values.apiUnit = {id: this.apiUnitId}
 
         const res = await createFormUrlencoded(values)
         if( res.code === 0){
-            return this.findFormUrlencodedList(this.apiUnitcaseId);
+            return this.findFormUrlencodedList(this.apiUnitId);
         }
     }
 
@@ -67,7 +68,7 @@ export class FormUrlencodedStore {
     updateFormUrlencoded = async (values) => {
         const res = await updateFormUrlencoded(values)
         if( res.code === 0){
-            return this.findFormUrlencodedList(this.apiUnitcaseId);
+            return this.findFormUrlencodedList(this.apiUnitId);
         }
     }
 
@@ -75,9 +76,10 @@ export class FormUrlencodedStore {
     deleteFormUrlencoded = async (id) => {
         const param = new FormData();
         param.append('id', id);
+
         const res = await deleteFormUrlencoded(param)
         if( res.code === 0){
-            this.findFormUrlencodedList(this.apiUnitcaseId);
+            this.findFormUrlencodedList(this.apiUnitId);
         }
     }
 

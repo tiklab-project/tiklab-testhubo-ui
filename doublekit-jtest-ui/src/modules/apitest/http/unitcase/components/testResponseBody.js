@@ -6,8 +6,8 @@ import {inject, observer} from "mobx-react";
 const {TextArea} = Input;
 
 const TestResponseBody =(props)=>{
-    const {stepStore} = props;
-    const {responseBodyData} = stepStore;
+    const {apiUnitStore} = props;
+    const {responseBodyData} = apiUnitStore;
 
 
     let dataType = responseBodyData instanceof Object;
@@ -34,4 +34,4 @@ const TestResponseBody =(props)=>{
 
 }
 
-export default inject("stepStore")(observer(TestResponseBody));
+export default inject("apiUnitStore")(observer(TestResponseBody));

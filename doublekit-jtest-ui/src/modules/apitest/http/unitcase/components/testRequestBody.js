@@ -5,8 +5,8 @@ import {Input} from "antd";
 const {TextArea} = Input;
 
 const TestRequestBody =(props) =>{
-    const { stepStore } = props;
-    const { requestBodyData } = stepStore;
+    const { apiUnitStore } = props;
+    const { requestBodyData } = apiUnitStore;
 
     return(
         <TextArea
@@ -16,4 +16,4 @@ const TestRequestBody =(props) =>{
     )
 }
 
-export default inject("stepStore")(observer(TestRequestBody))
+export default inject("apiUnitStore")(observer(TestRequestBody))

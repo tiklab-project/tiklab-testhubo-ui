@@ -7,59 +7,37 @@ import {
 
 export class PreParamStore {
 
-    @observable preScriptInfo = [];
-    @observable stepId = '';
-    @observable preScriptId = '';
+    @observable preScriptInfo;
+    @observable apiUnitId = '';
 
     @action
-    findPreScript = (id) => {
-        this.stepId = id;
-        this.preScriptId = id;
-        const that =this;
-
+    findPreScript = async (id) => {
+        this.apiUnitId = id;
+        
         const param = new FormData();
-        param.append('id', id)
-        return new Promise(function(resolve, reject){
-            findPreScript(param).then((res) => {
-                if( res.code === 0){
-                    that.preScriptInfo = res.data
-                    resolve(res)
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+        param.append('id', id);
 
+        const res = await findPreScript(param);
+        if( res.code === 0){
+            this.preScriptInfo = res.data;
+            return  res.data;
+        }
     }
 
     @action
-    createPreScript = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
-        values.id =  this.preScriptId;
-        createPreScript(values).then((res) => {
-            if( res.code === 0){
-                this.findPreScript(this.preScriptId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    createPreScript = async (values) => {
+        values.apiUnit = {id: this.apiUnitId};
+        values.id =  this.apiUnitId;
+
+        await createPreScript(values);
     }
 
     @action
-	updatePreScript = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
-        values.id= this.preScriptId;
-		updatePreScript(values).then((res) => {
-            if( res.code === 0){
-                this.findPreScript(this.preScriptId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    updatePreScript = async (values) => {
+        values.apiUnit = {id: this.apiUnitId}
+        values.id = this.apiUnitId;
+
+        await updatePreScript(values);
     }
 
 }

@@ -11,8 +11,8 @@ const layout = {
 
 // 添加与编辑
 const ApiUnitEdit = (props) => {
-    const { apiUnitStore, apiUnitId } = props;
-    const {findApiUnit, createApiUnit, updateApiUnit,findApiUnitPage} = apiUnitStore;
+    const { apiUnitStore, apiUnitId,testType,caseType,categoryId,findPage } = props;
+    const {findApiUnit, createApiUnit, updateApiUnit} = apiUnitStore;
 
     const [form] = Form.useForm();
 
@@ -34,17 +34,11 @@ const ApiUnitEdit = (props) => {
         setVisible(true);
     };
 
-    const testType = localStorage.getItem("testType");
-    const caseType = localStorage.getItem("caseType");
-
-    const categoryId = sessionStorage.getItem("categoryId")
-
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
-        values.categoryId=categoryId;
-
         values.testCase={
+            category:{id:categoryId},
             name:values.name,
             testType:testType,
             caseType:caseType,
@@ -57,7 +51,7 @@ const ApiUnitEdit = (props) => {
         if(props.name === "添加用例" ){
             createApiUnit(values).then(res=>{
                 if(res.code===0){
-                    findApiUnitPage(categoryId)
+                    findPage()
                 }else {
                     message.error('This is an error message');
                 }
@@ -66,11 +60,11 @@ const ApiUnitEdit = (props) => {
             values.id=apiUnitId;
             updateApiUnit(values).then(res=>{
                 if(res.code===0){
-                    findApiUnitPage(categoryId)
+                    findPage()
                 }else {
                     message.error('This is an error message');
                 }
-            });;
+            });
         }
         setVisible(false);
     };

@@ -18,21 +18,22 @@ const Request = (props) => {
         findRequestBody,
         createRequestBody,
         updateRequestBody,
-        requestBodyInfo
+        bodyType
     } = requestBodyStore;
 
     const [radioValue, setRadioValue] = useState('formdata')
 
-    const stepId = localStorage.getItem('stepId');
+    const apiUnitId = sessionStorage.getItem('apiUnitId');
+    
     useEffect(()=>{
-        findRequestBody(stepId).then((res) => {
+        findRequestBody(apiUnitId).then((res) => {
             if(res){
                 setRadioValue(res)
             }else{
                 createRequestBody({bodyType :'formdata'});
             }
         })
-    },[requestBodyInfo])
+    },[bodyType])
 
     //radio变化，更新radio的值
     const onChange = e => {

@@ -49,7 +49,7 @@ const AppUnitCategory = (props) =>{
         setClickKey(item.id);
         setOpenOrClose(item.id);
 
-        localStorage.setItem('categoryId',item.id);
+        sessionStorage.setItem('categoryId',item.id);
 
         addRouter('/repositorypage/apptest/unitcase');
     }
@@ -58,7 +58,7 @@ const AppUnitCategory = (props) =>{
     const onNode = (item) => {
         setClickKey(item.id);
 
-        localStorage.setItem('nodeId',item.id);
+        sessionStorage.setItem('nodeId',item.id);
         addRouter('/repositorypage/apptest/unitdetail');
     }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from "mobx-react";
-import {Table, Space, Tooltip, Checkbox, Popconfirm} from 'antd';
+import { Space,  Checkbox, Popconfirm} from 'antd';
 import {ExTable}from '../../../../common/editTable'
 
 // 请求参数的可编辑表格
@@ -31,7 +31,10 @@ const ResponseHeader = (props) =>{
             width: '10%',
             align:'center',
             render:(text,record) =>  (
-                <Checkbox defaultChecked={record.required} onChange={(value) => toggleChecked(value, record)}/>
+                <Checkbox
+                    defaultChecked={record.required}
+                    onChange={(value) => toggleChecked(value, record)}
+                />
             )
         },
         {
@@ -52,7 +55,7 @@ const ResponseHeader = (props) =>{
             title: '操作',
             align:'center',
             dataIndex: 'operation',
-            render: (text, record,index) =>(operation(record,dataSource))
+            render: (text, record) =>(operation(record,dataSource))
         }
     ]
 
@@ -80,35 +83,36 @@ const ResponseHeader = (props) =>{
             return data&&data.map((item) => {
                 return (
                     item.id === record.id
-                    ?<Space key={item.id}>
-                        {
-                            item.headerName === record.headerName && item.required === record.required &&
-                            item.desc === record.desc && item.eg === record.eg
-                                ?''
-                                :<a onClick={() =>upData(record)}>更新</a>
-                        }
-                        <Popconfirm
-                            title="确定删除？"
-                            onConfirm={() =>deleteResponseHeader(record.id)}
-                            okText='确定'
-                            cancelText='取消'
-                        >
-                            <a href="#">删除</a>
-                        </Popconfirm>
-                    </Space>
-                    :''
+                        ?<Space key={item.id}>
+                            {
+                                item.headerName === record.headerName
+                                && item.required === record.required
+                                && item.desc === record.desc
+                                && item.value === record.value
+                                    ?null
+                                    :<a onClick={() =>upData(record)}>更新</a>
+                            }
+                            <Popconfirm
+                                title="确定删除？"
+                                onConfirm={() =>deleteResponseHeader(record.id)}
+                                okText='确定'
+                                cancelText='取消'
+                            >
+                                <a href="#">删除</a>
+                            </Popconfirm>
+                        </Space>
+                        :null
                 )
             })
         }
     }
 
     const [dataSource,setDataSource] = useState([])
-
-    const stepId =  localStorage.getItem('stepId');
+    const apiUnitId =  localStorage.getItem('apiUnitId');
 
     useEffect( ()=>{
-        findResponseHeaderList(stepId).then(res=>setDataSource(res))
-    },[dataLength])
+        findResponseHeaderList(apiUnitId).then(res=>setDataSource(res))
+    },[apiUnitId])
 
     // 添加
     const onCreated = (values) => {
@@ -127,40 +131,15 @@ const ResponseHeader = (props) =>{
 
     // 保存数据
     const handleSave = (row) => {
-        const newData = [...responseHeaderList];
+        const newData = responseHeaderList;
         const index = newData.findIndex((item) =>row.id === item.id);
         newData.splice(index, 1, { ...newData[index], ...row });
         setList(newData)
     };
 
 
-    // let column = columns.map((col) => {
-    //     if (!col.editable) {
-    //         return col;
-    //     }
-    //     return {
-    //         ...col,
-    //         onCell: (record) => ({
-    //             record,
-    //             editable: col.editable,
-    //             dataIndex: col.dataIndex,
-    //             title: col.title,
-    //             handleSave: handleSave,
-    //         }),
-    //     };
-    // });
-
     return (
-        // <div>
-        //     <Table
-        //         components={components}
-        //         rowClassName={() => 'editable-row'}
-        //         pagination={false}
-        //         dataSource={responseHeaderList}
-        //         columns={column}
-        //         rowKey = {record => record.id}
-        //     />
-        // </div>
+
         <ExTable
             columns={columns}
             dataSource={responseHeaderList}

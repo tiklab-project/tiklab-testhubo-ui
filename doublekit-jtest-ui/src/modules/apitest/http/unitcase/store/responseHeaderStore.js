@@ -9,103 +9,81 @@ import {
 
 export class ResponseHeaderStore {
     @observable responseHeaderList = [];
-    @observable responseHeaderInfo = [];
+    @observable responseHeaderInfo;
     @observable responseHeaderDataSource = [];
-    @observable stepId = '';
+    @observable apiUnitId = '';
     @observable dataLength = '';
 
     @action
     setList = (values) => {
         this.responseHeaderList = [...values]
     }
-
     @action
-    findResponseHeaderList = (id) => {
-        this.stepId = id;
+    findResponseHeaderList = async (id) => {
+        this.apiUnitId = id;
         const params = {
-            stepId: id,
-            orderParams:[{
-                    name:'headerName',
-                    orderType:'asc'
-                }],
+            apiUnitId: id,
+            orderParams:[{ name:'headerName',  orderType:'asc'  }],
         }
-        const that = this;
 
         const newRow =[ { id: 'ResponseHeaderInitRow'}]
 
-        return new Promise(function(resolve, reject){
-            findResponseHeaderList(params).then(res => {
-                if( res.code === 0){
-                    that.dataLength = res.data.length
-                    that.responseHeaderDataSource = res.data;
-                    if( res.data.length === 0){
-                        that.responseHeaderList=newRow;
-                    }else {
-                        that.responseHeaderList = [...that.responseHeaderDataSource,...newRow];
-                    }
-                    resolve(res.data);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    }
+        const res = await findResponseHeaderList(params);
+        if( res.code === 0){
+            this.dataLength = res.data.length
+            this.responseHeaderDataSource = res.data;
 
-    @action
-    findResponseHeader = (id) => {
-        const that =this;
-        const param = new FormData();
-        param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findResponseHeader(param).then((res) => {
-                if( res.code === 0){
-                    that.responseHeaderInfo = res.data;
-                    resolve(res);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    }
-
-
-    @action
-    createResponseHeader = (values) => {
-        values.step = {
-            id:this.stepId
+            if( res.data.length === 0){
+                this.responseHeaderList=newRow;
+            }else {
+                this.responseHeaderList = [...res.data,...newRow];
+            }
+            return res.data;
         }
-        return  createResponseHeader(values).then((res) => {
-            if( res.code === 0){
-                return  this.findResponseHeaderList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
     }
 
     @action
-	updateResponseHeader = (values) => {
-		return updateResponseHeader(values).then((res) => {
-            if( res.code === 0){
-                return this.findResponseHeaderList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    @action
-	deleteResponseHeader = (id) => {
+    findResponseHeader = async (id) => {
         const param = new FormData();
         param.append('id', id);
-		deleteResponseHeader(param).then((res) => {
-            if( res.code === 0){
-                this.findResponseHeaderList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+
+        const res = await  findResponseHeader(param)
+        if( res.code === 0){
+            this.responseHeaderInfo = res.data;
+            return res.data;
+        }
     }
+
+
+    @action
+    createResponseHeader = async (values) => {
+        values.apiUnit = { id:this.apiUnitId }
+
+        const res = await createResponseHeader(values)
+        if( res.code === 0){
+            return  this.findResponseHeaderList(this.apiUnitId);
+        }
+    }
+
+    @action
+    updateResponseHeader = async (values) => {
+        const res = await updateResponseHeader(values)
+        if( res.code === 0){
+            return this.findResponseHeaderList(this.apiUnitId);
+        }
+    }
+
+    @action
+    deleteResponseHeader = async (id) => {
+        const param = new FormData();
+        param.append('id', id);
+
+        const res = await deleteResponseHeader(param)
+        if( res.code === 0){
+            this.findResponseHeaderList(this.apiUnitId);
+        }
+    }
+
 
 }
 

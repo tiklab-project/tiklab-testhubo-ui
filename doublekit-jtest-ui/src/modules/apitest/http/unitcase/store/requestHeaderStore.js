@@ -11,7 +11,7 @@ export  class RequestHeaderStore {
     @observable requestHeaderList = [];
     @observable requestHeaderInfo = [];
     @observable requestHeaderDataSource = [];
-    @observable stepId;
+    @observable apiUnitId;
     @observable dataLength;
 
     @action
@@ -20,85 +20,62 @@ export  class RequestHeaderStore {
     }
 
     @action
-    findRequestHeaderList = (id) => {
-        this.stepId = id;
+    findRequestHeaderList = async (id) => {
+        this.apiUnitId = id;
         const params = {
-            stepId: id,
-            orderParams:[{
-                    name:'headerName',
-                    orderType:'asc'
-                }],
+            apiUnitId: id,
+            orderParams:[{ name:'headerName', orderType:'asc'}],
         }
-        const that = this;
-        const newRow =[ { id: 'RequestHeaderInitRow'}]
-        return new Promise(function(resolve, reject){
-            findRequestHeaderList(params).then((res) => {
-                if( res.code===0 ){
-                    that.dataLength = res.data.length
-                    that.requestHeaderDataSource=res.data
-                    if( res.data.length === 0){
-                        that.requestHeaderList=newRow;
-                    }else {
-                        that.requestHeaderList = [...that.requestHeaderDataSource,...newRow];
-                    }
-                    resolve(res.data);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+        const newRow =[ { id: 'RequestHeaderInitRow'}];
+        const res = await findRequestHeaderList(params);
+        if( res.code===0 ){
+            this.dataLength = res.data.length
+            this.requestHeaderDataSource=res.data
+            if( res.data.length === 0){
+                this.requestHeaderList=newRow;
+            }else {
+                this.requestHeaderList = [...res.data,...newRow];
+            }
+            return res.data
+        }
     }
 
     @action
-    findRequestHeader = (id) => {
-        const that =this;
+    findRequestHeader = async (id) => {
+        const param = new FormData();
+        param.append('id', id);
+        const res = await findRequestHeader(param)
+        if( res.code === 0){
+            this.requestHeaderInfo = res.data;
+            return res.data;
+        }
+    }
+
+    @action
+    createRequestHeader = async (values) => {
+        values.apiUnit = {id:this.apiUnitId}
+        const res = await createRequestHeader(values)
+        if( res.code === 0){
+            return this.findRequestHeaderList(this.apiUnitId);
+        }
+    }
+
+    @action
+    updateRequestHeader = async (values) => {
+        const res = await updateRequestHeader(values)
+        if( res.code === 0){
+            return this.findRequestHeaderList(this.apiUnitId);
+        }
+    }
+
+    @action
+    deleteRequestHeader = async (id) => {
         const param = new FormData();
         param.append('id', id)
-        return new Promise(function(resolve, reject){
-            findRequestHeader(param).then((res) => {
-                if( res.code === 0){
-                    that.requestHeaderInfo = res.data;
-                    resolve(res);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    }
-
-    @action
-    createRequestHeader = (values) => {
-        createRequestHeader(values).then((res) => {
-            if( res.code === 0){
-                this.findRequestHeaderList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    @action
-	updateRequestHeader = (values) => {
-        return updateRequestHeader(values).then((res) => {
-            if( res.code === 0){
-                return this.findRequestHeaderList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    @action
-	deleteRequestHeader = (id) => {
-        const param = new FormData();
-        param.append('id', id)
-		deleteRequestHeader(param).then((res) => {
-            if( res.code === 0){
-                this.findRequestHeaderList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+        const res = await deleteRequestHeader(param)
+        if(res.code === 0){
+            this.findRequestHeaderList(this.apiUnitId);
+        }
     }
 
 

@@ -6,59 +6,39 @@ import {
 } from '../api/requestBodyApi';
 
 export class RequestBodyStore {
-    @observable requestBodyInfo = [];
-    @observable stepId = '';
+    @observable bodyType ;
+    @observable apiUnitId = '';
     @observable requestBodyId = '';
 
     @action
-    findRequestBody = (id) => {
-        this.stepId = id;
-        this.requestBodyId = id;
-        const that =this;
+    findRequestBody = async (id) => {
+        this.apiUnitId = id;
+        this.requestBodyId= id;
+
         const param = new FormData();
         param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findRequestBody(param).then((res) => {
-                if( res.code === 0){
-                    if(res.data !== null){
-                        that.requestBodyInfo = res.data.bodyType;
-                    }
-                    resolve(res.data);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+
+        const res  = await findRequestBody(param);
+        if( res.code === 0){
+            this.bodyType = res.data?.bodyType;
+            return res.data?.bodyType;
+        }
     }
 
     @action
-    createRequestBody = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
-        values.id =  this.requestBodyId;
-        createRequestBody(values).then((res) => {
-            if( res.code === 0){
-                this.findRequestBody(this.requestBodyId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    createRequestBody = async (values) => {
+        values.apiUnit = {id: this.apiUnitId}
+        values.id = this.requestBodyId;
+
+        await createRequestBody(values);
     }
 
     @action
-	updateRequestBody = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
+    updateRequestBody = async (values) => {
+        values.apiUnit = {id: this.apiUnitId,}
         values.id= this.requestBodyId;
-		updateRequestBody(values).then((res) => {
-            if( res.code === 0){
-                this.findRequestBody(this.requestBodyId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+
+        await updateRequestBody(values);
     }
 
 }

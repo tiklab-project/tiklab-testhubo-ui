@@ -7,50 +7,42 @@ import Response from "./response";
 import './unitcase.scss'
 import BackCommon from "../../../../common/backCommon";
 import ApiEnvSelect from "../../apitest/apiEnvSelect";
+import TestResultDrawer from "./testResultDrawer";
 
 const ApiUnitDetail = (props) => {
-    const { stepStore } = props;
-    const { findStep,deleteStep } = stepStore;
+    const { apiUnitStore } = props;
+    const { findApiUnit,deleteApiUnit } = apiUnitStore;
 
     const addRouter = props.history.push;
 
     let caseType = localStorage.getItem("caseType")
-    const stepId = localStorage.getItem('stepId');
+    const apiUnitId = sessionStorage.getItem('apiUnitId');
 
-    const [showResponse,setShowResponse] = useState(false);
-
-    const [name,setName]=useState("casename");
-    const [requestType,setRequestType] =useState("post");
-    const [path, setPath] = useState("/a/b/c/d");
-    const [desc, setDesc] = useState("13rwretwetwetw");
-    const [createUser, setCreateUser] = useState("user");
-    const [updataUser, setUpdataUser] = useState("user");
-    const [category, setCategory] = useState("目录");
-    const [updateTime, setUpdateTime] = useState("2022-22-22-");
+    const [name,setName]=useState();
+    const [methodType, setMethodType] = useState();
+    const [path, setPath] = useState();
+    const [desc, setDesc] = useState();
+    const [createUser, setCreateUser] = useState();
+    const [updataUser, setUpdataUser] = useState();
+    const [category, setCategory] = useState();
+    const [updateTime, setUpdateTime] = useState();
 
     useEffect(()=>{
-        findStep(stepId).then((res)=>{
-            setName(res.name);
-            setRequestType(res.stepType);
+        findApiUnit(apiUnitId).then((res)=>{
+            setName(res.testCase.name);
+            setMethodType(res.methodType);
             setPath(res.path);
-            setDesc(res.desc);
-            setCreateUser(res.createUser?.name);
-            setUpdataUser(res.updateUser?.name);
-            setCategory(res.category?.name);
-            setUpdateTime(res.updateTime);
+            setDesc(res.testCase.desc);
+            setCreateUser(res.testCase.createUser?.name);
+            setUpdataUser(res.testCase.updateUser?.name);
+            setCategory(res.testCase.category?.name);
+            setUpdateTime(res.testCase.updateTime);
         })
-    },[stepId])
-
-    //执行测试
-    const actionTest = () =>{
-        //调接口
-
-        setShowResponse(true)
-    }
+    },[apiUnitId])
 
     // 删除步骤
-    const handleDeleteStep = (stepId) => {
-        deleteStep(stepId)
+    const handleDeleteApiUnit = (apiUnitId) => {
+        deleteApiUnit(apiUnitId)
         addRouter({pathname:'/repositorypage/apitest/unitcase'})
     }
 
@@ -83,13 +75,13 @@ const ApiUnitDetail = (props) => {
                             :null
                     }
 
-                    <Button className="important-btn" onClick={actionTest}>测试</Button>
-                    <Button danger onClick={()=>handleDeleteStep(stepId)}>删除</Button>
+                    <TestResultDrawer />
+                    <Button danger onClick={()=>handleDeleteApiUnit(apiUnitId)}>删除</Button>
                 </div>
             </div>
             <div className={"method"}>
                 <div className={"method-info info-item"}>
-                    <span className={"method-info-item "}><RequestType type={requestType} /></span>
+                    <span className={"method-info-item "}><RequestType type={methodType} /></span>
                     <span className={"method-info-item method-info-path"}>{path}</span>
                 </div>
                 <div className={"info-item"}><span>描述:</span>{desc}</div>
@@ -100,13 +92,13 @@ const ApiUnitDetail = (props) => {
                     <span className={"people-item "}>更新时间: {updateTime}</span>
                 </div>
             </div>
-            <div className="title ex-title">输入参数</div>
+            {/*<div className="title ex-title">输入参数</div>*/}
             <Request  />
             <div className="title ex-title">输出结果</div>
-            <Response showResponse={showResponse} />
+            <Response />
 
         </Fragment>
     )
 }
 
-export default inject('stepStore')(observer(ApiUnitDetail));
+export default inject('apiUnitStore')(observer(ApiUnitDetail));

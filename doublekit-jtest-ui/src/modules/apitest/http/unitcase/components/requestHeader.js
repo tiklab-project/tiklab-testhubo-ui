@@ -19,6 +19,14 @@ const RequestHeader = (props) =>{
         requestHeaderDataSource
     } = requestHeaderStore;
 
+    const [dataSource,setDataSource] = useState([])
+    const apiUnitId = sessionStorage.getItem('apiUnitId');
+
+    useEffect( ()=>{
+        findRequestHeaderList(apiUnitId).then(res=>setDataSource(res))
+    },[dataLength])
+
+
     //表头
     let columns= [
         {
@@ -46,39 +54,36 @@ const RequestHeader = (props) =>{
             )
         },
         {
+            title: '示例值',
+            width: '20%',
+            dataIndex: 'value',
+            align:'center',
+            editable: true,
+        },{
             title: '说明',
             width: '20%',
             dataIndex: 'desc',
             align:'center',
             editable: true,
         },
-        {
-            title: '示例',
-            width: '20%',
-            dataIndex: 'eg',
-            align:'center',
-            editable: true,
-        },
+       
         {
             title: '操作',
             align:'center',
             dataIndex: 'operation',
-            render: (text, record,index) =>(operation(record,dataSource))
+            render: (text, record) =>(operation(record,dataSource))
         }
     ]
 
     // 表格里checked
     const toggleChecked= (e,row)=> {
-        let checked = '';
+        let checked;
         if(e.target.checked){
             checked = 1
         }else{
             checked = 0
         }
-        const data = {
-            ...row,
-            required: checked
-        }
+        const data = {...row, required: checked}
         handleSave(data)
     }
 
@@ -87,39 +92,42 @@ const RequestHeader = (props) =>{
         if(record.id === 'RequestHeaderInitRow'){
             return <a onClick={() =>onCreated(record)} >添加</a>
         }else{
-            return data&&data.map((item) => {
-                return (
-                    item.id === record.id
-                    ?<Space key={item.id}>
-                        {
-                            item.headerName === record.headerName &&
-                            item.required === record.required && item.desc === record.desc &&
-                            item.eg === record.eg
-                                ?''
-                                :<a onClick={() =>upData(record)}>更新</a>
-                        }
-                        <Popconfirm
-                            title="确定删除？"
-                            onConfirm={() =>deleteRequestHeader(record.id)}
-                            okText='确定'
-                            cancelText='取消'
-                        >
-                            <a href="#">删除</a>
-                        </Popconfirm>
-                    </Space>
-                    :''
-                )
-            })
+            return <Space key={record.id}>
+                {
+                    updateView(record,data)
+                }
+                <Popconfirm
+                    title="确定删除？"
+                    onConfirm={() => deleteRequestHeader(record.id)}
+                    okText='确定'
+                    cancelText='取消'
+                >
+                    <a href="#">删除</a>
+                </Popconfirm>
+            </Space>
         }
     }
 
-    const [dataSource,setDataSource] = useState([])
-
-    const stepId = localStorage.getItem('stepId');
-    useEffect( ()=>{
-        findRequestHeaderList(stepId).then(res=>setDataSource(res))
-    },[dataLength])
-
+    //本地编辑的值和返回的值比较，不想同的会显示更新按钮
+    const updateView = (record,data)=>{
+        return data&&data.map((item) => {
+            return (
+                item.id === record.id
+                    ?<>
+                        {
+                            item.headerName === record.headerName
+                            && item.required === record.required
+                            && item.desc === record.desc
+                            && item.value === record.value
+                                ? null
+                                : <a onClick={() => upData(record)}>更新</a>
+                        }
+                    </>
+                    :null
+            )
+        })
+    }
+    
     // 添加
     const onCreated = (values) => {
         if(Object.keys(values).length === 1){
@@ -128,7 +136,7 @@ const RequestHeader = (props) =>{
             // 创建新行的时候自带一个id，所以删了，后台会自行创建id
             delete values.id;
             values.step = {
-                id:stepId
+                id:apiUnitId
             }
             createRequestHeader(values)
         }
@@ -141,7 +149,7 @@ const RequestHeader = (props) =>{
 
     // 保存数据
     const handleSave = (row) => {
-        const newData = [...requestHeaderList];
+        const newData = requestHeaderList;
         const index = newData.findIndex((item) => row.id === item.id);
         newData.splice(index, 1, { ...newData[index], ...row });
         setList(newData)

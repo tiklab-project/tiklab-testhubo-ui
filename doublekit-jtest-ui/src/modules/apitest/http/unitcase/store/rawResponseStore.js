@@ -8,54 +8,44 @@ import {
 export class RawResponseStore {
 
     @observable rawResponseInfo = [];
-    @observable stepId = '';
+    @observable apiUnitId = '';
     @observable rawResponseId = '';
 
     @action
-    findRawResponse = (id) => {
-        this.stepId = id;
+    findRawResponse = async (id) => {
+        this.apiUnitId = id;
         this.rawResponseId = id;
-        const that =this;
+
         const param = new FormData();
         param.append('id', id)
-        return new Promise(function(resolve, reject){
-            findRawResponse(param).then((res) => {
-                if( res.code === 0){
-                    that.rawResponseInfo = res.data
-                    resolve(res);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+
+        const res = await findRawResponse(param);
+        if( res.code === 0){
+            return this.rawResponseInfo = res.data
+        }
     }
+
     @action
     createRawResponse = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
+        values.apiUnit = {id: this.apiUnitId}
         values.id =  this.rawResponseId;
+
         createRawResponse(values).then((res) => {
             if( res.code === 0){
-                this.findRawResponse(this.stepId);
+                this.findRawResponse(this.apiUnitId);
             }
-        }).catch(error => {
-            console.log(error)
         })
     }
 
     @action
-	updateRawResponse = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
+    updateRawResponse = (values) => {
+        values.apiUnit = { id: this.apiUnitId}
         values.id =  this.rawResponseId;
-		updateRawResponse(values).then((res) => {
+
+        updateRawResponse(values).then((res) => {
             if( res.code === 0){
-                this.findRawResponse(this.stepId);
+                this.findRawResponse(this.apiUnitId);
             }
-        }).catch(error => {
-            console.log(error)
         })
     }
 

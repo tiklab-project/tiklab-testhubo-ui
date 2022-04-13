@@ -38,12 +38,17 @@ const ApiUnitList = (props) => {
             width: "15%",
             render: (text, record) => (
                 <Space size="middle">
-                    <div>
-                        <ApiUnitEdit name={"编辑"} apiUnitId={record.id}/>
-                    </div>
+                    <ApiUnitEdit
+                        name={"编辑"}
+                        apiUnitId={record.id}
+                        findPage={findPage}
+                        testType={testType}
+                        caseType={caseType}
+                        categoryId={categoryId}
+                    />
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() => deleteApiUnit(record.id)}
+                        onConfirm={() => deleteCase(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -56,23 +61,34 @@ const ApiUnitList = (props) => {
 
     const caseType=localStorage.getItem("caseType");
     const testType=localStorage.getItem("testType");
-    const categoryId = sessionStorage.getItem("categoryId")
+    const categoryId=sessionStorage.getItem("categoryId");
 
     useEffect(()=>{
+        findPage()
+    },[categoryId])
+
+
+    const findPage = ()=>{
         const param = {
             caseType:caseType,
             testType:testType,
             categoryId:categoryId
         }
         findApiUnitPage(param)
-    },[categoryId])
-
-
+    }
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiUnitId",id);
 
         props.history.push("/repositorypage/apitest/unitdetail")
+    }
+
+    const deleteCase = (id) =>{
+        deleteApiUnit(id).then(res=>{
+            if(res.code===0){
+                findPage();
+            }
+        })
     }
 
 
@@ -81,13 +97,20 @@ const ApiUnitList = (props) => {
         <>
             <BreadcrumbCommon breadArray={["API","测试用例"]}/>
             <div className='case-header'>
+                <ApiUnitEdit
+                    name={"添加用例"}
+                    btn={"btn"}
+                    findPage={findPage}
+                    testType={testType}
+                    caseType={caseType}
+                    categoryId={categoryId}
+                />
                 <Input
                     placeholder={`搜索`}
                     // onPressEnter={onSearch}
                     className='search-input'
                     style={{width:240}}
                 />
-                <ApiUnitEdit name={"添加用例"} btn={"btn"}/>
             </div>
             <Table
                 columns={column}

@@ -10,6 +10,7 @@ import {Space, Checkbox, Popconfirm} from 'antd';
 import {mockValueDictionary,dataTypeDictionary} from '../../../../../common/dictionary/dictionary';
 import ExSelect from "../../../../common/exSelect";
 import {ExTable}from '../../../../common/editTable';
+import FileTextSelect from "../../../../common/fileTextSelect";
 
 const FormParam = (props) =>{
 
@@ -24,33 +25,35 @@ const FormParam = (props) =>{
         dataLength
     } = formParamStore;
 
+    const [dataSource,setDataSoure] =useState([])
+    const apiUnitId = sessionStorage.getItem('apiUnitId');
+    
+    useEffect( ()=>{
+        findFormParamList(apiUnitId).then(res => setDataSoure(res));
+    },[dataLength])
+
     //表头
     let columns= [
         {
             title: '参数名称',
             dataIndex: 'paramName',
-            width: '18%',
-            align:'center',
+            width: '20%',
             editable: true,
         },{
             title: '数据类型',
-            width: '10%',
+            width: '8%',
             dataIndex: 'dataType',
-            align:'center',
             render: (text, record)=>(
-                <ExSelect
-                    dictionary={dataTypeDictionary}
+                <FileTextSelect
                     defaultValue={record.dataType}
                     handleSave={handleSave}
                     rowData={record}
-                    dataIndex={'dataType'}
                 />
             )
         },{
             title: '必须',
             dataIndex: 'required',
-            width: '10%',
-            align:'center',
+            width: '6%',
             render:(text,record) =>  (
                 <Checkbox
                     defaultChecked={record.required}
@@ -58,37 +61,28 @@ const FormParam = (props) =>{
                 />
             )
         },{
-            title: '示例',
-            width: '18%',
-            dataIndex: 'eg',
-            align:'center',
-            render: (text, record)=>(
-                <ExSelect
-                    dictionary={mockValueDictionary}
-                    defaultValue={record.eg}
-                    handleSave={handleSave}
-                    rowData={record}
-                    dataIndex={'eg'}
-                />
-            )
+            title: '示例值',
+            width: '20%',
+            dataIndex: 'value',
+            editable: true,
         },{
             title: '说明',
-            width: '18%',
+            width: '30%',
             dataIndex: 'desc',
-            align:'center',
             editable: true,
 
         },{
             title: '操作',
             align:'center',
+            width: '10%',
             dataIndex: 'operation',
-            render: (text, record,index) =>(operation(record,dataSource))
+            render: (text, record) =>(operation(record,dataSource))
         }
     ]
 
     // 表格checked
     const toggleChecked= (e,row)=> {
-        let checked = '';
+        let checked;
         if(e.target.checked){
             checked = 1
         }else{
@@ -101,44 +95,40 @@ const FormParam = (props) =>{
         handleSave(data)
     }
 
-     // 表格里的操作
+    // 表格里的操作
     const operation = (record,data) => {
-        console.log(record)
         if(record.id === 'FormParamInitRow'){
             return <a onClick={() =>onCreated(record)} >添加</a>
         }else{
             return data&&data.map((item) => {
                 return (
                     item.id === record.id
-                    ?<Space key={item.id}>
-                        {
-                            item.paramName === record.paramName &&
-                            item.dataType === record.dataType && item.required === record.required &&
-                            item.desc === record.desc && item.eg === record.eg
-                                ?''
-                                :<a onClick={() =>upData(record)}>更新</a>
-                        }
-                        <Popconfirm
-                            title="确定删除？"
-                            onConfirm={() =>deleteFormParam(record.id)}
-                            okText='确定'
-                            cancelText='取消'
-                        >
-                            <a href="#">删除</a>
-                        </Popconfirm>
-                    </Space>
-                    :''
+                        ?<Space key={item.id}>
+                            {
+                                item.paramName === record.paramName
+                                && item.dataType === record.dataType
+                                && item.required === record.required
+                                && item.desc === record.desc
+                                && item.value === record.value
+                                    ?null
+                                    :<a onClick={() =>upData(record)}>更新</a>
+                            }
+                            <Popconfirm
+                                title="确定删除？"
+                                onConfirm={() =>deleteFormParam(record.id)}
+                                okText='确定'
+                                cancelText='取消'
+                            >
+                                <a href="#">删除</a>
+                            </Popconfirm>
+                        </Space>
+                        :null
                 )
             })
         }
     }
 
-    const [dataSource,setDataSoure] =useState([])
-
-    const stepId = localStorage.getItem('stepId');
-    useEffect( ()=>{
-        findFormParamList(stepId).then(res => setDataSoure(res));
-    },[dataLength])
+ 
 
     //更新
     const upData = (value) => {
@@ -157,15 +147,11 @@ const FormParam = (props) =>{
 
     // 保存数据
     const handleSave = (row) => {
-        const newData = [...formParamList];
-
+        const newData = formParamList;
         const index = newData.findIndex((item) => row.id === item.id);
-
         newData.splice(index, 1, { ...newData[index], ...row });
-
         setList(newData)
     };
-
 
     return (
         <ExTable

@@ -12,7 +12,7 @@ export class QueryParamStore {
     @observable queryParamList = [];
     @observable queryParamInfo = [];
     @observable queryParamDataSource = [];
-    @observable stepId = '';
+    @observable apiUnitId = '';
     @observable dataLength = '';
 
     @action
@@ -21,92 +21,71 @@ export class QueryParamStore {
     }
 
     @action
-    findQueryParamList = (id) => {
-        this.stepId = id;
+    findQueryParamList = async (id) => {
+        this.apiUnitId = id;
         const params = {
-            stepId: id,
-            orderParams:[{
-                    name:'paramName',
-                    orderType:'asc'
-                }],
+            apiUnitId: id,
+            orderParams:[{ name:'paramName',  orderType:'asc' }],
         }
-        const that = this;
-        const newRow =[ { id: 'QueryParamInitRow'}]
 
-        return new Promise(function(resolve, reject){
-            findQueryParamList(params).then(res => {
-                if(  res.code === 0) {
-                    that.dataLength = res.data.length
-                    that.queryParamDataSource = res.data;
-                    if( res.data.length === 0){
-                        that.queryParamList=newRow;
-                        resolve(res.data);
-                    }else {
-                        that.queryParamList = [...that.queryParamDataSource,...newRow]
-                        resolve(res.data);
-                    }
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+        const newRow =[ { id: 'QueryParamInitRow'}]
+        const res = await  findQueryParamList(params)
+
+        if( res.code === 0) {
+            this.dataLength = res.data.length
+            this.queryParamDataSource = res.data;
+            if( res.data.length === 0){
+                this.queryParamList=newRow;
+            }else {
+                this.queryParamList = [...res.data,...newRow]
+            }
+            return res.data;
+        }
+
     }
 
     @action
-    findQueryParam = (id) => {
+    findQueryParam = async (id) => {
         const that =this;
         const param = new FormData();
         param.append('id', id)
-        return new Promise(function(resolve, reject){
-            findQueryParam(param).then((res) => {
-                if( res.code === 0){
-                    that.queryParamInfo = res.data;
-                    resolve(res)
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    }
 
-
-    @action
-    createQueryParam = (values) => {
-        values.step = {
-            id:this.stepId
+        const res = await findQueryParam(param);
+        if( res.code === 0){
+            that.queryParamInfo = res.data;
+            return res.data
         }
-        createQueryParam(values).then((res) => {
-            if( res.code === 0){
-               this.findQueryParamList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    }
+
+
+    @action
+    createQueryParam = async (values) => {
+        values.apiUnit = {id:this.apiUnitId}
+
+        const res = await createQueryParam(values)
+        if( res.code === 0){
+            return this.findQueryParamList(this.apiUnitId);
+        }
     }
 
     @action
-	updateQueryParam = (values) => {
-		return updateQueryParam(values).then((res) => {
-            if( res.code === 0){
-                return this.findQueryParamList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    updateQueryParam = async (values) => {
+        const res = await updateQueryParam(values)
+        if( res.code === 0){
+            return this.findQueryParamList(this.apiUnitId);
+        }
     }
 
     @action
-	deleteQueryParam = (id) => {
+    deleteQueryParam = async (id) => {
         const param = new FormData();
         param.append('id', id)
-		deleteQueryParam(param).then((res) => {
-            if( res.code === 0){
-                this.findQueryParamList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+        const res = await deleteQueryParam(param);
+        if( res.code === 0){
+            this.findQueryParamList(this.apiUnitId);
+        }
     }
+
 
 
 }

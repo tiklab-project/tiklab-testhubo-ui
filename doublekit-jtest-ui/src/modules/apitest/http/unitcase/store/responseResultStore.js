@@ -7,59 +7,37 @@ import {
 
 export class ResponseResultStore {
     @observable responseResultInfo = [];
-    @observable stepId = '';
+    @observable apiUnitId = '';
     @observable responseResultId = '';
 
     @action
-    findResponseResult = (id) => {
-        this.stepId = id;
+    findResponseResult = async (id) => {
+        this.apiUnitId = id;
         this.responseResultId = id;
-        const that =this;
+        
         const param = new FormData();
-        param.append('id', id)
-        return new Promise(function(resolve, reject){
-            findResponseResult(param).then((res) => {
-                if( res.code === 0){
-                    if(res.data !== null){
-                        that.responseResultInfo = res.data.resultType;
-                    }
-                    resolve(res.data);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+        param.append('id', id);
+
+        const res = await findResponseResult(param);
+        if( res.code === 0){
+            return res.data;
+        }
     }
 
     @action
-    createResponseResult = (values) => {
-        debugger
-        values.step = {
-            id: this.stepId,
-        }
+    createResponseResult = async (values) => {
+        values.apiUnit = {id: this.apiUnitId}
         values.id =  this.responseResultId;
-        createResponseResult(values).then((res) => {
-            if( res.code === 0){
-                this.findResponseResult(this.responseResultId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+
+        await createResponseResult(values);
     }
 
     @action
-	updateResponseResult = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
+    updateResponseResult = async (values) => {
+        values.apiUnit = {id: this.apiUnitId}
         values.id= this.responseResultId;
-		updateResponseResult(values).then((res) => {
-            if( res.code === 0){
-                this.findResponseResult(this.responseResultId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+
+        await updateResponseResult(values)
     }
 
 }

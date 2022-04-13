@@ -8,54 +8,38 @@ import {
 
 export class AfterParamStore {
 
-    @observable afterScriptInfo = [];
+    @observable afterScriptInfo;
     @observable stepId = '';
-    @observable afterScriptId = '';
 
     @action
-    findAfterScript = (id) => {
-        this.stepId = id;
-        this.afterScriptId = id;
-        const that =this;
+    findAfterScript = async (id) => {
+        this.apiUnitId = id;
+
         const param = new FormData();
         param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findAfterScript(param).then((res) => {
-                if( res.code === 0 ){
-                    that.afterScriptInfo = res.data
-                    resolve(res);
-                }
-            })
-        })
 
+        const res = await findAfterScript(param);
+        if( res.code === 0 ){
+            this.afterScriptInfo = res.data;
+            return res.data;
+        }
     }
 
     @action
-    createAfterScript = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
-        values.id =  this.afterScriptId;
-        createAfterScript(values).then((res) => {
-            if( res.code === 0 ){
-                this.findAfterScript(this.afterScriptId);
-            }
-        })
+    createAfterScript = async (values) => {
+        values.apiUnit = {id: this.apiUnitId};
+        values.id =  this.apiUnitId;
+
+        await createAfterScript(values);
     }
 
     @action
-	updateAfterScript = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
-        values.id= this.afterScriptId;
-		updateAfterScript(values).then((res) => {
-            if( res.code === 0){
-                this.findAfterScript(this.afterScriptId);
-            }
-        })
-    }
+    updateAfterScript = async (values) => {
+        values.apiUnit = {id: this.apiUnitId};
+        values.id= this.apiUnitId;
 
+        await updateAfterScript(values);
+    }
 }
 
 export const AFTERPARAM_STORE = 'afterParamStore';

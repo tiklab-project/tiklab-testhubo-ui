@@ -10,11 +10,10 @@ import {
 export class FormParamStore {
 
     @observable formParamList = [];
-    @observable formParamInfo = [];
+    @observable formParamInfo ;
     @observable formParamDataSource = [];
-    @observable stepId = '';
-    @observable formParamId= '';
-    @observable dataLength = '';
+    @observable apiUnitId = '';
+    @observable dataLength ;
 
     @action
     setList = (values) => {
@@ -22,91 +21,68 @@ export class FormParamStore {
     }
 
     @action
-    findFormParamList = (id,apxMethodName) => {
-        this.stepId = id;
+    findFormParamList = async (id) => {
+        this.apiUnitId = id;
         const params = {
-            name:apxMethodName,
-            stepId: id,
-            orderParams:[{
-                name:'paramName',
-                orderType:'asc'
-            }],
+            apiUnitId: id,
+            orderParams:[{name:'paramName', orderType:'asc'}],
         }
-        const that = this;
-        const newRow =[ { id: 'FormParamInitRow'}]
-        return new Promise(function(resolve, reject){
-            findFormParamList(params).then(res => {
-                if(res.code === 0) {
-                    that.dataLength = res.data.length
-                    that.formParamDataSource = res.data;
-                    if( res.data.length === 0 ){
-                        that.formParamList= newRow;
-                    }else {
-                        that.formParamList = [...that.formParamDataSource,...newRow];
-                    }
-                    resolve(res.data);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+        const newRow =[ { id: 'FormParamInitRow'}];
+        
+        const res = await findFormParamList(params);
+        if(res.code === 0) {
+            this.dataLength = res.data.length
+            this.formParamDataSource = res.data;
+            if( res.data.length === 0 ){
+                this.formParamList= newRow;
+            }else {
+                this.formParamList = [...res.data,...newRow];
+            }
+
+            return res.data;
+        }
     }
 
     @action
-    findFormParam = (id) => {
-        this.formParamId = id;
-        const that =this;
+    findFormParam = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findFormParam(param).then((res) => {
-                if( res.code === 0){
-                    that.formParamInfo = res.data;
-                    resolve(res)
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    }
 
-
-    @action
-    createFormParam = (values) => {
-        values.step = {
-            id: this.stepId
+        const res = await findFormParam(param)
+        if( res.code === 0){
+            this.formParamInfo = res.data;
+            return  res.data;
         }
-        return createFormParam(values).then((res) => {
-            if( res.code === 0){
-               return  this.findFormParamList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    }
+
+
+    @action
+    createFormParam = async (values) => {
+        values.apiUnit = {id: this.apiUnitId}
+
+        const res = await createFormParam(values);
+        if( res.code === 0){
+            return  this.findFormParamList(this.apiUnitId);
+        }
     }
 
     @action
-	updateFormParam = (values) => {
-		return updateFormParam(values).then((res) => {
-            if( res.code === 0){
-                return this.findFormParamList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    updateFormParam = async (values) => {
+        const res = await updateFormParam(values)
+        if( res.code === 0){
+            return this.findFormParamList(this.apiUnitId);
+        }
     }
 
     @action
-	deleteFormParam = (id) => {
+    deleteFormParam = async (id) => {
         const param = new FormData();
         param.append('id', id);
-		deleteFormParam(param).then((res) => {
-            if( res.code === 0){
-                this.findFormParamList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+
+        const res = await deleteFormParam(param)
+        if( res.code === 0){
+            this.findFormParamList(this.apiUnitId);
+        }
     }
 
 }

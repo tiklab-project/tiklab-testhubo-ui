@@ -121,11 +121,10 @@ const FormUrlencoded = (props) =>{
     }
 
     const [dataSource,setDataSoure] =useState([])
-
-    const apxMethodId = localStorage.getItem('apxMethodId');
+    const apiUnitId = sessionStorage.getItem('apiUnitId');
 
     useEffect( ()=>{
-        findFormUrlencodedList(apxMethodId).then(res => setDataSoure(res));
+        findFormUrlencodedList(apiUnitId).then(res => setDataSoure(res));
     },[dataLength])
 
     //更新

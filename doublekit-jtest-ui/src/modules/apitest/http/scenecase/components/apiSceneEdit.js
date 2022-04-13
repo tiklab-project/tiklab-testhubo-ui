@@ -1,9 +1,7 @@
 
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select} from 'antd';
-
-const {Option} = Select;
+import {Form, Modal, Button, Input} from 'antd';
 
 const layout = {
     labelCol: {span: 4},
@@ -12,8 +10,8 @@ const layout = {
 
 // 添加与编辑
 const ApiSceneEdit = (props) => {
-    const { apiSceneStore, apiSceneId  } = props;
-    const {findApiScene,createApiScene,updateApiScene,findApiScenePage} = apiSceneStore
+    const { apiSceneStore, apiSceneId,findPage,testType,caseType,categoryId } = props;
+    const {findApiScene,createApiScene,updateApiScene} = apiSceneStore
 
     const [form] = Form.useForm();
 
@@ -33,16 +31,12 @@ const ApiSceneEdit = (props) => {
         setVisible(true);
     };
 
-    const testType = localStorage.getItem("testType");
-    const caseType = localStorage.getItem("caseType");
-    const categoryId = sessionStorage.getItem("categoryId");
-
     // 提交
     const onFinish = async () => {
-
         let values = await form.validateFields();
-        values.categoryId=categoryId;
+
         values.testCase={
+            category:{id:categoryId},
             name:values.name,
             testType:testType,
             caseType:caseType,
@@ -54,24 +48,22 @@ const ApiSceneEdit = (props) => {
         if(props.name==="添加用例"){
             createApiScene(values).then(res=>{
                 if(res.code===0){
-                    findApiScenePage(categoryId);
+                    findPage()
                 }
             })
         }else {
             values.id=apiSceneId;
             updateApiScene(values).then(res=>{
                 if(res.code===0){
-                    findApiScenePage(categoryId);
+                    findPage();
                 }
             })
         }
 
-
-
         setVisible(false);
     };
 
-    const onCancel = () => { setVisible(false) };
+    const onCancel = () => setVisible(false);
 
     return (
         <>

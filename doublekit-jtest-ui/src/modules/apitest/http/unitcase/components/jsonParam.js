@@ -11,6 +11,7 @@ import { PlusCircleTwoTone, MinusCircleTwoTone } from "@ant-design/icons";
 import {dataTypeDictionary, mockValueDictionary} from '../../../../../common/dictionary/dictionary';
 import ExSelect from "../../../../common/exSelect";
 import {ExTable}from '../../../../common/editTable';
+import DataTypeSelect from "../../../../common/dataTypeSelect";
 
 const JsonParam = (props) => {
     const { jsonParamStore, radioValue} = props;
@@ -25,135 +26,88 @@ const JsonParam = (props) => {
         setJsonParamListChild
     } = jsonParamStore;
 
-
-
     //表头
     const columns = [
         {
             title: '参数名称',
             dataIndex: 'paramName',
             width: '18%',
-            align:'center',
+            // align:'center',
             editable: true,
         },
         {
             title: '数据类型',
-            width: '10%',
+            width: '8%',
             dataIndex: 'dataType',
-            align:'center',
+            // align:'center',
             render: (text, record)=>(
-                <ExSelect
-                    dictionary={dataTypeDictionary}
+                <DataTypeSelect
                     defaultValue={record.dataType}
                     handleSave={handleSave}
                     rowData={record}
-                    dataIndex={'dataType'}
                 />
             )
         },
         {
             title: '必须',
             dataIndex: 'required',
-            width: '8%',
-            align:'center',
+            width: '6%',
+            // align:'center',
             render:(text,record) =>  (
                 <Checkbox defaultChecked={record.required} onChange={(value) => toggleChecked(value, record)}/>
             )
         },
         {
-            title: '说明',
-            width: '18%',
-            dataIndex: 'desc',
-            align:'center',
-            editable: true,
-
-        },
-        {
-            title: '示例',
-            width: '18%',
-            dataIndex: 'eg',
+            title: '示例值',
+            width: '20%',
+            dataIndex: 'value',
             // align:'center',
             render: (text, record)=>(
                 <ExSelect
                     dictionary={mockValueDictionary}
-                    defaultValue={record.eg}
+                    defaultValue={record.value}
                     handleSave={handleSave}
                     rowData={record}
-                    dataIndex={'eg'}
+                    dataIndex={'value'}
                 />
             )
+
+        },{
+            title: '说明',
+            width: '25%',
+            dataIndex: 'desc',
+            // align:'center',
+            editable: true,
 
         },
         {
             title: '操作',
             // align:'center',
             dataIndex: 'operation',
-            render: (text, record, index) =>(operation(record,dataSource)
-                // <>
-                //     {
-                //         record.id==='jsonParamInitRow'||record.id==='jsonParamInitRowChild'
-                //         ?<Tooltip title="添加数据"><a onClick={() =>onCreated(record, index)} >添加</a></Tooltip>
-                //         :<Space>
-                //             {record.dataType==='object'?<a onClick={() => addChild(record.dataType, record.id)}> 子</a>:''}
-                //             {
-                //                 jsonParamList.map(item=>{
-                //                     return(
-                //                         item.id === record.id&& item.paramName === record.paramName &&
-                //                     item.dataType === record.dataType && item.required === record.required &&
-                //                     item.desc === record.desc && item.eg === record.eg
-                //                         ?''
-                //                         :<a onClick={() =>updateJsonParam(record)} > 更新 </a>
-                //                     )
-                //                 })
-                //             }
-                //             <a onClick={() =>deleteJsonParam(record.id)} > 删除 </a>
-                //         </Space>
-                //     }
-                //
-                // </>
+            render: (text, record, index) =>(
+                <Space>
+                    <Tooltip title="数据类型: object，添加子行"><a onClick={() => addChild(record.dataType,record.id)}> 子</a></Tooltip>
+                    <Tooltip title="添加数据"><a onClick={() =>onCreated(record, index)} >create </a></Tooltip>
+                    <Tooltip title="更新数据"><a onClick={() =>updateJsonParam(record)} > update </a></Tooltip>
+                    <Tooltip title="删除数据"><a onClick={() =>deleteJsonParam(record.id)} type="primary"> delete </a></Tooltip>
+                    <Tooltip title="新增一行"><a onClick={() =>handleAdd()} > + </a></Tooltip>
+                    {/* <Button shape="circle">上</Button>
+                    <Button shape="circle">下</Button> */}
+                </Space>
             )
         }
     ]
 
 
-    // 表格里的操作
-    const operation = (record,data) => {
-// debugger
-        if(record.id==='jsonParamInitRow'||record.id==='jsonParamInitRowChild'){
-            return <Tooltip title="添加数据"><a onClick={() =>onCreated(record)} >添加</a></Tooltip>
-        }else{
-            return data&&data.map((item) => {
-
-                // if(item.children&&item.children.length>0){
-                //     operation(record.children,item.children)
-                // }else {
-                    return (
-                        item.id === record.id
-                        ?<Space key={item.id}>
-                            {
-                                item.paramName === record.paramName &&
-                                item.dataType === record.dataType && item.required === record.required &&
-                                item.desc === record.desc && item.eg === record.eg
-                                    ?''
-                                    :<a onClick={() =>upData(record)} > 更新 </a>
-                            }
-                            <Popconfirm
-                                title="确定删除？"
-                                onConfirm={() =>deleteJsonParam(record.id)}
-                                okText='确定'
-                                cancelText='取消'
-                            >
-                                <a href="#">删除</a>
-                            </Popconfirm>
-                            {record.dataType==='object'?<a onClick={() => addChild(record.dataType, record.id)}> 子</a>:''}
-                        </Space>
-                        :''
-                    )
-                // }
-            })
-        }
-    }
-
+    const [count, setCount] = useState(1);
+    // 添加下一行
+    const handleAdd = () => {
+        const newData = [{
+            id: count
+        }];
+        setCount(count+1);
+        addList(newData)
+    };
 
     // 表格checked
     const toggleChecked= (e,row)=> {
@@ -170,10 +124,10 @@ const JsonParam = (props) => {
         handleSave(data)
     }
 
-    const [dataSource,setDataSoure] =useState([])
-    const stepId = localStorage.getItem('stepId');
+ 
+    const apiUnitId = sessionStorage.getItem('apiUnitId');
     useEffect(()=>{
-        findJsonParamListTree(stepId).then(res => setDataSoure(res));
+        findJsonParamListTree(apiUnitId);
     },[radioValue])
 
 
@@ -189,15 +143,10 @@ const JsonParam = (props) => {
     const onCreated = (data) => {
         const values = data;
         values.method = {
-            id: stepId
+            id: apiUnitId
         }
         createJsonParam(values);
     }
-    //更新
-    const upData = (value) => {
-        updateJsonParam(value).then(res=>setDataSoure(res));
-    }
-
 
 
     // 递归数据
@@ -231,15 +180,11 @@ const JsonParam = (props) => {
         return result
     }
 
-
     // 编辑单元格，保存数据
     const handleSave = (row) => {
         let result = loop(toJS(jsonParamList), [], row)
         setList(result)
     };
-
-
-
 
     return (
         <ExTable

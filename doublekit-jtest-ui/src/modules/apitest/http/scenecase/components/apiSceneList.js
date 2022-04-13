@@ -29,10 +29,17 @@ const ApiSceneList = (props)=>{
             width: "15%",
             render: (text, record) => (
                 <Space size="middle">
-                    <ApiSceneEdit apiSceneId={record.id}  name={"编辑"}/>
+                    <ApiSceneEdit
+                        apiSceneId={record.id}
+                        name={"编辑"}
+                        findPage={findPage}
+                        testType={testType}
+                        caseType={caseType}
+                        categoryId={categoryId}
+                    />
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() => deleteApiScene(record.id)}
+                        onConfirm={() => deleteCase(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -48,13 +55,9 @@ const ApiSceneList = (props)=>{
     const categoryId = sessionStorage.getItem("categoryId")
 
     useEffect(()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findApiScenePage(param)
-    },[categoryId])
+        findPage()
+    },[caseType,testType,categoryId])
+
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiSceneId",id);
@@ -62,18 +65,42 @@ const ApiSceneList = (props)=>{
         props.history.push("/repositorypage/apitest/scenedetail")
     }
 
+    const findPage = () =>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findApiScenePage(param)
+    }
+
+    const deleteCase = (id) =>{
+        deleteApiScene(id).then(res=>{
+            if(res.code===0){
+                findPage();
+            }
+        })
+    }
+
+
     return(
         <>
             <BreadcrumbCommon breadArray={["API","场景用例"]}/>
             <div className='case-header'>
+                <ApiSceneEdit
+                    name={"添加用例"}
+                    btn={"btn"}
+                    findPage={findPage}
+                    testType={testType}
+                    caseType={caseType}
+                    categoryId={categoryId}
+                />
                 <Input
                     placeholder={"查找"}
                     // onPressEnter={onSearch}
                     className='search-input'
                     style={{width:240}}
                 />
-
-                <ApiSceneEdit  name={"添加用例"} btn={"btn"}/>
             </div>
             <Table
                 columns={column}

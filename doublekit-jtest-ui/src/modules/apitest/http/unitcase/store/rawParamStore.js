@@ -8,57 +8,40 @@ import {
 export class RawParamStore {
 
     @observable rawParamInfo = [];
-    @observable stepId = '';
+    @observable apiUnitId = '';
     @observable rawParamId = '';
 
     @action
-    findRawParam = (id) => {
-        this.stepId = id;
+    findRawParam = async (id) => {
+        this.apiUnitId = id;
         this.rawParamId = id;
-        const that =this;
+
         const param = new FormData();
-        param.append('id', id)
-        return new Promise(function(resolve, reject){
-            findRawParam(param).then((res) => {
-                if( res.code ===0){
-                    that.rawParamInfo = res.data
-                    resolve(res.data)
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+        param.append('id', id);
+
+        const res = await findRawParam(param);
+        if( res.code ===0){
+            this.rawParamInfo = res.data;
+            return res.data;
+        }
     }
 
     @action
-    createRawParam = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
+    createRawParam = async (values) => {
+        values.apiUnit = {id:this.apiUnitId}
         values.id =  this.rawParamId;
-        createRawParam(values).then((res) => {
-            if( res.code === 0){
-                this.findRawParam(this.rawParamId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+
+        await createRawParam(values);
     }
 
     @action
-	updateRawParam = (values) => {
-        values.step = {
-            id: this.stepId,
-        }
+    updateRawParam = async (values) => {
+        values.apiUnit = {id: this.apiUnitId}
         values.id= this.rawParamId;
-		updateRawParam(values).then((res) => {
-            if( res.code === 0){
-                this.findRawParam(this.rawParamId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+
+        await updateRawParam(values)
     }
+
 
 }
 

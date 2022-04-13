@@ -13,9 +13,9 @@ const layout = {
 };
 
 const TestReportApi= (props) => {
-    const {performCaseStore,stepStore,testInstanceStore,repositoryStore,testcaseId} = props;
+    const {performCaseStore,apiUnitStore,testInstanceStore,repositoryStore,testcaseId} = props;
     const {performCase} = performCaseStore;
-    const {selectItem} = stepStore;
+    const {selectItem} = apiUnitStore;
     const {envUrl} = repositoryStore;
     const {findInstancesReposter,findApiResultByInstanceId} = testInstanceStore
 
@@ -223,4 +223,4 @@ const TestReportApi= (props) => {
     );
 }
 
-export default inject('performCaseStore','stepStore','testInstanceStore','repositoryStore')(observer(TestReportApi));
+export default inject('performCaseStore','apiUnitStore','testInstanceStore','repositoryStore')(observer(TestReportApi));

@@ -1,7 +1,4 @@
-// import {Axios as service} from "doublekit-core-ui";
-
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/webUnitMock"
+import {Axios as service} from "doublekit-core-ui";
 
 export function findWebUnitCaseListByTestCase(data){
     return service.request({

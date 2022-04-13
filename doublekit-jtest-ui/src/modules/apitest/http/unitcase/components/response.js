@@ -1,27 +1,79 @@
-import React from "react";
-import TestResultCommon from "../../../../common/testResultCommon";
-import TestResponseBody from "./testResponseBody";
-import {inject, observer} from "mobx-react";
-import TestResponseHeader from "./testResponseHeader";
-import TestRequestHeader from "./testRequestHeader";
-import TestRequestBody from "./testRequestBody";
-import TestResponseAssert from "./testResponseAssert";
+import React, { Fragment, useState, useEffect } from 'react';
+import { observer, inject } from 'mobx-react';
+import ResponseHeader from "./responseHeader";
+import JsonResponse  from "./jsonResponse";
+import RawResponse from './rawResponse';
+import { Tabs, Radio } from 'antd';
+const { TabPane } = Tabs;
 
-const Response =(props)=>{
-    const { stepStore, showResponse } = props;
-    const { status, time } = stepStore;
+// 输出参数 返回头部与返回结果的切换
+const Response = (props) =>{
+    const { responseResultStore } = props;
+    const {
+        findResponseResult,
+        createResponseResult,
+        updateResponseResult,
+        responseResultInfo
+    } = responseResultStore;
+
+    const [ radioValue, setRadioValue ] = useState('json')
+
+    const apiUnitId = sessionStorage.getItem('apiUnitId');
+    useEffect(()=> {
+        findResponseResult(apiUnitId).then((res)=>{
+            if(res){
+                setRadioValue(res.resultType)
+            }else{
+                createResponseResult({resultType :'json'});
+                setRadioValue("json")
+            }
+        })
+    },[responseResultInfo])
+
+    // radio切换，更新为当前radio的值
+    const onChange = value => {
+        setRadioValue(value)
+        updateResponseResult({resultType : value});
+    };
+
+    //根据radio值，渲染相应的请求体
+    const changeFormat = (radioValue) => {
+        switch(radioValue) {
+            case 'json':
+                return <JsonResponse />
+            case 'raw':
+                return <RawResponse />
+        }
+    }
+
 
     return(
-        <TestResultCommon
-            status={status}
-            time={time}
-            showResponse={showResponse}
-            responseBody={<TestResponseBody />}
-            responseHeader={<TestResponseHeader />}
-            requestHeader={<TestRequestHeader />}
-            requestBody={<TestRequestBody />}
-            assertResult={<TestResponseAssert />}
-        />
+        <Fragment>
+            <Tabs defaultActiveKey="1" type="card">
+                <TabPane tab="返回头部" key="1">
+                    <ResponseHeader  {...props}/>
+                </TabPane>
+                <TabPane tab="返回结果" key="2">
+                <div className='request-radio'>
+                        <Radio.Group
+                            name="radiogroup"
+                            onChange={(e)=>onChange(e.target.value)}
+                            value={radioValue}
+                        >
+                            <Radio value={'json'}>json </Radio>
+                            <Radio value={'raw'}>raw</Radio>
+                        </Radio.Group>
+                    </div>
+                    <div>
+                        {
+                            changeFormat(radioValue)
+                        }
+                    </div>
+                </TabPane>
+            </Tabs>
+        </Fragment>
     )
+
 }
-export default inject("stepStore")(observer(Response));
+
+export default inject('responseResultStore')(observer(Response));

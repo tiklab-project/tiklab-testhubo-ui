@@ -14,10 +14,9 @@ import {
 export class AssertParamStore {
 
     @observable assertParamList = [];
-    @observable assertParamInfo = [];
+    @observable assertParamInfo;
     @observable assertParamDataSource = [];
-    @observable stepId = '';
-    @observable assertParamId= '';
+    @observable apiUnitId = '';
     @observable dataLength = '';
 
     @action
@@ -26,92 +25,70 @@ export class AssertParamStore {
     }
 
     @action
-    findAssertParamList = (id) => {
-        this.stepId = id;
+    findAssertParamList = async (id) => {
+        this.apiUnitId = id;
         const params = {
-            stepId: id,
-            orderParams:[{
-                name:'source',
-                orderType:'asc'
-            }],
+            apiUnitId: id,
+            orderParams:[{ name:'source', orderType:'asc' }],
         }
-        const that = this;
         const newRow =[ { id: 'AssertParamInitRow'}]
-        return new Promise(function(resolve, reject){
-            findAssertParamList(params).then(res => {
-                if(res.code === 0) {
-                    that.dataLength = res.data.length
-                    that.assertParamDataSource = res.data;
-                    if( res.data.length === 0 ){
-                        that.assertParamList= newRow;
-                    }else {
-                        that.assertParamList = [...that.assertParamDataSource,...newRow];
-                    }
-                    resolve(res.data);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    }
-
-    @action
-    findAssertParam = (id) => {
-        this.assertParamId = id;
-        const that =this;
-        const param = new FormData();
-        param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findAssertParam(param).then((res) => {
-                if( res.code === 0){
-                    that.assertParamInfo = res.data;
-                    resolve(res)
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    }
-
-
-    @action
-    createAssertParam = (values) => {
-        values.step = {
-            id: this.stepId
+        
+        const res = await findAssertParamList(params)
+        if(res.code === 0) {
+            this.dataLength = res.data.length
+            this.assertParamDataSource = res.data;
+            
+            if( res.data.length === 0 ){
+                this.assertParamList= newRow;
+            }else {
+                this.assertParamList = [...res.data,...newRow];
+            }
+            return res.data;
         }
-        return createAssertParam(values).then((res) => {
-            if( res.code === 0){
-                return  this.findAssertParamList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
     }
 
     @action
-    updateAssertParam = (values) => {
-        return updateAssertParam(values).then((res) => {
-            if( res.code === 0){
-                return this.findAssertParamList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    @action
-    deleteAssertParam = (id) => {
+    findAssertParam = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        deleteAssertParam(param).then((res) => {
-            if( res.code === 0){
-                this.findAssertParamList(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+        
+        const res = await findAssertParam(param);
+        if( res.code === 0){
+            this.assertParamInfo = res.data;
+            return res.data;
+        }
     }
 
+
+    @action
+    createAssertParam = async (values) => {
+        values.apiUnit = { id: this.apiUnitId }
+
+        const res = await createAssertParam(values)
+        if( res.code === 0){
+            return this.findAssertParamList(this.apiUnitId);
+        }
+    }
+
+    @action
+    updateAssertParam = async (values) => {
+        const res = await updateAssertParam(values)
+        if( res.code === 0){
+            return this.findAssertParamList(this.apiUnitId);
+        }
+    }
+
+
+    @action
+    deleteAssertParam = async (id) => {
+        const param = new FormData();
+        param.append('id', id);
+
+        const res = await deleteAssertParam(param)
+        if( res.code === 0){
+            this.findAssertParamList(this.apiUnitId);
+        }
+    }
 }
 
 export const ASSERTPARAM_STORE = 'assertParamStore';

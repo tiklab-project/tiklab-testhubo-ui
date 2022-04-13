@@ -13,8 +13,7 @@ export class JsonResponseStore {
     @observable jsonResponseList = [];
     @observable jsonResponseInfo = [];
     @observable jsonResponseDataSource= [];
-    @observable stepId = '';
-    @observable jsonResponseId= '';
+    @observable apiUnitId = '';
 
     @action
     addList = (values) => {
@@ -27,103 +26,80 @@ export class JsonResponseStore {
 
 //根据查询对象按分页查询响应结果列表
     @action
-    findJsonResponseListTree = (id) => {
-        this.stepId = id;
+    findJsonResponseListTree = async (id) => {
+        this.apiUnitId = id;
         const params = {
-            stepId: id,
-            orderParams:[{
-                    name:'propertyName',
-                    orderType:'asc'
-                }],
+            apiUnitId: id,
+            orderParams:[{ name:'propertyName', orderType:'asc'}],
         }
-        const that = this;
+
         const newRow =[ { id: 'JsonResponseInitRow'}]
-        return new Promise(function(resolve, reject){
-            findJsonResponseListTree(params).then(res => {
-                if( res.code === 0){
-                    that.jsonResponseDataSource = res.data;
-                    if( res.data.length === 0){
-                        that.jsonResponseList=newRow
-                    }else {
-                        that.jsonResponseList = res.data;
-                    }
-                    resolve(res)
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+
+        const res = await findJsonResponseListTree(params)
+        if( res.code === 0){
+            this.jsonResponseDataSource = res.data;
+            if( res.data.length === 0){
+                this.jsonResponseList=newRow
+            }else {
+                this.jsonResponseList = res.data;
+            }
+
+            return res.data;
+        }
     }
 
     // 根据ID查找响应结果
     @action
-    findJsonResponse = (id) => {
-        this.requestParamId = id;
-        const that =this;
+    findJsonResponse = async (id) => {
         const param = new FormData();
-        param.append('id', id)
-        return new Promise(function(resolve, reject){
-            findJsonResponse(param).then((res) => {
-                if( res.code === 0){
-                    that.jsonResponseInfo = res.data;
-                    resolve(res);
-                }
-            }).catch(error => {
-                reject(error)
-            })
-        })
+        param.append('id', id);
+
+        const res = await findJsonResponse(param);
+        if( res.code === 0){
+            this.jsonResponseInfo = res.data;
+            return res.data;
+        }
     }
 
     // 添加
     @action
-    createJsonResponse = (values) => {
-        createJsonResponse(values).then((res) => {
-            if( res.code === 0){
-                this.findJsonResponseListTree(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    createJsonResponse = async (values) => {
+        const res = await createJsonResponse(values)
+        if( res.code === 0){
+            this.findJsonResponseListTree(this.apiUnitId);
+        }
     }
 
     // 更改
     @action
-	updateJsonResponse = (values) => {
-		updateJsonResponse(values).then((res) => {
-            if( res.code === 0){
-                this.findJsonResponseListTree(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+    updateJsonResponse = async (values) => {
+        const res = await updateJsonResponse(values)
+        if( res.code === 0){
+            this.findJsonResponseListTree(this.apiUnitId);
+        }
     }
 
     // 删除
     @action
-	deleteJsonResponse = (id) => {
+    deleteJsonResponse = async (id) => {
         const param = new FormData();
-        param.append('id', id)
-		deleteJsonResponse(param).then((res) => {
-            if( res.code === 0){
-                this.findJsonResponseListTree(this.stepId);
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+        param.append('id', id);
+
+        const res = await deleteJsonResponse(param)
+        if( res.code === 0){
+            this.findJsonResponseListTree(this.apiUnitId);
+        }
     }
 
     @action
-	setJsonResponseListChild = (parentId) => {
-        const pid = ({
-            id: parentId
-        })
+    setJsonResponseListChild = (parentId) => {
+        const pid = ({id: parentId })
         const newChild = {
             id:'c1',
             parent: pid
         }
-
         const loop = (data,newChild)=>{
-             let newdata = data.map((item) => {
+            let newdata = data.map((item) => {
                 if(item.id && item.id === parentId) {
                     if(item.children === null){
                         item.children = [newChild]
