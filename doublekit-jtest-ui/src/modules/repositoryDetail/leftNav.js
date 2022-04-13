@@ -58,8 +58,8 @@ const LeftNav = (props) =>{
         //点击导航设置设置类型，用于category查找。testType：api,web,app,function;
         localStorage.setItem("testType",item.key );
 
-        //设置tab，初始选择的unitcase， caseType：unitcase,scenecase,performcase
-        localStorage.setItem("caseType","unitcase")
+        //设置tab，初始选择的unitcase， caseType：unit,scene,perform
+        localStorage.setItem("caseType","unit")
 
         props.history.push(item.router)
     }

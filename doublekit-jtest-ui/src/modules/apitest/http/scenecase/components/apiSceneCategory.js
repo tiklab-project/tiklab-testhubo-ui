@@ -3,16 +3,16 @@ import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
 import {Dropdown, Input, Menu, Popconfirm} from "antd";
 import StepEdit from "../../unitcase/components/apiUnitEdit";
 import {inject, observer} from "mobx-react";
-import ApiScenecaseEdit from "./apiScenecaseEdit";
+import ApiScenecaseEdit from "./apiSceneEdit";
 
 const ApiSceneCategory = props =>{
-    const {categoryStore,tabKey,addRouter} = props;
+    const {categoryStore,addRouter} = props;
     const {findCategoryListTree,categoryList} = categoryStore;
     const [clickKey, setClickKey] = useState();
     const [expandedTree, setExpandedTree] = useState([]);
 
     const testType = localStorage.getItem("testType");
-    const caseType = localStorage.getItem("caseType")
+    const caseType = localStorage.getItem("caseType");
     const repositoryId = sessionStorage.getItem("repositoryId")
 
 
@@ -23,8 +23,7 @@ const ApiSceneCategory = props =>{
             repositoryId:repositoryId
         }
         findCategoryListTree(params)
-    },[testType,tabKey,repositoryId])
-
+    },[testType,caseType,repositoryId])
 
 
 
@@ -148,7 +147,7 @@ const ApiSceneCategory = props =>{
         return(
             data && data.map((item) => {
                 let deep = 1;
-                if(item.children&&item.children.length>0 || item.node&&item.node.length>0 ){
+                if(item.children&&item.children.length>0 || item.nodeList&&item.nodeList.length>0 ){
                     return (
                         <li key={item.id} >
                             {
@@ -165,7 +164,7 @@ const ApiSceneCategory = props =>{
                                     tree(item.children,deep+1)
                                 }
                                 {
-                                    methodView(item.node)
+                                    methodView(item.nodeList)
                                 }
                             </ul>
                         </li>

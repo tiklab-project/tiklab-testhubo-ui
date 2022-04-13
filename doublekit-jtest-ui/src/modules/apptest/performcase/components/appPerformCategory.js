@@ -5,7 +5,7 @@ import AppPerformEdit from "./appPerformEdit";
 import {inject, observer} from "mobx-react";
 
 const AppPerformCategory = (props) =>{
-    const {categoryStore,tabKey,addRouter} = props;
+    const {categoryStore,addRouter} = props;
     const {findCategoryListTree,categoryList} = categoryStore;
     const [clickKey, setClickKey] = useState();
     const [expandedTree, setExpandedTree] = useState([]);
@@ -15,52 +15,15 @@ const AppPerformCategory = (props) =>{
     const repositoryId = sessionStorage.getItem("repositoryId")
 
 
-    // useEffect(()=>{
-    //     const params = {
-    //         testType:testType,
-    //         caseType:caseType,
-    //         repositoryId:repositoryId
-    //     }
-    //     findCategoryListTree(params)
-    // },[testType,tabKey,repositoryId])
-
-
-    const list = [
-        {
-            "name":"AppPerform目录",
-            "id":"113331",
-            "children":[
-                {
-                    "name":"子目录",
-                    "id":"c1611",
-                }
-            ],
-            "node":[
-                {
-                    "name":"AppPerform用例1",
-                    "id":"c1151",
-                },{
-                    "name":"AppPerform用例2",
-                    "id":"c2522",
-                }
-            ]
-        },{
-            "name":"App目录2",
-            "id":"14511",
-            "children":[
-                {
-                    "name":"zi目录",
-                    "id":"c1176",
-                }
-            ],
-            "node":[
-                {
-                    "name":"api11",
-                    "id":"c11561",
-                }
-            ]
+    useEffect(()=>{
+        const params = {
+            testType:testType,
+            caseType:caseType,
+            repositoryId:repositoryId
         }
-    ]
+        findCategoryListTree(params)
+    },[testType,caseType,repositoryId])
+
 
     const isExpandedTree = (key) =>  expandedTree.some(item => item === key)
 
@@ -181,7 +144,7 @@ const AppPerformCategory = (props) =>{
         return(
             data && data.map((item) => {
                 let deep = 1;
-                if(item.children&&item.children.length>0 || item.node&&item.node.length>0 ){
+                if(item.children&&item.children.length>0 || item.nodeList&&item.nodeList.length>0 ){
                     return (
                         <li key={item.id} >
                             {
@@ -198,7 +161,7 @@ const AppPerformCategory = (props) =>{
                                     tree(item.children,deep+1)
                                 }
                                 {
-                                    methodView(item.node)
+                                    methodView(item.nodeList)
                                 }
                             </ul>
                         </li>
@@ -254,7 +217,7 @@ const AppPerformCategory = (props) =>{
 
             <ul>
                 {
-                    tree(list)
+                    tree(categoryList)
                 }
             </ul>
         </>

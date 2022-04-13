@@ -4,26 +4,24 @@ import {
     createApiScene,
     findApiScene,
     updateApiScene,
-    deleteApiScene
+    deleteApiScene,
+    findApiSceneList,
+    findApiSceneCaseListByTestCase
 } from '../api/apiSceneApi'
 
 export class ApiSceneStore {
 
     @observable apiSceneList = [];
     @observable apiSceneInfo;
-    @observable apiUnitcaseId;
+    @observable categoryId;
 
     @action
-    findApiScenePage = async (id) => {
-        this.apiUnitcaseId = id;
-        const params = {
-            categoryId: id,
-            orderParams:[{name:'paramName', orderType:'asc'}],
-        }
-        const res = await findApiScenePage(params);
+    findApiScenePage = async (value) => {
+
+        const res = await findApiSceneCaseListByTestCase(value);
 
         if(res.code === 0) {
-            this.apiSceneList = res.data.dataList;
+            this.apiSceneList = res.data;
             return res.data
         }
     }
@@ -41,31 +39,18 @@ export class ApiSceneStore {
 
 
     @action
-    createApiScene = async (values) => {
-        values.http = {id: this.apiUnitcaseId}
-
-        const res = await createApiScene(values)
-        if( res.code === 0){
-            return this.findApiScenePage(this.apiUnitcaseId);
-        }
-    }
+    createApiScene = async (values) => await createApiScene(values)
 
     @action
-    updateApiScene = async (values) => {
-        const res = await updateApiScene(values)
-        if( res.code === 0){
-            return this.findApiScenePage(this.apiUnitcaseId);
-        }
-    }
+    updateApiScene = async (values) => await updateApiScene(values)
+
 
     @action
     deleteApiScene = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        const res = await deleteApiScene(param)
-        if( res.code === 0){
-            this.findApiScenePage(this.apiUnitcaseId);
-        }
+
+        await deleteApiScene(param)
     }
 
 }

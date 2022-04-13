@@ -4,7 +4,8 @@ import {
     createWebUnit,
     findWebUnit,
     updateWebUnit,
-    deleteWebUnit
+    deleteWebUnit,
+    findWebUnitCaseListByTestCase
 } from '../api/webUnitApi'
 
 export class WebUnitStore {
@@ -14,16 +15,17 @@ export class WebUnitStore {
     @observable categoryId;
 
     @action
-    findWebUnitPage = async (id) => {
-        this.categoryId = id;
-        const params = {
-            categoryId: id,
-            orderParams:[{name:'name', orderType:'asc'}],
-        }
-        const res = await findWebUnitPage(params);
+    findWebUnitPage = async (value) => {
+        // this.categoryId = id;
+        // const params = {
+        //     categoryId: id,
+        //     orderParams:[{name:'name', orderType:'asc'}],
+        // }
+
+        const res = await findWebUnitCaseListByTestCase(value);
 
         if(res.code === 0) {
-            this.webUnitList = res.data.dataList;
+            this.webUnitList = res.data;
             return res.data
         }
     }
@@ -35,37 +37,24 @@ export class WebUnitStore {
 
         const res = await findWebUnit(param);
         if( res.code === 0){
-            return  this.webUnitInfo = res.data;
+            this.webUnitInfo = res.data;
+            return  res.data;
         }
     }
 
 
     @action
-    createWebUnit = async (values) => {
-        values.http = {id: this.categoryId}
-
-        const res = await createWebUnit(values)
-        if( res.code === 0){
-            return this.findWebUnitPage(this.categoryId);
-        }
-    }
+    createWebUnit = async (values) => await createWebUnit(values)
 
     @action
-    updateWebUnit = async (values) => {
-        const res = await updateWebUnit(values)
-        if( res.code === 0){
-            return this.findWebUnitPage(this.categoryId);
-        }
-    }
+    updateWebUnit = async (values) => await updateWebUnit(values)
 
     @action
     deleteWebUnit = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        const res = await deleteWebUnit(param)
-        if( res.code === 0){
-            this.findWebUnitPage(this.categoryId);
-        }
+
+        await deleteWebUnit(param)
     }
 
 }

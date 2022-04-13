@@ -6,7 +6,7 @@ import ApiSceneTest from "./apiSceneTest";
 import BackCommon from "../../../../common/backCommon";
 import ApiEnvSelect from "../../apitest/apiEnvSelect";
 
-const ApiScenecaseDetail = (props) => {
+const ApiSceneDetail = (props) => {
     const {apiSceneStore,stepStore} = props;
     const {findApiScene,updateApiScene} = apiSceneStore;
     const {
@@ -124,4 +124,4 @@ const ApiScenecaseDetail = (props) => {
 
 }
 
-export default inject('apiSceneStore','stepStore')(observer(ApiScenecaseDetail));
+export default inject('apiSceneStore','stepStore')(observer(ApiSceneDetail));

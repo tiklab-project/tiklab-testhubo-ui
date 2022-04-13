@@ -11,8 +11,9 @@ const layout = {
 };
 
 // 添加与编辑
-const ApiScenecaseEdit = (props) => {
-    const {   } = props;
+const ApiSceneEdit = (props) => {
+    const { apiSceneStore, apiSceneId  } = props;
+    const {findApiScene,createApiScene,updateApiScene,findApiScenePage} = apiSceneStore
 
     const [form] = Form.useForm();
 
@@ -20,13 +21,52 @@ const ApiScenecaseEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
+
+        if(props.name==="编辑"){
+            findApiScene(apiSceneId).then(res=>{
+                form.setFieldsValue({
+                    name:res.testCase.name,
+                })
+            })
+        }
+
         setVisible(true);
     };
 
+    const testType = localStorage.getItem("testType");
+    const caseType = localStorage.getItem("caseType");
+    const categoryId = sessionStorage.getItem("categoryId");
 
     // 提交
     const onFinish = async () => {
+
         let values = await form.validateFields();
+        values.categoryId=categoryId;
+        values.testCase={
+            name:values.name,
+            testType:testType,
+            caseType:caseType,
+            desc:values.desc
+        }
+        delete values.name
+        delete values.desc
+
+        if(props.name==="添加用例"){
+            createApiScene(values).then(res=>{
+                if(res.code===0){
+                    findApiScenePage(categoryId);
+                }
+            })
+        }else {
+            values.id=apiSceneId;
+            updateApiScene(values).then(res=>{
+                if(res.code===0){
+                    findApiScenePage(categoryId);
+                }
+            })
+        }
+
+
 
         setVisible(false);
     };
@@ -78,4 +118,4 @@ const ApiScenecaseEdit = (props) => {
     );
 };
 
-export default inject()(observer(ApiScenecaseEdit));
+export default inject("apiSceneStore")(observer(ApiSceneEdit));

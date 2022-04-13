@@ -7,7 +7,6 @@ import {
     REPOSITORY_STORE, RepositoryStore,
 
     TESTCASE_STORE, TestcaseStore,
-    STEP_STORE,StepStore,
     REQUESTHEADER_STORE , RequestHeaderStore,
     QUERYPARAM_STORE, QueryParamStore,
     FORMPARAM_STORE, FormParamStore,
@@ -27,6 +26,7 @@ import {
 
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
+    API_UNIT_STORE,ApiUnitStore,
     APISCENE_STORE, ApiSceneStore,
     APISCENESTEP_STORE, ApiSceneStepStore,
     API_SCENEINSTANCE_STORE, ApiSceneInstanceStore,
@@ -87,7 +87,6 @@ function createStores() {
         [ENVIRONMENT_STORE]: new EnvironmentStore(),
         [REPOSITORY_STORE]: new RepositoryStore(),
         [TESTCASE_STORE]: new TestcaseStore(),
-        [STEP_STORE]: new StepStore(),
         [REQUESTHEADER_STORE]: new RequestHeaderStore(),
         [QUERYPARAM_STORE]: new QueryParamStore(),
         [FORMPARAM_STORE]: new FormParamStore(),
@@ -105,8 +104,8 @@ function createStores() {
         [TESTINSTANCE_STORE]: new TestInstanceStore(),
         [PERFORMCASE_STORE]: new PerformCaseStore(),
 
+        [API_UNIT_STORE]: new ApiUnitStore(),
         [APIUNIT_INSTANCE_STORE]:new ApiUnitInstanceStore(),
-
         [APISCENE_STORE]: new ApiSceneStore(),
         [APISCENESTEP_STORE]: new ApiSceneStepStore(),
         [API_SCENEINSTANCE_STORE]: new ApiSceneInstanceStore(),

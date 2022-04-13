@@ -2,43 +2,44 @@ import React from "react";
 import {Tabs} from "antd";
 import FuncUnitCategory from "../unitcase/components/funcUnitCategory";
 import FuncSceneCategory from "../scenecase/components/funcSceneCategory";
+import {inject, observer} from "mobx-react";
 const { TabPane } = Tabs;
 
 const FuncLeft =(props) =>{
+    const {categoryStore} = props;
+    const {findCategoryListTree} = categoryStore;
 
     let addRouter = props.history.push;
     const caseType = localStorage.getItem("caseType")
 
     const routerData={
-        "unitcase": "/repositorypage/functest/unitcase",
-        "scenecase": "/repositorypage/functest/scenecase",
+        "unit": "/repositorypage/functest/unitcase",
+        "scene": "/repositorypage/functest/scenecase",
     }
-
-    const tabPaneValue = [
-        {
-            name:"测试用例",
-            key:"unitcase"
-        },{
-            name:"场景用例",
-            key:"scenecase"
-        }
-    ]
 
 
     const switchRouter = (type)=>{
-
         switch (type){
-            case "unitcase":
-                addRouter(routerData.unitcase);
+            case "unit":
+                addRouter(routerData.unit);
                 break;
-            case "scenecase":
-                addRouter(routerData.scenecase);
+            case "scene":
+                addRouter(routerData.scene);
                 break;
         }
     }
 
+    let testType = localStorage.getItem("testType");
+    let repositoryId = sessionStorage.getItem("repositoryId")
+
 
     const changeTab = (tabKey) =>{
+        const params = {
+            testType:testType,
+            caseType:tabKey,
+            repositoryId:repositoryId
+        }
+        findCategoryListTree(params)
 
         switchRouter(tabKey);
 
@@ -50,10 +51,10 @@ const FuncLeft =(props) =>{
     return(
         <div className={"case-tab"}>
             <Tabs defaultActiveKey={caseType} onChange={changeTab}>
-                <TabPane tab="测试用例" key="unitcase">
+                <TabPane tab="测试用例" key="unit">
                     <FuncUnitCategory  addRouter={addRouter}/>
                 </TabPane>
-                <TabPane tab="场景用例" key="scenecase">
+                <TabPane tab="场景用例" key="scene">
                     <FuncSceneCategory addRouter={addRouter} />
                 </TabPane>
             </Tabs>
@@ -61,4 +62,4 @@ const FuncLeft =(props) =>{
     )
 }
 
-export default FuncLeft;
+export default inject("categoryStore")(observer(FuncLeft));

@@ -1,11 +1,8 @@
-// import {Axios as service} from "doublekit-core-ui";
-
-import service from "../../../../../common/utils/localrequest";
-import "../../../../../mock/apiSceneMock"
+import {Axios as service} from "doublekit-core-ui";
 
 export function deleteApiScene(data){
     return service.request({
-        url: "/apiScene/deleteApiScene",
+        url: "/apiSceneCase/deleteApiSceneCase",
         method: "post",
         data
     })
@@ -13,7 +10,7 @@ export function deleteApiScene(data){
 
 export function createApiScene(data){
     return service.request({
-        url: "/apiScene/createApiScene",
+        url: "/apiSceneCase/createApiSceneCase",
         method: "post",
         data
     })
@@ -21,7 +18,7 @@ export function createApiScene(data){
 
 export function updateApiScene(data){
     return service.request({
-        url: "/apiScene/updateApiScene",
+        url: "/apiSceneCase/updateApiSceneCase",
         method: "post",
         data
     })
@@ -29,7 +26,7 @@ export function updateApiScene(data){
 
 export function findApiScene(data){
     return service.request({
-        url: "/apiScene/findApiScene",
+        url: "/apiSceneCase/findApiSceneCase",
         method: "post",
         data
     })
@@ -37,7 +34,7 @@ export function findApiScene(data){
 
 export function findApiSceneList(data){
     return service.request({
-        url: "/apiScene/findApiSceneList",
+        url: "/apiSceneCase/findApiSceneCaseList",
         method: "post",
         data
     })
@@ -45,7 +42,15 @@ export function findApiSceneList(data){
 
 export function findApiScenePage(data){
     return service.request({
-        url: "/apiScene/findApiScenePage",
+        url: "/apiSceneCase/findApiSceneCasePage",
+        method: "post",
+        data
+    })
+}
+
+export function findApiSceneCaseListByTestCase(data){
+    return service.request({
+        url: "/apiSceneCase/findApiSceneCaseListByTestCase",
         method: "post",
         data
     })

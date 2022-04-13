@@ -1,9 +1,9 @@
 
 import Testcase from '../../../old/testcase/testcase/components/testcase';
 import {TESTCASE_STORE, TestcaseStore} from '../../../old/testcase/testcase/store/testcaseStore';
-import Step from "../scenecase/components/apiScenecaseDetail";
+import Step from "../scenecase/components/apiSceneDetail";
 import StepDetail from './components/apiUnitDetail';
-import {STEP_STORE,StepStore}from './store/stepStore';
+import {API_UNIT_STORE ,ApiUnitStore}from './store/apiUnitStore';
 import { REQUESTBODY_STORE, RequestBodyStore } from './store/requestBodyStore';
 import {REQUESTHEADER_STORE, RequestHeaderStore} from './store/requestHeaderStore';
 import {QUERYPARAM_STORE, QueryParamStore} from './store/queryParamStore';
@@ -25,10 +25,8 @@ import {APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore} from "./store/apiUnitInsta
 
 
 import WebTestcase from '../../../webtest/scenecase/components/webTestcase';
-import {WEBSTEP_STORE, WebUnitStepStore} from '../../../webtest/unitcase/store/webUnitStepStore';
 
 import AppTestcase from "../../../apptest/scenecase/components/appTestcase";
-import {APPSTEP_STORE, AppSceneStepStore} from '../../../apptest/scenecase/store/appSceneStepStore'
 
 export{
 
@@ -37,7 +35,7 @@ export{
 
     Step,
     StepDetail,
-    STEP_STORE,StepStore,
+    API_UNIT_STORE,ApiUnitStore,
     REQUESTHEADER_STORE , RequestHeaderStore,
     QUERYPARAM_STORE, QueryParamStore,
     FORMPARAM_STORE, FormParamStore,
@@ -59,8 +57,6 @@ export{
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
     WebTestcase,
-    WEBSTEP_STORE, WebUnitStepStore,
 
     AppTestcase,
-    APPSTEP_STORE, AppSceneStepStore,
 }

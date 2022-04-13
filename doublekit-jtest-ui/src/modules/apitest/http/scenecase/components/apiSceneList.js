@@ -1,34 +1,25 @@
 import React, {useEffect} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import BreadcrumbCommon from "../../../../common/breadcrumbCommon";
-import ApiScenecaseEdit from "./apiScenecaseEdit";
+import ApiSceneEdit from "./apiSceneEdit";
 import {inject, observer} from "mobx-react";
 
-const ApiScenecaseList = (props)=>{
+const ApiSceneList = (props)=>{
     const {apiSceneStore} = props;
-    const {findApiScenePage,apiSceneList} = apiSceneStore;
+    const {findApiScenePage,apiSceneList,deleteApiScene} = apiSceneStore;
+
     const column =[
         {
             title: '用例名称',
-            dataIndex: 'name',
+            dataIndex: ["testCase",'name'],
             key: 'name',
             // width: "30%",
             render: (text, record) => (
                 <a onClick={() => setSessionStorage(record.id)}>{text}</a>
             )
         },{
-            title: '类型',
-            dataIndex: 'testType',
-            key: 'testType',
-            // width: "30%",
-        },{
-            title: '等级',
-            dataIndex: 'level',
-            key: 'level',
-            // width: "20%",
-        },{
-            title: `创建人`,
-            dataIndex: ['user', 'name'],
+            title: `创建时间`,
+            dataIndex: ['testCase','createTime'],
             key: "user",
         },{
             title: '操作',
@@ -38,12 +29,10 @@ const ApiScenecaseList = (props)=>{
             width: "15%",
             render: (text, record) => (
                 <Space size="middle">
-                    <div>
-                        <div>编辑</div>
-                    </div>
+                    <ApiSceneEdit apiSceneId={record.id}  name={"编辑"}/>
                     <Popconfirm
                         title="确定删除？"
-                        // onConfirm={() => deleteTestCase(record.id)}
+                        onConfirm={() => deleteApiScene(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -54,14 +43,22 @@ const ApiScenecaseList = (props)=>{
         },
     ]
 
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
     const categoryId = sessionStorage.getItem("categoryId")
 
     useEffect(()=>{
-        findApiScenePage(categoryId)
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findApiScenePage(param)
     },[categoryId])
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiSceneId",id);
+
         props.history.push("/repositorypage/apitest/scenedetail")
     }
 
@@ -76,7 +73,7 @@ const ApiScenecaseList = (props)=>{
                     style={{width:240}}
                 />
 
-                <ApiScenecaseEdit  name={"添加用例"} btn={"btn"}/>
+                <ApiSceneEdit  name={"添加用例"} btn={"btn"}/>
             </div>
             <Table
                 columns={column}
@@ -87,4 +84,4 @@ const ApiScenecaseList = (props)=>{
     )
 }
 
-export default inject("apiSceneStore")(observer(ApiScenecaseList));
+export default inject("apiSceneStore")(observer(ApiSceneList));

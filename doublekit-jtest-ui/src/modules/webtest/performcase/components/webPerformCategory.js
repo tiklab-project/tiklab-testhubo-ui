@@ -5,7 +5,7 @@ import WebPerformEdit from "./webPerformEdit";
 import {inject, observer} from "mobx-react";
 
 const WebPerformCategory = (props) =>{
-    const {categoryStore,tabKey,addRouter} = props;
+    const {categoryStore,addRouter} = props;
     const {findCategoryListTree,categoryList} = categoryStore;
     const [clickKey, setClickKey] = useState();
     const [expandedTree, setExpandedTree] = useState([]);
@@ -15,52 +15,15 @@ const WebPerformCategory = (props) =>{
     const repositoryId = sessionStorage.getItem("repositoryId")
 
 
-    // useEffect(()=>{
-    //     const params = {
-    //         testType:testType,
-    //         caseType:caseType,
-    //         repositoryId:repositoryId
-    //     }
-    //     findCategoryListTree(params)
-    // },[testType,tabKey,repositoryId])
-
-
-    const list = [
-        {
-            "name":"WebPerform目录",
-            "id":"113331",
-            "children":[
-                {
-                    "name":"子目录",
-                    "id":"c1611",
-                }
-            ],
-            "node":[
-                {
-                    "name":"WebPerform用例1",
-                    "id":"c1151",
-                },{
-                    "name":"WebPerform用例2",
-                    "id":"c2522",
-                }
-            ]
-        },{
-            "name":"WebPerform目录2",
-            "id":"14511",
-            "children":[
-                {
-                    "name":"zi目录",
-                    "id":"c1176",
-                }
-            ],
-            "node":[
-                {
-                    "name":"api11",
-                    "id":"c11561",
-                }
-            ]
+    useEffect(()=>{
+        const params = {
+            testType:testType,
+            caseType:caseType,
+            repositoryId:repositoryId
         }
-    ]
+        findCategoryListTree(params)
+    },[testType,caseType,repositoryId])
+
 
     const isExpandedTree = (key) =>  expandedTree.some(item => item === key)
 
@@ -254,7 +217,7 @@ const WebPerformCategory = (props) =>{
 
             <ul>
                 {
-                    tree(list)
+                    tree(categoryList)
                 }
             </ul>
         </>

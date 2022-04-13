@@ -6,13 +6,13 @@ import ApiPerformList from "./apiPerformList";
 import ApiPerformEdit from "./apiPerformEdit";
 
 const ApiPerformCategory=(props) => {
-    const {categoryStore,tabKey,addRouter} = props;
+    const {categoryStore,addRouter} = props;
     const {findCategoryListTree,categoryList} = categoryStore;
     const [clickKey, setClickKey] = useState();
     const [expandedTree, setExpandedTree] = useState([]);
 
     const testType = localStorage.getItem("testType");
-    const caseType = localStorage.getItem("caseType")
+    const caseType = localStorage.getItem("caseType");
     const repositoryId = sessionStorage.getItem("repositoryId")
 
 
@@ -23,7 +23,7 @@ const ApiPerformCategory=(props) => {
             repositoryId:repositoryId
         }
         findCategoryListTree(params)
-    },[testType,tabKey,repositoryId])
+    },[testType,caseType,repositoryId])
 
 
 
@@ -146,7 +146,7 @@ const ApiPerformCategory=(props) => {
         return(
             data && data.map((item) => {
                 let deep = 1;
-                if(item.children&&item.children.length>0 || item.node&&item.node.length>0 ){
+                if(item.children&&item.children.length>0 || item.nodeList&&item.nodeList.length>0 ){
                     return (
                         <li key={item.id} >
                             {
@@ -163,7 +163,7 @@ const ApiPerformCategory=(props) => {
                                     tree(item.children,deep+1)
                                 }
                                 {
-                                    methodView(item.node)
+                                    methodView(item.nodeList)
                                 }
                             </ul>
                         </li>

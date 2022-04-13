@@ -1,30 +1,32 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import BreadcrumbCommon from "../../../../common/breadcrumbCommon";
-import ApiUnitcaseEdit from "./apiUnitEdit";
+import ApiUnitEdit from "./apiUnitEdit";
+import {inject, observer} from "mobx-react";
 
 const ApiUnitList = (props) => {
+    const {apiUnitStore} = props;
+    const {findApiUnitPage, apiUnitList,deleteApiUnit} = apiUnitStore;
 
     const column = [
         {
             title: '用例名称',
-            dataIndex: 'name',
+            dataIndex: ["testCase",'name'],
             key: 'name',
             width: "30%",
             render: (text, record) => (
-                <></>
-                // <a onClick={() => setLocalStorage(record.id)}>{text}</a>
+                <a onClick={() => setSessionStorage(record.id)}>{text}</a>
             )
         },
         {
             title: '请求路径',
-            dataIndex: 'baseUrl',
+            dataIndex: 'methodType',
             key: 'baseUrl',
             width: "20%",
         },
         {
             title: '路径',
-            dataIndex: ['method', 'path'],
+            dataIndex:  'path',
             key: 'method',
             width: "20%",
         },
@@ -37,11 +39,11 @@ const ApiUnitList = (props) => {
             render: (text, record) => (
                 <Space size="middle">
                     <div>
-                        <div>编辑</div>
+                        <ApiUnitEdit name={"编辑"} apiUnitId={record.id}/>
                     </div>
                     <Popconfirm
                         title="确定删除？"
-                        // onConfirm={() => deleteTestCase(record.id)}
+                        onConfirm={() => deleteApiUnit(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -51,6 +53,28 @@ const ApiUnitList = (props) => {
             )
         },
     ]
+
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
+
+    useEffect(()=>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findApiUnitPage(param)
+    },[categoryId])
+
+
+
+    const setSessionStorage = (id) =>{
+        sessionStorage.setItem("apiUnitId",id);
+
+        props.history.push("/repositorypage/apitest/unitdetail")
+    }
+
 
 
     return(
@@ -63,11 +87,11 @@ const ApiUnitList = (props) => {
                     className='search-input'
                     style={{width:240}}
                 />
-                <ApiUnitcaseEdit name={"添加用例"} btn={"btn"}/>
+                <ApiUnitEdit name={"添加用例"} btn={"btn"}/>
             </div>
             <Table
                 columns={column}
-                // dataSource={}
+                dataSource={apiUnitList}
                 rowKey = {record => record.id}
             />
 
@@ -77,4 +101,4 @@ const ApiUnitList = (props) => {
 
 }
 
-export default ApiUnitList
+export default inject("apiUnitStore")(observer(ApiUnitList))

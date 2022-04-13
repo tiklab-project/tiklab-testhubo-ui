@@ -16,7 +16,7 @@ import {
 
     Step,
     StepDetail,
-    STEP_STORE,StepStore,
+    API_UNIT_STORE,ApiUnitStore,
     REQUESTHEADER_STORE , RequestHeaderStore,
     QUERYPARAM_STORE, QueryParamStore,
     FORMPARAM_STORE, FormParamStore,
@@ -37,8 +37,6 @@ import {
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
     WebTestcase,
-
-
     AppTestcase,
 } from './apitest/http/unitcase'
 
@@ -110,7 +108,7 @@ export {
 
     Step,
     StepDetail,
-    STEP_STORE,StepStore,
+
     REQUESTHEADER_STORE , RequestHeaderStore,
     QUERYPARAM_STORE, QueryParamStore,
     FORMPARAM_STORE, FormParamStore,
@@ -129,6 +127,7 @@ export {
     TESTINSTANCE_STORE, TestInstanceStore,
     PERFORMCASE_STORE, PerformCaseStore,
 
+    API_UNIT_STORE,ApiUnitStore,
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
     APISCENE_STORE, ApiSceneStore,
     APISCENESTEP_STORE, ApiSceneStepStore,

@@ -5,15 +5,16 @@ import StepEdit from "./apiUnitEdit";
 import {inject, observer} from "mobx-react";
 
 const ApiUnitCategory = (props) =>{
-    const {categoryStore,tabKey,addRouter} = props;
+    const {categoryStore,addRouter} = props;
     const {findCategoryListTree,categoryList} = categoryStore;
     const [clickKey, setClickKey] = useState();
     const [expandedTree, setExpandedTree] = useState([]);
 
     const testType = localStorage.getItem("testType");
-    const caseType = localStorage.getItem("caseType")
-    const repositoryId = sessionStorage.getItem("repositoryId")
+    const caseType = localStorage.getItem("caseType");
+    const repositoryId = sessionStorage.getItem("repositoryId");
 
+    console.log(testType,caseType,repositoryId)
 
     useEffect(()=>{
         const params = {
@@ -22,7 +23,7 @@ const ApiUnitCategory = (props) =>{
             repositoryId:repositoryId
         }
         findCategoryListTree(params)
-    },[testType,tabKey,repositoryId])
+    },[testType,caseType,repositoryId])
 
 
 
@@ -51,7 +52,7 @@ const ApiUnitCategory = (props) =>{
         setClickKey(item.id);
         setOpenOrClose(item.id);
 
-        localStorage.setItem('categoryId',item.id);
+        sessionStorage.setItem('categoryId',item.id);
 
         addRouter('/repositorypage/apitest/unitcase');
     }
@@ -60,7 +61,7 @@ const ApiUnitCategory = (props) =>{
     const onNode = (item) => {
         setClickKey(item.id);
 
-        localStorage.setItem('nodeId',item.id);
+        sessionStorage.setItem('apiUnitId',item.id);
         addRouter('/repositorypage/apitest/unitdetail');
     }
 
@@ -145,7 +146,7 @@ const ApiUnitCategory = (props) =>{
         return(
             data && data.map((item) => {
                 let deep = 1;
-                if(item.children&&item.children.length>0 || item.node&&item.node.length>0 ){
+                if(item.children&&item.children.length>0 || item.nodeList&&item.nodeList.length>0 ){
                     return (
                         <li key={item.id} >
                             {
@@ -162,7 +163,7 @@ const ApiUnitCategory = (props) =>{
                                     tree(item.children,deep+1)
                                 }
                                 {
-                                    methodView(item.node)
+                                    methodView(item.nodeList)
                                 }
                             </ul>
                         </li>

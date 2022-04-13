@@ -11,25 +11,25 @@ const WebUnitList = (props) => {
     const column = [
         {
             title:`用例名称`,
-            dataIndex: "name",
+            dataIndex:  ['testCase',"name"],
             key: "name",
             render: (text,record) =>(
                 <a onClick = {()=>setSessionStorage(record.id)}>{text}</a>
             )
         },
-        {
-            title: `类型`,
-            dataIndex: "testType",
-            key: "testType",
-        },
-        {
-            title: `等级`,
-            dataIndex: "level",
-            key: "level",
-        },
-        {
-            title: `创建人`,
-            dataIndex: ['createUser', 'name'],
+        // {
+        //     title: `类型`,
+        //     dataIndex: "testType",
+        //     key: "testType",
+        // },
+        // {
+        //     title: `等级`,
+        //     dataIndex: "level",
+        //     key: "level",
+        // },
+         {
+            title: `创建时间`,
+            dataIndex: ['testCase','createTime'],
             key: "user",
         },
         {
@@ -54,9 +54,18 @@ const WebUnitList = (props) => {
         },
     ]
 
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
+
     useEffect(()=>{
-        findWebUnitPage()
-    },[])
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findWebUnitPage(param)
+    },[categoryId])
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("funcUnitId",id);

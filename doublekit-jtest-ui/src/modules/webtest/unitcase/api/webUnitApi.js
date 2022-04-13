@@ -3,9 +3,18 @@
 import service from "../../../../common/utils/localrequest";
 import "../../../../mock/webUnitMock"
 
+export function findWebUnitCaseListByTestCase(data){
+    return service.request({
+        url: "/webUnitCase/findWebUnitCaseListByTestCase",
+        method: "post",
+        data
+    })
+}
+
+
 export function findWebUnitPage(data){
     return service.request({
-        url: "/webUnit/findWebUnitPage",
+        url: "/webUnitCase/findWebUnitCasePage",
         method: "post",
         data
     })
@@ -13,7 +22,7 @@ export function findWebUnitPage(data){
 
 export function findWebUnit(data){
     return service.request({
-        url: "/webUnit/findWebUnit",
+        url: "/webUnitCase/findWebUnitCase",
         method: "post",
         data
     })
@@ -21,7 +30,7 @@ export function findWebUnit(data){
 
 export function createWebUnit(data){
     return service.request({
-        url: "/webUnit/createWebUnit",
+        url: "/webUnitCase/createWebUnitCase",
         method: "post",
         data
     })
@@ -29,7 +38,7 @@ export function createWebUnit(data){
 
 export function deleteWebUnit(data){
     return service.request({
-        url: "/webUnit/deleteWebUnit",
+        url: "/webUnitCase/deleteWebUnitCase",
         method: "post",
         data
     })
@@ -37,7 +46,7 @@ export function deleteWebUnit(data){
 
 export function updateWebUnit(data){
     return service.request({
-        url: "/webUnit/updateWebUnit",
+        url: "/webUnitCase/updateWebUnitCase",
         method: "post",
         data
     })

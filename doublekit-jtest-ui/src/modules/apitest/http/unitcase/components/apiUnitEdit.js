@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select} from 'antd';
+import {Form, Modal, Button, Input, Select, message} from 'antd';
 
 const {Option} = Select;
 
@@ -11,8 +11,8 @@ const layout = {
 
 // 添加与编辑
 const ApiUnitEdit = (props) => {
-    const { stepStore, stepId,unitcaseId } = props;
-    const {findStep, createStep, updateStep} = stepStore;
+    const { apiUnitStore, apiUnitId } = props;
+    const {findApiUnit, createApiUnit, updateApiUnit,findApiUnitPage} = apiUnitStore;
 
     const [form] = Form.useForm();
 
@@ -20,30 +20,57 @@ const ApiUnitEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
-        setVisible(true);
         if(props.name === "编辑"){
-            findStep(stepId).then((res)=>{
+            findApiUnit(apiUnitId).then((res)=>{
                 form.setFieldsValue({
-                    name: res.name,
-                    stepType:res.stepType,
+                    name: res.testCase.name,
+                    methodType:res.methodType,
                     path:res.path,
-                    desc:res.desc
+                    desc:res.testCase.desc
                 })
             })
         }
+
+        setVisible(true);
     };
 
-    const testcaseId = localStorage.getItem('testcaseId')
+    const testType = localStorage.getItem("testType");
+    const caseType = localStorage.getItem("caseType");
+
+    const categoryId = sessionStorage.getItem("categoryId")
 
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
-        values.testCase={id:unitcaseId};
+        values.categoryId=categoryId;
+
+        values.testCase={
+            name:values.name,
+            testType:testType,
+            caseType:caseType,
+            desc:values.desc
+        }
+
+        delete values.name
+        delete values.desc
+
         if(props.name === "添加用例" ){
-            createStep(values);
+            createApiUnit(values).then(res=>{
+                if(res.code===0){
+                    findApiUnitPage(categoryId)
+                }else {
+                    message.error('This is an error message');
+                }
+            });
         }else{
-            values.id=stepId;
-            updateStep(values);
+            values.id=apiUnitId;
+            updateApiUnit(values).then(res=>{
+                if(res.code===0){
+                    findApiUnitPage(categoryId)
+                }else {
+                    message.error('This is an error message');
+                }
+            });;
         }
         setVisible(false);
     };
@@ -86,7 +113,7 @@ const ApiUnitEdit = (props) => {
                     <Form.Item
                         label="类型"
                         rules={[{ required: true, }]}
-                        name="stepType"
+                        name="methodType"
                     >
                         <Select>
                             <Option value='post'>post</Option>
@@ -112,4 +139,4 @@ const ApiUnitEdit = (props) => {
     );
 };
 
-export default inject('stepStore')(observer(ApiUnitEdit));
+export default inject('apiUnitStore')(observer(ApiUnitEdit));
