@@ -49,9 +49,9 @@ const ApiUnitDetail = (props) => {
     //返回
     const  goBack = () => {
 
-        if(caseType==="unitcase"){
+        if(caseType==="unit"){
             addRouter("/repositorypage/apitest/unitcase")
-        }else if(caseType==="scenecase"){
+        }else if(caseType==="scene"){
             addRouter("/repositorypage/apitest/scenedetail")
         }
 

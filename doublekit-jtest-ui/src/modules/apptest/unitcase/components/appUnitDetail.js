@@ -37,9 +37,9 @@ const AppUnitDetail = (props) => {
 
     //返回
     const  goBack = () => {
-        if(caseType==="unitcase"){
+        if(caseType==="unit"){
             addRouter("/repositorypage/apptest/unitcase")
-        }else if(caseType==="scenecase"){
+        }else if(caseType==="scene"){
             addRouter("/repositorypage/apptest/scenedetail")
         }
     }

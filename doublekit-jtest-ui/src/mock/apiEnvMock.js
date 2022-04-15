@@ -4,17 +4,17 @@ const data= [
     {
         id: 11,
         name: "API环境名称1",
-        url: "http://localhost:8080",
+        url: "http://192.168.10.3:8080",
     },
     {
         id: 113,
         name: "API环境名称2",
-        url: "http://localhost:8080",
+        url: "http://192.168.10.16:8080",
     },
     {
         id: 4113,
         name: "API环境名称3",
-        url: "http://localhost:8080",
+        url: "http://192.168.10.16:8080",
     },
 ]
 

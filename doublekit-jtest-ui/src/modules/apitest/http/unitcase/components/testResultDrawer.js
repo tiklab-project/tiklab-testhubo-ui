@@ -9,11 +9,28 @@ import TestResponseAssert from "./testResponseAssert";
 import {Button, Drawer} from "antd";
 
 const TestResultDrawer =(props)=>{
-    const { apiUnitStore } = props;
-    const { status, time } = apiUnitStore;
+    const { apiUnitTestDispatchStore } = props;
+    const { apiUnitExecute,apiUnitTestResult } = apiUnitTestDispatchStore;
     const [visible, setVisible] = useState(false);
 
+    let envUrl = JSON.parse(localStorage.getItem("API_ENV_SELECTED")).label
+    let apiUnitId = sessionStorage.getItem("apiUnitId");
+
+    const [bodyResult, setBodyResult] = useState({});
+    const [headerResult, setHeaderResult] = useState({});
+    const [assertResult, setAssertResult] = useState({});
+    const [requestBody, setRequestBody] = useState({});
+    const [responseHeader, setResponseHeader] = useState({});
+
     const showDrawer = () => {
+
+
+        apiUnitExecute(apiUnitId,envUrl).then(res=>{
+            setBodyResult(JSON.parse(res.responseInstance.responseBody));
+            setHeaderResult(res.responseInstance.responseHeader);
+        })
+
+
         setVisible(true);
     };
 
@@ -32,12 +49,10 @@ const TestResultDrawer =(props)=>{
                 height={400}
             >
                 <TestResultCommon
-                    status={status}
-                    time={time}
-                    responseBody={<TestResponseBody />}
-                    responseHeader={<TestResponseHeader />}
-                    requestHeader={<TestRequestHeader />}
-                    requestBody={<TestRequestBody />}
+                    responseBody={<TestResponseBody bodyResult={bodyResult}/>}
+                    responseHeader={<TestResponseHeader headerResult={headerResult}/>}
+                    requestHeader={<TestRequestHeader requestHeader={apiUnitTestResult}/>}
+                    requestBody={<TestRequestBody requestBody={apiUnitTestResult}/>}
                     assertResult={<TestResponseAssert />}
                 />
             </Drawer>
@@ -45,4 +60,4 @@ const TestResultDrawer =(props)=>{
         </>
     )
 }
-export default inject("apiUnitStore")(observer(TestResultDrawer));
+export default inject("apiUnitTestDispatchStore")(observer(TestResultDrawer));

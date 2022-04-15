@@ -2,22 +2,23 @@ import React from "react";
 import ReactJson from "react-json-view";
 import {Input} from "antd";
 import {inject, observer} from "mobx-react";
+import {toJS} from "mobx";
 
 const {TextArea} = Input;
 
 const TestResponseBody =(props)=>{
-    const {apiUnitStore} = props;
-    const {responseBodyData} = apiUnitStore;
+    const {bodyResult} = props;
+
+    let dataType = bodyResult instanceof Object;
 
 
-    let dataType = responseBodyData instanceof Object;
 
     return(
         <>
             {
                 dataType
                     ?<ReactJson
-                        src={responseBodyData}
+                        src={bodyResult}
                         name={null}
                         style={{fontFamily:"sans-serif"}}
                         displayDataTypes={false}
@@ -26,7 +27,7 @@ const TestResponseBody =(props)=>{
                     />
                     :<TextArea
                         autoSize={{minRows: 4, maxRows: 10 }}
-                        value={responseBodyData}
+                        value={bodyResult}
                     />
             }
         </>
@@ -34,4 +35,4 @@ const TestResponseBody =(props)=>{
 
 }
 
-export default inject("apiUnitStore")(observer(TestResponseBody));
+export default TestResponseBody;

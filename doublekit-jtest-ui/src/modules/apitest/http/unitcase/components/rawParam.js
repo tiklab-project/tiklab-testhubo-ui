@@ -20,7 +20,7 @@ const RawParam = (props) => {
     
     const [form] = Form.useForm();
 
-    const apiUnitId = localStorage.getItem('apiUnitId') ;
+    const apiUnitId = sessionStorage.getItem('apiUnitId') ;
 
     useEffect(()=>{
         findRawParam(apiUnitId).then((res)=>{
@@ -69,7 +69,7 @@ const RawParam = (props) => {
             <Form.Item
                 name='raw'
             >
-                <TextArea autoSize={true}  onFocus={()=>setFocus(true)}/>
+                <TextArea  autoSize={{minRows: 4, maxRows: 10 }} onFocus={()=>setFocus(true)}/>
             </Form.Item>
             
         </Form>

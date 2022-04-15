@@ -33,6 +33,7 @@ import {
     API_PERFORM_STORE, ApiPerformStore,
     API_PERFORMSCENE_STORE, ApiPerformSceneStore,
     API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore,
+    API_UNIT_DISPATCH_STORE,ApiUnitTestDispatchStore,
 
     WEB_UNIT_STORE, WebUnitStore,
     WEB_SCENE_STORE,WebSceneStore,
@@ -112,6 +113,7 @@ function createStores() {
         [API_PERFORM_STORE]:new ApiPerformStore(),
         [API_PERFORMSCENE_STORE]: new ApiPerformSceneStore(),
         [API_PERFORMINSTANCE_STORE]: new  ApiPerformInstanceStore(),
+        [API_UNIT_DISPATCH_STORE]: new ApiUnitTestDispatchStore(),
 
         [WEB_UNIT_STORE]:new WebUnitStore(),
         [WEB_SCENE_STORE]:new WebSceneStore(),

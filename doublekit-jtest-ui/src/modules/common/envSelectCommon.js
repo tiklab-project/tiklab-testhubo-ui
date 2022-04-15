@@ -7,25 +7,28 @@ const EnvSelectCommon = (props) =>{
     const {envList,ENV_SELECTED} = props;
 
 
-    const selectedId = localStorage.getItem(ENV_SELECTED)
+    const selectedId = JSON.parse(localStorage.getItem(ENV_SELECTED)).key
 
     const showListView = (data)=>{
         return data&&data.map(item=>{
-            return <Option key={item.id} value={item.id}>{item.name}</Option>
+            return <Option key={item.id} value={item.id}>{item.url}</Option>
         })
     }
 
-    const onChange = (id) =>{
-        localStorage.setItem(ENV_SELECTED,id)
+    const onChange = (value) =>{
+        localStorage.setItem(ENV_SELECTED,JSON.stringify(value));
     }
 
     const toEnvMana= () =>{
         props.history.push("/systemManagement/envMana")
     }
 
+
+
     return(
         <>
             <Select
+                labelInValue
                 style={{width:200}}
                 className={'env-select'}
                 onChange={onChange}
