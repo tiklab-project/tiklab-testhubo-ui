@@ -9,6 +9,7 @@ import PreParam from './preParam';
 import BackParam from './afterParam';
 import AssertParam from './assertParam';
 import { Tabs, Radio } from 'antd';
+import FormUrlencoded from "./formUrlencoded";
 const { TabPane } = Tabs;
 
 // 输出参数 请求头部与请求参数的切换
@@ -50,7 +51,7 @@ const Request = (props) => {
             case 'formdata':
                 return <FormParam  />
             case 'formUrlencoded':
-                return <FormParam  />
+                return <FormUrlencoded  />
             case 'json':
                 return <JsonParam />
             case 'raw':
@@ -93,7 +94,7 @@ const Request = (props) => {
                             value={radioValue}
                         >
                             <Radio value={'none'}>none</Radio>
-                            <Radio value={'formdata'}>form</Radio>
+                            <Radio value={'formdata'}>formData</Radio>
                             <Radio value={'formUrlencoded'}>formUrlencoded </Radio>
                             <Radio value={'json'}>json</Radio>
                             <Radio value={'raw'}>raw</Radio>
