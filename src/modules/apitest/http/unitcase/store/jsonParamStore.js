@@ -94,6 +94,7 @@ export class JsonParamStore {
             id:'jsonParamInitRowChild',
             parent: pid
         }
+
         const loop = (data,newChild)=>{
             let newdata = data.map((item) => {
                 if(item.id && item.id === parentId) {
@@ -111,12 +112,11 @@ export class JsonParamStore {
             })
             return newdata;
         }
-        const data = toJS(this.jsonParamList);
-        let result = loop(data,newChild);
+
+
+        let result = loop(this.jsonParamList,newChild);
         this.jsonParamList = result;
     }
-
-
 }
 
 
