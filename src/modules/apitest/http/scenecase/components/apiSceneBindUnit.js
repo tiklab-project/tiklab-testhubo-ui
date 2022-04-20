@@ -3,36 +3,41 @@ import {Button, Input, Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 
 const ApiSceneBindUnit =(props) =>{
-    const {categoryStore} = props;
+    const {apiUnitStore,apiSceneStepStore} = props;
+    const {findApiUnitPage,apiUnitList} = apiUnitStore;
+
+    const {bindApiUnit} = apiSceneStepStore;
 
     const column =[
         {
             title: '用例名称',
-            dataIndex: 'name',
+            dataIndex: ['testCase','name'],
             key: 'name',
             width: "30%",
         },{
-            title: '请求路径',
-            dataIndex: 'baseUrl',
-            key: 'baseUrl',
+            title: '请求类型',
+            dataIndex: 'methodType',
+            key: 'methodType',
             width: "20%",
         },{
             title: '路径',
-            dataIndex: ['method', 'path'],
-            key: 'method',
+            dataIndex:  'path',
+            key: 'path',
             width: "20%",
         },{
             title: `创建人`,
-            dataIndex: ['user', 'name'],
+            dataIndex: ['testCase','user', 'name'],
             key: "user",
             width: "20%",
         }
     ]
 
     const [visible, setVisible] = React.useState(false);
+    const [selectItem, getSelectItem] = React.useState([]);
 
     // 弹框展示
     const showModal = () => {
+        findApiUnitPage({caseType: "unit", testType: "api"});
 
         setVisible(true);
     };
@@ -41,6 +46,9 @@ const ApiSceneBindUnit =(props) =>{
     // 提交
     const onFinish = async () => {
 
+
+        bindApiUnit(selectItem)
+
         setVisible(false);
     };
 
@@ -48,7 +56,7 @@ const ApiSceneBindUnit =(props) =>{
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            // getSelectItem(selectedRows)
+            getSelectItem(selectedRowKeys)
         },
     };
 
@@ -64,17 +72,18 @@ const ApiSceneBindUnit =(props) =>{
                 okText="提交"
                 cancelText="取消"
                 centered
+                width={800}
             >
-                <Input
-                    placeholder={`搜索`}
-                    // onPressEnter={onSearch}
-                    className='search-input'
-                    style={{width:240}}
-                />
+                {/*<Input*/}
+                {/*    placeholder={`搜索`}*/}
+                {/*    // onPressEnter={onSearch}*/}
+                {/*    className='search-input'*/}
+                {/*    style={{width:240}}*/}
+                {/*/>*/}
 
                 <Table
                     columns={column}
-                    // dataSource={}
+                    dataSource={apiUnitList}
                     rowKey = {record => record.id}
                     rowSelection={{...rowSelection}}
                 />
@@ -84,4 +93,4 @@ const ApiSceneBindUnit =(props) =>{
     )
 }
 
-export default inject("categoryStore")(observer(ApiSceneBindUnit));
+export default inject("apiUnitStore")(observer(ApiSceneBindUnit));

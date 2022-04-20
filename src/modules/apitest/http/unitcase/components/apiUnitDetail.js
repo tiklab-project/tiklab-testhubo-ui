@@ -7,7 +7,7 @@ import Response from "./response";
 import './unitcase.scss'
 import BackCommon from "../../../../common/backCommon";
 import ApiEnvSelect from "../../apitest/apiEnvSelect";
-import TestResultDrawer from "./testResultDrawer";
+import TestResultDrawer from "./apiUnitTestResult";
 
 const ApiUnitDetail = (props) => {
     const { apiUnitStore } = props;
@@ -70,7 +70,7 @@ const ApiUnitDetail = (props) => {
                 <div className={"method-name"}>{name}</div>
                 <div className={'apidetail-title-tool'}>
                     {
-                        caseType === "unitcase"
+                        caseType === "unit"
                             ?<Button onClick={toHistory}>历史</Button>
                             :null
                     }

@@ -64,10 +64,11 @@ import {USERSELECT_STORE, UserSelectStore} from './common/userSelect/store/userS
 import {APISCENE_STORE, ApiSceneStore} from "./apitest/http/scenecase/store/apiSceneStore";
 import {APISCENESTEP_STORE, ApiSceneStepStore} from "./apitest/http/scenecase/store/apiSceneStepStore";
 import {API_SCENEINSTANCE_STORE, ApiSceneInstanceStore} from "./apitest/http/scenecase/store/apiSceneInstanceStore";
-import { API_PERFORM_STORE, ApiPerformStore} from "./apitest/http/performcase/store/apiPerformStore"
+import {API_PERFORM_STORE, ApiPerformStore} from "./apitest/http/performcase/store/apiPerformStore"
 import {API_PERFORMSCENE_STORE, ApiPerformSceneStore} from "./apitest/http/performcase/store/apiPerformSceneStore";
 import {API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore} from "./apitest/http/performcase/store/apiPerformInstanceStore";
 import {API_UNIT_DISPATCH_STORE, ApiUnitTestDispatchStore} from "./apitest/http/unitcase/store/apiUnitTestDispatchStore";
+import {API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore} from "./apitest/http/scenecase/store/apiSceneTestDispatchStore";
 
 import {WEB_UNIT_STORE, WebUnitStore} from "./webtest/unitcase/store/webUnitStore"
 import {WEB_UNITSTEP_STORE,WebUnitStepStore} from "./webtest/unitcase/store/webUnitStepStore";
@@ -137,6 +138,7 @@ export {
     API_PERFORMSCENE_STORE, ApiPerformSceneStore,
     API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore,
     API_UNIT_DISPATCH_STORE,ApiUnitTestDispatchStore,
+    API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore,
 
     WEB_UNIT_STORE, WebUnitStore,
     WEB_UNITSTEP_STORE,WebUnitStepStore,

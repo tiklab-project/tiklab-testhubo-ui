@@ -1,7 +1,7 @@
 import { observable,  action } from "mobx";
 import {
     findApiSceneStepPage,
-    createApiSceneStep,
+    bindApiUnit,
     findApiSceneStep,
     updateApiSceneStep,
     deleteApiSceneStep
@@ -18,7 +18,7 @@ export class ApiSceneStepStore {
         this.apiSceneId = id;
         const params = {
             apiSceneId: id,
-            orderParams:[{name:'paramName', orderType:'asc'}],
+            // orderParams:[{name:'paramName', orderType:'asc'}],
         }
         const res = await findApiSceneStepPage(params);
 
@@ -41,10 +41,16 @@ export class ApiSceneStepStore {
 
 
     @action
-    createApiSceneStep = async (values) => {
-        values.http = {id: this.apiSceneId}
-
-        const res = await createApiSceneStep(values)
+    bindApiUnit = async (selectItem) => {
+        let bindList = [];
+        for (let i=0;i<selectItem.length;i++){
+            bindList.push({
+                apiScene: {id: this.apiSceneId},
+                apiUnitId: selectItem[i]
+            });
+        }
+debugger
+        const res = await bindApiUnit(bindList)
         if( res.code === 0){
             return this.findApiSceneStepPage(this.apiSceneId);
         }

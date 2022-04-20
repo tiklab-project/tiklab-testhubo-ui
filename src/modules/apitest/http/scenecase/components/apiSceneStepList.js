@@ -5,7 +5,7 @@ import ApiSceneBindUnit from "./apiSceneBindUnit";
 
 const ApiSceneStepList =(props) =>{
     const {apiSceneStepStore} = props;
-    const {findApiSceneStepPage,apiSceneStepList} = apiSceneStepStore;
+    const {findApiSceneStepPage,apiSceneStepList,deleteSceneStep} = apiSceneStepStore;
 
     const column = [
         {
@@ -18,12 +18,12 @@ const ApiSceneStepList =(props) =>{
             )
         },{
             title: '请求类型',
-            dataIndex: "requestType",
+            dataIndex: ["apiUnit","methodType"],
             key: 'requestType',
             width: "20%",
         },{
             title: '请求路径',
-            dataIndex: 'path',
+            dataIndex: ["apiUnit",'path'],
             key: 'path',
             width: "20%",
         },{
@@ -41,7 +41,7 @@ const ApiSceneStepList =(props) =>{
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        // onConfirm={() => deleteTestCase(record.id)}
+                        onConfirm={() => deleteSceneStep(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -73,7 +73,7 @@ const ApiSceneStepList =(props) =>{
     return(
         <>
             <div className='flex-right'>
-                <ApiSceneBindUnit />
+                <ApiSceneBindUnit apiSceneStepStore={apiSceneStepStore}/>
             </div>
             <Table
                 columns={column}

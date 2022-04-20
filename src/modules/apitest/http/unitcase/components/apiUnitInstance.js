@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Button, Collapse, Input} from "antd";
-import ReactJson from "react-json-view";
 import BackCommon from "../../../../common/backCommon";
 
 const {TextArea} = Input;
@@ -9,28 +8,28 @@ const { Panel } = Collapse;
 
 const ApiUnitInstance = (props) =>{
     const {apiUnitInstanceStore} = props;
-    const {findInstanceList,instanceList,findInstance} = apiUnitInstanceStore;
+    const {findApiUnitInstanceList,apiUnitInstanceList,findApiUnitInstance} = apiUnitInstanceStore;
 
     const [selected, setSelected] = useState();
     const [requestInstance,setRequestInstance]=useState({})
-    const [requestType, setRequestType] = useState("");
+    const [responseInstance, setResponseInstance] = useState();
     const [statusCode, setStatusCode] = useState("");
-    const [result, setResult] = useState();
+    const [result, setResult] = useState("");
     const [testTime, setTestTime] = useState();
 
-    const unitcaseId = sessionStorage.getItem("unitcaseId")
+    const apiUnitId = sessionStorage.getItem("apiUnitId")
 
     useEffect(()=>{
-        findInstanceList("1")
+        findApiUnitInstanceList(apiUnitId)
     },[])
 
     const clickFindInstance = id =>{
         setSelected(id)
-        findInstance(id).then(res=>{
-            setRequestType(res.requestType);
+        findApiUnitInstance(id).then(res=>{
             setStatusCode(res.statusCode);
             setResult(res.result)
             setRequestInstance(res.requestInstance);
+            setResponseInstance(res.responseInstance);
             setTestTime(res.createTime)
         })
     }
@@ -40,7 +39,7 @@ const ApiUnitInstance = (props) =>{
             return (
                 <div className={`history-item ${selected===item.id?"history-item-selected":""}`} key={item.id} onClick={()=>clickFindInstance(item.id)}>
                     {
-                        item.result===1
+                        item.result==="1"
                             ?<div className='history-item-result '>
                                 <div className={"isSucceed"}>通过</div>
                             </div>
@@ -77,7 +76,7 @@ const ApiUnitInstance = (props) =>{
                 <div className={"test-detail-history"}>
                     <div className={"header-item"}>历史列表</div>
                     {
-                        showInstanceListView(instanceList)
+                        showInstanceListView(apiUnitInstanceList)
                     }
                 </div>
                 <div className={"unit-instance-detail"}>
@@ -85,11 +84,11 @@ const ApiUnitInstance = (props) =>{
                     <div>
                         <div>
                             <span>请求地址:  </span>
-                            <span>{requestInstance.requestBase}</span>
+                            <span>{requestInstance?.requestUrl}</span>
                         </div>
                         <div>
                             <span>请求方式:  </span>
-                            <span>{requestType}</span>
+                            <span>{requestInstance?.requestType}</span>
                         </div>
                         <div>
                             <span>状态码:  </span>
@@ -97,7 +96,7 @@ const ApiUnitInstance = (props) =>{
                         </div>
                         <div>
                             <span>测试结果:  </span>
-                            <span>{result=== 1 ? '成功' : '失败'}</span>
+                            <span>{result=== "1" ? '成功' : '失败'}</span>
                         </div>
                         <div>
                             <span>测试时间:  </span>
@@ -110,57 +109,33 @@ const ApiUnitInstance = (props) =>{
                             ghost
                         >
                             <Panel header="响应体" key="1" >
-                                {/*{*/}
-                                {/*    JSON.parse(requestInstance.responseBody) instanceof Object*/}
-                                {/*        ?<ReactJson*/}
-                                {/*            src={requestInstance.responseBody}*/}
-                                {/*            name={null}*/}
-                                {/*            style={{fontFamily:"sans-serif"}}*/}
-                                {/*            displayDataTypes={false}*/}
-                                {/*            enableClipboard={false}*/}
-                                {/*            displayObjectSize={false}*/}
-                                {/*        />*/}
-                                {/*        :*/}
-                                {/*        <TextArea*/}
-                                {/*            autoSize={{minRows: 4, maxRows: 10 }}*/}
-                                {/*            value={requestInstance.responseBody}*/}
-                                {/*        />*/}
-                                {/*}*/}
-                                <ReactJson
-                                    src={requestInstance.responseBody?JSON.parse(requestInstance.responseBody):{}}
-                                    name={null}
-                                    style={{fontFamily:"sans-serif"}}
-                                    displayDataTypes={false}
-                                    enableClipboard={false}
-                                    displayObjectSize={false}
+                                <TextArea
+                                    autoSize={{minRows: 4, maxRows: 10 }}
+                                    value={responseInstance?.responseBody}
                                 />
-                                {/*<TextArea*/}
-                                {/*    autoSize={{minRows: 4, maxRows: 10 }}*/}
-                                {/*    value={requestInstance.responseBody}*/}
-                                {/*/>*/}
                             </Panel>
                             <Panel header="响应头" key="2" >
                                 <TextArea
                                     autoSize={{minRows: 4, maxRows: 10 }}
-                                    value={requestInstance.responseHeader}
+                                    value={responseInstance?.responseHeader}
                                 />
                             </Panel>
                             <Panel header="请求体" key="3" >
                                 <TextArea
                                     autoSize={{minRows: 4, maxRows: 10 }}
-                                    value={requestInstance.requestBody}
+                                    value={requestInstance?.requestParam}
                                 />
                             </Panel>
                             <Panel header="请求头" key="4" >
                                 <TextArea
                                     autoSize={{minRows: 4, maxRows: 10 }}
-                                    value={requestInstance.requestHeader}
+                                    value={requestInstance?.requestHeader}
                                 />
                             </Panel>
                             <Panel header="断言" key="5" >
                                 <TextArea
                                     autoSize={{minRows: 4, maxRows: 10 }}
-                                    value={requestInstance.responseHeader}
+                                    value={requestInstance?.responseHeader}
                                 />
                             </Panel>
                         </Collapse>

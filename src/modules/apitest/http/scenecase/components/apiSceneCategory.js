@@ -61,7 +61,7 @@ const ApiSceneCategory = props =>{
     const onNode = (item) => {
         setClickKey(item.id);
 
-        sessionStorage.setItem('nodeId',item.id);
+        sessionStorage.setItem('apiSceneId',item.id);
         addRouter('/repositorypage/apitest/scenedetail');
     }
 

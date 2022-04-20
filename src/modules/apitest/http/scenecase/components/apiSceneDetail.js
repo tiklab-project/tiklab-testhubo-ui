@@ -1,55 +1,32 @@
 import React,{useEffect,useState} from 'react';
-import { Form, Button} from 'antd';
 import { inject,observer } from 'mobx-react';
 import ApiSceneStepList from "./apiSceneStepList";
-import ApiSceneTest from "./apiSceneTest";
 import BackCommon from "../../../../common/backCommon";
 import ApiEnvSelect from "../../apitest/apiEnvSelect";
+import ApiSceneTestResult from "./apiSceneTestResult";
 
 const ApiSceneDetail = (props) => {
-    const {apiSceneStore,stepStore} = props;
+    const {apiSceneStore} = props;
     const {findApiScene,updateApiScene} = apiSceneStore;
-    const {
-        findStepPage,
-        deleteStep,
-        stepList,
-        totalRecord,
-        getSelectItem
-    } = stepStore;
-
-    const [showResponse, setShowResponse] = useState(false);
 
     const [baseInfo,setBaseInfo]=useState();
-    const [editTitle,setEditTitle] = useState("SceneName")
-    const [createUser, setCreateUser] = useState("user");
-    const [updateUser, setUpdateUser] = useState("user");
-    const [category, setCategory] = useState("目录");
-    const [updateTime, setUpdateTime] = useState("2022-22-22-");
+    const [editTitle,setEditTitle] = useState()
+    const [createUser, setCreateUser] = useState();
+    const [updateUser, setUpdateUser] = useState();
+    const [category, setCategory] = useState();
+    const [updateTime, setUpdateTime] = useState();
 
-
-    const [form] = Form.useForm()
-
-    const sceneId = sessionStorage.getItem('sceneId');
+    const apiSceneId = sessionStorage.getItem('apiSceneId');
     useEffect(()=>{
-        findApiScene(sceneId).then(res=>{
+        findApiScene(apiSceneId).then(res=>{
             setBaseInfo(res);
             setEditTitle(res.name)
             setCreateUser(res.createUser?.name);
             setUpdateUser(res.updateUser?.name);
             setCategory(res.category?.name);
             setUpdateTime(res.updateTime);
-            form.setFieldsValue({
-                type:res.type,
-                person:res.user.name,
-                createTime:res.createTime
-            })
         })
-    },[])
-
-    useEffect(()=> {
-        findStepPage(sceneId);
-    },[sceneId])
-
+    },[apiSceneId])
 
     //
     const rowSelection = {
@@ -76,10 +53,6 @@ const ApiSceneDetail = (props) => {
     }
 
 
-    const onTest = ()=>{
-        setShowResponse(true)
-    }
-
     const goBack = () =>{
         props.history.push("/repositorypage/apitest/scenecase")
     }
@@ -99,7 +72,8 @@ const ApiSceneDetail = (props) => {
                     </div>
                     <div>
                         <a onClick={toHistory}>测试历史</a>
-                        <Button onClick={onTest}>执行测试</Button>
+                        <ApiSceneTestResult />
+                        {/*<Button onClick={onTest}>执行测试</Button>*/}
                     </div>
 
                 </div>
@@ -114,14 +88,10 @@ const ApiSceneDetail = (props) => {
                 <div>测试步骤</div>
             </div>
             <ApiSceneStepList {...props}/>
-            <div className={'test-title'}>
-                <div>测试结果</div>
-            </div>
-            <ApiSceneTest showResponse={showResponse}/>
         </>
     )
 
 
 }
 
-export default inject('apiSceneStore','stepStore')(observer(ApiSceneDetail));
+export default inject('apiSceneStore')(observer(ApiSceneDetail));

@@ -1,51 +1,48 @@
-// import {Axios as service} from "doublekit-core-ui";
+import {Axios as service} from "doublekit-core-ui";
 
-import service from "../../../../../common/utils/localrequest";
-import "../../../../../mock/instanceMock"
-
-export function deleteInstance(data){
+export function deleteApiUnitInstance(data){
     return service.request({
-        url: "/testInstance/deleteTestInstance",
+        url: "/apiUnitInstance/deleteApiUnitInstance",
         method: "post",
         data
     })
 }
 
-export function createInstance(data){
+export function createApiUnitInstance(data){
     return service.request({
-        url: "/testInstance/createTestInstance",
+        url: "/apiUnitInstance/createApiUnitInstance",
         method: "post",
         data
     })
 }
 
-export function updateInstance(data){
+export function updateApiUnitInstance(data){
     return service.request({
-        url: "/testInstance/updateTestInstance",
+        url: "/apiUnitInstance/updateApiUnitInstance",
         method: "post",
         data
     })
 }
 
-export function findInstance(data){
+export function findApiUnitInstance(data){
     return service.request({
-        url: "/testInstance/findTestInstance",
+        url: "/apiUnitInstance/findApiUnitInstance",
         method: "post",
         data
     })
 }
 
-export function findInstanceList(data){
+export function findApiUnitInstanceList(data){
     return service.request({
-        url: "/testInstance/findTestInstanceList",
+        url: "/apiUnitInstance/findApiUnitInstanceList",
         method: "post",
         data
     })
 }
 
-export function findInstancePage(data){
+export function findApiUnitInstancePage(data){
     return service.request({
-        url: "/testInstance/findTestInstancePage",
+        url: "/apiUnitInstance/findApiUnitInstancePage",
         method: "post",
         data
     })

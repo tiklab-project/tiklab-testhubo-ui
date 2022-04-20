@@ -33,7 +33,8 @@ export class ApiSceneStore {
 
         const res = await findApiScene(param);
         if( res.code === 0){
-            return  this.apiSceneInfo = res.data;
+            this.apiSceneInfo = res.data;
+            return   res.data?.testCase;
         }
     }
 

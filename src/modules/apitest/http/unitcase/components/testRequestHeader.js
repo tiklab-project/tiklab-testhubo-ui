@@ -5,15 +5,14 @@ import {Input} from "antd";
 const {TextArea} = Input;
 
 const TestRequestHeader =(props)=>{
-    const {apiUnitStore} = props;
-    const {requestHeaderData} = apiUnitStore;
+    const {requestHeader} = props;
 
     return(
         <TextArea
             autoSize={{minRows: 4, maxRows: 10 }}
-            value={requestHeaderData}
+            value={requestHeader}
         />
     )
 }
 
-export default inject("apiUnitStore")(observer(TestRequestHeader));
+export default TestRequestHeader;

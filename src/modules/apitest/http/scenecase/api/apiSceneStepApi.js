@@ -1,7 +1,4 @@
-// import {Axios as service} from "doublekit-core-ui";
-
-import service from "../../../../../common/utils/localrequest";
-import "../../../../../mock/apiSceneStepMock"
+import {Axios as service} from "doublekit-core-ui";
 
 export function deleteApiSceneStep(data){
     return service.request({
@@ -50,3 +47,12 @@ export function findApiSceneStepPage(data){
         data
     })
 }
+
+export function bindApiUnit(data){
+    return service.request({
+        url: "/apiSceneStep/bindApiUnit",
+        method: "post",
+        data
+    })
+}
+
