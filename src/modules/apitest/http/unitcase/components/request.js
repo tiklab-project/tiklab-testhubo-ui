@@ -34,7 +34,7 @@ const Request = (props) => {
                 createRequestBody({bodyType :'formdata'});
             }
         })
-    },[bodyType])
+    },[apiUnitId,bodyType])
 
     //radio变化，更新radio的值
     const onChange = e => {

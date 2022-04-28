@@ -5,7 +5,7 @@ import ApiSceneBindUnit from "./apiSceneBindUnit";
 
 const ApiSceneStepList =(props) =>{
     const {apiSceneStepStore} = props;
-    const {findApiSceneStepPage,apiSceneStepList,deleteSceneStep} = apiSceneStepStore;
+    const {findApiSceneStepPage,apiSceneStepList,deleteApiSceneStep} = apiSceneStepStore;
 
     const column = [
         {
@@ -41,7 +41,7 @@ const ApiSceneStepList =(props) =>{
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() => deleteSceneStep(record.id)}
+                        onConfirm={() => deleteApiSceneStep(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -79,7 +79,7 @@ const ApiSceneStepList =(props) =>{
                 columns={column}
                 dataSource={apiSceneStepList}
                 rowKey = {record => record.id}
-                rowSelection={{...rowSelection}}
+                // rowSelection={{...rowSelection}}
             />
         </>
     )

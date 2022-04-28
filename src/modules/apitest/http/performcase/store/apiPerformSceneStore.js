@@ -1,30 +1,45 @@
 import { observable,  action } from "mobx";
 import {
-    findApiPerformScenePage,
-    createApiPerformScene,
-    findApiPerformScene,
-    updateApiPerformScene,
-    deleteApiPerformScene
+    findApiPerfSceneConfigPage,
+    createApiPerfSceneConfig,
+    findApiPerfSceneConfig,
+    updateApiPerfSceneConfig,
+    deleteApiPerfSceneConfig,
+    bindApiScene
 } from '../api/apiPerformSceneApi'
 
 export class ApiPerformSceneStore {
 
     @observable apiPerformSceneList = [];
     @observable apiPerformSceneInfo;
-    @observable apiCategoryId;
+    @observable apiPerfId;
 
     @action
     findApiPerformScenePage = async (id) => {
-        this.apiCategoryId = id;
-        const params = {
-            categoryId: id,
-            orderParams:[{name:'paramName', orderType:'asc'}],
-        }
-        const res = await findApiPerformScenePage(params);
+        this.apiPerfId = id;
+        const params = {apiPerfId: id }
 
+        const res = await findApiPerfSceneConfigPage(params);
         if(res.code === 0) {
             this.apiPerformSceneList = res.data.dataList;
             return res.data
+        }
+    }
+
+    @action
+    bindApiScene = async (selectItem)=>{
+        let bindList = [];
+
+        for (let i=0;i<selectItem.length;i++){
+            bindList.push({
+                apiPerf: {id: this.apiPerfId},
+                apiScene: {id:selectItem[i]}
+            });
+        }
+
+        const res = await bindApiScene(bindList);
+        if(res.code === 0) {
+            this.findApiPerformScenePage(this.apiSceneId);
         }
     }
 
@@ -33,7 +48,7 @@ export class ApiPerformSceneStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findApiPerformScene(param);
+        const res = await findApiPerfSceneConfig(param);
         if( res.code === 0){
             this.apiPerformSceneInfo = res.data;
             return res.data;
@@ -43,19 +58,17 @@ export class ApiPerformSceneStore {
 
     @action
     createApiPerformScene = async (values) => {
-        values.http = {id: this.apiCategoryId}
-
-        const res = await createApiPerformScene(values)
+        const res = await createApiPerfSceneConfig(values)
         if( res.code === 0){
-            return this.findApiPerformScenePage(this.apiCategoryId);
+            this.findApiPerformScenePage(this.apiPerfId);
         }
     }
 
     @action
     updateApiPerformScene = async (values) => {
-        const res = await updateApiPerformScene(values)
+        const res = await updateApiPerfSceneConfig(values)
         if( res.code === 0){
-            return this.findApiPerformScenePage(this.apiCategoryId);
+            this.findApiPerformScenePage(this.apiPerfId);
         }
     }
 
@@ -63,9 +76,9 @@ export class ApiPerformSceneStore {
     deleteApiPerformScene = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        const res = await deleteApiPerformScene(param)
+        const res = await deleteApiPerfSceneConfig(param)
         if( res.code === 0){
-            this.findApiPerformScenePage(this.apiCategoryId);
+            this.findApiPerformScenePage(this.apiPerfId);
         }
     }
 

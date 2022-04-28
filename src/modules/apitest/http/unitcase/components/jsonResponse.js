@@ -106,7 +106,7 @@ const JsonResponse = (props) => {
 
     useEffect(()=>{
         findJsonResponseListTree(apiUnitId)
-    },[radioValue])
+    },[radioValue,apiUnitId])
 
     // 表格checked
     const toggleChecked= (e,row)=> {

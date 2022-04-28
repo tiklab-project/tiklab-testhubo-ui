@@ -51,7 +51,10 @@ const WebUnitDetail = (props) => {
 
     return(
         <>
-            <BackCommon clickBack={goBack} right={<WebEnvSelect history={props.history}/>}/>
+            <BackCommon
+                clickBack={goBack}
+                // right={<WebEnvSelect history={props.history}/>}
+            />
             <div className={'testcase-detail'}>
                 <div className="apidetail-header-btn">
                     <div className={"method-name"}>{allValue?.name}</div>

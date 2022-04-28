@@ -1,9 +1,7 @@
 import { observable,  action } from "mobx";
 import {
     findApiSceneInstanceList,
-    createApiSceneInstance,
     findApiSceneInstance,
-    updateApiSceneInstance,
     deleteApiSceneInstance
 } from '../api/apiSceneInstanceApi'
 
@@ -11,14 +9,14 @@ export class ApiSceneInstanceStore {
 
     @observable apiSceneInstanceList = [];
     @observable apiSceneInstanceInfo;
-    @observable apiUnitcaseId;
+    @observable apiSceneId;
 
     @action
     findApiSceneInstanceList = async (id) => {
-        this.apiUnitcaseId = id;
+        this.apiSceneId = id;
         const params = {
-            categoryId: id,
-            orderParams:[{name:'paramName', orderType:'asc'}],
+            apiSceneId: id,
+            orderParams:[{name:'createTime', orderType:'desc'}],
         }
         const res = await findApiSceneInstanceList(params);
 
@@ -35,28 +33,11 @@ export class ApiSceneInstanceStore {
 
         const res = await findApiSceneInstance(param);
         if( res.code === 0){
-            return  this.apiSceneInstanceInfo = res.data;
+            this.apiSceneInstanceInfo = res.data;
+            return   res.data;
         }
     }
 
-
-    @action
-    createApiSceneInstance = async (values) => {
-        values.http = {id: this.apiUnitcaseId}
-
-        const res = await createApiSceneInstance(values)
-        if( res.code === 0){
-            return this.findApiSceneInstancePage(this.apiUnitcaseId);
-        }
-    }
-
-    @action
-    updateApiSceneInstance = async (values) => {
-        const res = await updateApiSceneInstance(values)
-        if( res.code === 0){
-            return this.findApiSceneInstancePage(this.apiUnitcaseId);
-        }
-    }
 
     @action
     deleteApiSceneInstance = async (id) => {
@@ -64,7 +45,7 @@ export class ApiSceneInstanceStore {
         param.append('id', id);
         const res = await deleteApiSceneInstance(param)
         if( res.code === 0){
-            this.findApiSceneInstancePage(this.apiUnitcaseId);
+            this.findApiSceneInstancePage(this.apiSceneId);
         }
     }
 

@@ -36,6 +36,7 @@ import {
     API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore,
     API_UNIT_DISPATCH_STORE,ApiUnitTestDispatchStore,
     API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore,
+    API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore,
 
     WEB_UNIT_STORE, WebUnitStore,
     WEB_SCENE_STORE,WebSceneStore,
@@ -118,6 +119,7 @@ function createStores() {
         [API_PERFORMINSTANCE_STORE]: new  ApiPerformInstanceStore(),
         [API_UNIT_DISPATCH_STORE]: new ApiUnitTestDispatchStore(),
         [API_SCENE_DISPATCH_STORE]: new ApiSceneTestDispatchStore(),
+        [API_PERF_DISPATCH_STORE]: new ApiPerfTestDispatchStore(),
 
         [WEB_UNIT_STORE]:new WebUnitStore(),
         [WEB_SCENE_STORE]:new WebSceneStore(),

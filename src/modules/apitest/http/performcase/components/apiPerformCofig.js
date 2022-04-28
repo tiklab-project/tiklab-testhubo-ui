@@ -1,19 +1,22 @@
 import React, {useEffect, useState} from "react";
 import {Button, InputNumber, Radio,Checkbox } from "antd";
 import {inject, observer} from "mobx-react";
-import Mock from "mockjs";
 
 const ApiPerformCofig = (props) =>{
     const {apiPerformStore} = props;
     const {findApiPerform,apiPerformInfo} = apiPerformStore;
     
-    const [exeMode, setExeMode] = useState("nft");
+    const [exeMode, setExeMode] = useState();
     const [node, setNode] = useState("single");
 
+    const apiPerfId = sessionStorage.getItem("apiPerfId")
 
     useEffect(()=>{
-        findApiPerform(11)
-    },[])
+        findApiPerform(apiPerfId).then(res=>{
+
+            setExeMode(res.executorType);
+        })
+    },[apiPerfId])
 
     const onChange=(e,value)=> {
         console.log('changed',e.target.checked,value);
@@ -50,6 +53,8 @@ const ApiPerformCofig = (props) =>{
     }
 
 
+
+
     return(
         <>
             <div className={" perfom-config-item"}>
@@ -69,13 +74,13 @@ const ApiPerformCofig = (props) =>{
                 {/*<Button className={`${exeMode==="nft"?"exeMode":null} `} onClick={()=>executionMode("nft")}>按执行次数</Button>*/}
                 {/*<Button className={`${exeMode==="time"?"exeMode":null} `} onClick={()=>executionMode("time")}>按执行时间</Button>*/}
                 <Radio.Group onChange={(e)=>setExeMode(e.target.value)} value={exeMode}>
-                    <Radio value={"nft"}>按执行次数</Radio>
-                    <Radio value={"time"}>按执行时间</Radio>
+                    <Radio value={0}>按执行次数</Radio>
+                    <Radio value={1}>按执行时间</Radio>
                 </Radio.Group>
             </div>
             <div className={"perfom-config-item"}>
                 {
-                    exeMode==="nft"
+                    exeMode===0
                     ?<div>
                         <span>执行次数:</span>
                         <InputNumber
@@ -112,22 +117,22 @@ const ApiPerformCofig = (props) =>{
                 }
 
             </div>
-            <div className={"perfom-config-item"}>
-                分配策略:
-                <Button className={`${node==="single"?"exeMode":null} `} onClick={()=>executionMode("single")}>固定节点</Button>
-                <Button className={`${node==="mult"?"exeMode":null} `} onClick={()=>executionMode("mult")}>自动分配</Button>
-            </div>
+            {/*<div className={"perfom-config-item"}>*/}
+            {/*    分配策略:*/}
+            {/*    <Button className={`${node==="single"?"exeMode":null} `} onClick={()=>executionMode("single")}>固定节点</Button>*/}
+            {/*    <Button className={`${node==="mult"?"exeMode":null} `} onClick={()=>executionMode("mult")}>自动分配</Button>*/}
+            {/*</div>*/}
 
-            {
-                node==="mult"
-                    ? <div className={`perfom-config-item perform-client-box`}>
+            {/*{*/}
+            {/*    node==="mult"*/}
+            {/*        ? <div className={`perfom-config-item perform-client-box`}>*/}
 
-                        {
-                            showClient(apiPerformInfo?.nodeList)
-                        }
-                    </div>
-                    :null
-            }
+            {/*            {*/}
+            {/*                showClient(apiPerformInfo?.nodeList)*/}
+            {/*            }*/}
+            {/*        </div>*/}
+            {/*        :null*/}
+            {/*}*/}
 
         </>
     )

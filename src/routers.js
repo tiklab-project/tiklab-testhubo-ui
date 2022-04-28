@@ -68,6 +68,8 @@ import AppSceneInstance from "./modules/apptest/scenecase/components/appSceneIns
 import AppPerformDetailContant from "./modules/apptest/performcase/components/appPerformDetailContant";
 import AppPerformInstance from "./modules/apptest/performcase/components/appPerformInstance";
 import EnvContant from "./modules/sysmgr/environment/components/envContant";
+import ApiPerformDetail from "./modules/apitest/http/performcase/components/apiPerformDetail";
+import ApiPerformTest from "./modules/apitest/http/performcase/components/apiPerformTest";
 
 
 const routers =  [
@@ -165,6 +167,24 @@ const routers =  [
                                 path: "/repositorypage/apitest/performdetail",
                                 key:'performcase',
                                 component: ApiPerfomDetailContant,
+                                routes:[
+                                    {
+                                        path: "/repositorypage/apitest/performdetail/config",
+                                        key:'config',
+                                        component:ApiPerformDetail,
+                                    },
+                                    {
+                                        path: "/repositorypage/apitest/performdetail/test",
+                                        key:'config',
+                                        component:ApiPerformTest,
+                                    },
+                                    {
+                                        path:"/repositorypage/apitest/performdetail",
+                                        exact: true,
+                                        key:'ridperformdetail',
+                                        component: ()=><Redirect to='/repositorypage/apitest/performdetail/config'/>,
+                                    },
+                                ]
                             },{
                                 path: "/repositorypage/apitest/perform-instance",
                                 key:'history',

@@ -57,7 +57,10 @@ const WebPerformDetail = (props) =>{
 
     return(
         <>
-            <BackCommon clickBack={goBack} right={<WebEnvSelect history={props.history}/>}/>
+            <BackCommon
+                clickBack={goBack}
+                // right={<WebEnvSelect history={props.history}/>}
+            />
             <div className={'testcase-webUI-form'}>
                 <div className="web-form-header">
                     <div

@@ -125,7 +125,7 @@ const FormUrlencoded = (props) =>{
 
     useEffect( ()=>{
         findFormUrlencodedList(apiUnitId).then(res => setDataSoure(res));
-    },[dataLength])
+    },[dataLength,apiUnitId])
 
     //更新
     const upData = (value) => {

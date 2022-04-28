@@ -34,7 +34,7 @@ const RawResponse = (props) => {
                 }
             } 
         })
-    },[radioValue])
+    },[radioValue,apiUnitId])
 
     // 提交保存
     const onFinish = (values) => {

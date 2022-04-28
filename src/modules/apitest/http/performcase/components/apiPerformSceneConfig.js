@@ -11,26 +11,33 @@ const ApiPerformSceneConfig = (props) =>{
     const column =[
         {
             title: '场景名称',
-            dataIndex: 'name',
+            dataIndex: ['testCase','name'],
             key: 'name',
             // width: "30%",
             // render: (text, record) => (
             //     <a onClick={() => setSessionStorage(record.id)}>{text}</a>
             // )
-        },{
-            title: '是否启用',
-            dataIndex: 'testType',
-            key: 'testType',
-            // width: "30%",
-            render:(text,record )=>(
-                <Switch
-                    checkedChildren="启用"
-                    unCheckedChildren="停用"
-                    checked={text===1?true:false}
-                    onChange={(e)=>changeEnable(e,record)}
-                />
-            )
-        },{
+        },
+        // {
+        //     title: '是否启用',
+        //     dataIndex: 'testType',
+        //     key: 'testType',
+        //     // width: "30%",
+        //     render:(text,record )=>(
+        //         <Switch
+        //             checkedChildren="启用"
+        //             unCheckedChildren="停用"
+        //             checked={text===1?true:false}
+        //             onChange={(e)=>changeEnable(e,record)}
+        //         />
+        //     )
+        // },
+        {
+            title: `创建时间`,
+            dataIndex: ['testCase', 'createTime'],
+            key: "user",
+        },
+        {
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
@@ -49,19 +56,21 @@ const ApiPerformSceneConfig = (props) =>{
         },
     ]
 
+    const apiPerfId = sessionStorage.getItem("apiPerfId")
+
     useEffect(()=>{
-        findApiPerformScenePage()
+        findApiPerformScenePage(apiPerfId)
     },[])
 
 
-    const changeEnable = (e,record) => {
+    // const changeEnable = (e,record) => {
         // if(e===true){
         //     record.enable=1;
         // }else {
         //     record.enable=0;
         // }
         // updateMock(record)
-    }
+    // }
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiSceneId",id);
@@ -71,12 +80,13 @@ const ApiPerformSceneConfig = (props) =>{
     return(
         <>
             <div className='flex-right'>
-                <ApiPerformBindScene />
+                <ApiPerformBindScene apiPerformSceneStore={apiPerformSceneStore} />
             </div>
             <Table
                 columns={column}
                 dataSource={apiPerformSceneList}
                 rowKey = {record => record.id}
+                pagination={false}
             />
         </>
     )

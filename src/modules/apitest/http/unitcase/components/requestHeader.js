@@ -24,7 +24,7 @@ const RequestHeader = (props) =>{
 
     useEffect( ()=>{
         findRequestHeaderList(apiUnitId).then(res=>setDataSource(res))
-    },[dataLength])
+    },[apiUnitId,dataLength])
 
 
     //表头

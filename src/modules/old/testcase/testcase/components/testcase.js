@@ -4,7 +4,7 @@ import {Breadcrumb, Input, Table, Space, Popconfirm,Menu,Dropdown,Button} from '
 import  { useTranslation } from 'react-i18next'
 import TestcaseWebEdit from "../../../../webtest/scenecase/components/testcaseWebEdit";
 import TestcaseAppEdit from "../../../../apptest/scenecase/components/testcaseAppEdit";
-import TestcaseApiEdit from "../../../../apitest/http/scenecase/components/testcaseApiEdit";
+import TestcaseApiEdit from "../../../testReport/components/testcaseApiEdit";
 import FunctionalTestEdit from '../../../../functest/scenecase/functionalTestEdit'
 import '../../common/component/testDetailStyle.scss'
 

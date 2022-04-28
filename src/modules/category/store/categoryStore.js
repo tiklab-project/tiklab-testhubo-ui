@@ -19,7 +19,7 @@ export class CategoryStore{
         this.repositoryId = value.id;
         const params = {
             name:categoryName,
-            orderParams:[{ name:'name',  orderType:'asc' }],
+            orderParams:[{ name:'name',  orderType:'desc' }],
             ...value,
         }
 

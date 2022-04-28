@@ -128,7 +128,7 @@ const JsonParam = (props) => {
     const apiUnitId = sessionStorage.getItem('apiUnitId');
     useEffect(()=>{
         findJsonParamListTree(apiUnitId);
-    },[radioValue])
+    },[radioValue,apiUnitId])
 
 
     // 点击子按钮，添加子行

@@ -1,52 +1,58 @@
-// import {Axios as service} from "doublekit-core-ui";
+import {Axios as service} from "doublekit-core-ui";
 
-import service from "../../../../../common/utils/localrequest";
-import "../../../../../mock/apiPerformStepMock"
 
-export function deleteApiPerformScene(data){
+export function deleteApiPerfSceneConfig(data){
     return service.request({
-        url: "/apiPerformScene/deleteApiPerformScene",
+        url: "/apiPerfSceneConfig/deleteApiPerfSceneConfig",
         method: "post",
         data
     })
 }
 
-export function createApiPerformScene(data){
+export function createApiPerfSceneConfig(data){
     return service.request({
-        url: "/apiPerformScene/createApiPerformScene",
+        url: "/apiPerfSceneConfig/createApiPerfSceneConfig",
         method: "post",
         data
     })
 }
 
-export function updateApiPerformScene(data){
+export function updateApiPerfSceneConfig(data){
     return service.request({
-        url: "/apiPerformScene/updateApiPerformScene",
+        url: "/apiPerfSceneConfig/updateApiPerfSceneConfig",
         method: "post",
         data
     })
 }
 
-export function findApiPerformScene(data){
+export function findApiPerfSceneConfig(data){
     return service.request({
-        url: "/apiPerformScene/findApiPerformScene",
+        url: "/apiPerfSceneConfig/findApiPerfSceneConfig",
         method: "post",
         data
     })
 }
 
-export function findApiPerformSceneList(data){
+export function findApiPerfSceneConfigList(data){
     return service.request({
-        url: "/apiPerformScene/findApiPerformSceneList",
+        url: "/apiPerfSceneConfig/findApiPerfSceneConfigList",
         method: "post",
         data
     })
 }
 
-export function findApiPerformScenePage(data){
+export function findApiPerfSceneConfigPage(data){
     return service.request({
-        url: "/apiPerformScene/findApiPerformScenePage",
+        url: "/apiPerfSceneConfig/findApiPerfSceneConfigPage",
         method: "post",
         data
     })
 }
+export function bindApiScene(data){
+    return service.request({
+        url: "/apiPerfSceneConfig/bindApiScene",
+        method: "post",
+        data
+    })
+}
+

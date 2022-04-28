@@ -1,11 +1,8 @@
-// import {Axios as service} from "doublekit-core-ui";
-
-import service from "../../../../../common/utils/localrequest";
-import "../../../../../mock/apiPerformMock"
+import {Axios as service} from "doublekit-core-ui";
 
 export function deleteApiPerform(data){
     return service.request({
-        url: "/apiPerform/deleteApiPerform",
+        url: "/apiPerfCase/deleteApiPerfCase",
         method: "post",
         data
     })
@@ -13,7 +10,7 @@ export function deleteApiPerform(data){
 
 export function createApiPerform(data){
     return service.request({
-        url: "/apiPerform/createApiPerform",
+        url: "/apiPerfCase/createApiPerfCase",
         method: "post",
         data
     })
@@ -21,7 +18,7 @@ export function createApiPerform(data){
 
 export function updateApiPerform(data){
     return service.request({
-        url: "/apiPerform/updateApiPerform",
+        url: "/apiPerfCase/updateApiPerfCase",
         method: "post",
         data
     })
@@ -29,7 +26,7 @@ export function updateApiPerform(data){
 
 export function findApiPerform(data){
     return service.request({
-        url: "/apiPerform/findApiPerform",
+        url: "/apiPerfCase/findApiPerfCase",
         method: "post",
         data
     })
@@ -37,7 +34,7 @@ export function findApiPerform(data){
 
 export function findApiPerformList(data){
     return service.request({
-        url: "/apiPerform/findApiPerformList",
+        url: "/apiPerfCase/findApiPerfCaseList",
         method: "post",
         data
     })
@@ -45,8 +42,17 @@ export function findApiPerformList(data){
 
 export function findApiPerformPage(data){
     return service.request({
-        url: "/apiPerform/findApiPerformPage",
+        url: "/apiPerfCase/findApiPerfCasePage",
         method: "post",
         data
     })
 }
+
+export function findApiPerfCaseListByTestCase(data){
+    return service.request({
+        url: "/apiPerfCase/findApiPerfCaseListByTestCase",
+        method: "post",
+        data
+    })
+}
+

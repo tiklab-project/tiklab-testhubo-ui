@@ -29,10 +29,15 @@ const RawParam = (props) => {
                     raw: res.raw,
                     type:res.type
                 })
+            }else{
+                form.setFieldsValue({
+                    raw: null,
+                    type:null
+                })
             }
             
         })
-    },[radioValue])
+    },[apiUnitId])
 
     // 提交保存
     const onFinish = (values) => {

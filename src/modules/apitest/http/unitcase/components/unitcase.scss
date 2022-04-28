@@ -245,23 +245,20 @@ $backgroud-color: #fff;
     border-top: none;
     overflow: auto;
 
-    .test-detail-history-title{
-        height: 30px;
-        text-align: center;
-        line-height: 28px;
-        background: #efefef;
-    }
+}
 
+.test-detail-history-title{
+    height: 30px;
+    text-align: center;
+    line-height: 28px;
+    background: #efefef;
+}
 
-
-    .history-item{
-        font-size: 13px;
-        display: flex;
-        border-bottom: 1px solid #e4e4e4;
-        padding: 10px;
-
-
-    }
+.history-item{
+    font-size: 13px;
+    display: flex;
+    border-bottom: 1px solid #e4e4e4;
+    padding: 10px;
 }
 
 .history-item:hover{
@@ -299,7 +296,7 @@ $backgroud-color: #fff;
 
 .scene-instance-contant{
     display: flex;
-    height: 100%;
+    height:calc(100% - 42px);
 
     .scene-step-contant{
         width: 240px;
@@ -311,6 +308,10 @@ $backgroud-color: #fff;
     }
 }
 
+.history-list{
+    height:calc(100% - 38px);
+    overflow: auto;
+}
 
 .history-step-item{
     display: flex;

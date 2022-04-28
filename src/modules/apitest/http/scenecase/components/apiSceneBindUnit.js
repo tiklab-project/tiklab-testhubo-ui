@@ -45,8 +45,6 @@ const ApiSceneBindUnit =(props) =>{
 
     // 提交
     const onFinish = async () => {
-
-
         bindApiUnit(selectItem)
 
         setVisible(false);

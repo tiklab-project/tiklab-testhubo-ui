@@ -12,7 +12,8 @@ const layout = {
 
 // 添加与编辑
 const ApiPerformEdit = (props) => {
-    const {   } = props;
+    const { apiPerformStore,apiPerfId,caseType,testType,categoryId ,findPage } = props;
+    const { findApiPerform,createApiPerform,updateApiPerform}= apiPerformStore;
 
     const [form] = Form.useForm();
 
@@ -20,6 +21,17 @@ const ApiPerformEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
+
+        if(props.name==="编辑"){
+            findApiPerform(apiPerfId).then(res=>{
+                form.setFieldsValue({
+                    name:res.testCase.name,
+                    desc:res.testCase.desc,
+                });
+            })
+        }
+
+
         setVisible(true);
     };
 
@@ -27,6 +39,31 @@ const ApiPerformEdit = (props) => {
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
+        values.testCase={
+            category:{id:categoryId},
+            name:values.name,
+            testType:testType,
+            caseType:caseType,
+            desc:values.desc
+        }
+        delete values.name
+        delete values.desc
+
+        if(props.name==="添加用例"){
+            createApiPerform(values).then(res=>{
+                if(res.code===0){
+                    findPage()
+                }
+            })
+        }else {
+            values.id=apiPerfId
+            updateApiPerform(values).then(res=>{
+                if(res.code===0){
+                    findPage()
+                }
+            })
+        }
+
 
         setVisible(false);
     };
@@ -78,4 +115,4 @@ const ApiPerformEdit = (props) => {
     );
 };
 
-export default inject()(observer(ApiPerformEdit));
+export default inject("apiPerformStore")(observer(ApiPerformEdit));

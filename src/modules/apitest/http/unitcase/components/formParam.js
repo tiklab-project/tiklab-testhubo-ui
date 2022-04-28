@@ -30,7 +30,7 @@ const FormParam = (props) =>{
     
     useEffect( ()=>{
         findFormParamList(apiUnitId).then(res => setDataSoure(res));
-    },[dataLength])
+    },[dataLength,apiUnitId])
 
     //表头
     let columns= [

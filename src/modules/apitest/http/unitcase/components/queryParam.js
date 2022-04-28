@@ -30,7 +30,7 @@ const QueryParam = (props) =>{
 
     useEffect( ()=>{
         findQueryParamList(apiUnitId).then(res=>setDataSource(res))
-    },[dataLength])
+    },[dataLength,apiUnitId])
 
     let columns= [
         {

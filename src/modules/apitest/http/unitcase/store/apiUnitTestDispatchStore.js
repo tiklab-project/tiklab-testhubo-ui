@@ -18,8 +18,8 @@ export class ApiUnitTestDispatchStore {
         const res = await  apiUnitExecute(param);
         if(res.code === 0) {
             this.apiUnitTestResult = res.data;
-            this.responseResult = res.data?.apiUnitInstance.responseInstance;
-            return res.data?.apiUnitInstance;
+            this.responseResult = res.data?.responseInstance;
+            return res.data;
         }
     }
 

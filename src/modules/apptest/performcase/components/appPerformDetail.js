@@ -57,7 +57,10 @@ const AppPerformDetail = (props) =>{
 
     return(
         <>
-            <BackCommon clickBack={goBack} right={<AppEnvSelect history={props.history}/>}/>
+            <BackCommon
+                clickBack={goBack}
+                // right={<AppEnvSelect history={props.history}/>}
+            />
             <div className={'testcase-appUI-form'}>
                 <div className="web-form-header">
                     <div

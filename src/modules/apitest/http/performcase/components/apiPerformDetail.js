@@ -12,18 +12,20 @@ const ApiPerformDetail = (props) =>{
     const {apiPerformStore} = props;
     const {findApiPerform} = apiPerformStore;
 
-    const [showResponse, setShowResponse] = useState(false);
+
 
     const [baseInfo,setBaseInfo]=useState();
-    const [editTitle,setEditTitle] = useState("PerformeName")
-    const [createUser, setCreateUser] = useState("user");
-    const [updataUser, setUpdataUser] = useState("user");
-    const [category, setCategory] = useState("目录");
-    const [updateTime, setUpdateTime] = useState("2022-22-22-");
+    const [editTitle,setEditTitle] = useState()
+    const [createUser, setCreateUser] = useState();
+    const [updataUser, setUpdataUser] = useState();
+    const [category, setCategory] = useState();
+    const [updateTime, setUpdateTime] = useState();
+
+    const apiPerfId = sessionStorage.getItem("apiPerfId");
 
 
     useEffect(()=>{
-        findApiPerform(11).then(res=>{
+        findApiPerform(apiPerfId).then(res=>{
 
             setBaseInfo(res);
             setEditTitle(res.name)
@@ -32,33 +34,22 @@ const ApiPerformDetail = (props) =>{
             setCategory(res.category?.name);
             setUpdateTime(res.updateTime);
         })
-    },[])
+    },[apiPerfId])
 
     const updateTitle = (value) =>{
 
     }
 
-    const toHistory = () =>{
-        props.history.push("/repositorypage/apitest/perform-instance")
-    }
-
-
-    const onTest = ()=>{
-        setShowResponse(true)
-    }
 
     const changeTab = (actvieKey) =>{
 
     }
 
-    const goBack = () =>{
-        props.history.push("/repositorypage/apitest/performcase")
-    }
+
 
     return(
         <>
             <div>
-                <BackCommon clickBack={goBack} right={<ApiEnvSelect history={props.history}/>} />
                 <div className={'testcase-webUI-form'}>
                     <div className="web-form-header">
                         <div
@@ -70,8 +61,7 @@ const ApiPerformDetail = (props) =>{
                             {editTitle}
                         </div>
                         <div>
-                            <a onClick={toHistory}>测试历史</a>
-                            <Button onClick={onTest}>执行测试</Button>
+
                         </div>
 
                     </div>
@@ -88,9 +78,6 @@ const ApiPerformDetail = (props) =>{
                     </TabPane>
                     <TabPane tab="压力配置" key="2">
                         <ApiPerformCofig />
-                    </TabPane>
-                    <TabPane tab="Tab 3" key="3">
-                        Content of Tab Pane 3
                     </TabPane>
                 </Tabs>
             </div>

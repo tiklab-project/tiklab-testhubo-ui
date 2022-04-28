@@ -13,7 +13,6 @@ export class ApiSceneStore {
 
     @observable apiSceneList = [];
     @observable apiSceneInfo;
-    @observable categoryId;
 
     @action
     findApiScenePage = async (value) => {

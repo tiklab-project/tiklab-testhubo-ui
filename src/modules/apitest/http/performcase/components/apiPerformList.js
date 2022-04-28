@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import {useTranslation} from "react-i18next";
 import BreadcrumbCommon from "../../../../common/breadcrumbCommon";
-import ApiPerformcaseEdit from "./apiPerformEdit";
 import {inject, observer} from "mobx-react";
 import ApiPerformEdit from "./apiPerformEdit";
 import "./performanceStyle.scss"
@@ -11,7 +10,7 @@ const ApiPerformList = (props) =>{
     const { apiPerformStore } = props;
     const {
         findApiPerformPage,
-        deletePerform,
+        deleteApiPerform,
         apiPerformList,
         totalRecord
     } = apiPerformStore;
@@ -22,32 +21,39 @@ const ApiPerformList = (props) =>{
     const columns = [
         {
             title:`名称`,
-            dataIndex: "name",
+            dataIndex:[ "testCase","name"],
             key: "name",
             render: (text,record) =>(
-                <a onClick = {()=>setLocalStorage(record.testType,record.id)}>{text}</a>
+                <a onClick = {()=>setStorage(record.id)}>{text}</a>
             )
         },
         {
-            title: `类型`,
-            dataIndex: "testType",
-            key: "testType",
+            title: `创建时间`,
+            dataIndex: ["testCase","createTime"],
+            key: "createTime",
         },
-        {
-            title: `等级`,
-            dataIndex: "level",
-            key: "level",
-        },
+        // {
+        //     title: `等级`,
+        //     dataIndex: "level",
+        //     key: "level",
+        // },
         {
             title: ` ${t('tcoperation')}`,
             key: "action",
             align:"center",
             render: (text, record) => (
                 <Space size="middle">
-                    <ApiPerformEdit name={"编辑"}/>
+                    <ApiPerformEdit
+                        apiPerfId={record.id}
+                        name={"编辑"}
+                        findPage={findPage}
+                        testType={testType}
+                        caseType={caseType}
+                        categoryId={categoryId}
+                    />
                     <Popconfirm
                         title="确定删除？"
-                        // onConfirm={() =>deletePerform(record.id)}
+                        onConfirm={() =>deleteApiPerform(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -66,18 +72,30 @@ const ApiPerformList = (props) =>{
             currentPage: currentPage
         }
     })
+
     const [tableLoading,setTableLoading] = useState(true);
-    const repositoryId = sessionStorage.getItem('repositoryId')
+
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
 
     useEffect(()=> {
-        findApiPerformPage(1).then(()=>{
-            setTableLoading(false)
-        });
-    },[params])
+        findPage();
+    },[caseType,testType,categoryId])
+
+    const findPage = () => {
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findApiPerformPage(param)
+    }
 
     // 保存id到缓存
-    const setLocalStorage = (type,id) => {
-        sessionStorage.setItem('performId',id);
+    const setStorage = (id) => {
+
+        sessionStorage.setItem('apiPerfId',id);
         props.history.push('/repositorypage/apitest/performdetail')
     }
 
@@ -120,12 +138,19 @@ const ApiPerformList = (props) =>{
         <div className={'inner-box'}>
             <BreadcrumbCommon breadArray={["API","性能测试"]}/>
             <div className='case-header'>
+                <ApiPerformEdit
+                    name='添加用例'
+                    btn={"btn"}
+                    findPage={findPage}
+                    testType={testType}
+                    caseType={caseType}
+                    categoryId={categoryId}
+                />
                 <Input
                     placeholder={`搜索`}
                     onPressEnter={onSearch}
                     className='search-input'
                 />
-                <ApiPerformcaseEdit  name='添加用例' btn={"btn"} />
             </div>
 
             <Table

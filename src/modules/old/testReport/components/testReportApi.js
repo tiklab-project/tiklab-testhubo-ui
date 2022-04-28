@@ -5,7 +5,7 @@
 import React, {useState} from 'react';
 import {Drawer, Form, Input, Button,Divider,Table} from 'antd'
 import {inject, observer} from "mobx-react";
-import TestResult from "../../../../old/testReport/common/testResult";
+import TestResult from "../common/testResult";
 
 const layout = {
     labelCol: {span: 4},

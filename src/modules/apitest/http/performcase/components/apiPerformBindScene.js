@@ -1,35 +1,46 @@
 import React from "react";
 import {Button, Input, Modal, Table} from "antd";
+import {inject, observer} from "mobx-react";
 
 const ApiPerformBindScene = (props) =>{
+    const {apiSceneStore,apiPerformSceneStore} = props;
+
+    const {findApiScenePage,apiSceneList} =apiSceneStore;
+
+    const {bindApiScene} = apiPerformSceneStore;
+
 
     const column =[
         {
             title: '场景名称',
-            dataIndex: 'name',
+            dataIndex: ['testCase','name'],
             key: 'name',
             // width: "30%",
-        },{
-            title: '类型',
-            dataIndex: 'testType',
-            key: 'testType',
-            // width: "30%",
-        },{
-            title: '等级',
-            dataIndex: 'level',
-            key: 'level',
-            // width: "20%",
-        },{
-            title: `创建人`,
-            dataIndex: ['user', 'name'],
+        },
+        // {
+        //     title: '类型',
+        //     dataIndex: 'testType',
+        //     key: 'testType',
+        //     // width: "30%",
+        // },{
+        //     title: '等级',
+        //     dataIndex: 'level',
+        //     key: 'level',
+        //     // width: "20%",
+        // },
+        {
+            title: `创建时间`,
+            dataIndex: ['testCase', 'createTime'],
             key: "user",
         }
     ]
 
     const [visible, setVisible] = React.useState(false);
+    const [selectItem, getSelectItem] = React.useState([]);
 
     // 弹框展示
     const showModal = () => {
+        findApiScenePage({caseType:"scene",testType:"api"});
 
         setVisible(true);
     };
@@ -37,6 +48,7 @@ const ApiPerformBindScene = (props) =>{
 
     // 提交
     const onFinish = async () => {
+        bindApiScene(selectItem);
 
         setVisible(false);
     };
@@ -45,7 +57,7 @@ const ApiPerformBindScene = (props) =>{
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            // getSelectItem(selectedRows)
+            getSelectItem(selectedRowKeys)
         },
     };
 
@@ -63,16 +75,16 @@ const ApiPerformBindScene = (props) =>{
                 centered
                 width={1000}
             >
-                <Input
-                    placeholder={`搜索`}
-                    // onPressEnter={onSearch}
-                    className='search-input'
-                    style={{width:240}}
-                />
+                {/*<Input*/}
+                {/*    placeholder={`搜索`}*/}
+                {/*    // onPressEnter={onSearch}*/}
+                {/*    className='search-input'*/}
+                {/*    style={{width:240}}*/}
+                {/*/>*/}
 
                 <Table
                     columns={column}
-                    // dataSource={}
+                    dataSource={apiSceneList}
                     rowKey = {record => record.id}
                     rowSelection={{...rowSelection}}
                 />
@@ -82,4 +94,4 @@ const ApiPerformBindScene = (props) =>{
     )
 }
 
-export default ApiPerformBindScene;
+export default inject("apiSceneStore")(observer(ApiPerformBindScene));

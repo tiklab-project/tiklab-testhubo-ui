@@ -16,8 +16,6 @@
 .perform-item-detail{
     margin: 0 30px 0 0;
 
-
-
 }
 
 .exeMode{
@@ -98,7 +96,6 @@
 
 .scene-step-contant{
     width: 240px;
-    height: 400px;
     border: 1px solid #e4e4e4;
 }
 
@@ -132,4 +129,11 @@
     .perform-client-item-check{
         align-self: flex-start;
     }
+}
+
+.api-perf-test-header-box{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin: 10px;
 }

@@ -16,10 +16,8 @@ export class ApiSceneStepStore {
     @action
     findApiSceneStepPage = async (id) => {
         this.apiSceneId = id;
-        const params = {
-            apiSceneId: id,
-            // orderParams:[{name:'paramName', orderType:'asc'}],
-        }
+        const params = { apiSceneId: id }
+
         const res = await findApiSceneStepPage(params);
 
         if(res.code === 0) {
@@ -35,7 +33,8 @@ export class ApiSceneStepStore {
 
         const res = await findApiSceneStep(param);
         if( res.code === 0){
-            return  this.apiSceneStepInfo = res.data;
+            this.apiSceneStepInfo = res.data;
+            return res.data;
         }
     }
 
@@ -46,13 +45,13 @@ export class ApiSceneStepStore {
         for (let i=0;i<selectItem.length;i++){
             bindList.push({
                 apiScene: {id: this.apiSceneId},
-                apiUnitId: selectItem[i]
+                apiUnit: {id:selectItem[i]}
             });
         }
 debugger
         const res = await bindApiUnit(bindList)
         if( res.code === 0){
-            return this.findApiSceneStepPage(this.apiSceneId);
+            this.findApiSceneStepPage(this.apiSceneId);
         }
     }
 
@@ -60,7 +59,7 @@ debugger
     updateApiSceneStep = async (values) => {
         const res = await updateApiSceneStep(values)
         if( res.code === 0){
-            return this.findApiSceneStepPage(this.apiSceneId);
+            this.findApiSceneStepPage(this.apiSceneId);
         }
     }
 
@@ -68,6 +67,7 @@ debugger
     deleteApiSceneStep = async (id) => {
         const param = new FormData();
         param.append('id', id);
+
         const res = await deleteApiSceneStep(param)
         if( res.code === 0){
             this.findApiSceneStepPage(this.apiSceneId);

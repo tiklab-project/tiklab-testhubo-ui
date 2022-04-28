@@ -44,7 +44,10 @@ const AppSceneDetail = (props) => {
 
     return(
         <>
-            <BackCommon clickBack={goBack} right={<AppEnvSelect history={props.history}/>}/>
+            <BackCommon
+                clickBack={goBack}
+                // right={<AppEnvSelect history={props.history}/>}
+            />
             <div className={'testcase-detail'}>
                 <div className="apidetail-header-btn">
                     <div className={"method-name"}>{allValue?.name}</div>
