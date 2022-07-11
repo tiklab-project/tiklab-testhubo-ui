@@ -22,6 +22,11 @@
             "libraryDirectory": "es",
             "style": "css"
         }],
+        ["import", {
+            "libraryName": "doublekit-eam-ui",
+            "libraryDirectory": "es",
+            "style": "scss"
+        },"doublekit-eam-ui"],
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
         ["@babel/plugin-proposal-class-properties", { "loose" : false }],
         ["dynamic-import-webpack"],

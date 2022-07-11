@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import {useTranslation} from "react-i18next";
 import {Col, Row, Dropdown, Menu, Button, Badge} from "antd";
 // import {Search} from "../index";
-import useAppConfig from "./useAppLink"
 import { BellOutlined } from '@ant-design/icons';
 import {inject, observer} from "mobx-react";
 import HeaderMenu from "./headerMenu";
+import {useWorkAppConfig} from "doublekit-eam-ui";
 
-const CommonHeader = props => {
+const HeaderContent = props => {
     const {userMessageStore} = props;
     const {userMessageNum} = userMessageStore;
     const {
@@ -19,7 +19,7 @@ const CommonHeader = props => {
     const { i18n } = useTranslation();
     const [lan, setLan] = useState(i18n.language);
 
-    const [component, ModalComponent, editOrAddModal] = useAppConfig(false);
+    const [component, ModalComponent, editOrAddModal] = useWorkAppConfig(false);
 
     const onClickLan = ({ key }) => {
         i18n.changeLanguage(languageSelectData[key].value)
@@ -70,4 +70,4 @@ const CommonHeader = props => {
         </Row>
     )
 }
-export default inject("userMessageStore")(observer(CommonHeader));
+export default inject("userMessageStore")(observer(HeaderContent));

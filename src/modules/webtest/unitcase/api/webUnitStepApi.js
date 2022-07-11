@@ -2,10 +2,8 @@
  * @description：
  * @date: 2021-09-03 13:32
  */
-// import {Axios as service} from "doublekit-core-ui";
+import {Axios as service} from "doublekit-core-ui";
 
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/webUnitStepMock"
 
 export function findWebUnitStepList(data){
     return service.request({

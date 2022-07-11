@@ -40,7 +40,7 @@ const TestReportWeb= (props) => {
         },
         {
             title: '定位器的值',
-            dataIndex: 'locationPrice',
+            dataIndex: 'locationValue',
             width: '15%',
             align:'center',
         },

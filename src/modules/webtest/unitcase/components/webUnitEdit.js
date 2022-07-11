@@ -1,9 +1,8 @@
 
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select} from 'antd';
+import {Form, Modal, Button, Input} from 'antd';
 
-const {Option} = Select;
 
 const layout = {
     labelCol: {span: 4},
@@ -12,14 +11,29 @@ const layout = {
 
 // 添加与编辑
 const WebUnitEdit = (props) => {
-    const {   } = props;
+    const { webUnitStore,caseType,testType,findPage,webUnitId,categoryStore} = props;
+    const { createWebUnit,updateWebUnit ,findWebUnit} = webUnitStore
+    const {findCategoryListTree} = categoryStore;
 
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
 
+    const categoryId = sessionStorage.getItem("categoryId")
+    const repositoryId = localStorage.getItem("repositoryId")
+
     // 弹框展示
     const showModal = () => {
+
+        if(props.type==="edit"){
+            findWebUnit(webUnitId).then(res=>{
+                form.setFieldsValue({
+                    name:res.testCase.name,
+                    desc:res.testCase.desc
+                })
+            })
+        }
+
         setVisible(true);
     };
 
@@ -27,6 +41,48 @@ const WebUnitEdit = (props) => {
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
+
+
+        if(props.type!=="edit"){
+            values.testCase={
+                category:{id:categoryId},
+                name:values.name,
+                testType:testType,
+                caseType:caseType,
+                desc:values.desc
+            }
+            delete values.name
+            delete values.desc
+
+            createWebUnit(values).then(()=> {
+                findPage();
+
+                const params = {
+                    testType:testType,
+                    caseType:caseType,
+                    repositoryId:repositoryId
+                }
+                findCategoryListTree(params)
+            })
+        }else {
+            values.id=webUnitId;
+            values.testCase={
+                id:webUnitId,
+                name:values.name,
+                desc:values.desc
+            }
+            updateWebUnit(values).then(()=> {
+                debugger
+                findPage()
+                const params = {
+                    testType:testType,
+                    caseType:caseType,
+                    repositoryId:repositoryId
+                }
+                findCategoryListTree(params)
+            })
+        }
+
 
         setVisible(false);
     };
@@ -78,4 +134,4 @@ const WebUnitEdit = (props) => {
     );
 };
 
-export default inject()(observer(WebUnitEdit));
+export default inject("webUnitStore","categoryStore")(observer(WebUnitEdit));

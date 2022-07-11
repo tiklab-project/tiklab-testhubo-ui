@@ -73,7 +73,7 @@ const AppStepEdit = (props) => {
             findAppStep(appStepId).then((res)=>{
                 form.setFieldsValue({
                     location: res.location,
-                    locationPrice:res.locationPrice,
+                    locationValue:res.locationValue,
                     actionType:res.actionType,
                     parament:res.parament,
                     stepAction:res.stepAction,
@@ -156,7 +156,7 @@ const AppStepEdit = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="定位器的值"
-                        name="locationPrice"
+                        name="locationValue"
                     >
                         <Input />
                     </Form.Item>

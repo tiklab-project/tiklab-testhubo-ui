@@ -5,6 +5,7 @@ import BackCommon from "../../../../common/backCommon";
 import ApiPerformSceneConfig from "./apiPerformSceneConfig";
 import ApiPerformCofig from "./apiPerformCofig";
 import ApiEnvSelect from "../../apitest/apiEnvSelect";
+import {updateApiPerform} from "../api/apiPerformApi";
 
 const { TabPane } = Tabs;
 
@@ -28,15 +29,16 @@ const ApiPerformDetail = (props) =>{
         findApiPerform(apiPerfId).then(res=>{
 
             setBaseInfo(res);
-            setEditTitle(res.name)
+            setEditTitle(res.testCase?.name)
             setCreateUser(res.createUser?.name);
             setUpdataUser(res.updateUser?.name);
             setCategory(res.category?.name);
-            setUpdateTime(res.updateTime);
+            setUpdateTime(res.testCase.updateTime);
         })
     },[apiPerfId])
 
     const updateTitle = (value) =>{
+
 
     }
 

@@ -35,7 +35,7 @@ const WebUnitTest = (props) =>{
         },
         {
             title: '定位器的值',
-            dataIndex: 'locationPrice',
+            dataIndex: 'locationValue',
             width: '15%',
             align:'center',
         },
@@ -59,7 +59,7 @@ const WebUnitTest = (props) =>{
             actionType:"open",
             parament:"url/a/b/c",
             location:"",
-            locationPrice:"",
+            locationValue:"",
             result:"1"
         },
         {
@@ -67,7 +67,7 @@ const WebUnitTest = (props) =>{
             actionType:"click",
             parament:"",
             location:"id",
-            locationPrice:"btn",
+            locationValue:"btn",
             result:"1"
         },
         {
@@ -75,7 +75,7 @@ const WebUnitTest = (props) =>{
             actionType:"click",
             parament:"",
             location:"className",
-            locationPrice:"css",
+            locationValue:"css",
             result:"0"
         },
     ]

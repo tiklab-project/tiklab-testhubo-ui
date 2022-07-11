@@ -38,7 +38,7 @@ const WebUnitStepList = (props) =>{
         },
         {
             title: '定位器的值',
-            dataIndex: 'locationPrice',
+            dataIndex: 'locationValue',
             width: '20%',
             align:'center',
         },
@@ -49,10 +49,15 @@ const WebUnitStepList = (props) =>{
             dataIndex: 'operation',
             render: (text, record) => (
                 <Space size="middle">
-                    <WebUnitStepEdit name="编辑"  webStepId={record.id} />
+                    <WebUnitStepEdit
+                        name="编辑"
+                        type={"edit"}
+                        webUnitStepId={record.id}
+                        findPage={findWebUnitStepList}
+                    />
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteWebUnitStep(record.id)}
+                        onConfirm={() =>deleteWebUnitStep(record.id).then(()=> findWebUnitStepList(webUnitId))}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -63,10 +68,11 @@ const WebUnitStepList = (props) =>{
         }
     ]
 
-    const testcaseId = localStorage.getItem('testcaseId');
+    const webUnitId = sessionStorage.getItem('webUnitId');
+    
     useEffect( ()=>{
-        findWebUnitStepList()
-    },[])
+        findWebUnitStepList(webUnitId)
+    },[webUnitId])
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -81,7 +87,11 @@ const WebUnitStepList = (props) =>{
                 <div>测试步骤</div>
             </div>
             <div className={'flex-right'}>
-                <WebUnitStepEdit name={'添加步骤'} btn={'btn'}/>
+                <WebUnitStepEdit
+                    name={'添加步骤'} 
+                    btn={'btn'}
+                    findPage={findWebUnitStepList}
+                />
             </div>
             <Table
                 columns={columns}

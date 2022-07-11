@@ -10,7 +10,14 @@ const ApiSceneTestResult =(props)=>{
     const { apiSceneExecute } = apiSceneTestDispatchStore;
     const [visible, setVisible] = useState(false);
 
-    let envUrl = JSON.parse(localStorage.getItem("API_ENV_SELECTED")).label
+    let envUrl
+    try{
+        envUrl =JSON.parse(localStorage.getItem("API_ENV_SELECTED")).label
+    }catch (e) {
+        envUrl =null
+
+    }
+
     let apiSceneId = sessionStorage.getItem("apiSceneId");
 
 

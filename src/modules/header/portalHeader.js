@@ -1,21 +1,18 @@
-/*
- * @Description:
- * @Author: sunxiancheng
- * @LastEditTime: 2021-05-27 14:00:23
- */
 import React from 'react';
-import { renderRoutes } from "react-router-config";
-import Portal from "./ProjectPortal";
+import {verifyUserHoc} from "doublekit-eam-ui";
+import {connect} from 'doublekit-plugin-ui';
 import './portalStyle.scss'
+import PageContent from "./pageContent";
 
-const  PortalHeader =(props)=> {
-    const router = props.route.routes;
+const  PortalHeader = verifyUserHoc(PageContent);
 
-    return(
-        <Portal {...props}>
-            {renderRoutes(router)}
-        </Portal>
-    )
+function mapStateToProps(state) {
+    return {
+        pluginStore: state.pluginStore
+    }
 }
 
-export default PortalHeader
+export default connect(mapStateToProps)(PortalHeader);
+
+
+

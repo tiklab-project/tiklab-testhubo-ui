@@ -6,7 +6,7 @@ const data= [
         actionType:"open",
         parament:"url/a/b/c",
         location:"",
-        locationPrice:"",
+        locationValue:"",
         appUnitId:1
     },
     {
@@ -14,7 +14,7 @@ const data= [
         actionType:"click",
         parament:"",
         location:"id",
-        locationPrice:"btn",
+        locationValue:"btn",
         appUnitId:1
     },
     {
@@ -22,7 +22,7 @@ const data= [
         actionType:"click",
         parament:"",
         location:"className",
-        locationPrice:"css",
+        locationValue:"css",
         appUnitId:1
     },
 ]

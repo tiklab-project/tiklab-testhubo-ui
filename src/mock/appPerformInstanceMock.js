@@ -142,7 +142,7 @@ const data= [
                         actionType:"open",
                         parament:"url/a/b/c",
                         location:"",
-                        locationPrice:"",
+                        locationValue:"",
                         result:"1"
                     },
                     {
@@ -150,7 +150,7 @@ const data= [
                         actionType:"click",
                         parament:"",
                         location:"id",
-                        locationPrice:"btn",
+                        locationValue:"btn",
                         result:"1"
                     },
                     {
@@ -158,7 +158,7 @@ const data= [
                         actionType:"click",
                         parament:"",
                         location:"className",
-                        locationPrice:"css",
+                        locationValue:"css",
                         result:"0"
                     },
                 ]
@@ -215,7 +215,7 @@ const data= [
                         actionType:"open",
                         parament:"url/a/b/c",
                         location:"",
-                        locationPrice:"",
+                        locationValue:"",
                         result:"1"
                     },
                     {
@@ -223,7 +223,7 @@ const data= [
                         actionType:"click",
                         parament:"",
                         location:"id",
-                        locationPrice:"btn",
+                        locationValue:"btn",
                         result:"1"
                     },
                     {
@@ -231,7 +231,7 @@ const data= [
                         actionType:"click",
                         parament:"",
                         location:"className",
-                        locationPrice:"css",
+                        locationValue:"css",
                         result:"0"
                     },
                 ]

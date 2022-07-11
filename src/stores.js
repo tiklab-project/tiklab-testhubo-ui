@@ -1,5 +1,5 @@
-import { LoginStore,LOGIN_STATUS } from 'doublekit-portal-ui';
-import {PluginStore, PLUGIN_STORE} from "doublekit-plugin-ui"
+import {EAM_STORE, EamStore} from 'doublekit-eam-ui/es/store'
+// import {PluginStore, PLUGIN_STORE} from "doublekit-plugin-ui"
 
 import {
     ENVIRONMENT_STORE, EnvironmentStore,
@@ -165,8 +165,8 @@ function createStores() {
         [TESTPLANDETAIL_STORE]: new TestPlanDetailStore(),
 
         [USERSELECT_STORE]: new UserSelectStore(),
-        [LOGIN_STATUS]: new LoginStore(),
-        [PLUGIN_STORE]: new PluginStore(),
+        [EAM_STORE]: new EamStore(),
+        // [PLUGIN_STORE]: new PluginStore(),
     };
 }
 

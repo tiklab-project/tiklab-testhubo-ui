@@ -76,7 +76,7 @@ const AppUnitStepEdit = (props) => {
             findAppUnitStep(appStepId).then((res)=>{
                 form.setFieldsValue({
                     location: res.location,
-                    locationPrice:res.locationPrice,
+                    locationValue:res.locationValue,
                     parament:res.parament,
                     actionType:res.actionType,
                     expectedResult:res.expectedResult
@@ -154,7 +154,7 @@ const AppUnitStepEdit = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="定位器的值"
-                        name="locationPrice"
+                        name="locationValue"
                     >
                         <Input />
                     </Form.Item>

@@ -1,7 +1,6 @@
 
 import React from 'react'
-import {LogOut} from 'doublekit-portal-ui';
-import {AuthConfig} from 'doublekit-user-ui'
+
 import {
     Login, Home,
     Repository,
@@ -25,7 +24,7 @@ import {
     SystemFeature, SystemRole,
     MessageManagement, MessageSendType, MessageTemplate, MessageType, MessageUser,
 } from './modules/sysmgr'
-
+import {Directory} from 'doublekit-user-ui';
 import {Redirect} from "react-router";
 import Demo from "./modules/repository/components/demo";
 import PortalHeader from "./modules/header/portalHeader";
@@ -70,6 +69,7 @@ import AppPerformInstance from "./modules/apptest/performcase/components/appPerf
 import EnvContant from "./modules/sysmgr/environment/components/envContant";
 import ApiPerformDetail from "./modules/apitest/http/performcase/components/apiPerformDetail";
 import ApiPerformTest from "./modules/apitest/http/performcase/components/apiPerformTest";
+import LoginOut from "./modules/header/loginOut";
 
 
 const routers =  [
@@ -81,7 +81,7 @@ const routers =  [
     },
     {
         path: "/logout",
-        component: LogOut,
+        component: LoginOut,
         exact: true,
         key:'logout',
     },
@@ -502,7 +502,7 @@ const routers =  [
                         path: "/systemManagement/authConfig",
                         key:'authConfig',
                         exact: true,
-                        component: AuthConfig,
+                        render: () => <Directory isPortal={false}/>,
                     },{
                         path:"/systemManagement",
                         exact: true,

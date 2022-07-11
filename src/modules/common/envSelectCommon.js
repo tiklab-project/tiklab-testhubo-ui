@@ -7,7 +7,13 @@ const EnvSelectCommon = (props) =>{
     const {envList,ENV_SELECTED} = props;
 
 
-    const selectedId = JSON.parse(localStorage.getItem(ENV_SELECTED)).key
+    let selectedId;
+    try{
+        selectedId= JSON.parse(localStorage.getItem(ENV_SELECTED)).key
+    }catch (e) {
+        selectedId=null
+    }
+
 
     const showListView = (data)=>{
         return data&&data.map(item=>{

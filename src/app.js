@@ -1,50 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { renderRoutes  } from "react-router-config";
-import {PLUGIN_STORE, loadLanguage} from 'doublekit-plugin-ui';
-import {I18nextProvider,useTranslation} from "react-i18next";
-import resources from './common/language/resource';
+import 'antd/dist/antd.css';
 import './common/styles/base.scss';
 import './common/language/i18n';
 import "./assets/iconfont/iconfont";
 import "./assets/iconfont/iconfont.css";
-// import {setCookie} from "doublekit-core-ui";
-import {inject, observer} from "mobx-react";
+import {useTranslation} from "react-i18next";
+import { PluginProvider, initFetch} from 'doublekit-plugin-ui';
+import resources from './common/language/resource';
+import {getUser} from "doublekit-core-ui";
 
  const App = (props) => {
-     const {pluginsStore} = props;
-     const { routers, isInitLoadPlugin, languages} = pluginsStore;
+     const {allStore,routers} = props;
 
      const {i18n,t} = useTranslation();
 
-     const [loading, setLoading] = useState(false);
-     const [resourcesLanguage,setResources] = useState({});
+     const [viable,setViable] = useState(false);
+
+     const [pluginData,setPluginData] = useState({
+         routes:routers,
+         pluginStore:[],
+         languageStore:[]
+     });
 
      useEffect(() => {
-         // setCookie("ticket", "6032a32d20404dc98445cdc5aba9e73601")
-         if (isInitLoadPlugin) {
-             setLoading(true);
-             loadLanguage(i18n, resources, languages, fetchMethod, 'zh').then(res => {
-                 const resources = {
-                     en:res.en,
-                     zh:res.zh
-                 }
-                 setResources(resources)
-             })
-
-         }
-     }, [isInitLoadPlugin])
-
-     const newI18 = i18n.cloneInstance({ resources: resourcesLanguage });
+         initFetch('post', routers, resources,i18n).then(res => {
+             setPluginData(res)
+             setViable(true)
+         })
+     }, []);
 
 
+     //获取系统权限
+     const userInfo = getUser();
+     if(userInfo && userInfo.userId) {
+         allStore.systemRoleStore.getSystemPermissions(userInfo.userId);
+     }
 
-    return(
-        <I18nextProvider i18n={newI18}>
-            {
-                loading ? renderRoutes(routers) : <div>loading...</div>
-            }
-        </I18nextProvider>
+
+     if (!viable) {
+         return <div>加载中</div>
+     }
+
+     return(
+         <PluginProvider store={pluginData}>
+             {
+                 renderRoutes(routers)
+             }
+         </PluginProvider>
     )
 }
 
-export default inject(PLUGIN_STORE)(observer(App));
+export default App;

@@ -22,11 +22,11 @@ export class WebUnitStepStore {
     @observable selectItem;
 
     @action
-    findWebUnitStepList = async (id,param) => {
+    findWebUnitStepList = async (id) => {
         this.webUnitId=id;
         const params = {
             webUnitId: id,
-            ...param,
+            orderParams:[{name:'createTime', orderType:'asc'}],
         }
         const res = await findWebUnitStepList(params)
         if(res.code === 0) {
@@ -36,47 +36,31 @@ export class WebUnitStepStore {
     }
 
     @action
-    findWebUnitStep = (id) => {
-        const that =this;
+    findWebUnitStep =async (id) => {
         const param = new FormData();
         param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findWebUnitStep(param).then((res) => {
-                res.code = undefined;
-                if(res.code === 0){
-                    that.webUnitStepInfo = res.data;
-                    resolve(res.data)
-                }
-            })
-        })
+
+        let res =  await  findWebUnitStep(param)
+        if(res.code === 0){
+            this.webUnitStepInfo = res.data;
+            return res.data;
+        }
     }
 
     @action
-    createWebUnitStep = (values) => {
-        createWebUnitStep(values).then((res) => {
-            if(res.code === 0){
-                this.findWebUnitStepList(this.webUnitId)
-            }
-        })
-    }
+    createWebUnitStep =async (values) => await createWebUnitStep(values)
+
 
     @action
-    updateWebUnitStep = (values) => {
-        updateWebUnitStep(values).then((res) => {
-            if(res.code === 0){
-                this.findWebUnitStepList(this.webUnitId);
-            }
-        })
-    }
+    updateWebUnitStep = async (values) => await updateWebUnitStep(values)
+
 
     @action
-    deleteWebUnitStep = (id) => {
+    deleteWebUnitStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        deleteWebUnitStep(param).then((res) => {
-            this.findWebUnitStepList(this.webUnitId);
-        })
+        return await deleteWebUnitStep(param)
     }
 
     //添加框中，下拉选择框获取所有定位器
@@ -92,6 +76,7 @@ export class WebUnitStepStore {
     //添加框中，下拉选择框获取所有方法
     @action
     findActionTypeList = (data) => {
+
         return findActionTypeList(data).then(res => {
             if(res.code === 0) {
                 this.fuctionList = res.data;

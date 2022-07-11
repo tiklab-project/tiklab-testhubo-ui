@@ -12,8 +12,14 @@ const ApiUnitTestResult =(props)=>{
     const { apiUnitTestDispatchStore } = props;
     const { apiUnitExecute } = apiUnitTestDispatchStore;
     const [visible, setVisible] = useState(false);
+    let envUrl
+    try{
+        envUrl =JSON.parse(localStorage.getItem("API_ENV_SELECTED")).label
+    }catch (e) {
+        envUrl =null
 
-    let envUrl = JSON.parse(localStorage.getItem("API_ENV_SELECTED")).label
+    }
+
     let apiUnitId = sessionStorage.getItem("apiUnitId");
 
     const [bodyResult, setBodyResult] = useState();

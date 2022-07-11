@@ -38,7 +38,7 @@ const AppStep = (props) =>{
         },
         {
             title: '定位器的值',
-            dataIndex: 'locationPrice',
+            dataIndex: 'locationValue',
             width: '30%',
             // align:'center',
             ellipsis:true
