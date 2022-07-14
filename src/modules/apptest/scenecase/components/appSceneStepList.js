@@ -5,7 +5,7 @@ import AppSceneBindUnit from "./AppSceneBindUnit";
 
 const AppSceneStepList = (props) => {
     const {appSceneStepStore} =props;
-    const {findAppSceneStepList,appSceneStepList,deleteAppScene} = appSceneStepStore;
+    const {findAppSceneStepList,appSceneStepList,deleteAppSceneStep} = appSceneStepStore;
 
     const column = [
         {
@@ -13,8 +13,8 @@ const AppSceneStepList = (props) => {
             dataIndex: "name",
             key: "name",
         }, {
-            title: `创建人`,
-            dataIndex: ['createUser', 'name'],
+            title: `创建时间`,
+            dataIndex: "createTime",
             key: "user",
         },
         {
@@ -27,7 +27,7 @@ const AppSceneStepList = (props) => {
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() => deleteAppScene(record.id)}
+                        onConfirm={() => deleteAppSceneStep(record.id).then(()=>findAppSceneStepList(appSceneId))}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -38,19 +38,25 @@ const AppSceneStepList = (props) => {
         },
     ]
 
+    let appSceneId = sessionStorage.getItem("appSceneId")
+
     useEffect(()=>{
-        findAppSceneStepList()
-    },[])
+        findAppSceneStepList(appSceneId)
+    },[appSceneId])
 
    
 
     return(
         <>
-           <AppSceneBindUnit />
+           <AppSceneBindUnit
+               appSceneStepStore={appSceneStepStore}
+               appSceneId={appSceneId}
+           />
             <Table
                 columns={column}
                 dataSource={appSceneStepList}
                 rowKey = {record => record.id}
+                pagination={false}
             />
 
         </>

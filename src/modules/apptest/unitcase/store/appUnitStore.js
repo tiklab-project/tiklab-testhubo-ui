@@ -4,26 +4,22 @@ import {
     createAppUnit,
     findAppUnit,
     updateAppUnit,
-    deleteAppUnit
+    deleteAppUnit,
+    findAppUnitCaseListByTestCase
 } from '../api/appUnitApi'
 
 export class AppUnitStore {
 
     @observable appUnitList = [];
     @observable appUnitInfo;
-    @observable categoryId;
 
     @action
-    findAppUnitPage = async (id) => {
-        this.categoryId = id;
-        const params = {
-            categoryId: id,
-            orderParams:[{name:'name', orderType:'asc'}],
-        }
-        const res = await findAppUnitPage(params);
+    findAppUnitList = async (values) => {
+
+        const res = await findAppUnitCaseListByTestCase(values);
 
         if(res.code === 0) {
-            this.appUnitList = res.data.dataList;
+            this.appUnitList = res.data;
             return res.data
         }
     }
@@ -35,37 +31,25 @@ export class AppUnitStore {
 
         const res = await findAppUnit(param);
         if( res.code === 0){
-            return  this.appUnitInfo = res.data;
+            this.appUnitInfo = res.data;
+
+            return res.data;
         }
     }
 
 
     @action
-    createAppUnit = async (values) => {
-        values.http = {id: this.categoryId}
-
-        const res = await createAppUnit(values)
-        if( res.code === 0){
-            return this.findAppUnitPage(this.categoryId);
-        }
-    }
+    createAppUnit = async (values) =>  await createAppUnit(values)
 
     @action
-    updateAppUnit = async (values) => {
-        const res = await updateAppUnit(values)
-        if( res.code === 0){
-            return this.findAppUnitPage(this.categoryId);
-        }
-    }
+    updateAppUnit = async (values) =>  await updateAppUnit(values)
 
     @action
     deleteAppUnit = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        const res = await deleteAppUnit(param)
-        if( res.code === 0){
-            this.findAppUnitPage(this.categoryId);
-        }
+
+        await deleteAppUnit(param)
     }
 
 }

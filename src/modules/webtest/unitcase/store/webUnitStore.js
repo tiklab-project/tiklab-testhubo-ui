@@ -12,15 +12,9 @@ export class WebUnitStore {
 
     @observable webUnitList = [];
     @observable webUnitInfo;
-    @observable categoryId;
 
     @action
-    findWebUnitPage = async (value) => {
-        // this.categoryId = id;
-        // const params = {
-        //     categoryId: id,
-        //     orderParams:[{name:'name', orderType:'asc'}],
-        // }
+    findWebUnitList = async (value) => {
 
         const res = await findWebUnitCaseListByTestCase(value);
 

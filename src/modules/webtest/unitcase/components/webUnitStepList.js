@@ -27,7 +27,7 @@ const WebUnitStepList = (props) =>{
         {
             title: '参数',
             width: '20%',
-            dataIndex: 'parament',
+            dataIndex: 'parameter',
             align:'center',
         },
         {

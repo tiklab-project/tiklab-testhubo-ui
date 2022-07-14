@@ -28,7 +28,7 @@ const AppUnitInstance = (props) =>{
         {
             title: '参数',
             width: '10%',
-            dataIndex: 'parament',
+            dataIndex: 'parameter',
             align:'center',
         },
         {
@@ -61,7 +61,7 @@ const AppUnitInstance = (props) =>{
         {
             id: "step1",
             actionType:"open",
-            parament:"url/a/b/c",
+            parameter:"url/a/b/c",
             location:"",
             locationValue:"",
             result:"1"
@@ -69,7 +69,7 @@ const AppUnitInstance = (props) =>{
         {
             id: "step2",
             actionType:"click",
-            parament:"",
+            parameter:"",
             location:"id",
             locationValue:"btn",
             result:"1"
@@ -77,7 +77,7 @@ const AppUnitInstance = (props) =>{
         {
             id: "step3",
             actionType:"click",
-            parament:"",
+            parameter:"",
             location:"className",
             locationValue:"css",
             result:"0"

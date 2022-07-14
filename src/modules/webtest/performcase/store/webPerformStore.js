@@ -1,72 +1,54 @@
 import { observable,  action } from "mobx";
 import {
-    findWebPerformPage,
-    createWebPerform,
-    findWebPerform,
-    updateWebPerform,
-    deleteWebPerform
-} from '../api/webPerformApi'
+    findWebPerfPage,
+    createWebPerf,
+    findWebPerf,
+    updateWebPerf,
+    deleteWebPerf,
+    findWebPerfListByTestCase
+} from '../api/webPerfApi'
 
 export class WebPerformStore {
-
-    @observable webPerformList = [];
-    @observable webPerformInfo;
-    @observable categoryId;
+    @observable webPerfList = [];
+    @observable webPerfInfo;
 
     @action
-    findWebPerformPage = async (id) => {
-        this.categoryId = id;
-        const params = {
-            categoryId: id,
-            orderParams:[{name:'paramName', orderType:'asc'}],
-        }
-        const res = await findWebPerformPage(params);
+    findWebPerfList = async (value) => {
+
+        const res = await findWebPerfListByTestCase(value);
 
         if(res.code === 0) {
-            this.webPerformList = res.data.dataList;
+            this.webPerfList = res.data;
             return res.data
         }
     }
 
     @action
-    findWebPerform = async (id) => {
+    findWebPerf = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findWebPerform(param);
+        const res = await findWebPerf(param);
         if( res.code === 0){
-            return  this.webPerformInfo = res.data;
+            this.webPerfInfo = res.data;
+            return res.data;
         }
     }
 
 
     @action
-    createWebPerform = async (values) => {
-        values.http = {id: this.categoryId}
-
-        const res = await createWebPerform(values)
-        if( res.code === 0){
-            return this.findWebPerformPage(this.categoryId);
-        }
-    }
+    createWebPerf = async (values) =>  await createWebPerf(values)
+    
 
     @action
-    updateWebPerform = async (values) => {
-        const res = await updateWebPerform(values)
-        if( res.code === 0){
-            return this.findWebPerformPage(this.categoryId);
-        }
-    }
+    updateWebPerf = async (values) =>  await updateWebPerf(values)
 
     @action
-    deleteWebPerform = async (id) => {
+    deleteWebPerf = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteWebPerform(param)
-        if( res.code === 0){
-            this.findWebPerformPage(this.categoryId);
-        }
+        await deleteWebPerf(param)
     }
 
 }

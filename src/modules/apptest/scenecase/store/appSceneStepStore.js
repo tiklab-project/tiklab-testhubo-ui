@@ -9,6 +9,7 @@ import {
     createAppSceneStep,
     deleteAppSceneStep,
     updateAppSceneStep,
+    bindAppUnit
 } from '../api/appSceneStepApi';
 
 
@@ -16,27 +17,43 @@ export class AppSceneStepStore {
     @observable appSceneStepList = [];
     @observable appSceneStepInfo = {};
     @observable categoryId;
-    @observable selectItem;
 
     @action
-    findAppSceneStepList = async (id,param) => {
-        this.categoryId=id;
-        const params = {
-            testCaseId: id,
-            ...param,
-        }
-        const res = await findAppSceneStepList(params)
-        if(res.code === 0) {
-            this.appSceneStepList=res.data;
-            return res.data;
+    bindAppUnit = async (selectItem) => {
+        let bindList = [];
+        for (let i=0;i<selectItem.length;i++){
+            bindList.push({
+                appScene: {id: this.appSceneId},
+                appUnit: {id:selectItem[i]}
+            });
         }
 
+        await bindAppUnit(bindList)
+
     }
+
+    @action
+    findAppSceneStepList = async (id) => {
+        this.appSceneId=id;
+        const params = {
+            appSceneId: id,
+            orderParams:[{name:'createTime', orderType:'asc'}],
+        }
+
+        const res = await findAppSceneStepList(params)
+        if(res.code === 0) {
+
+            this.appSceneStepList=res.data
+            return res.data
+        }
+    }
+
 
     @action
     findAppSceneStep = async (id) => {
         const param = new FormData();
         param.append('id', id);
+
         const res = await findAppSceneStep(param);
         if(res.code === 0){
             this.appSceneStepInfo = res.data;
@@ -45,29 +62,19 @@ export class AppSceneStepStore {
     }
 
     @action
-    createAppSceneStep = async (values) => {
-        const res = await createAppSceneStep(values);
-        if(res.code === 0){
-            this.findAppSceneStepList(this.categoryId)
-        }
-    }
+    createAppSceneStep = async (values) => await createAppSceneStep(values)
+
 
     @action
-    updateAppSceneStep = async (values) => {
-        const res = await updateAppSceneStep(values);
-        if(res.code === 0){
-            this.findAppSceneStepList(this.categoryId);
-        }
-    }
+    updateAppSceneStep = async (values) =>  await updateAppSceneStep(values)
 
     @action
     deleteAppSceneStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
-        const res = await deleteAppSceneStep(param);
-        if(res.code === 0){
-            this.findAppSceneStepList(this.categoryId);
-        }
+
+        await deleteAppSceneStep(param);
+
     }
 
   

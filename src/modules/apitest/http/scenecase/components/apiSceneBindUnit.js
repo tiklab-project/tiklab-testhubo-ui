@@ -10,7 +10,7 @@ const ApiSceneBindUnit =(props) =>{
 
     const column =[
         {
-            title: '用例名称',
+            title: 'UnitCase名',
             dataIndex: ['testCase','name'],
             key: 'name',
             width: "30%",

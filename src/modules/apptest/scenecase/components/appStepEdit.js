@@ -75,7 +75,7 @@ const AppStepEdit = (props) => {
                     location: res.location,
                     locationValue:res.locationValue,
                     actionType:res.actionType,
-                    parament:res.parament,
+                    parameter:res.parameter,
                     stepAction:res.stepAction,
                     expectedResult:res.expectedResult
                 })
@@ -142,7 +142,7 @@ const AppStepEdit = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="参数"
-                        name="parament"
+                        name="parameter"
                     >
                         <Input />
                     </Form.Item>

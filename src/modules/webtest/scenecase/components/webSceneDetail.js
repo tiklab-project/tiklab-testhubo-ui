@@ -12,15 +12,19 @@ import WebEnvSelect from "../../webtest/webEnvSelect";
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;
     const {findWebScene,updateWebScene} = webSceneStore;
+
     const [allValue,setAllValue] = useState();
-    const webUnitId = sessionStorage.getItem('webSceneId');
+
+    const webSceneId = sessionStorage.getItem('webSceneId');
+    let caseType = localStorage.getItem("caseType")
+
     const [showResponse,setShowResponse] = useState(false);
 
     useEffect(()=> {
-        findWebScene(11).then(res=>{
+        findWebScene(webSceneId).then(res=>{
             setAllValue(res);
         })
-    },[webUnitId])
+    },[webSceneId])
 
 
 
@@ -50,7 +54,7 @@ const WebSceneDetail = (props) => {
             />
             <div className={'testcase-detail'}>
                 <div className="apidetail-header-btn">
-                    <div className={"method-name"}>{allValue?.name}</div>
+                    <div className={"method-name"}>{allValue?.testCase?.name}</div>
                     <div className={'apidetail-title-tool'}>
                         <Button onClick={toHistory}>历史</Button>
                         <Button className="important-btn" onClick={actionTest}>测试</Button>
@@ -59,10 +63,10 @@ const WebSceneDetail = (props) => {
                 <div className={"method"}>
                    
                     <div className={"method-people-info"}>
-                        <span className={"people-item "}>分组: {allValue?.category.name}</span>
-                        <span className={"people-item "}>创建人: {allValue?.createUser.name}</span>
-                        <span className={"people-item "}>更新者: {allValue?.updateUser.name}</span>
-                        <span className={"people-item "}>更新时间: {allValue?.updateTime}</span>
+                        <span className={"people-item "}>分组: {allValue?.testCase?.category?.name}</span>
+                        <span className={"people-item "}>创建人: {allValue?.testCase?.createUser?.name}</span>
+                        <span className={"people-item "}>更新者: {allValue?.testCase?.updateUser?.name}</span>
+                        <span className={"people-item "}>更新时间: {allValue?.testCase?.updateTime}</span>
                     </div>
                 </div>
             </div>

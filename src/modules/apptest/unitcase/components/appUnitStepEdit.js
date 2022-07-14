@@ -6,7 +6,7 @@ import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Select} from 'antd';
 
-const {Option,OptGroup} = Select;
+const {Option} = Select;
 
 const layout = {
     labelCol: {span: 4},
@@ -15,7 +15,7 @@ const layout = {
 
 
 const AppUnitStepEdit = (props) => {
-    const { appUnitStepStore, appStepId } = props;
+    const { appUnitStepStore, appUnitStepId ,findPage} = props;
     const {
         findAppUnitStep,
         createAppUnitStep,
@@ -28,6 +28,7 @@ const AppUnitStepEdit = (props) => {
 
     const [form] = Form.useForm();
 
+
     const [visible, setVisible] = React.useState(false);
 
     //定位器下拉选择框渲染
@@ -39,10 +40,11 @@ const AppUnitStepEdit = (props) => {
             >
                 {
                     data&&data.map(item=>{
+
                         return <Option key={item} value={item}>{item}</Option>
                     })
                 }
-                <Option>{' '}</Option>
+                {/*<Option>{' '}</Option>*/}
             </Select>
         )
     }
@@ -57,7 +59,7 @@ const AppUnitStepEdit = (props) => {
                 {
                     data&&data.map(item=>{
                         return (
-                            <Option key={item.name} value={item.name}>
+                            <Option key={item.id} value={item.name}>
                                 <div>{item.name}</div>
                                 <div style={{color:'#a9a9a9',fontSize:12}}>{item.description}</div>
                             </Option>
@@ -72,35 +74,34 @@ const AppUnitStepEdit = (props) => {
     const showModal = () => {
         findAllLocation();
         findActionTypeList({"type": "WEB"});
-        if(props.name === "编辑"){
-            findAppUnitStep(appStepId).then((res)=>{
+        if(props.type === "edit"){
+            findAppUnitStep(appUnitStepId).then((res)=>{
                 form.setFieldsValue({
+                    actionType:res.actionType,
                     location: res.location,
                     locationValue:res.locationValue,
-                    parament:res.parament,
-                    actionType:res.actionType,
+                    parameter:res.parameter,
                     expectedResult:res.expectedResult
                 })
             })
         }
+
         setVisible(true);
     };
 
-    const testcaseId = localStorage.getItem('testcaseId')
+    const appUnitId = sessionStorage.getItem('appUnitId')
 
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
-        values.testCase={id:testcaseId};
-        // values.testDictionaries={
-        //     code:values.functest
-        // }
+        values.appUnitId=appUnitId;
+
         if(props.name === "添加步骤" ){
-            createAppUnitStep(values);
+            createAppUnitStep(values).then(()=> findPage(appUnitId));
         }else{
-            debugger
-            values.id=appStepId;
-            updateAppUnitStep(values);
+
+            values.id=appUnitStepId;
+            updateAppUnitStep(values).then(()=>findPage(appUnitId));
         }
         setVisible(false);
     };
@@ -110,7 +111,8 @@ const AppUnitStepEdit = (props) => {
     return (
         <>
             {
-                props.btn === "btn" ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
+                props.btn === "btn"
+                    ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
                     : <a onClick={showModal}>{props.name}</a>
             }
 
@@ -126,21 +128,22 @@ const AppUnitStepEdit = (props) => {
                 width={600}
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
                     {...layout}
                 >
-                    <Form.Item label="操作方法" name="actionType">
+                    <Form.Item
+                        label="操作方法"
+                        name="actionType"
+                    >
                         {
                             functionView(fuctionList)
                         }
                     </Form.Item>
                     <Form.Item
                         label="参数"
-                        name="parament"
+                        name="parameter"
                     >
                         <Input />
                     </Form.Item>
@@ -158,25 +161,12 @@ const AppUnitStepEdit = (props) => {
                     >
                         <Input />
                     </Form.Item>
-                    
+
 
                     <Form.Item
                         label="期望"
                         name="expectedResult"
                     >
-                        {/* <Select>
-                            <Option value="ok">ok</Option>
-                            <Option value="error">error</Option>
-                            <OptGroup label="定位器">
-                                <Option value="id=">id</Option>
-                                <Option value="error">css</Option>
-                                <Option value="error">ok</Option>
-                                <Option value="error">error</Option>
-                                <Option value="error">ok</Option>
-                                <Option value="error">error</Option>
-                                <Option value="error">ok</Option>
-                            </OptGroup>
-                        </Select> */}
                         <Input />
                     </Form.Item>
                 </Form>

@@ -5,31 +5,32 @@ import WebPerformEdit from "./webPerformEdit";
 import {inject, observer} from "mobx-react";
 
 const WebPerformList = (props) =>{
-    const {webPerformStore} = props;
-    const {findWebPerformPage,webPerformList,deleteWebPerform}=webPerformStore;
+    const {webPerformStore,categoryStore} = props;
+    const {findWebPerfList,webPerfList,deleteWebPerf}=webPerformStore;
+    const {findCategoryListTree}=categoryStore;
 
     const column = [
         {
             title:`性能名称`,
-            dataIndex: "name",
+            dataIndex: ["testCase",'name'],
             key: "name",
             render: (text,record) =>(
-                <a onClick = {()=>setSessionStorage(record.id)}>{text}</a>
+                <a onClick = {()=>setStorage(record.id)}>{text}</a>
             )
         },
+        // {
+        //     title: `类型`,
+        //     dataIndex: "testType",
+        //     key: "testType",
+        // },
+        // {
+        //     title: `等级`,
+        //     dataIndex: "level",
+        //     key: "level",
+        // },
         {
-            title: `类型`,
-            dataIndex: "testType",
-            key: "testType",
-        },
-        {
-            title: `等级`,
-            dataIndex: "level",
-            key: "level",
-        },
-        {
-            title: `创建人`,
-            dataIndex: ['createUser', 'name'],
+            title: `创建时间`,
+            dataIndex: ['testCase','createTime'],
             key: "user",
         },
         {
@@ -40,10 +41,14 @@ const WebPerformList = (props) =>{
             width: "15%",
             render: (text, record) => (
                 <Space size="middle">
-                    <WebPerformEdit name={"编辑"}/>
+                    <WebPerformEdit
+                        webPerfId={record.id}
+                        name={"编辑"}
+                        type={"edit"}
+                    />
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() => deleteWebPerform(record.id)}
+                        onConfirm={() => deleteCase(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -54,12 +59,39 @@ const WebPerformList = (props) =>{
         },
     ]
 
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
+    const repositoryId = localStorage.getItem("repositoryId")
+
     useEffect(()=>{
-        findWebPerformPage()
+        findPage()
     },[])
 
-    const setSessionStorage = (id) =>{
-        sessionStorage.setItem("funcUnitId",id);
+    const findPage = () =>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findWebPerfList(param)
+    }
+
+    const deleteCase = (id) =>{
+        deleteWebPerf(id).then(()=> {
+            findPage();
+
+            const params = {
+                testType:testType,
+                caseType:caseType,
+                repositoryId:repositoryId
+            }
+            findCategoryListTree(params)
+        })
+    }
+
+    const setStorage = (id) =>{
+        sessionStorage.setItem("webPerfId",id);
 
         props.history.push("/repositorypage/webtest/performdetail")
     }
@@ -70,22 +102,26 @@ const WebPerformList = (props) =>{
         <>
             <BreadcrumbCommon breadArray={["WEB","性能用例"]}/>
             <div className='case-header'>
-                <WebPerformEdit name={"添加用例"} btn={"btn"}/>
-                <Input
-                    placeholder={`搜索`}
-                    // onPressEnter={onSearch}
-                    className='search-input'
-                    style={{width:240}}
+                <WebPerformEdit
+                    name={"添加用例"}
+                    btn={"btn"}
                 />
+                {/*<Input*/}
+                {/*    placeholder={`搜索`}*/}
+                {/*    // onPressEnter={onSearch}*/}
+                {/*    className='search-input'*/}
+                {/*    style={{width:240}}*/}
+                {/*/>*/}
             </div>
             <Table
                 columns={column}
-                dataSource={webPerformList}
+                dataSource={webPerfList}
                 rowKey = {record => record.id}
+                pagination={false}
             />
 
         </>
     )
 }
 
-export default inject("webPerformStore")(observer(WebPerformList));
+export default inject("webPerformStore","categoryStore")(observer(WebPerformList));

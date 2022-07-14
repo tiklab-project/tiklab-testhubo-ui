@@ -1,29 +1,24 @@
 import { observable,  action } from "mobx";
 import {
-    findWebScenePage,
     createWebScene,
     findWebScene,
     updateWebScene,
-    deleteWebScene
+    deleteWebScene,
+    findWebSceneCaseListByTestCase
 } from '../api/webSceneApi'
 
 export class WebSceneStore {
 
     @observable webSceneList = [];
     @observable webSceneInfo;
-    @observable categoryId;
 
     @action
-    findWebScenePage = async (id) => {
-        this.categoryId = id;
-        const params = {
-            categoryId: id,
-            orderParams:[{name:'paramName', orderType:'asc'}],
-        }
-        const res = await findWebScenePage(params);
+    findWebSceneList = async (value) => {
+
+        const res = await findWebSceneCaseListByTestCase(value);
 
         if(res.code === 0) {
-            this.webSceneList = res.data.dataList;
+            this.webSceneList = res.data;
             return res.data
         }
     }
@@ -35,37 +30,24 @@ export class WebSceneStore {
 
         const res = await findWebScene(param);
         if( res.code === 0){
-            return  this.webSceneInfo = res.data;
-        }
-    }
-
-
-    @action
-    createWebScene = async (values) => {
-        values.http = {id: this.categoryId}
-
-        const res = await createWebScene(values)
-        if( res.code === 0){
-            return this.findWebScenePage(this.categoryId);
+            this.webSceneInfo = res.data;
+            return res.data;
         }
     }
 
     @action
-    updateWebScene = async (values) => {
-        const res = await updateWebScene(values)
-        if( res.code === 0){
-            return this.findWebScenePage(this.categoryId);
-        }
-    }
+    createWebScene = async (values) =>  await createWebScene(values)
+
+    @action
+    updateWebScene = async (values) => await updateWebScene(values)
 
     @action
     deleteWebScene = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        const res = await deleteWebScene(param)
-        if( res.code === 0){
-            this.findWebScenePage(this.categoryId);
-        }
+
+         await deleteWebScene(param)
+
     }
 
 }

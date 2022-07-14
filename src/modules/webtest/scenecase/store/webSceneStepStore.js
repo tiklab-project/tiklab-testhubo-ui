@@ -10,6 +10,7 @@ import {
     createWebSceneStep,
     deleteWebSceneStep,
     updateWebSceneStep,
+    bindWebUnit
 } from '../api/webSceneStepApi';
 
 
@@ -20,17 +21,51 @@ export class WebSceneStepStore {
 
 
     @action
+    bindWebUnit = async (selectItem) => {
+        let bindList = [];
+        for (let i=0;i<selectItem.length;i++){
+            bindList.push({
+                webScene: {id: this.webSceneId},
+                webUnit: {id:selectItem[i]}
+            });
+        }
+
+        await bindWebUnit(bindList)
+
+    }
+
+    @action
     findWebSceneStepPage = async (id) => {
         this.webSceneId=id;
-        const params = {webSceneId: id}
+        const params = {
+            webSceneId: id,
+            orderParams:[{name:'createTime', orderType:'asc'}],
+        }
 
         const res = await findWebSceneStepPage(params)
         if(res.code === 0) {
 
             this.webSceneStepList=res.data.dataList
-            return res.data.dataList
+            return res.data.dataList;
         }
     }
+
+    @action
+    findWebSceneStepList = async (id) => {
+        this.webSceneId=id;
+        const params = {
+            webSceneId: id,
+            orderParams:[{name:'createTime', orderType:'asc'}],
+        }
+
+        const res = await findWebSceneStepList(params)
+        if(res.code === 0) {
+
+            this.webSceneStepList=res.data
+            return res.data
+        }
+    }
+
 
     @action
     findWebSceneStep = async (id) => {
@@ -45,36 +80,19 @@ export class WebSceneStepStore {
     }
 
     @action
-    createWebSceneStep = async (values) => {
-        delete values.id;
-        values.webtional={id:this.webSceneId};
+    createWebSceneStep = async (values) => await createWebSceneStep(values)
 
-        const res = await createWebSceneStep(values);
-        if(res.code === 0){
-            this.findWebSceneStepList(this.webSceneId);
-            return (res.data)
-        }
-    }
 
     @action
-    updateWebSceneStep = async (values) => {
-        const res = await updateWebSceneStep(values);
-
-        if(res.code === 0){
-            return this.findWebSceneStepList(this.webSceneId);
-
-        }
-    }
+    updateWebSceneStep = async (values) =>  await updateWebSceneStep(values)
 
     @action
     deleteWebSceneStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        const res = await deleteWebSceneStep(param);
-        if(res.code === 0){
-            this.findWebSceneStepList(this.webSceneId);
-        }
+        await deleteWebSceneStep(param);
+
     }
 }
 

@@ -78,7 +78,7 @@ import {WEB_SCENE_STORE, WebSceneStore} from "./webtest/scenecase/store/webScene
 import {WEB_SCENESTEP_STORE,WebSceneStepStore} from "./webtest/scenecase/store/webSceneStepStore";
 import {WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore} from "./webtest/scenecase/store/webSceneInstanceStore";
 import {WEB_PERFORM_STORE,WebPerformStore} from "./webtest/performcase/store/webPerformStore";
-import {WEB_PERFORMSCENE_STORE,WebPerformSceneStore} from "./webtest/performcase/store/webPerformSceneStore";
+import {WEB_PERF_STEP_STORE,WebPerfStepStore} from "./webtest/performcase/store/webPerfStepStore";
 import {WEB_PERFORMINSTANCE_STORE,WebPerformInstanceStore} from "./webtest/performcase/store/webPerformInstanceStore";
 import {APP_UNIT_STORE,AppUnitStore} from "./apptest/unitcase/store/appUnitStore";
 import {APP_UNITSTEP_STORE,AppUnitStepStore} from "./apptest/unitcase/store/appUnitStepStore";
@@ -87,7 +87,7 @@ import {APP_SCENE_STORE,AppSceneStore} from "./apptest/scenecase/store/appSceneS
 import {APP_SCENESTEP_STORE,AppSceneStepStore} from "./apptest/scenecase/store/appSceneStepStore";
 import {APP_SCENEINSTANCE_STORE,AppSceneInstanceStore} from "./apptest/scenecase/store/appSceneInstanceStore";
 import {APP_PERFORM_STORE,AppPerformStore} from "./apptest/performcase/store/appPerformStore";
-import {APP_PERFORMSCENE_STORE,AppPerformSceneStore} from "./apptest/performcase/store/appPerformSceneStore";
+import {APP_PERF_STEP_STORE,AppPerfStepStore} from "./apptest/performcase/store/appPerfStepStore";
 import {APP_PERFORMINSTANCE_STORE,AppPerformInstanceStore} from "./apptest/performcase/store/appPerformInstanceStore";
 import {FUNC_UNIT_STORE , FuncUnitStore} from "./functest/unitcase/store/funcUnitStore";
 import {FUNC_UNITSTEP_STORE , FuncUnitStepStore} from "./functest/unitcase/store/funcUnitStepStore";
@@ -149,7 +149,7 @@ export {
     WEB_SCENESTEP_STORE,WebSceneStepStore,
     WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore,
     WEB_PERFORM_STORE,WebPerformStore,
-    WEB_PERFORMSCENE_STORE,WebPerformSceneStore,
+    WEB_PERF_STEP_STORE,WebPerfStepStore,
     WEB_PERFORMINSTANCE_STORE,WebPerformInstanceStore,
 
     APP_UNIT_STORE,AppUnitStore,
@@ -159,7 +159,7 @@ export {
     APP_SCENESTEP_STORE, AppSceneStepStore,
     APP_SCENEINSTANCE_STORE,AppSceneInstanceStore,
     APP_PERFORM_STORE,AppPerformStore,
-    APP_PERFORMSCENE_STORE,AppPerformSceneStore,
+    APP_PERF_STEP_STORE,AppPerfStepStore,
     APP_PERFORMINSTANCE_STORE,AppPerformInstanceStore,
 
 

@@ -5,7 +5,7 @@ import WebSceneBindUnit from "./WebSceneBindUnit";
 
 const WebSceneStepList = (props) => {
     const {webSceneStepStore} =props;
-    const {findWebSceneStepPage,webSceneStepList,deleteWebScene} = webSceneStepStore;
+    const {findWebSceneStepPage,webSceneStepList,deleteWebSceneStep} = webSceneStepStore;
 
     const column = [
         {
@@ -13,8 +13,8 @@ const WebSceneStepList = (props) => {
             dataIndex: "name",
             key: "name",
         }, {
-            title: `创建人`,
-            dataIndex: ['createUser', 'name'],
+            title: `创建时间`,
+            dataIndex: "createTime",
             key: "user",
         },
         {
@@ -27,7 +27,7 @@ const WebSceneStepList = (props) => {
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() => deleteWebScene(record.id)}
+                        onConfirm={() => deleteWebSceneStep(record.id).then(()=>findWebSceneStepList(webSceneId))}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -38,19 +38,25 @@ const WebSceneStepList = (props) => {
         },
     ]
 
+    let webSceneId = sessionStorage.getItem("webSceneId")
+
     useEffect(()=>{
-        findWebSceneStepPage()
-    },[])
+        findWebSceneStepPage(webSceneId)
+    },[webSceneId])
 
    
 
     return(
         <>
-           <WebSceneBindUnit />
+           <WebSceneBindUnit
+               webSceneStepStore={webSceneStepStore}
+               webSceneId={webSceneId}
+           />
             <Table
                 columns={column}
                 dataSource={webSceneStepList}
                 rowKey = {record => record.id}
+                pagination={false}
             />
 
         </>

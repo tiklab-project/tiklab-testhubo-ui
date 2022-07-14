@@ -73,7 +73,9 @@ const ApiSceneStepList =(props) =>{
     return(
         <>
             <div className='flex-right'>
-                <ApiSceneBindUnit apiSceneStepStore={apiSceneStepStore}/>
+                <ApiSceneBindUnit
+                    apiSceneStepStore={apiSceneStepStore}
+                />
             </div>
             <Table
                 columns={column}

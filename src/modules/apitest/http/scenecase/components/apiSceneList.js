@@ -6,11 +6,11 @@ import {inject, observer} from "mobx-react";
 
 const ApiSceneList = (props)=>{
     const {apiSceneStore} = props;
-    const {findApiScenePage,apiSceneList,deleteApiScene} = apiSceneStore;
+    const {findApiSceneList,apiSceneList,deleteApiScene} = apiSceneStore;
 
     const column =[
         {
-            title: '用例名称',
+            title: '场景名称',
             dataIndex: ["testCase",'name'],
             key: 'name',
             // width: "30%",
@@ -32,6 +32,7 @@ const ApiSceneList = (props)=>{
                     <ApiSceneEdit
                         apiSceneId={record.id}
                         name={"编辑"}
+                        type={"edit"}
                         findPage={findPage}
                         testType={testType}
                         caseType={caseType}
@@ -71,7 +72,7 @@ const ApiSceneList = (props)=>{
             testType:testType,
             categoryId:categoryId
         }
-        findApiScenePage(param)
+        findApiSceneList(param)
     }
 
     const deleteCase = (id) =>{
@@ -95,17 +96,18 @@ const ApiSceneList = (props)=>{
                     caseType={caseType}
                     categoryId={categoryId}
                 />
-                <Input
-                    placeholder={"查找"}
-                    // onPressEnter={onSearch}
-                    className='search-input'
-                    style={{width:240}}
-                />
+                {/*<Input*/}
+                {/*    placeholder={"查找"}*/}
+                {/*    // onPressEnter={onSearch}*/}
+                {/*    className='search-input'*/}
+                {/*    style={{width:240}}*/}
+                {/*/>*/}
             </div>
             <Table
                 columns={column}
                 dataSource={apiSceneList}
                 rowKey = {record => record.id}
+                pagination={false}
             />
         </>
     )

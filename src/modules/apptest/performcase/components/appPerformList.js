@@ -6,141 +6,118 @@ import AppPerformEdit from "./appPerformEdit";
 import {inject, observer} from "mobx-react";
 
 const AppPerformList = (props) =>{
-    const { appPerformStore } = props;
-    const {
-        findAppPerformPage,
-        deleteAppPerform,
-        appPerformList,
-        totalRecord
-    } = appPerformStore;
+    const {appPerformStore,categoryStore} = props;
+    const {findAppPerfList,appPerfList,deleteAppPerf}=appPerformStore;
+    const {findCategoryListTree}=categoryStore;
+
 
     const { t } = useTranslation();
 
     //列表头
     const columns = [
         {
-            title:`名称`,
-            dataIndex: "name",
+            title:`性能名称`,
+            dataIndex: ["testCase",'name'],
             key: "name",
             render: (text,record) =>(
                 <a onClick = {()=>setLocalStorage(record.testType,record.id)}>{text}</a>
             )
         },
         {
-            title: `类型`,
-            dataIndex: "testType",
-            key: "testType",
-        },
-        {
-            title: `创建人`,
-            dataIndex: ['createUser', 'name'],
+            title: `创建时间`,
+            dataIndex: ['testCase','createTime'],
             key: "user",
         },
         {
-            title: ` ${t('tcoperation')}`,
+            title: '操作',
             key: "action",
             align:"center",
             render: (text, record) => (
                 <Space size="middle">
-                    <div>
-                        {/*<AppPerformEdit name="编辑"  appPerformId={record.id} />*/}
-                    </div>
+                    <AppPerformEdit
+                        name="编辑"
+                        appPerfId={record.id}
+                        type={"edit"}
+                    />
+
                     <Popconfirm
                         title="确定删除？"
-                        // onConfirm={() =>deleteAppPerform(record.id)}
+                        onConfirm={() =>deleteCase(record.id)}
                         okText='确定'
                         cancelText='取消'
                     >
-                        <a href="#" style={{color:'red'}}>{t('tcdelete')}</a>
+                        <a className="table-delete"> 删除 </a>
                     </Popconfirm>
                 </Space>
             ),
         },
     ]
 
-    const [pageSize] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [params, setParams] = useState({
-        pageParam: {
-            pageSize: pageSize,
-            currentPage: currentPage
-        }
-    })
-    const [tableLoading,setTableLoading] = useState(true);
-    const categoryId = sessionStorage.getItem('categoryId')
+
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
+    const repositoryId = localStorage.getItem("repositoryId")
 
     useEffect(()=> {
-        findAppPerformPage("1")
-    },[params])
+        findPage()
+    },[caseType,testType,categoryId])
+
+    const findPage = () =>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findAppPerfList(param)
+    }
+
+
+    const deleteCase = (id) =>{
+        deleteAppPerf(id).then(()=> {
+            findPage();
+
+            const params = {
+                testType:testType,
+                caseType:caseType,
+                repositoryId:repositoryId
+            }
+            findCategoryListTree(params)
+        })
+    }
+
 
     // 保存id到缓存
     const setLocalStorage = (type,id) => {
-        sessionStorage.setItem('appPerformId',id);
+        sessionStorage.setItem('appPerfId',id);
         props.history.push('/repositorypage/apptest/performdetail')
     }
 
-    //分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
-        const newParams = {
-            ...params,
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: pagination.current
-            },
-        }
-        setParams(newParams)
-    }
-
-    //搜索
-    const onSearch = (e) => {
-        setCurrentPage(1)
-        let newParams = {
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: 1
-            },
-        }
-        if (e.target.value) {
-            newParams = {
-                pageParam: {
-                    pageSize: pageSize,
-                    currentPage: 1
-                },
-                name:e.target.value,
-            }
-        }
-        setParams(newParams)
-    }
 
 
     return(
         <div className={'inner-box'}>
             <BreadcrumbCommon breadArray={["APP","性能测试"]}/>
             <div className='case-header'>
-                <Input
-                    placeholder={`搜索`}
-                    onPressEnter={onSearch}
-                    className='search-input'
+                {/*<Input*/}
+                {/*    placeholder={`搜索`}*/}
+                {/*    onPressEnter={onSearch}*/}
+                {/*    className='search-input'*/}
+                {/*/>*/}
+                <AppPerformEdit
+                    name='添加用例'
+                    btn={"btn"}
                 />
-                <AppPerformEdit  name='添加用例' btn={"btn"} />
             </div>
 
             <Table
-                className="tablelist"
                 columns={columns}
-                dataSource={appPerformList}
-                rowKey={record => record.id}
-                pagination={{
-                    current:currentPage,
-                    pageSize:pageSize,
-                    // total:totalRecord,
-                }}
-                onChange = {(pagination) => onTableChange(pagination)}
-                // loading={tableLoading}
+                dataSource={appPerfList}
+                rowKey = {record => record.id}
+                pagination={false}
             />
         </div>
     )
 }
 
-export default inject("appPerformStore")(observer(AppPerformList));
+export default inject("appPerformStore","categoryStore")(observer(AppPerformList));

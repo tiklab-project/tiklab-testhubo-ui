@@ -1,11 +1,19 @@
-// import {Axios as service} from "doublekit-core-ui";
+import {Axios as service} from "doublekit-core-ui";
 
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/appUnitMock"
+
+
+export function findAppUnitCaseListByTestCase(data){
+    return service.request({
+        url: "/appUnitCase/findAppUnitCaseListByTestCase",
+        method: "post",
+        data
+    })
+}
+
 
 export function findAppUnitPage(data){
     return service.request({
-        url: "/appUnit/findAppUnitPage",
+        url: "/appUnitCase/findAppUnitCasePage",
         method: "post",
         data
     })
@@ -13,7 +21,7 @@ export function findAppUnitPage(data){
 
 export function findAppUnit(data){
     return service.request({
-        url: "/appUnit/findAppUnit",
+        url: "/appUnitCase/findAppUnitCase",
         method: "post",
         data
     })
@@ -21,7 +29,7 @@ export function findAppUnit(data){
 
 export function createAppUnit(data){
     return service.request({
-        url: "/appUnit/createAppUnit",
+        url: "/appUnitCase/createAppUnitCase",
         method: "post",
         data
     })
@@ -29,7 +37,7 @@ export function createAppUnit(data){
 
 export function deleteAppUnit(data){
     return service.request({
-        url: "/appUnit/deleteAppUnit",
+        url: "/appUnitCase/deleteAppUnitCase",
         method: "post",
         data
     })
@@ -37,7 +45,7 @@ export function deleteAppUnit(data){
 
 export function updateAppUnit(data){
     return service.request({
-        url: "/appUnit/updateAppUnit",
+        url: "/appUnitCase/updateAppUnitCase",
         method: "post",
         data
     })

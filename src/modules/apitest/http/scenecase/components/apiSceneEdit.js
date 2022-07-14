@@ -10,20 +10,25 @@ const layout = {
 
 // 添加与编辑
 const ApiSceneEdit = (props) => {
-    const { apiSceneStore, apiSceneId,findPage,testType,caseType,categoryId } = props;
+    const { apiSceneStore,categoryStore, apiSceneId,findPage,testType,caseType } = props;
     const {findApiScene,createApiScene,updateApiScene} = apiSceneStore
+    const {findCategoryListTree} = categoryStore;
 
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
 
+    const categoryId = sessionStorage.getItem("categoryId")
+    const repositoryId = localStorage.getItem("repositoryId")
+
     // 弹框展示
     const showModal = () => {
 
-        if(props.name==="编辑"){
+        if(props.type==="edit"){
             findApiScene(apiSceneId).then(res=>{
                 form.setFieldsValue({
                     name:res.testCase.name,
+                    desc:res.testCase.desc
                 })
             })
         }
@@ -35,29 +40,46 @@ const ApiSceneEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
-        values.testCase={
-            category:{id:categoryId},
-            name:values.name,
-            testType:testType,
-            caseType:caseType,
-            desc:values.desc
-        }
-        delete values.name
-        delete values.desc
+        if(props.type!=="edit"){
+            values.testCase={
+                category:{id:categoryId},
+                name:values.name,
+                testType:testType,
+                caseType:caseType,
+                desc:values.desc
+            }
+            delete values.name
+            delete values.desc
 
-        if(props.name==="添加用例"){
-            createApiScene(values).then(res=>{
-                if(res.code===0){
-                    findPage()
+            createApiScene(values).then(()=> {
+                findPage();
+                const params = {
+                    testType:testType,
+                    caseType:caseType,
+                    repositoryId:repositoryId
                 }
+                findCategoryListTree(params)
+
             })
         }else {
             values.id=apiSceneId;
-            updateApiScene(values).then(res=>{
-                if(res.code===0){
-                    findPage();
+            values.testCase={
+                id:apiSceneId,
+                name:values.name,
+                desc:values.desc
+            }
+
+            updateApiScene(values).then(()=> {
+                findPage()
+                const params = {
+                    testType:testType,
+                    caseType:caseType,
+                    repositoryId:repositoryId
                 }
+                findCategoryListTree(params)
             })
+
+
         }
 
         setVisible(false);
@@ -85,7 +107,6 @@ const ApiSceneEdit = (props) => {
             >
                 <Form
                     name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
@@ -110,4 +131,4 @@ const ApiSceneEdit = (props) => {
     );
 };
 
-export default inject("apiSceneStore")(observer(ApiSceneEdit));
+export default inject("apiSceneStore","categoryStore")(observer(ApiSceneEdit));

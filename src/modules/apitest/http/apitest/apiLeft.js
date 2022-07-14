@@ -64,7 +64,7 @@ const ApiLeft =(props) =>{
                         <ApiSceneCategory caseType={"scene"} addRouter={addRouter}/>
                     </TabPane>
                     <TabPane tab="性能用例" key="perform">
-                        <ApiPerformCategory caseType={"scene"} addRouter={addRouter}/>
+                        <ApiPerformCategory caseType={"perform"} addRouter={addRouter}/>
                     </TabPane>
                 </Tabs>
             </div>

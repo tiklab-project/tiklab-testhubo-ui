@@ -3,35 +3,41 @@ import {Button, Input, Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 
 const AppSceneBindUnit =(props) =>{
-    const {categoryStore} = props;
+    const {appUnitStore,appSceneStepStore,appSceneId} = props;
+    const {findAppUnitList,appUnitList} = appUnitStore;
+    
+    const {bindAppUnit,findAppSceneStepList} = appSceneStepStore;
 
     const column =[
         {
             title: '用例名称',
-            dataIndex: 'name',
+            dataIndex: ['testCase','name'],
             key: 'name',
             width: "30%",
         }, {
             title: `类型`,
-            dataIndex: "testType",
+            dataIndex:  ['testCase','testType'],
             key: "testType",
         },
+        // {
+        //     title: `等级`,
+        //     dataIndex: "level",
+        //     key: "level",
+        // },
         {
-            title: `等级`,
-            dataIndex: "level",
-            key: "level",
-        },
-        {
-            title: `创建人`,
-            dataIndex: ['createUser', 'name'],
+            title: `创建时间`,
+            dataIndex: ['testCase','createTime'],
             key: "user",
         },
     ]
 
     const [visible, setVisible] = React.useState(false);
 
+    const [selectItem, getSelectItem] = React.useState([]);
+
     // 弹框展示
     const showModal = () => {
+        findAppUnitList({caseType: "unit", testType: "app"});
 
         setVisible(true);
     };
@@ -39,6 +45,7 @@ const AppSceneBindUnit =(props) =>{
 
     // 提交
     const onFinish = async () => {
+        bindAppUnit(selectItem).then(()=>findAppSceneStepList(appSceneId))
 
         setVisible(false);
     };
@@ -47,7 +54,7 @@ const AppSceneBindUnit =(props) =>{
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            // getSelectItem(selectedRows)
+            getSelectItem(selectedRowKeys)
         },
     };
 
@@ -65,18 +72,19 @@ const AppSceneBindUnit =(props) =>{
                 centered
                 width={800}
             >
-                <Input
-                    placeholder={`搜索`}
-                    // onPressEnter={onSearch}
-                    className='search-input'
-                    style={{width:240}}
-                />
+                {/*<Input*/}
+                {/*    placeholder={`搜索`}*/}
+                {/*    // onPressEnter={onSearch}*/}
+                {/*    className='search-input'*/}
+                {/*    style={{width:240}}*/}
+                {/*/>*/}
 
                 <Table
                     columns={column}
-                    // dataSource={}
+                    dataSource={appUnitList}
                     rowKey = {record => record.id}
                     rowSelection={{...rowSelection}}
+                    pagination={false}
                 />
 
             </Modal>
@@ -84,4 +92,4 @@ const AppSceneBindUnit =(props) =>{
     )
 }
 
-export default inject("categoryStore")(observer(AppSceneBindUnit));
+export default inject("appUnitStore")(observer(AppSceneBindUnit));

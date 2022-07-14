@@ -29,7 +29,7 @@ const TestReportApp= (props) => {
         {
             title: '参数',
             width: '10%',
-            dataIndex: 'parament',
+            dataIndex: 'parameter',
             align:'center',
         },
         {

@@ -1,6 +1,4 @@
-// import {Axios as service} from "doublekit-core-ui";
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/webSceneStepMock"
+import {Axios as service} from "doublekit-core-ui";
 
 export function deleteWebSceneStep(data){
     return service.request({
@@ -49,3 +47,12 @@ export function findWebSceneStepList(data){
         data
     })
 }
+
+export function bindWebUnit(data){
+    return service.request({
+        url: "/webSceneStep/bindWebUnit",
+        method: "post",
+        data
+    })
+}
+

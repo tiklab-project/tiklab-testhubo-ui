@@ -6,7 +6,7 @@ import {inject, observer} from "mobx-react";
 
 const WebUnitList = (props) => {
     const {webUnitStore,categoryStore} = props;
-    const {findWebUnitPage,webUnitList,deleteWebUnit}=webUnitStore;
+    const {findWebUnitList,webUnitList,deleteWebUnit}=webUnitStore;
     const {findCategoryListTree}=categoryStore;
 
     const column = [
@@ -67,7 +67,7 @@ const WebUnitList = (props) => {
 
     useEffect(()=>{
         findPage()
-    },[categoryId])
+    },[caseType,testType,categoryId])
 
     const findPage = ()=>{
         const param = {
@@ -75,7 +75,7 @@ const WebUnitList = (props) => {
             testType:testType,
             categoryId:categoryId
         }
-        findWebUnitPage(param)
+        findWebUnitList(param)
     }
 
 

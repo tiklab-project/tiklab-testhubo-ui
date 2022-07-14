@@ -1,11 +1,9 @@
 import { observable,  action } from "mobx";
 import {
-    findApiScenePage,
     createApiScene,
     findApiScene,
     updateApiScene,
     deleteApiScene,
-    findApiSceneList,
     findApiSceneCaseListByTestCase
 } from '../api/apiSceneApi'
 
@@ -15,7 +13,7 @@ export class ApiSceneStore {
     @observable apiSceneInfo;
 
     @action
-    findApiScenePage = async (value) => {
+    findApiSceneList = async (value) => {
 
         const res = await findApiSceneCaseListByTestCase(value);
 

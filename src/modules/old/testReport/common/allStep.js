@@ -57,7 +57,7 @@ const AllStep = (props) =>{
         {
             title: '参数',
             width: '10%',
-            dataIndex: 'parament',
+            dataIndex: 'parameter',
             align:'center',
             ellipsis: true,
         },

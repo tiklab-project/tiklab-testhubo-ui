@@ -1,12 +1,18 @@
-// import {Axios as service} from "doublekit-core-ui";
+import {Axios as service} from "doublekit-core-ui";
 
-
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/appSceneMock"
 
 export function findAppScenePage(data){
     return service.request({
-        url: "/appScene/findAppScenePage",
+        url: "/appSceneCase/findAppSceneCasePage",
+        method: "post",
+        data
+    })
+}
+
+
+export function findAppSceneList(data){
+    return service.request({
+        url: "/appSceneCase/findAppSceneCaseList",
         method: "post",
         data
     })
@@ -14,7 +20,7 @@ export function findAppScenePage(data){
 
 export function findAppScene(data){
     return service.request({
-        url: "/appScene/findAppScene",
+        url: "/appSceneCase/findAppSceneCase",
         method: "post",
         data
     })
@@ -22,7 +28,7 @@ export function findAppScene(data){
 
 export function createAppScene(data){
     return service.request({
-        url: "/appScene/createAppScene",
+        url: "/appSceneCase/createAppSceneCase",
         method: "post",
         data
     })
@@ -30,7 +36,7 @@ export function createAppScene(data){
 
 export function deleteAppScene(data){
     return service.request({
-        url: "/appScene/deleteAppScene",
+        url: "/appSceneCase/deleteAppSceneCase",
         method: "post",
         data
     })
@@ -38,7 +44,16 @@ export function deleteAppScene(data){
 
 export function updateAppScene(data){
     return service.request({
-        url: "/appScene/updateAppScene",
+        url: "/appSceneCase/updateAppSceneCase",
+        method: "post",
+        data
+    })
+}
+
+
+export function findAppSceneCaseListByTestCase(data){
+    return service.request({
+        url: "/appSceneCase/findAppSceneCaseListByTestCase",
         method: "post",
         data
     })

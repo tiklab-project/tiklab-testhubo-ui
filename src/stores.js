@@ -45,7 +45,7 @@ import {
     WEB_SCENESTEP_STORE,WebSceneStepStore,
     WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore,
     WEB_UNITINSTANCE_STORE,WebUnitInstanceStore,
-    WEB_PERFORMSCENE_STORE,WebPerformSceneStore,
+    WEB_PERF_STEP_STORE,WebPerfStepStore,
     WEB_PERFORMINSTANCE_STORE,WebPerformInstanceStore,
 
     APP_UNIT_STORE,AppUnitStore,
@@ -55,7 +55,7 @@ import {
     APP_SCENESTEP_STORE, AppSceneStepStore,
     APP_SCENEINSTANCE_STORE,AppSceneInstanceStore,
     APP_PERFORM_STORE,AppPerformStore,
-    APP_PERFORMSCENE_STORE,AppPerformSceneStore,
+    APP_PERF_STEP_STORE,AppPerfStepStore,
     APP_PERFORMINSTANCE_STORE,AppPerformInstanceStore,
 
     FUNC_UNIT_STORE , FuncUnitStore,
@@ -128,7 +128,7 @@ function createStores() {
         [WEB_SCENESTEP_STORE]: new WebSceneStepStore(),
         [WEB_SCENEINSTANCE_STORE]: new WebSceneInstanceStore(),
         [WEB_UNITINSTANCE_STORE]:new WebUnitInstanceStore(),
-        [WEB_PERFORMSCENE_STORE]: new WebPerformSceneStore(),
+        [WEB_PERF_STEP_STORE]: new WebPerfStepStore(),
         [WEB_PERFORMINSTANCE_STORE]: new WebPerformInstanceStore(),
 
         [APP_UNIT_STORE]: new AppUnitStore(),
@@ -138,7 +138,7 @@ function createStores() {
         [APP_SCENESTEP_STORE]: new AppSceneStepStore(),
         [APP_SCENEINSTANCE_STORE]: new AppSceneInstanceStore(),
         [APP_PERFORM_STORE]: new AppPerformStore(),
-        [APP_PERFORMSCENE_STORE]: new AppPerformSceneStore(),
+        [APP_PERF_STEP_STORE]: new AppPerfStepStore(),
         [APP_PERFORMINSTANCE_STORE]: new AppPerformInstanceStore(),
 
         [FUNC_UNIT_STORE]: new FuncUnitStore(),

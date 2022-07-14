@@ -22,11 +22,11 @@ export class AppUnitStepStore {
     @observable selectItem;
 
     @action
-    findAppUnitStepList = async (id,param) => {
+    findAppUnitStepList = async (id) => {
         this.appUnitId=id;
         const params = {
             appUnitId: id,
-            ...param,
+            orderParams:[{name:'createTime', orderType:'asc'}],
         }
         const res = await findAppUnitStepList(params)
         if(res.code === 0) {
@@ -36,49 +36,34 @@ export class AppUnitStepStore {
     }
 
     @action
-    findAppUnitStep = (id) => {
-        const that =this;
+    findAppUnitStep =async (id) => {
         const param = new FormData();
         param.append('id', id);
-        return new Promise(function(resolve, reject){
-            findAppUnitStep(param).then((res) => {
-                res.code = undefined;
-                if(res.code === 0){
-                    that.appUnitStepInfo = res.data;
-                    resolve(res.data)
-                }
-            })
-        })
+
+        let res =  await  findAppUnitStep(param)
+        if(res.code === 0){
+            this.appUnitStepInfo = res.data;
+            return res.data;
+        }
     }
 
     @action
-    createAppUnitStep = (values) => {
-        createAppUnitStep(values).then((res) => {
-            if(res.code === 0){
-                this.findAppUnitStepList(this.appUnitId)
-            }
-        })
-    }
+    createAppUnitStep =async (values) => await createAppUnitStep(values)
+
 
     @action
-    updateAppUnitStep = (values) => {
-        updateAppUnitStep(values).then((res) => {
-            if(res.code === 0){
-                this.findAppUnitStepList(this.appUnitId);
-            }
-        })
-    }
+    updateAppUnitStep = async (values) => await updateAppUnitStep(values)
+
 
     @action
-    deleteAppUnitStep = (id) => {
+    deleteAppUnitStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        deleteAppUnitStep(param).then((res) => {
-            this.findAppUnitStepList(this.appUnitId);
-        })
+        return await deleteAppUnitStep(param)
     }
-
+    
+    
     //添加框中，下拉选择框获取所有定位器
     @action
     findAllLocation = () => {

@@ -80,7 +80,7 @@ const WebUnitStepEdit = (props) => {
                     actionType:res.actionType,
                     location: res.location,
                     locationValue:res.locationValue,
-                    parament:res.parament,
+                    parameter:res.parameter,
                     expectedResult:res.expectedResult
                 })
             })
@@ -143,7 +143,7 @@ const WebUnitStepEdit = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="参数"
-                        name="parament"
+                        name="parameter"
                     >
                         <Input />
                     </Form.Item>

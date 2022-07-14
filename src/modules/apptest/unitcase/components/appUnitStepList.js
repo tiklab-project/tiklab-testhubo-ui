@@ -27,7 +27,7 @@ const AppUnitStepList = (props) =>{
         {
             title: '参数',
             width: '20%',
-            dataIndex: 'parament',
+            dataIndex: 'parameter',
             align:'center',
         },
         {
@@ -49,10 +49,15 @@ const AppUnitStepList = (props) =>{
             dataIndex: 'operation',
             render: (text, record) => (
                 <Space size="middle">
-                    <AppUnitStepEdit name="编辑"  appStepId={record.id} />
+                    <AppUnitStepEdit
+                        name="编辑"
+                        type={"edit"}
+                        appUnitStepId={record.id}
+                        findPage={findAppUnitStepList}
+                    />
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteAppUnitStep(record.id)}
+                        onConfirm={() =>deleteAppUnitStep(record.id).then(()=> findAppUnitStepList(appUnitId))}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -64,9 +69,10 @@ const AppUnitStepList = (props) =>{
     ]
 
     const appUnitId = sessionStorage.getItem('appUnitId');
+
     useEffect( ()=>{
-        findAppUnitStepList()
-    },[])
+        findAppUnitStepList(appUnitId)
+    },[appUnitId])
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -81,7 +87,11 @@ const AppUnitStepList = (props) =>{
                 <div>测试步骤</div>
             </div>
             <div className={'flex-right'}>
-                <AppUnitStepEdit name={'添加步骤'} btn={'btn'}/>
+                <AppUnitStepEdit
+                    name={'添加步骤'}
+                    btn={'btn'}
+                    findPage={findAppUnitStepList}
+                />
             </div>
             <Table
                 columns={columns}

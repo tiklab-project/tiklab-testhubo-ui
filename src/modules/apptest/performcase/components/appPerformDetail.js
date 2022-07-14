@@ -2,36 +2,25 @@ import React, {useEffect, useState} from "react";
 import {Button, Tabs} from "antd";
 import BackCommon from "../../../common/backCommon";
 import {inject, observer} from "mobx-react";
-import AppPerformSceneConfig from "./appPerformSceneConfig";
+import AppPerfStepList from "./appPerfStepList";
 import AppPerformCofig from "./appPerformCofig";
 import AppEnvSelect from "../../apptest/appEnvSelect";
 const { TabPane } = Tabs;
 
 const AppPerformDetail = (props) =>{
     const {appPerformStore} = props;
-    const {findAppPerform} = appPerformStore;
+    const {findAppPerf} = appPerformStore;
 
     const [showResponse, setShowResponse] = useState(false);
 
-    const [baseInfo,setBaseInfo]=useState();
-    const [editTitle,setEditTitle] = useState("PerformeName")
-    const [createUser, setCreateUser] = useState("user");
-    const [updataUser, setUpdataUser] = useState("user");
-    const [category, setCategory] = useState("目录");
-    const [updateTime, setUpdateTime] = useState("2022-22-22-");
-
+    const [allValue,setAllValue] = useState();
+    let appPerfId = sessionStorage.getItem("appPerfId")
 
     useEffect(()=>{
-        findAppPerform(11).then(res=>{
-
-            setBaseInfo(res);
-            setEditTitle(res.name)
-            setCreateUser(res.createUser?.name);
-            setUpdataUser(res.updateUser?.name);
-            setCategory(res.category?.name);
-            setUpdateTime(res.updateTime);
+        findAppPerf(appPerfId).then(res=>{
+            setAllValue(res);
         })
-    },[])
+    },[appPerfId])
     
     const updateTitle = (value) =>{
 
@@ -69,7 +58,7 @@ const AppPerformDetail = (props) =>{
                         suppressContentEditableWarning  //去掉contentEditable 提示的页面警告
                         onBlur={updateTitle}
                     >
-                        {editTitle}
+                        {allValue?.testCase?.name}
                     </div>
                     <div>
                         <a onClick={toHistory}>测试历史</a>
@@ -78,15 +67,15 @@ const AppPerformDetail = (props) =>{
 
                 </div>
                 <div className={"method-people-info"}>
-                    <span className={"people-item "}>分组: {category}</span>
-                    <span className={"people-item "}>创建人: {createUser}</span>
-                    <span className={"people-item "}>更新者: {updataUser}</span>
-                    <span className={"people-item "}>更新时间: {updateTime}</span>
+                    <span className={"people-item "}>分组: {allValue?.testCase?.category?.name}</span>
+                    <span className={"people-item "}>创建人: {allValue?.testCase?.createUser?.name}</span>
+                    <span className={"people-item "}>更新者: {allValue?.testCase?.updateUser?.name}</span>
+                    <span className={"people-item "}>更新时间: {allValue?.testCase?.updateTime}</span>
                 </div>
             </div>
             <Tabs defaultActiveKey="1" onChange={changeTab}>
                 <TabPane tab="场景配置" key="1">
-                    <AppPerformSceneConfig />
+                    <AppPerfStepList />
                 </TabPane>
                 <TabPane tab="压力配置" key="2">
                     <AppPerformCofig />

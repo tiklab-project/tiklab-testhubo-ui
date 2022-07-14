@@ -11,14 +11,16 @@ const layout = {
 
 // 添加与编辑
 const WebUnitEdit = (props) => {
-    const { webUnitStore,caseType,testType,findPage,webUnitId,categoryStore} = props;
-    const { createWebUnit,updateWebUnit ,findWebUnit} = webUnitStore
+    const { webUnitStore,webUnitId,categoryStore} = props;
+    const {findWebUnitList, createWebUnit,updateWebUnit ,findWebUnit} = webUnitStore
     const {findCategoryListTree} = categoryStore;
 
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
 
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
     const categoryId = sessionStorage.getItem("categoryId")
     const repositoryId = localStorage.getItem("repositoryId")
 
@@ -42,7 +44,6 @@ const WebUnitEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
-
         if(props.type!=="edit"){
             values.testCase={
                 category:{id:categoryId},
@@ -55,14 +56,8 @@ const WebUnitEdit = (props) => {
             delete values.desc
 
             createWebUnit(values).then(()=> {
-                findPage();
-
-                const params = {
-                    testType:testType,
-                    caseType:caseType,
-                    repositoryId:repositoryId
-                }
-                findCategoryListTree(params)
+                findPage()
+                findCategoryPage()
             })
         }else {
             values.id=webUnitId;
@@ -71,21 +66,36 @@ const WebUnitEdit = (props) => {
                 name:values.name,
                 desc:values.desc
             }
+            delete values.name
+            delete values.desc
+
+
             updateWebUnit(values).then(()=> {
-                debugger
-                findPage()
-                const params = {
-                    testType:testType,
-                    caseType:caseType,
-                    repositoryId:repositoryId
-                }
-                findCategoryListTree(params)
+                findPage();
+                findCategoryPage()
             })
         }
 
-
         setVisible(false);
     };
+
+    const findPage=()=>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findWebUnitList(param)
+    }
+
+    const findCategoryPage = () =>{
+        const params = {
+            testType:testType,
+            caseType:caseType,
+            repositoryId:repositoryId
+        }
+        findCategoryListTree(params)
+    }
 
     const onCancel = () => { setVisible(false) };
 
@@ -108,8 +118,6 @@ const WebUnitEdit = (props) => {
                 centered
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
                     onFinish={onFinish}
                     preserve={false}

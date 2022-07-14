@@ -3,36 +3,42 @@ import {Button, Input, Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 
 const WebPerformBindScene = (props) =>{
-    const {categoryStore} = props;
-    // const {} =categoryStore;
+    const {webSceneStore,webPerfStepStore,webPerfId} = props;
+    const {findWebSceneList,webSceneList} = webSceneStore;
+
+    const {bindWebScene, findWebPerfStepList} = webPerfStepStore;
 
     const column =[
         {
             title: '场景名称',
-            dataIndex: 'name',
+            dataIndex: ['testCase','name'],
             key: 'name',
             // width: "30%",
         },{
             title: '类型',
-            dataIndex: 'testType',
+            dataIndex:['testCase','testType'],
             key: 'testType',
             // width: "30%",
-        },{
-            title: '等级',
-            dataIndex: 'level',
-            key: 'level',
-            // width: "20%",
-        },{
-            title: `创建人`,
-            dataIndex: ['user', 'name'],
+        },
+        // {
+        //     title: '等级',
+        //     dataIndex: 'level',
+        //     key: 'level',
+        //     // width: "20%",
+        // },
+        {
+            title: `创建时间`,
+            dataIndex: ['testCase','createTime'],
             key: "user",
-        }
+        },
     ]
 
     const [visible, setVisible] = React.useState(false);
+    const [selectItem, getSelectItem] = React.useState([]);
 
     // 弹框展示
     const showModal = () => {
+        findWebSceneList({caseType: "scene", testType: "web"});
 
         setVisible(true);
     };
@@ -40,6 +46,7 @@ const WebPerformBindScene = (props) =>{
 
     // 提交
     const onFinish = async () => {
+        bindWebScene(selectItem).then(()=>findWebPerfStepList(webPerfId))
 
         setVisible(false);
     };
@@ -48,7 +55,7 @@ const WebPerformBindScene = (props) =>{
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            // getSelectItem(selectedRows)
+            getSelectItem(selectedRowKeys)
         },
     };
 
@@ -66,18 +73,13 @@ const WebPerformBindScene = (props) =>{
                 centered
                 width={1000}
             >
-                <Input
-                    placeholder={`搜索`}
-                    // onPressEnter={onSearch}
-                    className='search-input'
-                    style={{width:240}}
-                />
 
                 <Table
                     columns={column}
-                    // dataSource={}
+                    dataSource={webSceneList}
                     rowKey = {record => record.id}
                     rowSelection={{...rowSelection}}
+                    pagination={false}
                 />
 
             </Modal>
@@ -85,4 +87,4 @@ const WebPerformBindScene = (props) =>{
     )
 }
 
-export default inject("categoryStore")(observer(WebPerformBindScene));
+export default inject("webSceneStore")(observer(WebPerformBindScene));

@@ -10,7 +10,7 @@ import {
     deleteWebUnitStep,
     updateWebUnitStep,
     findAllLocation,
-    findActionTypeList
+    findActionTypeList,
 } from '../api/webUnitStepApi';
 
 export class WebUnitStepStore {
@@ -34,6 +34,7 @@ export class WebUnitStepStore {
         }
         return res.data
     }
+
 
     @action
     findWebUnitStep =async (id) => {
@@ -65,23 +66,22 @@ export class WebUnitStepStore {
 
     //添加框中，下拉选择框获取所有定位器
     @action
-    findAllLocation = () => {
-        findAllLocation().then(res => {
-            if(res.code === 0) {
-                this.locationList = res.data;
-            }
-        })
+    findAllLocation = async () => {
+        const res = await findAllLocation()
+        if(res.code === 0) {
+            this.locationList = res.data;
+        }
     }
 
     //添加框中，下拉选择框获取所有方法
     @action
-    findActionTypeList = (data) => {
+    findActionTypeList = async (data) => {
+        const res = await findActionTypeList(data)
 
-        return findActionTypeList(data).then(res => {
-            if(res.code === 0) {
-                this.fuctionList = res.data;
-            }
-        })
+        if(res.code === 0) {
+            this.fuctionList = res.data;
+            return res.data;
+        }
     }
 
     @action

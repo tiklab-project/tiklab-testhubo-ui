@@ -191,7 +191,7 @@ const CaseNavCommon = (props) =>{
         return(
             data && data.map((item) => {
                 let deep = 1;
-                if(item.children&&item.children.length>0 || item.node&&item.node.length>0 ){
+                if(item.children&&item.children.length>0 || item.nodeList&&item.nodeList.length>0 ){
                     return (
                         <li key={item.id} >
                             {
@@ -208,7 +208,7 @@ const CaseNavCommon = (props) =>{
                                     tree(item.children,deep+1)
                                 }
                                 {
-                                    methodView(item.node)
+                                    methodView(item.nodeList)
                                 }
                             </ul>
                         </li>

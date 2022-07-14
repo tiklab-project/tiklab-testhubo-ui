@@ -14,6 +14,7 @@ const WebUnitDetail = (props) => {
     const {findWebUnit,updateWebUnit} = webUnitStore;
     const [allValue,setAllValue] = useState();
     const addRouter = props.history.push;
+
     const webUnitId = sessionStorage.getItem('webUnitId');
     let caseType = localStorage.getItem("caseType")
 

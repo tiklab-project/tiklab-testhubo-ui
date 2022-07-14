@@ -1,73 +1,54 @@
 import { observable,  action } from "mobx";
 import {
-    findAppPerformPage,
-    createAppPerform,
-    findAppPerform,
-    updateAppPerform,
-    deleteAppPerform
-} from '../api/appPerformApi'
+    findAppPerfPage,
+    createAppPerf,
+    findAppPerf,
+    updateAppPerf,
+    deleteAppPerf,
+    findAppPerfListByTestCase
+} from '../api/appPerfApi'
 
 export class AppPerformStore {
-
-    @observable appPerformList = [];
-    @observable appPerformInfo;
-    @observable categoryId;
+    @observable appPerfList = [];
+    @observable appPerfInfo;
 
     @action
-    findAppPerformPage = async (id) => {
+    findAppPerfList = async (value) => {
 
-        this.categoryId = id;
-        const params = {
-            categoryId: id,
-            orderParams:[{name:'paramName', orderType:'asc'}],
-        }
-        const res = await findAppPerformPage(params);
+        const res = await findAppPerfListByTestCase(value);
 
         if(res.code === 0) {
-            this.appPerformList = res.data.dataList;
+            this.appPerfList = res.data;
             return res.data
         }
     }
 
     @action
-    findAppPerform = async (id) => {
+    findAppPerf = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findAppPerform(param);
+        const res = await findAppPerf(param);
         if( res.code === 0){
-            return  this.appPerformInfo = res.data;
+            this.appPerfInfo = res.data;
+            return res.data;
         }
     }
 
 
     @action
-    createAppPerform = async (values) => {
-        values.http = {id: this.categoryId}
+    createAppPerf = async (values) =>  await createAppPerf(values)
 
-        const res = await createAppPerform(values)
-        if( res.code === 0){
-            return this.findAppPerformPage(this.categoryId);
-        }
-    }
 
     @action
-    updateAppPerform = async (values) => {
-        const res = await updateAppPerform(values)
-        if( res.code === 0){
-            return this.findAppPerformPage(this.categoryId);
-        }
-    }
+    updateAppPerf = async (values) =>  await updateAppPerf(values)
 
     @action
-    deleteAppPerform = async (id) => {
+    deleteAppPerf = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteAppPerform(param)
-        if( res.code === 0){
-            this.findAppPerformPage(this.categoryId);
-        }
+        await deleteAppPerf(param)
     }
 
 }

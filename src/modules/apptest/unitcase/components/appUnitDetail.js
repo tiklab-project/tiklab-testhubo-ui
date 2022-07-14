@@ -14,13 +14,14 @@ const AppUnitDetail = (props) => {
     const {findAppUnit,updateAppUnit} = appUnitStore;
     const [allValue,setAllValue] = useState();
     const addRouter = props.history.push;
+
     const appUnitId = sessionStorage.getItem('appUnitId');
     let caseType = localStorage.getItem("caseType")
 
     const [showResponse,setShowResponse] = useState(false);
 
     useEffect(()=> {
-        findAppUnit(11).then(res=>{
+        findAppUnit(appUnitId).then(res=>{
             setAllValue(res);
         })
     },[appUnitId])
@@ -57,7 +58,7 @@ const AppUnitDetail = (props) => {
             />
             <div className={'testcase-detail'}>
                 <div className="apidetail-header-btn">
-                    <div className={"method-name"}>{allValue?.name}</div>
+                    <div className={"method-name"}>{allValue?.testCase?.name}</div>
                     <div className={'apidetail-title-tool'}>
                         {
                             caseType === "unitcase"
@@ -71,10 +72,10 @@ const AppUnitDetail = (props) => {
                 <div className={"method"}>
                    
                     <div className={"method-people-info"}>
-                        <span className={"people-item "}>分组: {allValue?.category.name}</span>
-                        <span className={"people-item "}>创建人: {allValue?.createUser.name}</span>
-                        <span className={"people-item "}>更新者: {allValue?.updateUser.name}</span>
-                        <span className={"people-item "}>更新时间: {allValue?.updateTime}</span>
+                        <span className={"people-item "}>分组: {allValue?.testCase?.category?.name}</span>
+                        <span className={"people-item "}>创建人: {allValue?.testCase?.createUser?.name}</span>
+                        <span className={"people-item "}>更新者: {allValue?.testCase?.updateUser?.name}</span>
+                        <span className={"people-item "}>更新时间: {allValue?.testCase?.updateTime}</span>
                     </div>
                 </div>
             </div>

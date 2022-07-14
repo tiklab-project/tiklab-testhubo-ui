@@ -3,7 +3,6 @@ import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Select} from 'antd';
 
-const {Option} = Select;
 
 const layout = {
     labelCol: {span: 4},
@@ -12,14 +11,32 @@ const layout = {
 
 // 添加与编辑
 const AppUnitEdit = (props) => {
-    const {   } = props;
-
+    const {appUnitStore,appUnitId ,categoryStore } = props;
+    const { findAppUnitList,createAppUnit,updateAppUnit ,findAppUnit} = appUnitStore
+    const {findCategoryListTree} = categoryStore;
+    
+    
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
-
+    
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
+    const repositoryId = localStorage.getItem("repositoryId")
+    
     // 弹框展示
     const showModal = () => {
+        
+        if(props.type === "edit"){
+            findAppUnit(appUnitId).then(res=>{
+                form.setFieldsValue({
+                    name:res.testCase.name,
+                    desc:res.testCase.desc
+                })
+            })
+        }
+        
         setVisible(true);
     };
 
@@ -27,9 +44,56 @@ const AppUnitEdit = (props) => {
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
+        
+        if(props.type !=="edit"){
+            values.testCase={
+                category:{id:categoryId},
+                name:values.name,
+                testType:testType,
+                caseType:caseType,
+                desc:values.desc
+            }
+            delete values.name
+            delete values.desc
+            
+            createAppUnit(values).then(()=> {
+                findPage();
+                findCategoryPage()
+            })
+        }else {
+            values.id=appUnitId;
+            values.testCase={
+                id:appUnitId,
+                name:values.name,
+                desc:values.desc
+            }
+            updateAppUnit(values).then(()=> {
+                findPage();
+                findCategoryPage()
+            })
+        }
 
         setVisible(false);
     };
+
+    const findPage=()=>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findAppUnitList(param)
+    }
+
+    const findCategoryPage = () =>{
+        const params = {
+            testType:testType,
+            caseType:caseType,
+            repositoryId:repositoryId
+        }
+        findCategoryListTree(params)
+    }
+    
 
     const onCancel = () => { setVisible(false) };
 
@@ -52,8 +116,6 @@ const AppUnitEdit = (props) => {
                 centered
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
@@ -78,4 +140,4 @@ const AppUnitEdit = (props) => {
     );
 };
 
-export default inject()(observer(AppUnitEdit));
+export default inject("appUnitStore","categoryStore")(observer(AppUnitEdit));

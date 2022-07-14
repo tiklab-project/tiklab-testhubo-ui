@@ -48,7 +48,7 @@ export class ApiSceneStepStore {
                 apiUnit: {id:selectItem[i]}
             });
         }
-debugger
+
         const res = await bindApiUnit(bindList)
         if( res.code === 0){
             this.findApiSceneStepPage(this.apiSceneId);

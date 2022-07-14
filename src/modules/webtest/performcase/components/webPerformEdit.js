@@ -1,9 +1,8 @@
 
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select} from 'antd';
+import {Form, Modal, Button, Input} from 'antd';
 
-const {Option} = Select;
 
 const layout = {
     labelCol: {span: 4},
@@ -12,14 +11,32 @@ const layout = {
 
 // 添加与编辑
 const WebPerformEdit = (props) => {
-    const {   } = props;
+    const {webPerformStore, categoryStore,webPerfId} = props;
+    const {findWebPerfList,findWebPerf,createWebPerf,updateWebPerf}=webPerformStore;
+    const {findCategoryListTree} = categoryStore;
 
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
 
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
+    const repositoryId = localStorage.getItem("repositoryId")
+
+
     // 弹框展示
     const showModal = () => {
+        if(props.type==="edit"){
+            findWebPerf(webPerfId).then(res=>{
+                form.setFieldsValue({
+                    name:res.testCase.name,
+                    desc:res.testCase.desc
+                })
+            })
+        }
+
+
         setVisible(true);
     };
 
@@ -28,8 +45,61 @@ const WebPerformEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
+        if(props.type!=="edit"){
+            values.testCase={
+                category:{id:categoryId},
+                name:values.name,
+                testType:testType,
+                caseType:caseType,
+                desc:values.desc
+            }
+            delete values.name
+            delete values.desc
+
+            createWebPerf(values).then(()=> {
+                findPage();
+                findCategoryPage()
+
+            })
+        }else {
+            values.id=webPerfId;
+            values.testCase={
+                id:webPerfId,
+                name:values.name,
+                desc:values.desc
+            }
+            delete values.name
+            delete values.desc
+
+            updateWebPerf(values).then(()=> {
+                findPage();
+                findCategoryPage()
+            })
+        }
+
+
+
         setVisible(false);
     };
+
+    const findPage=()=>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findWebPerfList(param)
+    }
+
+    const findCategoryPage = () =>{
+        const params = {
+            testType:testType,
+            caseType:caseType,
+            repositoryId:repositoryId
+        }
+        findCategoryListTree(params)
+    }
+
 
     const onCancel = () => { setVisible(false) };
 
@@ -52,8 +122,6 @@ const WebPerformEdit = (props) => {
                 centered
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
@@ -78,4 +146,4 @@ const WebPerformEdit = (props) => {
     );
 };
 
-export default inject()(observer(WebPerformEdit));
+export default inject("webPerformStore","categoryStore")(observer(WebPerformEdit));

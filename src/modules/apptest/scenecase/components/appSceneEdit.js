@@ -12,14 +12,31 @@ const layout = {
 
 // 添加与编辑
 const AppSceneEdit = (props) => {
-    const {   } = props;
-
+    const { appSceneStore,categoryStore,appSceneId  } = props;
+    const {findAppSceneList,findAppScene,createAppScene,updateAppScene} = appSceneStore;
+    const {findCategoryListTree} = categoryStore;
+    
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
 
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
+    const repositoryId = localStorage.getItem("repositoryId")
+
     // 弹框展示
     const showModal = () => {
+
+        if(props.type === "edit"){
+            findAppScene(appSceneId).then(res=>{
+                form.setFieldsValue({
+                    name:res.testCase.name,
+                    desc:res.testCase.desc
+                })
+            })
+        }
+        
         setVisible(true);
     };
 
@@ -28,8 +45,56 @@ const AppSceneEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
+        if(props.type !=="edit"){
+            values.testCase={
+                category:{id:categoryId},
+                name:values.name,
+                testType:testType,
+                caseType:caseType,
+                desc:values.desc
+            }
+            delete values.name
+            delete values.desc
+
+            createAppScene(values).then(()=> {
+                findPage();
+                findCategoryPage()
+            })
+        }else {
+            values.id=appSceneId;
+            values.testCase={
+                id:appSceneId,
+                name:values.name,
+                desc:values.desc
+            }
+            updateAppScene(values).then(()=> {
+                findPage();
+                findCategoryPage()
+            })
+        }
+
         setVisible(false);
     };
+
+
+    const findPage=()=>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findAppSceneList(param)
+    }
+
+    const findCategoryPage = () =>{
+        const params = {
+            testType:testType,
+            caseType:caseType,
+            repositoryId:repositoryId
+        }
+        findCategoryListTree(params)
+    }
+
 
     const onCancel = () => { setVisible(false) };
 
@@ -52,8 +117,6 @@ const AppSceneEdit = (props) => {
                 centered
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
@@ -78,4 +141,4 @@ const AppSceneEdit = (props) => {
     );
 };
 
-export default inject()(observer(AppSceneEdit));
+export default inject("appSceneStore","categoryStore")(observer(AppSceneEdit));
