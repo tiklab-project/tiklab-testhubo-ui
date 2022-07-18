@@ -12,7 +12,16 @@ const layout = {
 // 添加与编辑
 const AppUnitEdit = (props) => {
     const {appUnitStore,appUnitId ,categoryStore } = props;
-    const { findAppUnitList,createAppUnit,updateAppUnit ,findAppUnit} = appUnitStore
+    const {
+        findAppUnitList,
+        createAppUnit,
+        updateAppUnit ,
+        findAppUnit,
+        findAllLocation,
+        findActionTypeList,
+        locationList,
+        functionList
+    } = appUnitStore
     const {findCategoryListTree} = categoryStore;
     
     
@@ -27,11 +36,18 @@ const AppUnitEdit = (props) => {
     
     // 弹框展示
     const showModal = () => {
+        findAllLocation();
+        findActionTypeList({"type": "APP"});
         
         if(props.type === "edit"){
             findAppUnit(appUnitId).then(res=>{
                 form.setFieldsValue({
                     name:res.testCase.name,
+                    actionType:res.actionType,
+                    parameter:res.parameter,
+                    location: res.location,
+                    locationValue:res.locationValue,
+                    expectedResult:res.expectedResult,
                     desc:res.testCase.desc
                 })
             })
@@ -67,6 +83,11 @@ const AppUnitEdit = (props) => {
                 name:values.name,
                 desc:values.desc
             }
+            delete values.name
+            delete values.desc
+
+            values.location=values.location?values.location:""
+
             updateAppUnit(values).then(()=> {
                 findPage();
                 findCategoryPage()
@@ -93,7 +114,48 @@ const AppUnitEdit = (props) => {
         }
         findCategoryListTree(params)
     }
-    
+
+
+    //定位器下拉选择框渲染
+    const locationView = (data) => {
+        return(
+            <Select
+                showSearch={true}
+                allowClear={true}
+            >
+                {
+                    data&&data.map(item=>{
+
+                        return <Option key={item} value={item}>{item}</Option>
+                    })
+                }
+                {/*<Option>{' '}</Option>*/}
+            </Select>
+        )
+    }
+
+    //操作方法下拉选择框渲染
+    const functionView = (data) => {
+        return(
+            <Select
+                showSearch={true}
+                allowClear={true}
+            >
+                {
+                    data&&data.map(item=>{
+                        return (
+                            <Option key={item.id} value={item.name}>
+                                <div>{item.name}</div>
+                                <div style={{color:'#a9a9a9',fontSize:12}}>{item.description}</div>
+                            </Option>
+                        )
+                    })
+                }
+            </Select>
+        )
+    }
+
+
 
     const onCancel = () => { setVisible(false) };
 
@@ -128,6 +190,42 @@ const AppUnitEdit = (props) => {
                     >
                         <Input />
                     </Form.Item>
+                    <Form.Item
+                        label="操作方法"
+                        name="actionType"
+                    >
+                        {
+                            functionView(functionList)
+                        }
+                    </Form.Item>
+                    <Form.Item
+                        label="参数"
+                        name="parameter"
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="定位器"
+                        name="location"
+                    >
+                        {
+                            locationView(locationList)
+                        }
+                    </Form.Item>
+                    <Form.Item
+                        label="定位器的值"
+                        name="locationValue"
+                    >
+                        <Input />
+                    </Form.Item>
+
+
+                    {/*<Form.Item*/}
+                    {/*    label="期望"*/}
+                    {/*    name="expectedResult"*/}
+                    {/*>*/}
+                    {/*    <Input />*/}
+                    {/*</Form.Item>*/}
                     <Form.Item
                         label="描述"
                         name="desc"

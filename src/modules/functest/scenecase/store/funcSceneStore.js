@@ -1,29 +1,24 @@
 import { observable,  action } from "mobx";
 import {
-    findFuncScenePage,
     createFuncScene,
     findFuncScene,
     updateFuncScene,
-    deleteFuncScene
+    deleteFuncScene,
+    findFuncSceneCaseListByTestCase
 } from '../api/funcSceneApi'
 
 export class FuncSceneStore {
 
     @observable funcSceneList = [];
     @observable funcSceneInfo;
-    @observable categoryId;
 
     @action
-    findFuncScenePage = async (id) => {
-        this.categoryId = id;
-        const params = {
-            categoryId: id,
-            orderParams:[{name:'paramName', orderType:'asc'}],
-        }
-        const res = await findFuncScenePage(params);
+    findFuncSceneList = async (value) => {
+
+        const res = await findFuncSceneCaseListByTestCase(value);
 
         if(res.code === 0) {
-            this.funcSceneList = res.data.dataList;
+            this.funcSceneList = res.data;
             return res.data
         }
     }
@@ -35,38 +30,24 @@ export class FuncSceneStore {
 
         const res = await findFuncScene(param);
         if( res.code === 0){
-            return  this.funcSceneInfo = res.data;
-        }
-    }
-
-
-    @action
-    createFuncScene = async (values) => {
-        values.http = {id: this.categoryId}
-
-        const res = await createFuncScene(values)
-        if( res.code === 0){
-            return this.findFuncScenePage(this.categoryId);
+            this.funcSceneInfo = res.data;
+            return res.data;
         }
     }
 
     @action
-    updateFuncScene = async (values) => {
-        const res = await updateFuncScene(values)
-        if( res.code === 0){
-            return this.findFuncScenePage(this.categoryId);
-        }
-    }
+    createFuncScene = async (values) =>  await createFuncScene(values)
+
+    @action
+    updateFuncScene = async (values) => await updateFuncScene(values)
 
     @action
     deleteFuncScene = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteFuncScene(param)
-        if( res.code === 0){
-            this.findFuncScenePage(this.categoryId);
-        }
+        await deleteFuncScene(param)
+
     }
 
 }

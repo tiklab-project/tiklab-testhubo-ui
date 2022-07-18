@@ -14,20 +14,27 @@ const AppUnitList = (props) => {
             title:`用例名称`,
             dataIndex:  ['testCase',"name"],
             key: "name",
-            render: (text,record) =>(
-                <a onClick = {()=>setSessionStorage(record.id)}>{text}</a>
-            )
         },
-        // {
-        //     title: `类型`,
-        //     dataIndex: "testType",
-        //     key: "testType",
-        // },
-        // {
-        //     title: `等级`,
-        //     dataIndex: "level",
-        //     key: "level",
-        // },
+        {
+            title: '操作方法',
+            width: '15%',
+            dataIndex: 'actionType',
+        },
+        {
+            title: '参数',
+            width: '15%',
+            dataIndex: 'parameter',
+        },
+        {
+            title: '定位器',
+            dataIndex: 'location',
+            width: '15%',
+        },
+        {
+            title: '定位器的值',
+            dataIndex: 'locationValue',
+            width: '15%',
+        },
         {
             title: `创建时间`,
             dataIndex: ['testCase','createTime'],
@@ -37,7 +44,6 @@ const AppUnitList = (props) => {
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            align: 'center',
             width: "15%",
             render: (text, record) => (
                 <Space size="middle">
@@ -75,12 +81,6 @@ const AppUnitList = (props) => {
             categoryId:categoryId
         }
         findAppUnitList(param)
-    }
-
-    const setSessionStorage = (id) =>{
-        sessionStorage.setItem("appUnitId",id);
-
-        props.history.push("/repositorypage/apptest/unitdetail")
     }
 
 

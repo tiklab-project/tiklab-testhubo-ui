@@ -1,24 +1,18 @@
-/**
- * @description：
- * @date: 2021-09-02 13:08
- */
+
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import BackCommon from "../../../common/backCommon";
 import WebSceneStepList from "./webSceneStepList";
 import {Button} from "antd";
-import WebEnvSelect from "../../webtest/webEnvSelect";
+import ExecuteTestDrawer from "./executeTestDrawer";
 
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;
-    const {findWebScene,updateWebScene} = webSceneStore;
+    const {findWebScene} = webSceneStore;
 
     const [allValue,setAllValue] = useState();
 
     const webSceneId = sessionStorage.getItem('webSceneId');
-    let caseType = localStorage.getItem("caseType")
-
-    const [showResponse,setShowResponse] = useState(false);
 
     useEffect(()=> {
         findWebScene(webSceneId).then(res=>{
@@ -27,23 +21,13 @@ const WebSceneDetail = (props) => {
     },[webSceneId])
 
 
-
     const goBack = () =>{
         props.history.push("/repositorypage/webtest/scenecase")
-    }
-
-
-    //执行测试
-    const actionTest = () =>{
-        //调接口
-
-        setShowResponse(true)
     }
 
     const toHistory = () =>{
         props.history.push("/repositorypage/webtest/scenecase-instance")
     }
-
 
 
     return(
@@ -57,7 +41,10 @@ const WebSceneDetail = (props) => {
                     <div className={"method-name"}>{allValue?.testCase?.name}</div>
                     <div className={'apidetail-title-tool'}>
                         <Button onClick={toHistory}>历史</Button>
-                        <Button className="important-btn" onClick={actionTest}>测试</Button>
+                        <ExecuteTestDrawer
+                            webSceneId={webSceneId}
+                            webSceneStore={webSceneStore}
+                        />
                     </div>
                 </div>
                 <div className={"method"}>

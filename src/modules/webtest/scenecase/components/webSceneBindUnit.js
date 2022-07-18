@@ -72,7 +72,7 @@ const WebSceneBindUnit =(props) =>{
                 centered
                 width={800}
             >
-saf23
+
                 <Table
                     columns={column}
                     dataSource={webUnitList}

@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import { renderRoutes } from "react-router-config";
 import { Layout } from 'antd';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
-import { PrivilegeSystem } from "doublekit-privilege-ui";
+import { PrivilegeButton } from "doublekit-privilege-ui";
 
 import './sysMana.scss'
 import {inject, observer} from "mobx-react";
@@ -189,7 +189,7 @@ const SystemManagement = (props) => {
     // 无子级菜单处理
     const renderMenu = (data,deep)=> {
         return (
-            <PrivilegeSystem code={data.encoded}  key={data.key}>
+            <PrivilegeButton code={data.encoded}  key={data.key}>
                 <li
                     key={data.key}
                     className={` orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : ""}`}
@@ -200,14 +200,14 @@ const SystemManagement = (props) => {
                         {data.title}
                     </div>
                 </li>
-            </PrivilegeSystem>
+            </PrivilegeButton>
         )
     }
 
     // 子级菜单处理
     const renderSubMenu = ({title,key,children,encoded},deep)=> {
         return (
-            <PrivilegeSystem code={encoded} disabled ={"hidden"} key={key}>
+            <PrivilegeButton code={encoded} disabled ={"hidden"} key={key}>
                 <li key={key} title={title} >
                     <div className="orga-aside-item aside-li"
                          onClick={() => setOpenOrClose(key)}
@@ -238,7 +238,7 @@ const SystemManagement = (props) => {
                         }
                     </ul>
                 </li>
-            </PrivilegeSystem>
+            </PrivilegeButton>
         )
     }
 

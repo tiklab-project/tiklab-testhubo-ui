@@ -5,7 +5,7 @@ import WebSceneBindUnit from "./WebSceneBindUnit";
 
 const WebSceneStepList = (props) => {
     const {webSceneStepStore} =props;
-    const {findWebSceneStepPage,webSceneStepList,deleteWebSceneStep} = webSceneStepStore;
+    const {findWebSceneStepList,webSceneStepList,deleteWebSceneStep} = webSceneStepStore;
 
     const column = [
         {
@@ -15,7 +15,7 @@ const WebSceneStepList = (props) => {
         }, {
             title: `创建时间`,
             dataIndex: "createTime",
-            key: "user",
+            key: "createTime",
         },
         {
             title: '操作',
@@ -41,7 +41,7 @@ const WebSceneStepList = (props) => {
     let webSceneId = sessionStorage.getItem("webSceneId")
 
     useEffect(()=>{
-        findWebSceneStepPage(webSceneId)
+        findWebSceneStepList(webSceneId)
     },[webSceneId])
 
    

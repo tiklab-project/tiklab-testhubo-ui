@@ -3,35 +3,42 @@ import {Button, Input, Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 
 const FuncSceneBindUnit =(props) =>{
-    const {categoryStore} = props;
+    const {funcUnitStore,funcSceneStepStore,funcSceneId} = props;
+    const {findFuncUnitList,funcUnitList} = funcUnitStore;
+
+    const {bindFuncUnit,findFuncSceneStepList} = funcSceneStepStore;
 
     const column =[
         {
-            title: '用例名称',
-            dataIndex: 'name',
+            title: 'UnitCase名',
+            dataIndex:  ['testCase','name'],
             key: 'name',
             width: "30%",
-        }, {
+        },
+        {
             title: `类型`,
-            dataIndex: "testType",
+            dataIndex: ['testCase','testType'],
             key: "testType",
         },
+        // {
+        //     title: `等级`,
+        //     dataIndex: "level",
+        //     key: "level",
+        // },
         {
-            title: `等级`,
-            dataIndex: "level",
-            key: "level",
-        },
-        {
-            title: `创建人`,
-            dataIndex: ['createUser', 'name'],
+            title: `创建时间`,
+            dataIndex: ['testCase','createTime'],
             key: "user",
         },
     ]
 
     const [visible, setVisible] = React.useState(false);
+    const [selectItem, getSelectItem] = React.useState([]);
 
     // 弹框展示
     const showModal = () => {
+
+        findFuncUnitList({caseType: "unit", testType: "func"});
 
         setVisible(true);
     };
@@ -39,6 +46,7 @@ const FuncSceneBindUnit =(props) =>{
 
     // 提交
     const onFinish = async () => {
+        bindFuncUnit(selectItem).then(()=>findFuncSceneStepList(funcSceneId))
 
         setVisible(false);
     };
@@ -47,7 +55,7 @@ const FuncSceneBindUnit =(props) =>{
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            // getSelectItem(selectedRows)
+            getSelectItem(selectedRowKeys)
         },
     };
 
@@ -65,18 +73,13 @@ const FuncSceneBindUnit =(props) =>{
                 centered
                 width={800}
             >
-                <Input
-                    placeholder={`搜索`}
-                    // onPressEnter={onSearch}
-                    className='search-input'
-                    style={{width:240}}
-                />
 
                 <Table
                     columns={column}
-                    // dataSource={}
+                    dataSource={funcUnitList}
                     rowKey = {record => record.id}
                     rowSelection={{...rowSelection}}
+                    pagination={false}
                 />
 
             </Modal>
@@ -84,4 +87,4 @@ const FuncSceneBindUnit =(props) =>{
     )
 }
 
-export default inject("categoryStore")(observer(FuncSceneBindUnit));
+export default inject("funcUnitStore")(observer(FuncSceneBindUnit));

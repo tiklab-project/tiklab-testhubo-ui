@@ -11,13 +11,13 @@ const FuncSceneDetail = (props) => {
     const {funcSceneStore} = props;
     const {findFuncScene,updateFuncScene} = funcSceneStore;
     const [allValue,setAllValue] = useState();
-    const testcaseId = sessionStorage.getItem('funcSceneId');
+    const funcSceneId = sessionStorage.getItem('funcSceneId');
 
     useEffect(()=> {
-        findFuncScene(11).then(res=>{
+        findFuncScene(funcSceneId).then(res=>{
             setAllValue(res);
         })
-    },[testcaseId])
+    },[funcSceneId])
 
 
 
@@ -31,16 +31,16 @@ const FuncSceneDetail = (props) => {
             <BackCommon clickBack={goback} />
             <div className={'testcase-detail'}>
                 <div className="apidetail-header-btn">
-                    <div className={"method-name"}>{allValue?.name}</div>
+                    <div className={"method-name"}>{allValue?.testCase?.name}</div>
                     
                 </div>
                 <div className={"method"}>
                    
                     <div className={"method-people-info"}>
-                        <span className={"people-item "}>分组: {allValue?.category.name}</span>
-                        <span className={"people-item "}>创建人: {allValue?.createUser.name}</span>
-                        <span className={"people-item "}>更新者: {allValue?.updateUser.name}</span>
-                        <span className={"people-item "}>更新时间: {allValue?.updateTime}</span>
+                        <span className={"people-item "}>分组: {allValue?.testCase?.category?.name}</span>
+                        <span className={"people-item "}>创建人: {allValue?.testCase?.createUser?.name}</span>
+                        <span className={"people-item "}>更新者: {allValue?.testCase?.updateUser?.name}</span>
+                        <span className={"people-item "}>更新时间: {allValue?.testCase?.updateTime}</span>
                     </div>
                 </div>
             </div>

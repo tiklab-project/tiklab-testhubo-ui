@@ -1,9 +1,7 @@
 
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select} from 'antd';
-
-const {Option} = Select;
+import {Form, Modal, Button, Input} from 'antd';
 
 const layout = {
     labelCol: {span: 4},
@@ -12,14 +10,31 @@ const layout = {
 
 // 添加与编辑
 const FuncSceneEdit = (props) => {
-    const {   } = props;
+    const {funcSceneStore, categoryStore,funcSceneId  } = props;
+    const {findFuncSceneList,findFuncScene,createFuncScene,updateFuncScene} = funcSceneStore;
+    const {findCategoryListTree} = categoryStore;
 
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
 
+
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
+    const repositoryId = localStorage.getItem("repositoryId")
+
     // 弹框展示
     const showModal = () => {
+        if(props.type==="edit"){
+            findFuncScene(funcSceneId).then(res=>{
+                form.setFieldsValue({
+                    name:res.testCase.name,
+                    desc:res.testCase.desc
+                })
+            })
+        }
+        
         setVisible(true);
     };
 
@@ -28,8 +43,59 @@ const FuncSceneEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
+
+        if(props.type!=="edit"){
+            values.testCase={
+                category:{id:categoryId},
+                name:values.name,
+                testType:testType,
+                caseType:caseType,
+                desc:values.desc
+            }
+            delete values.name
+            delete values.desc
+
+            createFuncScene(values).then(()=> {
+                findPage();
+                findCategoryPage()
+            })
+        }else {
+            values.id=funcSceneId;
+            values.testCase={
+                id:funcSceneId,
+                name:values.name,
+                desc:values.desc
+            }
+            delete values.name
+            delete values.desc
+
+            updateFuncScene(values).then(()=> {
+                findPage();
+                findCategoryPage()
+            })
+        }
+
         setVisible(false);
     };
+
+
+    const findPage=()=>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findFuncSceneList(param)
+    }
+
+    const findCategoryPage = () =>{
+        const params = {
+            testType:testType,
+            caseType:caseType,
+            repositoryId:repositoryId
+        }
+        findCategoryListTree(params)
+    }
 
     const onCancel = () => { setVisible(false) };
 
@@ -78,4 +144,4 @@ const FuncSceneEdit = (props) => {
     );
 };
 
-export default inject()(observer(FuncSceneEdit));
+export default inject("funcSceneStore","categoryStore")(observer(FuncSceneEdit));

@@ -1,7 +1,4 @@
-/**
- * @description：功能测试步骤store
- * @date: 2021-10-08 13:32
- */
+
 import {observable,action} from "mobx";
 import {
     findFuncUnitStepList,
@@ -21,21 +18,24 @@ export class FuncUnitStepStore {
     @action
     findFuncUnitStepList = async (id) => {
         this.funcUnitId=id;
-        const params = {funcUnitId: id}
-
+        const params = {
+            funcUnitId: id,
+            orderParams:[{name:'createTime', orderType:'asc'}],
+        }
         const res = await findFuncUnitStepList(params)
         if(res.code === 0) {
-
-            this.funcUnitStepList=res.data
-            return res.data
+            this.funcUnitStepList=res.data;
         }
+        return res.data
     }
 
+
     @action
-    findFuncUnitStep = async (id) => {
+    findFuncUnitStep =async (id) => {
         const param = new FormData();
         param.append('id', id);
-        const res = await findFuncUnitStep(param);
+
+        let res =  await  findFuncUnitStep(param)
         if(res.code === 0){
             this.funcUnitStepInfo = res.data;
             return res.data;
@@ -43,37 +43,21 @@ export class FuncUnitStepStore {
     }
 
     @action
-    createFuncUnitStep = async (values) => {
-        delete values.id;
-        values.functional={id:this.funcUnitId};
+    createFuncUnitStep =async (values) => await createFuncUnitStep(values)
 
-        const res = await createFuncUnitStep(values);
-        if(res.code === 0){
-            this.findFuncUnitStepList(this.funcUnitId);
-            return (res.data)
-        }
-    }
 
     @action
-    updateFuncUnitStep = async (values) => {
-        const res = await updateFuncUnitStep(values);
+    updateFuncUnitStep = async (values) => await updateFuncUnitStep(values)
 
-        if(res.code === 0){
-            return this.findFuncUnitStepList(this.funcUnitId);
-
-        }
-    }
 
     @action
     deleteFuncUnitStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        const res = await deleteFuncUnitStep(param);
-        if(res.code === 0){
-            this.findFuncUnitStepList(this.funcUnitId);
-        }
+        return await deleteFuncUnitStep(param)
     }
+
 }
 
 export const FUNC_UNITSTEP_STORE = 'funcUnitStepStore';

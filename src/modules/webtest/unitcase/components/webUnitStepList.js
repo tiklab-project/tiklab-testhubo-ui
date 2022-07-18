@@ -1,7 +1,4 @@
-/**
- * @description：
- * @date: 2021-09-02 13:09
- */
+
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from "mobx-react";
 import {Space, Popconfirm, Table} from 'antd';
@@ -98,7 +95,7 @@ const WebUnitStepList = (props) =>{
                 dataSource={webUnitStepList}
                 rowKey={record => record.id}
                 pagination={false}
-                rowSelection={{...rowSelection}}
+                // rowSelection={{...rowSelection}}
             />
         </>
     );

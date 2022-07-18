@@ -9,7 +9,7 @@ const WebSceneDetailContant = (props) =>{
     return(
         <TestDargCommon
             top={<WebSceneDetail {...props}/>}
-            bottom={<WebSceneTest />}
+            // bottom={<WebSceneTest />}
         />
     )
 }

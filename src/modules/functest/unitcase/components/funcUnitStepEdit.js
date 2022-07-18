@@ -1,49 +1,53 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select} from 'antd';
+import {Form, Modal, Button, Input} from 'antd';
 
-const {Option} = Select;
 const layout = {
     labelCol: {span: 4},
     wrapperCol: {span: 20},
 };
 
 // 添加与编辑
-const FunctionalStepEdit = (props) => {
-    const { functionalTestStepStore, functionalStepId } = props;
+const FuncUnitStepEdit = (props) => {
+    const { funcUnitStepStore, funcUnitStepId,findPage } = props;
     const {
-        findFunctionalStep,
-        createFunctionalStep,
-        updateFunctionalStep
-    } = functionalTestStepStore;
+        findFuncUnitStep,
+        createFuncUnitStep,
+        updateFuncUnitStep
+    } = funcUnitStepStore;
 
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
-    const testcaseId = localStorage.getItem('testcaseId')
+
     // 弹框展示
     const showModal = () => {
-        setVisible(true);
-        if(props.name === "编辑"){
-            findFunctionalStep(functionalStepId).then((res)=>{
+        
+        if(props.type === "edit"){
+            findFuncUnitStep(funcUnitStepId).then((res)=>{
                 form.setFieldsValue({
-                    name: res.name,
-                    expectResult:res.expectResult,
-                    actualResult:res.actualResult,
+                    described: res.described,
+                    expect:res.expect,
+                    actual:res.actual,
                 })
             })
         }
+
+        setVisible(true);
     };
+
+    const funcUnitId = sessionStorage.getItem('funcUnitId')
 
     // 提交
     const onFinish =async () => {
         let values =  await form.validateFields();
-        values.testCase={id:testcaseId};
+        values.funcUnitId=funcUnitId
+
         if(props.name === "添加步骤" ){
-            createFunctionalStep(values)
+            createFuncUnitStep(values).then(()=>findPage(funcUnitId))
         }else{
-            values.id=functionalStepId;
-            updateFunctionalStep(values);
+            values.id=funcUnitStepId;
+            updateFuncUnitStep(values).then(()=>findPage(funcUnitId))
         }
         setVisible(false);
     };
@@ -69,29 +73,27 @@ const FunctionalStepEdit = (props) => {
                 centered
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
                     {...layout}
                 >
                     <Form.Item
-                        label="名称"
+                        label="描述"
                         rules={[{ required: true, message:'名称未添加'}]}
-                        name="name"
+                        name="described"
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         label="预期结果"
-                        name="expectResult"
+                        name="expect"
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         label="实际结果"
-                        name="actualResult"
+                        name="actual"
                     >
                         <Input />
                     </Form.Item>
@@ -101,4 +103,4 @@ const FunctionalStepEdit = (props) => {
     );
 };
 
-export default inject('functionalTestStepStore')(observer(FunctionalStepEdit));
+export default inject('funcUnitStepStore')(observer(FuncUnitStepEdit));

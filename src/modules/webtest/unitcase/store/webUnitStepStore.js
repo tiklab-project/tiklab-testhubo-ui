@@ -1,7 +1,4 @@
-/**
- * @description：
- * @date: 2021-09-03 13:32
- */
+
 import {observable,action} from "mobx";
 import {
     findWebUnitStepList,
@@ -18,7 +15,7 @@ export class WebUnitStepStore {
     @observable webUnitStepInfo = {};
     @observable webUnitId;
     @observable locationList;
-    @observable fuctionList;
+    @observable functionList;
     @observable selectItem;
 
     @action
@@ -79,7 +76,7 @@ export class WebUnitStepStore {
         const res = await findActionTypeList(data)
 
         if(res.code === 0) {
-            this.fuctionList = res.data;
+            this.functionList = res.data;
             return res.data;
         }
     }
@@ -88,6 +85,7 @@ export class WebUnitStepStore {
     getSelectItem = (data) => {
         this.selectItem = data
     }
+
 
 
 

@@ -1,27 +1,17 @@
-// import {Axios as service} from "doublekit-core-ui";
+import {Axios as service} from "doublekit-core-ui";
 
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/funcUnitMock"
-
-export function deleteFuncUnit(data){
+export function findFuncUnitCaseListByTestCase(data){
     return service.request({
-        url: "/funcUnit/deleteFuncUnit",
+        url: "/funcUnitCase/findFuncUnitCaseListByTestCase",
         method: "post",
         data
     })
 }
 
-export function createFuncUnit(data){
-    return service.request({
-        url: "/funcUnit/createFuncUnit",
-        method: "post",
-        data
-    })
-}
 
-export function updateFuncUnit(data){
+export function findFuncUnitPage(data){
     return service.request({
-        url: "/funcUnit/updateFuncUnit",
+        url: "/funcUnitCase/findFuncUnitCasePage",
         method: "post",
         data
     })
@@ -29,23 +19,31 @@ export function updateFuncUnit(data){
 
 export function findFuncUnit(data){
     return service.request({
-        url: "/funcUnit/findFuncUnit",
+        url: "/funcUnitCase/findFuncUnitCase",
         method: "post",
         data
     })
 }
 
-export function findFuncUnitList(data){
+export function createFuncUnit(data){
     return service.request({
-        url: "/funcUnit/findFuncUnitList",
+        url: "/funcUnitCase/createFuncUnitCase",
         method: "post",
         data
     })
 }
 
-export function findFuncUnitPage(data){
+export function deleteFuncUnit(data){
     return service.request({
-        url: "/funcUnit/findFuncUnitPage",
+        url: "/funcUnitCase/deleteFuncUnitCase",
+        method: "post",
+        data
+    })
+}
+
+export function updateFuncUnit(data){
+    return service.request({
+        url: "/funcUnitCase/updateFuncUnitCase",
         method: "post",
         data
     })

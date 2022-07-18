@@ -49,8 +49,6 @@ import PerformanceDetail from './old/performance/components/performanceDetail';
 import PerformanceHistory from "./old/performance/components/performanceHistory";
 
 import FunctionalTestDetail from './functest/scenecase/components/functionalTestDetail';
-import {FUNCTIONALTEST_STORE, TestcaseFunctionalStore} from './functest/scenecase/store/testcaseFunctionalStore';
-import {FUNCTIONALTESTSTEP_STORE,FunctionalTestStepStore} from './functest/scenecase/store/functionalTestStepStore';
 
 import CategoryList from "./category/components/category";
 import {CATEGORY_STORE,CategoryStore} from "./category/store/categoryStore";
@@ -188,8 +186,7 @@ export {
     PERFORMANCESTATISTICS_STORE, PerformanceStatisticsStore,
 
     FunctionalTestDetail,
-    FUNCTIONALTEST_STORE, TestcaseFunctionalStore,
-    FUNCTIONALTESTSTEP_STORE,FunctionalTestStepStore,
+
 
     CategoryList,
     CATEGORY_STORE,CategoryStore,

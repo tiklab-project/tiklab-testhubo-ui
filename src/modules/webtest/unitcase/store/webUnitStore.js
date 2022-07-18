@@ -5,13 +5,17 @@ import {
     findWebUnit,
     updateWebUnit,
     deleteWebUnit,
-    findWebUnitCaseListByTestCase
+    findWebUnitCaseListByTestCase,
+    findAllLocation,
+    findActionTypeList
 } from '../api/webUnitApi'
 
 export class WebUnitStore {
 
     @observable webUnitList = [];
     @observable webUnitInfo;
+    @observable locationList;
+    @observable functionList;
 
     @action
     findWebUnitList = async (value) => {
@@ -50,6 +54,29 @@ export class WebUnitStore {
 
         await deleteWebUnit(param)
     }
+
+
+    //添加框中，下拉选择框获取所有定位器
+    @action
+    findAllLocation = async () => {
+        const res = await findAllLocation()
+        if(res.code === 0) {
+            this.locationList = res.data;
+        }
+    }
+
+    //添加框中，下拉选择框获取所有方法
+    @action
+    findActionTypeList = async (data) => {
+        const res = await findActionTypeList(data)
+
+        if(res.code === 0) {
+            this.functionList = res.data;
+            return res.data;
+        }
+    }
+
+
 
 }
 

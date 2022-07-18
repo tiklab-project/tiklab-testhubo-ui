@@ -14,38 +14,44 @@ const WebUnitList = (props) => {
             title:`用例名称`,
             dataIndex:  ['testCase',"name"],
             key: "name",
-            render: (text,record) =>(
-                <a onClick = {()=>setSessionStorage(record.id)}>{text}</a>
-            )
         },
-        // {
-        //     title: `类型`,
-        //     dataIndex: "testType",
-        //     key: "testType",
-        // },
-        // {
-        //     title: `等级`,
-        //     dataIndex: "level",
-        //     key: "level",
-        // },
-         {
-            title: `创建时间`,
-            dataIndex: ['testCase','createTime'],
-            key: "user",
+        {
+            title: '操作方法',
+            width: '15%',
+            dataIndex: 'actionType',
+            align:'center',
         },
+        {
+            title: '参数',
+            width: '15%',
+            dataIndex: 'parameter',
+            align:'center',
+        },
+        {
+            title: '定位器',
+            dataIndex: 'location',
+            width: '15%',
+            align:'center',
+        },
+        {
+            title: '定位器的值',
+            dataIndex: 'locationValue',
+            width: '15%',
+            align:'center',
+        },
+
         {
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
             align: 'center',
-            width: "15%",
+            width: "20%",
             render: (text, record) => (
                 <Space size="middle">
                     <WebUnitEdit
                         name={"编辑"}
                         type={"edit"}
                         webUnitId={record.id}
-                        findPage={findPage}
                     />
                     <Popconfirm
                         title="确定删除？"
@@ -79,12 +85,6 @@ const WebUnitList = (props) => {
     }
 
 
-    const setSessionStorage = (id) =>{
-        sessionStorage.setItem("webUnitId",id);
-
-        props.history.push("/repositorypage/webtest/unitdetail")
-    }
-
     const deleteFn = (id)=>{
 
         deleteWebUnit(id).then(()=>{
@@ -107,17 +107,8 @@ const WebUnitList = (props) => {
                 <WebUnitEdit
                     name={"添加用例"}
                     btn={"btn"}
-                    categoryId={categoryId}
-                    caseType={caseType}
-                    testType={testType}
-                    findPage={findPage}
                 />
-                {/*<Input*/}
-                {/*    placeholder={`搜索`}*/}
-                {/*    // onPressEnter={onSearch}*/}
-                {/*    className='search-input'*/}
-                {/*    style={{width:240}}*/}
-                {/*/>*/}
+
             </div>
             <Table
                 columns={column}

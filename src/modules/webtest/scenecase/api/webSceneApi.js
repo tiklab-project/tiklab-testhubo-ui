@@ -58,3 +58,12 @@ export function findWebSceneCaseListByTestCase(data){
         data
     })
 }
+
+//web测试
+export function webSceneTestDispatch(data){
+    return service.request({
+        url: "/webSceneTestDispatch/execute",
+        method: "post",
+        data
+    })
+}

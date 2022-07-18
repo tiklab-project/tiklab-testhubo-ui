@@ -18,7 +18,7 @@ export class AppUnitStepStore {
     @observable appUnitStepInfo = {};
     @observable appUnitId;
     @observable locationList;
-    @observable fuctionList;
+    @observable functionList;
     @observable selectItem;
 
     @action
@@ -79,7 +79,7 @@ export class AppUnitStepStore {
     findActionTypeList = (data) => {
         return findActionTypeList(data).then(res => {
             if(res.code === 0) {
-                this.fuctionList = res.data;
+                this.functionList = res.data;
             }
         })
     }

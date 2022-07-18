@@ -11,7 +11,7 @@ import WebEnvSelect from "../../webtest/webEnvSelect";
 
 const WebUnitDetail = (props) => {
     const {webUnitStore} = props;
-    const {findWebUnit,updateWebUnit} = webUnitStore;
+    const {findWebUnit,updateWebUnit,webUnitTestDispatch} = webUnitStore;
     const [allValue,setAllValue] = useState();
     const addRouter = props.history.push;
 
@@ -33,6 +33,9 @@ const WebUnitDetail = (props) => {
     //执行测试
     const actionTest = () =>{
         //调接口
+
+
+        webUnitTestDispatch({webUnitId:webUnitId})
 
         setShowResponse(true)
     }

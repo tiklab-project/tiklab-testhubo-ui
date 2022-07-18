@@ -4,7 +4,8 @@ import {
     findWebScene,
     updateWebScene,
     deleteWebScene,
-    findWebSceneCaseListByTestCase
+    findWebSceneCaseListByTestCase,
+    webSceneTestDispatch
 } from '../api/webSceneApi'
 
 export class WebSceneStore {
@@ -49,6 +50,11 @@ export class WebSceneStore {
          await deleteWebScene(param)
 
     }
+
+    @action
+    webSceneTestDispatch = async (data)=> await webSceneTestDispatch(data)
+
+
 
 }
 

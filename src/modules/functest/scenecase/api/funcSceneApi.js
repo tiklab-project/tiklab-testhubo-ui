@@ -1,27 +1,18 @@
-// import {Axios as service} from "doublekit-core-ui";
+import {Axios as service} from "doublekit-core-ui";
 
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/funcSceneMock"
 
-export function deleteFuncScene(data){
+export function findFuncScenePage(data){
     return service.request({
-        url: "/funcScene/deleteFuncScene",
+        url: "/funcSceneCase/findFuncSceneCasePage",
         method: "post",
         data
     })
 }
 
-export function createFuncScene(data){
-    return service.request({
-        url: "/funcScene/createFuncScene",
-        method: "post",
-        data
-    })
-}
 
-export function updateFuncScene(data){
+export function findFuncSceneList(data){
     return service.request({
-        url: "/funcScene/updateFuncScene",
+        url: "/funcSceneCase/findFuncSceneCaseList",
         method: "post",
         data
     })
@@ -29,23 +20,40 @@ export function updateFuncScene(data){
 
 export function findFuncScene(data){
     return service.request({
-        url: "/funcScene/findFuncScene",
+        url: "/funcSceneCase/findFuncSceneCase",
         method: "post",
         data
     })
 }
 
-export function findFuncSceneList(data){
+export function createFuncScene(data){
     return service.request({
-        url: "/funcScene/findFuncSceneList",
+        url: "/funcSceneCase/createFuncSceneCase",
         method: "post",
         data
     })
 }
 
-export function findFuncScenePage(data){
+export function deleteFuncScene(data){
     return service.request({
-        url: "/funcScene/findFuncScenePage",
+        url: "/funcSceneCase/deleteFuncSceneCase",
+        method: "post",
+        data
+    })
+}
+
+export function updateFuncScene(data){
+    return service.request({
+        url: "/funcSceneCase/updateFuncSceneCase",
+        method: "post",
+        data
+    })
+}
+
+
+export function findFuncSceneCaseListByTestCase(data){
+    return service.request({
+        url: "/funcSceneCase/findFuncSceneCaseListByTestCase",
         method: "post",
         data
     })

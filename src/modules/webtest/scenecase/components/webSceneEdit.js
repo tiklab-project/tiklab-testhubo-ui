@@ -11,14 +11,16 @@ const layout = {
 
 // 添加与编辑
 const WebSceneEdit = (props) => {
-    const {webSceneStore, categoryStore,webSceneId,caseType,testType,findPage  } = props;
-    const {findWebScene,createWebScene,updateWebScene} = webSceneStore;
+    const {webSceneStore, categoryStore,webSceneId  } = props;
+    const {findWebSceneList,findWebScene,createWebScene,updateWebScene} = webSceneStore;
     const {findCategoryListTree} = categoryStore;
 
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
 
+    const caseType=localStorage.getItem("caseType");
+    const testType=localStorage.getItem("testType");
     const categoryId = sessionStorage.getItem("categoryId")
     const repositoryId = localStorage.getItem("repositoryId")
 
@@ -55,13 +57,7 @@ const WebSceneEdit = (props) => {
 
             createWebScene(values).then(()=> {
                 findPage();
-                const params = {
-                    testType:testType,
-                    caseType:caseType,
-                    repositoryId:repositoryId
-                }
-                findCategoryListTree(params)
-
+                findCategoryPage()
             })
         }else {
             values.id=webSceneId;
@@ -75,18 +71,32 @@ const WebSceneEdit = (props) => {
 
             updateWebScene(values).then(()=> {
                 findPage();
-                const params = {
-                    testType:testType,
-                    caseType:caseType,
-                    repositoryId:repositoryId
-                }
-                findCategoryListTree(params)
+                findCategoryPage()
             })
         }
 
 
         setVisible(false);
     };
+
+    const findPage=()=>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findWebSceneList(param)
+    }
+
+    const findCategoryPage = () =>{
+        const params = {
+            testType:testType,
+            caseType:caseType,
+            repositoryId:repositoryId
+        }
+        findCategoryListTree(params)
+    }
+
 
     const onCancel = () => { setVisible(false) };
 

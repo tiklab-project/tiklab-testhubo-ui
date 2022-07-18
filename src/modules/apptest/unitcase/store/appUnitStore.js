@@ -5,7 +5,9 @@ import {
     findAppUnit,
     updateAppUnit,
     deleteAppUnit,
-    findAppUnitCaseListByTestCase
+    findAppUnitCaseListByTestCase,
+    findAllLocation,
+    findActionTypeList
 } from '../api/appUnitApi'
 
 export class AppUnitStore {
@@ -50,6 +52,28 @@ export class AppUnitStore {
         param.append('id', id);
 
         await deleteAppUnit(param)
+    }
+
+
+    //添加框中，下拉选择框获取所有定位器
+    @action
+    findAllLocation = async () => {
+        const res = await findAllLocation()
+        if(res.code === 0) {
+            this.locationList = res.data;
+            return res.data;
+        }
+
+    }
+
+    //添加框中，下拉选择框获取所有方法
+    @action
+    findActionTypeList = async (data) => {
+        const res = await findActionTypeList(data)
+        if(res.code === 0) {
+            this.functionList = res.data;
+            return res.data;
+        }
     }
 
 }

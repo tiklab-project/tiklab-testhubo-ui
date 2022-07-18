@@ -4,26 +4,22 @@ import {
     createFuncUnit,
     findFuncUnit,
     updateFuncUnit,
-    deleteFuncUnit
+    deleteFuncUnit,
+    findFuncUnitCaseListByTestCase
 } from '../api/funcUnitApi'
 
 export class FuncUnitStore {
 
     @observable funcUnitList = [];
     @observable funcUnitInfo;
-    @observable categoryId;
 
     @action
-    findFuncUnitPage = async (id) => {
-        this.categoryId = id;
-        const params = {
-            categoryId: id,
-            orderParams:[{name:'paramName', orderType:'asc'}],
-        }
-        const res = await findFuncUnitPage(params);
+    findFuncUnitList = async (value) => {
+
+        const res = await findFuncUnitCaseListByTestCase(value);
 
         if(res.code === 0) {
-            this.funcUnitList = res.data.dataList;
+            this.funcUnitList = res.data;
             return res.data
         }
     }
@@ -35,40 +31,25 @@ export class FuncUnitStore {
 
         const res = await findFuncUnit(param);
         if( res.code === 0){
-            return  this.funcUnitInfo = res.data;
+            this.funcUnitInfo = res.data;
+            return  res.data;
         }
     }
 
 
     @action
-    createFuncUnit = async (values) => {
-        values.http = {id: this.categoryId}
-
-        const res = await createFuncUnit(values)
-        if( res.code === 0){
-            return this.findFuncUnitPage(this.categoryId);
-        }
-    }
+    createFuncUnit = async (values) => await createFuncUnit(values)
 
     @action
-    updateFuncUnit = async (values) => {
-        const res = await updateFuncUnit(values)
-        if( res.code === 0){
-            return this.findFuncUnitPage(this.categoryId);
-        }
-    }
+    updateFuncUnit = async (values) => await updateFuncUnit(values)
 
     @action
     deleteFuncUnit = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteFuncUnit(param)
-        if( res.code === 0){
-            this.findFuncUnitPage(this.categoryId);
-        }
+        await deleteFuncUnit(param)
     }
 
 }
-
 export const FUNC_UNIT_STORE = 'funcUnitStore';

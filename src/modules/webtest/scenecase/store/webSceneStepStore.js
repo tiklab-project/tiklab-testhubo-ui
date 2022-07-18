@@ -1,7 +1,4 @@
-/**
- * @description：功能测试步骤store
- * @date: 2021-10-08 13:32
- */
+
 import {observable,action} from "mobx";
 import {
     findWebSceneStepList,

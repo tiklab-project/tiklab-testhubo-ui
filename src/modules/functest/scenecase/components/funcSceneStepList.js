@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
-import BreadcrumbCommon from "../../../common/breadcrumbCommon";
 import {inject, observer} from "mobx-react";
 import FuncSceneBindUnit from "./FuncSceneBindUnit";
 
 const FuncSceneStepList = (props) => {
     const {funcSceneStepStore} =props;
-    const {findFuncSceneStepPage,funcSceneStepList} = funcSceneStepStore;
+    const {findFuncSceneStepList,funcSceneStepList,deleteFuncSceneStep} = funcSceneStepStore;
 
     const column = [
         {
@@ -14,9 +13,9 @@ const FuncSceneStepList = (props) => {
             dataIndex: "name",
             key: "name",
         }, {
-            title: `创建人`,
-            dataIndex: ['createUser', 'name'],
-            key: "user",
+            title: `创建时间`,
+            dataIndex: "createTime",
+            key: "createTime",
         },
         {
             title: '操作',
@@ -26,12 +25,9 @@ const FuncSceneStepList = (props) => {
             width: "15%",
             render: (text, record) => (
                 <Space size="middle">
-                    <div>
-                        {/*<FuncSceneStepEdit name={"编辑"}/>*/}
-                    </div>
                     <Popconfirm
                         title="确定删除？"
-                        // onConfirm={() => deleteTestCase(record.id)}
+                        onConfirm={() => deleteFuncSceneStep(record.id).then(()=>findFuncSceneStepList(funcSceneId))}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -42,24 +38,25 @@ const FuncSceneStepList = (props) => {
         },
     ]
 
+    let funcSceneId = sessionStorage.getItem("funcSceneId")
+
     useEffect(()=>{
-        findFuncSceneStepPage()
-    },[])
+        findFuncSceneStepList(funcSceneId)
+    },[funcSceneId])
 
-    const setSessionStorage = (id) =>{
-        sessionStorage.setItem("funcSceneStepId",id);
-
-        props.history.push("/repositorypage/functest/unitdetail")
-    }
 
 
     return(
         <>
-           <FuncSceneBindUnit />
+            <FuncSceneBindUnit
+                funcSceneStepStore={funcSceneStepStore}
+                funcSceneId={funcSceneId}
+            />
             <Table
                 columns={column}
                 dataSource={funcSceneStepList}
                 rowKey = {record => record.id}
+                pagination={false}
             />
 
         </>

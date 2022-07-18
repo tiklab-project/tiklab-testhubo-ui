@@ -28,7 +28,7 @@ const LeftNav = (props) =>{
         },{
             "icon":"kuaijieyingyon",
             "name":"功能测试",
-            "key":"function",
+            "key":"func",
             "router":"/repositorypage/functest"
         },{
             "icon":"tianjiadaofenzu",

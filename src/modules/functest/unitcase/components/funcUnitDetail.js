@@ -10,14 +10,17 @@ import FuncUnitStepList from "./funcUnitStepList";
 const FuncUnitDetail = (props) => {
     const {funcUnitStore} = props;
     const {findFuncUnit,updateFuncUnit} = funcUnitStore;
+
     const [allValue,setAllValue] = useState();
-    const testcaseId = sessionStorage.getItem('funcUnitId');
+
+    const funcUnitId = sessionStorage.getItem('funcUnitId');
+    let caseType = localStorage.getItem("caseType")
 
     useEffect(()=> {
-        findFuncUnit(11).then(res=>{
+        findFuncUnit(funcUnitId).then(res=>{
             setAllValue(res);
         })
-    },[testcaseId])
+    },[funcUnitId])
 
 
 
@@ -31,16 +34,16 @@ const FuncUnitDetail = (props) => {
             <BackCommon clickBack={goback} />
             <div className={'testcase-detail'}>
                 <div className="apidetail-header-btn">
-                    <div className={"method-name"}>{allValue?.name}</div>
+                    <div className={"method-name"}>{allValue?.testCase?.name}</div>
                     
                 </div>
                 <div className={"method"}>
                    
                     <div className={"method-people-info"}>
-                        <span className={"people-item "}>分组: {allValue?.category.name}</span>
-                        <span className={"people-item "}>创建人: {allValue?.createUser.name}</span>
-                        <span className={"people-item "}>更新者: {allValue?.updateUser.name}</span>
-                        <span className={"people-item "}>更新时间: {allValue?.updateTime}</span>
+                        <span className={"people-item "}>分组: {allValue?.testCase?.category?.name}</span>
+                        <span className={"people-item "}>创建人: {allValue?.testCase?.createUser?.name}</span>
+                        <span className={"people-item "}>更新者: {allValue?.testCase?.updateUser?.name}</span>
+                        <span className={"people-item "}>更新时间: {allValue?.testCase?.updateTime}</span>
                     </div>
                 </div>
             </div>

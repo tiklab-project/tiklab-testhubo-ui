@@ -22,7 +22,7 @@ const AppStepEdit = (props) => {
         findAllLocation,
         findActionTypeList,
         locationList,
-        fuctionList
+        functionList
     } = appStepStore;
 
     const [form] = Form.useForm();
@@ -137,7 +137,7 @@ const AppStepEdit = (props) => {
                         name="actionType"
                     >
                         {
-                            functionView(fuctionList)
+                            functionView(functionList)
                         }
                     </Form.Item>
                     <Form.Item

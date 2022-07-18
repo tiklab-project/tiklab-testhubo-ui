@@ -1,7 +1,4 @@
-/**
- * @description：功能测试步骤store
- * @date: 2021-10-08 13:32
- */
+
 import {observable,action} from "mobx";
 import {
     findFuncSceneStepList,
@@ -10,6 +7,7 @@ import {
     createFuncSceneStep,
     deleteFuncSceneStep,
     updateFuncSceneStep,
+    bindFuncUnit
 } from '../api/funcSceneStepApi';
 
 
@@ -20,17 +18,51 @@ export class FuncSceneStepStore {
 
 
     @action
+    bindFuncUnit = async (selectItem) => {
+        let bindList = [];
+        for (let i=0;i<selectItem.length;i++){
+            bindList.push({
+                funcScene: {id: this.funcSceneId},
+                funcUnit: {id:selectItem[i]}
+            });
+        }
+
+        await bindFuncUnit(bindList)
+
+    }
+
+    @action
     findFuncSceneStepPage = async (id) => {
         this.funcSceneId=id;
-        const params = {funcSceneId: id}
+        const params = {
+            funcSceneId: id,
+            orderParams:[{name:'createTime', orderType:'asc'}],
+        }
 
         const res = await findFuncSceneStepPage(params)
         if(res.code === 0) {
 
             this.funcSceneStepList=res.data.dataList
-            return res.data.dataList
+            return res.data.dataList;
         }
     }
+
+    @action
+    findFuncSceneStepList = async (id) => {
+        this.funcSceneId=id;
+        const params = {
+            funcSceneId: id,
+            orderParams:[{name:'createTime', orderType:'asc'}],
+        }
+
+        const res = await findFuncSceneStepList(params)
+        if(res.code === 0) {
+
+            this.funcSceneStepList=res.data
+            return res.data
+        }
+    }
+
 
     @action
     findFuncSceneStep = async (id) => {
@@ -45,36 +77,19 @@ export class FuncSceneStepStore {
     }
 
     @action
-    createFuncSceneStep = async (values) => {
-        delete values.id;
-        values.functional={id:this.funcSceneId};
+    createFuncSceneStep = async (values) => await createFuncSceneStep(values)
 
-        const res = await createFuncSceneStep(values);
-        if(res.code === 0){
-            this.findFuncSceneStepList(this.funcSceneId);
-            return (res.data)
-        }
-    }
 
     @action
-    updateFuncSceneStep = async (values) => {
-        const res = await updateFuncSceneStep(values);
-
-        if(res.code === 0){
-            return this.findFuncSceneStepList(this.funcSceneId);
-
-        }
-    }
+    updateFuncSceneStep = async (values) =>  await updateFuncSceneStep(values)
 
     @action
     deleteFuncSceneStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        const res = await deleteFuncSceneStep(param);
-        if(res.code === 0){
-            this.findFuncSceneStepList(this.funcSceneId);
-        }
+        await deleteFuncSceneStep(param);
+
     }
 }
 

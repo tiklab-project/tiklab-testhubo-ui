@@ -23,7 +23,7 @@ const WebUnitStepEdit = (props) => {
         findAllLocation,
         findActionTypeList,
         locationList,
-        fuctionList
+        functionList
     } = webUnitStepStore;
 
     const [form] = Form.useForm();
@@ -138,7 +138,7 @@ const WebUnitStepEdit = (props) => {
                         name="actionType"
                     >
                         {
-                            functionView(fuctionList)
+                            functionView(functionList)
                         }
                     </Form.Item>
                     <Form.Item

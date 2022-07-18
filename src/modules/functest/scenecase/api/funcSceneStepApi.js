@@ -1,6 +1,4 @@
-// import {Axios as service} from "doublekit-core-ui";
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/funcSceneStepMock"
+import {Axios as service} from "doublekit-core-ui";
 
 export function deleteFuncSceneStep(data){
     return service.request({
@@ -49,3 +47,12 @@ export function findFuncSceneStepList(data){
         data
     })
 }
+
+export function bindFuncUnit(data){
+    return service.request({
+        url: "/funcSceneStep/bindFuncUnit",
+        method: "post",
+        data
+    })
+}
+

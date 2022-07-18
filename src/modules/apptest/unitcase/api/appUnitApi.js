@@ -50,3 +50,22 @@ export function updateAppUnit(data){
         data
     })
 }
+
+//查询定位器
+export function findAllLocation(data){
+    return service.request({
+        url: "/location/findAllLocation",
+        method: "post",
+        data
+    })
+}
+
+//查询所有操作方法
+export function findActionTypeList(data){
+    return service.request({
+        url: "/actionType/findActionTypeList",
+        method: "post",
+        data
+    })
+}
+

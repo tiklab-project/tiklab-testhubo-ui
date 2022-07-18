@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {inject, observer} from "mobx-react";
-import {Divider, Form, Input, Table} from "antd";
-import BackCommon from "../../../common/backCommon";
+import React, {useState} from "react";
+import {Button, Divider, Drawer, Form, Input, Spin, Table} from "antd";
+
 
 const layout = {
     labelCol: {span: 4},
@@ -9,11 +8,12 @@ const layout = {
 };
 
 
-const WebSceneInstance = (props) =>{
-    const {webSceneInstanceStore} = props;
-    const {findWebSceneInstanceList,instanceList,findWebSceneInstance} = webSceneInstanceStore;
+const ExecuteTestDrawer =(props)=>{
+    const {webSceneStore,webSceneId} = props;
+    const {webSceneTestDispatch} = webSceneStore;
 
-    const [selected, setSelected] = useState();
+    const [visible, setVisible] = useState(false);
+    const [spinning, setSpinning] = useState(true);
     const [webStepList, setWebStepList] = useState([]);
 
     const [form] = Form.useForm();
@@ -56,75 +56,46 @@ const WebSceneInstance = (props) =>{
         },
     ]
 
-    const webSceneId = sessionStorage.getItem("webSceneId")
+    const showDrawer = () => {
+        webSceneTestDispatch({webSceneId:webSceneId}).then(res=>{
 
-    useEffect(()=>{
-        findWebSceneInstanceList(webSceneId)
-    },[])
+            if(res.code !==0) return;
 
-    const clickFindInstance = id =>{
-        setSelected(id)
-        findWebSceneInstance(id).then(res=>{
+            let data = res.data;
+            setWebStepList(data.webUnitResultList);
 
-            setWebStepList(res.stepList);
+            let instance = data.webSceneInstance;
+             form.setFieldsValue({
+                 result:instance?.result,
+                 stepNum:instance?.stepNum,
+                 passNum:instance?.passNum,
+                 failNum:instance?.failNum,
+                 passRate:instance?.passRate,
+                 totalDuration:instance?.totalDuration
+             })
 
-            form.setFieldsValue({
-                result:res.result,
-                stepNum:res.stepNum,
-                passNum:res.passNum,
-                failNum:res.failNum,
-                passRate:res.passRate,
-                totalDuration:res.totalDuration
-            })
-
+            setSpinning(false)
         })
-    }
 
 
-    const showInstanceListView = (data) =>{
-        return data&&data.map(item=>{
-            return (
-                <div className={`history-item ${selected===item.id?"history-item-selected":""}`} key={item.id} onClick={()=>clickFindInstance(item.id)}>
-                    {
-                        item.result===1
-                            ?<div className='history-item-result '>
-                                <div className={"isSucceed"}>通过</div>
-                            </div>
-                            :<div className='history-item-result '>
-                                <div className={"isFailed"}>未通过</div>
-                            </div>
-                    }
-                    <div className='history-item-detail'>
-                        <div>{item.createTime}</div>
-                        <div>
-                            <span style={{margin:" 0 10px 0 0"}}>用例数：{item.stepNum}</span>
-                            <span>{item.time}</span>
-                        </div>
+        setVisible(true);
+    };
 
-                        <div>{item.name}</div>
-                    </div>
-                </div>
-            )
-        })
-    }
+    const onClose = () => {
+        setVisible(false);
+    };
 
-
-
-    const toSceneDetail =()=>{
-        props.history.push("/repositorypage/webtest/scenedetail")
-    }
-
-    return(
+    return (
         <>
-            <BackCommon clickBack={toSceneDetail}/>
-            <div className={"scene-instance-contant"}>
-                <div className={"test-detail-history"}>
-                    <div className={"header-item"}>历史列表</div>
-                    {
-                        showInstanceListView(instanceList)
-                    }
-                </div>
-                <div className={"history-detail history-detail-box"}>
+            <Button type="primary" onClick={showDrawer}> 测试 </Button>
+            <Drawer
+                title="Web测试详情"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+                width={1240}
+            >
+                <Spin spinning={spinning}>
                     <div className={"unit-instance-detail"}>
                         <div className={"header-item"}>步骤总详情</div>
                         <Form
@@ -163,15 +134,15 @@ const WebSceneInstance = (props) =>{
                             <Table
                                 columns={columns}
                                 dataSource={webStepList}
-                                rowKey={record => record.id}
+                                rowKey={record => record.index}
                                 pagination={false}
                             />
                         </div>
                     </div>
-                </div>
-            </div>
+                </Spin>
+            </Drawer>
         </>
-    )
+    );
 }
 
-export default inject("webSceneInstanceStore")(observer(WebSceneInstance));
+export default ExecuteTestDrawer;

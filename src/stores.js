@@ -74,8 +74,6 @@ import {
     PERFORMANCE_STORE, PerformanceStore,
     PERFORMANCESTATISTICS_STORE, PerformanceStatisticsStore,
 
-    FUNCTIONALTEST_STORE, TestcaseFunctionalStore,
-    FUNCTIONALTESTSTEP_STORE,FunctionalTestStepStore,
 
     CATEGORY_STORE,CategoryStore,
 
@@ -156,8 +154,7 @@ function createStores() {
         [PERFORMANCE_STORE]: new PerformanceStore(),
         [PERFORMANCESTATISTICS_STORE]: new PerformanceStatisticsStore(),
 
-        [FUNCTIONALTEST_STORE]: new TestcaseFunctionalStore(),
-        [FUNCTIONALTESTSTEP_STORE]:new FunctionalTestStepStore(),
+
 
         [CATEGORY_STORE]:new CategoryStore(),
 
