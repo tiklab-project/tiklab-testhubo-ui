@@ -3,9 +3,9 @@ import {Popconfirm, Space, Switch, Table} from "antd";
 import ApiPerformBindScene from "./apiPerformBindScene";
 import {inject, observer} from "mobx-react";
 
-const ApiPerformSceneConfig = (props) =>{
-    const {apiPerformSceneStore} = props;
-    const {findApiPerformScenePage,apiPerformSceneList} =apiPerformSceneStore;
+const ApiPerfStepList = (props) =>{
+    const {apiPerfStepStore} = props;
+    const {findApiPerfStepList,apiPerfStepList,deleteApiPerfStep} =apiPerfStepStore;
 
 
     const column =[
@@ -18,35 +18,20 @@ const ApiPerformSceneConfig = (props) =>{
             //     <a onClick={() => setSessionStorage(record.id)}>{text}</a>
             // )
         },
-        // {
-        //     title: '是否启用',
-        //     dataIndex: 'testType',
-        //     key: 'testType',
-        //     // width: "30%",
-        //     render:(text,record )=>(
-        //         <Switch
-        //             checkedChildren="启用"
-        //             unCheckedChildren="停用"
-        //             checked={text===1?true:false}
-        //             onChange={(e)=>changeEnable(e,record)}
-        //         />
-        //     )
-        // },
         {
             title: `创建时间`,
-            dataIndex: ['testCase', 'createTime'],
-            key: "user",
+            dataIndex:'createTime',
+            key: "createTime",
         },
         {
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            align: 'center',
             width: "15%",
             render: (text, record) => (
                 <Popconfirm
                     title="确定删除？"
-                    // onConfirm={() => deleteTestCase(record.id)}
+                    onConfirm={() => deleteApiPerfStep(record.id).then(()=>findApiPerfStepList(apiPerfId))}
                     okText='确定'
                     cancelText='取消'
                 >
@@ -59,7 +44,7 @@ const ApiPerformSceneConfig = (props) =>{
     const apiPerfId = sessionStorage.getItem("apiPerfId")
 
     useEffect(()=>{
-        findApiPerformScenePage(apiPerfId)
+        findApiPerfStepList(apiPerfId)
     },[])
 
 
@@ -80,11 +65,14 @@ const ApiPerformSceneConfig = (props) =>{
     return(
         <>
             <div className='flex-right'>
-                <ApiPerformBindScene apiPerformSceneStore={apiPerformSceneStore} />
+                <ApiPerformBindScene
+                    apiPerfStepStore={apiPerfStepStore}
+                    apiPerfId={apiPerfId}
+                />
             </div>
             <Table
                 columns={column}
-                dataSource={apiPerformSceneList}
+                dataSource={apiPerfStepList}
                 rowKey = {record => record.id}
                 pagination={false}
             />
@@ -92,4 +80,4 @@ const ApiPerformSceneConfig = (props) =>{
     )
 }
 
-export default inject("apiPerformSceneStore")(observer(ApiPerformSceneConfig));
+export default inject("apiPerfStepStore")(observer(ApiPerfStepList));

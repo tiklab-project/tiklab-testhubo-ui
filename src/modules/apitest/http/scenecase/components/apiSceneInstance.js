@@ -47,7 +47,7 @@ const ApiSceneInstance = (props) =>{
                     onClick={()=>clickFindInstance(item.id)}
                 >
                     {
-                        item.result==="1"
+                        item.result===1
                             ?<div className='history-item-result isSucceed'>通过</div>
                             :<div className='history-item-result isFailed'>未通过</div>
                     }
@@ -70,7 +70,7 @@ const ApiSceneInstance = (props) =>{
                     onClick={()=>clickFindStep(item.id)}
                 >
                     {
-                        item.result==="1"
+                        item.result===1
                             ?<div className='history-item-result isSucceed'>通过</div>
                             :<div className='history-item-result isFailed'>未通过</div>
                     }
@@ -103,7 +103,7 @@ const ApiSceneInstance = (props) =>{
                         <div className={"history-detail-all-box"}>
                             <div className={"history-detail-all-item"}>
                                 <div>测试结果</div>
-                                <div className={"history-detail-all-item-value"}>{sceneInstanceData?.result==="1"?"成功":"失败"}</div>
+                                <div className={"history-detail-all-item-value"}>{sceneInstanceData?.result===1?"成功":"失败"}</div>
                             </div>
                             <div className={"history-detail-all-item"}>
                                 <div>耗时</div>

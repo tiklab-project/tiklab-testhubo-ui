@@ -4,7 +4,8 @@ import {
     findAppScene,
     updateAppScene,
     deleteAppScene,
-    findAppSceneCaseListByTestCase
+    findAppSceneCaseListByTestCase,
+    appSceneTestDispatch
 } from '../api/appSceneApi'
 
 export class AppSceneStore {
@@ -49,6 +50,9 @@ export class AppSceneStore {
         await deleteAppScene(param)
 
     }
+
+    @action
+    appSceneTestDispatch = async (data)=> await appSceneTestDispatch(data)
 }
 
 

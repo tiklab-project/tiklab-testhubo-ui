@@ -2,6 +2,7 @@ import React from "react";
 import ApiLeft from "./apiLeft";
 import {renderRoutes} from "react-router-config";
 import "./caseContantStyle.scss"
+import "../unitcase/components/unitcase.scss"
 
 const ApiContant =(props)=>{
     const routes = props.route.routes;

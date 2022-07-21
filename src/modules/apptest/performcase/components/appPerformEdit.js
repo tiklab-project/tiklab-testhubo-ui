@@ -3,7 +3,6 @@ import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input} from 'antd';
 
-
 const layout = {
     labelCol: {span: 4},
     wrapperCol: {span: 20},
@@ -40,11 +39,9 @@ const AppPerformEdit = (props) => {
         setVisible(true);
     };
 
-
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
-
 
         if(props.type!=="edit"){
             values.testCase={
@@ -60,7 +57,6 @@ const AppPerformEdit = (props) => {
             createAppPerf(values).then(()=> {
                 findPage();
                 findCategoryPage()
-
             })
         }else {
             values.id=appPerfId;
@@ -80,7 +76,6 @@ const AppPerformEdit = (props) => {
 
         setVisible(false);
     };
-
 
     const findPage=()=>{
         const param = {

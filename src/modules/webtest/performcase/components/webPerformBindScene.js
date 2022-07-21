@@ -20,16 +20,10 @@ const WebPerformBindScene = (props) =>{
             key: 'testType',
             // width: "30%",
         },
-        // {
-        //     title: '等级',
-        //     dataIndex: 'level',
-        //     key: 'level',
-        //     // width: "20%",
-        // },
         {
             title: `创建时间`,
             dataIndex: ['testCase','createTime'],
-            key: "user",
+            key: "createTime",
         },
     ]
 

@@ -30,36 +30,36 @@
     display: flex;
     flex-direction: column;
 
-    .history-item-box{
-        display: flex;
-        flex-grow: 1;
-    }
-    .history-detail-all-box{
-        height: 140px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 10px;
-    }
 
-    .history-detail-all-item{
-        width: 200px;
-        height: 100px;
-        background: #efefef;
-        border-radius: 5px;
-        padding: 5px;
-    }
-
-    .history-detail-all-item-value{
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 28px;
-    }
 
 }
+.history-item-box{
+    display: flex;
+    flex-grow: 1;
+}
+.history-detail-all-box{
+    height: 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
 
+.history-detail-all-item{
+    width: 200px;
+    height: 100px;
+    background: #efefef;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.history-detail-all-item-value{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
 .history-detail{
     flex: 1;
 
@@ -136,4 +136,13 @@
     align-items: center;
     justify-content: end;
     margin: 10px;
+}
+
+.api-perf-instance-detail{
+    display: flex;
+    flex-direction: column;
+
+    &-item{
+
+    }
 }

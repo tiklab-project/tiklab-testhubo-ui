@@ -2,8 +2,8 @@ import React, {useEffect,useState} from "react"
 import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
 import {Dropdown, Input, Menu, Popconfirm} from "antd";
 import {inject, observer} from "mobx-react";
-import ApiPerformList from "./apiPerformList";
-import ApiPerformEdit from "./apiPerformEdit";
+import ApiPerformList from "./apiPerfList";
+import ApiPerformEdit from "./apiPerfEdit";
 
 const ApiPerformCategory=(props) => {
     const {categoryStore,addRouter} = props;

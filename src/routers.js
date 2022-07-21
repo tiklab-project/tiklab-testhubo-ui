@@ -31,7 +31,7 @@ import PortalHeader from "./modules/header/portalHeader";
 import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
 import ApiUnitList from "./modules/apitest/http/unitcase/components/apiUnitList";
 import ApiScenecaseList from "./modules/apitest/http/scenecase/components/apiSceneList";
-import ApiPerformList from "./modules/apitest/http/performcase/components/apiPerformList";
+import ApiPerformList from "./modules/apitest/http/performcase/components/apiPerfList";
 import ApiContant from "./modules/apitest/http/apitest/apiContant";
 import WebContant from "./modules/webtest/webtest/webContant";
 import FuncContant from "./modules/functest/functest/funcContant";
@@ -48,7 +48,7 @@ import ApiUnitcaseDetail from "./modules/apitest/http/unitcase/components/apiUni
 import ApiUnitcaseInstance from "./modules/apitest/http/unitcase/components/apiUnitInstance";
 import ApiScenecaseDetail from "./modules/apitest/http/scenecase/components/apiSceneDetail";
 import ApiSceneInstance from "./modules/apitest/http/scenecase/components/apiSceneInstance";
-import ApiPerformInstance from "./modules/apitest/http/performcase/components/apiPerformInstance";
+import ApiPerformInstance from "./modules/apitest/http/performcase/components/apiPerfInstance";
 import ApiPerfomDetailContant from "./modules/apitest/http/performcase/components/apiPerfomDetailContant";
 import FuncUnitDetail from "./modules/functest/unitcase/components/funcUnitDetail";
 import FuncSceneDetail from "./modules/functest/scenecase/components/funcSceneDetail";

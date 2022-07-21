@@ -14,6 +14,9 @@ export class AppUnitStore {
 
     @observable appUnitList = [];
     @observable appUnitInfo;
+    @observable functionList;
+    @observable locationList;
+
 
     @action
     findAppUnitList = async (values) => {

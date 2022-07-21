@@ -39,7 +39,7 @@ const ApiUnitInstance = (props) =>{
             return (
                 <div className={`history-item ${selected===item.id?"history-item-selected":""}`} key={item.id} onClick={()=>clickFindInstance(item.id)}>
                     {
-                        item.result==="1"
+                        item.result===1
                             ?<div className='history-item-result '>
                                 <div className={"isSucceed"}>通过</div>
                             </div>

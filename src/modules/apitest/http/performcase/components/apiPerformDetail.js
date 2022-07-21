@@ -2,38 +2,24 @@ import React, {useEffect, useState} from "react";
 import {Button,Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import BackCommon from "../../../../common/backCommon";
-import ApiPerformSceneConfig from "./apiPerformSceneConfig";
+import ApiPerfStepList from "./apiPerfStepList";
 import ApiPerformCofig from "./apiPerformCofig";
 import ApiEnvSelect from "../../apitest/apiEnvSelect";
-import {updateApiPerform} from "../api/apiPerformApi";
+
 
 const { TabPane } = Tabs;
 
 const ApiPerformDetail = (props) =>{
-    const {apiPerformStore} = props;
-    const {findApiPerform} = apiPerformStore;
+    const {apiPerfStore} = props;
+    const {findApiPerf} = apiPerfStore;
 
-
-
-    const [baseInfo,setBaseInfo]=useState();
-    const [editTitle,setEditTitle] = useState()
-    const [createUser, setCreateUser] = useState();
-    const [updataUser, setUpdataUser] = useState();
-    const [category, setCategory] = useState();
-    const [updateTime, setUpdateTime] = useState();
-
+    const [allValue,setAllValue] = useState();
     const apiPerfId = sessionStorage.getItem("apiPerfId");
 
 
     useEffect(()=>{
-        findApiPerform(apiPerfId).then(res=>{
-
-            setBaseInfo(res);
-            setEditTitle(res.testCase?.name)
-            setCreateUser(res.createUser?.name);
-            setUpdataUser(res.updateUser?.name);
-            setCategory(res.category?.name);
-            setUpdateTime(res.testCase.updateTime);
+        findApiPerf(apiPerfId).then(res=>{
+            setAllValue(res);
         })
     },[apiPerfId])
 
@@ -47,6 +33,9 @@ const ApiPerformDetail = (props) =>{
 
     }
 
+    const goBack = () =>{
+        props.history.push("/repositorypage/apitest/performcase")
+    }
 
 
     return(
@@ -60,7 +49,7 @@ const ApiPerformDetail = (props) =>{
                             suppressContentEditableWarning  //去掉contentEditable 提示的页面警告
                             onBlur={updateTitle}
                         >
-                            {editTitle}
+                            {allValue?.testCase?.name}
                         </div>
                         <div>
 
@@ -68,15 +57,15 @@ const ApiPerformDetail = (props) =>{
 
                     </div>
                     <div className={"method-people-info"}>
-                        <span className={"people-item "}>分组: {category}</span>
-                        <span className={"people-item "}>创建人: {createUser}</span>
-                        <span className={"people-item "}>更新者: {updataUser}</span>
-                        <span className={"people-item "}>更新时间: {updateTime}</span>
+                        <span className={"people-item "}>分组: {allValue?.testCase?.category?.name}</span>
+                        <span className={"people-item "}>创建人: {allValue?.testCase?.createUser?.name}</span>
+                        <span className={"people-item "}>更新者: {allValue?.testCase?.updateUser?.name}</span>
+                        <span className={"people-item "}>更新时间: {allValue?.testCase?.updateTime}</span>
                     </div>
                 </div>
                 <Tabs defaultActiveKey="1" onChange={changeTab}>
                     <TabPane tab="场景配置" key="1">
-                        <ApiPerformSceneConfig />
+                        <ApiPerfStepList />
                     </TabPane>
                     <TabPane tab="压力配置" key="2">
                         <ApiPerformCofig />
@@ -87,4 +76,4 @@ const ApiPerformDetail = (props) =>{
     )
 }
 
-export default inject("apiPerformStore")(observer(ApiPerformDetail));
+export default inject("apiPerfStore")(observer(ApiPerformDetail));

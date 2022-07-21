@@ -62,9 +62,9 @@ import {USERSELECT_STORE, UserSelectStore} from './common/userSelect/store/userS
 import {APISCENE_STORE, ApiSceneStore} from "./apitest/http/scenecase/store/apiSceneStore";
 import {APISCENESTEP_STORE, ApiSceneStepStore} from "./apitest/http/scenecase/store/apiSceneStepStore";
 import {API_SCENEINSTANCE_STORE, ApiSceneInstanceStore} from "./apitest/http/scenecase/store/apiSceneInstanceStore";
-import {API_PERFORM_STORE, ApiPerformStore} from "./apitest/http/performcase/store/apiPerformStore"
-import {API_PERFORMSCENE_STORE, ApiPerformSceneStore} from "./apitest/http/performcase/store/apiPerformSceneStore";
-import {API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore} from "./apitest/http/performcase/store/apiPerformInstanceStore";
+import {API_PERF_STORE, ApiPerfStore} from "./apitest/http/performcase/store/apiPerfStore"
+import {API_PERF_STEP_STORE, ApiPerfStepStore} from "./apitest/http/performcase/store/apiPerfStepStore";
+import {API_PERF_INSTANCE_STORE, ApiPerfInstanceStore} from "./apitest/http/performcase/store/apiPerfInstanceStore";
 import {API_UNIT_DISPATCH_STORE, ApiUnitTestDispatchStore} from "./apitest/http/unitcase/store/apiUnitTestDispatchStore";
 import {API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore} from "./apitest/http/scenecase/store/apiSceneTestDispatchStore";
 import { API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore} from "./apitest/http/performcase/store/apiPerfTestDispatchStore";
@@ -133,9 +133,9 @@ export {
     APISCENE_STORE, ApiSceneStore,
     APISCENESTEP_STORE, ApiSceneStepStore,
     API_SCENEINSTANCE_STORE, ApiSceneInstanceStore,
-    API_PERFORM_STORE, ApiPerformStore,
-    API_PERFORMSCENE_STORE, ApiPerformSceneStore,
-    API_PERFORMINSTANCE_STORE, ApiPerformInstanceStore,
+    API_PERF_STORE, ApiPerfStore,
+    API_PERF_STEP_STORE, ApiPerfStepStore,
+    API_PERF_INSTANCE_STORE, ApiPerfInstanceStore,
     API_UNIT_DISPATCH_STORE,ApiUnitTestDispatchStore,
     API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore,
     API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore,

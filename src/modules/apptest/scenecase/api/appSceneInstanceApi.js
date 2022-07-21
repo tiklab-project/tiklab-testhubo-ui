@@ -1,7 +1,4 @@
-// import {Axios as service} from "doublekit-core-ui";
-
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/appSceneInstanceMock"
+import {Axios as service} from "doublekit-core-ui";
 
 export function deleteAppSceneInstance(data){
     return service.request({

@@ -15,13 +15,13 @@ const ApiSceneTestResult =(props)=>{
         envUrl =JSON.parse(localStorage.getItem("API_ENV_SELECTED")).label
     }catch (e) {
         envUrl =null
-
     }
 
     let apiSceneId = sessionStorage.getItem("apiSceneId");
 
 
     const [allData, setAllData] = useState();
+    const [stepList, setStepList] = useState([]);
     const [selected, setSelected] = useState();
     const [selectedStepData, setSelectedStepData] = useState();
     const [loading, setLoading] = useState(true);
@@ -29,7 +29,9 @@ const ApiSceneTestResult =(props)=>{
 
     const showDrawer = () => {
         apiSceneExecute(apiSceneId, envUrl).then(res=>{
-            setAllData(res);
+            setAllData(res.apiSceneInstance);
+            setStepList(res.apiUnitInstanceList)
+
             setLoading(false);
         })
 
@@ -41,18 +43,18 @@ const ApiSceneTestResult =(props)=>{
         setVisible(false);
     };
 
-    const clickFindInstance = id =>{
-        setSelected(id)
-        setSelectedStepData(allData?.stepList.find(item=>item.id === id))
+    const clickFindInstance = index =>{
+        setSelected(index)
+        setSelectedStepData(stepList.find((item,index)=>index=== index))
     }
 
 
     const showStepListView = (data) =>{
         return data&&data.map((item,index)=>{
             return (
-                <div className={`history-item ${selected===item.id?"history-item-selected":""}`} key={item.id} onClick={()=>clickFindInstance(item.id)}>
+                <div className={`history-item ${selected===index?"history-item-selected":""}`} key={index} onClick={()=>clickFindInstance(index)}>
                     {
-                        item.result==="1"
+                        item.result===1
                             ?<div className='history-item-result '>
                                 <div className={"isSucceed"}>通过</div>
                             </div>
@@ -92,7 +94,7 @@ const ApiSceneTestResult =(props)=>{
                             <div className={"history-detail-all-box"}>
                                 <div className={"history-detail-all-item"}>
                                     <div>测试结果</div>
-                                    <div className={"history-detail-all-item-value"}>{allData?.result==="1"?"成功":"失败"}</div>
+                                    <div className={"history-detail-all-item-value"}>{allData?.result===1?"成功":"失败"}</div>
                                 </div>
                                 <div className={"history-detail-all-item"}>
                                     <div>耗时</div>
@@ -122,7 +124,7 @@ const ApiSceneTestResult =(props)=>{
                                 <div className={"header-item"}>步骤列表</div>
                                 <div>
                                     {
-                                        showStepListView(allData?.stepList)
+                                        showStepListView(stepList)
                                     }
                                 </div>
                             </div>

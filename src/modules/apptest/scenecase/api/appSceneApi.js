@@ -58,3 +58,13 @@ export function findAppSceneCaseListByTestCase(data){
         data
     })
 }
+
+
+//web测试
+export function appSceneTestDispatch(data){
+    return service.request({
+        url: "/appSceneTestDispatch/execute",
+        method: "post",
+        data
+    })
+}

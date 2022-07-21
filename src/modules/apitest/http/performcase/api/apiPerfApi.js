@@ -1,6 +1,6 @@
 import {Axios as service} from "doublekit-core-ui";
 
-export function deleteApiPerform(data){
+export function deleteApiPerf(data){
     return service.request({
         url: "/apiPerfCase/deleteApiPerfCase",
         method: "post",
@@ -8,7 +8,7 @@ export function deleteApiPerform(data){
     })
 }
 
-export function createApiPerform(data){
+export function createApiPerf(data){
     return service.request({
         url: "/apiPerfCase/createApiPerfCase",
         method: "post",
@@ -16,7 +16,7 @@ export function createApiPerform(data){
     })
 }
 
-export function updateApiPerform(data){
+export function updateApiPerf(data){
     return service.request({
         url: "/apiPerfCase/updateApiPerfCase",
         method: "post",
@@ -24,7 +24,7 @@ export function updateApiPerform(data){
     })
 }
 
-export function findApiPerform(data){
+export function findApiPerf(data){
     return service.request({
         url: "/apiPerfCase/findApiPerfCase",
         method: "post",
@@ -32,7 +32,7 @@ export function findApiPerform(data){
     })
 }
 
-export function findApiPerformList(data){
+export function findApiPerfList(data){
     return service.request({
         url: "/apiPerfCase/findApiPerfCaseList",
         method: "post",
@@ -40,7 +40,7 @@ export function findApiPerformList(data){
     })
 }
 
-export function findApiPerformPage(data){
+export function findApiPerfPage(data){
     return service.request({
         url: "/apiPerfCase/findApiPerfCasePage",
         method: "post",
@@ -55,4 +55,8 @@ export function findApiPerfCaseListByTestCase(data){
         data
     })
 }
+
+
+
+
 

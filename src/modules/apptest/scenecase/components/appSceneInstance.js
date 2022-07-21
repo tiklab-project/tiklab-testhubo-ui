@@ -10,32 +10,31 @@ const AppSceneInstance = (props) =>{
     const {findAppSceneInstanceList,instanceList,findAppSceneInstance} = appSceneInstanceStore;
 
     const [selected, setSelected] = useState();
-
     const [allData, setAllData] = useState();
-
+    const [stepList, setStepList] = useState([]);
 
     let columns= [
         {
-            title: '步骤数',
-            width: '10%',
-            dataIndex: 'stepNum',
+            title: '操作方法',
+            width: '8%',
+            dataIndex: 'actionType',
             align:'center',
         },
         {
-            title: '通过率',
+            title: '参数',
             width: '10%',
-            dataIndex: 'pass',
+            dataIndex: 'parameter',
             align:'center',
         },
         {
-            title: '通过步骤数',
-            dataIndex: 'passNum',
+            title: '定位器',
+            dataIndex: 'location',
             width: '8%',
             align:'center',
         },
         {
-            title: '未通过步骤数',
-            dataIndex: 'outNum',
+            title: '定位器的值',
+            dataIndex: 'locationValue',
             width: '15%',
             align:'center',
         },
@@ -45,34 +44,27 @@ const AppSceneInstance = (props) =>{
             dataIndex: 'result',
             align:'center',
             render: (text, record) => (
-                text==='1'
+                text===1
                     ?<div style={{background:'#4f9854',color:'#fff'}}>通过</div>
                     :<div style={{background:'#f04949',color:'#fff'}}>未通过</div>
             )
-        },{
-            title: '操作',
-            dataIndex: 'action',
-            width: '15%',
-            align:'center',
-            render: (text, record) => (
-                <AppSceneInstanceModal name={"查看详情"} allData={record}/>
-            )
-        },
-
+        }
     ]
 
 
 
-    const scenecaseId = sessionStorage.getItem("scenecaseId")
+    const appSceneId = sessionStorage.getItem("appSceneId")
 
     useEffect(()=>{
-        findAppSceneInstanceList(1)
-    },[])
+        findAppSceneInstanceList(appSceneId)
+    },[appSceneId])
 
     const clickFindInstance = id =>{
         setSelected(id)
         findAppSceneInstance(id).then(res=>{
+
             setAllData(res)
+            setStepList(res.stepList)
         })
     }
 
@@ -93,7 +85,7 @@ const AppSceneInstance = (props) =>{
                     <div className='history-item-detail'>
                         <div>{item.createTime}</div>
                         <div>
-                            <span style={{margin:" 0 10px 0 0"}}>用例数：{item.unitNum}</span>
+                            <span style={{margin:" 0 10px 0 0"}}>用例数：{item.stepNum}</span>
                             <span>{item.time}</span>
                         </div>
 
@@ -129,21 +121,21 @@ const AppSceneInstance = (props) =>{
                                 <div className={"history-detail-all-item-value"}>{allData?.result}</div>
                             </div>
                             <div className={"history-detail-all-item"}>
-                                <div>场景数</div>
-                                <div className={"history-detail-all-item-value"}>{allData?.sceneNum}</div>
+                                <div>步骤数</div>
+                                <div className={"history-detail-all-item-value"}>{allData?.stepNum}</div>
                             </div>
                             <div className={"history-detail-all-item"}>
-                                <div>测试通过率</div>
-                                <div className={"history-detail-all-item-value"}>{allData?.pass}</div>
+                                <div>通过率</div>
+                                <div className={"history-detail-all-item-value"}>{allData?.passRate}</div>
                             </div>
                             <div className={"history-detail-all-item"}>
-                                <div>通过场景数</div>
+                                <div>通过数</div>
                                 <div className={"history-detail-all-item-value"}>{allData?.passNum}</div>
                             </div>
 
                             <div className={"history-detail-all-item"}>
-                                <div>未通过场景数</div>
-                                <div className={"history-detail-all-item-value"}>{allData?.outNum}</div>
+                                <div>未通过数</div>
+                                <div className={"history-detail-all-item-value"}>{allData?.failNum}</div>
                             </div>
                         </div>
                     </div>
@@ -151,7 +143,7 @@ const AppSceneInstance = (props) =>{
                         <div className={"header-item"}>场景列表</div>
                         <Table
                             columns={columns}
-                            dataSource={allData?.unitList}
+                            dataSource={stepList}
                             rowKey={record => record.id}
                             pagination={false}
                         />

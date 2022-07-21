@@ -2,6 +2,7 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Select} from 'antd';
+import {Option} from "antd/es/mentions";
 
 
 const layout = {

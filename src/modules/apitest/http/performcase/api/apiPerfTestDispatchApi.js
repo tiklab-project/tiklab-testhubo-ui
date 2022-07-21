@@ -8,3 +8,11 @@ export function apiPerfExecute(data){
     })
 }
 
+
+export function exeResult(data){
+    return service.request({
+        url: "/apiPerfTestDispatch/exeResult",
+        method: "post",
+        data
+    })
+}

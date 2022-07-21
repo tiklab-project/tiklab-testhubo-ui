@@ -3,11 +3,10 @@ import {Button, Input, Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 
 const ApiPerformBindScene = (props) =>{
-    const {apiSceneStore,apiPerformSceneStore} = props;
+    const {apiSceneStore,apiPerfStepStore,apiPerfId} = props;
+    const {findApiSceneList,apiSceneList} =apiSceneStore;
 
-    const {findApiScenePage,apiSceneList} =apiSceneStore;
-
-    const {bindApiScene} = apiPerformSceneStore;
+    const {bindApiScene,findApiPerfStepList} = apiPerfStepStore;
 
 
     const column =[
@@ -16,31 +15,27 @@ const ApiPerformBindScene = (props) =>{
             dataIndex: ['testCase','name'],
             key: 'name',
             // width: "30%",
+        },{
+            title: '类型',
+            dataIndex:['testCase','testType'],
+            key: 'testType',
+            // width: "30%",
         },
-        // {
-        //     title: '类型',
-        //     dataIndex: 'testType',
-        //     key: 'testType',
-        //     // width: "30%",
-        // },{
-        //     title: '等级',
-        //     dataIndex: 'level',
-        //     key: 'level',
-        //     // width: "20%",
-        // },
         {
             title: `创建时间`,
             dataIndex: ['testCase', 'createTime'],
-            key: "user",
+            key: "createTime",
         }
     ]
+
+
 
     const [visible, setVisible] = React.useState(false);
     const [selectItem, getSelectItem] = React.useState([]);
 
     // 弹框展示
     const showModal = () => {
-        findApiScenePage({caseType:"scene",testType:"api"});
+        findApiSceneList({caseType:"scene",testType:"api"});
 
         setVisible(true);
     };
@@ -48,7 +43,7 @@ const ApiPerformBindScene = (props) =>{
 
     // 提交
     const onFinish = async () => {
-        bindApiScene(selectItem);
+        bindApiScene(selectItem).then(()=>findApiPerfStepList(apiPerfId));
 
         setVisible(false);
     };
@@ -87,6 +82,7 @@ const ApiPerformBindScene = (props) =>{
                     dataSource={apiSceneList}
                     rowKey = {record => record.id}
                     rowSelection={{...rowSelection}}
+                    pagination={false}
                 />
 
             </Modal>

@@ -8,6 +8,7 @@ import BackCommon from "../../../common/backCommon";
 import AppSceneStepList from "./appSceneStepList";
 import {Button} from "antd";
 import AppEnvSelect from "../../apptest/appEnvSelect";
+import AppExecuteTestDrawer from "./appExecuteTestDrawer";
 
 const AppSceneDetail = (props) => {
     const {appSceneStore} = props;
@@ -15,14 +16,13 @@ const AppSceneDetail = (props) => {
     const [allValue,setAllValue] = useState();
 
 
-    const appUnitId = sessionStorage.getItem('appSceneId');
-    const [showResponse,setShowResponse] = useState(false);
+    const appSceneId = sessionStorage.getItem('appSceneId');
 
     useEffect(()=> {
-        findAppScene(appUnitId).then(res=>{
+        findAppScene(appSceneId).then(res=>{
             setAllValue(res);
         })
-    },[appUnitId])
+    },[appSceneId])
 
 
 
@@ -30,13 +30,6 @@ const AppSceneDetail = (props) => {
         props.history.push("/repositorypage/apptest/scenecase")
     }
 
-
-    //执行测试
-    const actionTest = () =>{
-        //调接口
-
-        setShowResponse(true)
-    }
 
     const toHistory = () =>{
         props.history.push("/repositorypage/apptest/scenecase-instance")
@@ -53,7 +46,11 @@ const AppSceneDetail = (props) => {
                     <div className={"method-name"}>{allValue?.testCase?.name}</div>
                     <div className={'apidetail-title-tool'}>
                         <Button onClick={toHistory}>历史</Button>
-                        <Button className="important-btn" onClick={actionTest}>测试</Button>
+                        {/*<Button className="important-btn" onClick={actionTest}>测试</Button>*/}
+                        <AppExecuteTestDrawer
+                            appSceneId={appSceneId}
+                            appSceneStore={appSceneStore}
+                        />
                     </div>
                 </div>
                 <div className={"method"}>
