@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {Button, Tabs} from "antd";
-import BackCommon from "../../../common/backCommon";
+import { Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import WebPerfStepList from "./webPerfStepList";
-import WebPerformCofig from "./webPerformCofig";
-import WebEnvSelect from "../../webtest/webEnvSelect";
+import WebPerformCofig from "./webPerfConfig";
 const { TabPane } = Tabs;
 
 const WebPerformDetail = (props) =>{
-    const {webPerformStore} = props;
-    const {findWebPerf} = webPerformStore;
+    const {webPerfStore} = props;
+    const {findWebPerf} = webPerfStore;
 
-    const [showResponse, setShowResponse] = useState(false);
 
     const [allValue,setAllValue] = useState();
 
@@ -27,30 +24,9 @@ const WebPerformDetail = (props) =>{
 
     }
 
-    const toHistory = () =>{
-        props.history.push("/repositorypage/webtest/perform-instance")
-    }
-
-
-    const onTest = ()=>{
-        setShowResponse(true)
-    }
-
-    const changeTab = (actvieKey) =>{
-
-    }
-
-    const goBack = () =>{
-        props.history.push("/repositorypage/webtest/performcase")
-    }
-
 
     return(
         <>
-            <BackCommon
-                clickBack={goBack}
-                // right={<WebEnvSelect history={props.history}/>}
-            />
             <div className={'testcase-webUI-form'}>
                 <div className="web-form-header">
                     <div
@@ -61,10 +37,7 @@ const WebPerformDetail = (props) =>{
                     >
                         {allValue?.testCase?.name}
                     </div>
-                    <div>
-                        <a onClick={toHistory}>测试历史</a>
-                        <Button onClick={onTest}>执行测试</Button>
-                    </div>
+
 
                 </div>
                 <div className={"method-people-info"}>
@@ -74,7 +47,7 @@ const WebPerformDetail = (props) =>{
                     <span className={"people-item "}>更新时间: {allValue?.testCase?.updateTime}</span>
                 </div>
             </div>
-            <Tabs defaultActiveKey="1" onChange={changeTab}>
+            <Tabs defaultActiveKey="1" >
                 <TabPane tab="场景配置" key="1">
                     <WebPerfStepList />
                 </TabPane>
@@ -85,4 +58,4 @@ const WebPerformDetail = (props) =>{
         </>
     )
 }
-export default inject("webPerformStore")(observer(WebPerformDetail));
+export default inject("webPerfStore")(observer(WebPerformDetail));

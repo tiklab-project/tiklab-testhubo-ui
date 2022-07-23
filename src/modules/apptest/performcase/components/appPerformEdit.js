@@ -10,8 +10,8 @@ const layout = {
 
 // 添加与编辑
 const AppPerformEdit = (props) => {
-    const {appPerformStore,categoryStore,appPerfId   } = props;
-    const {findAppPerfList,findAppPerf,createAppPerf,updateAppPerf}=appPerformStore;
+    const {appPerfStore,categoryStore,appPerfId   } = props;
+    const {findAppPerfList,findAppPerf,createAppPerf,updateAppPerf}=appPerfStore;
     const {findCategoryListTree} = categoryStore;
 
     const [form] = Form.useForm();
@@ -141,4 +141,4 @@ const AppPerformEdit = (props) => {
     );
 };
 
-export default inject("appPerformStore","categoryStore")(observer(AppPerformEdit));
+export default inject("appPerfStore","categoryStore")(observer(AppPerformEdit));

@@ -6,7 +6,8 @@ import './common/language/i18n';
 import "./assets/iconfont/iconfont";
 import "./assets/iconfont/iconfont.css";
 import {useTranslation} from "react-i18next";
-import { PluginProvider, initFetch} from 'doublekit-plugin-ui';
+import { PluginProvider} from 'doublekit-plugin-ui';
+import { initFetch} from 'doublekit-plugin-ui/es/_utils';
 import resources from './common/language/resource';
 import {getUser} from "doublekit-core-ui";
 

@@ -1,17 +1,49 @@
-import React from "react";
-import TestDargCommon from "../../../common/testDargCommon";
-import WebPerformDetail from "./webPerformDetail";
-import WebPerformTest from "./webPerformTest";
+import React, {useState} from "react";
+import {Menu} from "antd";
+import {Link} from "react-router-dom";
+import BackCommon from "../../../common/backCommon";
+import {renderRoutes} from "react-router-config";
 
 
-const WebPerformDetailContant = (props) =>{
+
+const WebPerfomDetailContant = (props) =>{
+
+    const [current, setCurrent] = useState('config');
+
+    const onClick = (e) => {
+        setCurrent(e.key);
+    }
+
+    const goBack = () =>{
+        props.history.push("/repositorypage/webtest/performcase")
+    }
+
 
     return(
-        <TestDargCommon
-            top={<WebPerformDetail {...props}/>}
-            bottom={<WebPerformTest />}
-        />
+        <>
+            <div >
+                <BackCommon clickBack={goBack} />
+                <Menu
+                    onClick={onClick}
+                    selectedKeys={[current]}
+                    mode="horizontal"
+                >
+                    <Menu.Item key="config">
+                        <Link to='/repositorypage/webtest/performdetail/config'>配置</Link>
+                    </Menu.Item>
+                    <Menu.Item key="test"  >
+                        <Link to='/repositorypage/webtest/performdetail/test'>测试</Link>
+                    </Menu.Item>
+                </Menu>
+
+            </div>
+            <div>
+                {
+                    renderRoutes( props.route.routes)
+                }
+            </div>
+        </>
     )
 }
 
-export default WebPerformDetailContant
+export default WebPerfomDetailContant

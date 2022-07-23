@@ -25,7 +25,7 @@ export class WebSceneInstanceStore {
         this.params = {
             ...value,
             webSceneId:id,
-            orderParams:[{name:'createTime', orderType:'asc' }]
+            orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
         const res = await findWebSceneInstancePage(this.params );
@@ -40,7 +40,7 @@ export class WebSceneInstanceStore {
     findWebSceneInstanceList = async (id) =>{
         let param = {
             "webSceneId":id,
-            orderParams:[{name:'createTime', orderType:'asc' }]
+            orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
         const res = await findWebSceneInstanceList(param);

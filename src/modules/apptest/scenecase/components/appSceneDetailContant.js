@@ -1,7 +1,7 @@
 import React from "react";
 import TestDargCommon from "../../../common/testDargCommon";
 import AppSceneDetail from "./appSceneDetail";
-import AppSceneTest from "./appSceneTest";
+// import AppSceneTest from "./appSceneTest";
 
 
 const AppSceneDetailContant = (props) =>{

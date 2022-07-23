@@ -3,7 +3,7 @@ import {Button,Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import BackCommon from "../../../../common/backCommon";
 import ApiPerfStepList from "./apiPerfStepList";
-import ApiPerformCofig from "./apiPerformCofig";
+import ApiPerformCofig from "./apiPerfConfig";
 import ApiEnvSelect from "../../apitest/apiEnvSelect";
 
 

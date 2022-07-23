@@ -1,6 +1,6 @@
 import React from 'react';
 import {verifyUserHoc} from "doublekit-eam-ui";
-import {connect} from 'doublekit-plugin-ui';
+import {connect} from 'doublekit-plugin-ui/es/_utils';
 import './portalStyle.scss'
 import PageContent from "./pageContent";
 

@@ -70,6 +70,11 @@ import EnvContant from "./modules/sysmgr/environment/components/envContant";
 import ApiPerformDetail from "./modules/apitest/http/performcase/components/apiPerformDetail";
 import ApiPerformTest from "./modules/apitest/http/performcase/components/apiPerformTest";
 import LoginOut from "./modules/header/loginOut";
+import WebPerformDetail from "./modules/webtest/performcase/components/webPerformDetail";
+import WebPerformTest from "./modules/webtest/performcase/components/webPerformTest";
+import AppPerformDetail from "./modules/apptest/performcase/components/appPerformDetail";
+import AppPerformTest from "./modules/apptest/performcase/components/appPerformTest";
+import PluginManage from "./modules/sysmgr/pluginManage/pluginManage";
 
 
 const routers =  [
@@ -235,6 +240,24 @@ const routers =  [
                                 path: "/repositorypage/webtest/performdetail",
                                 key:'performcase',
                                 component: WebPerformDetailContant,
+                                routes:[
+                                    {
+                                        path: "/repositorypage/webtest/performdetail/config",
+                                        key:'config',
+                                        component:WebPerformDetail,
+                                    },
+                                    {
+                                        path: "/repositorypage/webtest/performdetail/test",
+                                        key:'config',
+                                        component:WebPerformTest,
+                                    },
+                                    {
+                                        path:"/repositorypage/webtest/performdetail",
+                                        exact: true,
+                                        key:'ridperformdetail',
+                                        component: ()=><Redirect to='/repositorypage/webtest/performdetail/config'/>,
+                                    },
+                                ]
                             },{
                                 path: "/repositorypage/webtest/perform-instance",
                                 key:'performcase',
@@ -285,6 +308,24 @@ const routers =  [
                                 path: "/repositorypage/apptest/performdetail",
                                 key:'performcase',
                                 component: AppPerformDetailContant,
+                                routes:[
+                                    {
+                                        path: "/repositorypage/apptest/performdetail/config",
+                                        key:'config',
+                                        component:AppPerformDetail,
+                                    },
+                                    {
+                                        path: "/repositorypage/apptest/performdetail/test",
+                                        key:'config',
+                                        component:AppPerformTest,
+                                    },
+                                    {
+                                        path:"/repositorypage/apptest/performdetail",
+                                        exact: true,
+                                        key:'ridperformdetail',
+                                        component: ()=><Redirect to='/repositorypage/apptest/performdetail/config'/>,
+                                    },
+                                ]
                             },{
                                 path: "/repositorypage/apptest/perform-instance",
                                 key:'performcase',
@@ -497,7 +538,12 @@ const routers =  [
                         key:'MessageType',
                         exact: true,
                         component: MessageType,
+                    }, {
+                        path: "/systemManagement/pluginmanage",
+                        key:'pluginmanage',
+                        component: PluginManage,
                     },
+
                     {
                         path: "/systemManagement/authConfig",
                         key:'authConfig',

@@ -8,7 +8,7 @@ import {
     findAppPerfListByTestCase
 } from '../api/appPerfApi'
 
-export class AppPerformStore {
+export class AppPerfStore {
     @observable appPerfList = [];
     @observable appPerfInfo;
 
@@ -53,4 +53,4 @@ export class AppPerformStore {
 
 }
 
-export const APP_PERFORM_STORE = 'appPerformStore';
+export const APP_PERF_STORE = 'appPerfStore';

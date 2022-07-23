@@ -8,7 +8,7 @@ import {
     findWebPerfListByTestCase
 } from '../api/webPerfApi'
 
-export class WebPerformStore {
+export class WebPerfStore {
     @observable webPerfList = [];
     @observable webPerfInfo;
 
@@ -53,4 +53,4 @@ export class WebPerformStore {
 
 }
 
-export const WEB_PERFORM_STORE = 'webPerformStore';
+export const WEB_PERF_STORE = 'webPerfStore';

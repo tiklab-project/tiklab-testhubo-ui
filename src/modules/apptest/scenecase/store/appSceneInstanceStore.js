@@ -20,7 +20,7 @@ export class AppSceneInstanceStore {
         this.params = {
             ...value,
             testcaseId:id,
-            orderParams:[{name:'createTime', orderType:'asc' }]
+            orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
         const res = await findAppSceneInstancePage(this.params );

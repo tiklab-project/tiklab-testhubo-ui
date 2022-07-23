@@ -1,9 +1,9 @@
 import React from "react";
-import { PrivilegeProjectRole  } from 'doublekit-privilege-ui';
+import { ProjectRoleList  } from 'doublekit-privilege-ui';
 
 const ProjectRole = props => {
     return (
-            <PrivilegeProjectRole  {...props}/>
+            <ProjectRoleList  />
     )
 }
 

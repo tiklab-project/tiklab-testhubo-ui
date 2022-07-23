@@ -6,8 +6,8 @@ import AppPerformEdit from "./appPerformEdit";
 import {inject, observer} from "mobx-react";
 
 const AppPerformList = (props) =>{
-    const {appPerformStore,categoryStore} = props;
-    const {findAppPerfList,appPerfList,deleteAppPerf}=appPerformStore;
+    const {appPerfStore,categoryStore} = props;
+    const {findAppPerfList,appPerfList,deleteAppPerf}=appPerfStore;
     const {findCategoryListTree}=categoryStore;
 
 
@@ -120,4 +120,4 @@ const AppPerformList = (props) =>{
     )
 }
 
-export default inject("appPerformStore","categoryStore")(observer(AppPerformList));
+export default inject("appPerfStore","categoryStore")(observer(AppPerformList));

@@ -5,8 +5,8 @@ import WebPerformEdit from "./webPerformEdit";
 import {inject, observer} from "mobx-react";
 
 const WebPerformList = (props) =>{
-    const {webPerformStore,categoryStore} = props;
-    const {findWebPerfList,webPerfList,deleteWebPerf}=webPerformStore;
+    const {webPerfStore,categoryStore} = props;
+    const {findWebPerfList,webPerfList,deleteWebPerf}=webPerfStore;
     const {findCategoryListTree}=categoryStore;
 
     const column = [
@@ -124,4 +124,4 @@ const WebPerformList = (props) =>{
     )
 }
 
-export default inject("webPerformStore","categoryStore")(observer(WebPerformList));
+export default inject("webPerfStore","categoryStore")(observer(WebPerformList));

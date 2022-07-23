@@ -41,10 +41,6 @@ export class ApiPerfInstanceStore {
         }
     }
 
-
-    @action
-    createApiPerfInstance = async (values) =>  await createApiPerfInstance(values)
-
     @action
     updateApiPerfInstance = async (values) =>  await updateApiPerfInstance(values)
 

@@ -8,48 +8,48 @@ const layout = {
 };
 
 
-const AppPerfConfig = (props) =>{
-    const {appPerfStore} = props;
-    const {findAppPerf,updateAppPerf} = appPerfStore;
+const WebPerfConfig = (props) =>{
+    const {webPerfStore} = props;
+    const {findWebPerf,updateWebPerf} = webPerfStore;
 
     const [form] = Form.useForm();
     const [exeMode, setExeMode] = useState();
 
 
-    const appPerfId = sessionStorage.getItem("appPerfId")
+    const webPerfId = sessionStorage.getItem("webPerfId")
 
     useEffect(()=>{
-        findAppPerf(appPerfId).then(res=>{
+        findWebPerf(webPerfId).then(res=>{
             form.setFieldsValue({
                 threadCount:res.threadCount,
                 executeType:res.executeType,
                 executeCount:res.executeCount
             })
         })
-    },[appPerfId])
+    },[webPerfId])
 
     //并发数
     const changeThread=(threadCount)=> {
         let param = {
-            id:appPerfId,
+            id:webPerfId,
             threadCount: threadCount,
             testCase:{
-                id:appPerfId
+                id:webPerfId
             }
         }
-        updateAppPerf(param)
+        updateWebPerf(param)
     }
 
     //执行次数
     const changeExeCount=(executeCount)=> {
         let param = {
-            id:appPerfId,
+            id:webPerfId,
             executeCount: executeCount,
             testCase:{
-                id:appPerfId
+                id:webPerfId
             }
         }
-        updateAppPerf(param)
+        updateWebPerf(param)
     }
 
 
@@ -67,7 +67,7 @@ const AppPerfConfig = (props) =>{
                 >
                     <InputNumber
                         min={1}
-                        max={1}
+                        max={10}
                         onChange={changeThread}
                     />
                 </Form.Item>
@@ -86,7 +86,7 @@ const AppPerfConfig = (props) =>{
                 >
                     <InputNumber
                         min={1}
-                        max={100}
+                        max={10}
                         onChange={changeExeCount}
                     />
                 </Form.Item>
@@ -95,4 +95,4 @@ const AppPerfConfig = (props) =>{
     )
 }
 
-export default inject("appPerfStore")(observer(AppPerfConfig));
+export default inject("webPerfStore")(observer(WebPerfConfig));

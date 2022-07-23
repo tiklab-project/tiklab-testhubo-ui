@@ -1,19 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {Button, Tabs} from "antd";
-import BackCommon from "../../../common/backCommon";
 import {inject, observer} from "mobx-react";
 import AppPerfStepList from "./appPerfStepList";
 import AppPerformCofig from "./appPerformCofig";
-import AppEnvSelect from "../../apptest/appEnvSelect";
 const { TabPane } = Tabs;
 
 const AppPerformDetail = (props) =>{
-    const {appPerformStore} = props;
-    const {findAppPerf} = appPerformStore;
-
-    const [showResponse, setShowResponse] = useState(false);
+    const {appPerfStore} = props;
+    const {findAppPerf} = appPerfStore;
 
     const [allValue,setAllValue] = useState();
+
     let appPerfId = sessionStorage.getItem("appPerfId")
 
     useEffect(()=>{
@@ -21,35 +18,15 @@ const AppPerformDetail = (props) =>{
             setAllValue(res);
         })
     },[appPerfId])
-    
+
+
     const updateTitle = (value) =>{
 
-    }
-
-    const toHistory = () =>{
-        props.history.push("/repositorypage/apptest/perform-instance")
-    }
-
-
-    const onTest = ()=>{
-        setShowResponse(true)
-    }
-
-    const changeTab = (actvieKey) =>{
-
-    }
-
-    const goBack = () =>{
-        props.history.push("/repositorypage/apptest/performcase")
     }
 
 
     return(
         <>
-            <BackCommon
-                clickBack={goBack}
-                // right={<AppEnvSelect history={props.history}/>}
-            />
             <div className={'testcase-appUI-form'}>
                 <div className="web-form-header">
                     <div
@@ -60,10 +37,6 @@ const AppPerformDetail = (props) =>{
                     >
                         {allValue?.testCase?.name}
                     </div>
-                    <div>
-                        <a onClick={toHistory}>测试历史</a>
-                        <Button onClick={onTest}>执行测试</Button>
-                    </div>
 
                 </div>
                 <div className={"method-people-info"}>
@@ -73,7 +46,7 @@ const AppPerformDetail = (props) =>{
                     <span className={"people-item "}>更新时间: {allValue?.testCase?.updateTime}</span>
                 </div>
             </div>
-            <Tabs defaultActiveKey="1" onChange={changeTab}>
+            <Tabs defaultActiveKey="1">
                 <TabPane tab="场景配置" key="1">
                     <AppPerfStepList />
                 </TabPane>
@@ -84,4 +57,4 @@ const AppPerformDetail = (props) =>{
         </>
     )
 }
-export default inject("appPerformStore")(observer(AppPerformDetail));
+export default inject("appPerfStore")(observer(AppPerformDetail));

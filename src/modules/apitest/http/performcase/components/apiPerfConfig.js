@@ -8,7 +8,7 @@ const layout = {
 };
 
 
-const ApiPerformCofig = (props) =>{
+const ApiPerfConfig = (props) =>{
     const {apiPerfStore} = props;
     const {findApiPerf,updateApiPerf} = apiPerfStore;
 
@@ -95,4 +95,4 @@ const ApiPerformCofig = (props) =>{
     )
 }
 
-export default inject("apiPerfStore")(observer(ApiPerformCofig));
+export default inject("apiPerfStore")(observer(ApiPerfConfig));

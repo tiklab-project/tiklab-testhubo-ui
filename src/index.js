@@ -9,9 +9,9 @@ import { HashRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 
 import App from './app';
-import { orgStores } from 'doublekit-user-ui';
-import { privilegeStores } from 'doublekit-privilege-ui';
-import { messageModuleStores } from 'doublekit-message-ui'
+import { orgStores } from 'doublekit-user-ui/es/store';
+import { privilegeStores } from 'doublekit-privilege-ui/es/store';
+import { messageModuleStores } from 'doublekit-message-ui/es/store'
 import { stores } from './stores';
 import routes from './routers';
 

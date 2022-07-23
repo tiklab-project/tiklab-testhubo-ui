@@ -67,7 +67,7 @@ import {API_PERF_STEP_STORE, ApiPerfStepStore} from "./apitest/http/performcase/
 import {API_PERF_INSTANCE_STORE, ApiPerfInstanceStore} from "./apitest/http/performcase/store/apiPerfInstanceStore";
 import {API_UNIT_DISPATCH_STORE, ApiUnitTestDispatchStore} from "./apitest/http/unitcase/store/apiUnitTestDispatchStore";
 import {API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore} from "./apitest/http/scenecase/store/apiSceneTestDispatchStore";
-import { API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore} from "./apitest/http/performcase/store/apiPerfTestDispatchStore";
+import {API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore} from "./apitest/http/performcase/store/apiPerfTestDispatchStore";
 
 import {WEB_UNIT_STORE, WebUnitStore} from "./webtest/unitcase/store/webUnitStore"
 import {WEB_UNITSTEP_STORE,WebUnitStepStore} from "./webtest/unitcase/store/webUnitStepStore";
@@ -75,18 +75,22 @@ import {WEB_UNITINSTANCE_STORE,WebUnitInstanceStore} from "./webtest/unitcase/st
 import {WEB_SCENE_STORE, WebSceneStore} from "./webtest/scenecase/store/webSceneStore";
 import {WEB_SCENESTEP_STORE,WebSceneStepStore} from "./webtest/scenecase/store/webSceneStepStore";
 import {WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore} from "./webtest/scenecase/store/webSceneInstanceStore";
-import {WEB_PERFORM_STORE,WebPerformStore} from "./webtest/performcase/store/webPerformStore";
+import {WEB_PERF_STORE,WebPerfStore} from "./webtest/performcase/store/webPerfStore";
 import {WEB_PERF_STEP_STORE,WebPerfStepStore} from "./webtest/performcase/store/webPerfStepStore";
-import {WEB_PERFORMINSTANCE_STORE,WebPerformInstanceStore} from "./webtest/performcase/store/webPerformInstanceStore";
+import {WEB_PERF_INSTANCE_STORE,WebPerfInstanceStore} from "./webtest/performcase/store/webPerfInstanceStore";
+import {WEB_PERF_DISPATCH_STORE,WebPerfTestDispatchStore} from "./webtest/performcase/store/webPerfTestDispatchStore";
+
 import {APP_UNIT_STORE,AppUnitStore} from "./apptest/unitcase/store/appUnitStore";
 import {APP_UNITSTEP_STORE,AppUnitStepStore} from "./apptest/unitcase/store/appUnitStepStore";
 import {APP_UNITINSTANCE_STORE,AppUnitInstanceStore} from "./apptest/unitcase/store/appUnitInstanceStore";
 import {APP_SCENE_STORE,AppSceneStore} from "./apptest/scenecase/store/appSceneStore";
 import {APP_SCENESTEP_STORE,AppSceneStepStore} from "./apptest/scenecase/store/appSceneStepStore";
 import {APP_SCENEINSTANCE_STORE,AppSceneInstanceStore} from "./apptest/scenecase/store/appSceneInstanceStore";
-import {APP_PERFORM_STORE,AppPerformStore} from "./apptest/performcase/store/appPerformStore";
+import {APP_PERF_STORE,AppPerfStore} from "./apptest/performcase/store/appPerfStore";
 import {APP_PERF_STEP_STORE,AppPerfStepStore} from "./apptest/performcase/store/appPerfStepStore";
-import {APP_PERFORMINSTANCE_STORE,AppPerformInstanceStore} from "./apptest/performcase/store/appPerformInstanceStore";
+import {APP_PERF_INSTANCE_STORE,AppPerfInstanceStore} from "./apptest/performcase/store/appPerfInstanceStore";
+import {APP_PERF_DISPATCH_STORE,AppPerfTestDispatchStore} from "./apptest/performcase/store/appPerfTestDispatchStore";
+
 import {FUNC_UNIT_STORE , FuncUnitStore} from "./functest/unitcase/store/funcUnitStore";
 import {FUNC_UNITSTEP_STORE , FuncUnitStepStore} from "./functest/unitcase/store/funcUnitStepStore";
 import { FUNC_SCENE_STORE, FuncSceneStore} from "./functest/scenecase/store/funcSceneStore";
@@ -146,9 +150,10 @@ export {
     WEB_SCENE_STORE,WebSceneStore,
     WEB_SCENESTEP_STORE,WebSceneStepStore,
     WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore,
-    WEB_PERFORM_STORE,WebPerformStore,
+    WEB_PERF_STORE,WebPerfStore,
     WEB_PERF_STEP_STORE,WebPerfStepStore,
-    WEB_PERFORMINSTANCE_STORE,WebPerformInstanceStore,
+    WEB_PERF_INSTANCE_STORE,WebPerfInstanceStore,
+    WEB_PERF_DISPATCH_STORE,WebPerfTestDispatchStore,
 
     APP_UNIT_STORE,AppUnitStore,
     APP_UNITSTEP_STORE,AppUnitStepStore,
@@ -156,9 +161,10 @@ export {
     APP_SCENE_STORE,AppSceneStore,
     APP_SCENESTEP_STORE, AppSceneStepStore,
     APP_SCENEINSTANCE_STORE,AppSceneInstanceStore,
-    APP_PERFORM_STORE,AppPerformStore,
+    APP_PERF_STORE,AppPerfStore,
     APP_PERF_STEP_STORE,AppPerfStepStore,
-    APP_PERFORMINSTANCE_STORE,AppPerformInstanceStore,
+    APP_PERF_INSTANCE_STORE,AppPerfInstanceStore,
+    APP_PERF_DISPATCH_STORE,AppPerfTestDispatchStore,
 
 
     FUNC_UNIT_STORE, FuncUnitStore,
