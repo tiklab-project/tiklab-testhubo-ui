@@ -9,7 +9,7 @@ import { observer, inject } from "mobx-react";
 import {Breadcrumb, Input, Table, Space, Button, Popconfirm} from 'antd';
 import RepositoryEdit from './repositoryEdit';
 import  { useTranslation } from 'react-i18next'
-import {execute,md5} from '../../../../dk/dk'
+// import {execute,md5} from '../../../../dk/dk'
 
 const RepositoryList = (props) => {
     const { repositoryStore } = props;
@@ -23,9 +23,9 @@ const RepositoryList = (props) => {
     const { t } = useTranslation();
 
 
-    let json = execute('dk.md5("b")')
+    // let json = execute('dk.md5("b")')
 
-    console.log(json)
+    // console.log(json)
 
     //空间列表头
     const columns = [
@@ -143,6 +143,7 @@ const RepositoryList = (props) => {
             </div>
             <div className='search-btn'>
                 <Input
+                    style={{width:200}}
                     placeholder={`${t('tcsearch')}`}
                     onPressEnter={onSearch}
                     className='search-input'

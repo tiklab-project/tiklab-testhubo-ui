@@ -1,10 +1,3 @@
-/*
- * @Description: request请求体form接口
- * @Author: sunxiancheng
- * @LastEditTime: 2021-05-08 17:37:05
- */
-
-
 import {Axios} from "doublekit-core-ui";
 
 export function createFormParam(data){

@@ -46,7 +46,7 @@ import {getUser} from "doublekit-core-ui";
      return(
          <PluginProvider store={pluginData}>
              {
-                 renderRoutes(routers)
+                 renderRoutes(pluginData.routes)
              }
          </PluginProvider>
     )

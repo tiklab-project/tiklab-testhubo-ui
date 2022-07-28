@@ -6,7 +6,6 @@ import {
 
     REPOSITORY_STORE, RepositoryStore,
 
-    TESTCASE_STORE, TestcaseStore,
     REQUESTHEADER_STORE , RequestHeaderStore,
     QUERYPARAM_STORE, QueryParamStore,
     FORMPARAM_STORE, FormParamStore,
@@ -22,8 +21,6 @@ import {
     JSONRESPONSE_STORE, JsonResponseStore,
     RAWRESPONSE_STORE, RawResponseStore,
     RESPONSERESULT_STORE, ResponseResultStore,
-    TESTINSTANCE_STORE, TestInstanceStore,
-    PERFORMCASE_STORE, PerformCaseStore,
 
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
@@ -41,17 +38,14 @@ import {
     WEB_UNIT_STORE, WebUnitStore,
     WEB_SCENE_STORE,WebSceneStore,
     WEB_PERF_STORE,WebPerfStore,
-    WEB_UNITSTEP_STORE,WebUnitStepStore,
     WEB_SCENESTEP_STORE,WebSceneStepStore,
     WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore,
-    WEB_UNITINSTANCE_STORE,WebUnitInstanceStore,
     WEB_PERF_STEP_STORE,WebPerfStepStore,
     WEB_PERF_INSTANCE_STORE,WebPerfInstanceStore,
     WEB_PERF_DISPATCH_STORE,WebPerfTestDispatchStore,
 
     APP_UNIT_STORE,AppUnitStore,
     APP_UNITSTEP_STORE,AppUnitStepStore,
-    APP_UNITINSTANCE_STORE,AppUnitInstanceStore,
     APP_SCENE_STORE,AppSceneStore,
     APP_SCENESTEP_STORE, AppSceneStepStore,
     APP_SCENEINSTANCE_STORE,AppSceneInstanceStore,
@@ -73,9 +67,6 @@ import {
     QUARTZTASK_STORE, QuartzMasterStore,
     QUARTZTESTCASE_STORE, QuartzTestcaseStore,
 
-    PERFORMANCE_STORE, PerformanceStore,
-    PERFORMANCESTATISTICS_STORE, PerformanceStatisticsStore,
-
 
     CATEGORY_STORE,CategoryStore,
 
@@ -90,7 +81,6 @@ function createStores() {
     return {
         [ENVIRONMENT_STORE]: new EnvironmentStore(),
         [REPOSITORY_STORE]: new RepositoryStore(),
-        [TESTCASE_STORE]: new TestcaseStore(),
         [REQUESTHEADER_STORE]: new RequestHeaderStore(),
         [QUERYPARAM_STORE]: new QueryParamStore(),
         [FORMPARAM_STORE]: new FormParamStore(),
@@ -106,8 +96,6 @@ function createStores() {
         [JSONRESPONSE_STORE]: new JsonResponseStore(),
         [RAWRESPONSE_STORE]: new RawResponseStore(),
         [RESPONSERESULT_STORE]: new ResponseResultStore(),
-        [TESTINSTANCE_STORE]: new TestInstanceStore(),
-        [PERFORMCASE_STORE]: new PerformCaseStore(),
 
         [API_UNIT_STORE]: new ApiUnitStore(),
         [APIUNIT_INSTANCE_STORE]:new ApiUnitInstanceStore(),
@@ -124,17 +112,14 @@ function createStores() {
         [WEB_UNIT_STORE]:new WebUnitStore(),
         [WEB_SCENE_STORE]:new WebSceneStore(),
         [WEB_PERF_STORE]:new WebPerfStore(),
-        [WEB_UNITSTEP_STORE]: new WebUnitStepStore(),
         [WEB_SCENESTEP_STORE]: new WebSceneStepStore(),
         [WEB_SCENEINSTANCE_STORE]: new WebSceneInstanceStore(),
-        [WEB_UNITINSTANCE_STORE]:new WebUnitInstanceStore(),
         [WEB_PERF_STEP_STORE]: new WebPerfStepStore(),
         [WEB_PERF_INSTANCE_STORE]: new WebPerfInstanceStore(),
         [WEB_PERF_DISPATCH_STORE]: new WebPerfTestDispatchStore(),
 
         [APP_UNIT_STORE]: new AppUnitStore(),
         [APP_UNITSTEP_STORE]: new AppUnitStepStore(),
-        [APP_UNITINSTANCE_STORE]: new AppUnitInstanceStore(),
         [APP_SCENE_STORE]: new AppSceneStore(),
         [APP_SCENESTEP_STORE]: new AppSceneStepStore(),
         [APP_SCENEINSTANCE_STORE]: new AppSceneInstanceStore(),
@@ -154,9 +139,6 @@ function createStores() {
 
         [QUARTZTASK_STORE]: new QuartzMasterStore(),
         [QUARTZTESTCASE_STORE]: new QuartzTestcaseStore(),
-
-        [PERFORMANCE_STORE]: new PerformanceStore(),
-        [PERFORMANCESTATISTICS_STORE]: new PerformanceStatisticsStore(),
 
 
 

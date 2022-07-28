@@ -6,14 +6,12 @@ import {
     Repository,
     RepositoryList,
     RepositoryDetailPage,
-    Testcase, Step, StepDetail, WebTestcase, AppTestcase,
 
-    QuartzTaskList, QuartzTask, TestReport,
+    QuartzTask,
 
-    PerformanceList, PerformanceDetail,PerformanceHistory,
-    FunctionalTestDetail,
+
     CategoryList,
-    TestPlan, TestPlanDetail,
+    TestPlan,
 
 } from './modules';
 
@@ -52,11 +50,6 @@ import ApiPerformInstance from "./modules/apitest/http/performcase/components/ap
 import ApiPerfomDetailContant from "./modules/apitest/http/performcase/components/apiPerfomDetailContant";
 import FuncUnitDetail from "./modules/functest/unitcase/components/funcUnitDetail";
 import FuncSceneDetail from "./modules/functest/scenecase/components/funcSceneDetail";
-import WebUnitDetail from "./modules/webtest/unitcase/components/webUnitDetail";
-import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
-import WebUnitDetailContant from "./modules/webtest/unitcase/components/webUnitDetailContant";
-import WebUnitInstance from "./modules/webtest/unitcase/components/webUnitInstance";
-import WebSceneDetailContant from "./modules/webtest/scenecase/components/webSceneDetailContant";
 import WebSceneInstance from "./modules/webtest/scenecase/components/webSceneInstance";
 import WebPerformDetailContant from "./modules/webtest/performcase/components/webPerformDetailContant";
 import WebPerformInstance from "./modules/webtest/performcase/components/webPerformInstance";
@@ -75,6 +68,7 @@ import WebPerformTest from "./modules/webtest/performcase/components/webPerformT
 import AppPerformDetail from "./modules/apptest/performcase/components/appPerformDetail";
 import AppPerformTest from "./modules/apptest/performcase/components/appPerformTest";
 import PluginManage from "./modules/sysmgr/pluginManage/pluginManage";
+import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
 
 
 const routers =  [
@@ -213,21 +207,13 @@ const routers =  [
                                 key:'unitcase',
                                 component: WebUnitList,
                             }, {
-                                path: "/repositorypage/webtest/unitdetail",
-                                key:'unitcase',
-                                component: WebUnitDetailContant,
-                            }, {
-                                path: "/repositorypage/webtest/unitcase-instance",
-                                key:'unitcase',
-                                component: WebUnitInstance,
-                            },{
                                 path: "/repositorypage/webtest/scenecase",
                                 key:'scenecase',
                                 component: WebSceneList,
                             },{
                                 path: "/repositorypage/webtest/scenedetail",
                                 key:'scenecase',
-                                component: WebSceneDetailContant,
+                                component: WebSceneDetail,
                             },{
                                 path: "/repositorypage/webtest/scenecase-instance",
                                 key:'scenecase',
@@ -461,12 +447,6 @@ const routers =  [
                         component: ()=><Redirect to='/repositorypage/detail'/>,
                     },
                 ]
-            },
-            {
-                path: "/testcase",
-                component: Testcase,
-                exact: true,
-                key:'outTestcase',
             },
             {
                 path:'/systemManagement',

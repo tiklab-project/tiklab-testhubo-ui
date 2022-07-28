@@ -9,9 +9,10 @@ const ApiEnvSelect = (props) =>{
     const {apiEnvStore} = props;
     const {findApiEnvList,apiEnvList} = apiEnvStore;
 
+    let repositoryId = sessionStorage.getItem("repositoryId")
     useEffect(()=>{
-        findApiEnvList()
-    },[])
+        findApiEnvList(repositoryId)
+    },[repositoryId])
 
     return(
         <>

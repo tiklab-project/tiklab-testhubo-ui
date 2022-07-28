@@ -1,7 +1,5 @@
-// import {Axios as service} from "doublekit-core-ui";
+import {Axios as service} from "doublekit-core-ui";
 
-import service from "../../../../common/utils/localrequest";
-import "../../../../mock/appEnvMock"
 
 export function deleteAppEnv(data){
     return service.request({

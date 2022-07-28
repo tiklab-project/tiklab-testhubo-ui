@@ -9,15 +9,15 @@
   "scripts": {
     "start": "cross-env NODE_ENV=local API_ENV=local  webpack-dev-server --progress --config ./webpack.dev.js ",
     "dev": "cross-env NODE_ENV=dev API_ENV=dev webpack-dev-server --progress --config ./webpack.dev.js",
-    "test": "cross-env NODE_ENV=prod API_ENV=prod webpack --config ./webpack.test.js",
-    "build": "rimraf es/* && ./node_modules/.bin/babel src --copy-files  --extensions .js --out-dir es/components && ncp ui.js es/index.js && ncp README.md es/README.md && ncp ui.js es/ui.js && ncp package.publish.json es/package.json && ncp plugins es/plugins",
+    "prd": "cross-env NODE_ENV=prod API_ENV=prod webpack --config ./webpack.test.js",
+    "build": "rimraf es/* && ./node_modules/.bin/babel src --copy-files  --extensions .js --out-dir es/components && ncp pack/index.js es/index.js && ncp README.md es/README.md",
     "build:dk": " webpack --config ./webpack.dk.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://192.168.2.102:8081/repository/npm-hosted/"
+    "registry": "http://172.12.1.11:8081/repository/npm-hosted"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -94,6 +94,7 @@
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
     "moment": "^2.29.1",
+    "ncp": "^2.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.7.3",

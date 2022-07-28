@@ -252,8 +252,8 @@ const SystemManagement = (props) => {
 
     return (
         <Fragment>
-            <Layout className = 'sysmana-layout'>
-                <Sider className = 'sysmana-sider' width={240}>
+            <div className = 'sysmana-layout' style={{display:"flex"}}>
+                <div className = 'sysmana-sider' >
                     <div className="doublekit-orga-aside">
                         <ul style={{padding: 0}} >
                             {
@@ -261,11 +261,11 @@ const SystemManagement = (props) => {
                             }
                         </ul>
                     </div>
-                </Sider>
+                </div>
                 <Content className = 'sysmana-content'>
                     {renderRoutes(routers)}
                 </Content>
-            </Layout>
+            </div>
         </Fragment>
     )
 }

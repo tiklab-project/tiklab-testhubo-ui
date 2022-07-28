@@ -11,7 +11,7 @@ import ApiEnvEdit from './apiEnvEdit';
 const ApiEnvList = (props) => {
     const { apiEnvStore } = props;
     const {
-        findApiEnvPage,
+        findApiEnvList,
         apiEnvList,
         deleteApiEnv,
     } = apiEnvStore;
@@ -21,13 +21,11 @@ const ApiEnvList = (props) => {
             title: "环境名称",
             dataIndex: "name",
             key: "name",
-            align:"center",
         },
         {
             title: "环境地址",
-            dataIndex: "url",
-            key: "url",
-            align:"center",
+            dataIndex: "preUrl",
+            key: "preUrl",
         },
         {
             title: "操作",
@@ -42,13 +40,17 @@ const ApiEnvList = (props) => {
         },
     ]
 
+
+    let repositoryId = sessionStorage.getItem("repositoryId")
+
     useEffect(()=> {
-        findApiEnvPage();
-    },[])
+        
+        findApiEnvList(repositoryId);
+    },[repositoryId])
 
     // 搜索
     const onSearch = (e) => {
-        findApiEnvPage(e.target.value);
+        findApiEnvList(e.target.value);
     }
 
     return(

@@ -1,7 +1,3 @@
-/**
- * @description：
- * @date: 2021-08-13 17:41
- */
 import {Axios as service} from "doublekit-core-ui";
 
 export function createAssertParam(data){

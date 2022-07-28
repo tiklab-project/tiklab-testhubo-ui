@@ -1,10 +1,3 @@
-/*
- * @Description: response Json接口
- * @Author: sunxiancheng
- * @LastEditTime: 2021-05-08 17:39:25
- */
-
-
 import {Axios as service} from "doublekit-core-ui";
 
 export function createJsonResponse(data){

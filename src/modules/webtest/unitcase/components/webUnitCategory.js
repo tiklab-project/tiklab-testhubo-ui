@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dropdown, Input, Menu, Popconfirm} from "antd";
+import {Dropdown, Input, Menu} from "antd";
 import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
 import WebUnitEdit from "./webUnitEdit";
 import {inject, observer} from "mobx-react";
@@ -13,7 +13,6 @@ const WebUnitCategory = (props) =>{
     const testType = localStorage.getItem("testType");
     const caseType = localStorage.getItem("caseType")
     const repositoryId = sessionStorage.getItem("repositoryId")
-
 
     useEffect(()=>{
         const params = {

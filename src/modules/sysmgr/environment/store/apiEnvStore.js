@@ -29,14 +29,17 @@ export class ApiEnvStore {
 	}
 
 	@action
-	findApiEnvList = async () => {
+	findApiEnvList = async (id) => {
 		const params = {
+			repositoryId:id,
 			orderParams: [{name:'name',orderType:'asc'}],
 		}
 
 		const res = await findApiEnvList(params)
 		if(res.code === 0) {
 			this.apiEnvList = res.data;
+
+			return res.data;
 		}
 	}
 	

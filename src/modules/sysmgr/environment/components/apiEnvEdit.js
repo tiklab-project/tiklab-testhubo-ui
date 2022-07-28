@@ -11,36 +11,41 @@ const layout = {
 
 // 添加与编辑空间
 const ApiEnvEdit = (props) => {
-    const { environmentStore, environmentId } = props;
+    const { apiEnvStore, apiEnvId } = props;
     const { 
-        findEnvironment,
-        createEnvironment,
-        updateEnvironment
-     } = environmentStore;
+        findApiEnv,
+        createApiEnv,
+        updateApiEnv
+     } = apiEnvStore;
 
     const [form] = Form.useForm();
     
     const [visible, setVisible] = React.useState(false);
 
+    let repositoryId = sessionStorage.getItem("repositoryId")
+
     // 弹框展示
     const showModal = () => {
         setVisible(true);
         if(props.type === "edit"){
-            findEnvironment(environmentId).then((res)=>{
+            findApiEnv(apiEnvId).then((res)=>{
                 form.setFieldsValue({
                     name: res.name,
-                    url:res.url
+                    preUrl:res.preUrl
                 })
             })
         }
     };
     
     // 提交
-    const onFinish = (values) => {
+    const onFinish =async () => {
+        let values = await form.validateFields()
+
         if(props.type === "add" ){
-            createEnvironment(values);
+            values.repositoryId=repositoryId;
+            createApiEnv(values);
         }else{
-            updateEnvironment(values);
+            updateApiEnv(values);
         }
         setVisible(false);
     };
@@ -60,7 +65,7 @@ const ApiEnvEdit = (props) => {
             title={props.name}
             visible={visible}
             onCancel={onCancel}
-            footer={null}
+            // footer={null}
             onOk={onFinish}
             okText="提交"
             cancelText="取消"
@@ -76,15 +81,15 @@ const ApiEnvEdit = (props) => {
             >
                 <Form.Item
                     label="环境名称"
-                    rules={[{ required: true, message: '用户名不能包含非法字符，如&,%，&，#……等' }]}
+                    rules={[{ required: true, message: '环境名' }]}
                     name="name"
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
                     label="环境地址"
-                    rules={[{ required: true, message: '用户名不能包含非法字符，如&,%，&，#……等' }]}
-                    name="url"
+                    rules={[{ required: true, message: '环境地址' }]}
+                    name="preUrl"
                 >
                      <Input />
                 </Form.Item>
@@ -94,4 +99,4 @@ const ApiEnvEdit = (props) => {
     );
 };
 
-export default inject('environmentStore')(observer(ApiEnvEdit));
+export default inject('apiEnvStore')(observer(ApiEnvEdit));

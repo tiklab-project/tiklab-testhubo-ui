@@ -59,7 +59,7 @@ const ApiPerfList = (props) =>{
     const caseType=localStorage.getItem("caseType");
     const testType=localStorage.getItem("testType");
     const categoryId = sessionStorage.getItem("categoryId")
-    const repositoryId = localStorage.getItem("repositoryId")
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(()=> {
         findPage();

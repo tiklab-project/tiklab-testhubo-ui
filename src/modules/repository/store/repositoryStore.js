@@ -20,7 +20,7 @@ export class RepositoryStore {
     findRepositoryPage = async (param) => {
         const params = {
             ...param,
-            orderParams: [{name:'name', orderType:'asc'}],
+            orderParams: [{name:'id', orderType:'asc'}],
         }
 
         const res = await findRepositoryPage(params)
@@ -49,8 +49,10 @@ export class RepositoryStore {
     findRepository = async (id) => {
         const param = new FormData();
         param.append('id', id);
+
         const res = await findRepository(param)
         if(res.code === 0){
+
             this.repositoryName = res.data.name
             this.repositoryInfo = res.data;
             return res.data;
@@ -58,30 +60,18 @@ export class RepositoryStore {
     }
 
     @action
-    createRepository = async (values) => {
-        const res = await createRepository(values)
-        if (res.code === 0) {
-            this.findRepositoryPage()
-        }
-    }
+    createRepository = async (values) =>  await createRepository(values)
+
 
     @action
-    updateRepository = (values) => {
-        return  updateRepository(values).then((res) => {
-            if(res.code === 0){
-                this.findRepositoryPage();
-            }
-        })
-    }
+    updateRepository = async (values) =>  await  updateRepository(values)
 
     @action
     deleteRepository = async (id) => {
         const param = new FormData();
         param.append('id', id)
-        const res = await deleteRepository(param)
-        if(res.code === 0){
-            this.findRepositoryPage();
-        }
+
+        await deleteRepository(param)
     }
 
 }

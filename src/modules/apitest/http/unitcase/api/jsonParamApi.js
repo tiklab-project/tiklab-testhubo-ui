@@ -1,10 +1,3 @@
-/*
- * @Description: request请求体Json接口
- * @Author: sunxiancheng
- * @LastEditTime: 2021-05-08 17:39:08
- */
-
-
 import {Axios} from "doublekit-core-ui";
 
 export function createJsonParam(data){

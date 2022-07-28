@@ -1,5 +1,6 @@
 import { Login } from './login';
 import { Home } from './home';
+import PageContent from "./header/pageContent";
 import Repository from "./repository/components/repository";
 import RepositoryList from "./repository/components/repositoryList";
 import {REPOSITORY_STORE, RepositoryStore} from './repository/store/repositoryStore';
@@ -11,8 +12,6 @@ import QuartzTask from "./quartzTask/components/quartzTask";
 import {QUARTZTASK_STORE, QuartzMasterStore} from './quartzTask/store/quartzMasterStore';
 import {QUARTZTESTCASE_STORE, QuartzTestcaseStore} from './quartzTask/store/quartzTestcaseStore';
 import {
-    Testcase,
-    TESTCASE_STORE, TestcaseStore,
 
     Step,
     StepDetail,
@@ -32,21 +31,9 @@ import {
     JSONRESPONSE_STORE, JsonResponseStore,
     RAWRESPONSE_STORE, RawResponseStore,
     RESPONSERESULT_STORE, ResponseResultStore,
-    TESTINSTANCE_STORE, TestInstanceStore,
-    PERFORMCASE_STORE, PerformCaseStore,
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
-    WebTestcase,
-    AppTestcase,
 } from './apitest/http/unitcase'
-
-import TestReport from './old/testReport/components/testReport';
-
-import {PERFORMANCE_STORE, PerformanceStore} from './old/performance/store/performanceStore';
-import {PERFORMANCESTATISTICS_STORE, PerformanceStatisticsStore} from './old/performance/store/PerformanceStatisticsStore';
-import PerformanceList from './common/performCommon/performListCommon';
-import PerformanceDetail from './old/performance/components/performanceDetail';
-import PerformanceHistory from "./old/performance/components/performanceHistory";
 
 import FunctionalTestDetail from './functest/scenecase/components/functionalTestDetail';
 
@@ -70,8 +57,6 @@ import {API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore} from "./apitest/http
 import {API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore} from "./apitest/http/performcase/store/apiPerfTestDispatchStore";
 
 import {WEB_UNIT_STORE, WebUnitStore} from "./webtest/unitcase/store/webUnitStore"
-import {WEB_UNITSTEP_STORE,WebUnitStepStore} from "./webtest/unitcase/store/webUnitStepStore";
-import {WEB_UNITINSTANCE_STORE,WebUnitInstanceStore} from "./webtest/unitcase/store/webUnitInstanceStore";
 import {WEB_SCENE_STORE, WebSceneStore} from "./webtest/scenecase/store/webSceneStore";
 import {WEB_SCENESTEP_STORE,WebSceneStepStore} from "./webtest/scenecase/store/webSceneStepStore";
 import {WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore} from "./webtest/scenecase/store/webSceneInstanceStore";
@@ -82,7 +67,6 @@ import {WEB_PERF_DISPATCH_STORE,WebPerfTestDispatchStore} from "./webtest/perfor
 
 import {APP_UNIT_STORE,AppUnitStore} from "./apptest/unitcase/store/appUnitStore";
 import {APP_UNITSTEP_STORE,AppUnitStepStore} from "./apptest/unitcase/store/appUnitStepStore";
-import {APP_UNITINSTANCE_STORE,AppUnitInstanceStore} from "./apptest/unitcase/store/appUnitInstanceStore";
 import {APP_SCENE_STORE,AppSceneStore} from "./apptest/scenecase/store/appSceneStore";
 import {APP_SCENESTEP_STORE,AppSceneStepStore} from "./apptest/scenecase/store/appSceneStepStore";
 import {APP_SCENEINSTANCE_STORE,AppSceneInstanceStore} from "./apptest/scenecase/store/appSceneInstanceStore";
@@ -101,15 +85,13 @@ import {WEB_ENV_STORE,WebEnvStore} from "./sysmgr/environment/store/webEnvStore"
 import {APP_ENV_STORE,AppEnvStore} from "./sysmgr/environment/store/appEnvStore";
 
 export {
-    Login, Home,
+    Login, Home,PageContent,
     ENVIRONMENT_STORE, EnvironmentStore,
 
     Repository, RepositoryList,
     REPOSITORY_STORE, RepositoryStore,
     RepositoryDetailPage,
 
-    Testcase,
-    TESTCASE_STORE, TestcaseStore,
 
     Step,
     StepDetail,
@@ -129,9 +111,6 @@ export {
     JSONRESPONSE_STORE, JsonResponseStore,
     RAWRESPONSE_STORE, RawResponseStore,
     RESPONSERESULT_STORE, ResponseResultStore,
-    TESTINSTANCE_STORE, TestInstanceStore,
-    PERFORMCASE_STORE, PerformCaseStore,
-
     API_UNIT_STORE,ApiUnitStore,
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
     APISCENE_STORE, ApiSceneStore,
@@ -145,8 +124,6 @@ export {
     API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore,
 
     WEB_UNIT_STORE, WebUnitStore,
-    WEB_UNITSTEP_STORE,WebUnitStepStore,
-    WEB_UNITINSTANCE_STORE,WebUnitInstanceStore,
     WEB_SCENE_STORE,WebSceneStore,
     WEB_SCENESTEP_STORE,WebSceneStepStore,
     WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore,
@@ -157,7 +134,6 @@ export {
 
     APP_UNIT_STORE,AppUnitStore,
     APP_UNITSTEP_STORE,AppUnitStepStore,
-    APP_UNITINSTANCE_STORE,AppUnitInstanceStore,
     APP_SCENE_STORE,AppSceneStore,
     APP_SCENESTEP_STORE, AppSceneStepStore,
     APP_SCENEINSTANCE_STORE,AppSceneInstanceStore,
@@ -176,20 +152,9 @@ export {
     WEB_ENV_STORE,WebEnvStore,
     APP_ENV_STORE,AppEnvStore,
 
-    WebTestcase,
-    AppTestcase,
-
-
-
     QuartzTaskList, QuartzTask,
     QUARTZTASK_STORE, QuartzMasterStore,
     QUARTZTESTCASE_STORE, QuartzTestcaseStore,
-
-    TestReport,
-
-    PerformanceList,PerformanceDetail, PerformanceHistory,
-    PERFORMANCE_STORE, PerformanceStore,
-    PERFORMANCESTATISTICS_STORE, PerformanceStatisticsStore,
 
     FunctionalTestDetail,
 

@@ -38,7 +38,6 @@ const RepositoryEdit = (props) => {
         let values =  await form.validateFields()
         if(props.name === "添加项目" ){
             createRepository(values);
-
         }else{
             values.id=repositoryId;
             updateRepository(values);

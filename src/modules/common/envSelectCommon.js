@@ -17,7 +17,7 @@ const EnvSelectCommon = (props) =>{
 
     const showListView = (data)=>{
         return data&&data.map(item=>{
-            return <Option key={item.id} value={item.id}>{item.url}</Option>
+            return <Option key={item.id} value={item.id}>{item.preUrl}</Option>
         })
     }
 

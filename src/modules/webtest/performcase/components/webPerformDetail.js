@@ -24,7 +24,6 @@ const WebPerformDetail = (props) =>{
 
     }
 
-
     return(
         <>
             <div className={'testcase-webUI-form'}>
