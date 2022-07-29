@@ -10,7 +10,7 @@ const plugin_base_url = JSON.stringify("http://127.0.0.1:8000");
 const pluginAddressUrl = JSON.stringify('http://127.0.0.1:8000/config.json');
 const fetchMethod = JSON.stringify("get");
 
-const userProduction = false;
+const userProduction = true;
 
 //本地联调，认证配置前端sso的地址
 // const accUrl_env = JSON.stringify('http://192.168.2.7:8090/')

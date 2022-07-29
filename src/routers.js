@@ -69,6 +69,7 @@ import AppPerformDetail from "./modules/apptest/performcase/components/appPerfor
 import AppPerformTest from "./modules/apptest/performcase/components/appPerformTest";
 import PluginManage from "./modules/sysmgr/pluginManage/pluginManage";
 import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
+import {Licence} from "doublekit-licence-ui";
 
 
 const routers =  [
@@ -518,7 +519,12 @@ const routers =  [
                         key:'MessageType',
                         exact: true,
                         component: MessageType,
-                    }, {
+                    },{
+                        path: "/systemManagement/licence",
+                        key:'licence',
+                        exact: true,
+                        component: Licence,
+                    },{
                         path: "/systemManagement/pluginmanage",
                         key:'pluginmanage',
                         component: PluginManage,

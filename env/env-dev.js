@@ -12,7 +12,7 @@ const pluginAddressUrl = JSON.stringify('http://127.0.0.1:4000/config.json');
 const fetchMethod = JSON.stringify("get");
 
 //false 为公司内部
-const userProduction = false;
+const userProduction = true;
 
 //本地联调，认证配置前端sso的地址
 const accUrl_env = JSON.stringify('http://127.0.0.1:4000/')
@@ -22,7 +22,6 @@ const appSecret = JSON.stringify('koon');
 const version = JSON.stringify('1.0.1');
 const client = JSON.stringify('1.1.0');
 
-const ISCEEESAAS = JSON.stringify('ce');
 
 module.exports = {
     base_url,
@@ -35,6 +34,5 @@ module.exports = {
     appSecret,
     version,
     client,
-    ISCEEESAAS
 }
 

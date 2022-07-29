@@ -1,14 +1,12 @@
-/*
- * @Description: 入口
- * @Author: sunxiancheng
- * @LastEditTime: 2021-06-01 10:43:26
- */
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 
 import App from './app';
+import { useVersion } from 'doublekit-eam-ui/es/_utils';
+
 import { orgStores } from 'doublekit-user-ui/es/store';
 import { privilegeStores } from 'doublekit-privilege-ui/es/store';
 import { messageModuleStores } from 'doublekit-message-ui/es/store'
@@ -17,6 +15,7 @@ import routes from './routers';
 
 const Entry =()=> {
 
+    useVersion()
 
     let allStore = {
         ...stores,

@@ -112,12 +112,7 @@ const SystemManagement = (props) => {
                     key: '/systemManagement/messageSendType',
                     encoded: "SysMessageSendType",
                 },
-                {
-                    title: '邮箱配置',
-                    icon: 'laptop',
-                    key: '/systemManagement/emailconfig',
-                    encoded: "emailconfig",
-                }
+
             ]
         },
         {

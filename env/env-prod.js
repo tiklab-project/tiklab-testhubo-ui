@@ -15,7 +15,7 @@ pluginAddressUrl = JSON.stringify(pluginAddressUrl);
 let fetchMethod = "post";
 fetchMethod = JSON.stringify(fetchMethod);
 
-const userProduction = false;
+const userProduction = true;
 
 const appKey =  JSON.stringify('ghuyuhh');
 const appSecret = JSON.stringify('koon');

@@ -1,7 +1,7 @@
 import React from "react";
 import WebLeft from "./webLeft";
 import {renderRoutes} from "react-router-config";
-
+import "./webStyle.scss"
 const WebContant =(props)=>{
     const routes = props.route.routes;
 
