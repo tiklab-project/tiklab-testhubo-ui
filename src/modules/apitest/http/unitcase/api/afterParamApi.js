@@ -1,4 +1,4 @@
-import { Axios } from "doublekit-core-ui";
+import { Axios } from "tiklab-core-ui";
 
 export function createAfterScript(data){
     return Axios.post("/afterScript/createAfterScript",data)

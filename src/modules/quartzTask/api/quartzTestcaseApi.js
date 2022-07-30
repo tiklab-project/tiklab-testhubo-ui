@@ -3,7 +3,7 @@
  * @date: 2021-08-20 16:00
  */
 
-import {Axios as service} from "doublekit-core-ui";
+import {Axios as service} from "tiklab-core-ui";
 
 export function findQuartzTestcasePage(data){
     return service.request({

@@ -5,7 +5,7 @@ import {Col, Row, Dropdown, Menu, Button, Badge} from "antd";
 import { BellOutlined } from '@ant-design/icons';
 import {inject, observer} from "mobx-react";
 import HeaderMenu from "./headerMenu";
-import {useWorkAppConfig} from "doublekit-eam-ui";
+import {useWorkAppConfig} from "tiklab-eam-ui";
 
 const HeaderContent = props => {
     const {userMessageStore} = props;

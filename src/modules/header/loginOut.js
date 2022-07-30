@@ -1,5 +1,5 @@
 import React from "react";
-import {Logout} from "doublekit-eam-ui"
+import {Logout} from "tiklab-eam-ui"
 import {inject, observer} from "mobx-react";
 
 const  LoginOut = (props) => {

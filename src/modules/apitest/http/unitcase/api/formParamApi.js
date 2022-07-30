@@ -1,4 +1,4 @@
-import {Axios} from "doublekit-core-ui";
+import {Axios} from "tiklab-core-ui";
 
 export function createFormParam(data){
     return Axios.post("/formParam/createFormParam",data)

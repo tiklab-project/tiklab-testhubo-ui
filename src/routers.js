@@ -22,7 +22,7 @@ import {
     SystemFeature, SystemRole,
     MessageManagement, MessageSendType, MessageTemplate, MessageType, MessageUser,
 } from './modules/sysmgr'
-import {Directory} from 'doublekit-user-ui';
+import {Directory} from 'tiklab-user-ui';
 import {Redirect} from "react-router";
 import Demo from "./modules/repository/components/demo";
 import PortalHeader from "./modules/header/portalHeader";
@@ -69,7 +69,7 @@ import AppPerformDetail from "./modules/apptest/performcase/components/appPerfor
 import AppPerformTest from "./modules/apptest/performcase/components/appPerformTest";
 import PluginManage from "./modules/sysmgr/pluginManage/pluginManage";
 import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
-import {Licence} from "doublekit-licence-ui";
+import {Licence} from "tiklab-licence-ui";
 
 
 const routers =  [

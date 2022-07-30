@@ -1,5 +1,5 @@
-import {EAM_STORE, EamStore} from 'doublekit-eam-ui/es/store'
-// import {PluginStore, PLUGIN_STORE} from "doublekit-plugin-ui"
+import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store'
+// import {PluginStore, PLUGIN_STORE} from "tiklab-plugin-ui"
 
 import {
     ENVIRONMENT_STORE, EnvironmentStore,
