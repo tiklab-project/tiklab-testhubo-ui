@@ -70,6 +70,7 @@ import AppPerformTest from "./modules/apptest/performcase/components/appPerformT
 import PluginManage from "./modules/sysmgr/pluginManage/pluginManage";
 import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
 import {Licence} from "tiklab-licence-ui";
+import AccountMember from "./modules/sysmgr/accountMember/accountMember";
 
 
 const routers =  [
@@ -460,18 +461,18 @@ const routers =  [
                         exact: true,
                         component: EnvContant,
                     },
-                    {
-                        path: "/systemManagement/organ/org",
-                        key:'org',
-                        exact: true,
-                        component: Org,
-                    },
-                    {
-                        path: "/systemManagement/organ/user",
-                        key:'user',
-                        exact: true,
-                        component: Usermgr,
-                    },
+                    // {
+                    //     path: "/systemManagement/organ/org",
+                    //     key:'org',
+                    //     exact: true,
+                    //     component: Org,
+                    // },
+                    // {
+                    //     path: "/systemManagement/organ/user",
+                    //     key:'user',
+                    //     exact: true,
+                    //     component: Usermgr,
+                    // },
                     {
                         path: "/systemManagement/privilege",
                         key:'ProjectFeature',
@@ -540,6 +541,36 @@ const routers =  [
                         exact: true,
                         key:'ridenvtest',
                         component: ()=><Redirect to='/systemManagement/envMana'/>,
+                    },
+                ]
+            },
+            {
+                path: "/accountMember",
+                key:'accountMember',
+                component: AccountMember,
+                routes: [
+                    {
+                        path: "/accountMember/org",
+                        key:'org',
+                        exact: true,
+                        component: Org,
+                    },
+                    {
+                        path: "/accountMember/user",
+                        key:'user',
+                        exact: true,
+                        component: Usermgr,
+                    },
+                    {
+                        path: "/accountMember/authConfig",
+                        key:'authConfig',
+                        exact: true,
+                        render: () => <Directory isPortal={false}/>,
+                    },{
+                        path: "/accountMember",
+                        key:'sysEnvMana',
+                        exact: true,
+                        render: () => <Redirect to={"/accountMember/org"}/>,
                     },
                 ]
             },

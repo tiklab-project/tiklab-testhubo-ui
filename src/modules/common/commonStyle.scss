@@ -92,3 +92,35 @@
     overflow: hidden;
     height: 900px;
 }
+
+
+.ws-side-menu{
+    border-right: 1px solid #e4e4e4;
+
+}
+
+
+// ws左侧导航
+.ws-menu-ul {
+    padding: 0;
+    .ws-menu-li {
+        padding: 0 40px;
+        height: 40px;
+        width: 240px;
+        line-height: 40px;
+        display: block;
+        cursor: pointer;
+        border-radius: 10px;
+        margin: 5px;
+    }
+
+    .ws-menu-li:hover{
+        background-color: #f3f3f3;
+        //margin: 5px 20px;
+    }
+    .ws-menu-li-action{
+
+        background-color: #f3f3f3;
+
+    }
+}

@@ -22,27 +22,6 @@ const SystemManagement = (props) => {
             encoded: "environment"
         },
         {
-            title: '组织中心',
-            icon: 'laptop',
-            key: "/systemManagement/organ",
-            encoded: "SysOrgaCon",
-            children: [
-                {
-                    title: "组织管理",
-                    icon: 'laptop',
-                    key: '/systemManagement/organ/org',
-                    encoded: "SysOrga",
-
-                },
-                {
-                    title: '用户管理',
-                    icon: 'laptop',
-                    key: '/systemManagement/organ/user',
-                    encoded: "SysUser",
-                },
-            ]
-        },
-        {
             title: '系统权限中心',
             icon: 'laptop',
             key: "/systemManagement/system",

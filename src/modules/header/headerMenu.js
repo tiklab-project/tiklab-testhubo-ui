@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {DownOutlined, UpOutlined} from "@ant-design/icons";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui"
+import RepositoryMenuList from "./repositoryMenuList";
 
 const HeaderMenu = (props) =>{
     const {repositoryStore} = props;
@@ -26,11 +27,11 @@ const HeaderMenu = (props) =>{
             title:'项目',
             key: 'Repository'
         },
-        {
-            to:'/systemManagement',
-            title:'系统管理',
-            key: 'systemManagement'
-        }
+        // {
+        //     to:'/systemManagement',
+        //     title:'系统管理',
+        //     key: 'systemManagement'
+        // }
     ]
 
     // 切换空间
@@ -44,50 +45,28 @@ const HeaderMenu = (props) =>{
         setClickIcon(false)
     }
 
-    const showRepositoryListView = (data) =>{
-        return data&&data.map(item=>{
-            return(
-                <li
-                    key={item.id}
-                    onClick={()=>switchRepository(item.id)}
-                    className={"header-repository-list-item"}
-                >
-                    {item.name}
-                </li>
-            )
-        })
-    }
-
     const menuView = (data) => {
         return data&&data.map(item => {
             if(item.key==="Repository"){
                 return(
                     <div
-                        className={"header-repository-item"}
+                        className={"header-workspace-item"}
                         key={item.key}
                     >
                         <div
-
-                            className={currentLink === item.to ? 'portal-header-link-active' : null}
                             onClick={()=>setClickIcon(!clickIcon)}
                         >
                             {item.title}
-
-                            <span >
-                                {clickIcon === true ?<DownOutlined />:<UpOutlined />}
-                            </span>
+                            <span >{clickIcon === true ?<DownOutlined />:<UpOutlined />}</span>
                         </div>
                         <div
-                            className={`header-repositoryBox ${ clickIcon === true ? "showRepository" : "hideRepository" }`}
+                            className={`header-workspaceBox ${ clickIcon === true ? "showRepository" : "hideRepository" }`}
                         >
-                            <ul style={{height: 130}}>
-                                {showRepositoryListView(repositoryList)}
-                            </ul>
-                            <div
-                                onClick={()=>changeCurrentLink(item)}
-                            >
-                                进入所有空间
-                            </div>
+                            <RepositoryMenuList
+                                {...props}
+                                changeCurrentLink={changeCurrentLink}
+                                setClickIcon={setClickIcon}
+                            />
                         </div>
                     </div>
                 )
@@ -95,7 +74,7 @@ const HeaderMenu = (props) =>{
                 return(
                     <div
                         key={item.key}
-                        onClick={ () => changeCurrentLink(item)}
+                        onClick={ () => changeCurrentLink(item.to)}
                         className={currentLink === item.to ? 'portal-header-link-active' : null}
                     >
                         {item.title}
@@ -107,8 +86,8 @@ const HeaderMenu = (props) =>{
     }
 
     const changeCurrentLink = item => {
-        setCurrentLink(item.to)
-        props.history.push(item.to)
+        setCurrentLink(item)
+        props.history.push(item)
         setClickIcon(false)
     }
 

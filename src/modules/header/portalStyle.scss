@@ -1,15 +1,15 @@
 //headerMenu
-.showRepository{
+.showWorkspace{
     display: block;
 }
 
-.hideRepository{
+.hideWorkspace{
     display: none;
 }
-.header-repository-item{
+.header-workspace-item{
     position: relative;
 
-    .header-repositoryBox{
+    .header-workspaceBox{
         background: #f7f7f7;
         position: absolute;
         top: 28px;
@@ -20,16 +20,100 @@
         height: 180px;
         padding: 10px;
 
-        .header-repository-list-item{
+        .header-workspace-list-item{
             padding: 5px;
             border-bottom: 1px solid #d9d9d9;
             cursor: pointer;
         }
 
-        .header-repository-list-item:hover{
+        .header-workspace-list-item:hover{
             background: #efefef;
         }
     }
+}
+
+.header-right-item{
+    margin: 0 10px;
+}
+
+.user-header-icon{
+    width: 21px;
+    height: 21px;
+}
+
+.user-header-icon-hover{
+    cursor: pointer;
+}
+
+.toggle-hover{
+    position: relative;
+    line-height: 12px;
+
+
+    .toggle-hidden-box{
+        z-index: 9;
+        display: none;
+        position: absolute;
+        border: 1px solid #e9e9e9;
+        background: #fbfbfb;
+        box-shadow: 0 0 10px 2px #e4e4e4;
+
+
+        .user-detail-box{
+            display: flex;
+            //justify-content: space-between;
+            //align-items: center;
+            padding: 10px;
+
+
+            .user-detail-item{
+                //width: 50px;
+
+                .user-detail-item-name{
+                    font-weight: bold;
+                }
+            }
+
+            .user-detail-item-icon{
+                margin: 0 10px 0 0;
+            }
+
+        }
+
+        .user-hidden-item{
+            //border-bottom: 1px solid #e4e4e4;
+            padding: 10px;
+        }
+
+        .user-hidden-item-disable{
+            padding: 10px;
+            cursor: not-allowed;
+            color: #c9c9c9;
+        }
+
+        .user-hidden-item:hover{
+            background: #efefef;
+            cursor: pointer;
+        }
+    }
+
+    .header-user-box{
+        width: 230px;
+        left: -200px;
+    }
+
+    .setting-setting-box{
+        width: 100px;
+        /* height: 120px; */
+        left: -75px;
+    }
+
+}
+
+.toggle-hover:hover  .toggle-hidden-box{
+    display: block;
+
+
 }
 
 
@@ -38,13 +122,13 @@
 .frame-header{
     display: flex;
     align-items: center;
-    background: #f8f8fa;
-    border-bottom: 1px solid #e1e1e1;
+    background: #f3f3f3;
+    height: 50px;
     //-webkit-app-region: drag;//electron无边框拖动
     //-webkit-app-region: no-drag;
 
     .frame-header-logo{
-        height: 64px;
+        height: 35px;
         width: 100px;
         margin-right: 20px;
         img {
@@ -56,7 +140,7 @@
 
     .header-menu-box{
         display: flex;
-        width: 200px;
+        width: 120px;
         justify-content: space-around;
 
         div{
@@ -111,7 +195,7 @@
         }
     }
     .frame-header-dropdown{
-        margin-left: 20px;
+        margin: 0 20px;
     }
 }
 
@@ -151,4 +235,13 @@
 @-webkit-keyframes slide-down{
     0%{-webkit-transform:scale(1,0);}
     100%{-webkit-transform:scale(1,1);}
+}
+
+
+.showRepository{
+    display: block;
+}
+
+.hideRepository{
+    display: none;
 }

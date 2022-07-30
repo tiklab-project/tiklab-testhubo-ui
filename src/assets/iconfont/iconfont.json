@@ -6,6 +6,83 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "82754",
+      "name": "删除2",
+      "font_class": "shanchu2",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "666884",
+      "name": "删除",
+      "font_class": "shanchu1",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    },
+    {
+      "icon_id": "425606",
+      "name": "编辑",
+      "font_class": "bianji1",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "435893",
+      "name": "编辑",
+      "font_class": "bianji2",
+      "unicode": "e795",
+      "unicode_decimal": 59285
+    },
+    {
+      "icon_id": "7817213",
+      "name": "编辑",
+      "font_class": "bianji3",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "4319294",
+      "name": "项目",
+      "font_class": "xiangmu",
+      "unicode": "e6c7",
+      "unicode_decimal": 59079
+    },
+    {
+      "icon_id": "9673166",
+      "name": "项目",
+      "font_class": "xiangmu1",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "1264",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "27876623",
+      "name": "语言",
+      "font_class": "yuyan",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "1973188",
+      "name": "男头像",
+      "font_class": "user__easyico",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "4152742",
+      "name": "用户头像",
+      "font_class": "yonghutouxiang",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
       "icon_id": "687392",
       "name": "返回",
       "font_class": "fanhui2",
@@ -265,32 +342,11 @@
       "unicode_decimal": 59000
     },
     {
-      "icon_id": "15838542",
-      "name": "toggle-left",
-      "font_class": "toggle-left",
-      "unicode": "e680",
-      "unicode_decimal": 59008
-    },
-    {
-      "icon_id": "15838543",
-      "name": "toggle-right",
-      "font_class": "toggle-right",
-      "unicode": "e681",
-      "unicode_decimal": 59009
-    },
-    {
       "icon_id": "15838607",
       "name": "setting-filling",
       "font_class": "setting-filling",
       "unicode": "e68b",
       "unicode_decimal": 59019
-    },
-    {
-      "icon_id": "11372647",
-      "name": "创作",
-      "font_class": "chuangzuo",
-      "unicode": "e8ad",
-      "unicode_decimal": 59565
     },
     {
       "icon_id": "11372693",
