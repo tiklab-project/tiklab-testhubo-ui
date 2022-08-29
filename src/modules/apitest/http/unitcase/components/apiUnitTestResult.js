@@ -6,19 +6,14 @@ import TestResponseHeader from "./testResponseHeader";
 import TestRequestHeader from "./testRequestHeader";
 import TestRequestBody from "./testRequestBody";
 import TestResponseAssert from "./testResponseAssert";
-import {Button, Drawer} from "antd";
+import {Button, Drawer,message} from "antd";
 
 const ApiUnitTestResult =(props)=>{
-    const { apiUnitTestDispatchStore } = props;
+    const { apiUnitTestDispatchStore,apiEnvStore } = props;
     const { apiUnitExecute } = apiUnitTestDispatchStore;
+    const { envUrl } = apiEnvStore;
     const [visible, setVisible] = useState(false);
-    let envUrl
-    try{
-        envUrl =JSON.parse(localStorage.getItem("API_ENV_SELECTED")).label
-    }catch (e) {
-        envUrl =null
 
-    }
 
     let apiUnitId = sessionStorage.getItem("apiUnitId");
 
@@ -32,23 +27,27 @@ const ApiUnitTestResult =(props)=>{
     const [errorMessage, setErrorMessage] = useState();
 
     const showDrawer = () => {
+        if(envUrl){
+            apiUnitExecute(apiUnitId,envUrl).then(res=>{
+                setErrorMessage(res.errMessage);
 
-        apiUnitExecute(apiUnitId,envUrl).then(res=>{
-            setErrorMessage(res.errMessage);
+                setTime(res.elapsedTime);
+                setStatus(res.statusCode);
 
-            setTime(res.elapsedTime);
-            setStatus(res.statusCode);
+                setRequestBody(res.requestInstance.requestParam);
+                setRequestHeader(res.requestInstance.requestHeader);
 
-            setRequestBody(res.requestInstance.requestParam);
-            setRequestHeader(res.requestInstance.requestHeader);
+                setBodyResult(JSON.parse(res.responseInstance.responseBody));
+                setHeaderResult(res.responseInstance.responseHeader);
 
-            setBodyResult(JSON.parse(res.responseInstance.responseBody));
-            setHeaderResult(res.responseInstance.responseHeader);
-
-        })
+            })
 
 
-        setVisible(true);
+            setVisible(true);
+        }else {
+            message.error('请选择环境地址');
+        }
+
     };
 
     const onClose = () => {
@@ -84,4 +83,4 @@ const ApiUnitTestResult =(props)=>{
         </>
     )
 }
-export default inject("apiUnitTestDispatchStore")(observer(ApiUnitTestResult));
+export default inject("apiUnitTestDispatchStore","apiEnvStore")(observer(ApiUnitTestResult));

@@ -3,6 +3,7 @@ import ApiLeft from "./apiLeft";
 import {renderRoutes} from "react-router-config";
 import "./caseContantStyle.scss"
 import "../unitcase/components/unitcase.scss"
+import ApiLeftTree from "./apiLeftTree";
 
 const ApiContant =(props)=>{
     const routes = props.route.routes;
@@ -10,7 +11,7 @@ const ApiContant =(props)=>{
     return(
         <div className={"test-box"}>
             <div className={"test-left"}>
-                <ApiLeft {...props}/>
+                <ApiLeftTree {...props}/>
             </div>
             <div className={"test-right"}>
                 {

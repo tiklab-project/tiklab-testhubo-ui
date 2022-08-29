@@ -23,25 +23,21 @@ const AppExecuteTestDrawer =(props)=>{
             title: '操作方法',
             width: '8%',
             dataIndex: 'actionType',
-            align:'center',
         },
         {
             title: '参数',
             width: '10%',
             dataIndex: 'parameter',
-            align:'center',
         },
         {
             title: '定位器',
             dataIndex: 'location',
             width: '8%',
-            align:'center',
         },
         {
             title: '定位器的值',
             dataIndex: 'locationValue',
             width: '15%',
-            align:'center',
         },
         {
             title: '是否通过',
@@ -66,7 +62,7 @@ const AppExecuteTestDrawer =(props)=>{
 
             let instance = data.appSceneInstance;
              form.setFieldsValue({
-                 result:instance?.result,
+                 result:instance?.result===1?"成功":"失败",
                  stepNum:instance?.stepNum,
                  passNum:instance?.passNum,
                  failNum:instance?.failNum,
@@ -82,6 +78,9 @@ const AppExecuteTestDrawer =(props)=>{
 
     const onClose = () => {
         setVisible(false);
+
+        setSpinning(true);
+        setAppStepList([])
     };
 
     return (
@@ -94,6 +93,7 @@ const AppExecuteTestDrawer =(props)=>{
                 visible={visible}
                 width={1240}
                 maskClosable={false}
+                destroyOnClose={true}
             >
                 <Spin spinning={spinning}>
                     <div className={"unit-instance-detail"}>

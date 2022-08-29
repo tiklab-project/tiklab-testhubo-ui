@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Dropdown, Input, Menu, Popconfirm} from "antd";
 import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
-import WebPerformEdit from "./webPerformEdit";
+import WebPerformEdit from "./webPerfEdit";
 import {inject, observer} from "mobx-react";
 
 const WebPerformCategory = (props) =>{

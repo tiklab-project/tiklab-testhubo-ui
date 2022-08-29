@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import {useTranslation} from "react-i18next";
 import BreadcrumbCommon from "../../../common/breadcrumbCommon";
-import AppPerformEdit from "./appPerformEdit";
+import AppPerformEdit from "./appPerfEdit";
 import {inject, observer} from "mobx-react";
 
 const AppPerformList = (props) =>{

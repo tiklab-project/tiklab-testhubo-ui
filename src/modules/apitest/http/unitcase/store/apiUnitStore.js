@@ -15,7 +15,7 @@ export class ApiUnitStore {
     @observable totalRecord ;
 
     @action
-    findApiUnitPage = async (value) => {
+    findApiUnitList = async (value) => {
 
         const res = await  findApiUnitListByTestCase(value);
         if(res.code === 0) {

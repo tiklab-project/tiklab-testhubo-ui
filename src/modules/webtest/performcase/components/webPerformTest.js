@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Table} from "antd";
+import {Button, message, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import "./webPerfStyle.scss"
 
 const WebPerformTest = (props) =>{
     const {webPerfTestDispatchStore} = props;
-    const {webPerfExecute,exeResult} = webPerfTestDispatchStore;
+    const {webPerfExecute,exeResult,agentId} = webPerfTestDispatchStore;
 
     const [result, setResult] = useState();
     const [stepList, setStepList] = useState([]);
@@ -77,7 +77,12 @@ const WebPerformTest = (props) =>{
     }
 
     const onTest = () =>{
-        webPerfExecute(webPerfId)
+        if(agentId){
+            webPerfExecute(webPerfId)
+        }else {
+            message.error("选择Agent")
+        }
+
 
         setStart(true)
     }

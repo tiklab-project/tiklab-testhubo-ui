@@ -1,21 +1,15 @@
 import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
-import {Button, Collapse, Drawer, Input, Spin} from "antd";
+import {Button, Collapse, Drawer, Input, message, Spin} from "antd";
 
 const {TextArea} = Input;
 const { Panel } = Collapse;
 
 const ApiSceneTestResult =(props)=>{
-    const { apiSceneTestDispatchStore } = props;
+    const { apiSceneTestDispatchStore,apiEnvStore } = props;
     const { apiSceneExecute } = apiSceneTestDispatchStore;
+    const { envUrl } =apiEnvStore;
     const [visible, setVisible] = useState(false);
-
-    let envUrl
-    try{
-        envUrl =JSON.parse(localStorage.getItem("API_ENV_SELECTED")).label
-    }catch (e) {
-        envUrl =null
-    }
 
     let apiSceneId = sessionStorage.getItem("apiSceneId");
 
@@ -28,14 +22,19 @@ const ApiSceneTestResult =(props)=>{
 
 
     const showDrawer = () => {
-        apiSceneExecute(apiSceneId, envUrl).then(res=>{
-            setAllData(res.apiSceneInstance);
-            setStepList(res.apiUnitInstanceList)
+        if(envUrl){
+            apiSceneExecute(apiSceneId, envUrl).then(res=>{
+                setAllData(res.apiSceneInstance);
+                setStepList(res.apiUnitInstanceList)
 
-            setLoading(false);
-        })
+                setLoading(false);
+            })
 
-        setVisible(true);
+            setVisible(true);
+        }else {
+            message.error("请选择环境")
+        }
+
 
     };
 
@@ -202,4 +201,4 @@ const ApiSceneTestResult =(props)=>{
         </>
     )
 }
-export default inject("apiSceneTestDispatchStore")(observer(ApiSceneTestResult));
+export default inject("apiSceneTestDispatchStore","apiEnvStore")(observer(ApiSceneTestResult));

@@ -1,46 +1,51 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import {Popconfirm, Space, Table} from "antd";
+import {Popconfirm, Select, Space, Table} from "antd";
 import TestPlanTestcaseAdd from "./testPlanTestcaseAdd";
 
+const {Option} = Select;
 const TestPlanTestcase = (props) =>{
     const {testPlanDetailStore} = props;
-    const {findReleTestCase,testPlanDetailList,deleteTestPlanDetail} = testPlanDetailStore;
+    const {findBindTestCaseList,testPlanDetailList,deleteTestPlanDetail,updateTestPlanDetail} = testPlanDetailStore;
     //列表头
     const columns = [
         {
             title:`名称`,
             dataIndex: ["testCase","name"],
             key: "name",
-            align:"center",
         },
         {
-            title:`类型`,
-            dataIndex:["testCase","type"],
+            title:`测试类型`,
+            dataIndex:["testCase","testType"],
             key: "type",
-            align:"center",
+            render:(text,record)=>(showTestType(record.testCase?.testType))
         },
         {
-            title: `创建人`,
-            dataIndex:["testCase",'user', 'name'],
-            key: "user",
-            align:"center",
+            title:`用例类型`,
+            dataIndex:["testCase","caseType"],
+            key: "type",
+            render:(text,record)=>(showCaseType(record.testCase?.caseType))
         },
         {
-            title: `描述`,
-            dataIndex: ["testCase","desc"],
-            key: "desc",
-            align:"center",
+            title:`状态`,
+            dataIndex:"status",
+            key: "status",
+            render:(text,record)=>(
+                <Select defaultValue={text} onChange={(e)=>changeStatus(e,record)}>
+                    <Option value={0}>失败</Option>
+                    <Option value={1}>通过</Option>
+                    <Option value={2}>未执行</Option>
+                </Select>
+            )
         },
         {
             title: `操作`,
             key: "action",
-            align:"center",
             render: (text, record) => (
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteTestPlanDetail(record.id)}
+                        onConfirm={() =>deleteTestPlanDetail(record.id).then(()=> findBindTestCaseList(testPlanId))}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -51,23 +56,59 @@ const TestPlanTestcase = (props) =>{
         },
     ]
 
-    const testPlanId = localStorage.getItem('testPlanId')
+    const testPlanId = sessionStorage.getItem('testPlanId')
 
     useEffect(()=>{
-        findReleTestCase(testPlanId)
-    },[])
+        findBindTestCaseList(testPlanId)
+    },[testPlanId])
+
+    const changeStatus = (data,record)=>{
+        let params = {
+            id:record.id,
+            status:data
+        }
+
+        updateTestPlanDetail(params)
+    }
+
+    const showTestType = (testType)=>{
+        switch (testType) {
+            case "api":
+                return "API";
+            case "web":
+                return "WEB";
+            case "app":
+                return "APP";
+            case "func":
+                return "功能";
+        }
+    }
+
+    const showCaseType = (caseType)=>{
+        switch (caseType) {
+            case "unit":
+                return "单元测试";
+            case "scene":
+                return "场景测试";
+            case "perform":
+                return "压力测试";
+        }
+    }
 
     return(
         <>
-            <div className={'test-add'}>
+
+            <div style={{padding:5}}>
                 <TestPlanTestcaseAdd testPlanId={testPlanId}/>
             </div>
+
 
             <Table
                 className="tablelist"
                 columns={columns}
                 dataSource={testPlanDetailList}
                 rowKey={record => record.id}
+                pagination={false}
             />
         </>
 

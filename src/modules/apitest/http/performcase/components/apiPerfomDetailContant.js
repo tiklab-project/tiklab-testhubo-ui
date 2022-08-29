@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Menu} from "antd";
 import {Link} from "react-router-dom";
 import BackCommon from "../../../../common/backCommon";
-import ApiEnvSelect from "../../apitest/apiEnvSelect";
+import ApiEnvSelect from "../../../../sysmgr/environment/components/apiEnvSelect";
 import {renderRoutes} from "react-router-config";
 
 

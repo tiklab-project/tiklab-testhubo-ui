@@ -9,21 +9,19 @@ const layout = {
 
 // 添加与编辑
 const ApiPerfEdit = (props) => {
-    const { apiPerfStore,categoryStore,apiPerfId } = props;
+    const { apiPerfStore,categoryStore,apiPerfId,caseType } = props;
     const { findApiPerfList,findApiPerf,createApiPerf,updateApiPerf}= apiPerfStore;
     const {findCategoryListTree}=categoryStore;
 
     const [form] = Form.useForm();
     const [visible, setVisible] = React.useState(false);
 
-    const caseType=localStorage.getItem("caseType");
     const testType=localStorage.getItem("testType");
     const categoryId = sessionStorage.getItem("categoryId")
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
     const showModal = () => {
-
         if(props.type==="edit"){
             findApiPerf(apiPerfId).then(res=>{
                 form.setFieldsValue({

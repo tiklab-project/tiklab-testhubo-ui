@@ -6,7 +6,7 @@ import RequestType from "../../../../common/requestType";
 import Response from "./response";
 import './unitcase.scss'
 import BackCommon from "../../../../common/backCommon";
-import ApiEnvSelect from "../../apitest/apiEnvSelect";
+import ApiEnvSelect from "../../../../sysmgr/environment/components/apiEnvSelect";
 import TestResultDrawer from "./apiUnitTestResult";
 
 const ApiUnitDetail = (props) => {
@@ -23,7 +23,7 @@ const ApiUnitDetail = (props) => {
     const [path, setPath] = useState();
     const [desc, setDesc] = useState();
     const [createUser, setCreateUser] = useState();
-    const [updataUser, setUpdataUser] = useState();
+    const [updateUser, setUpdateUser] = useState();
     const [category, setCategory] = useState();
     const [updateTime, setUpdateTime] = useState();
 
@@ -34,7 +34,7 @@ const ApiUnitDetail = (props) => {
             setPath(res.path);
             setDesc(res.testCase.desc);
             setCreateUser(res.testCase.createUser?.name);
-            setUpdataUser(res.testCase.updateUser?.name);
+            setUpdateUser(res.testCase.updateUser?.name);
             setCategory(res.testCase.category?.name);
             setUpdateTime(res.testCase.updateTime);
         })
@@ -88,7 +88,7 @@ const ApiUnitDetail = (props) => {
                 <div className={"method-people-info"}>
                     <span className={"people-item "}>分组: {category}</span>
                     <span className={"people-item "}>创建人: {createUser}</span>
-                    <span className={"people-item "}>更新者: {updataUser}</span>
+                    <span className={"people-item "}>更新者: {updateUser}</span>
                     <span className={"people-item "}>更新时间: {updateTime}</span>
                 </div>
             </div>

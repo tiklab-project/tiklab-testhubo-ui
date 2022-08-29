@@ -2,13 +2,14 @@ import React from "react";
 import WebLeft from "./webLeft";
 import {renderRoutes} from "react-router-config";
 import "./webStyle.scss"
+import WebLeftTree from "./webLeftTree";
 const WebContant =(props)=>{
     const routes = props.route.routes;
 
     return(
         <div className={"test-box"}>
             <div className={"test-left"}>
-                <WebLeft {...props}/>
+                <WebLeftTree {...props}/>
             </div>
             <div className={"test-right"}>
                 {

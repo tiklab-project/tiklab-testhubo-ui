@@ -16,12 +16,6 @@ const SystemManagement = (props) => {
     const settingMenu = [
 
         {
-            title: '环境管理',
-            icon: 'laptop',
-            key: '/systemManagement/envMana',
-            encoded: "environment"
-        },
-        {
             title: '系统权限中心',
             icon: 'laptop',
             key: "/systemManagement/system",
@@ -114,7 +108,7 @@ const SystemManagement = (props) => {
         }
     ]
 
-    const [selectKey,setSelectKey] = useState('/systemManagement/envMana')
+    const [selectKey,setSelectKey] = useState('/systemManagement/systemFeature')
 
     const [router,setRouter] = useState()
 
@@ -145,7 +139,7 @@ const SystemManagement = (props) => {
     }
 
     // 树的展开与闭合
-    const [expandedTree, setExpandedTree] = useState([])
+    const [expandedTree, setExpandedTree] = useState(["/systemManagement/system"])
 
     const isExpandedTree = (key) => {
         return expandedTree.some(item => item ===key)

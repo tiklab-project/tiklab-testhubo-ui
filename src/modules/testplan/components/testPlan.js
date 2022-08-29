@@ -8,6 +8,7 @@ import { observer, inject } from "mobx-react";
 import {Breadcrumb, Input, Table, Space,  Popconfirm} from 'antd';
 import TestPlanEdit from './testPlanEdit';
 import  { useTranslation } from 'react-i18next'
+import "./testPlanStyle.scss"
 
 const TestPlan = (props) => {
     const { testPlanStore } = props;
@@ -56,12 +57,12 @@ const TestPlan = (props) => {
             align:"center",
             render: (text,record) =>(showState(record.state))
         },
-        {
-            title: `执行人`,
-            dataIndex: ["principal",'name'],
-            key: "principal",
-            align:"center",
-        },
+        // {
+        //     title: `执行人`,
+        //     dataIndex: ["principal",'name'],
+        //     key: "principal",
+        //     align:"center",
+        // },
         // {
         //     title: `描述`,
         //     dataIndex: "desc",
@@ -75,11 +76,15 @@ const TestPlan = (props) => {
             render: (text, record) => (
                 <Space size="middle">
                     <div>
-                        <TestPlanEdit name={`${t('tcedit')}`}  testPlanId={record.id} />
+                        <TestPlanEdit
+                            name={`${t('tcedit')}`}
+                            testPlanId={record.id}
+                            type={"edit"}
+                        />
                     </div>
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteTestPlan(record.id)}
+                        onConfirm={() =>deleteTestPlan(record.id).then(()=>findPage())}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -99,7 +104,7 @@ const TestPlan = (props) => {
         }
     })
     const [tableLoading,setTableLoading] = useState(true);
-    const repositoryId = localStorage.getItem('repositoryId')
+    const repositoryId = sessionStorage.getItem('repositoryId')
 
     useEffect(()=> {
         findTestPlanPage(repositoryId,params).then(()=>{
@@ -109,7 +114,7 @@ const TestPlan = (props) => {
 
     // 保存id到缓存
     const setLocalStorage = (id) => {
-        localStorage.setItem('testPlanId',id);
+        sessionStorage.setItem('testPlanId',id);
         props.history.push('/repositorypage/testplandetail');
     };
 
@@ -158,25 +163,32 @@ const TestPlan = (props) => {
         setParams(newParams)
     }
 
+    const findPage = ()=>{
+        findTestPlanPage(repositoryId,params)
+    }
+
     return(
-        <Fragment>
+        <div className={"teston-page-center"}>
             <div className='breadcrumb'>
                 <Breadcrumb separator=">"  >
                     <Breadcrumb.Item>用例库</Breadcrumb.Item>
-                    <Breadcrumb.Item>用例库</Breadcrumb.Item>
+                    <Breadcrumb.Item>测试计划</Breadcrumb.Item>
                 </Breadcrumb>
             </div>
             <div className='search-btn'>
+                <TestPlanEdit
+                    name={`添加计划`}
+                    findPage={findPage}
+                />
                 <Input
                     placeholder={`${t('tcsearch')}`}
                     onPressEnter={onSearch}
                     className='search-input'
                 />
-                <TestPlanEdit className="important-btn" name={`添加计划`}/>
+
             </div>
 
             <Table
-                bordered
                 className="tablelist"
                 columns={columns}
                 dataSource={testPlanList}
@@ -189,7 +201,7 @@ const TestPlan = (props) => {
                 onChange = {(pagination) => onTableChange(pagination)}
                 loading={tableLoading}
             />
-        </Fragment>
+        </div>
     )
 }
 

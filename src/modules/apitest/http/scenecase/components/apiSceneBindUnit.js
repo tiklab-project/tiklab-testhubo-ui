@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 
 const ApiSceneBindUnit =(props) =>{
     const {apiUnitStore,apiSceneStepStore} = props;
-    const {findApiUnitPage,apiUnitList} = apiUnitStore;
+    const {findApiUnitList,apiUnitList} = apiUnitStore;
 
     const {bindApiUnit} = apiSceneStepStore;
 
@@ -37,7 +37,7 @@ const ApiSceneBindUnit =(props) =>{
 
     // 弹框展示
     const showModal = () => {
-        findApiUnitPage({caseType: "unit", testType: "api"});
+        findApiUnitList({caseType: "unit", testType: "api"});
 
         setVisible(true);
     };

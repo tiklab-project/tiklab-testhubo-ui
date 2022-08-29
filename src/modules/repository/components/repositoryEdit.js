@@ -9,7 +9,7 @@ const layout = {
 
 // 添加与编辑
 const RepositoryEdit = (props) => {
-    const { repositoryStore, repositoryId } = props;
+    const { repositoryStore, repositoryId,findPage } = props;
     const {
         findRepository,
         createRepository,
@@ -37,10 +37,10 @@ const RepositoryEdit = (props) => {
     const onFinish =async () => {
         let values =  await form.validateFields()
         if(props.name === "添加项目" ){
-            createRepository(values);
+            createRepository(values).then(()=>findPage());
         }else{
             values.id=repositoryId;
-            updateRepository(values);
+            updateRepository(values).then(()=>findPage());
         }
         setVisible(false);
     };
@@ -66,10 +66,7 @@ const RepositoryEdit = (props) => {
                 centered
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
-                    onFinish={onFinish}
                     preserve={false}
                     {...layout}
                 >

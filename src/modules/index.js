@@ -4,9 +4,11 @@ import PageContent from "./header/pageContent";
 import Repository from "./repository/components/repository";
 import RepositoryList from "./repository/components/repositoryList";
 import {REPOSITORY_STORE, RepositoryStore} from './repository/store/repositoryStore';
-
+import {REPOSITORY_RECENT_STORE,RepositoryRecentStore} from "./repository/store/repositoryRecentStore";
 import RepositoryDetailPage from "./repositoryDetail/repositoryDetailPage";
 import {ENVIRONMENT_STORE, EnvironmentStore} from './integration/environment/store/environmentStore';
+import {AGENT_CONFIG_STORE,AgentConfigStore} from "./integration/agentconfig/store/agentConfigStore";
+
 import QuartzTaskList from './quartzTask/components/quartzMaster';
 import QuartzTask from "./quartzTask/components/quartzTask";
 import {QUARTZTASK_STORE, QuartzMasterStore} from './quartzTask/store/quartzMasterStore';
@@ -87,9 +89,11 @@ import {APP_ENV_STORE,AppEnvStore} from "./sysmgr/environment/store/appEnvStore"
 export {
     Login, Home,PageContent,
     ENVIRONMENT_STORE, EnvironmentStore,
+    AGENT_CONFIG_STORE,AgentConfigStore,
 
     Repository, RepositoryList,
     REPOSITORY_STORE, RepositoryStore,
+    REPOSITORY_RECENT_STORE,RepositoryRecentStore,
     RepositoryDetailPage,
 
 

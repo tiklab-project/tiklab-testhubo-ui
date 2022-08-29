@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import { inject,observer } from 'mobx-react';
 import ApiSceneStepList from "./apiSceneStepList";
 import BackCommon from "../../../../common/backCommon";
-import ApiEnvSelect from "../../apitest/apiEnvSelect";
+import ApiEnvSelect from "../../../../sysmgr/environment/components/apiEnvSelect";
 import ApiSceneTestResult from "./apiSceneTestResult";
 
 const ApiSceneDetail = (props) => {

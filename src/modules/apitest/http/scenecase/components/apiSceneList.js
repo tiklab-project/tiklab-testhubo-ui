@@ -33,10 +33,6 @@ const ApiSceneList = (props)=>{
                         apiSceneId={record.id}
                         name={"编辑"}
                         type={"edit"}
-                        findPage={findPage}
-                        testType={testType}
-                        caseType={caseType}
-                        categoryId={categoryId}
                     />
                     <Popconfirm
                         title="确定删除？"
@@ -91,10 +87,6 @@ const ApiSceneList = (props)=>{
                 <ApiSceneEdit
                     name={"添加用例"}
                     btn={"btn"}
-                    findPage={findPage}
-                    testType={testType}
-                    caseType={caseType}
-                    categoryId={categoryId}
                 />
                 {/*<Input*/}
                 {/*    placeholder={"查找"}*/}

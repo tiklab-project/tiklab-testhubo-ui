@@ -10,7 +10,7 @@ const layout = {
 };
 
 // 添加与编辑
-const WebPerformEdit = (props) => {
+const WebPerfEdit = (props) => {
     const {webPerfStore, categoryStore,webPerfId} = props;
     const {findWebPerfList,findWebPerf,createWebPerf,updateWebPerf}=webPerfStore;
     const {findCategoryListTree} = categoryStore;
@@ -146,4 +146,4 @@ const WebPerformEdit = (props) => {
     );
 };
 
-export default inject("webPerfStore","categoryStore")(observer(WebPerformEdit));
+export default inject("webPerfStore","categoryStore")(observer(WebPerfEdit));

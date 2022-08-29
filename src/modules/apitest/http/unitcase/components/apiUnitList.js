@@ -6,7 +6,7 @@ import {inject, observer} from "mobx-react";
 
 const ApiUnitList = (props) => {
     const {apiUnitStore} = props;
-    const {findApiUnitPage, apiUnitList,deleteApiUnit} = apiUnitStore;
+    const {findApiUnitList, apiUnitList,deleteApiUnit} = apiUnitStore;
 
     const column = [
         {
@@ -41,10 +41,7 @@ const ApiUnitList = (props) => {
                     <ApiUnitEdit
                         name={"编辑"}
                         apiUnitId={record.id}
-                        findPage={findPage}
-                        testType={testType}
-                        caseType={caseType}
-                        categoryId={categoryId}
+                        type={"edit"}
                     />
                     <Popconfirm
                         title="确定删除？"
@@ -74,7 +71,7 @@ const ApiUnitList = (props) => {
             testType:testType,
             categoryId:categoryId
         }
-        findApiUnitPage(param)
+        findApiUnitList(param)
     }
 
     const setSessionStorage = (id) =>{

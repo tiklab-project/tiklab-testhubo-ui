@@ -9,7 +9,7 @@ const { TabPane } = Tabs;
 const EnvContant = (props)=>{
 
     return(
-        <>
+        <div className={"teston-page-center"}>
             <Tabs defaultActiveKey="1" >
                 <TabPane tab="API环境" key="1">
                     <ApiEnvList />
@@ -21,7 +21,7 @@ const EnvContant = (props)=>{
                     <WebEnvList />
                 </TabPane>
             </Tabs>
-        </>
+        </div>
     )
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import FuncLeft from "./funcLeft";
 import {renderRoutes} from "react-router-config";
+import FuncLeftTree from "./appLeftTree";
 
 const FuncContant =(props)=>{
     const routes = props.route.routes;
@@ -8,7 +9,7 @@ const FuncContant =(props)=>{
     return(
         <div className={"test-box"}>
             <div className={"test-left"}>
-                <FuncLeft {...props}/>
+                <FuncLeftTree {...props}/>
             </div>
             <div className={"test-right"}>
                 {

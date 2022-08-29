@@ -3,8 +3,10 @@ import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store'
 
 import {
     ENVIRONMENT_STORE, EnvironmentStore,
+    AGENT_CONFIG_STORE,AgentConfigStore,
 
     REPOSITORY_STORE, RepositoryStore,
+    REPOSITORY_RECENT_STORE,RepositoryRecentStore,
 
     REQUESTHEADER_STORE , RequestHeaderStore,
     QUERYPARAM_STORE, QueryParamStore,
@@ -80,7 +82,10 @@ import {
 function createStores() {
     return {
         [ENVIRONMENT_STORE]: new EnvironmentStore(),
+        [AGENT_CONFIG_STORE]:new AgentConfigStore(),
         [REPOSITORY_STORE]: new RepositoryStore(),
+        [REPOSITORY_RECENT_STORE]: new RepositoryRecentStore(),
+
         [REQUESTHEADER_STORE]: new RequestHeaderStore(),
         [QUERYPARAM_STORE]: new QueryParamStore(),
         [FORMPARAM_STORE]: new FormParamStore(),

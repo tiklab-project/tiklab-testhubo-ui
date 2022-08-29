@@ -12,7 +12,12 @@ export class ApiEnvStore {
 	@observable apiEnvList = [];
 	@observable apiEnvId ='';
 	@observable	totalRecord = "";
+	@observable envUrl;
 
+	@action
+	getTestEnvUrl = (data) =>{
+		this.envUrl = data;
+	}
 
 	@action
 	findApiEnvPage = async (name) => {
@@ -25,6 +30,7 @@ export class ApiEnvStore {
 		if(res.code === 0) {
 			this.apiEnvList = res.data.dataList;
 			this.totalRecord = res.data.totalRecord;
+			return res.data.dataList;
 		}
 	}
 

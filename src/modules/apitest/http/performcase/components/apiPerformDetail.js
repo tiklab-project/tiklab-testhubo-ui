@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import BackCommon from "../../../../common/backCommon";
 import ApiPerfStepList from "./apiPerfStepList";
 import ApiPerformCofig from "./apiPerfConfig";
-import ApiEnvSelect from "../../apitest/apiEnvSelect";
+import ApiEnvSelect from "../../../../sysmgr/environment/components/apiEnvSelect";
 
 
 const { TabPane } = Tabs;

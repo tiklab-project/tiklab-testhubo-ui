@@ -1,10 +1,7 @@
-/*
- * @Description:
- * @LastEditTime: 2021-10-13 17:06:47
- */
+
 import React, { Fragment, useEffect } from 'react';
 import { observer, inject } from "mobx-react";
-import { Breadcrumb, Input, Table, Space, Row, Col, } from 'antd';
+import {  Table, Space } from 'antd';
 import AppEnvEdit from './appEnvEdit';
 
 //
@@ -23,30 +20,31 @@ const AppEnvList = (props) => {
             key: "name",
         },
         {
-            title: "平台名",
+            title: "platformName",
             dataIndex: "platformName",
             key: "url",
         },
         {
-            title: "appium地址",
+            title: "appiumSever",
             dataIndex: "appiumSever",
             key: "appiumSever",
         },{
-            title: "设备名",
+            title: "deviceName",
             dataIndex: "deviceName",
             key: "deviceName",
-        },{
-            title: "设备地址",
-            dataIndex: "udId",
-            key: "udId",
         },
+        // {
+        //     title: "设备地址",
+        //     dataIndex: "udId",
+        //     key: "udId",
+        // },
         {
-            title: "App包名",
+            title: "appPackage",
             dataIndex: "appPackage",
             key: "appPackage",
         },
         {
-            title: "App入口",
+            title: "appActivity",
             dataIndex: "appActivity",
             key: "appActivity",
         },
@@ -57,20 +55,18 @@ const AppEnvList = (props) => {
             render: (text, record) => (
             <Space size="middle">
                 <AppEnvEdit name="编辑" type='edit' appEnvId={record.id} />
-                <span style={{'color':'red','cursor':'pointer'}} onClick={()=>deleteAppEnv(record.id)}>删除</span>
+                <span style={{'color':'red','cursor':'pointer'}} onClick={()=>deleteAppEnv(record.id).then(()=>findAppEnvPage(repositoryId))}>删除</span>
             </Space>
             ),
         },
     ]
 
-    useEffect(()=> {
-        findAppEnvPage();
-    },[])
+    let repositoryId = sessionStorage.getItem("repositoryId")
 
-    // 搜索
-    const onSearch = (e) => {
-        findAppEnvPage(e.target.value);
-    }
+    useEffect(()=> {
+        findAppEnvPage(repositoryId);
+    },[repositoryId])
+
 
     return(
         <Fragment>
@@ -82,6 +78,7 @@ const AppEnvList = (props) => {
                 columns={columns}
                 dataSource={appEnvList}
                 rowKey={record =>record.id}
+                pagination={false}
             />
         </Fragment>
     )

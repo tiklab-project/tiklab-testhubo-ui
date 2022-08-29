@@ -11,16 +11,26 @@ const layout = {
 
 // 添加与编辑
 const ApiUnitEdit = (props) => {
-    const { apiUnitStore, apiUnitId,testType,caseType,categoryId,findPage } = props;
-    const {findApiUnit, createApiUnit, updateApiUnit} = apiUnitStore;
+    const { apiUnitStore, apiUnitId,categoryStore,caseType } = props;
+    const {
+        findApiUnitList,
+        findApiUnit,
+        createApiUnit,
+        updateApiUnit,
+    } = apiUnitStore;
+    const {findCategoryListTree} = categoryStore;
 
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
 
+    const testType=localStorage.getItem("testType");
+    const categoryId = sessionStorage.getItem("categoryId")
+    const repositoryId = sessionStorage.getItem("repositoryId")
+
     // 弹框展示
     const showModal = () => {
-        if(props.name === "编辑"){
+        if(props.type === "edit"){
             findApiUnit(apiUnitId).then((res)=>{
                 form.setFieldsValue({
                     name: res.testCase.name,
@@ -37,30 +47,42 @@ const ApiUnitEdit = (props) => {
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
-        values.testCase={
-            category:{id:categoryId},
-            name:values.name,
-            testType:testType,
-            caseType:caseType,
-            desc:values.desc
-        }
 
-        delete values.name
-        delete values.desc
+        if(props.type !== "edit" ){
+            values.testCase={
+                category:{id:categoryId},
+                name:values.name,
+                testType:testType,
+                caseType:caseType,
+                desc:values.desc
+            }
 
-        if(props.name === "添加用例" ){
+            delete values.name
+            delete values.desc
+
             createApiUnit(values).then(res=>{
                 if(res.code===0){
                     findPage()
+                    findCategoryPage()
                 }else {
                     message.error('This is an error message');
                 }
             });
         }else{
             values.id=apiUnitId;
+            values.testCase={
+                id:apiUnitId,
+                name:values.name,
+                desc:values.desc
+            }
+
+            delete values.name
+            delete values.desc
+
             updateApiUnit(values).then(res=>{
                 if(res.code===0){
                     findPage()
+                    findCategoryPage()
                 }else {
                     message.error('This is an error message');
                 }
@@ -68,6 +90,24 @@ const ApiUnitEdit = (props) => {
         }
         setVisible(false);
     };
+
+    const findPage=()=>{
+        const param = {
+            caseType:caseType,
+            testType:testType,
+            categoryId:categoryId
+        }
+        findApiUnitList(param)
+    }
+
+    const findCategoryPage = () =>{
+        const params = {
+            testType:testType,
+            caseType:caseType,
+            repositoryId:repositoryId
+        }
+        findCategoryListTree(params)
+    }
 
     const onCancel = () => { setVisible(false) };
 
@@ -90,10 +130,7 @@ const ApiUnitEdit = (props) => {
                 centered
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
-                    onFinish={onFinish}
                     preserve={false}
                     {...layout}
                 >
@@ -133,4 +170,4 @@ const ApiUnitEdit = (props) => {
     );
 };
 
-export default inject('apiUnitStore')(observer(ApiUnitEdit));
+export default inject('apiUnitStore',"categoryStore")(observer(ApiUnitEdit));

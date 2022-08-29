@@ -71,6 +71,13 @@ import PluginManage from "./modules/sysmgr/pluginManage/pluginManage";
 import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
 import {Licence} from "tiklab-licence-ui";
 import AccountMember from "./modules/sysmgr/accountMember/accountMember";
+import TestPlanDetail from "./modules/testplan/components/testPlanDetail";
+import RepositoryRecent from "./modules/repository/components/repositoryRecent";
+import RepositoryCreate from "./modules/repository/components/repositoryCreate";
+import RepositorySetting from "./modules/integration/repositorySetting/repositorySetting";
+import AgentConfigList from "./modules/integration/agentconfig/components/agentConfigList";
+import DomainRole from "./modules/integration/domainRole/domainRole";
+import DomainPrivilege from "./modules/integration/domainPrivilege/domainPrivilege";
 
 
 const routers =  [
@@ -103,16 +110,22 @@ const routers =  [
                 key:'repository',
                 routes:[
                     {
-                        path: "/repository/alllist",
+                        path: `/repository/create`,
+                        key:'create',
+                        exact: true,
+                        component: RepositoryCreate,
+                    },
+                    {
+                        path: "/repository/all",
                         key:'projectList',
                         exact: true,
                         component: RepositoryList,
                     },
                     {
-                        path: `/repository/recently`,
+                        path: `/repository/recent`,
                         key:'recently',
                         exact: true,
-                        component: Demo,
+                        component: RepositoryRecent,
                     },
                 ]
             },
@@ -358,6 +371,30 @@ const routers =  [
                         ]
                     },
                     {
+                        path: "/repositorypage/envMana",
+                        key:'env',
+                        exact: true,
+                        component: EnvContant,
+                    },
+                    {
+                        path: "/repositorypage/agent",
+                        key:'agent',
+                        exact: true,
+                        component: AgentConfigList
+                    },
+                    {
+                        path: "/repositorypage/domainRole",
+                        key:'domainRole',
+                        exact: true,
+                        component: DomainRole
+                    },
+                    {
+                        path: "/repositorypage/domainPrivilege",
+                        key:'domainPrivilege',
+                        exact: true,
+                        component: DomainPrivilege
+                    },
+                    {
                         path: "/repositorypage/category",
                         exact: true,
                         key:'category',
@@ -370,23 +407,37 @@ const routers =  [
                         component: TestPlan,
                     },
                     {
-                        path: `/repositorypage/quartzTask`,
+                        path: "/repositorypage/testplandetail",
+                        key:'TestPlan',
                         exact: true,
-                        key:'quartzTask',
-                        component: QuartzTask,
+                        component: TestPlanDetail,
                     },
                     // {
-                    //     path: "/repositorypage/testReport",
+                    //     path: `/repositorypage/quartzTask`,
                     //     exact: true,
-                    //     key:'step',
-                    //     component: TestReport,
+                    //     key:'quartzTask',
+                    //     component: QuartzTask,
                     // },
                     // {
-                    //     path: "/repositorypage/testplandetail",
-                    //     key:'TestPlan',
-                    //     exact: true,
-                    //     component: TestPlanDetail,
+                    //     path: "/repositorypage/setting",
+                    //     key:'RepositorySetting',
+                    //     component: RepositorySetting,
+                    //     routes:[
+                    //         {
+                    //             path: "/repositorypage/setting/agent",
+                    //             key:'agent',
+                    //             exact: true,
+                    //             component: AgentConfigList
+                    //         },
+                    //         {
+                    //             path:"/repositorypage/setting",
+                    //             exact: true,
+                    //             key:'ridsetting',
+                    //             component: ()=><Redirect to='/repositorypage/setting/agent'/>,
+                    //         },
+                    //     ]
                     // },
+
                     // {
                     //     path: "/repositorypage/performance",
                     //     component: PerformanceList,
@@ -455,12 +506,6 @@ const routers =  [
                 key:'systemManagement',
                 component:SystemManagement,
                 routes:[
-                    {
-                        path: "/systemManagement/envMana",
-                        key:'env',
-                        exact: true,
-                        component: EnvContant,
-                    },
                     // {
                     //     path: "/systemManagement/organ/org",
                     //     key:'org',

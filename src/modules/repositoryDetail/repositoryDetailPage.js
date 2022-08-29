@@ -43,7 +43,7 @@ const RepositoryDetailPage = (props) => {
     // setList(res)
 
     return (
-        <Fragment>
+        <div className={"teston-page-center"}>
             <div className='breadcrumb'>
                 <Breadcrumb separator=">" >
                     <Breadcrumb.Item>测试用例管理 </Breadcrumb.Item>
@@ -89,7 +89,7 @@ const RepositoryDetailPage = (props) => {
 
                 </div>
             </div>
-        </Fragment>
+        </div>
     )
 
 }

@@ -5,6 +5,7 @@ import {webPerfExecute,exeResult} from '../api/webPerfTestDispatchApi';
 export class WebPerfTestDispatchStore {
     @observable webPerfTestResult;
     @observable responseResult;
+    @observable agentId;
 
     @action
     webPerfExecute = async (id) => {
@@ -30,6 +31,11 @@ export class WebPerfTestDispatchStore {
         if(res.code === 0 ){
             return res.data;
         }
+    }
+
+    @action
+    getAgent = (id) =>{
+        this.agentId = id;
     }
 
 

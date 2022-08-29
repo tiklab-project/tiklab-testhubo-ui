@@ -5,10 +5,17 @@
  */
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import { Form, Modal, Button, Input } from 'antd';
+import {Form, Modal, Button, Input, Select} from 'antd';
+
+const {Option} = Select;
+
+const layout = {
+    labelCol: {span: 5},
+    wrapperCol: {span: 19},
+};
 
 // 添加与编辑空间
-const ApiEnvEdit = (props) => {
+const WebEnvEdit = (props) => {
     const { webEnvStore, webEnvId } = props;
     const { 
         findWebEnv,
@@ -26,7 +33,7 @@ const ApiEnvEdit = (props) => {
             findWebEnv(webEnvId).then((res)=>{
                 form.setFieldsValue({
                     name: res.name,
-                    url:res.url
+                    webDriver:res.webDriver
                 })
             })
         }
@@ -34,7 +41,9 @@ const ApiEnvEdit = (props) => {
     };
     
     // 提交
-    const onFinish = (values) => {
+    const onFinish = async () => {
+        const values = await form.validateFields();
+
         if(props.type === "add" ){
             createWebEnv(values);
         }else{
@@ -58,33 +67,32 @@ const ApiEnvEdit = (props) => {
             title={props.name}
             visible={visible}
             onCancel={onCancel}
-            footer={null}
+            onOk={onFinish}
+            okText="提交"
+            cancelText="取消"
             centered
         >
             <Form
-               
-                name="basic"
-                initialValues={{ remember: true }}
                 form={form}
-                onFinish={onFinish}
                 preserve={false}
+                {...layout}
             >
                 <Form.Item
                     label="环境名称"
-                    rules={[{ required: true, message: '用户名不能包含非法字符，如&,%，&，#……等' }]}
+                    rules={[{ required: true, message: '填写环境名称' }]}
                     name="name"
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    label="环境地址"
-                    rules={[{ required: true, message: '用户名不能包含非法字符，如&,%，&，#……等' }]}
-                    name="url"
+                    label="WebDriver"
+                    rules={[{ required: true, message: '选择WebDriver' }]}
+                    name="webDriver"
                 >
-                     <Input />
-                </Form.Item>
-                <Form.Item  >
-                    <Button type="primary" htmlType="submit">提交</Button>
+                     <Select>
+                         <Option value={"chrome"}>Chrome</Option>
+                         {/*<Option value={"firefox"}>FireFox</Option>*/}
+                     </Select>
                 </Form.Item>
             </Form>
         </Modal>
@@ -92,4 +100,4 @@ const ApiEnvEdit = (props) => {
     );
 };
 
-export default inject('webEnvStore')(observer(ApiEnvEdit));
+export default inject('webEnvStore')(observer(WebEnvEdit));

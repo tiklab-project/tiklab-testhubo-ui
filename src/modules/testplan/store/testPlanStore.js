@@ -24,7 +24,8 @@ export class TestPlanStore {
         const res = await findTestPlanPage(params)
         if(res.code === 0) {
             this.totalRecord = res.data.totalRecord;
-            return this.testPlanList = res.data.dataList;
+            this.testPlanList = res.data.dataList;
+            return res.data
         }
     }
 
@@ -32,37 +33,26 @@ export class TestPlanStore {
     findTestPlan = async (id) => {
         const param = new FormData();
         param.append('id', id);
+
         const res = await findTestPlan(param)
         if(res.code === 0){
-            return this.testPlanInfo = res.data;
+            this.testPlanInfo = res.data;
+            return res.data;
         }
     }
 
     @action
-    createTestPlan = async (values) => {
-        const res = await createTestPlan(values)
-        if (res.code === 0) {
-            this.findTestPlanPage(this.repositoryId,this.param)
-        }
-    }
+    createTestPlan = async (values) => await createTestPlan(values)
 
     @action
-    updateTestPlan = (values) => {
-        return updateTestPlan(values).then((res) => {
-            if(res.code === 0){
-                this.findTestPlanPage(this.repositoryId,this.param)
-            }
-        })
-    }
+    updateTestPlan = async (values) => await updateTestPlan(values)
 
     @action
     deleteTestPlan = async (id) => {
         const param = new FormData();
-        param.append('id', id)
-        const res = await deleteTestPlan(param)
-        if(res.code === 0){
-            this.findTestPlanPage(this.repositoryId,this.param)
-        }
+        param.append('id', id);
+
+         await deleteTestPlan(param)
     }
 
 }

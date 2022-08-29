@@ -1,6 +1,6 @@
 import {Axios as service} from "tiklab-core-ui";
 
-export function findApiUnitPage(data){
+export function findApiUnitCasePage(data){
     return service.request({
         url: "/apiUnitCase/findApiUnitCasePage",
         method: "post",

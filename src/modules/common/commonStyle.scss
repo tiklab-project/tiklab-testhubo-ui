@@ -124,3 +124,45 @@
 
     }
 }
+
+
+.teston-breadcrumb{
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px;
+    border-bottom: 1px solid #ececec;
+    margin: 0 0 5px 0;
+}
+
+
+.edit-api-name{
+    padding:10px;
+    font-size:20px;
+    cursor: auto
+}
+
+.ediText-edit{
+    background: #fff;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.ediText-save{
+    display: none;
+}
+
+.ediText-cancel{
+    display: none;
+}
+
+.edit-api-title{
+    cursor: auto;
+}
+
+
+.teston-page-center{
+    width: 1280px;
+    padding: 0 16px;
+    margin: 0 auto;
+}

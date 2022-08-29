@@ -23,7 +23,7 @@ const HeaderMenu = (props) =>{
             key: 'home'
         },
         {
-            to:'/repository/alllist',
+            to:'/repository/all',
             title:'项目',
             key: 'Repository'
         },

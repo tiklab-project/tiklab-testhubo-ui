@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import BreadcrumbCommon from "../../../common/breadcrumbCommon";
-import WebPerformEdit from "./webPerformEdit";
+import WebPerformEdit from "./webPerfEdit";
 import {inject, observer} from "mobx-react";
 
 const WebPerformList = (props) =>{

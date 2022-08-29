@@ -16,6 +16,7 @@ export class AppEnvStore {
 	@action
 	findAppEnvPage = async (id) => {
 		const params = {
+			repositoryId:id,
 			orderParams:[{name:'name', orderType:'asc'}],
 		}
 		const res = await findAppEnvPage(params);
@@ -29,6 +30,7 @@ export class AppEnvStore {
 	@action
 	findAppEnvList = async (id) => {
 		const params = {
+			repositoryId:id,
 			orderParams:[{name:'name', orderType:'asc'}],
 		}
 		const res = await findAppEnvList(params);
@@ -47,39 +49,24 @@ export class AppEnvStore {
 
 		const res = await findAppEnv(param);
 		if( res.code === 0){
-			return  this.appEnvInfo = res.data;
+			this.appEnvInfo = res.data;
+			return res.data;
 		}
 	}
 
 
 	@action
-	createAppEnv = async (values) => {
-		values.http = {id: this.categoryId}
-
-		const res = await createAppEnv(values)
-		if( res.code === 0){
-			return this.findAppEnvPage(t);
-		}
-	}
+	createAppEnv = async (values) => await createAppEnv(values)
 
 	@action
-	updateAppEnv = async (values) => {
-		const res = await updateAppEnv(values)
-
-		if( res.code === 0){
-			return this.findAppEnvPage();
-		}
-	}
+	updateAppEnv = async (values) => await updateAppEnv(values)
 
 	@action
 	deleteAppEnv = async (id) => {
 		const param = new FormData();
 		param.append('id', id);
 
-		const res = await deleteAppEnv(param)
-		if( res.code === 0){
-			this.findAppEnvPage();
-		}
+		await deleteAppEnv(param)
 	}
 
 }

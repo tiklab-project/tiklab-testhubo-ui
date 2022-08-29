@@ -9,14 +9,16 @@ const layout = {
 
 
 const AppPerfConfig = (props) =>{
-    const {appPerfStore} = props;
+    const {appPerfStore,agentConfigStore} = props;
     const {findAppPerf,updateAppPerf} = appPerfStore;
+    const {findAgentConfigList} = agentConfigStore;
 
     const [form] = Form.useForm();
     const [exeMode, setExeMode] = useState();
-
+    const [agentConfigList, setAgentConfigList] = useState();
 
     const appPerfId = sessionStorage.getItem("appPerfId")
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(()=>{
         findAppPerf(appPerfId).then(res=>{
@@ -27,6 +29,12 @@ const AppPerfConfig = (props) =>{
             })
         })
     },[appPerfId])
+
+    useEffect(()=>{
+        findAgentConfigList(repositoryId).then(res=>{
+            setAgentConfigList(res)
+        })
+    },[repositoryId])
 
     //并发数
     const changeThread=(threadCount)=> {
@@ -53,6 +61,29 @@ const AppPerfConfig = (props) =>{
     }
 
 
+    const showClient = (data)=>{
+        return data&&data.map(item=>{
+            return (
+                <div className={"perform-client-item"}>
+                    <div>
+                        <svg className="icon" aria-hidden="true">
+                            <use xlinkHref= {`#icon-web`}></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div>名称：{item.name}</div>
+                        <div>地址：{item.url}</div>
+                        {/*<div className={"perform-client-item-status"}>*/}
+                        {/*    状态：<span className={"perform-client-item-status-icon"}>{item.online}</span>*/}
+                        {/*</div>*/}
+                    </div>
+                    {/*<div className={"perform-client-item-check"}>*/}
+                    {/*    <Checkbox onChange={(e)=>onChange(e,item.id)} />*/}
+                    {/*</div>*/}
+                </div>
+            )
+        })
+    }
 
     return(
         <>
@@ -90,9 +121,17 @@ const AppPerfConfig = (props) =>{
                         onChange={changeExeCount}
                     />
                 </Form.Item>
+                <Form.Item
+                    label="节点"
+                    name="executeCount"
+                >
+                    {
+                        showClient(agentConfigList)
+                    }
+                </Form.Item>
             </Form>
         </>
     )
 }
 
-export default inject("appPerfStore")(observer(AppPerfConfig));
+export default inject("appPerfStore","agentConfigStore")(observer(AppPerfConfig));

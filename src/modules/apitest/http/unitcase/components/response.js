@@ -49,7 +49,7 @@ const Response = (props) =>{
 
     return(
         <Fragment>
-            <Tabs defaultActiveKey="1" type="card">
+            <Tabs defaultActiveKey="1">
                 <TabPane tab="返回头部" key="1">
                     <ResponseHeader  {...props}/>
                 </TabPane>

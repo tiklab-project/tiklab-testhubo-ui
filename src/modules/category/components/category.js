@@ -68,7 +68,7 @@ const CategoryList = (props) => {
 
 
     return(
-        <Fragment>
+        <div className={"teston-page-center"}>
             <div className='breadcrumb'>
                 <Breadcrumb separator=">"  >
                     <Breadcrumb.Item>仓库</Breadcrumb.Item>
@@ -83,7 +83,6 @@ const CategoryList = (props) => {
                 />
             </div>
              <Table
-                bordered
                 className="tablelist"
                 columns={columns}
                 dataSource={categoryList}
@@ -93,7 +92,7 @@ const CategoryList = (props) => {
              />
 
 
-        </Fragment>
+        </div>
     )
 }
 

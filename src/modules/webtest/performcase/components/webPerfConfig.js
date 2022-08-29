@@ -9,14 +9,18 @@ const layout = {
 
 
 const WebPerfConfig = (props) =>{
-    const {webPerfStore} = props;
+    const {webPerfStore,agentConfigStore,webPerfTestDispatchStore} = props;
     const {findWebPerf,updateWebPerf} = webPerfStore;
+    const {findAgentConfigList} = agentConfigStore;
+    const {getAgent} = webPerfTestDispatchStore;
 
     const [form] = Form.useForm();
     const [exeMode, setExeMode] = useState();
+    const [agentConfigList, setAgentConfigList] = useState();
 
 
     const webPerfId = sessionStorage.getItem("webPerfId")
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(()=>{
         findWebPerf(webPerfId).then(res=>{
@@ -27,6 +31,13 @@ const WebPerfConfig = (props) =>{
             })
         })
     },[webPerfId])
+
+    useEffect(()=>{
+        findAgentConfigList(repositoryId).then(res=>{
+            setAgentConfigList(res)
+        })
+    },[repositoryId])
+
 
     //并发数
     const changeThread=(threadCount)=> {
@@ -50,6 +61,34 @@ const WebPerfConfig = (props) =>{
             }
         }
         updateWebPerf(param)
+    }
+
+    const changeRadio = (id)=>{
+        getAgent(id)
+    }
+
+    const showClient = (data)=>{
+        return data&&data.map(item=>{
+            return (
+                <div className={"perform-client-item"}>
+                    <div>
+                        <svg className="icon" aria-hidden="true">
+                            <use xlinkHref= {`#icon-web`}></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div>名称：{item.name}</div>
+                        <div>地址：{item.url}</div>
+                        {/*<div className={"perform-client-item-status"}>*/}
+                        {/*    状态：<span className={"perform-client-item-status-icon"}>{item.online}</span>*/}
+                        {/*</div>*/}
+                    </div>
+                    <div className={"perform-client-item-check"}>
+                        <Radio onChange={(e)=>changeRadio(item.id)} />
+                    </div>
+                </div>
+            )
+        })
     }
 
 
@@ -90,9 +129,18 @@ const WebPerfConfig = (props) =>{
                         onChange={changeExeCount}
                     />
                 </Form.Item>
+                <Form.Item
+                    label="节点"
+                    name="agent"
+                >
+                    {
+                        showClient(agentConfigList)
+                    }
+                </Form.Item>
+
             </Form>
         </>
     )
 }
 
-export default inject("webPerfStore")(observer(WebPerfConfig));
+export default inject("webPerfStore","agentConfigStore","webPerfTestDispatchStore")(observer(WebPerfConfig));

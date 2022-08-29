@@ -9,36 +9,28 @@ import {Modal, Button, Table, Input} from 'antd';
 // 添加与编辑
 const TestPlanTestcaseAdd = (props) => {
     const { testPlanDetailStore,testPlanId} = props;
-    const {findTesCase,testPlanTestcaseList,createTestPlanDetaillList,tcTotalRecord} = testPlanDetailStore;
+    const {findTesCaseList,findBindTestCaseList,testPlanTestcaseList,createTestPlanDetailList,tcTotalRecord} = testPlanDetailStore;
 
     const columns = [
         {
             title:`名称`,
             dataIndex: "name",
             key: "name",
-            align:"center",
-            width:'25%'
+            width:'40%'
         },
         {
-            title:`类型`,
+            title:`测试类型`,
             dataIndex: "type",
             key: "type",
-            align:"center",
-            width:'20%'
+            width:'30%',
+            render:(text,record)=>(showTestType(record.testType))
         },
         {
-            title: `创建人`,
-            dataIndex: ['user', 'name'],
-            key: "user",
-            align:"center",
-            width:'20%'
-        },
-        {
-            title: `描述`,
-            dataIndex: 'desc',
-            key: "desc",
-            align:"center",
-            width:'30%'
+            title:`用例类型`,
+            dataIndex: "type",
+            key: "type",
+            width:'30%',
+            render:(text,record)=>(showCaseType(record.caseType))
         },
     ]
 
@@ -54,11 +46,17 @@ const TestPlanTestcaseAdd = (props) => {
     const [visible, setVisible] = useState(false);
     const [selectRow,setSelectRow]=useState()
 
-    useEffect(()=>{
-        findTesCase(testPlanId,params).then(()=>
+    let repositoryId = sessionStorage.getItem("repositoryId")
+
+    // 弹框展示
+    const showModal = () => {
+        findTesCaseList(repositoryId,testPlanId,params).then(()=>
             setTableLoading(false)
         )
-    },[testPlanId,params])
+
+        setVisible(true)
+    };
+
 
     //提交
     const onFinish = () => {
@@ -66,22 +64,45 @@ const TestPlanTestcaseAdd = (props) => {
         selectRow&&selectRow.map(item=>{
             let obj={
                 testPlan:{id: testPlanId},
-                testCase:item
+                testCase: {id:item}
             }
             newData.push(obj)
         })
-        createTestPlanDetaillList(newData)
+        createTestPlanDetailList(newData).then(()=>findBindTestCaseList(testPlanId))
         setVisible(false)
     }
 
-    // 弹框展示
-    const showModal = () => { setVisible(true)};
+    const showTestType = (testType)=>{
+        switch (testType) {
+            case "api":
+                return "API";
+            case "web":
+                return "WEB";
+            case "app":
+                return "APP";
+            case "func":
+                return "功能";
+        }
+    }
+
+    const showCaseType = (caseType)=>{
+        switch (caseType) {
+            case "unit":
+                return "单元测试";
+            case "scene":
+                return "场景测试";
+            case "perform":
+                return "压力测试";
+        }
+    }
+
+
     // 关闭弹框
     const onCancel = () => { setVisible(false) };
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            setSelectRow(selectedRows)
+            setSelectRow(selectedRowKeys)
             console.log(selectedRowKeys, selectedRows)
         },
     };
@@ -135,13 +156,13 @@ const TestPlanTestcaseAdd = (props) => {
                 centered
                 width={800}
             >
-                <div>
-                    <Input
-                        placeholder={`搜索名字`}
-                        onPressEnter={onSearch}
-                        className='search-input'
-                    />
-                </div>
+
+                {/*<Input*/}
+                {/*    placeholder={`搜索名字`}*/}
+                {/*    onPressEnter={onSearch}*/}
+                {/*    className='search-input'*/}
+                {/*/>*/}
+
                 <Table
                     className="tablelist"
                     columns={columns}
@@ -161,4 +182,4 @@ const TestPlanTestcaseAdd = (props) => {
     );
 };
 
-export default inject('testPlanDetailStore')(observer(TestPlanTestcaseAdd));
+export default inject('testPlanDetailStore',)(observer(TestPlanTestcaseAdd));

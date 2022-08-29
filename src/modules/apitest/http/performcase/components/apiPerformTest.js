@@ -1,22 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Table} from "antd";
+import {Button, message, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import "./performanceStyle.scss"
-import {set} from "mobx";
 
 const ApiPerformTest = (props) =>{
-    const {apiPerfTestDispatchStore} = props;
+    const {apiPerfTestDispatchStore,apiEnvStore} = props;
     const {apiPerfExecute,exeResult} = apiPerfTestDispatchStore;
+    const {envUrl} = apiEnvStore;
 
     const [result, setResult] = useState();
     const [stepList, setStepList] = useState([]);
-
-    let envUrl
-    try{
-        envUrl =JSON.parse(localStorage.getItem("API_ENV_SELECTED")).label
-    }catch (e) {
-        envUrl =null
-    }
 
     let columns= [
         {
@@ -58,12 +51,12 @@ const ApiPerformTest = (props) =>{
 
     ]
 
-
     let apiPerfId = sessionStorage.getItem("apiPerfId");
 
     let ref = useRef(null)
 
     const [start, setStart] = useState(false);
+
     useEffect(()=>{
         if (start) {
             ref.current =  setInterval(()=>{
@@ -75,7 +68,7 @@ const ApiPerformTest = (props) =>{
                     setResult(res.apiPerfInstance)
                     setStepList(res.apiSceneInstanceList)
                 })
-            },8000);
+            },5000);
         }
         return () => ref.current = null
     },[start])
@@ -85,14 +78,14 @@ const ApiPerformTest = (props) =>{
     }
 
     const onTest = () =>{
-        apiPerfExecute(apiPerfId,envUrl)
-        setStart(true)
-        // setTimeout(()=>{
-        //     exeResult(apiPerfId,envUrl).then(res=>{
-        //         setResult(res.apiPerfInstance)
-        //         setStepList(res.apiSceneInstanceList)
-        //     })
-        // },1000)
+        if(envUrl){
+            apiPerfExecute(apiPerfId,envUrl)
+
+            setStart(true)
+        }else {
+            message.error("请选择环境地址")
+        }
+
     }
 
     return(
@@ -143,4 +136,4 @@ const ApiPerformTest = (props) =>{
     )
 }
 
-export default inject("apiPerfTestDispatchStore")(observer(ApiPerformTest));
+export default inject("apiPerfTestDispatchStore","apiEnvStore")(observer(ApiPerformTest));

@@ -1,15 +1,10 @@
-/*
- * @Description:
- * @Author: sunxiancheng
- * @LastEditTime: 2021-05-25 14:34:26
- */
 
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const path = require('path');
 const baseWebpackConfig = require('./webpack.base');
 
-const PORT = 8000;
+const PORT = 8010;
 
 module.exports = merge(baseWebpackConfig, {
     devtool: 'source-map',

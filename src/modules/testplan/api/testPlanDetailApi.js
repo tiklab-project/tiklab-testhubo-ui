@@ -1,8 +1,8 @@
 import {Axios as service} from "tiklab-core-ui";
 
-export function findReleTestCase(data){
+export function findBindTestCaseList(data){
     return service.request({
-        url: "/testPlanDetail/findReleTestCase",
+        url: "/testPlanDetail/findBindTestCaseList",
         method: "post",
         data
     })
@@ -16,9 +16,9 @@ export function findTestPlanDetail(data){
     })
 }
 
-export function createTestPlanDetaillList(data){
+export function createTestPlanDetailList(data){
     return service.request({
-        url: "/testPlanDetail/createTestPlanDetaillList",
+        url: "/testPlanDetail/createTestPlanDetailList",
         method: "post",
         data
     })
@@ -40,9 +40,9 @@ export function updateTestPlanDetail(data){
     })
 }
 
-export function findTesCase(data){
+export function findTesCaseList(data){
     return service.request({
-        url: "/testPlanDetail/findTesCase",
+        url: "/testPlanDetail/findTesCaseList",
         method: "post",
         data
     })

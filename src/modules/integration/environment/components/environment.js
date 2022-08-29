@@ -43,7 +43,7 @@ const EvnMana = (props) => {
         },
     ]
 
-    const repositoryId= localStorage.getItem('repositoryId')
+    const repositoryId= sessionStorage.getItem('repositoryId')
 
     useEffect(()=> {
         findEnvironmentList(repositoryId);

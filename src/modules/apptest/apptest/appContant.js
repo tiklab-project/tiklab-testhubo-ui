@@ -1,6 +1,7 @@
 import React from "react";
 import AppLeft from "./appLeft";
 import {renderRoutes} from "react-router-config";
+import AppLeftTree from "./appLeftTree";
 
 const AppContant =(props)=>{
     const routes = props.route.routes;
@@ -8,7 +9,7 @@ const AppContant =(props)=>{
     return(
         <div className={"test-box"}>
             <div className={"test-left"}>
-                <AppLeft {...props}/>
+                <AppLeftTree {...props}/>
             </div>
             <div className={"test-right"}>
                 {

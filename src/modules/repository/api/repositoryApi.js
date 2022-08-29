@@ -48,3 +48,13 @@ export function updateRepository(data){
         data
     })
 }
+
+export function findRepositoryHomeTotal(data){
+    return service.request({
+        url: "/repository/findRepositoryHomeTotal",
+        method: "post",
+        data
+    })
+}
+
+

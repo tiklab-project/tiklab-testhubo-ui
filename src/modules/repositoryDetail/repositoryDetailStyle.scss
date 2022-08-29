@@ -8,7 +8,7 @@
         width: 80px;
         height: 100%;
         position:relative;
-        background: #e6e7e9;
+        background: #f3f3f3;
     }
 
     .ws-detail-right{
@@ -44,32 +44,70 @@
 .ws-detail-left-nav{
     width: 80px;
     height: 100%;
+}
 
+.ws-detail-left-nav-item{
+    padding: 6px;
 
+}
+.ws-detail-left-nav-item-box{
+    padding: 6px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.ws-detail-left-nav-item-box:hover{
+    background-color: #fcfcfc;
+}
 
-    .ws-detail-left-nav-item{
-        padding: 6px;
+.ws-detail-left-nav-item-detail{
+    display: flex;
+    justify-content: center;
+}
+.selectlink{
+    background-color: #fcfcfc;
+}
 
-        .ws-detail-left-nav-item-box{
-            padding: 6px 0;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .ws-detail-left-nav-item-box:hover{
-            background-color: #fcfcfc;
-        }
+.ws-nav-setting{
+    position: relative;
+}
 
+.ws-nav-setting:hover .nav-setting-box{
+    display: block;
+}
 
-        .ws-detail-left-nav-item-detail{
-            display: flex;
-            justify-content: center;
-        }
+.show-nav-setting{
+    display: block;
+}
+
+.hide-nav-setting{
+    display: none;
+}
+
+.nav-setting-box{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 80px;
+    padding: 10px;
+    box-shadow: 0 0 12px 1px #ddd;
+}
+
+.nav-setting-menu{
+    padding: 0;
+    margin: 0;
+
+    .nav-setting-item{
+        height: 40px;
+        width: 150px;
+        line-height: 40px;
+        display: block;
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 0 15px;
     }
-
-    .selectlink{
-        background-color: #fcfcfc;
+    .nav-setting-item:hover{
+        background-color: #f3f3f3;
     }
-
 }
 
 //workspaceDetailPage
@@ -84,3 +122,27 @@
     width: 1240px;
     margin: 0 auto;
 }
+
+.repository-header-menu{
+    display: flex;
+    height: 50px;
+    align-items: center;
+    border-bottom:1px solid #e4e4e4 ;
+
+    .repository-header-menu-item{
+        padding: 14px;
+        margin: 0 15px;
+        cursor: pointer;
+    }
+
+    .repository-header-menu-item:hover{
+        border-bottom:3px solid #2196f3;
+    }
+
+    .repository-header-menu-item-selected{
+        color: #008aff;
+        border-bottom:3px solid #008cff;
+    }
+}
+
+

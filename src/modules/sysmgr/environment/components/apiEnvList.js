@@ -48,11 +48,6 @@ const ApiEnvList = (props) => {
         findApiEnvList(repositoryId);
     },[repositoryId])
 
-    // 搜索
-    const onSearch = (e) => {
-        findApiEnvList(e.target.value);
-    }
-
     return(
         <Fragment>
             <div className='wslist-searchbtn'>
@@ -63,6 +58,7 @@ const ApiEnvList = (props) => {
                 columns={columns}
                 dataSource={apiEnvList}
                 rowKey={record =>record.id}
+                pagination={false}
             />
         </Fragment>
     )

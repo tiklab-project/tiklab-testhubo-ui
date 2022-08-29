@@ -1,12 +1,8 @@
-/*
- * @Description:
- * @LastEditTime: 2021-10-13 17:06:47
- */
+
 import React, { Fragment, useEffect } from 'react';
 import { observer, inject } from "mobx-react";
-import { Breadcrumb, Input, Table, Space, Row, Col, } from 'antd';
+import {Space, Table,} from 'antd';
 import WebEnvEdit from './webEnvEdit';
-
 //
 const WebEnvList = (props) => {
     const { webEnvStore } = props;
@@ -28,26 +24,37 @@ const WebEnvList = (props) => {
             dataIndex: "webDriver",
             key: "WebDriver",
             align:"center",
+        },{
+            title: "操作",
+            key: "action",
+            align:"center",
+            render: (text, record) => (
+                <Space size="middle">
+                    <WebEnvEdit name="编辑" type='edit' webEnvId={record.id} />
+                    <span style={{'color':'red','cursor':'pointer'}} onClick={()=>deleteWebEnv(record.id)}>删除</span>
+                </Space>
+            ),
         },
     ]
 
-    useEffect(()=> {
-        findWebEnvPage();
-    },[])
 
-    // 搜索
-    const onSearch = (e) => {
-        findWebEnvPage(e.target.value);
-    }
+    let repositoryId = sessionStorage.getItem("repositoryId")
+
+    useEffect(()=> {
+        findWebEnvPage(repositoryId);
+    },[repositoryId])
+
 
     return(
         <Fragment>
+            <WebEnvEdit name="添加环境" type="add"  style={{ width: 200 }}/>
 
             <Table
                 className="tablelist"
                 columns={columns}
                 dataSource={webEnvList}
                 rowKey={record =>record.id}
+                pagination={false}
             />
         </Fragment>
     )

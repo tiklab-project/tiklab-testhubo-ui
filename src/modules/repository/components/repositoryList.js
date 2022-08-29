@@ -6,26 +6,24 @@
 
 import React, { Fragment, useEffect, useState } from 'react';
 import { observer, inject } from "mobx-react";
-import {Breadcrumb, Input, Table, Space, Button, Popconfirm} from 'antd';
+import { Input, Table, Space, Popconfirm} from 'antd';
 import RepositoryEdit from './repositoryEdit';
 import  { useTranslation } from 'react-i18next'
-// import {execute,md5} from '../../../../dk/dk'
+import BreadcrumbEx from "../../common/breadcrumbEx";
+import {getUser} from "tiklab-core-ui";
 
 const RepositoryList = (props) => {
-    const { repositoryStore } = props;
+    const { repositoryStore ,repositoryRecentStore} = props;
     const {
         findRepositoryPage,
         deleteRepository,
         repositoryList,
         totalRecord,
     } = repositoryStore;
+    const {repositoryRecent} = repositoryRecentStore;
 
     const { t } = useTranslation();
 
-
-    // let json = execute('dk.md5("b")')
-
-    // console.log(json)
 
     //空间列表头
     const columns = [
@@ -33,7 +31,6 @@ const RepositoryList = (props) => {
             title:`用例库名称`,
             dataIndex: "name",
             key: "name",
-            align:"center",
             render: (text,record) =>(
                 <a onClick = {()=>toRepositoryDetail(record.id)}>{text}</a>
             )
@@ -42,33 +39,12 @@ const RepositoryList = (props) => {
             title:` ${t('tcId')}`,
             dataIndex: "id",
             key: "id",
-            align:"center",
         },
         {
             title: ` ${t('tcdesc')}`,
             dataIndex: "desc",
             key: "desc",
-            align:"center",
-        },
-        {
-            title: ` ${t('tcoperation')}`,
-            key: "action",
-            align:"center",
-            render: (text, record) => (
-            <Space size="middle">
-                <div>
-                    <RepositoryEdit name={`${t('tcedit')}`}  repositoryId={record.id} />
-                </div>
-                <Popconfirm
-                    title="确定删除？"
-                    onConfirm={() =>deleteRepository(record.id)}
-                    okText='确定'
-                    cancelText='取消'
-                >
-                    <a href="#" style={{color:'red'}}>{t('tcdelete')}</a>
-                </Popconfirm>
-            </Space>
-            ),
+            width:"30%"
         },
     ]
 
@@ -81,12 +57,17 @@ const RepositoryList = (props) => {
         }
     })
     const [tableLoading,setTableLoading] = useState(true)
+    const userId = getUser().userId;
 
     useEffect(()=> {
-        findRepositoryPage(params).then(res=>{
+        findRepositoryPage(params).then(()=>{
             setTableLoading(false)
         });
     },[params])
+
+    const findPage = ()=>{
+        findRepositoryPage(params)
+    }
 
     // 保存id到缓存,跳往详情页
     const toRepositoryDetail = (id) => {
@@ -94,6 +75,14 @@ const RepositoryList = (props) => {
 
         //给左侧导航设置一个选择项
         localStorage.setItem("leftRouter","/repositorypage/detail")
+
+        //最近空间
+        let params = {
+            repository: {id:id},
+            userId:userId
+        }
+        repositoryRecent(params)
+
 
         props.history.push('/repositorypage');
     }
@@ -135,24 +124,23 @@ const RepositoryList = (props) => {
 
     return(
         <Fragment>
-            <div className='breadcrumb'>
-                <Breadcrumb separator=">"  >
-                    <Breadcrumb.Item>用例库</Breadcrumb.Item>
-                    <Breadcrumb.Item>用例库</Breadcrumb.Item>
-                </Breadcrumb>
-            </div>
+            {/*<BreadcrumbEx list={["仓库","所有仓库"]} />*/}
             <div className='search-btn'>
+            {/*    <RepositoryEdit*/}
+            {/*        className="important-btn"*/}
+            {/*        name={`添加项目`}*/}
+            {/*        findPage={findPage}*/}
+            {/*    />*/}
+                <div> </div>
                 <Input
                     style={{width:200}}
                     placeholder={`${t('tcsearch')}`}
                     onPressEnter={onSearch}
                     className='search-input'
                 />
-                <RepositoryEdit className="important-btn" name={`添加项目`}/>
             </div>
 
             <Table
-                bordered
                 className="tablelist"
                 columns={columns}
                 dataSource={repositoryList}
@@ -169,4 +157,4 @@ const RepositoryList = (props) => {
     )
 }
 
-export default inject('repositoryStore')(observer(RepositoryList));
+export default inject('repositoryStore',"repositoryRecentStore")(observer(RepositoryList));

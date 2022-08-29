@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Dropdown, Input, Menu, Popconfirm} from "antd";
 import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
-import AppPerformEdit from "./appPerformEdit";
+import AppPerformEdit from "./appPerfEdit";
 import {inject, observer} from "mobx-react";
 
 const AppPerformCategory = (props) =>{

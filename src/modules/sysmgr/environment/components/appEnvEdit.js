@@ -1,25 +1,30 @@
 
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import { Form, Modal, Button, Input } from 'antd';
+import {Form, Modal, Button, Input, Select} from 'antd';
 
 const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
+    labelCol: {span: 5},
+    wrapperCol: {span:19},
 };
 
+const {Option} = Select;
+
 // 添加与编辑app环境
-const ApiEnvEdit = (props) => {
+const AppEnvEdit = (props) => {
     const { appEnvStore, appEnvId } = props;
     const { 
         findAppEnv,
         createAppEnv,
-        updateAppEnv
+        updateAppEnv,
+        findAppEnvPage
      } = appEnvStore;
 
     const [form] = Form.useForm();
     
     const [visible, setVisible] = React.useState(false);
+
+    let repositoryId = sessionStorage.getItem("repositoryId");
 
     // 弹框展示
     const showModal = () => {
@@ -28,18 +33,26 @@ const ApiEnvEdit = (props) => {
             findAppEnv(appEnvId).then((res)=>{
                 form.setFieldsValue({
                     name: res.name,
-                    url:res.url
+                    platformName:res.platformName,
+                    appiumSever:res.appiumSever,
+                    deviceName:res.deviceName,
+                    appPackage:res.appPackage,
+                    appActivity:res.appActivity
                 })
             })
         }
     };
-    
+
+
     // 提交
-    const onFinish = (values) => {
+    const onFinish = async () => {
+        const values = await form.validateFields();
+
         if(props.type === "add" ){
-            createAppEnv(values);
+            createAppEnv(values).then(()=> findAppEnvPage(repositoryId));
         }else{
-            updateAppEnv(values);
+            values.id=appEnvId;
+            updateAppEnv(values).then(()=> findAppEnvPage(repositoryId));
         }
         setVisible(false);
     };
@@ -59,42 +72,33 @@ const ApiEnvEdit = (props) => {
             title={props.name}
             visible={visible}
             onCancel={onCancel}
-            footer={null}
             onOk={onFinish}
             okText="提交"
             cancelText="取消"
             centered
         >
             <Form
-               
-                name="basic"
-                initialValues={{ remember: true }}
                 form={form}
-                onFinish={onFinish}
                 preserve={false}
                 {...layout}
             >
-                <Form.Item
-                    label="环境名称"
-                    rules={[{ required: true, message: '用户名不能包含非法字符，如&,%，&，#……等' }]}
-                    name="name"
-                >
-                    <Input />
-                </Form.Item>
+                <Form.Item label="环境名称" name="name"><Input /></Form.Item>
                 {/*<Form.Item label="appium路径" name="mainjsPath"><Input /></Form.Item>*/}
-                <Form.Item label="appium地址" name="appiumSever"><Input /></Form.Item>
-                <Form.Item label="平台" name="platformName"><Input /></Form.Item>
-                <Form.Item label="设备名" name="deviceName"><Input /></Form.Item>
-                <Form.Item label="设备地址" name="udId"><Input /></Form.Item>
-                <Form.Item label="App包名" name="appPackage"><Input /></Form.Item>
-                <Form.Item label="App入口" name="appActivity"><Input /></Form.Item>
-                {/*<Form.Item  >*/}
-                {/*    <Button type="primary" htmlType="submit">提交</Button>*/}
-                {/*</Form.Item>*/}
+                <Form.Item label="appiumSever" name="appiumSever"><Input /></Form.Item>
+                <Form.Item label="platformName" name="platformName">
+                    <Select>
+                        <Option value={"Android"}>Android</Option>
+                        {/*<Option value={"IOS"}>IOS</Option>*/}
+                    </Select>
+                </Form.Item>
+                <Form.Item label="deviceName" name="deviceName"><Input /></Form.Item>
+                {/*<Form.Item label="设备地址" name="udId"><Input /></Form.Item>*/}
+                <Form.Item label="appPackage" name="appPackage"><Input /></Form.Item>
+                <Form.Item label="appActivity" name="appActivity"><Input /></Form.Item>
             </Form>
         </Modal>
         </>
     );
 };
 
-export default inject('appEnvStore')(observer(ApiEnvEdit));
+export default inject('appEnvStore')(observer(AppEnvEdit));

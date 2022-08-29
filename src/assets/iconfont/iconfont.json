@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1302",
+      "name": "加",
+      "font_class": "jia",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "1125606",
+      "name": "添加",
+      "font_class": "tianjia",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "4657681",
+      "name": "添加",
+      "font_class": "tianjia-",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "16290359",
+      "name": "创建&添加&批量添加",
+      "font_class": "chuangjiantianjiapiliangtianjia",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "29972101",
+      "name": "头像 商务男人",
+      "font_class": "a-ziyuan106",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
       "icon_id": "82754",
       "name": "删除2",
       "font_class": "shanchu2",

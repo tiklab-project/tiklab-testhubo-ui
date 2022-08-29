@@ -46,7 +46,7 @@ const RepositoryMenuList = (props) =>{
                 }
             </ul>
             <div
-                onClick={()=>changeCurrentLink("/repository/alllist")}
+                onClick={()=>changeCurrentLink("/repository/create")}
             >
                 进入所有仓库
             </div>

@@ -12,7 +12,7 @@ const layout = {
 
 // 添加与编辑
 const TestPlanEdit = (props) => {
-    const { testPlanStore, userSelectStore, testPlanId } = props;
+    const { testPlanStore, userSelectStore, testPlanId,findPage } = props;
     const {findTestPlan, createTestPlan, updateTestPlan} = testPlanStore;
     const {userSelectId} = userSelectStore;
 
@@ -20,15 +20,15 @@ const TestPlanEdit = (props) => {
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
-    const [startTime, setStartTime] = useState('');
-    const [endTime, setEndTime] = useState('');
+    const [startTime, setStartTime] = useState();
+    const [endTime, setEndTime] = useState();
     const [principal,setPrincipal] = useState('')
-    const repositoryId = localStorage.getItem('repositoryId')
+    const repositoryId = sessionStorage.getItem('repositoryId')
+
     // 弹框展示
     const showModal = () => {
         if(props.name === "编辑"){
             findTestPlan(testPlanId).then((res)=>{
-                debugger
                 setStartTime(res.startTime);
                 setEndTime(res.endTime);
                 setPrincipal(res.principal)
@@ -57,16 +57,20 @@ const TestPlanEdit = (props) => {
     // 提交
     const onFinish =async () => {
         let values =  await form.validateFields()
-        debugger
+
         values.startTime=startTime;
         values.endTime=endTime;
         values.repository= {id:repositoryId};
-        values.principal = {id:userSelectId?userSelectId:principal};
+        // values.principal = {id:userSelectId?userSelectId:principal};
         if(props.name === "添加计划" ){
-            createTestPlan(values);
+            createTestPlan(values).then(()=>{
+                findPage()
+            });
         }else{
             values.id=testPlanId;
-            updateTestPlan(values);
+            updateTestPlan(values).then(()=>{
+                findPage()
+            });
         }
         setVisible(false);
     };
@@ -143,12 +147,12 @@ const TestPlanEdit = (props) => {
                             <Option value='2'>结束</Option>
                         </Select>
                     </Form.Item>
-                    <Form.Item
-                        label="负责人"
-                        name="user"
-                    >
-                        <UserSelect/>
-                    </Form.Item>
+                    {/*<Form.Item*/}
+                    {/*    label="负责人"*/}
+                    {/*    name="user"*/}
+                    {/*>*/}
+                    {/*    <UserSelect/>*/}
+                    {/*</Form.Item>*/}
                 </Form>
             </Modal>
         </>
