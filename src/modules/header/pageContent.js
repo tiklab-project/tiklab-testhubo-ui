@@ -5,10 +5,12 @@ import {inject, observer} from "mobx-react";
 import {EAM_STORE} from "tiklab-eam-ui/es/store";
 import {getUser} from "tiklab-core-ui";
 import { SYSTEM_ROLE_STORE } from 'tiklab-privilege-ui/es/store';
+import './portalStyle.scss'
 
  const  PageContent =(props)=> {
-    const router = props.route.routes;
+     const {versionImg} = props;
 
+     const router = props.route.routes;
 
      const user = getUser();
      useEffect(() => {
@@ -31,6 +33,7 @@ import { SYSTEM_ROLE_STORE } from 'tiklab-privilege-ui/es/store';
         <div style={{height:"100%"}}>
             <HeaderContent
                 logout={Logout}
+                versionImg={versionImg}
                 {...props}
             />
             {

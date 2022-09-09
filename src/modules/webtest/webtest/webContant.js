@@ -1,5 +1,4 @@
 import React from "react";
-import WebLeft from "./webLeft";
 import {renderRoutes} from "react-router-config";
 import "./webStyle.scss"
 import WebLeftTree from "./webLeftTree";

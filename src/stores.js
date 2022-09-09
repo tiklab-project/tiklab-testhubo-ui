@@ -1,17 +1,25 @@
 import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store'
 // import {PluginStore, PLUGIN_STORE} from "tiklab-plugin-ui"
 
+
+import {REPOSITORY_STORE, RepositoryStore} from './modules/repository/store/repositoryStore';
+import {REPOSITORY_RECENT_STORE,RepositoryRecentStore} from "./modules/repository/store/repositoryRecentStore";
+
+import {AGENT_CONFIG_STORE,AgentConfigStore} from "./modules/integration/agentconfig/store/agentConfigStore";
+
+
+import {QUARTZTASK_STORE, QuartzMasterStore} from './modules/quartzTask/store/quartzMasterStore';
+import {QUARTZTESTCASE_STORE, QuartzTestcaseStore} from './modules/quartzTask/store/quartzTestcaseStore';
+
 import {
-    ENVIRONMENT_STORE, EnvironmentStore,
-    AGENT_CONFIG_STORE,AgentConfigStore,
 
-    REPOSITORY_STORE, RepositoryStore,
-    REPOSITORY_RECENT_STORE,RepositoryRecentStore,
-
+    Step,
+    StepDetail,
+    API_UNIT_STORE,ApiUnitStore,
     REQUESTHEADER_STORE , RequestHeaderStore,
     QUERYPARAM_STORE, QueryParamStore,
     FORMPARAM_STORE, FormParamStore,
-    FORM_URLENCODED_STORE, FormUrlencodedStore,
+    FORM_URLENCODED_STORE,FormUrlencodedStore,
     JSONPARAM_STORE, JsonParamStore,
     RAWPARAM_STORE, RawParamStore,
     PREPARAM_STORE, PreParamStore,
@@ -23,65 +31,58 @@ import {
     JSONRESPONSE_STORE, JsonResponseStore,
     RAWRESPONSE_STORE, RawResponseStore,
     RESPONSERESULT_STORE, ResponseResultStore,
-
     APIUNIT_INSTANCE_STORE, ApiUnitInstanceStore,
 
-    API_UNIT_STORE,ApiUnitStore,
-    APISCENE_STORE, ApiSceneStore,
-    APISCENESTEP_STORE, ApiSceneStepStore,
-    API_SCENEINSTANCE_STORE, ApiSceneInstanceStore,
-    API_PERF_STORE, ApiPerfStore,
-    API_PERF_STEP_STORE, ApiPerfStepStore,
-    API_PERF_INSTANCE_STORE, ApiPerfInstanceStore,
-    API_UNIT_DISPATCH_STORE,ApiUnitTestDispatchStore,
-    API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore,
-    API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore,
+} from './modules/apitest/http/unitcase'
 
-    WEB_UNIT_STORE, WebUnitStore,
-    WEB_SCENE_STORE,WebSceneStore,
-    WEB_PERF_STORE,WebPerfStore,
-    WEB_SCENESTEP_STORE,WebSceneStepStore,
-    WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore,
-    WEB_PERF_STEP_STORE,WebPerfStepStore,
-    WEB_PERF_INSTANCE_STORE,WebPerfInstanceStore,
-    WEB_PERF_DISPATCH_STORE,WebPerfTestDispatchStore,
-
-    APP_UNIT_STORE,AppUnitStore,
-    APP_UNITSTEP_STORE,AppUnitStepStore,
-    APP_SCENE_STORE,AppSceneStore,
-    APP_SCENESTEP_STORE, AppSceneStepStore,
-    APP_SCENEINSTANCE_STORE,AppSceneInstanceStore,
-    APP_PERF_STORE,AppPerfStore,
-    APP_PERF_STEP_STORE,AppPerfStepStore,
-    APP_PERF_INSTANCE_STORE,AppPerfInstanceStore,
-    APP_PERF_DISPATCH_STORE,AppPerfTestDispatchStore,
-
-    FUNC_UNIT_STORE , FuncUnitStore,
-    FUNC_UNITSTEP_STORE, FuncUnitStepStore,
-    FUNC_SCENE_STORE, FuncSceneStore,
-    FUNC_SCENESTEP_STORE, FuncSceneStepStore,
-
-    API_ENV_STORE,ApiEnvStore,
-    WEB_ENV_STORE,WebEnvStore,
-    APP_ENV_STORE,AppEnvStore,
+import {CATEGORY_STORE,CategoryStore} from "./modules/category/store/categoryStore";
 
 
-    QUARTZTASK_STORE, QuartzMasterStore,
-    QUARTZTESTCASE_STORE, QuartzTestcaseStore,
+import {TESTPLAN_STORE, TestPlanStore} from './modules/testplan/store/testPlanStore';
+import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './modules/testplan/store/testPlanDetailStore';
+import {USERSELECT_STORE, UserSelectStore} from './modules/common/userSelect/store/userSelectStore'
 
+import {APISCENE_STORE, ApiSceneStore} from "./modules/apitest/http/scenecase/store/apiSceneStore";
+import {APISCENESTEP_STORE, ApiSceneStepStore} from "./modules/apitest/http/scenecase/store/apiSceneStepStore";
+import {API_SCENEINSTANCE_STORE, ApiSceneInstanceStore} from "./modules/apitest/http/scenecase/store/apiSceneInstanceStore";
+import {API_PERF_STORE, ApiPerfStore} from "./modules/apitest/http/performcase/store/apiPerfStore"
+import {API_PERF_STEP_STORE, ApiPerfStepStore} from "./modules/apitest/http/performcase/store/apiPerfStepStore";
+import {API_PERF_INSTANCE_STORE, ApiPerfInstanceStore} from "./modules/apitest/http/performcase/store/apiPerfInstanceStore";
+import {API_UNIT_DISPATCH_STORE, ApiUnitTestDispatchStore} from "./modules/apitest/http/unitcase/store/apiUnitTestDispatchStore";
+import {API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore} from "./modules/apitest/http/scenecase/store/apiSceneTestDispatchStore";
+import {API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore} from "./modules/apitest/http/performcase/store/apiPerfTestDispatchStore";
 
-    CATEGORY_STORE,CategoryStore,
+import {WEB_UNIT_STORE, WebUnitStore} from "./modules/webtest/unitcase/store/webUnitStore"
+import {WEB_SCENE_STORE, WebSceneStore} from "./modules/webtest/scenecase/store/webSceneStore";
+import {WEB_SCENESTEP_STORE,WebSceneStepStore} from "./modules/webtest/scenecase/store/webSceneStepStore";
+import {WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore} from "./modules/webtest/scenecase/store/webSceneInstanceStore";
+import {WEB_PERF_STORE,WebPerfStore} from "./modules/webtest/performcase/store/webPerfStore";
+import {WEB_PERF_STEP_STORE,WebPerfStepStore} from "./modules/webtest/performcase/store/webPerfStepStore";
+import {WEB_PERF_INSTANCE_STORE,WebPerfInstanceStore} from "./modules/webtest/performcase/store/webPerfInstanceStore";
+import {WEB_PERF_DISPATCH_STORE,WebPerfTestDispatchStore} from "./modules/webtest/performcase/store/webPerfTestDispatchStore";
 
-    TESTPLAN_STORE, TestPlanStore,
-    TESTPLANDETAIL_STORE, TestPlanDetailStore,
+import {APP_UNIT_STORE,AppUnitStore} from "./modules/apptest/unitcase/store/appUnitStore";
+import {APP_UNITSTEP_STORE,AppUnitStepStore} from "./modules/apptest/unitcase/store/appUnitStepStore";
+import {APP_SCENE_STORE,AppSceneStore} from "./modules/apptest/scenecase/store/appSceneStore";
+import {APP_SCENESTEP_STORE,AppSceneStepStore} from "./modules/apptest/scenecase/store/appSceneStepStore";
+import {APP_SCENEINSTANCE_STORE,AppSceneInstanceStore} from "./modules/apptest/scenecase/store/appSceneInstanceStore";
+import {APP_PERF_STORE,AppPerfStore} from "./modules/apptest/performcase/store/appPerfStore";
+import {APP_PERF_STEP_STORE,AppPerfStepStore} from "./modules/apptest/performcase/store/appPerfStepStore";
+import {APP_PERF_INSTANCE_STORE,AppPerfInstanceStore} from "./modules/apptest/performcase/store/appPerfInstanceStore";
+import {APP_PERF_DISPATCH_STORE,AppPerfTestDispatchStore} from "./modules/apptest/performcase/store/appPerfTestDispatchStore";
 
-    USERSELECT_STORE, UserSelectStore,
+import {FUNC_UNIT_STORE , FuncUnitStore} from "./modules/functest/unitcase/store/funcUnitStore";
+import {FUNC_UNITSTEP_STORE , FuncUnitStepStore} from "./modules/functest/unitcase/store/funcUnitStepStore";
+import { FUNC_SCENE_STORE, FuncSceneStore} from "./modules/functest/scenecase/store/funcSceneStore";
+import {FUNC_SCENESTEP_STORE, FuncSceneStepStore} from "./modules/functest/scenecase/store/funcSceneStepStore"
 
-} from './modules/index';
+import {API_ENV_STORE,ApiEnvStore} from "./modules/sysmgr/environment/store/apiEnvStore";
+import {WEB_ENV_STORE,WebEnvStore} from "./modules/sysmgr/environment/store/webEnvStore";
+import {APP_ENV_STORE,AppEnvStore} from "./modules/sysmgr/environment/store/appEnvStore";
+
 
 function createStores() {
     return {
-        [ENVIRONMENT_STORE]: new EnvironmentStore(),
         [AGENT_CONFIG_STORE]:new AgentConfigStore(),
         [REPOSITORY_STORE]: new RepositoryStore(),
         [REPOSITORY_RECENT_STORE]: new RepositoryRecentStore(),

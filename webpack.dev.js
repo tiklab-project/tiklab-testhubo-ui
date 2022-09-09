@@ -45,14 +45,15 @@ module.exports = merge(baseWebpackConfig, {
     },
 
     devServer: {
-        contentBase: path.join(__dirname, 'plugins'), //开发服务运行时的文件根目录
+        contentBase: path.join(__dirname, 'plugin'), //开发服务运行时的文件根目录
         port:PORT,//端口
-        historyApiFallback: true,
         inline: true,
         hot: true,//热更新
         host: '0.0.0.0',
         hotOnly:true,
         open:false,//自动打开浏览器
+        historyApiFallback: true,
+        disableHostCheck: true,
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()

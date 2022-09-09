@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input} from 'antd';
+import {getUser} from "tiklab-core-ui";
 
 const layout = {
     labelCol: {span: 4},
@@ -9,11 +10,13 @@ const layout = {
 
 // 添加与编辑
 const RepositoryEdit = (props) => {
-    const { repositoryStore, repositoryId,findPage } = props;
+    const { repositoryStore, repositoryId } = props;
     const {
+        findRepositoryList,
         findRepository,
         createRepository,
-        updateRepository
+        updateRepository,
+        menuSelected
     } = repositoryStore;
 
     const [form] = Form.useForm();
@@ -37,20 +40,26 @@ const RepositoryEdit = (props) => {
     const onFinish =async () => {
         let values =  await form.validateFields()
         if(props.name === "添加项目" ){
-            createRepository(values).then(()=>findPage());
+            createRepository(values).then(()=> {
+                menuSelected("create")
+                props.history.push("/repository/create")
+            });
         }else{
             values.id=repositoryId;
-            updateRepository(values).then(()=>findPage());
+            updateRepository(values).then(()=>findRepositoryList({userId:userId}));
         }
         setVisible(false);
     };
+
+    const userId = getUser().userId;
+
 
     const onCancel = () => { setVisible(false) };
 
     return (
         <>
             {
-                props.name === "添加项目"
+                props.btn === "btn"
                     ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
                     : <a onClick={showModal}>{props.name}</a>
             }

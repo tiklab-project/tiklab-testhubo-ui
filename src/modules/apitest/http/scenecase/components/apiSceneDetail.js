@@ -54,7 +54,7 @@ const ApiSceneDetail = (props) => {
 
 
     const goBack = () =>{
-        props.history.push("/repositorypage/apitest/scenecase")
+        props.history.push("/repositorypage/apitest")
     }
 
     return(

@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {Dropdown, Input, Menu, Popconfirm} from "antd";
+import {Dropdown, Input, Menu} from "antd";
 import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
-import StepEdit from "../unitcase/components/apiUnitEdit";
 import ApiUnitEdit from "../unitcase/components/apiUnitEdit";
 import ApiSceneEdit from "../scenecase/components/apiSceneEdit";
 import ApiPerfEdit from "../performcase/components/apiPerfEdit";
@@ -15,10 +14,8 @@ const ApiLeftTree = (props) =>{
     const [expandedTree, setExpandedTree] = useState([]);
 
     const testType = localStorage.getItem("testType");
-    const caseType = localStorage.getItem("caseType");
     const repositoryId = sessionStorage.getItem("repositoryId");
 
-    console.log(testType,caseType,repositoryId)
 
     useEffect(()=>{
         const params = {
@@ -56,11 +53,9 @@ const ApiLeftTree = (props) =>{
         setOpenOrClose(item.id);
 
         sessionStorage.setItem('categoryId',item.id);
-
-        props.history.push('/repositorypage/apitest/unitcase');
     }
 
-    //保存接口id，跳往接口详情页
+    //保存id，跳往详情页
     const onNode = (item) => {
         setClickKey(item.id);
 
@@ -83,8 +78,29 @@ const ApiLeftTree = (props) =>{
     //目录悬浮的操作项
     const menu = (id)=>(
         <Menu>
-            <Menu.Item >
-                {/*<StepEdit name="添加用例"  unitcaseId={id}/>*/}
+            <Menu.Item key={1}>
+                <ApiUnitEdit
+                    name={"添加Unit用例"}
+                    caseType={"unit"}
+                    isCategory={true}
+                    categoryId={id}
+                />
+            </Menu.Item>
+            <Menu.Item key={2}>
+                <ApiSceneEdit
+                    name={"添加场景用例"}
+                    caseType={"scene"}
+                    isCategory={true}
+                    categoryId={id}
+                />
+            </Menu.Item>
+            <Menu.Item key={3}>
+                <ApiPerfEdit
+                    name={"添加压测用例"}
+                    caseType={"perform"}
+                    isCategory={true}
+                    categoryId={id}
+                />
             </Menu.Item>
         </Menu>
     );
@@ -102,6 +118,29 @@ const ApiLeftTree = (props) =>{
         )
     }
 
+    //子集前面的图标
+    const showIcon = (type) =>{
+        switch (type) {
+            case "unit":
+               return (
+                   <svg className="icon" aria-hidden="true">
+                       <use xlinkHref="#icon-api"/>
+                   </svg>
+               )
+            case "scene":
+                return (
+                    <svg className="icon" aria-hidden="true">
+                        <use xlinkHref="#icon-changjing"/>
+                    </svg>
+                )
+            case "perform":
+                return (
+                    <svg className="icon" aria-hidden="true">
+                        <use xlinkHref="#icon-jiqun-mianxing"/>
+                    </svg>
+                )
+        }
+    }
 
     //设置有子集的li
     const expendTreeLi = (item,icon) => {
@@ -125,8 +164,7 @@ const ApiLeftTree = (props) =>{
         )
     }
 
-
-    //接口
+    //子集
     const methodView = (data) => {
         return data&&data.map(item=>{
             return(
@@ -135,9 +173,9 @@ const ApiLeftTree = (props) =>{
                     className={`methodli categoryNav-li tree-childspan  ${item.id === clickKey? 'action-li':''}`}
                     onClick={()=>onNode(item)}
                 >
-                    <svg className="icon" aria-hidden="true">
-                        <use xlinkHref={`#icon-api`}/>
-                    </svg>
+                    {
+                        showIcon(item.caseType)
+                    }
                     {/*<RequestType type={item.requestType}/>*/}
                     {item.name}
                 </li>
@@ -181,9 +219,10 @@ const ApiLeftTree = (props) =>{
                                 onClick={()=>onCategory(item)}
                                 className={`categoryNav-li tree-span ${item.id === clickKey? 'action-li':''}`}
                             >
-                                <svg className="icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-folder-close"/>
-                                </svg>
+                               <svg className="icon" aria-hidden="true">
+                                   <use xlinkHref="#icon-folder-close"/>
+                               </svg>
+
                                 {item.name}
                             </span>
                                 {
@@ -198,7 +237,7 @@ const ApiLeftTree = (props) =>{
     }
 
 
-
+    //搜索框旁 +号按钮 下拉菜单
     const addMenu = (
         <Menu>
             <Menu.Item key={1}>
@@ -216,6 +255,7 @@ const ApiLeftTree = (props) =>{
     const screenItem = [
         {
             name:"全部",
+            key:"all"
         },{
             name:"单元",
             key:"unit"
@@ -228,20 +268,32 @@ const ApiLeftTree = (props) =>{
         }
     ]
 
+    const [selectedScreen, setSelectedScreen] = useState("all");
+
+    //点击：全部、单元、场景、压力 进行筛选
     const findCategoryList = (caseType) =>{
-        const params = {
-            caseType:caseType,
+        setSelectedScreen(caseType)
+
+        let params = {
             testType:testType,
             repositoryId:repositoryId
         }
+
+        if (caseType==="all"){
+            params = Object.assign(params)
+        }else {
+            params = Object.assign(params,{caseType:caseType})
+        }
+
         findCategoryListTree(params)
     }
 
+    //筛选项
     const showScreen = (data) =>{
         return data&&data.map(item=>{
             return(
                 <div
-                    className={"left-tree-screen-item"}
+                    className={`left-tree-screen-item ${item.key === selectedScreen?"left-tree-screen-item-selected":null}`}
                     key={item.key}
                     onClick={()=>findCategoryList(item.key)}
                 >
@@ -264,10 +316,7 @@ const ApiLeftTree = (props) =>{
                 </Dropdown>
             </div>
             <div className={"left-tree-screen"}>
-                <div>筛选：</div>
-                <div className={"left-tree-screen-box"}>
-                    {showScreen(screenItem)}
-                </div>
+                {showScreen(screenItem)}
             </div>
 
             <ul>

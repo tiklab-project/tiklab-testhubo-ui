@@ -9,6 +9,7 @@ import {
 } from '../api/categoryApi';
 export class CategoryStore{
     @observable categoryList = [];
+    @observable categoryTableList=[]
     @observable categoryInfo = [];
     @observable repositoryId = '';
     @observable categoryId= '';
@@ -41,7 +42,7 @@ export class CategoryStore{
 
         const res = await findCategoryListTreeTable(params)
         if(res.code === 0) {
-            this.categoryList = res.data;
+            this.categoryTableList = res.data;
             return res.data;
         }
     }

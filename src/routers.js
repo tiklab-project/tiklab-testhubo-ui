@@ -2,7 +2,7 @@
 import React from 'react'
 
 import {
-    Login, Home,
+    Home,
     Repository,
     RepositoryList,
     RepositoryDetailPage,
@@ -17,15 +17,13 @@ import {
 
 import {
     SystemManagement,
-    Org, Usermgr,
     ProjectFeature, ProjectRole,
     SystemFeature, SystemRole,
     MessageManagement, MessageSendType, MessageTemplate, MessageType, MessageUser,
 } from './modules/sysmgr'
 import {Directory} from 'tiklab-user-ui';
 import {Redirect} from "react-router";
-import Demo from "./modules/repository/components/demo";
-import PortalHeader from "./modules/header/portalHeader";
+import PortalHeader from "./modules/header/portalContent";
 import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
 import ApiUnitList from "./modules/apitest/http/unitcase/components/apiUnitList";
 import ApiScenecaseList from "./modules/apitest/http/scenecase/components/apiSceneList";
@@ -53,8 +51,6 @@ import FuncSceneDetail from "./modules/functest/scenecase/components/funcSceneDe
 import WebSceneInstance from "./modules/webtest/scenecase/components/webSceneInstance";
 import WebPerformDetailContant from "./modules/webtest/performcase/components/webPerformDetailContant";
 import WebPerformInstance from "./modules/webtest/performcase/components/webPerformInstance";
-import AppUnitDetailContant from "./modules/apptest/unitcase/components/appUnitDetailContant";
-import AppUnitInstance from "./modules/apptest/unitcase/components/appUnitInstance";
 import AppSceneDetailContant from "./modules/apptest/scenecase/components/appSceneDetailContant";
 import AppSceneInstance from "./modules/apptest/scenecase/components/appSceneInstance";
 import AppPerformDetailContant from "./modules/apptest/performcase/components/appPerformDetailContant";
@@ -70,23 +66,18 @@ import AppPerformTest from "./modules/apptest/performcase/components/appPerformT
 import PluginManage from "./modules/sysmgr/pluginManage/pluginManage";
 import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
 import {Licence} from "tiklab-licence-ui";
-import AccountMember from "./modules/sysmgr/accountMember/accountMember";
 import TestPlanDetail from "./modules/testplan/components/testPlanDetail";
 import RepositoryRecent from "./modules/repository/components/repositoryRecent";
 import RepositoryCreate from "./modules/repository/components/repositoryCreate";
-import RepositorySetting from "./modules/integration/repositorySetting/repositorySetting";
 import AgentConfigList from "./modules/integration/agentconfig/components/agentConfigList";
 import DomainRole from "./modules/integration/domainRole/domainRole";
 import DomainPrivilege from "./modules/integration/domainPrivilege/domainPrivilege";
+import WebUnitDetail from "./modules/webtest/unitcase/components/webUnitDetail";
+import AppUnitDetail from "./modules/apptest/unitcase/components/appUnitDetail";
+import SystemContent from "./modules/sysmgr/system/systemContent";
 
 
 const routers =  [
-    {
-        path: "/login",
-        exact: true,
-        component: Login,
-        key:'login',
-    },
     {
         path: "/logout",
         component: LoginOut,
@@ -99,7 +90,7 @@ const routers =  [
         key:'poroute',
         routes:[
             {
-                path: "/",
+                path: "/home",
                 component: Home,
                 exact: true,
                 key:'Home',
@@ -204,12 +195,12 @@ const routers =  [
                                 key:'history',
                                 component: ApiPerformInstance,
                             },
-                            {
-                                path:"/repositorypage/apitest",
-                                exact: true,
-                                key:'ridapitest',
-                                component: ()=><Redirect to='/repositorypage/apitest/unitcase'/>,
-                            },
+                            // {
+                            //     path:"/repositorypage/apitest",
+                            //     exact: true,
+                            //     key:'ridapitest',
+                            //     component: ()=><Redirect to='/repositorypage/apitest/unitcase'/>,
+                            // },
                         ]
                     },
                     {
@@ -221,6 +212,10 @@ const routers =  [
                                 path: "/repositorypage/webtest/unitcase",
                                 key:'unitcase',
                                 component: WebUnitList,
+                            }, {
+                                path: "/repositorypage/webtest/unitdetail",
+                                key:'unitcase',
+                                component: WebUnitDetail,
                             }, {
                                 path: "/repositorypage/webtest/scenecase",
                                 key:'scenecase',
@@ -264,12 +259,12 @@ const routers =  [
                                 key:'performcase',
                                 component: WebPerformInstance,
                             },
-                            {
-                                path:"/repositorypage/webtest",
-                                exact: true,
-                                key:'ridapitest',
-                                component: ()=><Redirect to='/repositorypage/webtest/unitcase'/>,
-                            },
+                            // {
+                            //     path:"/repositorypage/webtest",
+                            //     exact: true,
+                            //     key:'ridapitest',
+                            //     component: ()=><Redirect to='/repositorypage/webtest/unitcase'/>,
+                            // },
                         ]
                     },
                     {
@@ -284,11 +279,7 @@ const routers =  [
                             },{
                                 path: "/repositorypage/apptest/unitdetail",
                                 key:'unitcase',
-                                component: AppUnitDetailContant,
-                            },{
-                                path: "/repositorypage/apptest/unitcase-instance",
-                                key:'unitcase',
-                                component: AppUnitInstance,
+                                component: AppUnitDetail,
                             },{
                                 path: "/repositorypage/apptest/scenecase",
                                 key:'scenecase',
@@ -331,12 +322,13 @@ const routers =  [
                                 path: "/repositorypage/apptest/perform-instance",
                                 key:'performcase',
                                 component: AppPerformInstance,
-                            },{
-                                path:"/repositorypage/apptest",
-                                exact: true,
-                                key:'ridapitest',
-                                component: ()=><Redirect to='/repositorypage/apptest/unitcase'/>,
                             },
+                            // {
+                            //     path:"/repositorypage/apptest",
+                            //     exact: true,
+                            //     key:'ridapitest',
+                            //     component: ()=><Redirect to='/repositorypage/apptest/unitcase'/>,
+                            // },
                         ]
                     },
                     {
@@ -362,12 +354,12 @@ const routers =  [
                                 key:'scenecase',
                                 component: FuncSceneDetail,
                             },
-                            {
-                                path:"/repositorypage/functest",
-                                exact: true,
-                                key:'ridapitest',
-                                component: ()=><Redirect to='/repositorypage/functest/unitcase'/>,
-                            },
+                            // {
+                            //     path:"/repositorypage/functest",
+                            //     exact: true,
+                            //     key:'ridapitest',
+                            //     component: ()=><Redirect to='/repositorypage/functest/unitcase'/>,
+                            // },
                         ]
                     },
                     {
@@ -412,87 +404,6 @@ const routers =  [
                         exact: true,
                         component: TestPlanDetail,
                     },
-                    // {
-                    //     path: `/repositorypage/quartzTask`,
-                    //     exact: true,
-                    //     key:'quartzTask',
-                    //     component: QuartzTask,
-                    // },
-                    // {
-                    //     path: "/repositorypage/setting",
-                    //     key:'RepositorySetting',
-                    //     component: RepositorySetting,
-                    //     routes:[
-                    //         {
-                    //             path: "/repositorypage/setting/agent",
-                    //             key:'agent',
-                    //             exact: true,
-                    //             component: AgentConfigList
-                    //         },
-                    //         {
-                    //             path:"/repositorypage/setting",
-                    //             exact: true,
-                    //             key:'ridsetting',
-                    //             component: ()=><Redirect to='/repositorypage/setting/agent'/>,
-                    //         },
-                    //     ]
-                    // },
-
-                    // {
-                    //     path: "/repositorypage/performance",
-                    //     component: PerformanceList,
-                    //     exact: true,
-                    //     key:'performance',
-                    // },
-                    // {
-                    //     path: "/repositorypage/performancehistory",
-                    //     component: PerformanceHistory,
-                    //     exact: true,
-                    //     key:'performancehistory',
-                    // },
-                    // {
-                    //     path: "/repositorypage/performancedetail",
-                    //     component: PerformanceDetail,
-                    //     exact: true,
-                    //     key:'PerformanceDetail',
-                    // },
-                    // {
-                    //     path: `/repositorypage/quartzMaster`,
-                    //     exact: true,
-                    //     key:'quartzTask',
-                    //     component: QuartzTaskList,
-                    // },
-                    //
-                    // {
-                    //     path: "/repositorypage/apitest",
-                    //     exact: true,
-                    //     key:'step',
-                    //     component: Step,
-                    // },
-                    // {
-                    //     path: "/repositorypage/webtest",
-                    //     exact: true,
-                    //     key:'webtest',
-                    //     component: WebTestcase,
-                    // },
-                    // {
-                    //     path: "/repositorypage/apptest",
-                    //     exact: true,
-                    //     key:'apptest',
-                    //     component: AppTestcase,
-                    // },
-                    // {
-                    //     path: "/repositorypage/steppage",
-                    //     exact: true,
-                    //     key:'step',
-                    //     component: StepDetail,
-                    // },
-                    // {
-                    //     path: "/repositorypage/functionaltest",
-                    //     exact: true,
-                    //     key:'functionaltest',
-                    //     component: FunctionalTestDetail,
-                    // },
                     {
                         path:"/repositorypage",
                         exact: true,
@@ -504,20 +415,8 @@ const routers =  [
             {
                 path:'/systemManagement',
                 key:'systemManagement',
-                component:SystemManagement,
+                component:SystemContent,
                 routes:[
-                    // {
-                    //     path: "/systemManagement/organ/org",
-                    //     key:'org',
-                    //     exact: true,
-                    //     component: Org,
-                    // },
-                    // {
-                    //     path: "/systemManagement/organ/user",
-                    //     key:'user',
-                    //     exact: true,
-                    //     component: Usermgr,
-                    // },
                     {
                         path: "/systemManagement/privilege",
                         key:'ProjectFeature',
@@ -585,37 +484,7 @@ const routers =  [
                         path:"/systemManagement",
                         exact: true,
                         key:'ridenvtest',
-                        component: ()=><Redirect to='/systemManagement/envMana'/>,
-                    },
-                ]
-            },
-            {
-                path: "/accountMember",
-                key:'accountMember',
-                component: AccountMember,
-                routes: [
-                    {
-                        path: "/accountMember/org",
-                        key:'org',
-                        exact: true,
-                        component: Org,
-                    },
-                    {
-                        path: "/accountMember/user",
-                        key:'user',
-                        exact: true,
-                        component: Usermgr,
-                    },
-                    {
-                        path: "/accountMember/authConfig",
-                        key:'authConfig',
-                        exact: true,
-                        render: () => <Directory isPortal={false}/>,
-                    },{
-                        path: "/accountMember",
-                        key:'sysEnvMana',
-                        exact: true,
-                        render: () => <Redirect to={"/accountMember/org"}/>,
+                        component: ()=><Redirect to='/systemManagement/systemFeature'/>,
                     },
                 ]
             },
@@ -625,7 +494,12 @@ const routers =  [
                 exact: true,
                 component: MessageUser,
             },
-
+            {
+                path: "/",
+                key:'tohome',
+                exact: true,
+                render: () => <Redirect to={"/home"}/>,
+            },
         ]
     },
 

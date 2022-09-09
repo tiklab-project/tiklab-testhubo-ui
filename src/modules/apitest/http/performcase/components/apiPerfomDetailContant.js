@@ -16,7 +16,7 @@ const ApiPerfomDetailContant = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repositorypage/apitest/performcase")
+        props.history.push("/repositorypage/apitest")
     }
 
 

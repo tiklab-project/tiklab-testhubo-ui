@@ -47,9 +47,7 @@ const FuncUnitDetail = (props) => {
                     </div>
                 </div>
             </div>
-
             <FuncUnitStepList />
-
         </>
     )
 }

@@ -15,7 +15,7 @@ const WebPerfomDetailContant = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repositorypage/webtest/performcase")
+        props.history.push("/repositorypage/webtest")
     }
 
 

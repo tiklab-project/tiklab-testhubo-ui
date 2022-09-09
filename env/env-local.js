@@ -6,8 +6,8 @@
 // const apitest =  'http://192.168.2.2:8070/';
 
 const base_url =  JSON.stringify('http://192.168.10.16:8090');
-const plugin_base_url = JSON.stringify("http://127.0.0.1:8000");
-const pluginAddressUrl = JSON.stringify('http://127.0.0.1:8000/config.json');
+const plugin_base_url = JSON.stringify("http://192.168.10.16:8090");
+const pluginAddressUrl = JSON.stringify('http://192.168.10.16:8090/config.json');
 const fetchMethod = JSON.stringify("get");
 
 const userProduction = true;

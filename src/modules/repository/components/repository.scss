@@ -28,3 +28,36 @@
     }
 }
 
+
+.repository-header-menu{
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom:1px solid #e4e4e4 ;
+    margin: 0 0 10px 0;
+
+    .repository-header-menu-left{
+        display: flex;
+    }
+
+    .repository-header-menu-right{
+        display: flex;
+    }
+
+    .repository-header-menu-item{
+        padding: 14px;
+        margin: 0 15px;
+        cursor: pointer;
+    }
+
+    .repository-header-menu-item:hover{
+        border-bottom:3px solid #2196f3;
+    }
+
+    .repository-header-menu-item-selected{
+        color: #008aff;
+        border-bottom:3px solid #008cff;
+    }
+}
+

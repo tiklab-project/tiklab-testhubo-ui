@@ -5,9 +5,11 @@
 import { stores as testonStore  } from './components/stores';
 import routers from './components/routers';
 import App from "./components/app";
-import {PageContent} from "./components/modules/index"
+import {
+    PageContent,HeaderContent,SystemManagement
+} from "./components/modules/index"
 
 
 export {
-    testonStore, routers, App,PageContent
+    testonStore, routers, App,PageContent,HeaderContent,SystemManagement
 }

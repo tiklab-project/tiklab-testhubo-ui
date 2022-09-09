@@ -14,10 +14,8 @@ const FuncLeftTree = (props) =>{
     const [expandedTree, setExpandedTree] = useState([]);
 
     const testType = localStorage.getItem("testType");
-    const caseType = localStorage.getItem("caseType");
     const repositoryId = sessionStorage.getItem("repositoryId");
 
-    console.log(testType,caseType,repositoryId)
 
     useEffect(()=>{
         const params = {
@@ -56,7 +54,6 @@ const FuncLeftTree = (props) =>{
 
         sessionStorage.setItem('categoryId',item.id);
 
-        props.history.push('/repositorypage/functest/unitcase');
     }
 
     //保存接口id，跳往接口详情页
@@ -97,6 +94,24 @@ const FuncLeftTree = (props) =>{
         )
     }
 
+    //子集前面的图标
+    const showIcon = (type) =>{
+        switch (type) {
+            case "unit":
+                return (
+                    <svg className="icon" aria-hidden="true">
+                        <use xlinkHref="#icon-layers"/>
+                    </svg>
+                )
+            case "scene":
+                return (
+                    <svg className="icon" aria-hidden="true">
+                        <use xlinkHref="#icon-changjing"/>
+                    </svg>
+                )
+        }
+    }
+
 
     //设置有子集的li
     const expendTreeLi = (item,icon) => {
@@ -130,9 +145,9 @@ const FuncLeftTree = (props) =>{
                     className={`methodli categoryNav-li tree-childspan  ${item.id === clickKey? 'action-li':''}`}
                     onClick={()=>onNode(item)}
                 >
-                    <svg className="icon" aria-hidden="true">
-                        <use xlinkHref={`#icon-func`}/>
-                    </svg>
+                    {
+                        showIcon(item.caseType)
+                    }
                     {/*<RequestType type={item.requestType}/>*/}
                     {item.name}
                 </li>
@@ -208,6 +223,7 @@ const FuncLeftTree = (props) =>{
     const screenItem = [
         {
             name:"全部",
+            key: "all"
         },{
             name:"单元",
             key:"unit"
@@ -217,20 +233,33 @@ const FuncLeftTree = (props) =>{
         }
     ]
 
+
+    const [selectedScreen, setSelectedScreen] = useState("all");
+
+    //点击：全部、单元、场景、压力 进行筛选
     const findCategoryList = (caseType) =>{
-        const params = {
-            caseType:caseType,
+        setSelectedScreen(caseType)
+
+        let params = {
             testType:testType,
             repositoryId:repositoryId
         }
+
+        if (caseType==="all"){
+            params = Object.assign(params)
+        }else {
+            params = Object.assign(params,{caseType:caseType})
+        }
+
         findCategoryListTree(params)
     }
 
+    //筛选项
     const showScreen = (data) =>{
         return data&&data.map(item=>{
             return(
                 <div
-                    className={"left-tree-screen-item"}
+                    className={`left-tree-screen-item ${item.key === selectedScreen?"left-tree-screen-item-selected":null}`}
                     key={item.key}
                     onClick={()=>findCategoryList(item.key)}
                 >
@@ -253,10 +282,7 @@ const FuncLeftTree = (props) =>{
                 </Dropdown>
             </div>
             <div className={"left-tree-screen"}>
-                <div>筛选：</div>
-                <div className={"left-tree-screen-box"}>
-                    {showScreen(screenItem)}
-                </div>
+                {showScreen(screenItem)}
             </div>
 
             <ul>

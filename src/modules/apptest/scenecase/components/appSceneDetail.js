@@ -27,7 +27,7 @@ const AppSceneDetail = (props) => {
 
 
     const goBack = () =>{
-        props.history.push("/repositorypage/apptest/scenecase")
+        props.history.push("/repositorypage/apptest")
     }
 
 

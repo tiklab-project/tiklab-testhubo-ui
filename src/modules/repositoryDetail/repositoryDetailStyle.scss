@@ -1,6 +1,6 @@
 //workspaceDetailLayout
 .ws-detail-contant{
-    height: calc(100vh - 64px);
+    height: calc(100% - 50px);
     display: flex;
 
 
@@ -121,28 +121,6 @@
 .wscontant-box{
     width: 1240px;
     margin: 0 auto;
-}
-
-.repository-header-menu{
-    display: flex;
-    height: 50px;
-    align-items: center;
-    border-bottom:1px solid #e4e4e4 ;
-
-    .repository-header-menu-item{
-        padding: 14px;
-        margin: 0 15px;
-        cursor: pointer;
-    }
-
-    .repository-header-menu-item:hover{
-        border-bottom:3px solid #2196f3;
-    }
-
-    .repository-header-menu-item-selected{
-        color: #008aff;
-        border-bottom:3px solid #008cff;
-    }
 }
 
 

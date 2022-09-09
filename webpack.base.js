@@ -13,7 +13,6 @@ module.exports = {
         filename: 'js/[name].[hash:8].js',
         chunkFilename: 'js/[name].[hash:8].js',
         path: DIST_PATH,
-        publicPath: '/',
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json'],
@@ -26,10 +25,7 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                use: [{
-                    // loader: "happypack/loader?id=portal"
-                    loader: 'babel-loader'
-                }],
+                use: [{ loader: 'babel-loader' }],
                 exclude: /node_modules/
             },
             {
@@ -52,7 +48,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)/,
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
                 use: {
                     loader: 'url-loader',
                     options: {
@@ -79,11 +75,12 @@ module.exports = {
             },
         ]
     },
+
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            title:'接口管理',
+            title:'测试管理',
             template: path.resolve(__dirname, './public/index.html'),
             hash: false,
             filename: 'index.html',

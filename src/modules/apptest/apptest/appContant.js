@@ -1,5 +1,4 @@
 import React from "react";
-import AppLeft from "./appLeft";
 import {renderRoutes} from "react-router-config";
 import AppLeftTree from "./appLeftTree";
 

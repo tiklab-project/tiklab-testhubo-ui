@@ -3,24 +3,18 @@
  * @Author: sunxiancheng
  * @LastEditTime: 2021-05-27 15:43:43
  */
-const api =  '/';
-const base_url = JSON.stringify(api);
+const base_url = JSON.stringify( '/' );
+let plugin_base_url = JSON.stringify( '/');
+let pluginAddressUrl = JSON.stringify('/pluginConfig/getPluginConfig');
+let fetchMethod = JSON.stringify("post");
 
-let plugin_base_url = '/';
-plugin_base_url = JSON.stringify(plugin_base_url);
-
-let pluginAddressUrl = '/plugin/getPluginConfig';
-pluginAddressUrl = JSON.stringify(pluginAddressUrl);
-
-let fetchMethod = "post";
-fetchMethod = JSON.stringify(fetchMethod);
-
+//判断是否是用户环境，公司内部切为false用于调试
 const userProduction = true;
 
-const appKey =  JSON.stringify('ghuyuhh');
-const appSecret = JSON.stringify('koon');
-const version = JSON.stringify('1.0.1');
-const client = JSON.stringify('1.1.0');
+const appKey =  JSON.stringify('tiklab');
+const appSecret = JSON.stringify('tiklab');
+const version = JSON.stringify('1.0.0');
+const client = JSON.stringify('1.0.0');
 
 module.exports = {
     base_url,

@@ -1,5 +1,4 @@
-import SystemManagement from './common/sysManagMenu';
-import { Org, Usermgr } from './organize/index'
+import SystemManagement from './system/sysManagMenu';
 import ProjectFeature from './privilege/projectFeature';
 import ProjectRole from './privilege/projectRole';
 import SystemFeature from './privilege/systemFeature';
@@ -11,7 +10,6 @@ import MessageType from './message/messageType';
 import MessageUser from './message/messageUser'
 export {
     SystemManagement,
-    Org, Usermgr,
     ProjectFeature,
     ProjectRole,
     SystemFeature,

@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "9743338",
+      "name": "集群-面性",
+      "font_class": "jiqun-mianxing",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "24275425",
+      "name": "场景",
+      "font_class": "changjing",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
       "icon_id": "1302",
       "name": "加",
       "font_class": "jia",

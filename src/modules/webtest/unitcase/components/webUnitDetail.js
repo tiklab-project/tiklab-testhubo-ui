@@ -12,17 +12,17 @@ const layout = {
     wrapperCol: {span: 20},
 };
 
-const AppUnitDetail = (props) => {
-    const {appUnitStore} = props;
-    const {findAppUnit,updateAppUnit} = appUnitStore;
+const WebUnitDetail = (props) => {
+    const {webUnitStore} = props;
+    const {findWebUnit,updateWebUnit} = webUnitStore;
 
     const [allValue,setAllValue] = useState();
 
-    const appUnitId = sessionStorage.getItem('appUnitId');
+    const webUnitId = sessionStorage.getItem('webUnitId');
     const [form] = Form.useForm();
 
     useEffect(()=> {
-        findAppUnit(appUnitId).then(res=>{
+        findWebUnit(webUnitId).then(res=>{
             setAllValue(res);
 
             form.setFieldsValue({
@@ -33,12 +33,12 @@ const AppUnitDetail = (props) => {
                 expectedResult:res.expectedResult,
             })
         })
-    },[appUnitId])
+    },[webUnitId])
 
 
 
     const goback = () =>{
-        props.history.push("/repositorypage/apptest")
+        props.history.push("/repositorypage/webtest")
     }
 
 
@@ -48,10 +48,10 @@ const AppUnitDetail = (props) => {
             <div className={'testcase-detail'}  style={{"borderBottom":"1px solid #e4e4e4","margin":"0 0 10px 0"}} >
                 <div className="apidetail-header-btn">
                     <div className={"method-name"}>{allValue?.testCase?.name}</div>
-
+                    
                 </div>
                 <div className={"method"}>
-
+                   
                     <div className={"method-people-info"}>
                         <span className={"people-item "}>分组: {allValue?.testCase?.category?.name}</span>
                         <span className={"people-item "}>创建人: {allValue?.testCase?.createUser?.name}</span>
@@ -110,4 +110,4 @@ const AppUnitDetail = (props) => {
     )
 }
 
-export default inject('appUnitStore')(observer(AppUnitDetail));
+export default inject('webUnitStore')(observer(WebUnitDetail));

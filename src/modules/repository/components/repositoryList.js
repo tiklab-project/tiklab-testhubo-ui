@@ -6,19 +6,15 @@
 
 import React, { Fragment, useEffect, useState } from 'react';
 import { observer, inject } from "mobx-react";
-import { Input, Table, Space, Popconfirm} from 'antd';
-import RepositoryEdit from './repositoryEdit';
+import { Table } from 'antd';
 import  { useTranslation } from 'react-i18next'
-import BreadcrumbEx from "../../common/breadcrumbEx";
 import {getUser} from "tiklab-core-ui";
 
 const RepositoryList = (props) => {
     const { repositoryStore ,repositoryRecentStore} = props;
     const {
-        findRepositoryPage,
-        deleteRepository,
+        findRepositoryList,
         repositoryList,
-        totalRecord,
     } = repositoryStore;
     const {repositoryRecent} = repositoryRecentStore;
 
@@ -48,26 +44,15 @@ const RepositoryList = (props) => {
         },
     ]
 
-    const [pageSize] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [params, setParams] = useState({
-        pageParam: {
-            pageSize: pageSize,
-            currentPage: currentPage
-        }
-    })
     const [tableLoading,setTableLoading] = useState(true)
     const userId = getUser().userId;
 
     useEffect(()=> {
-        findRepositoryPage(params).then(()=>{
+        findRepositoryList().then(()=>{
             setTableLoading(false)
         });
-    },[params])
+    },[userId])
 
-    const findPage = ()=>{
-        findRepositoryPage(params)
-    }
 
     // 保存id到缓存,跳往详情页
     const toRepositoryDetail = (id) => {
@@ -87,73 +72,16 @@ const RepositoryList = (props) => {
         props.history.push('/repositorypage');
     }
 
-    //分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
-        const newParams = {
-            ...params,
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: pagination.current
-            },
-        }
-        setParams(newParams)
-    }
-
-    //搜索
-    const onSearch = (e) => {
-        setCurrentPage(1)
-        let newParams = {
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: 1
-            },
-        }
-        if (e.target.value) {
-            newParams = {
-                pageParam: {
-                    pageSize: pageSize,
-                    currentPage: 1
-                },
-                name:e.target.value,
-            }
-        }
-        setParams(newParams)
-    }
-
-
     return(
-        <Fragment>
-            {/*<BreadcrumbEx list={["仓库","所有仓库"]} />*/}
-            <div className='search-btn'>
-            {/*    <RepositoryEdit*/}
-            {/*        className="important-btn"*/}
-            {/*        name={`添加项目`}*/}
-            {/*        findPage={findPage}*/}
-            {/*    />*/}
-                <div> </div>
-                <Input
-                    style={{width:200}}
-                    placeholder={`${t('tcsearch')}`}
-                    onPressEnter={onSearch}
-                    className='search-input'
-                />
-            </div>
+        <Table
+            className="tablelist"
+            columns={columns}
+            dataSource={repositoryList}
+            rowKey={record => record.id}
+            pagination={false}
+            loading={tableLoading}
+        />
 
-            <Table
-                className="tablelist"
-                columns={columns}
-                dataSource={repositoryList}
-                rowKey={record => record.id}
-                pagination={{
-                    current:currentPage,
-                    pageSize:pageSize,
-                    total:totalRecord,
-                }}
-                onChange = {(pagination) => onTableChange(pagination)}
-                loading={tableLoading}
-            />
-        </Fragment>
     )
 }
 

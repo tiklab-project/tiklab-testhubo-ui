@@ -22,7 +22,7 @@ const WebSceneDetail = (props) => {
 
 
     const goBack = () =>{
-        props.history.push("/repositorypage/webtest/scenecase")
+        props.history.push("/repositorypage/webtest")
     }
 
     const toHistory = () =>{

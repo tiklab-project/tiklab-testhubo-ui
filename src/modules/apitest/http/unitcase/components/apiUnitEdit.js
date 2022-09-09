@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select, message} from 'antd';
+import {Form, Modal, Button, Input, Select, message, Cascader} from 'antd';
 
 const {Option} = Select;
 
@@ -11,25 +11,30 @@ const layout = {
 
 // 添加与编辑
 const ApiUnitEdit = (props) => {
-    const { apiUnitStore, apiUnitId,categoryStore,caseType } = props;
+    const { apiUnitStore, apiUnitId,categoryStore,caseType,categoryId } = props;
     const {
         findApiUnitList,
         findApiUnit,
         createApiUnit,
         updateApiUnit,
     } = apiUnitStore;
-    const {findCategoryListTree} = categoryStore;
+    const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const [form] = Form.useForm();
 
+    const [cascaderCategoryId, setCascaderCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
     const testType=localStorage.getItem("testType");
-    const categoryId = sessionStorage.getItem("categoryId")
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
     const showModal = () => {
+        if(props.isCategory!==true){
+            findCategoryListTreeTable(repositoryId)
+        }
+
+
         if(props.type === "edit"){
             findApiUnit(apiUnitId).then((res)=>{
                 form.setFieldsValue({
@@ -50,13 +55,14 @@ const ApiUnitEdit = (props) => {
 
         if(props.type !== "edit" ){
             values.testCase={
-                category:{id:categoryId},
+                category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
                 testType:testType,
                 caseType:caseType,
                 desc:values.desc
             }
 
+            delete values?.category
             delete values.name
             delete values.desc
 
@@ -109,6 +115,13 @@ const ApiUnitEdit = (props) => {
         findCategoryListTree(params)
     }
 
+    const changeCategory=(value)=> {
+        //获取最后数组最后一位值
+        const list = value.slice(-1);
+        setCascaderCategoryId(list[0])
+    }
+
+
     const onCancel = () => { setVisible(false) };
 
     return (
@@ -134,6 +147,25 @@ const ApiUnitEdit = (props) => {
                     preserve={false}
                     {...layout}
                 >
+                    {
+                        props.isCategory!==true
+                            ? <Form.Item
+                                label="分组"
+                                rules={[{ required: true, }]}
+                                name="category"
+                            >
+                                <Cascader
+                                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                                    options={categoryTableList}
+                                    onChange={changeCategory}
+                                    changeOnSelect
+                                    expandTrigger={"hover"}
+                                    placeholder="请选择分组"
+                                />
+                            </Form.Item>
+                            :null
+                    }
+
                     <Form.Item
                         label="名称"
                         rules={[{ required: true, }]}

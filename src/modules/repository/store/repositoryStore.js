@@ -14,7 +14,7 @@ export class RepositoryStore {
     @observable repositoryInfo = {};
     @observable totalRecord ;
     @observable envUrlId;
-    @observable repositoryName;
+    @observable selectedItem="all";
 
     @action
     findRepositoryPage = async (param) => {
@@ -32,9 +32,9 @@ export class RepositoryStore {
     }
 
     @action
-    findRepositoryList = async (userId) => {
+    findRepositoryList = async (params) => {
         this.params = {
-            // userId:userId,
+            ...params,
             orderParams:[{name:'name', orderType:'asc'}],
         }
         const res = await findRepositoryList(this.params)
@@ -72,6 +72,11 @@ export class RepositoryStore {
         param.append('id', id)
 
         await deleteRepository(param)
+    }
+
+    @action
+    menuSelected = (selected)=>{
+        this.selectedItem = selected;
     }
 
 }

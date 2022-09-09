@@ -15,7 +15,7 @@ const AppPerfomDetailContant = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repositorypage/apptest/performcase")
+        props.history.push("/repositorypage/apptest")
     }
 
 
