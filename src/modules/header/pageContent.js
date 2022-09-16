@@ -8,7 +8,7 @@ import { SYSTEM_ROLE_STORE } from 'tiklab-privilege-ui/es/store';
 import './portalStyle.scss'
 
  const  PageContent =(props)=> {
-     const {versionImg} = props;
+     const {versionImg,accountAndMember} = props;
 
      const router = props.route.routes;
 
