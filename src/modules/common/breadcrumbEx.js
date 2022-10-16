@@ -14,7 +14,7 @@ const BreadcrumbEx = ({list}) =>{
 
 
     return(
-        <div className={"teston-breadcrumb"}>
+        <div className={"breadcrumb"}>
             <Breadcrumb separator="/"  >
                 {
                     showBreadcrumbItem(list)

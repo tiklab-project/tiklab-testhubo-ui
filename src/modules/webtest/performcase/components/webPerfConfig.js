@@ -63,6 +63,23 @@ const WebPerfConfig = (props) =>{
         updateWebPerf(param)
     }
 
+
+
+    //执行类型
+    const changeExeType=(executeType)=> {
+        setExeMode(executeType)
+
+        let param = {
+            id:webPerfId,
+            executeType: executeType,
+            testCase:{
+                id:webPerfId
+            }
+        }
+        updateWebPerf(param)
+    }
+
+
     const changeRadio = (id)=>{
         getAgent(id)
     }
@@ -73,7 +90,7 @@ const WebPerfConfig = (props) =>{
                 <div className={"perform-client-item"}>
                     <div>
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref= {`#icon-web`}></use>
+                            <use xlinkHref= {`#icon-web`} />
                         </svg>
                     </div>
                     <div>
@@ -83,9 +100,9 @@ const WebPerfConfig = (props) =>{
                         {/*    状态：<span className={"perform-client-item-status-icon"}>{item.online}</span>*/}
                         {/*</div>*/}
                     </div>
-                    <div className={"perform-client-item-check"}>
-                        <Radio onChange={(e)=>changeRadio(item.id)} />
-                    </div>
+                    {/*<div className={"perform-client-item-check"}>*/}
+                    {/*    <Radio onChange={(e)=>changeRadio(item.id)} />*/}
+                    {/*</div>*/}
                 </div>
             )
         })
@@ -111,15 +128,6 @@ const WebPerfConfig = (props) =>{
                     />
                 </Form.Item>
                 <Form.Item
-                    label="执行方式"
-                    name="executeType"
-                >
-                    <Radio.Group onChange={(e)=>setExeMode(e.target.value)} value={exeMode}>
-                        <Radio value={0}>按执行次数</Radio>
-                        {/*<Radio value={1}>按执行时间</Radio>*/}
-                    </Radio.Group>
-                </Form.Item>
-                <Form.Item
                     label="执行次数"
                     name="executeCount"
                 >
@@ -128,6 +136,15 @@ const WebPerfConfig = (props) =>{
                         max={10}
                         onChange={changeExeCount}
                     />
+                </Form.Item>
+                <Form.Item
+                    label="执行方式"
+                    name="executeType"
+                >
+                    <Radio.Group onChange={(e)=>changeExeType(e.target.value)} value={exeMode}>
+                        <Radio value={1}>循环</Radio>
+                        <Radio value={2}>随机</Radio>
+                    </Radio.Group>
                 </Form.Item>
                 <Form.Item
                     label="节点"

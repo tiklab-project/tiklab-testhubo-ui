@@ -14,14 +14,16 @@
         ],
         "@babel/preset-react"
     ],
+
     "plugins": [
         "@babel/plugin-transform-react-jsx",
-        ["@babel/plugin-transform-arrow-functions"],
+        "@babel/plugin-transform-arrow-functions",
         ["import", {
             "libraryName": "antd",
             "libraryDirectory": "es",
             "style": "css"
         }],
+
 
         ["import", {
             "libraryName": "tiklab-eam-ui",
@@ -29,11 +31,7 @@
             "style": true
         },"tiklab-eam-ui"],
 
-        ["import", {
-            "libraryName": "tiklab-plugin-ui",
-            "libraryDirectory": "es",
-            "style": true
-        }, "tiklab-plugin-ui"],
+
 
         ["import", {
             "libraryName": "tiklab-privilege-ui",
@@ -59,8 +57,24 @@
             "style":  true
         },"tiklab-message-ui"],
 
+        ["import", {
+            "libraryName": "tiklab-plugin-ui",
+            "libraryDirectory": "es",
+            "style": true
+        }, "tiklab-plugin-ui"],
+
+        ["import", {
+            "libraryName": "tiklab-oplog-ui",
+            "libraryDirectory": "es",
+            "style": true
+        }, "tiklab-oplog-ui"],
+        ["import", {
+            "libraryName": "tiklab-todotask-ui",
+            "libraryDirectory": "es",
+            "style": true
+        }, "tiklab-todotask-ui"],
+
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
-        ["@babel/plugin-proposal-class-properties", { "loose" : false }],
         ["dynamic-import-webpack"],
         "@babel/plugin-syntax-dynamic-import",
         ["@babel/plugin-transform-runtime",
@@ -68,7 +82,8 @@
                 "regenerator": true
             }
         ],
-        "@babel/plugin-transform-regenerator",
-        "react-hot-loader/babel"
+        "@babel/plugin-transform-async-to-generator",
+        "react-hot-loader/babel",
+        ["@babel/plugin-syntax-jsx"]
     ]
 }

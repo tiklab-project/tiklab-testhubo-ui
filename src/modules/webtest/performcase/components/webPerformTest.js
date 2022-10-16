@@ -77,11 +77,11 @@ const WebPerformTest = (props) =>{
     }
 
     const onTest = () =>{
-        if(agentId){
+        // if(agentId){
             webPerfExecute(webPerfId)
-        }else {
-            message.error("选择Agent")
-        }
+        // }else {
+        //     message.error("选择Agent")
+        // }
 
 
         setStart(true)

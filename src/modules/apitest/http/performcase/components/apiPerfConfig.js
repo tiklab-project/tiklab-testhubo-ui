@@ -7,7 +7,7 @@ const layout = {
     wrapperCol: {span: 22},
 };
 
-
+//压力测试配置
 const ApiPerfConfig = (props) =>{
     const {apiPerfStore,agentConfigStore} = props;
     const {findApiPerf,updateApiPerf} = apiPerfStore;
@@ -61,6 +61,21 @@ const ApiPerfConfig = (props) =>{
         updateApiPerf(param)
     }
 
+    //执行类型
+    const changeExeType=(executeType)=> {
+        setExeMode(executeType)
+
+        let param = {
+            id:apiPerfId,
+            executeType: executeType,
+            testCase:{
+                id:apiPerfId
+            }
+        }
+        updateApiPerf(param)
+    }
+
+
     const showClient = (data)=>{
         return data&&data.map(item=>{
             return (
@@ -99,18 +114,9 @@ const ApiPerfConfig = (props) =>{
                 >
                     <InputNumber
                         min={1}
-                        max={10}
+                        max={100}
                         onChange={changeThread}
                     />
-                </Form.Item>
-                <Form.Item
-                    label="执行方式"
-                    name="executeType"
-                >
-                    <Radio.Group onChange={(e)=>setExeMode(e.target.value)} value={exeMode}>
-                        <Radio value={0}>按执行次数</Radio>
-                        {/*<Radio value={1}>按执行时间</Radio>*/}
-                    </Radio.Group>
                 </Form.Item>
                 <Form.Item
                     label="执行次数"
@@ -118,9 +124,18 @@ const ApiPerfConfig = (props) =>{
                 >
                     <InputNumber
                         min={1}
-                        max={10}
+                        max={10000}
                         onChange={changeExeCount}
                     />
+                </Form.Item>
+                <Form.Item
+                    label="执行方式"
+                    name="executeType"
+                >
+                    <Radio.Group onChange={(e)=>changeExeType(e.target.value)} value={exeMode}>
+                        <Radio value={1}>循环</Radio>
+                        <Radio value={2}>随机</Radio>
+                    </Radio.Group>
                 </Form.Item>
                 <Form.Item
                     label="节点"

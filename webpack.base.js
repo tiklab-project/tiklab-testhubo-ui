@@ -8,6 +8,8 @@ const path = require('path');
 const DIST_PATH = path.resolve(__dirname, 'dist');
 const envData = require(`./env/env-${process.env.API_ENV}`);
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 module.exports = {
     output: {
         filename: 'js/[name].[hash:8].js',
@@ -32,9 +34,13 @@ module.exports = {
                 test: /\.(sc|sa|c)ss$/,
 
                 use: [
-                    {
+                    isDevelopment ? 'style-loader' : {
                         loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../',
+                        },
                     },
+
                     {
                         loader: "css-loader",
                     },
@@ -47,12 +53,11 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpg|jpeg|gif|svg)/,
+                test: /\.(png|jpg|jpeg|gif)/,
                 // exclude: /node_modules/,
                 use: {
                     loader: 'url-loader',
                     options: {
-                        publicPath: 'images',
                         outputPath: 'images/',
                         name: '[name].[ext]', // 图片输出的路径
                         limit: 8*1024,
@@ -61,7 +66,7 @@ module.exports = {
             },
 
             {
-                test: /\.(eot|woff2?|ttf|svg)$/,
+                test: /\.(eot|woff2?|ttf)$/,
                 use: [
                     {
                         loader: 'url-loader',
@@ -73,6 +78,17 @@ module.exports = {
                     }
                 ]
             },
+            {
+                test: /\.svg/,
+                // exclude: /node_modules/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'images/',
+                        name: '[name].[ext]', // 图片输出的路径
+                    }
+                }
+            },
         ]
     },
 
@@ -80,7 +96,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            title:'测试管理',
+            title:'接口管理',
             template: path.resolve(__dirname, './public/index.html'),
             hash: false,
             filename: 'index.html',

@@ -56,7 +56,7 @@ const ApiUnitTestResult =(props)=>{
 
     return(
         <>
-            <Button type="primary" onClick={showDrawer}>测试</Button>
+            <Button className="important-btn"  onClick={showDrawer}>测试</Button>
             <Drawer
                 title="测试结果"
                 placement={"bottom"}

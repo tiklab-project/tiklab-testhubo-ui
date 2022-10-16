@@ -128,7 +128,7 @@ const ApiUnitEdit = (props) => {
         <>
             {
                 props.btn === "btn"
-                    ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
+                    ? <Button onClick={showModal}>{props.name}</Button>
                     : <a onClick={showModal}>{props.name}</a>
             }
 

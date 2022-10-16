@@ -14,13 +14,13 @@ const SystemContent = (props) =>{
                     title: '功能管理',
                     icon: 'laptop',
                     key: '/systemManagement/systemFeature',
-                    encoded: "SysFeatruestem",
+                    encoded: "systemFeature",
                 },
                 {
                     title: '角色管理',
                     icon: 'laptop',
                     key: '/systemManagement/systemRole',
-                    encoded: "SysRoleSystem",
+                    encoded: "systemRole",
                 }
             ]
         },{
@@ -33,13 +33,13 @@ const SystemContent = (props) =>{
                     title: '功能管理',
                     icon: 'laptop',
                     key: '/systemManagement/privilege',
-                    encoded: "SysFeatrueProject",
+                    encoded: "projectPrivilege",
                 },
                 {
                     title: '角色管理',
                     icon: 'laptop',
                     key: '/systemManagement/role',
-                    encoded: "SysRoleProject",
+                    encoded: "projectRole",
                 }
             ]
         },
@@ -80,7 +80,50 @@ const SystemContent = (props) =>{
             icon: 'laptop',
             key: '/systemManagement/pluginmanage',
             encoded: "plugin",
-        }
+        },{
+            title: "日志",
+            icon: 'modular',
+            key: '/systemManagement/opLog',
+            encoded: "opLog",
+            children: [
+                {
+                    title: '日志列表',
+                    icon: 'modular',
+                    key: '/systemManagement/log',
+                    encoded: "log",
+                },{
+                    title: '日志模板',
+                    icon: 'modular',
+                    key: '/systemManagement/logTemplate',
+                    encoded: "logTemplate",
+                },
+            ]
+        },{
+            title: "TODO",
+            icon: 'modular',
+            key: '/systemManagement/todo',
+            encoded: "TODO",
+            children: [
+                {
+                    title: 'TODO模板',
+                    icon: 'modular',
+                    key: '/systemManagement/todoTemp',
+                    encoded: "todoTemp",
+                },
+                {
+                    title: '我的TODO',
+                    icon: 'modular',
+                    key: '/systemManagement/myTodo',
+                    encoded: "myTodo",
+                },
+                {
+                    title: '任务',
+                    icon: 'modular',
+                    key: '/systemManagement/taskList',
+                    encoded: "taskList",
+                }
+            ]
+        },
     ]
 
     return(

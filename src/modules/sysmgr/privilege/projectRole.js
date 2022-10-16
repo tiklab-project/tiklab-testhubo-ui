@@ -3,7 +3,7 @@ import { ProjectRoleList  } from 'tiklab-privilege-ui';
 
 const ProjectRole = props => {
     return (
-            <ProjectRoleList  />
+            <ProjectRoleList  bgroup={"teston"}  />
     )
 }
 

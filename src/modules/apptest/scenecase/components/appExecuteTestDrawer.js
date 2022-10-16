@@ -53,7 +53,17 @@ const AppExecuteTestDrawer =(props)=>{
     ]
 
     const showDrawer = () => {
-        appSceneTestDispatch({appSceneId:appSceneId}).then(res=>{
+        let param = {
+            appSceneId:appSceneId,
+            appTestConfig: {
+                appiumSever:"127.0.0.1:4723",
+                deviceName:"127.0.0.1:62001",
+                platformName:"Android",
+                appPackage:"com.tencent.mobileqq",
+                appActivity:"com.tencent.mobileqq.activity.SplashActivity"
+            }
+        }
+        appSceneTestDispatch(param).then(res=>{
 
             if(res.code !==0) return;
 

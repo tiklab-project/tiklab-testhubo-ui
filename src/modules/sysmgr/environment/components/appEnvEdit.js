@@ -49,6 +49,7 @@ const AppEnvEdit = (props) => {
         const values = await form.validateFields();
 
         if(props.type === "add" ){
+            values.repositoryId=repositoryId
             createAppEnv(values).then(()=> findAppEnvPage(repositoryId));
         }else{
             values.id=appEnvId;

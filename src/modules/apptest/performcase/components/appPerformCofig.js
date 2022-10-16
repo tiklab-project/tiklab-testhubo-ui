@@ -60,6 +60,20 @@ const AppPerfConfig = (props) =>{
         updateAppPerf(param)
     }
 
+    //执行类型
+    const changeExeType=(executeType)=> {
+        setExeMode(executeType)
+
+        let param = {
+            id:appPerfId,
+            executeType: executeType,
+            testCase:{
+                id:appPerfId
+            }
+        }
+        updateAppPerf(param)
+    }
+
 
     const showClient = (data)=>{
         return data&&data.map(item=>{
@@ -103,15 +117,6 @@ const AppPerfConfig = (props) =>{
                     />
                 </Form.Item>
                 <Form.Item
-                    label="执行方式"
-                    name="executeType"
-                >
-                    <Radio.Group onChange={(e)=>setExeMode(e.target.value)} value={exeMode}>
-                        <Radio value={0}>按执行次数</Radio>
-                        {/*<Radio value={1}>按执行时间</Radio>*/}
-                    </Radio.Group>
-                </Form.Item>
-                <Form.Item
                     label="执行次数"
                     name="executeCount"
                 >
@@ -120,6 +125,15 @@ const AppPerfConfig = (props) =>{
                         max={100}
                         onChange={changeExeCount}
                     />
+                </Form.Item>
+                <Form.Item
+                    label="执行方式"
+                    name="executeType"
+                >
+                    <Radio.Group onChange={(e)=>changeExeType(e.target.value)} value={exeMode}>
+                        <Radio value={1}>循环</Radio>
+                        <Radio value={2}>随机</Radio>
+                    </Radio.Group>
                 </Form.Item>
                 <Form.Item
                     label="节点"

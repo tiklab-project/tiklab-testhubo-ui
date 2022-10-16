@@ -14,11 +14,9 @@ const LoginContent = (props)=> {
     return(
         <Login
             {...props}
-            loginGoRouter={'/'}
-            fetchMethod={fetchMethod}
-            languageUrl={pluginAddressUrl}
+
         />
     )
 }
 
-export default inject("eamStore")(observer(LoginContent)) ;
+export default LoginContent;

@@ -20,6 +20,7 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd{
     cursor: default;
 }
 
+
 /*控制整个滚动条*/
 ::-webkit-scrollbar {
     background-color: white;
@@ -29,7 +30,9 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd{
 
 /*滚动条两端方向按钮*/
 ::-webkit-scrollbar-button {
-    background-color: white;
+    height: 0;
+    width: 0;
+    //background-color: white;
 }
 
 /*滚动条中间滑动部分*/
@@ -53,6 +56,7 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd{
 //}
 
 
+
 //面包屑
 .breadcrumb-contant{
     display: flex;
@@ -65,8 +69,8 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd{
 .breadcrumb{
     font-size: 15px;
     font-weight: 600;
-    padding: 10px;
-    border-bottom: 1px solid #e5e5e5;
+    padding: 10px 0;
+    //border-bottom: 1px solid #e5e5e5;
     display: flex;
     justify-content: space-between;
     align-items: center;

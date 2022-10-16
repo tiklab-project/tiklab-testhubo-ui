@@ -11,27 +11,10 @@ const Page = (props)=>{
         return <img style={{width: 25}} src={localImage} alt='versionImg' />
     }
 
-    let authConfig = JSON.parse(localStorage.getItem("authConfig"))
-    const accountAndMember = () =>{
-        let url;
-
-        if(authConfig&&authConfig.authUrl){
-            url= authConfig.authUrl+"#"+"/orga/dashbord";
-        }else {
-            url="/eas.html#/orga/dashbord";
-        }
-
-        return(
-            <div className={"user-hidden-item"} >
-                <a style={{"color":"black"}} href={url} target={"_blank"}>账号与成员</a>
-            </div>
-        )
-    }
 
     return(
         <PageContent
             versionImg={image}
-            accountAndMember={accountAndMember}
             {...props}
         />
     )

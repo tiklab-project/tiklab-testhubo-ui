@@ -9,7 +9,7 @@ import HeaderMenu from "./headerMenu";
 import logo from "../../assets/img/log.png";
 
 const HeaderContent = props => {
-    const {userMessageStore,logout,versionImg,accountAndMember} = props;
+    const {userMessageStore,logout,versionImg} = props;
     const {userMessageNum} = userMessageStore;
 
     const { i18n } = useTranslation();
@@ -41,6 +41,11 @@ const HeaderContent = props => {
     const toSystem = () =>{
         props.history.push("/systemManagement")
     }
+
+    const toAccMember = () =>{
+        props.history.push("/accountMember")
+    }
+
 
     return(
         <Row className="frame-header">
@@ -77,9 +82,7 @@ const HeaderContent = props => {
                                     <use xlinkHref= {`#icon-setting`} />
                                 </svg>
                                 <div className={"toggle-hidden-box setting-setting-box"}>
-                                    {
-                                        accountAndMember?accountAndMember():null
-                                    }
+                                    <div className={"user-hidden-item"} onClick={toAccMember} > 账号与成员  </div>
                                     <div className={"user-hidden-item"} onClick={toSystem}>系统设置</div>
                                 </div>
                             </div>

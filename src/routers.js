@@ -21,7 +21,7 @@ import {
     SystemFeature, SystemRole,
     MessageManagement, MessageSendType, MessageTemplate, MessageType, MessageUser,
 } from './modules/sysmgr'
-import {Directory} from 'tiklab-user-ui';
+import {Directory, OrgaList} from 'tiklab-user-ui';
 import {Redirect} from "react-router";
 import PortalHeader from "./modules/header/portalContent";
 import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
@@ -75,9 +75,24 @@ import DomainPrivilege from "./modules/integration/domainPrivilege/domainPrivile
 import WebUnitDetail from "./modules/webtest/unitcase/components/webUnitDetail";
 import AppUnitDetail from "./modules/apptest/unitcase/components/appUnitDetail";
 import SystemContent from "./modules/sysmgr/system/systemContent";
+import LoginContent from "./modules/login/LoginContent";
+import UserList from "tiklab-user-ui/lib/user-list";
+import AccountMember from "./modules/sysmgr/accountMember/accountMember";
+import MyTodo from "./modules/sysmgr/todo/myTodo";
+import TodoTemp from "./modules/sysmgr/todo/todoTempList";
+import TaskList from "./modules/sysmgr/todo/todo";
+import LogTemplate from "./modules/sysmgr/log/LogTemplate";
+import LogList from "./modules/sysmgr/log/Log";
+import PluginDetailPage from "./modules/sysmgr/pluginManage/pluginDetail";
 
 
 const routers =  [
+    {
+        path: "/login",
+        component: LoginContent,
+        exact: true,
+        key:'LoginContent',
+    },
     {
         path: "/logout",
         component: LoginOut,
@@ -465,21 +480,39 @@ const routers =  [
                         exact: true,
                         component: MessageType,
                     },{
-                        path: "/systemManagement/licence",
-                        key:'licence',
-                        exact: true,
-                        component: Licence,
-                    },{
                         path: "/systemManagement/pluginmanage",
                         key:'pluginmanage',
                         component: PluginManage,
-                    },
-
-                    {
-                        path: "/systemManagement/authConfig",
-                        key:'authConfig',
+                    }, {
+                        path: "/systemManagement/plugindetail",
+                        key:'plugindetail',
                         exact: true,
-                        render: () => <Directory isPortal={false}/>,
+                        component: PluginDetailPage,
+                    },{
+                        path: "/systemManagement/log",
+                        key:'log',
+                        exact: true,
+                        component: LogList,
+                    },{
+                        path: "/systemManagement/logTemplate",
+                        key:'logTemplate',
+                        exact: true,
+                        component: LogTemplate,
+                    },{
+                        path: "/systemManagement/taskList",
+                        key:'todo',
+                        exact: true,
+                        component: TaskList,
+                    },{
+                        path: "/systemManagement/todoTemp",
+                        key:'todoTemp',
+                        exact: true,
+                        component: TodoTemp,
+                    },{
+                        path: "/systemManagement/myTodo",
+                        key:'myTodo',
+                        exact: true,
+                        component: MyTodo,
                     },{
                         path:"/systemManagement",
                         exact: true,
@@ -493,6 +526,36 @@ const routers =  [
                 key:'MessageUser',
                 exact: true,
                 component: MessageUser,
+            },
+            {
+                path: "/accountMember",
+                key:'accountMember',
+                component: AccountMember,
+                routes: [
+                    {
+                        path: "/accountMember/org",
+                        key:'org',
+                        exact: true,
+                        component: OrgaList,
+                    },
+                    {
+                        path: "/accountMember/user",
+                        key:'user',
+                        exact: true,
+                        component: UserList ,
+                    },
+                    {
+                        path: "/accountMember/authConfig",
+                        key:'authConfig',
+                        exact: true,
+                        render: () => <Directory isPortal={false}/>,
+                    },{
+                        path: "/accountMember",
+                        key:'sysEnvMana',
+                        exact: true,
+                        render: () => <Redirect to={"/accountMember/org"}/>,
+                    },
+                ]
             },
             {
                 path: "/",

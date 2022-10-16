@@ -1,3 +1,78 @@
+.tccontant{
+    display: flex;
+    height: 100%;
+}
+
+
+
+.changeBox{
+    border-right: 5px solid #f0f2f5;
+}
+.tccontant-contant{
+    width: 1280px;
+    padding: 0 16px;
+    margin: 0 auto;
+}
+
+.tc-row{
+    overflow:auto;
+    height: 100%;
+    background-color: #f5f5f5;
+}
+
+.tc-col{
+    background-color: white;
+    padding: 0 20px 30px;
+}
+
+.tc-side{
+    background-color: #fafafa;
+    box-shadow: inset -1px 0 0 #e5e5e5;
+}
+
+.ts-aside{
+    width:240px;
+}
+
+.det-box{
+    display: flex;
+    justify-content: space-around;
+
+    .det-item{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 140px;
+    }
+}
+
+
+.repository-name-box{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+
+    .repository-name-icon{
+        width: 18px;
+        height: 18px;
+        vertical-align: -0.15 em;
+        margin: 2px 0 0  0;
+    }
+}
+
+.repository-name-menu{
+    position: absolute;
+    left: 200px;
+    width: 175px;
+    height: 200px;
+    background: #fff;
+    margin: -42px 0 0 0;
+    box-shadow: 0px 0px 13px 0px #cacaca;
+    z-index: 1;
+}
+
+
+
 //workspaceDetailLayout
 .ws-detail-contant{
     height: calc(100% - 50px);
@@ -90,6 +165,7 @@
     left: 80px;
     padding: 10px;
     box-shadow: 0 0 12px 1px #ddd;
+    background: #fff;
 }
 
 .nav-setting-menu{
