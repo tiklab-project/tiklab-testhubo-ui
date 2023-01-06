@@ -12,7 +12,7 @@ const layout = {
 
 // 添加与编辑
 const AppUnitEdit = (props) => {
-    const {appUnitStore,appUnitId ,categoryStore,caseType,categoryId } = props;
+    const {appUnitStore,appUnitId ,categoryStore,categoryId,findList } = props;
     const {
         findAppUnitList,
         createAppUnit,
@@ -30,7 +30,6 @@ const AppUnitEdit = (props) => {
     const [cascaderCategoryId, setCascaderCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
-    const testType=localStorage.getItem("testType");
     const repositoryId = sessionStorage.getItem("repositoryId")
     
     // 弹框展示
@@ -68,8 +67,8 @@ const AppUnitEdit = (props) => {
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"app",
+                caseType:"unit",
                 desc:values.desc
             }
 
@@ -78,8 +77,7 @@ const AppUnitEdit = (props) => {
             delete values.desc
             
             createAppUnit(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }else {
             values.id=appUnitId;
@@ -94,31 +92,14 @@ const AppUnitEdit = (props) => {
             values.location=values.location?values.location:""
 
             updateAppUnit(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }
 
         setVisible(false);
     };
 
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findAppUnitList(param)
-    }
 
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
 
     //定位器下拉选择框渲染
@@ -192,7 +173,7 @@ const AppUnitEdit = (props) => {
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     {
                         props.isCategory!==true

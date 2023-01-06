@@ -11,7 +11,7 @@ const layout = {
 
 // 添加与编辑
 const ApiUnitEdit = (props) => {
-    const { apiUnitStore, apiUnitId,categoryStore,caseType,categoryId } = props;
+    const { apiUnitStore, apiUnitId,categoryStore,categoryId,testType,findList } = props;
     const {
         findApiUnitList,
         findApiUnit,
@@ -25,7 +25,6 @@ const ApiUnitEdit = (props) => {
     const [cascaderCategoryId, setCascaderCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
-    const testType=localStorage.getItem("testType");
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
@@ -57,8 +56,8 @@ const ApiUnitEdit = (props) => {
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"api",
+                caseType:"unit",
                 desc:values.desc
             }
 
@@ -68,8 +67,7 @@ const ApiUnitEdit = (props) => {
 
             createApiUnit(values).then(res=>{
                 if(res.code===0){
-                    findPage()
-                    findCategoryPage()
+                    findList()
                 }else {
                     message.error('This is an error message');
                 }
@@ -87,8 +85,7 @@ const ApiUnitEdit = (props) => {
 
             updateApiUnit(values).then(res=>{
                 if(res.code===0){
-                    findPage()
-                    findCategoryPage()
+                    findList()
                 }else {
                     message.error('This is an error message');
                 }
@@ -97,23 +94,6 @@ const ApiUnitEdit = (props) => {
         setVisible(false);
     };
 
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findApiUnitList(param)
-    }
-
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
     const changeCategory=(value)=> {
         //获取最后数组最后一位值
@@ -145,7 +125,7 @@ const ApiUnitEdit = (props) => {
                 <Form
                     form={form}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     {
                         props.isCategory!==true

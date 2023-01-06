@@ -4,6 +4,7 @@ import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store'
 
 import {REPOSITORY_STORE, RepositoryStore} from './modules/repository/store/repositoryStore';
 import {REPOSITORY_RECENT_STORE,RepositoryRecentStore} from "./modules/repository/store/repositoryRecentStore";
+import {REPOSITORY_FOLLOW_STORE,RepositoryFollowStore} from "./modules/repository/store/repositoryFollowStore";
 
 import {AGENT_CONFIG_STORE,AgentConfigStore} from "./modules/integration/agentconfig/store/agentConfigStore";
 
@@ -12,9 +13,6 @@ import {QUARTZTASK_STORE, QuartzMasterStore} from './modules/quartzTask/store/qu
 import {QUARTZTESTCASE_STORE, QuartzTestcaseStore} from './modules/quartzTask/store/quartzTestcaseStore';
 
 import {
-
-    Step,
-    StepDetail,
     API_UNIT_STORE,ApiUnitStore,
     REQUESTHEADER_STORE , RequestHeaderStore,
     QUERYPARAM_STORE, QueryParamStore,
@@ -37,6 +35,7 @@ import {
 
 import {CATEGORY_STORE,CategoryStore} from "./modules/category/store/categoryStore";
 
+import {TESTCASE_STORE,TestCaseStore} from "./modules/testcase/store/testcaseStore";
 
 import {TESTPLAN_STORE, TestPlanStore} from './modules/testplan/store/testPlanStore';
 import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './modules/testplan/store/testPlanDetailStore';
@@ -86,6 +85,7 @@ function createStores() {
         [AGENT_CONFIG_STORE]:new AgentConfigStore(),
         [REPOSITORY_STORE]: new RepositoryStore(),
         [REPOSITORY_RECENT_STORE]: new RepositoryRecentStore(),
+        [REPOSITORY_FOLLOW_STORE]: new RepositoryFollowStore(),
 
         [REQUESTHEADER_STORE]: new RequestHeaderStore(),
         [QUERYPARAM_STORE]: new QueryParamStore(),
@@ -102,6 +102,8 @@ function createStores() {
         [JSONRESPONSE_STORE]: new JsonResponseStore(),
         [RAWRESPONSE_STORE]: new RawResponseStore(),
         [RESPONSERESULT_STORE]: new ResponseResultStore(),
+
+        [TESTCASE_STORE]: new TestCaseStore(),
 
         [API_UNIT_STORE]: new ApiUnitStore(),
         [APIUNIT_INSTANCE_STORE]:new ApiUnitInstanceStore(),

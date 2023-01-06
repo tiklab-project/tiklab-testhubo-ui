@@ -1,53 +1,44 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { renderRoutes } from "react-router-config";
 import './repository.scss';
-import BreadcrumbEx from "../../common/breadcrumbEx";
 import RepositoryEdit from "./repositoryEdit";
 import {Input, Space} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
+import RepositoryRecentHome from "./repositoryRecentHome";
+import {SearchOutlined} from "@ant-design/icons";
+import RepositoryList from "./repositoryList";
 
 const Repository = (props)=> {
     const {repositoryStore} = props;
-    const {menuSelected,selectedItem,findRepositoryList} =repositoryStore;
+    const {findRepositoryList,findRepositoryJoinList,findRepositoryFollowList} = repositoryStore;
 
     const userId = getUser().userId;
-    const router = props.route.routes;
-
-    //项目列表左侧导航列表
+    const [selectItem, setSelectItem] = useState("all");
+    
+    //项目筛选列表
     const items = [
         {
-            title: '所有用例库',
-            key: 'all',
-            router: `/repository/all`
-        },{
-            title: `最近浏览`,
-            key: 'recent',
-            router: `/repository/recent`
+            title: '所有仓库',
+            key: `all`,
         },
         {
-            title: '创建的用例库',
-            key: 'create',
-            router: `/repository/create`
+            title: '我收藏的',
+            key: `follow`,
         },
         {
-            title: '参与的用例库',
-            key: 'join',
-            router: `/repository/join`
-        },
-        // {
-        //     title: '关注的用例库',
-        //     key: 'follow',
-        //     router: `/repository/follow`
-        // }
+            title: '我创建的',
+            key: `create`,
+        }
     ];
 
+    //渲染筛选项
     const showMenu = (data) =>{
         return data&&data.map(item=>{
             return(
                 <div
                     key={item.key}
-                    className={`repository-header-menu-item  ${item.key === selectedItem ? "repository-header-menu-item-selected" : null}`}
+                    className={`ws-header-menu-item  ${item.key === selectItem ? "ws-header-menu-item-selected" : ""}`}
                     onClick={()=>selectKeyFun(item)}
                 >
                     <span> {item.title} </span>
@@ -57,55 +48,121 @@ const Repository = (props)=> {
         })
     }
 
+    useEffect(()=>{
+        findList()
+    },[])
+
+    //点击筛选项查找
     const selectKeyFun = (item)=>{
-        menuSelected(item.key)
-        props.history.push(item.router);
+        setSelectItem(item.key)
+
+        findList({},item.key)
     }
 
+    //搜索空间
     const onSearch = (e) =>{
-        switch (selectedItem) {
+        let name = {name:e.target.value}
+
+        findList(name)
+    }
+
+    //根据不同的筛选项查找
+    const findList = (name,selectIndex)=>{
+        let uId = {userId:userId}
+
+        switch (selectIndex?selectIndex:selectItem) {
             case "all":
-                findRepositoryList({name:e.target.value})
+                let params= {
+                    ...uId,
+                    ...name
+                }
+                findRepositoryJoinList(params)
                 break;
             case "create":
                 let param = {
-                    userId:userId,
-                    name:e.target.value
+                    ...uId,
+                    ...name
                 }
                 findRepositoryList(param)
                 break;
+            case "follow":
+                findRepositoryFollowList(uId)
+                break;
         }
-
     }
 
-    const rightContent = () =>{
-        return(
-            <Space>
-                <Input
-                    placeholder={`搜索项目`}
-                    onPressEnter={onSearch}
-                />
-                <RepositoryEdit name={"添加项目"} btn={"btn"} {...props}/>
-            </Space>
-        )
-    }
+
 
     return(
-        <div className='tccontant-contant'>
-            <BreadcrumbEx list={["仓库","仓库列表"]} />
-            <div className={"repository-header-menu"}>
-                <div className={"repository-header-menu-left"}>{showMenu(items)}</div>
-                <>{rightContent()}</>
-            </div>
+        <div style={{"height":"100%",overflow:"auto"}}>
+            <div className='ws-layout'>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: "10px 0 10px 10px"
+                    }}
+                >
+                    <div>
+                    <span className={"ws-detail-title"}>
+                       <div
+                           style={{
+                               display:"flex",
+                               alignItems:"center",
+                               justifyContent:"space-between",
+                               width: 55
+                           }}
+                       >
+                            <svg className={"icon-m"} aria-hidden="true" >
+                                <use xlinkHref= {`#icon-home`} />
+                            </svg>
+                            <span>仓库</span>
+                       </div>
+                    </span>
+                    </div>
+                    <div>
+                        <RepositoryEdit
+                            name={"添加空间"}
+                            btn={"btn"}
+                            userId={userId}
+                            findList={findList}
+                            selectItem={selectItem}
+                            {...props}
+                        />
+                    </div>
+                </div>
 
-            <div className='contant-box'>
-                {renderRoutes(router)}
+                <div className={"home-box-item-detail"}>
+                    <div style={{margin:"10px 0 "}}>最近访问</div>
+                    <RepositoryRecentHome {...props}/>
+                </div>
+
+                <div className={"ws-header-menu"}>
+                    <div className={"ws-header-menu-left"}>
+                        {showMenu(items)}
+
+                    </div>
+                    <Input
+                        prefix={<SearchOutlined />}
+                        placeholder={`搜索空间`}
+                        onPressEnter={onSearch}
+                        className={"ws-header-menu-input"}
+                    />
+                </div>
+
+                <div className='contant-box'>
+                    <RepositoryList
+                        {...props}
+                        findList={findList}
+                        selectItem={selectItem}
+                    />
+                </div>
             </div>
         </div>
     )
 
-
 }
 
 
-export default inject("repositoryStore")(observer(Repository));
+export default inject('repositoryStore',"repositoryFollowStore","repositoryRecentStore")(observer(Repository));

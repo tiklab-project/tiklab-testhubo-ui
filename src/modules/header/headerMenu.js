@@ -1,100 +1,44 @@
 import React, {useState} from "react";
-import {DownOutlined, UpOutlined} from "@ant-design/icons";
 import {inject, observer} from "mobx-react";
-import {getUser} from "tiklab-core-ui"
-import RepositoryMenuList from "./repositoryMenuList";
 
 const HeaderMenu = (props) =>{
-    const {repositoryStore} = props;
-    const {findRepositoryList,repositoryList} = repositoryStore;
-
-    const [currentLink, setCurrentLink] = useState(props.location.pathname);
-    const [clickIcon, setClickIcon] = useState(false);
-
-    let userId = getUser().userId;
-    useState(()=>{
-        findRepositoryList(userId)
-    },[userId])
-
-    const menuRouter = [
+    const items = [
         {
-            to:'/',
-            title:'主页',
-            key: 'home'
+            label:'主页',
+            key: '/home'
         },
         {
-            to:'/repository/all',
-            title:'项目',
-            key: 'Repository'
-        },
-        // {
-        //     to:'/systemManagement',
-        //     title:'系统管理',
-        //     key: 'systemManagement'
-        // }
+            label:'项目',
+            key: '/repository'
+        }
     ]
 
-    // 切换空间
-    const switchRepository=(id)=>{
-        sessionStorage.setItem('repositoryId',id);
+    const [current, setCurrent] = useState('/home');
 
-        localStorage.setItem("leftRouter","/repositorypage/detail");
+    const onClick = (e) => {
+        props.history.push(e.key)
+        setCurrent(e.key);
+    };
 
-        props.history.push({pathname:'/repositorypage'});
-
-        setClickIcon(false)
-    }
-
-    const menuView = (data) => {
-        return data&&data.map(item => {
-            if(item.key==="Repository"){
-                return(
-                    <div
-                        className={"header-workspace-item"}
-                        key={item.key}
-                    >
-                        <div
-                            onClick={()=>setClickIcon(!clickIcon)}
-                        >
-                            {item.title}
-                            <span >{clickIcon === true ?<DownOutlined />:<UpOutlined />}</span>
-                        </div>
-                        <div
-                            className={`header-workspaceBox ${ clickIcon === true ? "showRepository" : "hideRepository" }`}
-                        >
-                            <RepositoryMenuList
-                                {...props}
-                                changeCurrentLink={changeCurrentLink}
-                                setClickIcon={setClickIcon}
-                            />
-                        </div>
-                    </div>
-                )
-            }else{
-                return(
-                    <div
-                        key={item.key}
-                        onClick={ () => changeCurrentLink(item.to)}
-                        className={currentLink === item.to ? 'portal-header-link-active' : null}
-                    >
-                        {item.title}
-                    </div>
-                )
-            }
-
+    const showMenuItem = (data) =>{
+        return data&&data.map(item=>{
+            return (
+                <div
+                    key={item.key}
+                    className={`header-menu-item ${current===item.key?"header-menu-item-action":""}`}
+                    onClick={()=>onClick(item)}
+                >
+                    <span>{item.label}</span>
+                </div>
+            )
         })
     }
 
-    const changeCurrentLink = item => {
-        setCurrentLink(item)
-        props.history.push(item)
-        setClickIcon(false)
-    }
-
     return(
-        <>
-            {menuView(menuRouter)}
-        </>
+        <div className={"header-menu-box"}>
+            {showMenuItem(items)}
+        </div>
+
     )
 }
 export default inject("repositoryStore")(observer(HeaderMenu));

@@ -22,7 +22,7 @@ const WebPerfomDetailContant = (props) =>{
     return(
         <>
             <div >
-                <BackCommon clickBack={goBack} />
+                {/*<BackCommon clickBack={goBack} />*/}
                 <Menu
                     onClick={onClick}
                     selectedKeys={[current]}

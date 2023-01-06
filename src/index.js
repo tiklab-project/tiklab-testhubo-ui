@@ -17,7 +17,6 @@ enableAxiosCE();
 
 const Entry =()=> {
 
-
     let allStore = {
         ...stores,
         ...privilegeStores,

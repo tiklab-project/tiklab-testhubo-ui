@@ -49,6 +49,16 @@ export function updateRepository(data){
     })
 }
 
+
+export function findRepositoryJoinList(data){
+    return service.post("/repository/findRepositoryJoinList",data)
+}
+
+export function findRepositoryTotal(data){
+    return service.post("/repository/findRepositoryTotal",data)
+}
+
+
 export function findRepositoryHomeTotal(data){
     return service.request({
         url: "/repository/findRepositoryHomeTotal",

@@ -15,13 +15,7 @@ import {
 
 } from './modules';
 
-import {
-    SystemManagement,
-    ProjectFeature, ProjectRole,
-    SystemFeature, SystemRole,
-    MessageManagement, MessageSendType, MessageTemplate, MessageType, MessageUser,
-} from './modules/sysmgr'
-import {Directory, OrgaList} from 'tiklab-user-ui';
+import {Directory, OrgaList, UserGroup} from 'tiklab-user-ui';
 import {Redirect} from "react-router";
 import PortalHeader from "./modules/header/portalContent";
 import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
@@ -63,9 +57,8 @@ import WebPerformDetail from "./modules/webtest/performcase/components/webPerfor
 import WebPerformTest from "./modules/webtest/performcase/components/webPerformTest";
 import AppPerformDetail from "./modules/apptest/performcase/components/appPerformDetail";
 import AppPerformTest from "./modules/apptest/performcase/components/appPerformTest";
-import PluginManage from "./modules/sysmgr/pluginManage/pluginManage";
+
 import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
-import {Licence} from "tiklab-licence-ui";
 import TestPlanDetail from "./modules/testplan/components/testPlanDetail";
 import RepositoryRecent from "./modules/repository/components/repositoryRecent";
 import RepositoryCreate from "./modules/repository/components/repositoryCreate";
@@ -77,13 +70,18 @@ import AppUnitDetail from "./modules/apptest/unitcase/components/appUnitDetail";
 import SystemContent from "./modules/sysmgr/system/systemContent";
 import LoginContent from "./modules/login/LoginContent";
 import UserList from "tiklab-user-ui/lib/user-list";
-import AccountMember from "./modules/sysmgr/accountMember/accountMember";
-import MyTodo from "./modules/sysmgr/todo/myTodo";
-import TodoTemp from "./modules/sysmgr/todo/todoTempList";
-import TaskList from "./modules/sysmgr/todo/todo";
-import LogTemplate from "./modules/sysmgr/log/LogTemplate";
 import LogList from "./modules/sysmgr/log/Log";
-import PluginDetailPage from "./modules/sysmgr/pluginManage/pluginDetail";
+import {MyTodoTask, TaskList, TodoTempList} from "tiklab-todotask-ui";
+import {PluginDetail, PluginList} from "tiklab-plugin-ui";
+import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
+import {ProjectFeatureList, ProjectRoleList, SystemFeatureList, SystemRoleList} from "tiklab-privilege-ui";
+import {LogTemplateList, LogTypeList} from "tiklab-oplog-ui";
+import Version from "./modules/sysmgr/version/version";
+import RepositorySetting from "./modules/integration/repositorySetting/repositorySetting";
+import DynamicDetail from "./modules/home/dynamicDetail";
+import CaseContent from "./modules/testcase/components/caseContent";
+import TestCaseList from "./modules/testcase/components/testcaseList";
+
 
 
 const routers =  [
@@ -101,14 +99,18 @@ const routers =  [
     },
     {
         component: PortalHeader,
-        path: '/',
-        key:'poroute',
         routes:[
             {
                 path: "/home",
                 component: Home,
                 exact: true,
                 key:'Home',
+            },
+            {
+                path: "/dynamic",
+                component: DynamicDetail,
+                exact: true,
+                key:'DynamicDetail',
             },
             {
                 path: "/repository",
@@ -135,6 +137,7 @@ const routers =  [
                     },
                 ]
             },
+
             {
                 path:'/repositorypage',
                 component:RepositoryDetailLayout,
@@ -145,6 +148,186 @@ const routers =  [
                         exact: true,
                         key:'detail',
                         component: RepositoryDetailPage,
+                    }, {
+                        path: "/repositorypage/testcase",
+                        key:'apitest',
+                        component: CaseContent,
+                        routes:[
+                            {
+                                path: "/repositorypage/testcase/list",
+                                key: 'apitest',
+                                component: TestCaseList,
+                            },
+                            {
+                                path: "/repositorypage/testcase/unitdetail",
+                                key:'unitdetail',
+                                component: ApiUnitcaseDetail,
+                            },{
+                                path: "/repositorypage/testcase/unitcase-instance",
+                                key:'history',
+                                component: ApiUnitcaseInstance,
+                            },{
+                                path: "/repositorypage/testcase/scenecase",
+                                key:'scenecase',
+                                component: ApiScenecaseList,
+                            },{
+                                path: "/repositorypage/testcase/scenedetail",
+                                key:'unitdetail',
+                                component: ApiScenecaseDetail,
+                            },{
+                                path: "/repositorypage/testcase/scenecase-instance",
+                                key:'history',
+                                component: ApiSceneInstance,
+                            },{
+                                path: "/repositorypage/testcase/scenestep",
+                                key:'history',
+                                component: ApiUnitcaseDetail,
+                            },{
+                                path: "/repositorypage/testcase/performcase",
+                                key:'performcase',
+                                component: ApiPerformList,
+                            },{
+                                path: "/repositorypage/testcase/performdetail",
+                                key:'performcase',
+                                component: ApiPerfomDetailContant,
+                                routes:[
+                                    {
+                                        path: "/repositorypage/testcase/performdetail/config",
+                                        key:'config',
+                                        component:ApiPerformDetail,
+                                    },
+                                    {
+                                        path: "/repositorypage/testcase/performdetail/test",
+                                        key:'config',
+                                        component:ApiPerformTest,
+                                    },
+                                    {
+                                        path:"/repositorypage/testcase/performdetail",
+                                        exact: true,
+                                        key:'ridperformdetail',
+                                        component: ()=><Redirect to='/repositorypage/testcase/performdetail/config'/>,
+                                    },
+                                ]
+                            },{
+                                path: "/repositorypage/testcase/perform-instance",
+                                key:'history',
+                                component: ApiPerformInstance,
+                            },
+
+                            {
+                                path: "/repositorypage/testcase/unitdetail",
+                                key:'unitcase',
+                                component: WebUnitDetail,
+                            }, {
+                                path: "/repositorypage/testcase/scenecase",
+                                key:'scenecase',
+                                component: WebSceneList,
+                            },{
+                                path: "/repositorypage/testcase/scenedetail",
+                                key:'scenecase',
+                                component: WebSceneDetail,
+                            },{
+                                path: "/repositorypage/testcase/scenecase-instance",
+                                key:'scenecase',
+                                component: WebSceneInstance,
+                            },{
+                                path: "/repositorypage/testcase/performcase",
+                                key:'performcase',
+                                component: WebPerformList,
+                            },{
+                                path: "/repositorypage/testcase/performdetail",
+                                key:'performcase',
+                                component: WebPerformDetailContant,
+                                routes:[
+                                    {
+                                        path: "/repositorypage/testcase/performdetail/config",
+                                        key:'config',
+                                        component:WebPerformDetail,
+                                    },
+                                    {
+                                        path: "/repositorypage/testcase/performdetail/test",
+                                        key:'config',
+                                        component:WebPerformTest,
+                                    },
+                                    {
+                                        path:"/repositorypage/testcase/performdetail",
+                                        exact: true,
+                                        key:'ridperformdetail',
+                                        component: ()=><Redirect to='/repositorypage/testcase/performdetail/config'/>,
+                                    },
+                                ]
+                            },{
+                                path: "/repositorypage/testcase/perform-instance",
+                                key:'performcase',
+                                component: WebPerformInstance,
+                            },
+
+                            {
+                                path: "/repositorypage/testcase/unitdetail",
+                                key:'unitcase',
+                                component: AppUnitDetail,
+                            },{
+                                path: "/repositorypage/testcase/scenecase",
+                                key:'scenecase',
+                                component: AppSceneList,
+                            },{
+                                path: "/repositorypage/testcase/scenedetail",
+                                key:'scenecase',
+                                component: AppSceneDetailContant,
+                            },{
+                                path: "/repositorypage/testcase/scenecase-instance",
+                                key:'scenecase',
+                                component: AppSceneInstance,
+                            },{
+                                path: "/repositorypage/testcase/performcase",
+                                key:'performcase',
+                                component: AppPerformList,
+                            },{
+                                path: "/repositorypage/testcase/performdetail",
+                                key:'performcase',
+                                component: AppPerformDetailContant,
+                                routes:[
+                                    {
+                                        path: "/repositorypage/testcase/performdetail/config",
+                                        key:'config',
+                                        component:AppPerformDetail,
+                                    },
+                                    {
+                                        path: "/repositorypage/testcase/performdetail/test",
+                                        key:'config',
+                                        component:AppPerformTest,
+                                    },
+                                    {
+                                        path:"/repositorypage/testcase/performdetail",
+                                        exact: true,
+                                        key:'ridperformdetail',
+                                        component: ()=><Redirect to='/repositorypage/testcase/performdetail/config'/>,
+                                    },
+                                ]
+                            },{
+                                path: "/repositorypage/testcase/perform-instance",
+                                key:'performcase',
+                                component: AppPerformInstance,
+                            },
+
+                            {
+                                path: "/repositorypage/testcase/unitdetail",
+                                key:'unitcase',
+                                component: FuncUnitDetail,
+                            },{
+                                path: "/repositorypage/testcase/scenecase",
+                                key:'scenecase',
+                                component: FuncSceneList,
+                            },
+                            {
+                                path: "/repositorypage/testcase/scenedetail",
+                                key:'scenecase',
+                                component: FuncSceneDetail,
+                            },
+
+
+
+                        ]
                     },
                     {
                         path: "/repositorypage/apitest",
@@ -378,29 +561,41 @@ const routers =  [
                         ]
                     },
                     {
-                        path: "/repositorypage/envMana",
-                        key:'env',
-                        exact: true,
-                        component: EnvContant,
+                        path: "/repositorypage/setting",
+                        component: RepositorySetting,
+                        routes:[
+                            {
+                                path: "/repositorypage/setting/envMana",
+                                key:'env',
+                                exact: true,
+                                component: EnvContant,
+                            },
+                            {
+                                path: "/repositorypage/setting/agent",
+                                key:'agent',
+                                exact: true,
+                                component: AgentConfigList
+                            },
+                            {
+                                path: "/repositorypage/setting/role",
+                                key:'domainRole',
+                                exact: true,
+                                component: DomainRole
+                            },
+                            {
+                                path: "/repositorypage/setting/privilege",
+                                key:'domainPrivilege',
+                                exact: true,
+                                component: DomainPrivilege
+                            },{
+                                path:"/repositorypage/setting",
+                                exact: true,
+                                key:'ridapitest',
+                                component: ()=><Redirect to='/repositorypage/setting/envMana'/>,
+                            },
+                        ]
                     },
-                    {
-                        path: "/repositorypage/agent",
-                        key:'agent',
-                        exact: true,
-                        component: AgentConfigList
-                    },
-                    {
-                        path: "/repositorypage/domainRole",
-                        key:'domainRole',
-                        exact: true,
-                        component: DomainRole
-                    },
-                    {
-                        path: "/repositorypage/domainPrivilege",
-                        key:'domainPrivilege',
-                        exact: true,
-                        component: DomainPrivilege
-                    },
+
                     {
                         path: "/repositorypage/category",
                         exact: true,
@@ -432,128 +627,152 @@ const routers =  [
                 key:'systemManagement',
                 component:SystemContent,
                 routes:[
+                    //成员与部门
                     {
-                        path: "/systemManagement/privilege",
-                        key:'ProjectFeature',
+                        path: "/systemManagement/org",
+                        key:'org',
                         exact: true,
-                        component: ProjectFeature,
+                        render:(props)=> <OrgaList {...props} bgroup={'teston'}/>
+                    },{
+                        path: "/systemManagement/user",
+                        key:'user',
+                        exact: true,
+                        render:(props)=>{
+                            return <UserList {...props} bgroup={'teston'}/>
+                        }
+                    },{
+                        path: "/systemManagement/authConfig",
+                        key:'authConfig',
+                        exact: true,
+                        render: () => <Directory isPortal={false}/>,
+                    },{
+                        path: "/systemManagement/userGroup",
+                        key:'authConfig',
+                        exact: true,
+                        render: () => <UserGroup />,
+                    },
+                    //权限
+                    {
+                        path: "/systemManagement/systemRole",
+                        key:'SystemRole',
+                        render: () => <SystemRoleList group={'system'} bgroup={"teston"}/>,
+                    },
+                    //消息
+                    {
+                        path: "/systemManagement/messageSendType",
+                        key:'MessageSendType',
+                        exact: true,
+                        render:()=> <MessageNotice bgroup={"teston"}/>
+
                     },
                     {
-                        path: "/systemManagement/role",
-                        key:'ProjectRole',
+                        path: "/systemManagement/message-notice",
+                        key:'MessageType',
                         exact: true,
-                        component: ProjectRole,
+                        render:()=> <MessageSendType bgroup={"teston"} />
+                    },
+                    //代办
+                    {
+                        path: "/systemManagement/myTodo",
+                        key:'myTodo',
+                        exact: true,
+                        render:(props)=> <MyTodoTask {...props} bgroup={"teston"}/>
+                    },
+                    //插件
+                    {
+                        path: "/systemManagement/plugin",
+                        key:'plugin',
+                        render:(props)=> <PluginList {...props}  detailRouter={"/systemManagement/plugindetail"}/>,
+                    },
+                    {
+                        path: "/systemManagement/plugindetail",
+                        key:'plugindetail',
+                        exact: true,
+                        render:()=> <PluginDetail  pluginsRoute={"/systemManagement/plugin"}/>,
+                    },
+                    //日志
+                    {
+                        path: "/systemManagement/log",
+                        key:'log',
+                        exact: true,
+                        render:(props)=>  <LogList {...props} bgroup={"teston"}/>,
+                    },
+                    //版本
+                    {
+                        path: "/systemManagement/version",
+                        key:'version',
+                        exact: true,
+                        component:Version
+
+                    },
+                    {
+                        path: "/systemManagement/baseSystemRole",
+                        exact: true,
+                        render: () => <SystemRoleList isBase={true} group={'system'} bgroup={"postin"}/>,
                     },
                     {
                         path: "/systemManagement/systemFeature",
                         key:'SystemFeature',
                         exact: true,
-                        component: SystemFeature,
+                        render: () => <SystemFeatureList bgroup={"teston"}/>,
                     },
                     {
-                        path: "/systemManagement/systemRole",
-                        key:'SystemRole',
+                        path: "/systemManagement/privilege",
+                        key:'ProjectFeature',
                         exact: true,
-                        component: SystemRole,
+                        render: (props) => <ProjectFeatureList {...props} bgroup={"teston"}/>,
                     },
                     {
-                        path: "/systemManagement/messageManagement",
-                        key:'MessageManagement',
+                        path: "/systemManagement/role",
+                        key:'ProjectRole',
                         exact: true,
-                        component: MessageManagement,
+                        render: (props) => <ProjectRoleList isBase={true} {...props} bgroup={"teston"}/>,
                     },
                     {
-                        path: "/systemManagement/messageSendType",
-                        key:'MessageSendType',
+                        path: "/systemManagement/messageSendTypeBase",
+                        key:'messageSendTypeBase',
                         exact: true,
-                        component: MessageSendType,
+                        render:()=> <MessageSendType bgroup={"teston"} isBase={true}/>
                     },
-                    {
-                        path: "/systemManagement/messageTemplate",
-                        key:'MessageTemplate',
-                        exact: true,
-                        component: MessageTemplate,
-                    },
+                    // {
+                    //     path: "/systemManagement/messageManagement",
+                    //     key:'MessageManagement',
+                    //     exact: true,
+                    //     render:()=> <MessageManagement bgroup={"teston"}/>
+                    // },
                     {
                         path: "/systemManagement/messageType",
                         key:'MessageType',
                         exact: true,
-                        component: MessageType,
-                    },{
-                        path: "/systemManagement/pluginmanage",
-                        key:'pluginmanage',
-                        component: PluginManage,
-                    }, {
-                        path: "/systemManagement/plugindetail",
-                        key:'plugindetail',
-                        exact: true,
-                        component: PluginDetailPage,
-                    },{
-                        path: "/systemManagement/log",
-                        key:'log',
-                        exact: true,
-                        component: LogList,
-                    },{
+                        render:()=> <MessageType bgroup={"teston"} />
+
+                    },
+                    {
                         path: "/systemManagement/logTemplate",
                         key:'logTemplate',
                         exact: true,
-                        component: LogTemplate,
+                        render:(props)=>  <LogTemplateList {...props} bgroup={"teston"}/>,
+                    },{
+                        path: "/systemManagement/logType",
+                        key:'logTemplate',
+                        exact: true,
+                        render:()=>  <LogTypeList bgroup={"teston"}/>,
                     },{
                         path: "/systemManagement/taskList",
                         key:'todo',
                         exact: true,
-                        component: TaskList,
+                        render:(props)=> <TaskList {...props} bgroup={"teston"}/>,
                     },{
                         path: "/systemManagement/todoTemp",
                         key:'todoTemp',
                         exact: true,
-                        component: TodoTemp,
-                    },{
-                        path: "/systemManagement/myTodo",
-                        key:'myTodo',
-                        exact: true,
-                        component: MyTodo,
-                    },{
+                        render:(props)=> <TodoTempList {...props} bgroup={"teston"}/>,
+                    },
+                    {
                         path:"/systemManagement",
                         exact: true,
                         key:'ridenvtest',
-                        component: ()=><Redirect to='/systemManagement/systemFeature'/>,
-                    },
-                ]
-            },
-            {
-                path: "/MessageUser",
-                key:'MessageUser',
-                exact: true,
-                component: MessageUser,
-            },
-            {
-                path: "/accountMember",
-                key:'accountMember',
-                component: AccountMember,
-                routes: [
-                    {
-                        path: "/accountMember/org",
-                        key:'org',
-                        exact: true,
-                        component: OrgaList,
-                    },
-                    {
-                        path: "/accountMember/user",
-                        key:'user',
-                        exact: true,
-                        component: UserList ,
-                    },
-                    {
-                        path: "/accountMember/authConfig",
-                        key:'authConfig',
-                        exact: true,
-                        render: () => <Directory isPortal={false}/>,
-                    },{
-                        path: "/accountMember",
-                        key:'sysEnvMana',
-                        exact: true,
-                        render: () => <Redirect to={"/accountMember/org"}/>,
+                        component: ()=><Redirect to='/systemManagement/systemRole'/>,
                     },
                 ]
             },

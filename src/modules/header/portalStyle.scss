@@ -1,50 +1,38 @@
 //headerMenu
-.showWorkspace{
-    display: block;
-}
+.header-right-item{
+    margin: 0 12px;
+    height: 22px;
 
-.hideWorkspace{
-    display: none;
-}
-.header-workspace-item{
-    position: relative;
 
-    .header-workspaceBox{
-        background: #f7f7f7;
-        position: absolute;
-        top: 28px;
-        left: -40px;
-        z-index: 100;
-        width: 180px;
-        box-shadow: 2px 5px 10px #cbcbcb;
-        height: 180px;
-        padding: 10px;
-
-        .header-workspace-list-item{
-            padding: 5px;
-            border-bottom: 1px solid #d9d9d9;
-            cursor: pointer;
-        }
-
-        .header-workspace-list-item:hover{
-            background: #efefef;
-        }
+    .header-icon-item{
+        font-size: 22px;
+        color: white;
+        cursor: pointer;
     }
 }
 
-.header-right-item{
-    margin: 0 10px;
-    height: 21px;
+.header-right-item:hover{
+    background: #e3e3e3;
+    border-radius: var(--pi-border-radius);
+}
+
+.header-right-item:hover .header-icon-item{
+    color: #385fb8;
 }
 
 .user-header-icon{
-    width: 21px;
-    height: 21px;
+    margin: 5px;
 }
 
 .user-header-icon-hover{
     cursor: pointer;
+
+    .ant-avatar{
+        width: 22px;
+        height: 22px;
+    }
 }
+
 
 .toggle-hover{
     position: relative;
@@ -55,9 +43,9 @@
         z-index: 9;
         display: none;
         position: absolute;
-        border: 1px solid #e9e9e9;
-        background: #fbfbfb;
-        box-shadow: 0 0 10px 2px #e4e4e4;
+        border: 1px solid var(--pi-border-color);
+        background: var(--pi-bg-color);
+        box-shadow: var(--pi-box-shadow);
 
 
         .user-detail-box{
@@ -65,10 +53,13 @@
             //justify-content: space-between;
             //align-items: center;
             padding: 10px;
+            border-bottom: 1px solid var(--pi-border-color);
 
 
             .user-detail-item{
-                //width: 50px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
 
                 .user-detail-item-name{
                     font-weight: bold;
@@ -82,8 +73,36 @@
         }
 
         .user-hidden-item{
-            //border-bottom: 1px solid #e4e4e4;
-            padding: 10px;
+
+            padding: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-hidden-item-lan{
+            padding: 5px;
+            position: relative;
+            cursor: pointer;
+
+            .header-lan-box{
+                padding:10px;
+                width: 80px;
+                display: none;
+                position: absolute;
+                left: -80px;
+                top: 10px;
+
+                .header-lan-box-item{
+                    padding:5px;
+                }
+            }
+        }
+
+        .user-hidden-item-lan:hover  .header-lan-box{
+            display: block;
+            background: var(--pi-bg-color);
+            border: 1px solid var(--pi-border-color);
+            box-shadow: var(--pi-box-shadow);
         }
 
         .user-hidden-item-disable{
@@ -95,43 +114,58 @@
         .user-hidden-item:hover{
             background: #efefef;
             cursor: pointer;
+            border-radius: var(--pi-border-radius);
+        }
+
+        .header-user-icon{
+
+            .tiklab-profile{
+
+                .ant-avatar {
+                    width: 32px;
+                    height: 32px;
+                }
+            }
+
         }
     }
 
     .header-user-box{
         width: 230px;
         left: -200px;
+        padding: 0;
     }
 
     .setting-setting-box{
-        width: 100px;
-        /* height: 120px; */
-        left: -75px;
+        width: 180px;
+        left: -150px;
+        padding: 10px;
     }
 
 }
 
 .toggle-hover:hover  .toggle-hidden-box{
     display: block;
-
-
 }
 
 
 
-
 .frame-header{
+    padding: 0 10px 0 28px;
+    background: var(--pi-base-color);
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    background: #f3f3f3;
-    height: 50px;
+    height: 48px;
+    border-bottom: 1px solid var(--pi-border-color);
     //-webkit-app-region: drag;//electron无边框拖动
     //-webkit-app-region: no-drag;
 
     .frame-header-logo{
         height: 35px;
         width: 100px;
-        margin-right: 20px;
+        margin:0 20px;
+
         img {
             width: 100%;
             height: 100%;
@@ -143,74 +177,73 @@
         display: flex;
         width: 120px;
         justify-content: space-around;
+        align-items: center;
+        height: 48px;
+
+
+        .header-menu-item{
+            color: #b4e1ff;
+            padding: 11px 6px;
+            border-bottom: 4px solid #add9ff00;
+            width: 55px;
+            text-align: center;
+        }
+
+        .header-menu-item-action{
+            background: #6b99e3;
+            color: #fff;
+        }
 
         div{
             cursor: pointer;
         }
+
+        .ant-menu-title-content{
+            font-size: var(--pi-font-size-14);
+            color: white;
+        }
+
+        .ant-menu-horizontal{
+            border-bottom: none;
+            background: var(--pi-base-color);
+
+        }
+
     }
 
-    .frame-header-right{
+
+    .pi-header-left{
         display: flex;
         flex-direction: row;
-        justify-items: flex-end;
         align-items: center;
         height: 100%;
-        .frame-header-right-search-wrap{
-            position: relative;
-            width: 100%;
+    }
+
+    .pi-header-right{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .pi-header-right-item{
+            margin: 0 15px 0 0;
         }
-        .frame-header-right-text{
+    }
+
+    .frame-header-right-box{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        //width: 470px;
+
+
+        .frame-header-right-detail{
             display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-            padding-right: 20px;
-            a{
-                padding: 0 20px;
-                //color: hsla(0,0%,100%,.65);
-            }
-            >span {
-                cursor: pointer;
-                padding: 0 20px;
-                color:  #444444;
-            }
-            .badge{
-                position: relative;
-                .dot{
-                    width: 7px;
-                    height: 7px;
-                    border-radius: 50%;
-                    position: absolute;
-                    top: -5px;
-                    right: 3px;
-                    background: #FF8989;
-                }
-            }
-            .messageNum{
-                font-size: 25px;
-                color: #0063FF;
-            }
-
+            margin:0 15px 0 0;
         }
-    }
-    .frame-header-dropdown{
-        margin: 0 10px;
-    }
-}
 
-.frame-search-content{
-    position: absolute;
-    width: 100%;
-    background: #fff;
-    z-index: 1;
-    overflow: auto;
-    ul,li {
-        list-style: none;
-        margin: 0;
-        padding: 0;
     }
+
 }
 
 .show {
@@ -228,21 +261,3 @@
     transition: max-height .3s ease-out;
 }
 
-@keyframes slide-down{
-    0%{transform:scale(1,0);}
-    100%{transform:scale(1,1);}
-}
-
-@-webkit-keyframes slide-down{
-    0%{-webkit-transform:scale(1,0);}
-    100%{-webkit-transform:scale(1,1);}
-}
-
-
-.showRepository{
-    display: block;
-}
-
-.hideRepository{
-    display: none;
-}

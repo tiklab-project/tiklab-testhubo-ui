@@ -11,7 +11,7 @@ const layout = {
 
 // 添加与编辑
 const WebUnitEdit = (props) => {
-    const { webUnitStore,webUnitId,categoryStore,caseType,categoryId } = props;
+    const { webUnitStore,webUnitId,categoryStore,categoryId,testType,findList } = props;
     const {
         findWebUnitList,
         createWebUnit,
@@ -29,7 +29,6 @@ const WebUnitEdit = (props) => {
     const [cascaderCategoryId, setCascaderCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
-    const testType=localStorage.getItem("testType");
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
@@ -68,8 +67,8 @@ const WebUnitEdit = (props) => {
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"web",
+                caseType:"unit",
                 desc:values.desc
             }
 
@@ -78,8 +77,7 @@ const WebUnitEdit = (props) => {
             delete values.desc
 
             createWebUnit(values).then(()=> {
-                findPage()
-                findCategoryPage()
+                findList()
             })
         }else {
             values.id=webUnitId;
@@ -94,31 +92,14 @@ const WebUnitEdit = (props) => {
             values.location=values.location?values.location:""
 
             updateWebUnit(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }
 
         setVisible(false);
     };
 
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findWebUnitList(param)
-    }
 
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
     //定位器下拉选择框渲染
     const locationView = (data) => {
@@ -188,9 +169,8 @@ const WebUnitEdit = (props) => {
             >
                 <Form
                     form={form}
-                    onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     {
                         props.isCategory!==true

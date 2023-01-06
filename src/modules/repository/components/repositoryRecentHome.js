@@ -1,39 +1,34 @@
-import React, {useEffect} from "react";
-import {Table} from "antd";
+import React, {useEffect, useState} from "react";
+import {Empty, Table} from "antd";
 import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
+import emptyImg from "../../../assets/img/empty.png";
 
 const RepositoryRecentHome = (props) =>{
     const {repositoryRecentStore} = props;
 
     const {findRepositoryRecentList,recentList,repositoryRecent}=repositoryRecentStore;
+    const [dataList, setDataList] = useState([]);
 
     const userId = getUser().userId;
 
-    const columns = [
-        {
-            title:"仓库名称",
-            dataIndex:["repository","name"],
-            key: 'name',
-            width:"30%",
-            render: (text,record) =>(
-                <a onClick = {()=>toDetail(record.repository.id)}>{text}</a>
-            )
-        },
-        {
-            title: '访问时间',
-            dataIndex: 'updateTime',
-            key: 'time',
-        },
-    ]
+    useEffect(async ()=>{
+        let list = await findRepositoryRecentList(userId)
 
-    useEffect(()=>{
-        findRepositoryRecentList(userId)
+        let newList
+        if(list&&list.length>5){
+            newList = list.slice(0,4);
+        }else {
+            newList=list;
+        }
+
+        setDataList(newList)
     },[userId])
 
     // 去往详情页
     const toDetail = (repositoryId) => {
-        //最近空间
+        sessionStorage.setItem("repositoryId",repositoryId)
+
         let params = {
             repository: {id:repositoryId},
             userId:userId
@@ -44,16 +39,43 @@ const RepositoryRecentHome = (props) =>{
     }
 
 
-    return(
-        <>
-            <Table
-                columns={columns}
-                dataSource={recentList}
-                pagination={false}
-                rowKey={(record => record.id)}
-            />
+    const showRecent=(list)=>{
+        return list&&list.map(item=>{
+            return(
+                <div key={item.id} className={"home-recent-item"} onClick={()=>toDetail(item.id)}>
+                    <div className={"home-recent-item-left"}>
+                        <img src={item.iconUrl} alt={"icon"} className={"ws-img-icon"}/>
+                        <div className={"home-recent-item-left-name"}>{item.name}</div>
+                    </div>
+                    <div style={{display:"flex","justifyContent":"space-between"}}>
+                        <div className={"home-recent-item-num"}>
+                            <div className={"home-recent-item-num-title"}>测试计划</div>
+                            <div>{item.planNum}</div>
+                        </div>
+                        <div className={"home-recent-item-num"}>
+                            <div className={"home-recent-item-num-title"}>成员数</div>
+                            <div>{item.memberNum}</div>
+                        </div>
+                    </div>
 
-        </>
+                </div>
+            )
+        })
+    }
+
+
+
+    return(
+        <div className={"home-recent-box"}>
+            {
+                dataList&&dataList.length>0
+                    ?showRecent(dataList)
+                    : <Empty
+                        description={<span>暂无访问</span>}
+                        image={emptyImg}
+                    />
+            }
+        </div>
     )
 }
 

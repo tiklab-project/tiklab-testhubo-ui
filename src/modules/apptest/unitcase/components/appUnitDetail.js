@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import BackCommon from "../../../common/backCommon";
 import {Form, Input} from "antd";
+import DetailCommon from "../../../common/detailCommon";
 
 const layout = {
     labelCol: {span: 4},
@@ -16,14 +17,14 @@ const AppUnitDetail = (props) => {
     const {appUnitStore} = props;
     const {findAppUnit,updateAppUnit} = appUnitStore;
 
-    const [allValue,setAllValue] = useState();
+    const [detailInfo,setDetailInfo]=useState();
 
     const appUnitId = sessionStorage.getItem('appUnitId');
     const [form] = Form.useForm();
 
     useEffect(()=> {
         findAppUnit(appUnitId).then(res=>{
-            setAllValue(res);
+            setDetailInfo(res);
 
             form.setFieldsValue({
                 actionType:res.actionType,
@@ -35,6 +36,17 @@ const AppUnitDetail = (props) => {
         })
     },[appUnitId])
 
+    //更新名称
+    const updateTitle = (value) =>{
+        const param = {
+            id:detailInfo.id,
+            testCase: {
+                ...detailInfo.testCase,
+                name:value,
+            }
+        }
+        updateAppUnit(param)
+    }
 
 
     const goback = () =>{
@@ -44,22 +56,12 @@ const AppUnitDetail = (props) => {
 
     return(
         <>
-            <BackCommon clickBack={goback} />
-            <div className={'testcase-detail'}  style={{"borderBottom":"1px solid #e4e4e4","margin":"0 0 10px 0"}} >
-                <div className="apidetail-header-btn">
-                    <div className={"method-name"}>{allValue?.testCase?.name}</div>
+            {/*<BackCommon clickBack={goback} />*/}
 
-                </div>
-                <div className={"method"}>
-
-                    <div className={"method-people-info"}>
-                        <span className={"people-item "}>分组: {allValue?.testCase?.category?.name}</span>
-                        <span className={"people-item "}>创建人: {allValue?.testCase?.createUser?.name}</span>
-                        <span className={"people-item "}>更新者: {allValue?.testCase?.updateUser?.name}</span>
-                        <span className={"people-item "}>更新时间: {allValue?.testCase?.updateTime}</span>
-                    </div>
-                </div>
-            </div>
+            <DetailCommon
+                detailInfo={detailInfo}
+                updateTitle={updateTitle}
+            />
             <div style={{"width":"600px"}}>
                 <Form
                     form={form}

@@ -11,7 +11,7 @@ const layout = {
 
 // 添加与编辑
 const WebPerfEdit = (props) => {
-    const {webPerfStore, categoryStore,webPerfId,caseType,categoryId} = props;
+    const {webPerfStore, categoryStore,webPerfId,categoryId,findList} = props;
     const {findWebPerfList,findWebPerf,createWebPerf,updateWebPerf}=webPerfStore;
     const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
 
@@ -20,7 +20,6 @@ const WebPerfEdit = (props) => {
     const [cascaderCategoryId, setCascaderCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
-    const testType=localStorage.getItem("testType");
     const repositoryId = sessionStorage.getItem("repositoryId")
 
 
@@ -52,8 +51,8 @@ const WebPerfEdit = (props) => {
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"web",
+                caseType:"perf",
                 desc:values.desc
             }
 
@@ -62,8 +61,7 @@ const WebPerfEdit = (props) => {
             delete values.desc
 
             createWebPerf(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
 
             })
         }else {
@@ -77,8 +75,7 @@ const WebPerfEdit = (props) => {
             delete values.desc
 
             updateWebPerf(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }
 
@@ -86,24 +83,6 @@ const WebPerfEdit = (props) => {
 
         setVisible(false);
     };
-
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findWebPerfList(param)
-    }
-
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
     //获取分组id
     const changeCategory=(value)=> {
@@ -135,9 +114,8 @@ const WebPerfEdit = (props) => {
             >
                 <Form
                     form={form}
-                    onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     {
                         props.isCategory!==true

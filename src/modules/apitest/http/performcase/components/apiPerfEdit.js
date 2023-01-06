@@ -9,7 +9,7 @@ const layout = {
 
 // 添加与编辑
 const ApiPerfEdit = (props) => {
-    const { apiPerfStore,categoryStore,apiPerfId,caseType,categoryId } = props;
+    const { apiPerfStore,categoryStore,apiPerfId,categoryId,testType,findList } = props;
     const { findApiPerfList,findApiPerf,createApiPerf,updateApiPerf}= apiPerfStore;
     const {findCategoryListTree,findCategoryListTreeTable,categoryTableList}=categoryStore;
 
@@ -18,7 +18,6 @@ const ApiPerfEdit = (props) => {
     const [cascaderCategoryId, setCascaderCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
-    const testType=localStorage.getItem("testType");
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
@@ -48,8 +47,8 @@ const ApiPerfEdit = (props) => {
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"api",
+                caseType:"perf",
                 desc:values.desc
             }
 
@@ -59,8 +58,7 @@ const ApiPerfEdit = (props) => {
             
             createApiPerf(values).then(res=>{
                 if(res.code===0){
-                    findPage();
-                    findCategoryPage()
+                    findList()
                 }
             })
         }else {
@@ -75,8 +73,7 @@ const ApiPerfEdit = (props) => {
             
             updateApiPerf(values).then(res=>{
                 if(res.code===0){
-                    findPage();
-                    findCategoryPage()
+                    findList()
                 }
             })
         }
@@ -84,23 +81,6 @@ const ApiPerfEdit = (props) => {
         setVisible(false);
     };
 
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findApiPerfList(param)
-    }
-
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
     //获取分组id
     const changeCategory=(value)=> {
@@ -133,7 +113,7 @@ const ApiPerfEdit = (props) => {
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     {
                         props.isCategory!==true

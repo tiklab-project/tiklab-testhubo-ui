@@ -36,13 +36,13 @@ const QueryParam = (props) =>{
         {
             title: '参数名称',
             dataIndex: 'paramName',
-            width: '20%',
+            width: '15%',
             editable: true,
         },
         {
             title: '必须',
             dataIndex: 'required',
-            width: '6%',
+            width: '5%',
             render:(text,record) =>  (
                 <Checkbox
                     defaultChecked={record.required}
@@ -65,7 +65,7 @@ const QueryParam = (props) =>{
 
         },{
             title: '说明',
-            width: '30%',
+            width: '20%',
             dataIndex: 'desc',
             editable: true,
 
@@ -73,8 +73,14 @@ const QueryParam = (props) =>{
         {
             title: '操作',
             width: '10%',
+            fixed: 'right',
             dataIndex: 'operation',
             render: (text, record) =>(operation(record,dataSource))
+        },
+        {
+            title: '',
+            width: '20%',
+            dataIndex: 'none',
         }
     ]
 

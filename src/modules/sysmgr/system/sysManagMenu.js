@@ -15,12 +15,15 @@ const SystemManagement = (props) => {
     const pluginStore = useSelector(store => store.pluginStore)
     const routers = props.route.routes
 
-    const [selectKey,setSelectKey] = useState('/systemManagement/systemFeature')
+    const [selectKey,setSelectKey] = useState('/systemManagement/systemRole')
 
-    const [router,setRouter] = useState()
+    const [menuRouter,setMenuRouter] = useState();
 
     useEffect(() => {
-        let data = pluginStore.filter(item =>item.point==="settingMenu").filter(item => item.menuTitle);
+        //设置左侧导航哪个选中
+        setSelectKey(window.location.hash.substr(1))
+
+        let data = pluginStore.filter(item=>item.point==="settingMenu").filter(item => item.menuTitle);
 
         if(data.length > 0){
             let newRouter;
@@ -33,9 +36,10 @@ const SystemManagement = (props) => {
                     }
                 })
             })
-            setRouter(settingMenu.concat(newRouter));
+
+            setMenuRouter(settingMenu.concat(newRouter));
         }else {
-            setRouter(settingMenu);
+            setMenuRouter(settingMenu);
         }
     }, [])
 
@@ -61,35 +65,107 @@ const SystemManagement = (props) => {
     }
 
     // 无子级菜单处理
-    const renderMenu = (data,deep)=> {
-        return (
-            <PrivilegeButton code={data.encoded}  key={data.key}>
-                <li
-                    key={data.key}
-                    className={` orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : ""}`}
-                    onClick={()=>select(data.key)}
-                    style={{paddingLeft:`${deep*20+5}px`}}
-                >
-                    <div className={'aside-li'} >
-                        {data.title}
-                    </div>
-                </li>
-            </PrivilegeButton>
-        )
+    const renderMenu = (data,deep,isFirst)=> {
+        if(data.encoded){
+            return (
+                <PrivilegeButton code={data.encoded}  key={data.key}>
+                    <li
+                        key={data.key}
+                        className={` orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : null}`}
+                        onClick={()=>select(data.key)}
+                        style={{paddingLeft:`${deep*20}px`}}
+                    >
+                        <div className={'aside-li'} >
+                            {
+                                isFirst
+                                    ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
+                                        <use xlinkHref= {`#icon-${data.icon}`} />
+                                    </svg>
+                                    :null
+                            }
+
+
+                            {data.title}
+                        </div>
+                    </li>
+                </PrivilegeButton>
+            )
+        }else {
+            return <li
+                key={data.key}
+                className={` orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : null}`}
+                onClick={()=>select(data.key)}
+                style={{paddingLeft:`${deep*20}px`}}
+            >
+                <div className={'aside-li'} >
+                    {
+                        isFirst
+                            ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
+                                <use xlinkHref= {`#icon-${data.icon}`} />
+                            </svg>
+                            :null
+                    }
+
+                    {data.title}
+                </div>
+            </li>
+        }
+
     }
 
     // 子级菜单处理
-    const renderSubMenu = ({title,key,children,encoded},deep)=> {
-        return (
-            <PrivilegeButton code={encoded} disabled ={"hidden"} key={key}>
+    const renderSubMenu = ({title,key,children,encoded,icon},deep)=> {
+        if(encoded){
+            return (
+                <PrivilegeButton code={encoded} key={key}>
+                    <li key={key} title={title} >
+                        <div className="orga-aside-item aside-li"
+                             onClick={() => setOpenOrClose(key)}
+                             style={{paddingLeft:`${deep*20}px`}}
+                        >
+                            <div className={"menu-name-icon"}>
+                                <svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
+                                    <use xlinkHref= {`#icon-${icon}`} />
+                                </svg>
+                                <span key={key}> {title}</span>
+                            </div>
+                            <div className="orga-aside-item-icon">
+                                {
+                                    children ?
+                                        (isExpandedTree(key)
+                                                ? <DownOutlined  style={{fontSize: "12px"}}/>
+                                                : <UpOutlined  style={{fontSize: "12px"}}/>
+                                        ): ""
+                                }
+                            </div>
+                        </div>
+
+                        <ul key={key} title={title} className={`orga-aside-ul ${isExpandedTree(key) ? null: 'orga-aside-hidden'}`}>
+                            {
+                                children && children.map(item =>{
+                                    let deep = 1;
+                                    return item.children && item.children.length
+                                        ? renderSubMenu(item,deep)
+                                        : renderMenu(item,deep,false)
+                                })
+                            }
+                        </ul>
+                    </li>
+                </PrivilegeButton>
+            )
+        }else {
+            return (
                 <li key={key} title={title} >
                     <div className="orga-aside-item aside-li"
                          onClick={() => setOpenOrClose(key)}
-                         style={{paddingLeft:`${deep*20+5}px`}}
+                         style={{paddingLeft:`${deep*20}px`}}
                     >
-                          <span key={key}>
-                              {title}
-                          </span>
+                        <div className={"menu-name-icon"}>
+                            <svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
+                                <use xlinkHref= {`#icon-${icon}`} />
+                            </svg>
+                            <span key={key}>{title}</span>
+                        </div>
                         <div className="orga-aside-item-icon">
                             {
                                 children ?
@@ -107,41 +183,45 @@ const SystemManagement = (props) => {
                                 let deep = 1;
                                 return item.children && item.children.length
                                     ? renderSubMenu(item,deep)
-                                    : renderMenu(item,deep)
+                                    : renderMenu(item,deep,false)
                             })
                         }
                     </ul>
                 </li>
-            </PrivilegeButton>
-        )
+            )
+        }
+
+
     }
 
-    const showLi = (data)=>{
+    const showUlView = (data)=>{
+
         return data && data.map(firstItem => {
             return firstItem.children && firstItem.children.length > 0
-                ?renderSubMenu(firstItem)
-                :renderMenu(firstItem)
+                ? renderSubMenu(firstItem)
+                : renderMenu(firstItem,null,true)
         })
     }
 
-
     return (
-        <Fragment>
-            <div className = 'sysmana-layout' style={{display:"flex"}}>
-                <div className = 'sysmana-sider' >
-                    <div className="tiklab-orga-aside">
-                        <ul style={{padding: 0}} >
-                            {
-                                showLi(router)
-                            }
-                        </ul>
-                    </div>
+        <Layout className = 'sysmana-layout'>
+            <Sider
+                className = 'sysmana-sider'
+                width={240}
+                theme={'light'}
+            >
+                <div className="tiklab-orga-aside">
+                    <ul style={{padding: 0}} >
+                        {
+                            showUlView(menuRouter)
+                        }
+                    </ul>
                 </div>
-                <Content className = 'sysmana-content'>
-                    {renderRoutes(routers)}
-                </Content>
-            </div>
-        </Fragment>
+            </Sider>
+            <Content className = 'sysmana-content'>
+                {renderRoutes(routers)}
+            </Content>
+        </Layout>
     )
 }
 

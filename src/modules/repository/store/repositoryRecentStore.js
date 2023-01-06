@@ -32,20 +32,6 @@ export class RepositoryRecentStore {
 
 
 	@action
-	findRepositoryRecentPage = async (value) => {
-		this.pageParams = {
-			orderParams:[{name:'updateTime', orderType:'desc'}],
-			...value
-		}
-		const res = await findRepositoryRecentPage(this.pageParams)
-		if(res.code === 0 ) {
-			this.recentList = res.data.dataList;
-			this.totalRecord = res.data.totalRecord;
-			return res;
-		}
-	}
-
-	@action
 	findRepositoryRecentList = async (userId) => {
 		this.params = {
 			userId:userId,
@@ -55,7 +41,7 @@ export class RepositoryRecentStore {
 		if(res.code === 0 ) {
 			this.recentList = res.data;
 			this.length = res.data.length;
-			return res;
+			return res.data;
 		}
 	}
 

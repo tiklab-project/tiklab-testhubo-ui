@@ -11,7 +11,7 @@ const layout = {
 
 // 添加与编辑
 const WebSceneEdit = (props) => {
-    const {webSceneStore, categoryStore,webSceneId,caseType,categoryId  } = props;
+    const {webSceneStore, categoryStore,webSceneId,categoryId,testType ,findList } = props;
     const {findWebSceneList,findWebScene,createWebScene,updateWebScene} = webSceneStore;
     const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
 
@@ -20,7 +20,6 @@ const WebSceneEdit = (props) => {
     const [cascaderCategoryId, setCascaderCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
-    const testType=localStorage.getItem("testType");
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
@@ -50,8 +49,8 @@ const WebSceneEdit = (props) => {
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"web",
+                caseType:"scene",
                 desc:values.desc
             }
 
@@ -60,8 +59,7 @@ const WebSceneEdit = (props) => {
             delete values.desc
 
             createWebScene(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }else {
             values.id=webSceneId;
@@ -74,32 +72,13 @@ const WebSceneEdit = (props) => {
             delete values.desc
 
             updateWebScene(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }
 
 
         setVisible(false);
     };
-
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findWebSceneList(param)
-    }
-
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
 
     //获取分组id
@@ -131,9 +110,8 @@ const WebSceneEdit = (props) => {
             >
                 <Form
                     form={form}
-                    onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     {
                         props.isCategory!==true

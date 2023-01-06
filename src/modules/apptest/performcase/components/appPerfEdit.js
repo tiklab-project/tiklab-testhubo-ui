@@ -10,7 +10,7 @@ const layout = {
 
 // 添加与编辑
 const AppPerfEdit = (props) => {
-    const {appPerfStore,categoryStore,appPerfId,caseType,categoryId  } = props;
+    const {appPerfStore,categoryStore,appPerfId,categoryId,findList  } = props;
     const {findAppPerfList,findAppPerf,createAppPerf,updateAppPerf}=appPerfStore;
     const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
 
@@ -19,8 +19,7 @@ const AppPerfEdit = (props) => {
     const [cascaderCategoryId, setCascaderCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
-    const testType=localStorage.getItem("testType");
-    const repositoryId = sessionStorage.getItem("repositoryId")
+     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
     const showModal = () => {
@@ -49,8 +48,8 @@ const AppPerfEdit = (props) => {
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"app",
+                caseType:"perf",
                 desc:values.desc
             }
 
@@ -59,8 +58,7 @@ const AppPerfEdit = (props) => {
             delete values.desc
 
             createAppPerf(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }else {
             values.id=appPerfId;
@@ -73,31 +71,13 @@ const AppPerfEdit = (props) => {
             delete values.desc
 
             updateAppPerf(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }
 
         setVisible(false);
     };
 
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findAppPerfList(param)
-    }
-
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
     //获取分组id
     const changeCategory=(value)=> {
@@ -119,7 +99,7 @@ const AppPerfEdit = (props) => {
             <Modal
                 destroyOnClose={true}
                 title={props.name}
-                visible={visible}
+                open={visible}
                 onCancel={onCancel}
                 onOk={onFinish}
                 okText="提交"
@@ -130,7 +110,7 @@ const AppPerfEdit = (props) => {
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     {
                         props.isCategory!==true

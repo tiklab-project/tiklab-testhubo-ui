@@ -32,15 +32,21 @@ const JsonResponse = (props) => {
         {
             title: '参数名称',
             dataIndex: 'propertyName',
-            width: '18%',
-            align:'center',
+            width: '15%',
             editable: true,
+        },{
+            title: '必须',
+            dataIndex: 'required',
+            width: '5%',
+            // align:'center',
+            render:(text,record) =>  (
+                <Checkbox defaultChecked={record.required} onChange={(value) => toggleChecked(value, record)}/>
+            )
         },
         {
             title: '数据类型',
-            width: '10%',
+            width: '8%',
             dataIndex: 'dataType',
-            align:'center',
             render: (text, record)=>(
                 <ExSelect
                     dictionary={dataTypeDictionary}
@@ -52,27 +58,9 @@ const JsonResponse = (props) => {
             )
         },
         {
-            title: '必须',
-            dataIndex: 'required',
-            width: '10%',
-            align:'center',
-            render:(text,record) =>  (
-                <Checkbox defaultChecked={record.required} onChange={(value) => toggleChecked(value, record)}/>
-            )
-        },
-        {
-            title: '说明',
-            width: '18%',
-            dataIndex: 'desc',
-            align:'center',
-            editable: true,
-
-        },
-        {
             title: '示例',
-            width: '18%',
+            width: '20%',
             dataIndex: 'eg',
-            align:'center',
             render: (text, record)=>(
                 <ExSelect
                     dictionary={mockValueDictionary}
@@ -85,8 +73,16 @@ const JsonResponse = (props) => {
 
         },
         {
+            title: '说明',
+            width: '20%',
+            dataIndex: 'desc',
+            editable: true,
+
+        },
+        {
             title: '操作',
-            align:'center',
+            width: '10%',
+            fixed: 'right',
             dataIndex: 'operation',
             render: (text, record, index) =>(
                 <Space>
@@ -99,6 +95,11 @@ const JsonResponse = (props) => {
                     <Button shape="circle">下</Button> */}
                 </Space>
             )
+        },
+        {
+            title: '',
+            width: '20%',
+            dataIndex: 'none',
         }
     ]
 

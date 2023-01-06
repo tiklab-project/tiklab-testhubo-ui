@@ -5,22 +5,19 @@
  */
 // const apitest =  'http://192.168.2.2:8070/';
 
-const base_url =  JSON.stringify('http://192.168.10.16:8090');
-const plugin_base_url = JSON.stringify("http://192.168.10.16:8090");
-const pluginAddressUrl = JSON.stringify('http://192.168.10.16:8090/config.json');
+const base_url =  JSON.stringify('http://192.168.10.16:8080');
+const plugin_base_url = JSON.stringify("http://192.168.10.16:8080");
+const pluginAddressUrl = JSON.stringify('http://192.168.10.16:8080/config.json');
 const fetchMethod = JSON.stringify("get");
 
 const userProduction = true;
-
-//本地联调，认证配置前端sso的地址
-// const accUrl_env = JSON.stringify('http://192.168.2.7:8090/')
 
 const appKey = JSON.stringify('appkey');
 const appSecret = JSON.stringify('appsecret');
 const version = JSON.stringify('1.0.1');
 const client = JSON.stringify('1.1.0');
 
-// const ISCEEESAAS = JSON.stringify('ce');
+const IS_DEV = true;
 
 module.exports = {
     base_url,
@@ -33,5 +30,5 @@ module.exports = {
     appSecret,
     version,
     client,
-    // ISCEEESAAS
+    IS_DEV
 }

@@ -5,130 +5,149 @@ const SystemContent = (props) =>{
 
     const settingMenu = [
         {
-            title: '系统权限中心',
-            icon: 'laptop',
-            key: "/systemManagement/system",
-            encoded: "systemPrivilege",
+            title: "用户与部门",
+            icon: 'team',
+            key: 'accountMember',
             children: [
                 {
-                    title: '功能管理',
-                    icon: 'laptop',
-                    key: '/systemManagement/systemFeature',
-                    encoded: "systemFeature",
+                    title: '部门',
+                    key: '/systemManagement/org',
+                    icon: 'modular',
+                    encoded: "orga",
+                },{
+                    title: '用户',
+                    key: '/systemManagement/user',
+                    icon: 'modular',
+                    encoded: "user",
+
+                },{
+                    title: '用户目录',
+                    key: '/systemManagement/authConfig',
+                    icon: 'modular',
+                    encoded: "user_dir",
+                },{
+                    title: '用户组',
+                    key: '/systemManagement/userGroup',
+                    icon: 'modular',
+                    // encoded: "userGroup",
                 },
-                {
-                    title: '角色管理',
-                    icon: 'laptop',
-                    key: '/systemManagement/systemRole',
-                    encoded: "systemRole",
-                }
-            ]
-        },{
-            title: '项目权限中心',
-            icon: 'laptop',
-            key: "/systemManagement/project",
-            encoded: "projectPrivilege",
-            children: [
-                {
-                    title: '功能管理',
-                    icon: 'laptop',
-                    key: '/systemManagement/privilege',
-                    encoded: "projectPrivilege",
-                },
-                {
-                    title: '角色管理',
-                    icon: 'laptop',
-                    key: '/systemManagement/role',
-                    encoded: "projectRole",
-                }
             ]
         },
         {
-            title: "消息中心",
-            icon: 'laptop',
-            key: '/systemManagement/message',
-            encoded: "MessageCenter",
+            title: '权限',
+            icon: 'modular',
+            key: '/systemManagement/systemRole',
+            // encoded: "systemPrivilege",
+        },
+        {
+            title: "消息",
+            icon: 'xiaoxi',
+            key: '/systemManagement',
             children: [
                 {
-                    title: '消息管理',
-                    icon: 'laptop',
-                    key: '/systemManagement/messageManagement',
-                    encoded: "MessageManagement",
+                    title: "消息通知方案",
+                    icon: 'rizhijilu',
+                    key: '/systemManagement/messageSendType',
+                    encoded: "MSG_SendType",
+                },{
+                    title: "消息发送方式",
+                    icon: 'rizhijilu',
+                    key: '/systemManagement/message-notice',
+                    encoded: "MSG_Notice",
+                },
+            ],
+        },
+        {
+            title: '插件',
+            icon: 'modular',
+            key: '/systemManagement/plugin',
+            encoded: "plugin",
+        },{
+            title: "安全",
+            icon: 'rizhijilu',
+            key: '/systemManagement/log',
+            encoded: "security",
+            children: [
+                {
+                    title: "操作日志",
+                    icon: 'rizhijilu',
+                    key: '/systemManagement/log',
+                    encoded: "log",
+                },
+            ],
+        },{
+            title: '版本与许可证',
+            icon: 'modular',
+            key: '/systemManagement/version'
+        },
+    ]
+
+    const devMenu = [
+        {
+            title: "基础数据",
+            icon: 'zu',
+            key: 'dev',
+            children: [
+                {
+                    title: '系统功能管理',
+                    icon: 'modular',
+                    key: '/systemManagement/systemFeature',
+                },{
+                    title: '系统权限',
+                    icon: 'modular',
+                    key: '/systemManagement/baseSystemRole',
+                },{
+                    title: '项目功能管理',
+                    icon: 'modular',
+                    key: '/systemManagement/privilege',
+                }, {
+                    title: '项目权限',
+                    icon: 'modular',
+                    key: '/systemManagement/role',
                 },
                 {
-                    title: '消息模板管理',
-                    icon: 'laptop',
-                    key: '/systemManagement/messageTemplate',
-                    encoded: "MessageTemplate",
+                    title: '消息通知方案',
+                    icon: 'modular',
+                    key: '/systemManagement/messageSendTypeBase',
                 },
                 {
                     title: '消息类型管理',
-                    icon: 'laptop',
-                    key: '/systemManagement/messageType',
-                    encoded: "SysMessageType",
-                },
-                {
-                    title: '发送方式管理',
-                    icon: 'laptop',
-                    key: '/systemManagement/messageSendType',
-                    encoded: "SysMessageSendType",
-                },
-            ]
-        },
-        {
-            title: '插件管理',
-            icon: 'laptop',
-            key: '/systemManagement/pluginmanage',
-            encoded: "plugin",
-        },{
-            title: "日志",
-            icon: 'modular',
-            key: '/systemManagement/opLog',
-            encoded: "opLog",
-            children: [
-                {
-                    title: '日志列表',
                     icon: 'modular',
-                    key: '/systemManagement/log',
-                    encoded: "log",
+                    key: '/systemManagement/messageType',
                 },{
                     title: '日志模板',
                     icon: 'modular',
                     key: '/systemManagement/logTemplate',
-                    encoded: "logTemplate",
+                },{
+                    title: '日志类型',
+                    icon: 'modular',
+                    key: '/systemManagement/logType',
                 },
-            ]
-        },{
-            title: "TODO",
-            icon: 'modular',
-            key: '/systemManagement/todo',
-            encoded: "TODO",
-            children: [
                 {
-                    title: 'TODO模板',
+                    title: '代办模板',
                     icon: 'modular',
                     key: '/systemManagement/todoTemp',
-                    encoded: "todoTemp",
                 },
-                {
-                    title: '我的TODO',
-                    icon: 'modular',
-                    key: '/systemManagement/myTodo',
-                    encoded: "myTodo",
-                },
-                {
-                    title: '任务',
-                    icon: 'modular',
-                    key: '/systemManagement/taskList',
-                    encoded: "taskList",
-                }
-            ]
-        },
+            ],
+        }
     ]
+
+    //判断是否为开发环境
+    let menu = ()=>{
+        try{
+            if(IS_DEV){
+                return [...settingMenu,...devMenu]
+            }else {
+                return [...settingMenu]
+            }
+        }catch {
+            return [...settingMenu]
+        }
+    }
 
     return(
         <SysManage
-            settingMenu={settingMenu}
+            settingMenu={menu}
             {...props}
         />
     )

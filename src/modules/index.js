@@ -1,5 +1,5 @@
 
-import { Home } from './home';
+import Home from './home/home';
 import HeaderContent from "./header/headerContent";
 import PageContent from "./header/pageContent";
 import Repository from "./repository/components/repository";

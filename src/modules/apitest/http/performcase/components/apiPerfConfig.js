@@ -133,8 +133,8 @@ const ApiPerfConfig = (props) =>{
                     name="executeType"
                 >
                     <Radio.Group onChange={(e)=>changeExeType(e.target.value)} value={exeMode}>
-                        <Radio value={1}>循环</Radio>
-                        <Radio value={2}>随机</Radio>
+                        <Radio value={0}>循环</Radio>
+                        <Radio value={1}>随机</Radio>
                     </Radio.Group>
                 </Form.Item>
                 <Form.Item

@@ -81,7 +81,7 @@ const AppEnvEdit = (props) => {
             <Form
                 form={form}
                 preserve={false}
-                {...layout}
+                layout={"vertical"}
             >
                 <Form.Item label="环境名称" name="name"><Input /></Form.Item>
                 {/*<Form.Item label="appium路径" name="mainjsPath"><Input /></Form.Item>*/}

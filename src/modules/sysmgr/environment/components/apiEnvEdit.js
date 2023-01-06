@@ -72,12 +72,9 @@ const ApiEnvEdit = (props) => {
             centered
         >
             <Form
-                name="basic"
-                initialValues={{ remember: true }}
                 form={form}
-                onFinish={onFinish}
                 preserve={false}
-                {...layout}
+                layout={"vertical"}
             >
                 <Form.Item
                     label="环境名称"

@@ -19,3 +19,14 @@
     align-items: center;
     padding: 15px 0 0 0;
 }
+
+.env-tab-box{
+
+    .header-box-margin{
+        margin: 10px 0;
+    }
+
+    .ant-tabs-bottom>.ant-tabs-nav:before, .ant-tabs-bottom>div>.ant-tabs-nav:before, .ant-tabs-top>.ant-tabs-nav:before, .ant-tabs-top>div>.ant-tabs-nav:before{
+        border-bottom: 0px solid #f0f0f0;
+    }
+}

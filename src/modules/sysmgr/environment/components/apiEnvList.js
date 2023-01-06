@@ -50,7 +50,7 @@ const ApiEnvList = (props) => {
 
     return(
         <Fragment>
-            <div className='wslist-searchbtn'>
+            <div className='header-box-margin'>
                 <ApiEnvEdit name="+添加环境" type="add"  style={{ width: 200 }}/>
             </div>
             <Table

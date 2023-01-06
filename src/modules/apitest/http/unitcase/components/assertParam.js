@@ -27,8 +27,7 @@ const AssertParam = (props) =>{
         {
             title: '来源',
             dataIndex: 'source',
-            width: '20%',
-            align:'center',
+            width: '15%',
             render:(text,record) =>  (
                 <Select
                     defaultValue={record.source}
@@ -45,15 +44,13 @@ const AssertParam = (props) =>{
         {
             title: '属性',
             dataIndex: 'propertyName',
-            width: '25%',
-            align:'center',
+            width: '20%',
             editable: true,
         },
         {
             title: '比较符',
-            width: '20%',
+            width: '10%',
             dataIndex: 'comparator',
-            align:'center',
             editable: true,
 
         },
@@ -61,15 +58,21 @@ const AssertParam = (props) =>{
             title: '值',
             width: '20%',
             dataIndex: 'value',
-            align:'center',
             editable: true,
 
         },
         {
             title: '操作',
             align:'center',
+            width: '10%',
+            fixed: 'right',
             dataIndex: 'operation',
             render: (text, record,index) =>(operation(record,dataSource))
+        },
+        {
+            title: '',
+            width: '20%',
+            dataIndex: 'none',
         }
     ]
 

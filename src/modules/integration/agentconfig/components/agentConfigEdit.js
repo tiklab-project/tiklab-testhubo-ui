@@ -71,7 +71,7 @@ const AgentConfigEdit = (props) => {
                 <Form
                     form={form}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     <Form.Item
                         label="名称"

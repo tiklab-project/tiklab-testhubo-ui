@@ -3,14 +3,9 @@ import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input} from 'antd';
 
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
-
 // 添加与编辑
 const FuncSceneEdit = (props) => {
-    const {funcSceneStore, categoryStore,funcSceneId  } = props;
+    const {funcSceneStore, categoryStore,funcSceneId,findList  } = props;
     const {findFuncSceneList,findFuncScene,createFuncScene,updateFuncScene} = funcSceneStore;
     const {findCategoryListTree} = categoryStore;
 
@@ -18,9 +13,6 @@ const FuncSceneEdit = (props) => {
 
     const [visible, setVisible] = React.useState(false);
 
-
-    const caseType=localStorage.getItem("caseType");
-    const testType=localStorage.getItem("testType");
     const categoryId = sessionStorage.getItem("categoryId")
     const repositoryId = sessionStorage.getItem("repositoryId")
 
@@ -48,16 +40,15 @@ const FuncSceneEdit = (props) => {
             values.testCase={
                 category:{id:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"func",
+                caseType:"scene",
                 desc:values.desc
             }
             delete values.name
             delete values.desc
 
             createFuncScene(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }else {
             values.id=funcSceneId;
@@ -70,8 +61,7 @@ const FuncSceneEdit = (props) => {
             delete values.desc
 
             updateFuncScene(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }
 
@@ -79,23 +69,6 @@ const FuncSceneEdit = (props) => {
     };
 
 
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findFuncSceneList(param)
-    }
-
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
     const onCancel = () => { setVisible(false) };
 
@@ -118,12 +91,10 @@ const FuncSceneEdit = (props) => {
                 centered
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     <Form.Item
                         label="名称"

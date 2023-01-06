@@ -8,14 +8,13 @@ import { SYSTEM_ROLE_STORE } from 'tiklab-privilege-ui/es/store';
 import './portalStyle.scss'
 
  const  PageContent =(props)=> {
-     const {versionImg} = props;
 
      const router = props.route.routes;
 
      const user = getUser();
      useEffect(() => {
          if (user.userId) {
-             props.systemRoleStore.getSystemPermissions(user.userId)
+             props.systemRoleStore.getSystemPermissions(user.userId,"teston")
          }
      }, [user])
 
@@ -33,7 +32,6 @@ import './portalStyle.scss'
         <div style={{height:"100%"}}>
             <HeaderContent
                 logout={Logout}
-                versionImg={versionImg}
                 {...props}
             />
             {

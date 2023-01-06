@@ -12,7 +12,7 @@ const layout = {
 
 // 添加与编辑
 const AppSceneEdit = (props) => {
-    const { appSceneStore,categoryStore,appSceneId,caseType,categoryId  } = props;
+    const { appSceneStore,categoryStore,appSceneId,categoryId ,findList } = props;
     const {findAppSceneList,findAppScene,createAppScene,updateAppScene} = appSceneStore;
     const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
     
@@ -20,7 +20,6 @@ const AppSceneEdit = (props) => {
 
     const [visible, setVisible] = React.useState(false);
 
-    const testType=localStorage.getItem("testType");
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
@@ -50,8 +49,8 @@ const AppSceneEdit = (props) => {
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"app",
+                caseType:"scene",
                 desc:values.desc
             }
 
@@ -60,8 +59,7 @@ const AppSceneEdit = (props) => {
             delete values.desc
 
             createAppScene(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }else {
             values.id=appSceneId;
@@ -71,32 +69,13 @@ const AppSceneEdit = (props) => {
                 desc:values.desc
             }
             updateAppScene(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }
 
         setVisible(false);
     };
 
-
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findAppSceneList(param)
-    }
-
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
     //获取分组id
     const changeCategory=(value)=> {
@@ -129,7 +108,7 @@ const AppSceneEdit = (props) => {
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     {
                         props.isCategory!==true

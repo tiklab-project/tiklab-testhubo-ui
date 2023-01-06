@@ -8,32 +8,45 @@ const LeftNav = (props) =>{
             "name":"概况",
             "key":"detail",
             "router":"/repositorypage/detail"
-        },{
-            "icon":"jiekou",
-            "name":"API",
-            "key":"api",
-            "router":"/repositorypage/apitest"
-        },{
-            "icon":"web",
-            "name":"WEB",
-            "key":"web",
-            "router":"/repositorypage/webtest"
-        },{
-            "icon":"jiedianapp",
-            "name":"APP",
-            "key":"app",
-            "router":"/repositorypage/apptest"
-        },{
-            "icon":"kuaijieyingyon",
-            "name":"功能测试",
-            "key":"func",
-            "router":"/repositorypage/functest"
-        },{
-            "icon":"tianjiadaofenzu",
-            "name":"模块管理",
-            "key":"category",
-            "router":"/repositorypage/category"
-        },{
+        }, {
+            "icon":"layers",
+            "name":"测试用例",
+            "key":"detail",
+            "router":"/repositorypage/testcase"
+        },
+        // {
+        //     "icon":"layers",
+        //     "name":"用例",
+        //     "key":"detail",
+        //     "router":"/repositorypage/detail"
+        // },
+        // {
+        //     "icon":"jiekou",
+        //     "name":"API",
+        //     "key":"api",
+        //     "router":"/repositorypage/apitest"
+        // },{
+        //     "icon":"web",
+        //     "name":"WEB",
+        //     "key":"web",
+        //     "router":"/repositorypage/webtest"
+        // },{
+        //     "icon":"jiedianapp",
+        //     "name":"APP",
+        //     "key":"app",
+        //     "router":"/repositorypage/apptest"
+        // },{
+        //     "icon":"kuaijieyingyon",
+        //     "name":"功能测试",
+        //     "key":"func",
+        //     "router":"/repositorypage/functest"
+        // },{
+        //     "icon":"tianjiadaofenzu",
+        //     "name":"模块管理",
+        //     "key":"category",
+        //     "router":"/repositorypage/category"
+        // },
+        {
             "icon":"jihua",
             "name":"测试计划",
             "key":"testplan",
@@ -81,87 +94,42 @@ const LeftNav = (props) =>{
     }
 
 
-    const settingMenu=[
-        {
-            title: '环境管理',
-            icon: 'icon-modular',
-            key: '/repositorypage/envMana',
-        },
-        {
-            title: 'Agent配置',
-            key: '/repositorypage/agent',
-            icon: 'icon-modular',
-        },{
-            title: '项目成员',
-            key: '/repositorypage/domainRole',
-            icon: 'icon-chengyuan',
-        },{
-            title: '项目权限',
-            key: '/repositorypage/domainPrivilege',
-            icon: 'icon-quanxian',
-        }
-    ]
-
-    const showSetting = (data) =>{
-        return data&&data.map(item=>{
-            return (
-                <li key={item.key} style={{  margin:"0 auto"}} >
-                    <div className={`nav-setting-item`}
-                         key={item.key}
-                         onClick={()=>selectKeyFun(item.key)}
-                    >
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref= {`#${item.icon}`} />
-                        </svg>
-                        <span >
-                            {item.title}
-                        </span>
-                    </div>
-                </li>
-            )
-        })
-    }
-
-    const selectKeyFun = (key)=>{
+    const clickSetting = ()=>{
         //点击左侧导航，设置选择项,用于刷新后还能选择。
         localStorage.setItem("leftRouter","setting");
 
-        props.history.push(key);
+        props.history.push("/repositorypage/setting/envMana");
     }
 
 
-
     return(
-        <div>
-            {/*<div className={"ws-detail-left-nav-ws "}>*/}
-            {/*    <Avatar icon={<UserOutlined />} />*/}
-            {/*</div>*/}
-            <ul className={"ws-detail-left-nav"}>
-                {
-                    showMenuItem(menuData)
-                }
-            </ul>
-
-            <div className={"ws-nav-setting"}>
-                <div className={`ws-detail-left-nav-item`} >
-                    <div className={`ws-detail-left-nav-item-box  ws-detail-left-nav-item-setting`}>
-                        <div className={"ws-detail-left-nav-item-detail"}>
-                            <svg className="icon" aria-hidden="true">
-                                <use xlinkHref= {`#icon-setting`}/>
-                            </svg>
+        // <div className={"left-nav-box"}>
+        //     <div className={"ws-detail-left-nav-ws "}>
+        //         <Avatar icon={<UserOutlined />} />
+        //     </div>
+            <ul className={"ws-detail-left-nav left-nav-box"}>
+                <div>
+                    {
+                        showMenuItem(menuData)
+                    }
+                </div>
+                
+                <div className={"ws-nav-setting"}>
+                    <div className={`ws-detail-left-nav-item`} onClick={clickSetting}>
+                        <div className={`ws-detail-left-nav-item-box  ws-detail-left-nav-item-setting`}>
+                            <div className={"ws-detail-left-nav-item-detail"}>
+                                <svg className="icon" aria-hidden="true">
+                                    <use xlinkHref= {`#icon-setting`}/>
+                                </svg>
+                            </div>
+                            <div  className={"ws-detail-left-nav-item-detail"}>设置</div>
                         </div>
-                        <div  className={"ws-detail-left-nav-item-detail"}>设置</div>
                     </div>
                 </div>
-                <div className={`nav-setting-box `}>
-                    <ul className="nav-setting-menu">
-                        {
-                            showSetting(settingMenu)
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
+            </ul>
+
+
+        // </div>
     )
 }
 

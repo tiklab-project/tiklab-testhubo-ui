@@ -31,7 +31,7 @@ export class ApiSceneStore {
         const res = await findApiScene(param);
         if( res.code === 0){
             this.apiSceneInfo = res.data;
-            return   res.data?.testCase;
+            return  res.data;
         }
     }
 

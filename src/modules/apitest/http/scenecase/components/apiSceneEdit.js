@@ -10,7 +10,7 @@ const layout = {
 
 // 添加与编辑
 const ApiSceneEdit = (props) => {
-    const { apiSceneStore,categoryStore, apiSceneId,caseType,categoryId } = props;
+    const { apiSceneStore,categoryStore, apiSceneId,categoryId,testType,findList } = props;
     const {findApiSceneList,findApiScene,createApiScene,updateApiScene} = apiSceneStore
     const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
 
@@ -19,7 +19,6 @@ const ApiSceneEdit = (props) => {
     const [cascaderCategoryId, setCascaderCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
-    const testType=localStorage.getItem("testType");
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
@@ -48,8 +47,8 @@ const ApiSceneEdit = (props) => {
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"api",
+                caseType:"scene",
                 desc:values.desc
             }
             delete values?.category
@@ -57,8 +56,7 @@ const ApiSceneEdit = (props) => {
             delete values.desc
 
             createApiScene(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }else {
             values.id=apiSceneId;
@@ -72,32 +70,13 @@ const ApiSceneEdit = (props) => {
             delete values.desc
 
             updateApiScene(values).then(()=> {
-                findPage()
-                findCategoryPage()
+                findList()
             })
 
         }
 
         setVisible(false);
     };
-
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findApiSceneList(param)
-    }
-
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
     //获取分组id
     const changeCategory=(value)=> {
@@ -128,11 +107,10 @@ const ApiSceneEdit = (props) => {
                 centered
             >
                 <Form
-                    name="basic"
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     {
                         props.isCategory!==true

@@ -21,7 +21,7 @@ export class RequestBodyStore {
         const res  = await findRequestBody(param);
         if( res.code === 0){
             this.bodyType = res.data?.bodyType;
-            return res.data?.bodyType;
+            return res.data;
         }
     }
 

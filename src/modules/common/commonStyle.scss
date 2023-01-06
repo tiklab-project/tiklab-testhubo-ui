@@ -104,23 +104,23 @@
 .ws-menu-ul {
     padding: 0;
     .ws-menu-li {
-        padding: 0 40px;
+        padding: 0 20px;
         height: 40px;
-        width: 240px;
+        width: 220px;
         line-height: 40px;
         display: block;
         cursor: pointer;
-        border-radius: 10px;
+        border-radius: var(--pi-border-radius);
         margin: 5px;
     }
 
     .ws-menu-li:hover{
-        background-color: #ececec;
+        background-color:  var(--pi-hover-color);
         //margin: 5px 20px;
     }
     .ws-menu-li-action{
 
-        background-color: #ececec;
+        background-color:  var(--pi-action-color);
 
     }
 }
@@ -135,8 +135,46 @@
 }
 
 
+
+.teston-page-center{
+    width: 1280px;
+    padding: 0 16px;
+    margin: 0 auto;
+}
+
+
+.detail-box{
+    padding: 10px;
+    margin: 0 0 20px 0;
+
+    .detail-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 0 20px 0;
+        height: 41px;
+    }
+
+    .detail-bottom{
+        display: flex;
+
+        .detail-bottom-item{
+            margin: 0 80px 0 0;
+            color: #999;
+            max-width: 28%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+            white-space: nowrap;
+            text-indent: 0;
+        }
+    }
+}
+
+
+
+
 .edit-api-name{
-    padding:10px;
     font-size:20px;
     cursor: auto
 }
@@ -160,9 +198,3 @@
     cursor: auto;
 }
 
-
-.teston-page-center{
-    width: 1280px;
-    padding: 0 16px;
-    margin: 0 auto;
-}

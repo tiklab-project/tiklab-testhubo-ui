@@ -31,15 +31,13 @@ const JsonParam = (props) => {
         {
             title: '参数名称',
             dataIndex: 'paramName',
-            width: '18%',
-            // align:'center',
+            width: '15%',
             editable: true,
         },
         {
             title: '数据类型',
             width: '8%',
             dataIndex: 'dataType',
-            // align:'center',
             render: (text, record)=>(
                 <DataTypeSelect
                     defaultValue={record.dataType}
@@ -51,7 +49,7 @@ const JsonParam = (props) => {
         {
             title: '必须',
             dataIndex: 'required',
-            width: '6%',
+            width: '5%',
             // align:'center',
             render:(text,record) =>  (
                 <Checkbox defaultChecked={record.required} onChange={(value) => toggleChecked(value, record)}/>
@@ -61,7 +59,6 @@ const JsonParam = (props) => {
             title: '示例值',
             width: '20%',
             dataIndex: 'value',
-            // align:'center',
             render: (text, record)=>(
                 <ExSelect
                     dictionary={mockValueDictionary}
@@ -74,15 +71,15 @@ const JsonParam = (props) => {
 
         },{
             title: '说明',
-            width: '25%',
+            width: '20%',
             dataIndex: 'desc',
-            // align:'center',
             editable: true,
 
         },
         {
             title: '操作',
-            // align:'center',
+            width: '10%',
+            fixed: 'right',
             dataIndex: 'operation',
             render: (text, record, index) =>(
                 <Space>
@@ -95,6 +92,11 @@ const JsonParam = (props) => {
                     <Button shape="circle">下</Button> */}
                 </Space>
             )
+        },
+        {
+            title: '',
+            width: '20%',
+            dataIndex: 'none',
         }
     ]
 

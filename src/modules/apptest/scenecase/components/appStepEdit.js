@@ -124,12 +124,10 @@ const AppStepEdit = (props) => {
                 width={600}
             >
                 <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     <Form.Item
                         label="操作方法"

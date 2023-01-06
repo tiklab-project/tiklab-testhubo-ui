@@ -17,7 +17,6 @@ export class CategoryStore{
 
     @action
     findCategoryListTree = async (value,categoryName) => {
-        this.repositoryId = value.id;
         const params = {
             name:categoryName,
             orderParams:[{ name:'name',  orderType:'desc' }],
@@ -33,7 +32,6 @@ export class CategoryStore{
 
     @action
     findCategoryListTreeTable = async (id,categoryName) => {
-        this.repositoryId = id;
         const params = {
             name:categoryName,
             repositoryId:id,
@@ -49,43 +47,28 @@ export class CategoryStore{
 
     @action
     findCategory = async (id) => {
-        this.categoryId = id;
         const param = new FormData();
         param.append('id', id);
 
         const res = await findCategory(param)
         if(res.code === 0) {
-            return this.categoryInfo = res.data;
-
-        }
-
-    }
-
-    @action
-    createCategory = async (values) => {
-        const res = await createCategory(values)
-        if(res.code === 0){
-            this.findCategoryListTree(this.repositoryId)
+            return  res.data;
         }
     }
 
     @action
-    updateCategory = async (values) => {
-        const res = await updateCategory(values)
-        if(res.code === 0){
-            this.findCategoryListTree(this.repositoryId)
-        }
+    createCategory = async (values) =>  await createCategory(values)
 
-    }
+
+    @action
+    updateCategory = async (values) =>  await updateCategory(values)
 
     @action
     deleteCategory = async (categoryId) => {
         const param = new FormData();
         param.append('id', categoryId);
-        const res = await deleteCategory(param)
-        if(res.code === 0){
-            this.findCategoryListTree(this.repositoryId)
-        }
+
+        await deleteCategory(param)
     }
 
 }

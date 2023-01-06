@@ -10,7 +10,7 @@ const layout = {
 
 // 添加与编辑
 const FuncUnitEdit = (props) => {
-    const { funcUnitStore,funcUnitId,categoryStore} = props;
+    const { funcUnitStore,funcUnitId,categoryStore,findList} = props;
     const {findFuncUnitList, createFuncUnit,updateFuncUnit ,findFuncUnit} = funcUnitStore
     const {findCategoryListTree} = categoryStore;
 
@@ -18,8 +18,6 @@ const FuncUnitEdit = (props) => {
 
     const [visible, setVisible] = React.useState(false);
 
-    const caseType=localStorage.getItem("caseType");
-    const testType=localStorage.getItem("testType");
     const categoryId = sessionStorage.getItem("categoryId")
     const repositoryId = sessionStorage.getItem("repositoryId")
 
@@ -48,16 +46,15 @@ const FuncUnitEdit = (props) => {
             values.testCase={
                 category:{id:categoryId},
                 name:values.name,
-                testType:testType,
-                caseType:caseType,
+                testType:"func",
+                caseType:"unit",
                 desc:values.desc
             }
             delete values.name
             delete values.desc
 
             createFuncUnit(values).then(()=> {
-                findPage()
-                findCategoryPage()
+                findList()
             })
         }else {
             values.id=funcUnitId;
@@ -71,8 +68,7 @@ const FuncUnitEdit = (props) => {
 
 
             updateFuncUnit(values).then(()=> {
-                findPage();
-                findCategoryPage()
+                findList()
             })
         }
 
@@ -80,23 +76,6 @@ const FuncUnitEdit = (props) => {
     };
 
 
-    const findPage=()=>{
-        const param = {
-            caseType:caseType,
-            testType:testType,
-            categoryId:categoryId
-        }
-        findFuncUnitList(param)
-    }
-
-    const findCategoryPage = () =>{
-        const params = {
-            testType:testType,
-            caseType:caseType,
-            repositoryId:repositoryId
-        }
-        findCategoryListTree(params)
-    }
 
 
     const onCancel = () => { setVisible(false) };

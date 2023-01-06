@@ -2,14 +2,9 @@ import React, { Fragment, useState } from 'react';
 import { observer, inject } from "mobx-react";
 import {Modal, Form, Input, Button} from 'antd';
 
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
-
 // 目录的编辑与添加
 const CategoryEdit =(props)=>{
-    const { categoryStore } = props;
+    const { categoryStore,categoryId } = props;
     const {
         findCategory,
         createCategory,
@@ -20,53 +15,50 @@ const CategoryEdit =(props)=>{
 
     const [form] = Form.useForm();
 
-
-    const [parentCategory,setParentCategory] = useState()
+    const [curCategoryId, setCurCategoryId] = useState();
 
     const repositoryId = sessionStorage.getItem('repositoryId');
-    // 弹框展示
-    const showModal = () => {
-        setVisible(true);
-        if(props.name === "编辑"){
-            findCategory(props.categoryId).then((res)=>{
-                setParentCategory(res.parentCategory?.id)
-                form.setFieldsValue({
-                    name: res.name,
-                    desc:res.desc
-                })
-            })
-        }
-    };
 
+    // 弹框展示
+    const showModal = async () => {
+        if(props.type === "edit"){
+            let res = await findCategory(categoryId)
+            form.setFieldsValue({ name: res.name })
+
+            setCurCategoryId(res.id)
+        }
+
+        setVisible(true);
+    };
 
     // 收起弹框
     const hideModal = () => {setVisible(false)};
 
     // 弹框提交
-    const onFinish = () => {
-        form.validateFields().then((values)=>{
-            values.repository = { id:repositoryId }
-            if(props.name === '添加模块'||props.name === '添加子模块'){
-                values.parentCategory = { id:props.categoryId }
-                createCategory(values);
-            }else{
-                values.parentCategory={ id:parentCategory }
-                values.id=props.categoryId
-                updateCategory(values);
-            }
-        })
+    const onFinish = async () => {
+        let values = await form.validateFields();
+        values.repository = { id:repositoryId }
+
+        if(props.type === 'edit'){
+            values.id=curCategoryId
+            updateCategory(values).then(()=>{
+                props.findList()
+            });
+        }else{
+            values.parentCategory = { id:categoryId }
+            createCategory(values).then(()=>{
+                props.findList()
+            });
+        }
+
         setVisible(false)
     };
 
     return(
         <Fragment>
-            {
-                props.name ==='添加模块'
-                    ?<Button  className="important-btn" onClick={showModal}>{props.name}</Button>
-                    :<a onClick={showModal}>{props.name}</a>
-            }
+            <a onClick={showModal}>{props.name}</a>
             <Modal
-                title="添加模块"
+                title={props.type==="edit"?"编辑":"添加"}
                 visible={visible}
                 onCancel={hideModal}
                 destroyOnClose={true}
@@ -76,20 +68,18 @@ const CategoryEdit =(props)=>{
                 centered
             >
                 <Form
-                    {...layout}
-                    name="basic"
                     form={form}
                     preserve={false}
                     onFinish={onFinish}
+                    layout={"vertical"}
                 >
                     <Form.Item
                         label="目录名称"
                         name="name"
-                        rules={[{ required: true, message: 'Please input your catalogename!' }]}
+                        rules={[{ required: true, message: '请输入目录名称!' }]}
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item label="描述" name="desc"><Input /></Form.Item>
                 </Form>
             </Modal>
         </Fragment>

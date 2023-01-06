@@ -75,7 +75,7 @@ const WebEnvEdit = (props) => {
             <Form
                 form={form}
                 preserve={false}
-                {...layout}
+                layout={"vertical"}
             >
                 <Form.Item
                     label="环境名称"

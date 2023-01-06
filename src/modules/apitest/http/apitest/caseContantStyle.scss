@@ -3,8 +3,8 @@
     height: 100%;
 
     .test-left{
-        width: 300px;
-        padding: 0 15px;
+        width: 280px;
+        padding: 15px;
         border-right: 1px solid #e4e4e4;
         background: #f9f9f9;
 
@@ -18,7 +18,7 @@
         width: 100%;
         //margin: 0 10px;
         overflow: auto;
-        padding: 0 5px;
+        padding: 0 10px;
     }
 }
 
@@ -174,13 +174,13 @@
     }
 
     .left-tree-screen-item:hover{
-        color: #0055ff;
-        border-bottom: 3px solid #001cff;
+        color: #1890ff;
+        border-bottom: 3px solid #1890ff;
     }
 
     .left-tree-screen-item-selected{
-        color: #0055ff;
-        border-bottom: 3px solid #001cff;
+        color: #1890ff;
+        border-bottom: 3px solid #1890ff;
     }
 
 }

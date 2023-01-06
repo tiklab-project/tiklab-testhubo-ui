@@ -10,6 +10,7 @@ const envData = require(`./env/env-${process.env.API_ENV}`);
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
+
 module.exports = {
     output: {
         filename: 'js/[name].[hash:8].js',
@@ -31,25 +32,26 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.(sc|sa|c)ss$/,
-
+                test: /\.css$/,
+                use: ['style-loader', "css-loader"]
+            },{
+                test: /\.less$/,
                 use: [
-                    isDevelopment ? 'style-loader' : {
-                        loader: MiniCssExtractPlugin.loader,
+                    {loader: 'style-loader'},
+                    {loader: "css-loader"},
+                    {
+                        loader: "less-loader",
                         options: {
-                            publicPath: '../',
-                        },
-                    },
-
-                    {
-                        loader: "css-loader",
-                    },
-                    // {
-                    //     loader: "postcss-loader",
-                    // },
-                    {
-                        loader: "sass-loader",
+                            javascriptEnabled: true
+                        }
                     }
+                ]
+            },{
+                test: /\.scss$/,
+                use: [
+                    {loader: 'style-loader'},
+                    {loader: "css-loader"},
+                    {loader: "sass-loader"}
                 ]
             },
             {
@@ -60,7 +62,7 @@ module.exports = {
                     options: {
                         outputPath: 'images/',
                         name: '[name].[ext]', // 图片输出的路径
-                        limit: 8*1024,
+                        limit: 0,
                     }
                 }
             },
@@ -92,6 +94,7 @@ module.exports = {
         ]
     },
 
+
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
@@ -116,6 +119,7 @@ module.exports = {
         new CssMinimizerPlugin(),
 
         new webpack.DefinePlugin( envData),
+
 
         // new CheckVersion(),
 

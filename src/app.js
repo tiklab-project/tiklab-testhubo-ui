@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { renderRoutes  } from "react-router-config";
 import 'antd/dist/antd.css';
 import './common/styles/base.scss';
+import './common/styles/global.scss';
 import './common/language/i18n';
 import "./assets/iconfont/iconfont";
 import "./assets/iconfont/iconfont.css";
@@ -10,6 +11,8 @@ import { PluginProvider} from 'tiklab-plugin-ui';
 import { initFetch} from 'tiklab-plugin-ui/es/_utils';
 import resources from './common/language/resource';
 import {getUser} from "tiklab-core-ui";
+import {Spin} from "antd";
+import "./assets/index"
 
  const App = (props) => {
      const {allStore,routers} = props;
@@ -40,9 +43,15 @@ import {getUser} from "tiklab-core-ui";
 
 
      if (!viable) {
-         return <div>加载中</div>
+         return <div style={{
+             "height":"100%",
+             "display":"flex",
+             "justifyContent":"center",
+             "alignItems":"center"
+         }}>
+             <Spin size="large"/>
+         </div>
      }
-
      return(
          <PluginProvider store={pluginData}>
              {

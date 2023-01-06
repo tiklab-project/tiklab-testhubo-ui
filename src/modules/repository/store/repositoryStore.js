@@ -5,8 +5,10 @@ import {
     findRepository,
     createRepository,
     deleteRepository,
-    updateRepository
-}from '../api/repositoryApi';
+    updateRepository,
+    findRepositoryJoinList, findRepositoryTotal
+} from '../api/repositoryApi';
+import {findRepositoryFollowList} from "../api/repositoryFollowApi";
 
 
 export class RepositoryStore {
@@ -20,7 +22,7 @@ export class RepositoryStore {
     findRepositoryPage = async (param) => {
         const params = {
             ...param,
-            orderParams: [{name:'id', orderType:'asc'}],
+            orderParams: [{name:'name', orderType:'asc'}],
         }
 
         const res = await findRepositoryPage(params)
@@ -28,6 +30,19 @@ export class RepositoryStore {
             this.totalRecord = res.data.totalRecord;
             this.repositoryList = res.data.dataList;
             return res.data.dataList
+        }
+    }
+
+    @action
+    findRepositoryJoinList = async (params) => {
+        this.params = {
+            ...params,
+            orderParams:[{name:'name', orderType:'asc'}],
+        }
+        const res = await findRepositoryJoinList(this.params)
+        if(res.code === 0 ) {
+            this.repositoryList = res.data
+            return res.data;
         }
     }
 
@@ -44,6 +59,23 @@ export class RepositoryStore {
         }
     }
 
+    @action
+    findRepositoryFollowList = async (value) => {
+        this.params = {
+            ...value,
+            orderParams:[{name:'createTime', orderType:'desc'}],
+        }
+        const res = await findRepositoryFollowList(this.params)
+        if(res.code === 0 ) {
+
+            this.repositoryList = res.data
+
+            return res.data;
+        }
+    }
+
+
+
 
     @action
     findRepository = async (id) => {
@@ -58,6 +90,18 @@ export class RepositoryStore {
             return res.data;
         }
     }
+
+    @action
+    findRepositoryTotal = async (id) =>{
+        const param = new FormData();
+        param.append('id', id);
+
+        const res = await findRepositoryTotal(param);
+        if(res.code === 0){
+            return res.data;
+        }
+    }
+
 
     @action
     createRepository = async (values) =>  await createRepository(values)
@@ -78,6 +122,8 @@ export class RepositoryStore {
     menuSelected = (selected)=>{
         this.selectedItem = selected;
     }
+    
+    
 
 }
 
