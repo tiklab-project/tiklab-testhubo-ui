@@ -34,30 +34,31 @@ const WebSceneDetail = (props) => {
 
 
     const goBack = () =>{
-        props.history.push("/repositorypage/webtest")
+        props.history.push("/repositorypage/testcase/list")
     }
 
     const toHistory = () =>{
-        props.history.push("/repositorypage/webtest/scenecase-instance")
+        props.history.push("/repositorypage/testcase/scenecase-instance")
     }
 
 
     return(
         <>
             {/*<BackCommon clickBack={goBack}/>*/}
-            <DetailCommon
-                detailInfo={detailInfo}
-                updateTitle={updateTitle}
-                toHistory={toHistory}
-                test={
-                    <ExecuteTestDrawer
-                        webSceneId={webSceneId}
-                        webSceneStore={webSceneStore}
-                    />
-                }
-            />
-            <WebSceneStepList />
-
+            <div className={"content-box-center"}>
+                <DetailCommon
+                    detailInfo={detailInfo}
+                    updateTitle={updateTitle}
+                    toHistory={toHistory}
+                    test={
+                        <ExecuteTestDrawer
+                            webSceneId={webSceneId}
+                            webSceneStore={webSceneStore}
+                        />
+                    }
+                />
+                <WebSceneStepList />
+            </div>
         </>
     )
 }

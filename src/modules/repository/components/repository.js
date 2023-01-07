@@ -147,7 +147,7 @@ const Repository = (props)=> {
                         prefix={<SearchOutlined />}
                         placeholder={`搜索空间`}
                         onPressEnter={onSearch}
-                        className={"ws-header-menu-input"}
+                        className={"search-input-common"}
                     />
                 </div>
 

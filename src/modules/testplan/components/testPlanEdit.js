@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, DatePicker, Select} from 'antd';
 import UserSelect from "../../common/userSelect/components/userSelect";
 import moment from "moment";
+import IconCommon from "../../common/iconCommon";
 
 const {Option} = Select;
 const layout = {
@@ -91,7 +92,11 @@ const TestPlanEdit = (props) => {
             {
                 props.name === "添加计划"
                     ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
-                    : <a onClick={showModal}>{props.name}</a>
+                    : <IconCommon
+                        icon={"bianji11"}
+                        className={"icon-s edit-icon"}
+                        onClick={showModal}
+                    />
             }
 
             <Modal

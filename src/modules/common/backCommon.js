@@ -5,15 +5,20 @@ const BackCommon = (props) => {
     return (
         <div className={"back-ex-header"}>
             <div>
-                {/*<span*/}
-                {/*    onClick={props.clickBack}*/}
-                {/*    className={"back-contant"}*/}
-                {/*>*/}
-                {/*    <svg className="icon" aria-hidden="true">*/}
-                {/*        <use xlinkHref="#icon-fanhui2"/>*/}
-                {/*    </svg>*/}
-                {/*    返回*/}
-                {/*</span>*/}
+                {
+                    props.clickBack
+                        ?<span
+                                onClick={props.clickBack}
+                                className={"back-contant"}
+                            >
+                        <svg className="icon" aria-hidden="true">
+                            <use xlinkHref="#icon-31fanhui1"/>
+                        </svg>
+                         返回
+                        </span>
+                        :null
+                }
+
             </div>
             <div>
                 {props.right}

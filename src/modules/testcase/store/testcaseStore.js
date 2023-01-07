@@ -4,24 +4,23 @@ import {
     createTestCase,
     findTestCase,
     updateTestCase,
-    deleteTestCase
+    deleteTestCase,
+    findTestCasePage
 } from '../api/testcaseApi'
 
 export class TestCaseStore {
-
     @observable testcaseList = [];
-    @observable testcaseInfo;
-    @observable functionList;
-    @observable locationList;
 
+    @observable activeKey
+    @observable tabList=[]
 
     @action
     findTestCaseList = async (values) => {
 
-        const res = await findTestCaseList(values);
+        const res = await findTestCasePage(values);
 
         if(res.code === 0) {
-            this.testcaseList = res.data;
+            this.testcaseList = res.data.dataList;
             return res.data
         }
     }
@@ -33,8 +32,6 @@ export class TestCaseStore {
 
         const res = await findTestCase(param);
         if( res.code === 0){
-            this.testcaseInfo = res.data;
-
             return res.data;
         }
     }
@@ -52,6 +49,18 @@ export class TestCaseStore {
         param.append('id', id);
 
         await deleteTestCase(param)
+    }
+
+
+    //tab页设置activeKey
+    @action
+    setActiveKey = (key) =>{
+        this.activeKey=key;
+    }
+    //tab页item
+    @action
+    setTabList = (item) =>{
+        this.tabList = item;
     }
 
 }

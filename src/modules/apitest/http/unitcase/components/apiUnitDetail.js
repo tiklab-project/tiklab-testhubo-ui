@@ -44,23 +44,26 @@ const ApiUnitDetail = (props) => {
     // 删除步骤
     const handleDeleteApiUnit = (apiUnitId) => {
         deleteApiUnit(apiUnitId)
-        addRouter({pathname:'/repositorypage/apitest/unitcase'})
+        addRouter({pathname:'/repositorypage/testcase/list'})
     }
 
     //返回
     const  goBack = () => {
-        addRouter("/repositorypage/apitest")
+        addRouter("/repositorypage/testcase/list")
     }
 
 
 
     const toHistory = () =>{
-        addRouter("/repositorypage/apitest/unitcase-instance")
+        addRouter("/repositorypage/testcase/api-unitcase-instance")
     }
 
     return(
-        <Fragment>
-            <BackCommon clickBack={goBack} right={<ApiEnvSelect history={props.history}/>} />
+        <>
+            <BackCommon
+                // clickBack={goBack}
+                right={<ApiEnvSelect history={props.history}/>}
+            />
             <div className={"detail-info-box"}>
                 <div className="apidetail-header-btn">
                     <div className={"method-name"}>{name}</div>
@@ -103,7 +106,7 @@ const ApiUnitDetail = (props) => {
                 <div className="header-title ex-title">输出结果</div>
                 <Response />
             </div>
-        </Fragment>
+        </>
     )
 }
 

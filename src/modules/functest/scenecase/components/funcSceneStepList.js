@@ -48,10 +48,15 @@ const FuncSceneStepList = (props) => {
 
     return(
         <>
-            <FuncSceneBindUnit
-                funcSceneStepStore={funcSceneStepStore}
-                funcSceneId={funcSceneId}
-            />
+            <div className='flex-right'>
+                <div className={'test-title'}>
+                    <div>测试步骤</div>
+                </div>
+                <FuncSceneBindUnit
+                    funcSceneStepStore={funcSceneStepStore}
+                    funcSceneId={funcSceneId}
+                />
+            </div>
             <Table
                 columns={column}
                 dataSource={funcSceneStepList}

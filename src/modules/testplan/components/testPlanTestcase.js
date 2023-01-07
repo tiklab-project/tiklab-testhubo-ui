@@ -98,18 +98,24 @@ const TestPlanTestcase = (props) =>{
     return(
         <>
 
-            <div style={{padding:5}}>
+            <div className='flex-right'>
+                <div className={'test-title'}>
+                    <div>关联用例</div>
+                </div>
                 <TestPlanTestcaseAdd testPlanId={testPlanId}/>
             </div>
 
+            <div className={"table-list-box"}>
 
-            <Table
-                className="tablelist"
-                columns={columns}
-                dataSource={testPlanDetailList}
-                rowKey={record => record.id}
-                pagination={false}
-            />
+                <Table
+                    className="tablelist"
+                    columns={columns}
+                    dataSource={testPlanDetailList}
+                    rowKey={record => record.id}
+                    pagination={false}
+                />
+            </div>
+
         </>
 
     )

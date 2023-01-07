@@ -48,10 +48,15 @@ const WebSceneStepList = (props) => {
 
     return(
         <>
-           <WebSceneBindUnit
-               webSceneStepStore={webSceneStepStore}
-               webSceneId={webSceneId}
-           />
+            <div className='flex-right'>
+                <div className={'test-title'}>
+                    <div>场景步骤</div>
+                </div>
+               <WebSceneBindUnit
+                   webSceneStepStore={webSceneStepStore}
+                   webSceneId={webSceneId}
+               />
+            </div>
             <Table
                 columns={column}
                 dataSource={webSceneStepList}

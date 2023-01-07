@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {Button, Dropdown, Input, Menu, Popconfirm, Select, Space, Table} from "antd";
+import {Button, Dropdown, Empty, Input, Menu, Popconfirm, Select, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import "./testcaseStyle.scss"
+import emptyImg from "../../../assets/img/empty.png"
 import ApiUnitEdit from "../../apitest/http/unitcase/components/apiUnitEdit";
 import ApiSceneEdit from "../../apitest/http/scenecase/components/apiSceneEdit";
 import ApiPerfEdit from "../../apitest/http/performcase/components/apiPerfEdit";
@@ -13,12 +14,12 @@ import AppSceneEdit from "../../apptest/scenecase/components/appSceneEdit";
 import AppPerfEdit from "../../apptest/performcase/components/appPerfEdit";
 import FuncUnitEdit from "../../functest/unitcase/components/funcUnitEdit";
 import FuncSceneEdit from "../../functest/scenecase/components/funcSceneEdit";
+import IconCommon from "../../common/iconCommon";
 
 
 const TestCaseList = (props) => {
-    const {testcaseStore} = props;
-    const {findTestCaseList,testcaseList,deleteTestCase}=testcaseStore;
-
+    const {testcaseStore,categoryStore} = props;
+    const {findTestCaseList,testcaseList,deleteTestCase,tabList,setTabList,setActiveKey}=testcaseStore;
 
     const column = [
         {
@@ -60,11 +61,14 @@ const TestCaseList = (props) => {
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() => deleteFn(record.id)}
+                        onConfirm={() =>deleteTestCase(record.id).then(()=>findPage())}
                         okText='确定'
                         cancelText='取消'
                     >
-                        <a className="table-delete"> 删除 </a>
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                        />
                     </Popconfirm>
                 </Space>
             )
@@ -75,31 +79,48 @@ const TestCaseList = (props) => {
     const [testType, setTestType] = useState();
     const [caseType, setCaseType] = useState();
 
+    const [totalRecord, setTotalRecord] = useState();
+    const [pageSize] = useState(12);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageParam, setPageParam] = useState({
+        pageParam: {
+            pageSize: pageSize,
+            currentPage: currentPage
+        }
+    })
+
+
     const categoryId = sessionStorage.getItem("categoryId")
     const repositoryId = sessionStorage.getItem("repositoryId")
 
 
     useEffect(()=>{
         findPage()
-    },[categoryId])
+    },[categoryId,pageParam])
 
 
     const findPage = (testType,caseType) =>{
         const param = {
             categoryId:categoryId,
             testType:testType,
-            caseType:caseType
+            caseType:caseType,
+            ...pageParam
         }
-        findTestCaseList(param)
-    }
-
-    const deleteFn = (id) =>{
-        deleteTestCase(id).then(()=> {
-            findPage();
+        findTestCaseList(param).then((res)=>{
+            setTotalRecord(res.totalRecord)
         })
     }
 
+    //点击名称不同的类型的用例跳到不同页面
     const toPage =(record)=>{
+
+        let list = [...tabList]
+
+        let newList =  list.filter(item=>item.id!==record.id)
+        newList.push(record)
+        setTabList(newList)
+        setActiveKey(record.id)
+
         switch (record.testType) {
             case "api":
                 switchCaseType(record);
@@ -120,22 +141,20 @@ const TestCaseList = (props) => {
         switch (record.caseType) {
             case "unit":
                 sessionStorage.setItem(`${record.testType}UnitId`,record.id);
-                props.history.push(`/repositorypage/testcase/unitdetail`)
+                props.history.push(`/repositorypage/testcase/${record.testType}-unitdetail`)
                 break;
             case "scene":
                 sessionStorage.setItem(`${record.testType}SceneId`,record.id);
-                props.history.push(`/repositorypage/testcase/scenedetail`)
+                props.history.push(`/repositorypage/testcase/${record.testType}-scenedetail`)
                 break;
             case "perform":
                 sessionStorage.setItem(`${record.testType}PerfId`,record.id);
-                props.history.push(`/repositorypage/testcase/performdetail`)
+                props.history.push(`/repositorypage/testcase/${record.testType}-performdetail`)
                 break;
         }
     }
 
-
-
-
+    //表格中测试类型展示
     const showTestTypeView = (type)=>{
         switch (type) {
             case "api":
@@ -149,6 +168,7 @@ const TestCaseList = (props) => {
         }
     }
 
+    //表格中用例类型展示
     const showCaseTypeView = (type)=>{
         switch (type) {
             case "unit":
@@ -206,10 +226,26 @@ const TestCaseList = (props) => {
     ]
 
 
+    //用例筛选
     const caseSelectFn = (type) =>{
         setCaseType(type)
 
         findPage(testType,type)
+    }
+
+
+    // 分页
+    const onTableChange = (pagination) => {
+        setCurrentPage(pagination.current)
+        const newParams = {
+            ...pageParam,
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: pagination.current
+            },
+        }
+
+        setPageParam(newParams)
     }
 
 
@@ -313,50 +349,66 @@ const TestCaseList = (props) => {
             </Menu.SubMenu>
         </Menu>
     )
-return(
+    return(
         <div className={"testcase-box"}>
 
+            <div  className={"header-box-space-between"} >
+                <div className={'header-box-title'}>用例列表</div>
+                <Dropdown overlay={addMenu} placement="bottom">
+                    <Button className={"important-btn"}>添加用例</Button>
+                </Dropdown>
+            </div>
 
             <div className={"dynamic-select-box"}>
                 <div className={"ws-header-menu-left"}>
                     {showMenu(items)}
                 </div>
-                <div>
-                    <Select
-                        // defaultValue={null}
-                        placeholder={"用例类型"}
-                        className={"dynamic-select-box-item"}
-                        onChange={caseSelectFn}
-                        options={[
-                            {
-                                value: null,
-                                label: '所有',
-                            },{
-                                value: 'unit',
-                                label: '单元用例',
-                            },
-                            {
-                                value: 'scene',
-                                label: '场景用例',
-                            },{
-                                value: 'perform',
-                                label: '性能用例',
-                            },
-                        ]}
-                    />
-                    <Dropdown overlay={addMenu} placement="bottom">
-                        <Button className={"important-btn"}>添加用例</Button>
-                    </Dropdown>
-                </div>
+                <Select
+                    // defaultValue={null}
+                    placeholder={"用例类型"}
+                    className={"dynamic-select-box-item"}
+                    onChange={caseSelectFn}
+                    options={[
+                        {
+                            value: null,
+                            label: '所有',
+                        },{
+                            value: 'unit',
+                            label: '单元用例',
+                        },
+                        {
+                            value: 'scene',
+                            label: '场景用例',
+                        },{
+                            value: 'perform',
+                            label: '性能用例',
+                        },
+                    ]}
+                />
+
 
             </div>
 
-            <div >
+            <div className={"table-list-box"}>
                 <Table
                     columns={column}
                     dataSource={testcaseList}
                     rowKey = {record => record.id}
-                    pagination={false}
+                    pagination={{
+                        current:currentPage,
+                        pageSize:pageSize,
+                        total:totalRecord,
+                    }}
+                    onChange = {(pagination) => onTableChange(pagination)}
+                    locale={{
+                        emptyText: <Empty
+                            imageStyle={{
+                                height: 120,
+                            }}
+                            description={<span>暂无空间</span>}
+                            image={emptyImg}
+                        />,
+                    }}
                 />
             </div>
         </div>

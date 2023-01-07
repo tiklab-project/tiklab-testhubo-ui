@@ -14,8 +14,6 @@ export class TestPlanStore {
 
     @action
     findTestPlanPage = async (id,param) => {
-        this.repositoryId = id;
-        this.param = param;
         const params = {
             repositoryId:id,
             ...param,

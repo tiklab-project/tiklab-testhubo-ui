@@ -73,16 +73,20 @@ const ApiSceneStepList =(props) =>{
     return(
         <>
             <div className='flex-right'>
-                <ApiSceneBindUnit
-                    apiSceneStepStore={apiSceneStepStore}
+                <div className={'test-title'}>
+                    <div>测试步骤</div>
+                </div>
+                <ApiSceneBindUnit apiSceneStepStore={apiSceneStepStore}/>
+            </div>
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={apiSceneStepList}
+                    rowKey = {record => record.id}
+                    // rowSelection={{...rowSelection}}
+                    pagination={false}
                 />
             </div>
-            <Table
-                columns={column}
-                dataSource={apiSceneStepList}
-                rowKey = {record => record.id}
-                // rowSelection={{...rowSelection}}
-            />
         </>
     )
 }

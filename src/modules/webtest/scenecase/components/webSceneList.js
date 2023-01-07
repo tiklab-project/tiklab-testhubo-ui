@@ -113,13 +113,14 @@ const WebSceneList = (props) => {
                 {/*    style={{width:240}}*/}
                 {/*/>*/}
             </div>
-            <Table
-                columns={column}
-                dataSource={webSceneList}
-                rowKey = {record => record.id}
-                pagination={false}
-            />
-
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={webSceneList}
+                    rowKey = {record => record.id}
+                    pagination={false}
+                />
+            </div>
         </>
     )
 

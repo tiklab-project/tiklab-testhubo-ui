@@ -81,7 +81,7 @@ const ApiSceneInstance = (props) =>{
     }
 
     const toUnitDetail =()=>{
-        props.history.push("/repositorypage/apitest/scenedetail")
+        props.history.push("/repositorypage/testcase/api-scenedetail")
     }
 
     return(

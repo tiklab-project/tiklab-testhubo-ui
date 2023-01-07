@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import TestPlanTestcase from "./testPlanTestcase";
 import EdiText from "react-editext";
 import moment from "moment";
+import {CaretDownOutlined} from "@ant-design/icons";
 
 const {Option} = Select;
 
@@ -13,7 +14,9 @@ const TestPlanDetail = (props) =>{
     const [form] = Form.useForm();
     const [executeDate,setExecuteData] = useState()
 
+    const [showValidateStatus, setShowValidateStatus ] = useState()
     const testPlanId = sessionStorage.getItem('testPlanId')
+
     useEffect(()=>{
         findTestPlan(testPlanId).then((res)=>{
             setExecuteData(res)
@@ -82,33 +85,38 @@ const TestPlanDetail = (props) =>{
     return(
         <div className={"teston-page-center"}>
             <div className='header-flexbox'>
-                <Breadcrumb separator=">"  >
-                    <Breadcrumb.Item>测试计划</Breadcrumb.Item>
-                    <Breadcrumb.Item>测试计划详情</Breadcrumb.Item>
-                </Breadcrumb>
-                <Button onClick={goBack}>返回</Button>
+                <span
+                    onClick={goBack}
+                    className={"back-contant"}
+                >
+                    <svg className="icon" aria-hidden="true">
+                        <use xlinkHref="#icon-31fanhui1"/>
+                    </svg>
+                    返回
+                </span>
             </div>
-            <Form className="testplan-form-info" form={form} >
-                <div className="form-header-title-btn">
-                    <EdiText
-                        value={executeDate?.name}
-                        tabIndex={2}
-                        onSave={editName}
-                        startEditingOnFocus
-                        submitOnUnfocus
-                        showButtonsOnHover
-                        viewProps={{ className: 'edit-api-name' }}
-                        editButtonClassName="ediText-edit"
-                        saveButtonClassName="ediText-save"
-                        cancelButtonClassName="ediText-cancel"
-                        editButtonContent={
-                            <svg className="icon" aria-hidden="true">
-                                <use xlinkHref= {`#icon-bianji1`} />
-                            </svg>
-                        }
-                        hideIcons
-                    />
-
+            <Form className="testplan-form-info" form={form} labelAlign={"left"} >
+                <div className="test-plan-title-between">
+                    <div style={{width:200,height: 32}}>
+                        <EdiText
+                            value={executeDate?.name}
+                            tabIndex={2}
+                            onSave={editName}
+                            startEditingOnFocus
+                            submitOnUnfocus
+                            showButtonsOnHover
+                            viewProps={{ className: 'edit-api-name' }}
+                            editButtonClassName="ediText-edit"
+                            saveButtonClassName="ediText-save"
+                            cancelButtonClassName="ediText-cancel"
+                            editButtonContent={
+                                <svg className="icon" aria-hidden="true">
+                                    <use xlinkHref= {`#icon-bianji1`} />
+                                </svg>
+                            }
+                            hideIcons
+                        />
+                    </div>
 
                 </div>
                 <div className={'form-edit-detail'}>
@@ -119,6 +127,11 @@ const TestPlanDetail = (props) =>{
                         <DatePicker
                             format={'YYYY-MM-DD'}
                             onChange={changeStartTime}
+                            bordered={false}
+                            // suffixIcon={showValidateStatus === "startTime"?<CaretDownOutlined />:null}
+                            onMouseEnter={()=>{setShowValidateStatus("startTime")}}
+                            onMouseLeave={()=>{setShowValidateStatus("")}}
+
                         />
                     </Form.Item>
                     <Form.Item
@@ -128,23 +141,36 @@ const TestPlanDetail = (props) =>{
                         <DatePicker
                             format={'YYYY-MM-DD'}
                             onChange={changeEndTime}
+                            bordered={false}
+                            // suffixIcon={showValidateStatus === "endTime"?<CaretDownOutlined />:null}
+                            onMouseEnter={()=>{setShowValidateStatus("endTime")}}
+                            onMouseLeave={()=>{setShowValidateStatus("")}}
                         />
                     </Form.Item>
+                    <div className={"test-plan-select"}>
+                        <Form.Item
+                            label="进度"
+                            name="state"
+                        >
+                            {/*<Select onChange={changeState}>*/}
+                            <Select
+                                style={{width:120,height:32}}
+                                // value={executeDate?.data}
+                                onChange={changeState}
+                                showArrow={showValidateStatus === "state"}
+                                suffixIcon={showValidateStatus === "state"?<CaretDownOutlined />:null}
+                                onMouseEnter={()=>{setShowValidateStatus("state")}}
+                                onMouseLeave={()=>{setShowValidateStatus("")}}
+                            >
+                                <Option value={0}>未开始</Option>
+                                <Option value={1}>进行中</Option>
+                                <Option value={2}>结束</Option>
+                            </Select>
+                        </Form.Item>
+                    </div>
                 </div>
-                <div style={{width:200}}>
-                    <Form.Item
-                        label="进度"
-                        name="state"
-                    >
-                        <Select onChange={changeState}>
-                            <Option value='0'>未开始</Option>
-                            <Option value='1'>进行中</Option>
-                            <Option value='2'>结束</Option>
-                        </Select>
-                    </Form.Item>
-                </div>
-
             </Form>
+
             <TestPlanTestcase/>
 
         </div>

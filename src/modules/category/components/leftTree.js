@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Dropdown, Input, Menu, Popconfirm} from "antd";
-import {CaretDownOutlined, CaretRightOutlined} from "@ant-design/icons";
+import {CaretDownOutlined, CaretRightOutlined, SearchOutlined} from "@ant-design/icons";
 import CategoryEdit from "./categoryEdit";
+import TestCaseList from "../../testcase/components/testcaseList";
+import {renderRoutes} from "react-router-config";
 
 const LeftTree = (props) =>{
-    const {categoryStore} = props;
+    const {categoryStore,testcaseStore} = props;
+    const { setActiveKey,setTabList } = testcaseStore;
     const {findCategoryListTree,categoryList,deleteCategory} = categoryStore;
 
     const [clickKey, setClickKey] = useState();
@@ -19,7 +22,12 @@ const LeftTree = (props) =>{
 
     const findTreeList = () =>{
         const params = { repositoryId:repositoryId}
-        findCategoryListTree(params)
+        findCategoryListTree(params).then((list)=>{
+            if(list&&list.length>0){
+                onCategory(list[0])
+
+            }
+        })
     }
 
     const isExpandedTree = (key) =>  expandedTree.some(item => item === key)
@@ -49,6 +57,18 @@ const LeftTree = (props) =>{
 
         sessionStorage.setItem('categoryId',item.id);
 
+        // setActiveKey(item.id);
+        // let newItem =[
+        //     {
+        //         label: item.name,
+        //         children: <> </>,
+        //         key: item.id,
+        //         closable: false,
+        //     }
+        // ]
+        //
+        // setTabList(newItem)
+
         props.history.push('/repositorypage/testcase/list');
     }
 
@@ -75,8 +95,9 @@ const LeftTree = (props) =>{
     );
 
     const delCategory = (id)=>{
-
-        deleteCategory(id)
+        deleteCategory(id).then(()=>{
+            findTreeList()
+        })
     }
 
     //目录悬浮项
@@ -178,7 +199,12 @@ const LeftTree = (props) =>{
     return(
         <>
             <div className={"left-tree-header"}>
-                <Input />
+                <Input
+                    prefix={<SearchOutlined />}
+                    placeholder={`搜索分组`}
+                    // onPressEnter={onSearch}
+                    className={"search-input-common"}
+                />
                 <Dropdown overlay={addMenu}   >
                     <div className={"left-tree-header-add"}>
                         <svg className="icon" aria-hidden="true">
@@ -197,4 +223,4 @@ const LeftTree = (props) =>{
     )
 }
 
-export default inject("categoryStore")(observer(LeftTree));
+export default inject("categoryStore","testcaseStore")(observer(LeftTree));

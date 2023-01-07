@@ -48,17 +48,23 @@ const AppSceneStepList = (props) => {
 
     return(
         <>
-           <AppSceneBindUnit
-               appSceneStepStore={appSceneStepStore}
-               appSceneId={appSceneId}
-           />
-            <Table
-                columns={column}
-                dataSource={appSceneStepList}
-                rowKey = {record => record.id}
-                pagination={false}
-            />
-
+            <div className='flex-right'>
+                <div className={'test-title'}>
+                    <div>场景步骤</div>
+                </div>
+               <AppSceneBindUnit
+                   appSceneStepStore={appSceneStepStore}
+                   appSceneId={appSceneId}
+               />
+            </div>
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={appSceneStepList}
+                    rowKey = {record => record.id}
+                    pagination={false}
+                />
+            </div>
         </>
     )
 

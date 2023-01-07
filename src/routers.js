@@ -4,7 +4,6 @@ import React from 'react'
 import {
     Home,
     Repository,
-    RepositoryList,
     RepositoryDetailPage,
 
     QuartzTask,
@@ -60,8 +59,6 @@ import AppPerformTest from "./modules/apptest/performcase/components/appPerformT
 
 import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
 import TestPlanDetail from "./modules/testplan/components/testPlanDetail";
-import RepositoryRecent from "./modules/repository/components/repositoryRecent";
-import RepositoryCreate from "./modules/repository/components/repositoryCreate";
 import AgentConfigList from "./modules/integration/agentconfig/components/agentConfigList";
 import DomainRole from "./modules/integration/domainRole/domainRole";
 import DomainPrivilege from "./modules/integration/domainPrivilege/domainPrivilege";
@@ -81,6 +78,7 @@ import RepositorySetting from "./modules/integration/repositorySetting/repositor
 import DynamicDetail from "./modules/home/dynamicDetail";
 import CaseContent from "./modules/testcase/components/caseContent";
 import TestCaseList from "./modules/testcase/components/testcaseList";
+import TabsNav from "./modules/testcase/components/tabsNav";
 
 
 
@@ -115,33 +113,12 @@ const routers =  [
             {
                 path: "/repository",
                 component: Repository,
-                key:'repository',
-                routes:[
-                    {
-                        path: `/repository/create`,
-                        key:'create',
-                        exact: true,
-                        component: RepositoryCreate,
-                    },
-                    {
-                        path: "/repository/all",
-                        key:'projectList',
-                        exact: true,
-                        component: RepositoryList,
-                    },
-                    {
-                        path: `/repository/recent`,
-                        key:'recently',
-                        exact: true,
-                        component: RepositoryRecent,
-                    },
-                ]
+                key:'repository'
             },
 
             {
                 path:'/repositorypage',
                 component:RepositoryDetailLayout,
-                key:'RepositoryDetailLayout',
                 routes:[
                     {
                         path: "/repositorypage/detail",
@@ -150,414 +127,190 @@ const routers =  [
                         component: RepositoryDetailPage,
                     }, {
                         path: "/repositorypage/testcase",
-                        key:'apitest',
                         component: CaseContent,
                         routes:[
                             {
-                                path: "/repositorypage/testcase/list",
-                                key: 'apitest',
-                                component: TestCaseList,
-                            },
-                            {
-                                path: "/repositorypage/testcase/unitdetail",
-                                key:'unitdetail',
-                                component: ApiUnitcaseDetail,
-                            },{
-                                path: "/repositorypage/testcase/unitcase-instance",
-                                key:'history',
-                                component: ApiUnitcaseInstance,
-                            },{
-                                path: "/repositorypage/testcase/scenecase",
-                                key:'scenecase',
-                                component: ApiScenecaseList,
-                            },{
-                                path: "/repositorypage/testcase/scenedetail",
-                                key:'unitdetail',
-                                component: ApiScenecaseDetail,
-                            },{
-                                path: "/repositorypage/testcase/scenecase-instance",
-                                key:'history',
-                                component: ApiSceneInstance,
-                            },{
-                                path: "/repositorypage/testcase/scenestep",
-                                key:'history',
-                                component: ApiUnitcaseDetail,
-                            },{
-                                path: "/repositorypage/testcase/performcase",
-                                key:'performcase',
-                                component: ApiPerformList,
-                            },{
-                                path: "/repositorypage/testcase/performdetail",
-                                key:'performcase',
-                                component: ApiPerfomDetailContant,
+                                path: "/repositorypage/testcase",
+                                component: TabsNav,
                                 routes:[
                                     {
-                                        path: "/repositorypage/testcase/performdetail/config",
-                                        key:'config',
-                                        component:ApiPerformDetail,
+                                        path: "/repositorypage/testcase/list",
+                                        component: TestCaseList,
                                     },
                                     {
-                                        path: "/repositorypage/testcase/performdetail/test",
-                                        key:'config',
-                                        component:ApiPerformTest,
+                                        path: "/repositorypage/testcase/api-unitdetail",
+                                        key:'unitdetail',
+                                        component: ApiUnitcaseDetail,
+                                    },{
+                                        path: "/repositorypage/testcase/api-unitcase-instance",
+                                        key:'history',
+                                        component: ApiUnitcaseInstance,
+                                    },{
+                                        path: "/repositorypage/testcase/api-scenecase",
+                                        key:'scenecase',
+                                        component: ApiScenecaseList,
+                                    },{
+                                        path: "/repositorypage/testcase/api-scenedetail",
+                                        key:'unitdetail',
+                                        component: ApiScenecaseDetail,
+                                    },{
+                                        path: "/repositorypage/testcase/api-scenecase-instance",
+                                        key:'history',
+                                        component: ApiSceneInstance,
+                                    },{
+                                        path: "/repositorypage/testcase/api-scenestep",
+                                        key:'history',
+                                        component: ApiUnitcaseDetail,
+                                    },{
+                                        path: "/repositorypage/testcase/api-performcase",
+                                        key:'performcase',
+                                        component: ApiPerformList,
+                                    },{
+                                        path: "/repositorypage/testcase/api-performdetail",
+                                        key:'performcase',
+                                        component: ApiPerfomDetailContant,
+                                        routes:[
+                                            {
+                                                path: "/repositorypage/testcase/api-performdetail/config",
+                                                key:'config',
+                                                component:ApiPerformDetail,
+                                            },
+                                            {
+                                                path: "/repositorypage/testcase/api-performdetail/test",
+                                                key:'config',
+                                                component:ApiPerformTest,
+                                            },
+                                            {
+                                                path:"/repositorypage/testcase/api-performdetail",
+                                                exact: true,
+                                                key:'ridperformdetail',
+                                                component: ()=><Redirect to='/repositorypage/testcase/api-performdetail/config'/>,
+                                            },
+                                        ]
+                                    },{
+                                        path: "/repositorypage/testcase/api-perform-instance",
+                                        key:'history',
+                                        component: ApiPerformInstance,
+                                    },
+
+                                    {
+                                        path: "/repositorypage/testcase/web-unitdetail",
+                                        key:'unitcase',
+                                        component: WebUnitDetail,
+                                    }, {
+                                        path: "/repositorypage/testcase/web-scenecase",
+                                        key:'scenecase',
+                                        component: WebSceneList,
+                                    },{
+                                        path: "/repositorypage/testcase/web-scenedetail",
+                                        key:'scenecase',
+                                        component: WebSceneDetail,
+                                    },{
+                                        path: "/repositorypage/testcase/web-scenecase-instance",
+                                        key:'scenecase',
+                                        component: WebSceneInstance,
+                                    },{
+                                        path: "/repositorypage/testcase/web-performcase",
+                                        key:'performcase',
+                                        component: WebPerformList,
+                                    },{
+                                        path: "/repositorypage/testcase/web-performdetail",
+                                        key:'performcase',
+                                        component: WebPerformDetailContant,
+                                        routes:[
+                                            {
+                                                path: "/repositorypage/testcase/web-performdetail/config",
+                                                key:'config',
+                                                component:WebPerformDetail,
+                                            },
+                                            {
+                                                path: "/repositorypage/testcase/web-performdetail/test",
+                                                key:'config',
+                                                component:WebPerformTest,
+                                            },
+                                            {
+                                                path:"/repositorypage/testcase/web-performdetail",
+                                                exact: true,
+                                                key:'ridperformdetail',
+                                                component: ()=><Redirect to='/repositorypage/testcase/web-performdetail/config'/>,
+                                            },
+                                        ]
+                                    },{
+                                        path: "/repositorypage/testcase/web-perform-instance",
+                                        key:'performcase',
+                                        component: WebPerformInstance,
+                                    },
+
+                                    {
+                                        path: "/repositorypage/testcase/app-unitdetail",
+                                        key:'unitcase',
+                                        component: AppUnitDetail,
+                                    },{
+                                        path: "/repositorypage/testcase/app-scenecase",
+                                        key:'scenecase',
+                                        component: AppSceneList,
+                                    },{
+                                        path: "/repositorypage/testcase/app-scenedetail",
+                                        key:'scenecase',
+                                        component: AppSceneDetailContant,
+                                    },{
+                                        path: "/repositorypage/testcase/app-scenecase-instance",
+                                        key:'scenecase',
+                                        component: AppSceneInstance,
+                                    },{
+                                        path: "/repositorypage/testcase/app-performcase",
+                                        key:'performcase',
+                                        component: AppPerformList,
+                                    },{
+                                        path: "/repositorypage/testcase/app-performdetail",
+                                        key:'performcase',
+                                        component: AppPerformDetailContant,
+                                        routes:[
+                                            {
+                                                path: "/repositorypage/testcase/app-performdetail/config",
+                                                key:'config',
+                                                component:AppPerformDetail,
+                                            },
+                                            {
+                                                path: "/repositorypage/testcase/app-performdetail/test",
+                                                key:'config',
+                                                component:AppPerformTest,
+                                            },
+                                            {
+                                                path:"/repositorypage/testcase/app-performdetail",
+                                                exact: true,
+                                                key:'ridperformdetail',
+                                                component: ()=><Redirect to='/repositorypage/testcase/app-performdetail/config'/>,
+                                            },
+                                        ]
+                                    },{
+                                        path: "/repositorypage/testcase/app-perform-instance",
+                                        key:'performcase',
+                                        component: AppPerformInstance,
+                                    },
+
+                                    {
+                                        path: "/repositorypage/testcase/func-unitdetail",
+                                        key:'unitcase',
+                                        component: FuncUnitDetail,
+                                    },{
+                                        path: "/repositorypage/testcase/func-scenecase",
+                                        key:'scenecase',
+                                        component: FuncSceneList,
                                     },
                                     {
-                                        path:"/repositorypage/testcase/performdetail",
+                                        path: "/repositorypage/testcase/func-scenedetail",
+                                        key:'scenecase',
+                                        component: FuncSceneDetail,
+                                    },
+                                    {
+                                        path:"/repositorypage/testcase",
                                         exact: true,
-                                        key:'ridperformdetail',
-                                        component: ()=><Redirect to='/repositorypage/testcase/performdetail/config'/>,
+                                        key:'ridapitest',
+                                        component: ()=><Redirect to='/repositorypage/testcase/list'/>,
                                     },
                                 ]
-                            },{
-                                path: "/repositorypage/testcase/perform-instance",
-                                key:'history',
-                                component: ApiPerformInstance,
-                            },
-
-                            {
-                                path: "/repositorypage/testcase/unitdetail",
-                                key:'unitcase',
-                                component: WebUnitDetail,
-                            }, {
-                                path: "/repositorypage/testcase/scenecase",
-                                key:'scenecase',
-                                component: WebSceneList,
-                            },{
-                                path: "/repositorypage/testcase/scenedetail",
-                                key:'scenecase',
-                                component: WebSceneDetail,
-                            },{
-                                path: "/repositorypage/testcase/scenecase-instance",
-                                key:'scenecase',
-                                component: WebSceneInstance,
-                            },{
-                                path: "/repositorypage/testcase/performcase",
-                                key:'performcase',
-                                component: WebPerformList,
-                            },{
-                                path: "/repositorypage/testcase/performdetail",
-                                key:'performcase',
-                                component: WebPerformDetailContant,
-                                routes:[
-                                    {
-                                        path: "/repositorypage/testcase/performdetail/config",
-                                        key:'config',
-                                        component:WebPerformDetail,
-                                    },
-                                    {
-                                        path: "/repositorypage/testcase/performdetail/test",
-                                        key:'config',
-                                        component:WebPerformTest,
-                                    },
-                                    {
-                                        path:"/repositorypage/testcase/performdetail",
-                                        exact: true,
-                                        key:'ridperformdetail',
-                                        component: ()=><Redirect to='/repositorypage/testcase/performdetail/config'/>,
-                                    },
-                                ]
-                            },{
-                                path: "/repositorypage/testcase/perform-instance",
-                                key:'performcase',
-                                component: WebPerformInstance,
-                            },
-
-                            {
-                                path: "/repositorypage/testcase/unitdetail",
-                                key:'unitcase',
-                                component: AppUnitDetail,
-                            },{
-                                path: "/repositorypage/testcase/scenecase",
-                                key:'scenecase',
-                                component: AppSceneList,
-                            },{
-                                path: "/repositorypage/testcase/scenedetail",
-                                key:'scenecase',
-                                component: AppSceneDetailContant,
-                            },{
-                                path: "/repositorypage/testcase/scenecase-instance",
-                                key:'scenecase',
-                                component: AppSceneInstance,
-                            },{
-                                path: "/repositorypage/testcase/performcase",
-                                key:'performcase',
-                                component: AppPerformList,
-                            },{
-                                path: "/repositorypage/testcase/performdetail",
-                                key:'performcase',
-                                component: AppPerformDetailContant,
-                                routes:[
-                                    {
-                                        path: "/repositorypage/testcase/performdetail/config",
-                                        key:'config',
-                                        component:AppPerformDetail,
-                                    },
-                                    {
-                                        path: "/repositorypage/testcase/performdetail/test",
-                                        key:'config',
-                                        component:AppPerformTest,
-                                    },
-                                    {
-                                        path:"/repositorypage/testcase/performdetail",
-                                        exact: true,
-                                        key:'ridperformdetail',
-                                        component: ()=><Redirect to='/repositorypage/testcase/performdetail/config'/>,
-                                    },
-                                ]
-                            },{
-                                path: "/repositorypage/testcase/perform-instance",
-                                key:'performcase',
-                                component: AppPerformInstance,
-                            },
-
-                            {
-                                path: "/repositorypage/testcase/unitdetail",
-                                key:'unitcase',
-                                component: FuncUnitDetail,
-                            },{
-                                path: "/repositorypage/testcase/scenecase",
-                                key:'scenecase',
-                                component: FuncSceneList,
-                            },
-                            {
-                                path: "/repositorypage/testcase/scenedetail",
-                                key:'scenecase',
-                                component: FuncSceneDetail,
-                            },
-
-
-
-                        ]
-                    },
-                    {
-                        path: "/repositorypage/apitest",
-                        key:'apitest',
-                        component: ApiContant,
-                        routes:[
-                            {
-                                path: "/repositorypage/apitest/unitcase",
-                                key:'unitcase',
-                                component: ApiUnitList,
-                            },{
-                                path: "/repositorypage/apitest/unitdetail",
-                                key:'unitdetail',
-                                component: ApiUnitcaseDetail,
-                            },{
-                                path: "/repositorypage/apitest/unitcase-instance",
-                                key:'history',
-                                component: ApiUnitcaseInstance,
-                            },{
-                                path: "/repositorypage/apitest/scenecase",
-                                key:'scenecase',
-                                component: ApiScenecaseList,
-                            },{
-                                path: "/repositorypage/apitest/scenedetail",
-                                key:'unitdetail',
-                                component: ApiScenecaseDetail,
-                            },{
-                                path: "/repositorypage/apitest/scenecase-instance",
-                                key:'history',
-                                component: ApiSceneInstance,
-                            },{
-                                path: "/repositorypage/apitest/scenestep",
-                                key:'history',
-                                component: ApiUnitcaseDetail,
-                            },{
-                                path: "/repositorypage/apitest/performcase",
-                                key:'performcase',
-                                component: ApiPerformList,
-                            },{
-                                path: "/repositorypage/apitest/performdetail",
-                                key:'performcase',
-                                component: ApiPerfomDetailContant,
-                                routes:[
-                                    {
-                                        path: "/repositorypage/apitest/performdetail/config",
-                                        key:'config',
-                                        component:ApiPerformDetail,
-                                    },
-                                    {
-                                        path: "/repositorypage/apitest/performdetail/test",
-                                        key:'config',
-                                        component:ApiPerformTest,
-                                    },
-                                    {
-                                        path:"/repositorypage/apitest/performdetail",
-                                        exact: true,
-                                        key:'ridperformdetail',
-                                        component: ()=><Redirect to='/repositorypage/apitest/performdetail/config'/>,
-                                    },
-                                ]
-                            },{
-                                path: "/repositorypage/apitest/perform-instance",
-                                key:'history',
-                                component: ApiPerformInstance,
-                            },
-                            // {
-                            //     path:"/repositorypage/apitest",
-                            //     exact: true,
-                            //     key:'ridapitest',
-                            //     component: ()=><Redirect to='/repositorypage/apitest/unitcase'/>,
-                            // },
-                        ]
-                    },
-                    {
-                        path: "/repositorypage/webtest",
-                        key:'webtest',
-                        component: WebContant,
-                        routes:[
-                            {
-                                path: "/repositorypage/webtest/unitcase",
-                                key:'unitcase',
-                                component: WebUnitList,
-                            }, {
-                                path: "/repositorypage/webtest/unitdetail",
-                                key:'unitcase',
-                                component: WebUnitDetail,
-                            }, {
-                                path: "/repositorypage/webtest/scenecase",
-                                key:'scenecase',
-                                component: WebSceneList,
-                            },{
-                                path: "/repositorypage/webtest/scenedetail",
-                                key:'scenecase',
-                                component: WebSceneDetail,
-                            },{
-                                path: "/repositorypage/webtest/scenecase-instance",
-                                key:'scenecase',
-                                component: WebSceneInstance,
-                            },{
-                                path: "/repositorypage/webtest/performcase",
-                                key:'performcase',
-                                component: WebPerformList,
-                            },{
-                                path: "/repositorypage/webtest/performdetail",
-                                key:'performcase',
-                                component: WebPerformDetailContant,
-                                routes:[
-                                    {
-                                        path: "/repositorypage/webtest/performdetail/config",
-                                        key:'config',
-                                        component:WebPerformDetail,
-                                    },
-                                    {
-                                        path: "/repositorypage/webtest/performdetail/test",
-                                        key:'config',
-                                        component:WebPerformTest,
-                                    },
-                                    {
-                                        path:"/repositorypage/webtest/performdetail",
-                                        exact: true,
-                                        key:'ridperformdetail',
-                                        component: ()=><Redirect to='/repositorypage/webtest/performdetail/config'/>,
-                                    },
-                                ]
-                            },{
-                                path: "/repositorypage/webtest/perform-instance",
-                                key:'performcase',
-                                component: WebPerformInstance,
-                            },
-                            // {
-                            //     path:"/repositorypage/webtest",
-                            //     exact: true,
-                            //     key:'ridapitest',
-                            //     component: ()=><Redirect to='/repositorypage/webtest/unitcase'/>,
-                            // },
-                        ]
-                    },
-                    {
-                        path: "/repositorypage/apptest",
-                        key:'apptest',
-                        component: AppContant,
-                        routes:[
-                            {
-                                path: "/repositorypage/apptest/unitcase",
-                                key:'unitcase',
-                                component: AppUnitList,
-                            },{
-                                path: "/repositorypage/apptest/unitdetail",
-                                key:'unitcase',
-                                component: AppUnitDetail,
-                            },{
-                                path: "/repositorypage/apptest/scenecase",
-                                key:'scenecase',
-                                component: AppSceneList,
-                            },{
-                                path: "/repositorypage/apptest/scenedetail",
-                                key:'scenecase',
-                                component: AppSceneDetailContant,
-                            },{
-                                path: "/repositorypage/apptest/scenecase-instance",
-                                key:'scenecase',
-                                component: AppSceneInstance,
-                            },{
-                                path: "/repositorypage/apptest/performcase",
-                                key:'performcase',
-                                component: AppPerformList,
-                            },{
-                                path: "/repositorypage/apptest/performdetail",
-                                key:'performcase',
-                                component: AppPerformDetailContant,
-                                routes:[
-                                    {
-                                        path: "/repositorypage/apptest/performdetail/config",
-                                        key:'config',
-                                        component:AppPerformDetail,
-                                    },
-                                    {
-                                        path: "/repositorypage/apptest/performdetail/test",
-                                        key:'config',
-                                        component:AppPerformTest,
-                                    },
-                                    {
-                                        path:"/repositorypage/apptest/performdetail",
-                                        exact: true,
-                                        key:'ridperformdetail',
-                                        component: ()=><Redirect to='/repositorypage/apptest/performdetail/config'/>,
-                                    },
-                                ]
-                            },{
-                                path: "/repositorypage/apptest/perform-instance",
-                                key:'performcase',
-                                component: AppPerformInstance,
-                            },
-                            // {
-                            //     path:"/repositorypage/apptest",
-                            //     exact: true,
-                            //     key:'ridapitest',
-                            //     component: ()=><Redirect to='/repositorypage/apptest/unitcase'/>,
-                            // },
-                        ]
-                    },
-                    {
-                        path: "/repositorypage/functest",
-                        key:'functest',
-                        component: FuncContant,
-                        routes:[
-                            {
-                                path: "/repositorypage/functest/unitcase",
-                                key:'unitcase',
-                                component: FuncUnitList,
-                            },{
-                                path: "/repositorypage/functest/unitdetail",
-                                key:'unitcase',
-                                component: FuncUnitDetail,
-                            },{
-                                path: "/repositorypage/functest/scenecase",
-                                key:'scenecase',
-                                component: FuncSceneList,
-                            },
-                            {
-                                path: "/repositorypage/functest/scenedetail",
-                                key:'scenecase',
-                                component: FuncSceneDetail,
-                            },
-                            // {
-                            //     path:"/repositorypage/functest",
-                            //     exact: true,
-                            //     key:'ridapitest',
-                            //     component: ()=><Redirect to='/repositorypage/functest/unitcase'/>,
-                            // },
+                            }
                         ]
                     },
                     {

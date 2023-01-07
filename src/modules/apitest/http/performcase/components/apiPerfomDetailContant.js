@@ -7,7 +7,7 @@ import {renderRoutes} from "react-router-config";
 
 
 
-const ApiPerfomDetailContant = (props) =>{
+const ApiPerformDetailContant = (props) =>{
 
     const [current, setCurrent] = useState('config');
 
@@ -16,14 +16,17 @@ const ApiPerfomDetailContant = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repositorypage/apitest")
+        props.history.push("/repositorypage/testcase/list")
     }
 
 
     return(
         <>
             <div >
-                <BackCommon clickBack={goBack} right={<ApiEnvSelect history={props.history}/>} />
+                <BackCommon
+                    // clickBack={goBack}
+                    right={<ApiEnvSelect history={props.history}/>}
+                />
                 <Menu
                     onClick={onClick}
                     selectedKeys={[current]}
@@ -38,7 +41,7 @@ const ApiPerfomDetailContant = (props) =>{
                 </Menu>
 
             </div>
-            <div>
+            <div className={"content-box-center"}>
                 {
                     renderRoutes( props.route.routes)
                 }
@@ -47,4 +50,4 @@ const ApiPerfomDetailContant = (props) =>{
     )
 }
 
-export default ApiPerfomDetailContant
+export default ApiPerformDetailContant

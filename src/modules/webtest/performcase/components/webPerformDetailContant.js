@@ -15,7 +15,7 @@ const WebPerfomDetailContant = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repositorypage/webtest")
+        props.history.push("/repositorypage/testcase/list")
     }
 
 
@@ -37,7 +37,7 @@ const WebPerfomDetailContant = (props) =>{
                 </Menu>
 
             </div>
-            <div>
+            <div className={"content-box-center"}>
                 {
                     renderRoutes( props.route.routes)
                 }

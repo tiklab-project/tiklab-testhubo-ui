@@ -29,7 +29,7 @@ const ApiUnitTestResult =(props)=>{
     const showDrawer = () => {
         if(envUrl){
             apiUnitExecute(apiUnitId,envUrl).then(res=>{
-                setErrorMessage(res.errMessage);
+                setErrorMessage(res?.errMessage);
 
                 setTime(res.elapsedTime);
                 setStatus(res.statusCode);

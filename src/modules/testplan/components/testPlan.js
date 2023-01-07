@@ -5,10 +5,13 @@
 
 import React, { Fragment, useEffect, useState } from 'react';
 import { observer, inject } from "mobx-react";
-import {Breadcrumb, Input, Table, Space,  Popconfirm} from 'antd';
+import {Breadcrumb, Input, Table, Space, Popconfirm, Empty, Select} from 'antd';
 import TestPlanEdit from './testPlanEdit';
 import  { useTranslation } from 'react-i18next'
 import "./testPlanStyle.scss"
+import emptyImg from "../../../assets/img/empty.png";
+import IconCommon from "../../common/iconCommon";
+import {SearchOutlined} from "@ant-design/icons";
 
 const TestPlan = (props) => {
     const { testPlanStore } = props;
@@ -27,7 +30,6 @@ const TestPlan = (props) => {
             title:`计划名称`,
             dataIndex: "name",
             key: "name",
-            align:"center",
             render: (text,record) =>(
                 <a onClick = {()=>setLocalStorage(record.id)}>{text}</a>
             )
@@ -36,43 +38,37 @@ const TestPlan = (props) => {
             title:`起始时间`,
             dataIndex: "startTime",
             key: "startTIme",
-            align:"center",
         },
         {
             title: `结束时间`,
             dataIndex: "endTime",
             key: "endTime",
-            align:"center",
         },
         {
             title: `用例数`,
             dataIndex: "testCaseNum",
             key: "testCaseNum",
-            align:"center",
         },
         {
             title: `进度`,
             dataIndex: "state",
             key: "desc",
-            align:"center",
             render: (text,record) =>(showState(record.state))
         },
         // {
         //     title: `执行人`,
         //     dataIndex: ["principal",'name'],
         //     key: "principal",
-        //     align:"center",
         // },
         // {
         //     title: `描述`,
         //     dataIndex: "desc",
         //     key: "desc",
-        //     align:"center",
         // },
         {
             title: ` ${t('tcoperation')}`,
             key: "action",
-            align:"center",
+            width:150,
             render: (text, record) => (
                 <Space size="middle">
                     <div>
@@ -88,7 +84,10 @@ const TestPlan = (props) => {
                         okText='确定'
                         cancelText='取消'
                     >
-                        <a href="#" style={{color:'red'}}>{t('tcdelete')}</a>
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                        />
                     </Popconfirm>
                 </Space>
             ),
@@ -97,7 +96,7 @@ const TestPlan = (props) => {
 
     const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
-    const [params, setParams] = useState({
+    const [pageParam, setPageParam] = useState({
         pageParam: {
             pageSize: pageSize,
             currentPage: currentPage
@@ -107,10 +106,10 @@ const TestPlan = (props) => {
     const repositoryId = sessionStorage.getItem('repositoryId')
 
     useEffect(()=> {
-        findTestPlanPage(repositoryId,params).then(()=>{
+        findTestPlanPage(repositoryId,pageParam).then(()=>{
             setTableLoading(false)
         });
-    },[params])
+    },[pageParam])
 
     // 保存id到缓存
     const setLocalStorage = (id) => {
@@ -133,13 +132,13 @@ const TestPlan = (props) => {
     const onTableChange = (pagination) => {
         setCurrentPage(pagination.current)
         const newParams = {
-            ...params,
+            ...pageParam,
             pageParam: {
                 pageSize: pageSize,
                 currentPage: pagination.current
             },
         }
-        setParams(newParams)
+        setPageParam(newParams)
     }
 
     //搜索
@@ -160,47 +159,86 @@ const TestPlan = (props) => {
                 name:e.target.value,
             }
         }
-        setParams(newParams)
+        setPageParam(newParams)
     }
 
     const findPage = ()=>{
-        findTestPlanPage(repositoryId,params)
+        findTestPlanPage(repositoryId,pageParam)
+    }
+
+    const progressSelectFn = (state) =>{
+
+        let param= Object.assign({},pageParam,{state:state})
+
+        findTestPlanPage(repositoryId,param)
     }
 
     return(
         <div className={"teston-page-center"}>
-            <div className='breadcrumb'>
-                <Breadcrumb separator=">"  >
-                    <Breadcrumb.Item>用例库</Breadcrumb.Item>
-                    <Breadcrumb.Item>测试计划</Breadcrumb.Item>
-                </Breadcrumb>
-            </div>
-            <div className='search-btn'>
+            <div className='header-box-space-between'>
+                <div className={'header-box-title'}>测试计划</div>
                 <TestPlanEdit
                     name={`添加计划`}
                     findPage={findPage}
                 />
+            </div>
+            <div className='search-btn'>
+
                 <Input
                     placeholder={`${t('tcsearch')}`}
                     onPressEnter={onSearch}
-                    className='search-input'
+                    className='search-input-common'
+                    prefix={<SearchOutlined />}
+                />
+
+                <Select
+                    // defaultValue={null}
+                    placeholder={"进度"}
+                    className={"progress-select-box-item"}
+                    onChange={progressSelectFn}
+                    options={[
+                        {
+                            value: null,
+                            label: '所有',
+                        },{
+                            value: 0,
+                            label: '未开始',
+                        },
+                        {
+                            value: 1,
+                            label: '进行中',
+                        },{
+                            value: 2,
+                            label: '结束',
+                        },
+                    ]}
                 />
 
             </div>
-
-            <Table
-                className="tablelist"
-                columns={columns}
-                dataSource={testPlanList}
-                rowKey={record => record.id}
-                pagination={{
-                    current:currentPage,
-                    pageSize:pageSize,
-                    total:totalRecord,
-                }}
-                onChange = {(pagination) => onTableChange(pagination)}
-                loading={tableLoading}
-            />
+            <div className={"table-list-box"}>
+                <Table
+                    className="tablelist"
+                    columns={columns}
+                    dataSource={testPlanList}
+                    rowKey={record => record.id}
+                    pagination={{
+                        current:currentPage,
+                        pageSize:pageSize,
+                        total:totalRecord,
+                    }}
+                    onChange = {(pagination) => onTableChange(pagination)}
+                    loading={tableLoading}
+                    locale={{
+                        emptyText: <Empty
+                            imageStyle={{
+                                height: 120,
+                            }}
+                            description={<span>暂无空间</span>}
+                            image={emptyImg}
+                        />,
+                    }}
+                />
+            </div>
         </div>
     )
 }

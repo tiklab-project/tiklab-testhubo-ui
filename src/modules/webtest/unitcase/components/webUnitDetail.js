@@ -51,18 +51,19 @@ const WebUnitDetail = (props) => {
 
 
     const goback = () =>{
-        props.history.push("/repositorypage/webtest")
+        props.history.push("/repositorypage/testcase/list")
     }
 
 
     return(
         <>
             {/*<BackCommon clickBack={goback} />*/}
-            <DetailCommon
-                detailInfo={detailInfo}
-                updateTitle={updateTitle}
-            />
-            <div style={{"width":"600px"}}>
+            <div className={"content-box-center"}>
+                <DetailCommon
+                    detailInfo={detailInfo}
+                    updateTitle={updateTitle}
+                />
+                <div style={{"width":"600px"}}>
                 <Form
                     form={form}
                     preserve={false}
@@ -107,6 +108,7 @@ const WebUnitDetail = (props) => {
                         <Input />
                     </Form.Item>
                 </Form>
+            </div>
             </div>
         </>
     )

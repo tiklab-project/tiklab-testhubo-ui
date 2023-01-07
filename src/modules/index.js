@@ -3,7 +3,6 @@ import Home from './home/home';
 import HeaderContent from "./header/headerContent";
 import PageContent from "./header/pageContent";
 import Repository from "./repository/components/repository";
-import RepositoryList from "./repository/components/repositoryList";
 import RepositoryDetailPage from "./repositoryDetail/repositoryDetailPage";
 import {SystemManagement} from "./sysmgr";
 import TestPlan  from './testplan/components/testPlan';
@@ -25,7 +24,7 @@ import {
 export {
     Home,PageContent,HeaderContent,
     SystemManagement,
-    Repository, RepositoryList,
+    Repository,
     RepositoryDetailPage,
 
     Step,

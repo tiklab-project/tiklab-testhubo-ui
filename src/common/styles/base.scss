@@ -151,12 +151,6 @@ table .icon{
     margin:0   ;
 }
 
-//按钮颜色
-.important-btn{
-    background: #3a86ff!important;
-    color: #f0f0f0!important;
-}
-
 // 折叠面板
 .ant-collapse-header{
     background: #efefef;
@@ -193,6 +187,7 @@ table .icon{
     display: flex;
     //justify-content: flex-end;
     margin: 10px;
+    justify-content: space-between;
 }
 //详情页中的表单
 .form-info{
@@ -239,9 +234,6 @@ table .icon{
     margin: 0!important;
 }
 
-.ant-form-item{
-    margin: 10px!important;
-}
 
 
 

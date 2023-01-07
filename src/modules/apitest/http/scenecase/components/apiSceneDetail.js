@@ -38,27 +38,29 @@ const ApiSceneDetail = (props) => {
     }
 
     const toHistory = () =>{
-        props.history.push("/repositorypage/apitest/scenecase-instance")
+        props.history.push("/repositorypage/testcase/api-scenecase-instance")
     }
 
 
     const goBack = () =>{
-        props.history.push("/repositorypage/apitest")
+        props.history.push("/repositorypage/testcase/list")
     }
 
     return(
         <>
-            <BackCommon clickBack={goBack} right={<ApiEnvSelect history={props.history}/>} />
-            <DetailCommon
-                detailInfo={detailInfo}
-                updateTitle={updateTitle}
-                toHistory={toHistory}
-                test={<ApiSceneTestResult/>}
+            <BackCommon
+                // clickBack={goBack}
+                right={<ApiEnvSelect history={props.history}/>}
             />
-            <div className={'test-title'}>
-                <div>测试步骤</div>
+            <div className={"content-box-center"}>
+                <DetailCommon
+                    detailInfo={detailInfo}
+                    updateTitle={updateTitle}
+                    toHistory={toHistory}
+                    test={<ApiSceneTestResult/>}
+                />
+                <ApiSceneStepList {...props}/>
             </div>
-            <ApiSceneStepList {...props}/>
         </>
     )
 

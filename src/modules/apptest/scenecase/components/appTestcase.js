@@ -9,7 +9,7 @@ import {inject, observer} from "mobx-react";
 import './appStyle.scss'
 import AppStep from "./appStep";
 import TestReportApp from "./testReportApp";
-import ToggleItemEdit from "../../../common/toggleItemEdit";
+import ToggleItemEdit from "../../../common/toggleItemEdit/toggleItemEdit";
 
 const layout = {
     labelCol: {span:8},
