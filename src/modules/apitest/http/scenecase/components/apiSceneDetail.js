@@ -47,21 +47,15 @@ const ApiSceneDetail = (props) => {
     }
 
     return(
-        <>
-            <BackCommon
-                // clickBack={goBack}
-                right={<ApiEnvSelect history={props.history}/>}
+        <div className={"content-box-center"}>
+            <DetailCommon
+                detailInfo={detailInfo}
+                updateTitle={updateTitle}
+                toHistory={toHistory}
+                test={<ApiSceneTestResult/>}
             />
-            <div className={"content-box-center"}>
-                <DetailCommon
-                    detailInfo={detailInfo}
-                    updateTitle={updateTitle}
-                    toHistory={toHistory}
-                    test={<ApiSceneTestResult/>}
-                />
-                <ApiSceneStepList {...props}/>
-            </div>
-        </>
+            <ApiSceneStepList {...props}/>
+        </div>
     )
 
 

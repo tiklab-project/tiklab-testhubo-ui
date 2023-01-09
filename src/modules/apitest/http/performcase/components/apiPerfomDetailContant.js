@@ -23,10 +23,6 @@ const ApiPerformDetailContant = (props) =>{
     return(
         <>
             <div >
-                <BackCommon
-                    // clickBack={goBack}
-                    right={<ApiEnvSelect history={props.history}/>}
-                />
                 <Menu
                     onClick={onClick}
                     selectedKeys={[current]}

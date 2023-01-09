@@ -43,7 +43,7 @@ const DynamicWidget = (props) =>{
         }
         let data = await Axios.post('/oplog/findlogpage', params)
 
-        let list = data.dataList;
+        let list = data.data.dataList;
 
         //datalist 处理
         let newArr = []

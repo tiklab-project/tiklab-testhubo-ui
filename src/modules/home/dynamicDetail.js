@@ -63,7 +63,7 @@ const DynamicDetail = (props) =>{
         setTotalPage(res.totalPage)
         setCurrentPage(res.currentPage)
 
-        return res.dataList
+        return res.data.dataList
     };
 
 

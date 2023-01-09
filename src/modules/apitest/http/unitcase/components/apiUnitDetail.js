@@ -60,10 +60,6 @@ const ApiUnitDetail = (props) => {
 
     return(
         <>
-            <BackCommon
-                // clickBack={goBack}
-                right={<ApiEnvSelect history={props.history}/>}
-            />
             <div className={"detail-info-box"}>
                 <div className="apidetail-header-btn">
                     <div className={"method-name"}>{name}</div>

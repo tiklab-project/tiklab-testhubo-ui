@@ -1,96 +1,142 @@
-import React, {useState} from "react";
-import {renderRoutes} from "react-router-config";
-import "./repositorySetting.scss"
+import React, {useEffect, useState} from "react";
+import {Button, Collapse, Form, Input} from "antd";
+import EdiText from "react-editext";
+import {inject, observer} from "mobx-react";
+import DeleteRepositoryModal from "./deleteRepositoryModal";
+
+const { Panel } = Collapse;
+const {TextArea} = Input;
+
+
+const formItemLayout = {
+    labelCol: { span: 0 },
+    wrapperCol: { span: 1 },
+};
+
 const RepositorySetting = (props) =>{
+    const {repositoryStore} = props;
+    const {updateRepository,findRepository,deleteRepository} = repositoryStore;
 
-    const routes = props.route.routes;
+    let repositoryId = sessionStorage.getItem("repositoryId");
+    const [form] = Form.useForm();
 
-    const [selected, setSelected] = useState("/repositorypage/setting/envMana");
+    const [repositoryDetail, setRepositoryDetail] = useState();
+    const [repositoryName, setRepositoryName] = useState();
+    const [visibility, setVisibility] = useState(1);
 
-    /**
-     * 点击左侧菜单，设置路由地址
-     * @param {*} key
-     */
-    const selectKeyFun = (key)=>{
-        setSelected(key)
-        props.history.push(key);
-    }
-
-    const items=[
-        {
-            title: '环境管理',
-            // icon: 'icon-modular',
-            key: '/repositorypage/setting/envMana',
-        },
-        {
-            title: 'Agent配置',
-            key: '/repositorypage/setting/agent',
-            // icon: 'icon-modular',
-        },{
-            title: '成员',
-            key: '/repositorypage/setting/role',
-            // icon: 'icon-chengyuan',
-        },{
-            title: '权限',
-            key: '/repositorypage/setting/privilege',
-            // icon: 'icon-quanxian',
-        }
-    ]
-
-
-    /**
-     *左侧导航循环渲染
-     */
-    const renderList = (data) => {
-        return  data && data.map(Item=> {
-            return (
-                <li key={Item.key} style={{  margin:"0 auto"}} >
-                    <div className={`ws-menu-li ${Item.key === selected ? "ws-menu-li-action" : null}`}
-                         key={Item.key}
-                         onClick={()=>selectKeyFun(Item.key)}
-                    >
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref= {`#${Item.icon}`} />
-                        </svg>
-                        <span >
-                            {Item.title}
-                        </span>
-                    </div>
-                </li>
-            )
+    useEffect(()=>{
+        findRepository(repositoryId).then(res=>{
+            setRepositoryDetail(res)
+            setRepositoryName(res.name)
+            setVisibility(res.visibility)
+            form.setFieldsValue({
+                name: res.name,
+                desc:res.desc
+            })
         })
-    }
+    },[repositoryId])
 
+    const onFinish = (values) =>{
+        values.visibility=visibility;
+        let param = {
+            id:repositoryId,
+            iconUrl:repositoryDetail?.iconUrl,
+            ...values,
+        }
+
+        updateRepository(param);
+    }
 
 
     return(
-        <div className={"repository-setting-box"}>
-            {/*<SideMenu*/}
-            {/*    item={items}*/}
-            {/*    selectedKey={"/repositorypage/setting/agent"}*/}
-            {/*    {...props}*/}
-            {/*/>*/}
-            <ul className="ws-menu-ul" style={{background: "#f5f5f5"}}>
-                <li style={{
-                    borderBottom:"1px solid #cecece",
-                    padding:"10px 20px"
-                }}
-                >仓库设置</li>
-                {
-                    renderList(items)
-                }
-            </ul>
+        <div className={"ws-setting-flex"}>
+            <div className={"ws-setting-box"}>
+                <div  className={"header-box-space-between"} >
+                    <div className={'header-box-title'}>仓库信息</div>
+                </div>
+
+                <Collapse  defaultActiveKey={['1']} >
+                    <Panel header="编辑仓库" key="1">
+                        <div>
+                            <Form
+                                className='ws-edit-modal-form'
+                                form={form}
+                                preserve={false}
+                                layout={"vertical"}
+                                onFinish={onFinish}
+                                labelCol={{ span: 4 }}
+                                wrapperCol={{ span: 20 }}
+                            >
+                                <Form.Item
+                                    label="应用名称"
+                                    rules={[{ required: true, message: '添加目录名称!' }]}
+                                    name="name"
+                                >
+                                    <Input style={{height:40}}/>
+                                </Form.Item>
+                                <Form.Item
+                                    label="可见范围"
+                                    name="visibility"
+                                >
+                                    <div className={"ws-setting-edit-visibility"}>
+                                        <div className={`ws-edit-visibility-item ${visibility===0?"ws-edit-visibility-action":null}`} onClick={()=>setVisibility(0)}>
+                                            <div style={{"display":"flex","alignItems":"center"}}>
+                                                <svg style={{width:20,height:20}} aria-hidden="true">
+                                                    <use xlinkHref= {`#icon-suoding`} />
+                                                </svg>
+                                                <span>公共</span>
+                                            </div>
+                                            <div className={"ws-edit-visibility-item-desc"}>公共项目，全部成员可见</div>
+                                        </div>
+
+                                        <div className={`ws-edit-visibility-item  ${visibility===1?"ws-edit-visibility-action":null}`}  onClick={()=>setVisibility(1)}>
+                                            <div style={{"display":"flex","alignItems":"center"}} >
+                                                <svg style={{width:20,height:20}} aria-hidden="true">
+                                                    <use xlinkHref= {`#icon-jiesuo`} />
+                                                </svg>
+                                                <span>私密</span>
+                                            </div>
+                                            <div className={"ws-edit-visibility-item-desc"}>私密项目，只有项目成员可见</div>
+                                        </div>
+
+                                    </div>
+                                </Form.Item>
+                                <Form.Item
+                                    label="描述"
+                                    name="desc"
+                                >
+                                    <TextArea rows={4} />
+                                </Form.Item>
+                                <Form.Item {...formItemLayout}>
+                                    <Button type="primary" htmlType="submit" style={{ width: 100,height: 36}}>  保存 </Button>
+                                </Form.Item>
+                            </Form>
 
 
-            <div className={"repository-setting-right"}>
-                {
-                    renderRoutes(routes)
-                }
+                        </div>
+
+                    </Panel>
+                    <Panel header="删除仓库" key="2">
+                        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                            <div>
+                                <div  style={{fontWeight:"bold"}}>删除此仓库</div>
+                                <div className={"ws-setting-delete"}>删除存储库后，将无法返回。请确定</div>
+                            </div>
+
+                            <DeleteRepositoryModal
+                                repositoryStore={repositoryStore}
+                                repositoryName={repositoryName}
+                                {...props}
+                            />
+                        </div>
+
+                    </Panel>
+                </Collapse>
             </div>
 
         </div>
+
     )
 }
 
-
-export default RepositorySetting;
+export default inject("repositoryStore")(observer(RepositorySetting));

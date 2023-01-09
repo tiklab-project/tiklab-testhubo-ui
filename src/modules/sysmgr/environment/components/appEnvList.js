@@ -1,8 +1,10 @@
 
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { observer, inject } from "mobx-react";
-import {  Table, Space } from 'antd';
+import {Table, Space, Popconfirm, Empty} from 'antd';
 import AppEnvEdit from './appEnvEdit';
+import IconCommon from "../../../common/iconCommon";
+import emptyImg from "../../../../assets/img/empty.png";
 
 //
 const AppEnvList = (props) => {
@@ -51,11 +53,21 @@ const AppEnvList = (props) => {
         {
             title: "操作",
             key: "action",
-            align:"center",
+            width: 150,
             render: (text, record) => (
             <Space size="middle">
                 <AppEnvEdit name="编辑" type='edit' appEnvId={record.id} />
-                <span style={{'color':'red','cursor':'pointer'}} onClick={()=>deleteAppEnv(record.id).then(()=>findAppEnvPage(repositoryId))}>删除</span>
+                <Popconfirm
+                    title="确定删除？"
+                    onConfirm={() =>deleteAppEnv(record.id)}
+                    okText='确定'
+                    cancelText='取消'
+                >
+                    <IconCommon
+                        className={"icon-s edit-icon"}
+                        icon={"shanchu3"}
+                    />
+                </Popconfirm>
             </Space>
             ),
         },
@@ -69,18 +81,24 @@ const AppEnvList = (props) => {
 
 
     return(
-        <Fragment>
-            <div className='wslist-searchbtn'>
-                <AppEnvEdit name="+添加环境" type="add"  style={{ width: 200 }}/>
-            </div>
+        <div className={"table-list-box"}>
             <Table
                 className="tablelist"
                 columns={columns}
                 dataSource={appEnvList}
                 rowKey={record =>record.id}
                 pagination={false}
+                locale={{
+                    emptyText: <Empty
+                        imageStyle={{
+                            height: 120,
+                        }}
+                        description={<span>暂无空间</span>}
+                        image={emptyImg}
+                    />,
+                }}
             />
-        </Fragment>
+        </div>
     )
 }
 

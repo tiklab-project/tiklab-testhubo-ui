@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import {renderRoutes} from "react-router-config";
+import ApiEnvSelect from "../../sysmgr/environment/components/apiEnvSelect";
 const {TabPane} = Tabs;
 
 
@@ -11,6 +12,7 @@ const TabsNav = (props) =>{
     const { tabList,activeKey,setTabList,setActiveKey} = testcaseStore;
     const router = props.route.routes;
 
+    let testType = localStorage.getItem("testType")
     let categoryId =sessionStorage.getItem("categoryId")
 
     useEffect(async ()=>{
@@ -32,6 +34,7 @@ const TabsNav = (props) =>{
     //根据条件跳到不同的页面
     const toDiffPage = (tabItem) =>{
         if(tabItem.testType){
+
             switch (tabItem.testType) {
                 case "api":
                     switchCaseType(tabItem);
@@ -47,12 +50,14 @@ const TabsNav = (props) =>{
                     break;
             }
         }else {
+            localStorage.setItem("testType","isList")
             props.history.push(`/repositorypage/testcase/list`)
         }
 
     }
 
     const switchCaseType = (record)=>{
+        localStorage.setItem("testType",record.testType)
         switch (record.caseType) {
             case "unit":
                 sessionStorage.setItem(`${record.testType}UnitId`,record.id);
@@ -70,6 +75,7 @@ const TabsNav = (props) =>{
     }
 
 
+    //tab 删除
     const remove = (targetKey) => {
         let newActiveKey = activeKey;
         let lastIndex = -1;
@@ -107,6 +113,7 @@ const TabsNav = (props) =>{
             onChange={onChange}
             activeKey={activeKey}
             onEdit={onEdit}
+            tabBarExtraContent={testType==="api"?<ApiEnvSelect />:null}
         >
             {
                 tabList&&tabList.map((item,index )=> (

@@ -48,7 +48,7 @@ import AppSceneDetailContant from "./modules/apptest/scenecase/components/appSce
 import AppSceneInstance from "./modules/apptest/scenecase/components/appSceneInstance";
 import AppPerformDetailContant from "./modules/apptest/performcase/components/appPerformDetailContant";
 import AppPerformInstance from "./modules/apptest/performcase/components/appPerformInstance";
-import EnvContant from "./modules/sysmgr/environment/components/envContant";
+import EnvContent from "./modules/sysmgr/environment/components/envContent";
 import ApiPerformDetail from "./modules/apitest/http/performcase/components/apiPerformDetail";
 import ApiPerformTest from "./modules/apitest/http/performcase/components/apiPerformTest";
 import LoginOut from "./modules/header/loginOut";
@@ -67,18 +67,18 @@ import AppUnitDetail from "./modules/apptest/unitcase/components/appUnitDetail";
 import SystemContent from "./modules/sysmgr/system/systemContent";
 import LoginContent from "./modules/login/LoginContent";
 import UserList from "tiklab-user-ui/lib/user-list";
-import LogList from "./modules/sysmgr/log/Log";
 import {MyTodoTask, TaskList, TodoTempList} from "tiklab-todotask-ui";
 import {PluginDetail, PluginList} from "tiklab-plugin-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
 import {ProjectFeatureList, ProjectRoleList, SystemFeatureList, SystemRoleList} from "tiklab-privilege-ui";
-import {LogTemplateList, LogTypeList} from "tiklab-oplog-ui";
+import {LogList, LogTemplateList, LogTypeList} from "tiklab-oplog-ui";
 import Version from "./modules/sysmgr/version/version";
-import RepositorySetting from "./modules/integration/repositorySetting/repositorySetting";
+import RepositorySettingMenu from "./modules/integration/repositorySetting/repositorySettingMenu";
 import DynamicDetail from "./modules/home/dynamicDetail";
 import CaseContent from "./modules/testcase/components/caseContent";
 import TestCaseList from "./modules/testcase/components/testcaseList";
 import TabsNav from "./modules/testcase/components/tabsNav";
+import RepositorySetting from "./modules/integration/repositorySetting/repositorySetting";
 
 
 
@@ -315,13 +315,19 @@ const routers =  [
                     },
                     {
                         path: "/repositorypage/setting",
-                        component: RepositorySetting,
+                        component: RepositorySettingMenu,
                         routes:[
+                            {
+                                path: "/repositorypage/setting/detail",
+                                key:'env',
+                                exact: true,
+                                component: RepositorySetting,
+                            },
                             {
                                 path: "/repositorypage/setting/envMana",
                                 key:'env',
                                 exact: true,
-                                component: EnvContant,
+                                component: EnvContent,
                             },
                             {
                                 path: "/repositorypage/setting/agent",

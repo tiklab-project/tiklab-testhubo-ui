@@ -6,6 +6,7 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Select} from 'antd';
+import IconCommon from "../../../common/iconCommon";
 
 const {Option} = Select;
 
@@ -59,7 +60,11 @@ const WebEnvEdit = (props) => {
         {
             props.type === 'add'
                 ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
-                : <a style={{'cursor':'pointer'}} onClick={showModal}>{props.name}</a>
+                : <IconCommon
+                    icon={"bianji11"}
+                    className={"icon-s edit-icon"}
+                    onClick={showModal}
+                />
         }
         
         <Modal

@@ -138,6 +138,7 @@ const TestCaseList = (props) => {
     }
 
     const switchCaseType = (record)=>{
+        localStorage.setItem("testType",record.testType)
         switch (record.caseType) {
             case "unit":
                 sessionStorage.setItem(`${record.testType}UnitId`,record.id);
@@ -251,8 +252,8 @@ const TestCaseList = (props) => {
 
     const addMenu =(
         <Menu>
-            <Menu.SubMenu title="接口添加">
-                <Menu.Item>
+            <Menu.SubMenu title="接口添加" key={"api-add"}>
+                <Menu.Item key={"api-unit-add"}>
                     <ApiUnitEdit
                         name={"添加Unit用例"}
                         isCategory={true}
@@ -260,7 +261,7 @@ const TestCaseList = (props) => {
                         findList={findPage}
                     />
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item key={"api-scene-add"}>
                     <ApiSceneEdit
                         name={"添加场景用例"}
                         isCategory={true}
@@ -268,7 +269,7 @@ const TestCaseList = (props) => {
                         findList={findPage}
                     />
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item key={"api-perf-add"}>
                     <ApiPerfEdit
                         name={"添加压测用例"}
                         isCategory={true}
@@ -277,8 +278,8 @@ const TestCaseList = (props) => {
                     />
                 </Menu.Item>
             </Menu.SubMenu>
-            <Menu.SubMenu title="WEB添加">
-                <Menu.Item >
+            <Menu.SubMenu title="WEB添加" key={"web-add"}>
+                <Menu.Item key={"web-unit-add"}>
                     <WebUnitEdit
                         name={"添加Unit用例"}
                         isCategory={true}
@@ -286,7 +287,7 @@ const TestCaseList = (props) => {
                         findList={findPage}
                     />
                 </Menu.Item>
-                <Menu.Item >
+                <Menu.Item key={"web-scene-add"}>
                     <WebSceneEdit
                         name={"添加场景用例"}
                         isCategory={true}
@@ -294,7 +295,7 @@ const TestCaseList = (props) => {
                         findList={findPage}
                     />
                 </Menu.Item>
-                <Menu.Item >
+                <Menu.Item key={"web-perf-add"}>
                     <WebPerfEdit
                         name={"添加压测用例"}
                         isCategory={true}
@@ -303,8 +304,8 @@ const TestCaseList = (props) => {
                     />
                 </Menu.Item>
             </Menu.SubMenu>
-            <Menu.SubMenu title="APP添加">
-                <Menu.Item >
+            <Menu.SubMenu title="APP添加" key={"app-add"}>
+                <Menu.Item key={"app-unit-add"}>
                     <AppUnitEdit
                         name={"添加Unit用例"}
                         isCategory={true}
@@ -312,7 +313,7 @@ const TestCaseList = (props) => {
                         findList={findPage}
                     />
                 </Menu.Item>
-                <Menu.Item >
+                <Menu.Item key={"app-scene-add"}>
                     <AppSceneEdit
                         name={"添加场景用例"}
                         isCategory={true}
@@ -320,7 +321,7 @@ const TestCaseList = (props) => {
                         findList={findPage}
                     />
                 </Menu.Item>
-                <Menu.Item >
+                <Menu.Item key={"app-perf-add"}>
                     <AppPerfEdit
                         name={"添加压测用例"}
                         isCategory={true}
@@ -329,8 +330,8 @@ const TestCaseList = (props) => {
                     />
                 </Menu.Item>
             </Menu.SubMenu>
-            <Menu.SubMenu title="功能添加">
-                <Menu.Item>
+            <Menu.SubMenu title="功能添加" key={"func-add"}>
+                <Menu.Item key={"func-unit-add"}>
                     <FuncUnitEdit
                         name={"添加Unit用例"}
                         isCategory={true}
@@ -338,7 +339,7 @@ const TestCaseList = (props) => {
                         findList={findPage}
                     />
                 </Menu.Item>
-                <Menu.Item >
+                <Menu.Item key={"func-scene-add"}>
                     <FuncSceneEdit
                         name={"添加场景用例"}
                         isCategory={true}
@@ -405,7 +406,7 @@ const TestCaseList = (props) => {
                             imageStyle={{
                                 height: 120,
                             }}
-                            description={<span>暂无空间</span>}
+                            description={<span>暂无用例</span>}
                             image={emptyImg}
                         />,
                     }}

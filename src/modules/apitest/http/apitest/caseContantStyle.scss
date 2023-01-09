@@ -19,6 +19,13 @@
         //margin: 0 10px;
         overflow: auto;
         padding: 0 10px;
+
+        // 折叠面板
+        .ant-collapse-header{
+            background: #efefef;
+            margin: 10px 0;
+        }
+
     }
 }
 

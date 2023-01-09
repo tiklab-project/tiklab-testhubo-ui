@@ -1,8 +1,10 @@
 
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { observer, inject } from "mobx-react";
-import {Space, Table,} from 'antd';
+import {Empty, Popconfirm, Space, Table,} from 'antd';
 import WebEnvEdit from './webEnvEdit';
+import IconCommon from "../../../common/iconCommon";
+import emptyImg from "../../../../assets/img/empty.png";
 //
 const WebEnvList = (props) => {
     const { webEnvStore } = props;
@@ -17,21 +19,29 @@ const WebEnvList = (props) => {
             title: "环境名称",
             dataIndex: "name",
             key: "name",
-            align:"center",
         },
         {
             title: "WebDriver",
             dataIndex: "webDriver",
             key: "WebDriver",
-            align:"center",
         },{
             title: "操作",
             key: "action",
-            align:"center",
+            width: 150,
             render: (text, record) => (
                 <Space size="middle">
                     <WebEnvEdit name="编辑" type='edit' webEnvId={record.id} />
-                    <span style={{'color':'red','cursor':'pointer'}} onClick={()=>deleteWebEnv(record.id)}>删除</span>
+                    <Popconfirm
+                        title="确定删除？"
+                        onConfirm={() =>deleteWebEnv(record.id)}
+                        okText='确定'
+                        cancelText='取消'
+                    >
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                        />
+                    </Popconfirm>
                 </Space>
             ),
         },
@@ -46,17 +56,24 @@ const WebEnvList = (props) => {
 
 
     return(
-        <Fragment>
-            <WebEnvEdit name="添加环境" type="add"  style={{ width: 200 }}/>
-
+        <div className={"table-list-box"}>
             <Table
                 className="tablelist"
                 columns={columns}
                 dataSource={webEnvList}
                 rowKey={record =>record.id}
                 pagination={false}
+                locale={{
+                    emptyText: <Empty
+                        imageStyle={{
+                            height: 120,
+                        }}
+                        description={<span>暂无空间</span>}
+                        image={emptyImg}
+                    />,
+                }}
             />
-        </Fragment>
+        </div>
     )
 }
 

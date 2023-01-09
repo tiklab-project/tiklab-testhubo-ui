@@ -8,6 +8,7 @@ import { observer, inject } from "mobx-react";
 import {Popconfirm, Space, Table} from "antd";
 import AgentConfigEdit from "./agentConfigEdit";
 import BreadcrumbCommon from "../../../common/breadcrumbCommon";
+import IconCommon from "../../../common/iconCommon";
 
 //
 const AgentConfigList = (props) => {
@@ -59,7 +60,10 @@ const AgentConfigList = (props) => {
                         okText='确定'
                         cancelText='取消'
                     >
-                        <a className="table-delete"> 删除 </a>
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                        />
                     </Popconfirm>
                 </Space>
             )
@@ -75,21 +79,23 @@ const AgentConfigList = (props) => {
  
 
     return(
-        <div className={"teston-page-center"}>
-            <BreadcrumbCommon breadArray={["设置","Agent配置"]}/>
-            <div className='case-header'>
+        <div className={"content-box-center"}>
+            <div  className={"header-box-space-between"} >
+                <div className={'header-box-title'}>Agent配置</div>
                 <AgentConfigEdit
                     type={"add"}
                     name={"添加Agent"}
                 />
             </div>
-            <Table
-                className="tablelist"
-                columns={columns}
-                dataSource={agentConfigList}
-                rowKey={record => record.id}
-                pagination={false}
-            />
+            <div className={"table-list-box"}>
+                <Table
+                    className="tablelist"
+                    columns={columns}
+                    dataSource={agentConfigList}
+                    rowKey={record => record.id}
+                    pagination={false}
+                />
+            </div>
         </div>
     )
 }

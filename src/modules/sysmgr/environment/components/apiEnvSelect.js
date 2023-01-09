@@ -31,7 +31,7 @@ const ApiEnvSelect = (props) =>{
     }
 
     const toEnvMana= () =>{
-        props.history.push("/systemManagement/envMana")
+        props.history.push("/repositorypage/setting/envMana")
     }
 
 
