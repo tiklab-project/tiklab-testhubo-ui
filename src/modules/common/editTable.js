@@ -114,6 +114,7 @@ const ExTable = (props) => {
 
     return(
         <Table
+            bordered
             components={components}
             rowClassName={() => 'editable-row'}
             pagination={false}

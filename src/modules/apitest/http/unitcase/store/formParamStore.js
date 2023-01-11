@@ -20,6 +20,20 @@ export class FormParamStore {
         this.formParamList = [...values]
     }
 
+    //处理list
+    @action
+    processFormList = (data)=>{
+        if(!data){
+            return;
+        }
+
+        const newRow =[ { id: 'InitNewRowId'}];
+
+        this.formParamDataSource = data;
+        this.formParamList=[...data,...newRow];
+    }
+
+
     @action
     findFormParamList = async (id) => {
         this.apiUnitId = id;
@@ -27,18 +41,11 @@ export class FormParamStore {
             apiUnitId: id,
             orderParams:[{name:'paramName', orderType:'asc'}],
         }
-        const newRow =[ { id: 'FormParamInitRow'}];
-        
+
         const res = await findFormParamList(params);
         if(res.code === 0) {
-            this.dataLength = res.data.length
-            this.formParamDataSource = res.data;
-            if( res.data.length === 0 ){
-                this.formParamList= newRow;
-            }else {
-                this.formParamList = [...res.data,...newRow];
-            }
-
+            this.dataLength = res.data.length;
+            this.processFormList(res.data);
             return res.data;
         }
     }

@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {Popconfirm, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import ApiSceneBindUnit from "./apiSceneBindUnit";
+import IconCommon from "../../../../common/iconCommon";
 
 const ApiSceneStepList =(props) =>{
     const {apiSceneStepStore} = props;
@@ -12,7 +13,7 @@ const ApiSceneStepList =(props) =>{
             title: '用例名称',
             dataIndex: 'name',
             key: 'name',
-            width: "30%",
+            width: "20%",
             render: (text, record) => (
                 <a onClick={() => setSessionStorage(record.id)}>{text}</a>
             )
@@ -20,12 +21,17 @@ const ApiSceneStepList =(props) =>{
             title: '请求类型',
             dataIndex: ["apiUnit","methodType"],
             key: 'requestType',
-            width: "20%",
+            width: "15%",
         },{
             title: '请求路径',
             dataIndex: ["apiUnit",'path'],
             key: 'path',
             width: "20%",
+        },{
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
+            width: "15%",
         },{
             title: '描述',
             dataIndex: 'desc',
@@ -35,17 +41,19 @@ const ApiSceneStepList =(props) =>{
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            align: 'center',
-            width: "10%",
+            width: 80,
             render: (text, record) => (
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() => deleteApiSceneStep(record.id)}
+                        onConfirm={() =>deleteApiSceneStep(record.id).then(()=>findApiSceneStepPage(apiSceneId))}
                         okText='确定'
                         cancelText='取消'
                     >
-                        <a className="table-delete"> 删除 </a>
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                        />
                     </Popconfirm>
                 </Space>
             )
@@ -72,7 +80,7 @@ const ApiSceneStepList =(props) =>{
 
     return(
         <>
-            <div className='flex-right'>
+            <div className='title-space-between'>
                 <div className={'test-title'}>
                     <div>测试步骤</div>
                 </div>

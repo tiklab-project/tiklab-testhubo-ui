@@ -48,7 +48,7 @@ const WebSceneStepList = (props) => {
 
     return(
         <>
-            <div className='flex-right'>
+            <div className='title-space-between'>
                 <div className={'test-title'}>
                     <div>场景步骤</div>
                 </div>

@@ -48,7 +48,7 @@ const Response = (props) =>{
 
 
     return(
-        <Fragment>
+        <>
             <Tabs defaultActiveKey="1">
                 <TabPane tab="返回头部" key="1">
                     <div className={"tabPane-item-box"}><ResponseHeader  {...props}/></div>
@@ -71,7 +71,7 @@ const Response = (props) =>{
                     </div>
                 </TabPane>
             </Tabs>
-        </Fragment>
+        </>
     )
 
 }

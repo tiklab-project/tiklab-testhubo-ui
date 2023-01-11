@@ -8,15 +8,15 @@ import {
 } from '../api/requestHeaderApi';
 
 export  class RequestHeaderStore {
-    @observable requestHeaderList = [];
+    @observable headerList = [];
     @observable requestHeaderInfo = [];
-    @observable requestHeaderDataSource = [];
+    @observable headerSourceList = [];
     @observable apiUnitId;
     @observable dataLength;
 
     @action
     setList = (values) => {
-        this.requestHeaderList = [...values]
+        this.headerList = [...values]
     }
 
     @action
@@ -26,16 +26,21 @@ export  class RequestHeaderStore {
             apiUnitId: id,
             orderParams:[{ name:'headerName', orderType:'asc'}],
         }
-        const newRow =[ { id: 'RequestHeaderInitRow'}];
+
+        const newRow =[ { id: 'InitNewRowId'}];
+
         const res = await findRequestHeaderList(params);
+
         if( res.code===0 ){
             this.dataLength = res.data.length
-            this.requestHeaderDataSource=res.data
+            this.headerSourceList = res.data;
+
             if( res.data.length === 0){
-                this.requestHeaderList=newRow;
+                this.headerList=newRow;
             }else {
-                this.requestHeaderList = [...res.data,...newRow];
+                this.headerList = [...res.data,...newRow];
             }
+
             return res.data
         }
     }

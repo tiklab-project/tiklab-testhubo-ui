@@ -46,6 +46,7 @@
 }
 
 .table-list-box{
+
     .ant-table{
         border-bottom: 1px solid var(--pi-border-color);
     }
@@ -58,6 +59,7 @@
 
     .ant-table-thead > tr > th{
         background:var(--pi-bg-color);
+        font-weight: 500;
     }
 
     .ant-table-tbody > tr > td{

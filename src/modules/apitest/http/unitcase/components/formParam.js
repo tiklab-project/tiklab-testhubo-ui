@@ -11,6 +11,7 @@ import {mockValueDictionary,dataTypeDictionary} from '../../../../../common/dict
 import ExSelect from "../../../../common/exSelect";
 import {ExTable}from '../../../../common/editTable';
 import FileTextSelect from "../../../../common/fileTextSelect";
+import IconCommon from "../../../../common/iconCommon";
 
 const FormParam = (props) =>{
 
@@ -25,132 +26,133 @@ const FormParam = (props) =>{
         dataLength
     } = formParamStore;
 
-    const [dataSource,setDataSoure] =useState([])
+    const [dataSource,setDataSource] =useState([])
     const apiUnitId = sessionStorage.getItem('apiUnitId');
     
     useEffect( ()=>{
-        findFormParamList(apiUnitId).then(res => setDataSoure(res));
+        findFormParamList(apiUnitId).then(res => setDataSource(res));
     },[dataLength,apiUnitId])
 
     //表头
     let columns= [
         {
-            title: '参数名称',
+            title: '参数',
             dataIndex: 'paramName',
-            width: '15%',
+            width: '30%',
             editable: true,
         },{
             title: '数据类型',
-            width: '8%',
+            width: 150,
             dataIndex: 'dataType',
             render: (text, record)=>(
                 <FileTextSelect
                     defaultValue={record.dataType}
                     handleSave={handleSave}
                     rowData={record}
+                    setNewRowAction={setNewRowAction}
                 />
             )
-        },{
-            title: '必须',
-            dataIndex: 'required',
-            width: '5%',
-            // align:'center',
-            render:(text,record) =>  (
-                <Checkbox
-                    defaultChecked={record.required}
-                    onChange={(value) => toggleChecked(value, record)}
-                />
-            )
-        },{
-            title: '示例值',
-            width: '20%',
-            dataIndex: 'value',
-            editable: true,
-        },{
-            title: '说明',
-            width: '20%',
-            dataIndex: 'desc',
-            editable: true,
-
-        },{
-            title: '操作',
-            width: '10%',
-
-            fixed: 'right',
-            dataIndex: 'operation',
-            render: (text, record) =>(operation(record,dataSource))
         },
         {
-            title: '',
-            width: '20%',
-            dataIndex: 'none',
+            title: '参数值',
+            dataIndex: 'value',
+            width: '30%',
+            editable: true,
+        },{
+            title: '操作',
+            width: 150,
+            dataIndex: 'operation',
+            render: (text, record) =>(operation(record,dataSource))
         }
     ]
 
-    // 表格checked
-    const toggleChecked= (e,row)=> {
-        let checked;
-        if(e.target.checked){
-            checked = 1
-        }else{
-            checked = 0
-        }
-        const data = {
-            ...row,
-            required: checked
+    //取消
+    const onCancel = () =>{
+        let data = {
+            id:"InitNewRowId",
+            "paramName":null,
+            "dataType":null,
+            "value":null
         }
         handleSave(data)
+
+        //隐藏
+        setNewRowAction(false)
     }
 
-    // 表格里的操作
+    const [newRowAction, setNewRowAction] = useState(false);
+
+
+    // colums 里的操作
     const operation = (record,data) => {
-        if(record.id === 'FormParamInitRow'){
-            return <a onClick={() =>onCreated(record)} >添加</a>
+        if(record.id === 'InitNewRowId'){
+            return <div className={`${newRowAction?"newRow-action-show":"newRow-action-hidden"}`}>
+                <Space>
+                    <a onClick={() =>onCreated(record)}> 保存</a>
+                    <a onClick={()=>onCancel()}> 取消</a>
+                </Space>
+            </div>
         }else{
-            return data&&data.map((item) => {
-                return (
-                    item.id === record.id
-                        ?<Space key={item.id}>
-                            {
-                                item.paramName === record.paramName
-                                && item.dataType === record.dataType
-                                && item.required === record.required
-                                && item.desc === record.desc
-                                && item.value === record.value
-                                    ?null
-                                    :<a onClick={() =>upData(record)}>更新</a>
-                            }
-                            <Popconfirm
-                                title="确定删除？"
-                                onConfirm={() =>deleteFormParam(record.id)}
-                                okText='确定'
-                                cancelText='取消'
-                            >
-                                <a href="#">删除</a>
-                            </Popconfirm>
-                        </Space>
-                        :null
-                )
-            })
+            return <Space key={record.id}>
+                {
+                    updateView(record,data)
+                }
+                <Popconfirm
+                    title="确定删除？"
+                    onConfirm={() => deleteFormParam(record.id)}
+                    okText='确定'
+                    cancelText='取消'
+                >
+                    <IconCommon
+                        icon={"shanchu3"}
+                        className="icon-s table-edit-icon"
+                    />
+                </Popconfirm>
+            </Space>
         }
     }
 
- 
+    //本地编辑的值和返回的值比较，不想同的会显示更新按钮
+    const updateView = (record,data)=>{
+        return data&&data.map((item) => {
+            return (
+                item.id === record.id
+                    ?<>
+                        {
+                            item.paramName === record.paramName
+                            && item.dataType === record.dataType
+                            && item.value === record.value
+                                ? null
+                                : <IconCommon
+                                    icon={"btn_confirm"}
+                                    className="icon-s table-edit-icon"
+                                    onClick={() => upData(record)}
+                                />
+                        }
+                    </>
+                    :null
+            )
+        })
+    }
 
     //更新
     const upData = (value) => {
-        updateFormParam(value).then(res=>setDataSoure(res));
+        updateFormParam(value).then(res => setDataSource(res))
     }
 
     // 添加
     const onCreated = (values) => {
         if(Object.keys(values).length === 1){
-            return
+            return null
         }else {
+            // 创建新行的时候自带一个id，所以删了，后台会自行创建id
             delete values.id;
             createFormParam(values)
         }
+
+        setNewRowAction(false)
     }
+
 
     // 保存数据
     const handleSave = (row) => {
@@ -158,6 +160,14 @@ const FormParam = (props) =>{
         const index = newData.findIndex((item) => row.id === item.id);
         newData.splice(index, 1, { ...newData[index], ...row });
         setList(newData)
+
+        //如果是新行 操作 显示操作按钮
+        if(row.id==="InitNewRowId"){
+            //当新行按键按下的时候显示后面的操作按钮
+            document.addEventListener('keydown', (e) =>{
+                setNewRowAction(true)
+            });
+        }
     };
 
     return (

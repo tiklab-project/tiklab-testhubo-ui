@@ -168,25 +168,11 @@ const routers =  [
                                     },{
                                         path: "/repositorypage/testcase/api-performdetail",
                                         key:'performcase',
-                                        component: ApiPerfomDetailContant,
-                                        routes:[
-                                            {
-                                                path: "/repositorypage/testcase/api-performdetail/config",
-                                                key:'config',
-                                                component:ApiPerformDetail,
-                                            },
-                                            {
-                                                path: "/repositorypage/testcase/api-performdetail/test",
-                                                key:'config',
-                                                component:ApiPerformTest,
-                                            },
-                                            {
-                                                path:"/repositorypage/testcase/api-performdetail",
-                                                exact: true,
-                                                key:'ridperformdetail',
-                                                component: ()=><Redirect to='/repositorypage/testcase/api-performdetail/config'/>,
-                                            },
-                                        ]
+                                        component: ApiPerformDetail,
+                                    },{
+                                        path: "/repositorypage/testcase/api-perform-test",
+                                        key:'config',
+                                        component:ApiPerformTest,
                                     },{
                                         path: "/repositorypage/testcase/api-perform-instance",
                                         key:'history',

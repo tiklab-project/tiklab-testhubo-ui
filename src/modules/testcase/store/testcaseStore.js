@@ -12,7 +12,9 @@ export class TestCaseStore {
     @observable testcaseList = [];
 
     @observable activeKey
-    @observable tabList=[]
+    @observable tabList=[];
+    @observable testType;
+    @observable caseType;
 
     @action
     findTestCaseList = async (values) => {
@@ -50,6 +52,19 @@ export class TestCaseStore {
 
         await deleteTestCase(param)
     }
+
+
+    @action
+    setTestType = (type) =>{
+        this.testType = type;
+    }
+
+    @action
+    setCaseType = (type) =>{
+        this.caseType = type;
+    }
+
+
 
 
     //tab页设置activeKey

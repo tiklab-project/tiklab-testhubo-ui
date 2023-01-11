@@ -1,109 +1,201 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { observer, inject } from 'mobx-react';
-import {Button, Space} from 'antd';
+import {Button, Form, Input, message, Select, Space, Tooltip} from 'antd';
 import Request from './request';
-import RequestType from "../../../../common/requestType";
-import Response from "./response";
+import EdiText from "react-editext";
 import './unitcase.scss'
-import BackCommon from "../../../../common/backCommon";
-import ApiEnvSelect from "../../../../sysmgr/environment/components/apiEnvSelect";
-import TestResultDrawer from "./apiUnitTestResult";
-import ApiUnitEdit from "./apiUnitEdit";
+import {dictionary} from "../../../../common/dictionary/dictionary";
+import ApiUnitTestResult from "./apiUnitTestResult";
+import {messageFn} from "../../../../common/messageCommon/messageCommon";
+import IconBtn from "../../../../common/iconBtn/IconBtn";
+
+const {Option} = Select;
 
 const ApiUnitDetail = (props) => {
-    const { apiUnitStore } = props;
-    const { findApiUnit,deleteApiUnit } = apiUnitStore;
+    const { apiUnitStore,apiEnvStore,apiUnitTestDispatchStore,assertParamStore } = props;
+    const { findApiUnit,deleteApiUnit,updateApiUnit } = apiUnitStore;
+    const { apiUnitExecute } = apiUnitTestDispatchStore;
+    const { envUrl } = apiEnvStore;
+    const {findAssertParamList} = assertParamStore
 
     const addRouter = props.history.push;
 
-    let caseType = localStorage.getItem("caseType")
+    const [form] = Form.useForm();
     const apiUnitId = sessionStorage.getItem('apiUnitId');
 
     const [name,setName]=useState();
-    const [methodType, setMethodType] = useState();
-    const [path, setPath] = useState();
-    const [desc, setDesc] = useState();
-    const [createUser, setCreateUser] = useState();
-    const [updateUser, setUpdateUser] = useState();
-    const [category, setCategory] = useState();
-    const [updateTime, setUpdateTime] = useState();
 
-    useEffect(()=>{
-        findApiUnit(apiUnitId).then((res)=>{
-            setName(res.testCase.name);
-            setMethodType(res.methodType);
-            setPath(res.path);
-            setDesc(res.testCase.desc);
-            setCreateUser(res.testCase.createUser?.name);
-            setUpdateUser(res.testCase.updateUser?.name);
-            setCategory(res.testCase.category?.name);
-            setUpdateTime(res.testCase.updateTime);
+    const [assertList, setAssertList] = useState();
+    const [isTest, setIsTest] = useState(false);
+    const [testResult, setTestResult] = useState();
+
+    useEffect(async ()=>{
+        let res = await findApiUnit(apiUnitId)
+        setName(res.testCase.name);
+
+        form.setFieldsValue({
+            name: res.testCase.name,
+            methodType: res.methodType,
+            path: res.path,
         })
+
     },[apiUnitId])
 
-    // 删除步骤
-    const handleDeleteApiUnit = (apiUnitId) => {
-        deleteApiUnit(apiUnitId)
-        addRouter({pathname:'/repositorypage/testcase/list'})
+    //测试
+    const clickTest = async ()=>{
+        findAssertParamList(apiUnitId).then(res=>{
+            setAssertList(res)
+        })
+
+        let values = await form.validateFields()
+
+        //测试环境为空提示
+        if(!envUrl&&!values.host){
+            return messageFn("error","请填写测试地址")
+        }
+
+        //执行测试
+        let res = await apiUnitExecute(apiUnitId,envUrl?envUrl:values.host)
+        if(res.code===0){
+            setTestResult(res.data)
+
+            setIsTest(true)
+        }
+
+        if(res.code===60000){
+            messageFn("error","Agent错误")
+        }
+
+
     }
-
-    //返回
-    const  goBack = () => {
-        addRouter("/repositorypage/testcase/list")
-    }
-
-
 
     const toHistory = () =>{
         addRouter("/repositorypage/testcase/api-unitcase-instance")
     }
 
-    return(
-        <>
-            <div className={"detail-info-box"}>
-                <div className="apidetail-header-btn">
-                    <div className={"method-name"}>{name}</div>
-                    <div className={'apidetail-title-tool'}>
-                        <Space>
-                            {
-                                caseType === "unit"
-                                    ?<Button onClick={toHistory}>历史</Button>
-                                    :null
-                            }
-                            <ApiUnitEdit
-                                name={"编辑"}
-                                caseType={"unit"}
-                                isCategory={true}
-                                btn={"btn"}
-                                type={"edit"}
-                                apiUnitId={apiUnitId}
-                            />
-                            <TestResultDrawer />
-                            <Button danger onClick={()=>handleDeleteApiUnit(apiUnitId)}>删除</Button>
-                        </Space>
+    //编辑名称
+    const editName = (value) => {
+        let param = {
+            id:apiUnitId,
+            testCase:{
+                id:apiUnitId,
+                name:value,
+            }
+        }
+        updateApiUnit(param)
+    };
 
+    const changeCaseInfo = async () =>{
+        let value = await form.validateFields();
+        delete value.host
+        let param = {
+            id:apiUnitId,
+            testCase:{id:apiUnitId},
+            ...value
+        }
+        updateApiUnit(param)
+    }
+
+
+    //请求地址
+    const showHost = () =>{
+        if(envUrl&&envUrl.trim().length!==0){
+            return (
+                <Tooltip placement="top" title={"请从环境管理修改"}>
+                    <div className={"test-host-url"} >
+                        {envUrl}
                     </div>
+                </Tooltip>
+            )
+        }else {
+            return (
+                <Form.Item
+                    className='formItem'
+                    name="host"
+                >
+                    <Input  placeholder={"测试请输入http开头的完整URL"} />
+                </Form.Item>
+            )
+        }
+    }
+
+    return(
+        <div className={"content-box-center"}>
+            <div className='header-box-space-between'>
+                <div style={{height:32}}>
+                    <EdiText
+                        value={name}
+                        tabIndex={2}
+                        onSave={editName}
+                        startEditingOnFocus
+                        submitOnUnfocus
+                        showButtonsOnHover
+                        viewProps={{ className: 'edit-api-title' }}
+                        editButtonClassName="ediText-edit"
+                        saveButtonClassName="ediText-save"
+                        cancelButtonClassName="ediText-cancel"
+                        editButtonContent={
+                            <svg className="icon" aria-hidden="true">
+                                <use xlinkHref= {`#icon-bianji1`} />
+                            </svg>
+                        }
+                        hideIcons
+                    />
                 </div>
-                <div className={"method"}>
-                    <div className={"method-info info-item"}>
-                        <span className={"method-info-item "}><RequestType type={methodType} /></span>
-                        <span className={"method-info-item method-info-path"}>{path}</span>
-                    </div>
-                    <div className={"info-item"}><span>描述:</span>{desc}</div>
-                    <div className={"method-people-info"}>
-                        <span className={"people-item "}>分组: {category}</span>
-                        <span className={"people-item "}>创建人: {createUser}</span>
-                        <span className={"people-item "}>更新者: {updateUser}</span>
-                        <span className={"people-item "}>更新时间: {updateTime}</span>
-                    </div>
-                </div>
-                <div className="header-title ex-title">输入参数</div>
-                <Request  />
-                <div className="header-title ex-title">输出结果</div>
-                <Response />
+
+                <a onClick={toHistory}>测试历史</a>
+                {/*<DropdownInstance testcaseId={testCaseId}/>*/}
             </div>
-        </>
+            <div className={"test-base"}>
+                <Form form = {form} layout={"inline"}>
+                    <div className={"test-url"}>
+                        <Form.Item name="methodType" noStyle>
+                            <Select
+                                style={{width: 100,height:40}}
+                                onSelect={changeCaseInfo}
+                            >
+                                {
+                                    dictionary.requestType.map(item=>{
+                                        return <Option value={item}  key={item}>{item}</Option>
+                                    })
+                                }
+                            </Select>
+                        </Form.Item>
+                        {showHost()}
+                        <Form.Item
+                            className='formItem'
+                            name="path"
+                            rules={[{required: true, message: '接口路径'}]}
+                        >
+                            <Input onBlur={changeCaseInfo}/>
+                        </Form.Item>
+                        <Space className={"test-base-item"}>
+                            <IconBtn
+                                className="important-btn"
+                                icon={"fasong-copy"}
+                                onClick={clickTest}
+                                name={"测试"}
+                            />
+                        </Space>
+                    </div>
+                </Form>
+            </div>
+
+            <div className="header-title ex-title">请求</div>
+            <div className={"white-bg-box"}>
+                <Request />
+            </div>
+
+            <div className='header-title ex-title'> 响应</div>
+
+            <ApiUnitTestResult
+                testResponse={testResult}
+                showResponse={isTest}
+                assertList={assertList}
+            />
+
+        </div>
     )
 }
 
-export default inject('apiUnitStore')(observer(ApiUnitDetail));
+export default inject('apiUnitStore',"apiEnvStore","apiUnitTestDispatchStore",'assertParamStore')(observer(ApiUnitDetail));

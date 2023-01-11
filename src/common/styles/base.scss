@@ -178,11 +178,17 @@ table .icon{
     font-size: 13px; 
 }
 
-.flex-right{
+.title-space-between{
     display: flex;
-    //justify-content: flex-end;
-    margin: 10px;
+    margin: 10px 10px 10px 0;
     justify-content: space-between;
+    font-weight: bold;
+
+    .test-title{
+        height: 35px;
+        line-height: 35px;
+        padding: 0 0 0 5px;
+    }
 }
 //详情页中的表单
 .form-info{
@@ -265,4 +271,38 @@ table .icon{
     //fill: currentColor;
     //overflow: hidden;
     //margin:0 5px  ;
+}
+
+//头部公共css  左边title，右边一般添加
+.header-box-space-between{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    .header-box-title{
+        font-weight: bold;
+    }
+}
+
+//搜索框
+.search-input-common{
+    width: 220px!important;
+    height: 32px!important;
+    border-radius: var(--pi-border-radius)!important;
+    border: var(--pi-input-border)!important;
+}
+
+//按钮颜色
+.important-btn{
+    background: var(--pi-base-color)!important;
+    color: #f0f0f0!important;
+    border-radius: var(--pi-border-radius);
+    font-size: var(--pi-font-size-13);
+}
+
+.content-box-center{
+    min-width: 860px;
+    max-width: 1440px;
+    margin: 0 auto;
 }

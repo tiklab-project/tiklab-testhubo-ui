@@ -33,9 +33,9 @@ const DetailCommon = (props) =>{
             </div>
             <div className={"detail-bottom"}>
                 <span className={"detail-bottom-item "}>分组:{detailInfo?.testCase?.category?.name} </span>
-                <span className={"detail-bottom-item "}>创建人:{detailInfo?.testCase?.createUser?.name} </span>
+                {/*<span className={"detail-bottom-item "}>创建人:{detailInfo?.testCase?.createUser?.name} </span>*/}
                 <span className={"detail-bottom-item "}>更新者:{detailInfo?.testCase?.updateUser?.name}</span>
-                <span className={"detail-bottom-item "}>创建时间:{detailInfo?.testCase?.createTime}</span>
+                {/*<span className={"detail-bottom-item "}>创建时间:{detailInfo?.testCase?.createTime}</span>*/}
                 <span className={"detail-bottom-item "}>更新时间:{detailInfo?.testCase?.updateTime}</span>
             </div>
         </div>

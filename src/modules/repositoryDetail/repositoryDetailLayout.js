@@ -1,6 +1,7 @@
 import React from "react";
 import LeftNav from "./leftNav";
 import "./repositoryDetailStyle.scss"
+import "../common/commonStyle.scss"
 import {renderRoutes} from "react-router-config";
 
 //详情的布局，为左右结构

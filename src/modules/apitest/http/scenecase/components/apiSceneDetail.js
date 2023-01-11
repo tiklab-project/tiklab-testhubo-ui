@@ -1,8 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import { inject,observer } from 'mobx-react';
 import ApiSceneStepList from "./apiSceneStepList";
-import BackCommon from "../../../../common/backCommon";
-import ApiEnvSelect from "../../../../sysmgr/environment/components/apiEnvSelect";
 import ApiSceneTestResult from "./apiSceneTestResult";
 import DetailCommon from "../../../../common/detailCommon";
 
@@ -41,10 +39,6 @@ const ApiSceneDetail = (props) => {
         props.history.push("/repositorypage/testcase/api-scenecase-instance")
     }
 
-
-    const goBack = () =>{
-        props.history.push("/repositorypage/testcase/list")
-    }
 
     return(
         <div className={"content-box-center"}>

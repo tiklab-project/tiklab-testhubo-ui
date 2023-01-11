@@ -82,7 +82,7 @@ const AppStep = (props) =>{
             <div className={'test-title'}>
                 <div>测试步骤</div>
             </div>
-            <div className={'flex-right'}>
+            <div className={'title-space-between'}>
                 <AppStepEdit name={'添加步骤'} btn={'btn'}/>
             </div>
             <Table

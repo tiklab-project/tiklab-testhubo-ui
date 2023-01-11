@@ -64,18 +64,20 @@ const ApiPerfStepList = (props) =>{
 
     return(
         <>
-            <div className='flex-right'>
+            <div className='title-space-between'>
                 <ApiPerformBindScene
                     apiPerfStepStore={apiPerfStepStore}
                     apiPerfId={apiPerfId}
                 />
             </div>
-            <Table
-                columns={column}
-                dataSource={apiPerfStepList}
-                rowKey = {record => record.id}
-                pagination={false}
-            />
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={apiPerfStepList}
+                    rowKey = {record => record.id}
+                    pagination={false}
+                />
+            </div>
         </>
     )
 }

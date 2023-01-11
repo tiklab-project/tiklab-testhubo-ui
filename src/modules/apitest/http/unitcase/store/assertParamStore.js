@@ -24,6 +24,23 @@ export class AssertParamStore {
         this.assertParamList = [...values]
     }
 
+
+
+    //处理list
+    @action
+    processList = (data)=>{
+        if(!data){
+            return;
+        }
+
+        const newRow =[ { id: 'InitNewRowId'}];
+
+        this.assertParamDataSource = data;
+        this.assertParamList=[...data,...newRow];
+    }
+
+
+
     @action
     findAssertParamList = async (id) => {
         this.apiUnitId = id;
@@ -31,18 +48,11 @@ export class AssertParamStore {
             apiUnitId: id,
             orderParams:[{ name:'source', orderType:'asc' }],
         }
-        const newRow =[ { id: 'AssertParamInitRow'}]
         
         const res = await findAssertParamList(params)
         if(res.code === 0) {
-            this.dataLength = res.data.length
-            this.assertParamDataSource = res.data;
-            
-            if( res.data.length === 0 ){
-                this.assertParamList= newRow;
-            }else {
-                this.assertParamList = [...res.data,...newRow];
-            }
+            this.dataLength = res.data.length;
+            this.processList(res.data);
             return res.data;
         }
     }

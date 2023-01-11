@@ -48,7 +48,7 @@ const FuncSceneStepList = (props) => {
 
     return(
         <>
-            <div className='flex-right'>
+            <div className='title-space-between'>
                 <div className={'test-title'}>
                     <div>测试步骤</div>
                 </div>

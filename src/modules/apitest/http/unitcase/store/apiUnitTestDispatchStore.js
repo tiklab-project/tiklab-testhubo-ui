@@ -19,8 +19,8 @@ export class ApiUnitTestDispatchStore {
         if(res.code === 0) {
             this.apiUnitTestResult = res.data;
             this.responseResult = res.data?.responseInstance;
-            return res.data;
         }
+        return res;
     }
 
 

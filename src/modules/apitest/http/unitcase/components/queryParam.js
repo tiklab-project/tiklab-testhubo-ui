@@ -5,11 +5,11 @@
  */
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from "mobx-react";
-import {Space, Checkbox, Popconfirm} from 'antd';
+import {Space, Popconfirm} from 'antd';
 import {mockValueDictionary} from '../../../../../common/dictionary/dictionary';
 import ExSelect from "../../../../common/exSelect";
 import {ExTable}from '../../../../common/editTable';
-
+import IconCommon from "../../../../common/iconCommon";
 
 const QueryParam = (props) =>{
     const { queryParamStore } = props;
@@ -34,24 +34,14 @@ const QueryParam = (props) =>{
 
     let columns= [
         {
-            title: '参数名称',
+            title: '参数',
             dataIndex: 'paramName',
-            width: '15%',
+            width: '40%',
             editable: true,
         },
         {
-            title: '必须',
-            dataIndex: 'required',
-            width: '5%',
-            render:(text,record) =>  (
-                <Checkbox
-                    defaultChecked={record.required}
-                    onChange={(value) => toggleChecked(value, record)}
-                />
-            )
-        },{
-            title: '示例值',
-            width: '20%',
+            title: '参数值',
+            width: '40%',
             dataIndex: 'value',
             render: (text, record)=>(
                 <ExSelect
@@ -60,47 +50,45 @@ const QueryParam = (props) =>{
                     handleSave={handleSave}
                     rowData={record}
                     dataIndex={'value'}
+                    setNewRowAction={setNewRowAction}
                 />
             )
-
-        },{
-            title: '说明',
-            width: '20%',
-            dataIndex: 'desc',
-            editable: true,
 
         },
         {
             title: '操作',
-            width: '10%',
-            fixed: 'right',
+            width: 150,
             dataIndex: 'operation',
             render: (text, record) =>(operation(record,dataSource))
         },
-        {
-            title: '',
-            width: '20%',
-            dataIndex: 'none',
-        }
     ]
 
-    // 必须项的checked
-    const toggleChecked = (e,row) => {
-        let checked;
-        if(e.target.checked){
-            checked = 1
-        }else{
-            checked = 0
-        }
-        const data = {...row,  required: checked}
 
+    //取消
+    const onCancel = () =>{
+        let data = {
+            id:"InitNewRowId",
+            "paramName":null,
+            "value":null
+        }
         handleSave(data)
+
+        //隐藏
+        setNewRowAction(false)
     }
 
-    // 表格里的操作
+    const [newRowAction, setNewRowAction] = useState(false);
+
+
+    // colums 里的操作
     const operation = (record,data) => {
-        if(record.id === 'QueryParamInitRow'){
-            return <a onClick={() =>onCreated(record)} >添加</a>
+        if(record.id === 'InitNewRowId'){
+            return <div className={`${newRowAction?"newRow-action-show":"newRow-action-hidden"}`}>
+                <Space>
+                    <a onClick={() =>onCreated(record)}> 保存</a>
+                    <a onClick={()=>onCancel()}> 取消</a>
+                </Space>
+            </div>
         }else{
             return <Space key={record.id}>
                 {
@@ -112,7 +100,9 @@ const QueryParam = (props) =>{
                     okText='确定'
                     cancelText='取消'
                 >
-                    <a href="#">删除</a>
+                    <svg className="icon-s table-edit-icon" aria-hidden="true">
+                        <use xlinkHref= {`#icon-shanchu3`} />
+                    </svg>
                 </Popconfirm>
             </Space>
         }
@@ -126,12 +116,13 @@ const QueryParam = (props) =>{
                     ?<>
                         {
                             item.paramName === record.paramName
-                            && item.dataType === record.dataType
-                            && item.required === record.required
-                            && item.desc === record.desc
                             && item.value === record.value
                                 ? null
-                                : <a onClick={() => upData(record)}>更新</a>
+                                : <IconCommon
+                                    icon={"btn_confirm"}
+                                    className={"icon-s table-edit-icon"}
+                                    onClick={()=>upData(record)}
+                                />
                         }
                     </>
                     :null
@@ -139,6 +130,10 @@ const QueryParam = (props) =>{
         })
     }
 
+    //更新
+    const upData = (value) => {
+        updateQueryParam(value).then(res => setDataSource(res))
+    }
 
     // 添加
     const onCreated = (values) => {
@@ -147,13 +142,10 @@ const QueryParam = (props) =>{
         }else {
             // 创建新行的时候自带一个id，所以删了，后台会自行创建id
             delete values.id;
-            createQueryParam(values)
+            createQueryParam(values);
         }
-    }
 
-    //更新
-    const upData = (value) => {
-        updateQueryParam(value).then(res=>setDataSource(res))
+        setNewRowAction(false)
     }
 
     // 保存数据
@@ -162,14 +154,28 @@ const QueryParam = (props) =>{
         const index = newData.findIndex((item) => row.id === item.id);
         newData.splice(index, 1, { ...newData[index], ...row });
         setList(newData)
+
+        //如果是新行 操作 显示操作按钮
+        if(row.id==="InitNewRowId"){
+            //当新行按键按下的时候显示后面的操作按钮
+            document.addEventListener('keydown', (e) =>{
+                setNewRowAction(true)
+            });
+        }
     };
 
+
     return (
-        <ExTable
-            columns={columns}
-            dataSource={queryParamList}
-            handleSave={handleSave}
-        />
+        <>
+            <div style={{margin:"8px 0"}}>
+                <span  className={"table-item-title"}>查询参数</span>
+            </div>
+            <ExTable
+                columns={columns}
+                dataSource={queryParamList}
+                handleSave={handleSave}
+            />
+        </>
     );
 }
 

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, InputNumber, Radio, Checkbox, Form, Input} from "antd";
 import {inject, observer} from "mobx-react";
+import IconCommon from "../../../../common/iconCommon";
 
 const layout = {
     labelCol: {span: 2},
@@ -81,9 +82,10 @@ const ApiPerfConfig = (props) =>{
             return (
                 <div className={"perform-client-item"}>
                     <div>
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref= {`#icon-web`}></use>
-                        </svg>
+                        <IconCommon
+                            icon={"web"}
+                            className={"icon-s"}
+                        />
                     </div>
                     <div>
                         <div>名称：{item.name}</div>

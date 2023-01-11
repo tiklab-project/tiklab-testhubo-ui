@@ -50,8 +50,8 @@ const ApiUnitInstance = (props) =>{
                     <div className='history-item-detail'>
                         <div>{item.createTime}</div>
                         <div>
-                            <span style={{margin:" 0 10px 0 0"}}>{item.requestType}</span>
-                            <span>{item.time}</span>
+                            <span style={{margin:" 0 10px 0 0"}}>{item.apiUnit?.methodType}</span>
+                            <span>{item.elapsedTime} ms</span>
                         </div>
 
                         <div>{item.name}</div>
@@ -66,7 +66,7 @@ const ApiUnitInstance = (props) =>{
     }
 
     const toUnitDetail =()=>{
-        props.history.push("/repositorypage/apitest/unitdetail")
+        props.history.push("/repositorypage/testcase/api-unitdetail")
     }
 
     return(

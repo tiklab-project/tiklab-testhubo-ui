@@ -68,10 +68,7 @@ export class ApiSceneStepStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteApiSceneStep(param)
-        if( res.code === 0){
-            this.findApiSceneStepPage(this.apiSceneId);
-        }
+        await deleteApiSceneStep(param)
     }
 
 }

@@ -20,6 +20,19 @@ export class QueryParamStore {
         this.queryParamList = [...values]
     }
 
+
+    @action
+    processList = (data)=>{
+        if(!data){
+            return;
+        }
+
+        const newRow =[ { id: 'InitNewRowId'}];
+
+        this.queryParamDataSource = data;
+        this.queryParamList=[...data,...newRow];
+    }
+
     @action
     findQueryParamList = async (id) => {
         this.apiUnitId = id;
@@ -28,20 +41,13 @@ export class QueryParamStore {
             orderParams:[{ name:'paramName',  orderType:'asc' }],
         }
 
-        const newRow =[ { id: 'QueryParamInitRow'}]
         const res = await  findQueryParamList(params)
 
         if( res.code === 0) {
             this.dataLength = res.data.length
-            this.queryParamDataSource = res.data;
-            if( res.data.length === 0){
-                this.queryParamList=newRow;
-            }else {
-                this.queryParamList = [...res.data,...newRow]
-            }
+            this.processList(res.data);
             return res.data;
         }
-
     }
 
     @action

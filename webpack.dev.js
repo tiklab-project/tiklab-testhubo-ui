@@ -53,7 +53,15 @@ module.exports = merge(baseWebpackConfig, {
         hotOnly:true,
         open:false,//自动打开浏览器
         historyApiFallback: true,
-        disableHostCheck: true
+        disableHostCheck: true,
+        proxy:{
+            "/local-proxy":{
+                target:"http://127.0.0.1:3009"
+            },
+            "/cloud-proxy":{
+                target:"http://172.11.1.15:3009"
+            }
+        }
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()

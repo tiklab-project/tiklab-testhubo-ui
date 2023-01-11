@@ -25,7 +25,7 @@ const ApiPerfInstance =(props)=>{
 
 
     const goback = () =>{
-        props.history.push("/repositorypage/apitest/performdetail")
+        props.history.push("/repositorypage/testcase/api-performdetail")
     }
 
     const showInstanceListView = (data) =>{

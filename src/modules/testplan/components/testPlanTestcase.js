@@ -98,7 +98,7 @@ const TestPlanTestcase = (props) =>{
     return(
         <>
 
-            <div className='flex-right'>
+            <div className='title-space-between'>
                 <div className={'test-title'}>
                     <div>关联用例</div>
                 </div>

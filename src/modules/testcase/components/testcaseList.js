@@ -19,7 +19,18 @@ import IconCommon from "../../common/iconCommon";
 
 const TestCaseList = (props) => {
     const {testcaseStore,categoryStore} = props;
-    const {findTestCaseList,testcaseList,deleteTestCase,tabList,setTabList,setActiveKey}=testcaseStore;
+    const {
+        findTestCaseList,
+        testcaseList,
+        deleteTestCase,
+        tabList,
+        setTabList,
+        setActiveKey,
+        testType,
+        setTestType,
+        caseType,
+        setCaseType
+    }=testcaseStore;
 
     const column = [
         {
@@ -75,9 +86,7 @@ const TestCaseList = (props) => {
         },
     ]
 
-    const [selectItem, setSelectItem] = useState(null);
-    const [testType, setTestType] = useState();
-    const [caseType, setCaseType] = useState();
+    const [selectItem, setSelectItem] = useState(testType?testType:null);
 
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
@@ -95,7 +104,7 @@ const TestCaseList = (props) => {
 
 
     useEffect(()=>{
-        findPage()
+        findPage(testType,caseType)
     },[categoryId,pageParam])
 
 
@@ -200,10 +209,18 @@ const TestCaseList = (props) => {
 
     //点击筛选项查找
     const selectKeyFun = (item)=>{
-        setSelectItem(item.key)
-        setTestType(item.key)
+        if(!item.key){
+            setSelectItem(null)
+            findPage(null,caseType)
+            return
+        }
 
-        findPage(item.key,caseType)
+        let key = item.key
+        setSelectItem(key)
+        setTestType(key)
+
+        findPage(key,caseType)
+
     }
 
     const items=[
@@ -352,7 +369,6 @@ const TestCaseList = (props) => {
     )
     return(
         <div className={"testcase-box"}>
-
             <div  className={"header-box-space-between"} >
                 <div className={'header-box-title'}>用例列表</div>
                 <Dropdown overlay={addMenu} placement="bottom">
@@ -386,8 +402,6 @@ const TestCaseList = (props) => {
                         },
                     ]}
                 />
-
-
             </div>
 
             <div className={"table-list-box"}>

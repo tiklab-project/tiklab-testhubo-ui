@@ -5,9 +5,10 @@ import {getUser} from "tiklab-core-ui";
 import IconCommon from "../common/iconCommon";
 
 const LeftNav = (props) =>{
-    const {repositoryStore,systemRoleStore,repositoryRecentStore} = props;
+    const {repositoryStore,systemRoleStore,repositoryRecentStore,testcaseStore} = props;
     const {findRepository,findRepositoryList,repositoryList} = repositoryStore;
     const {repositoryRecent} = repositoryRecentStore;
+    const {setTestType} = testcaseStore;
 
     const menuData = [
         {
@@ -46,6 +47,8 @@ const LeftNav = (props) =>{
 
 
     const clickAddRouter = (item) =>{
+        //设置用例列表筛选项
+        setTestType(null)
 
         //点击左侧导航，设置选择项,用于刷新后还能选择。
         localStorage.setItem("leftRouter",item.router);
@@ -171,4 +174,4 @@ const LeftNav = (props) =>{
     )
 }
 
-export default inject("repositoryStore","systemRoleStore","repositoryRecentStore")(observer(LeftNav));
+export default inject("repositoryStore","systemRoleStore","repositoryRecentStore","testcaseStore")(observer(LeftNav));

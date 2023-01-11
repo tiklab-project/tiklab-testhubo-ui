@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Tabs} from "antd";
+import {Button, Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import ApiPerfStepList from "./apiPerfStepList";
 import ApiPerformConfig from "./apiPerfConfig";
@@ -35,20 +35,20 @@ const ApiPerformDetail = (props) =>{
     }
 
 
-    const changeTab = (actvieKey) =>{
-
+    //去往测试页面
+    const toTestPage=()=>{
+        props.history.push("/repositorypage/testcase/api-perform-test")
     }
 
-
-
     return(
-        <div>
+        <div className={"content-box-center"}>
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
+                test={<Button className={"important-btn"} onClick={toTestPage}>测试</Button>}
             />
 
-            <Tabs defaultActiveKey="1" onChange={changeTab}>
+            <Tabs defaultActiveKey="1" >
                 <TabPane tab="场景配置" key="1">
                     <ApiPerfStepList />
                 </TabPane>

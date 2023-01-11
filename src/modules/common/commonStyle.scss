@@ -42,37 +42,37 @@
 
 
 // testResultCommon
-.test-response-before{
-    position: relative;
-    margin: 10px 0 0 0;
-    height: 150px;
-    border: 1px solid #eaeaea
-}
-.test-response-before-alert{
-    // width: 200px;
-    height: 20px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -70px;
-    margin-top: -10px;
-
-}
-
-.test-response-show{
-    display: block;
-}
-.test-response-hide{
-    display: none;
-}
-
-
-.test-responseInfo{
-    width: 200px;
-    display: flex;
-    justify-content: space-around;
-}
-
+//.test-response-before{
+//    position: relative;
+//    margin: 10px 0 0 0;
+//    height: 300px;
+//    border: 1px solid #eaeaea
+//}
+//.test-response-before-alert{
+//    // width: 200px;
+//    height: 20px;
+//    position: absolute;
+//    left: 50%;
+//    top: 50%;
+//    margin-left: -70px;
+//    margin-top: -10px;
+//
+//}
+//
+//.test-response-show{
+//    display: block;
+//}
+//.test-response-hide{
+//    display: none;
+//}
+//
+//
+//.test-responseInfo{
+//    width: 200px;
+//    display: flex;
+//    justify-content: space-around;
+//}
+//
 
 //testDarg
 
@@ -195,36 +195,3 @@
     cursor: auto;
 }
 
-//头部公共css  左边title，右边一般添加
-.header-box-space-between{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px 0;
-
-    .header-box-title{
-        font-weight: bold;
-    }
-}
-
-//搜索框
-.search-input-common{
-    width: 220px;
-    height: 32px;
-    border-radius: var(--pi-border-radius);
-    border: var(--pi-input-border);
-}
-
-//按钮颜色
-.important-btn{
-    background: var(--pi-base-color)!important;
-    color: #f0f0f0!important;
-    border-radius: var(--pi-border-radius);
-    font-size: var(--pi-font-size-13);
-}
-
-.content-box-center{
-    min-width: 860px;
-    max-width: 1440px;
-    margin: 0 auto;
-}
