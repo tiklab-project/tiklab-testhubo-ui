@@ -1,0 +1,54 @@
+
+.history-list-item{
+    border-bottom: 1px solid var(--pi-border-color);
+    padding: 10px 0;
+    cursor: pointer;
+    position: relative;
+
+    &-url{
+        padding: 5px;
+        margin: 0 40px 0 0;
+        font-size: 15px;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+}
+.history-list-item:hover{
+    background: var(--pi-greyf9-color);
+}
+
+.history-list-item-icon{
+    display: none;
+    position: absolute;
+    top: 28px;
+    right: 10px;
+}
+
+.history-list-item:hover  .history-list-item-icon{
+
+    display: block;
+}
+
+
+
+.history-res-height{
+    height:400px;
+    overflow: auto;
+}
+
+.history-detail-item-box{
+    display: flex;
+    gap: 10px;
+    margin: 10px  0;
+
+    &-title{
+        color: #a1a1a1;
+        margin: 0 10px 0 0;
+    }
+
+    &-value{
+        font-size: 15px;
+    }
+}

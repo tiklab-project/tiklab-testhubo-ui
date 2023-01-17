@@ -1,7 +1,15 @@
+
+
+.content-main-box{
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+}
 .testcase-box{
     min-width: 860px;
     max-width: 1440px;
     margin: 0 auto;
+    padding: 0 10px;
 
     .dynamic-select-box{
         margin:0 0 15px 0;
@@ -82,5 +90,20 @@
 .edit-icon{
     cursor:pointer;
     margin: 5px 0 0;
+}
+
+
+.case-unit-step-box{
+    width: 600px;
+    margin: 10px;
+
+
+    .ant-input{
+        background: #fafafa;
+    }
+
+    .ant-input:hover{
+        background: var(--pi-hover-color);
+    }
 }
 

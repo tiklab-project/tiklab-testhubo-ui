@@ -4,6 +4,7 @@ import { observer, inject } from "mobx-react";
 import {Popconfirm, Space, Table} from 'antd';
 import  { useTranslation } from 'react-i18next';
 import FuncUnitStepEdit from "./funcUnitStepEdit";
+import IconCommon from "../../../common/iconCommon";
 
 const FuncUnitStepList = (props) => {
     const { funcUnitStepStore } = props;
@@ -21,30 +22,24 @@ const FuncUnitStepList = (props) => {
             title:`步骤描述`,
             dataIndex: "described",
             key: "described",
-            // align:"center",
-            width:'30%',
             editable: true,
         },
         {
             title:`预期结果`,
             dataIndex: "expect",
             key: "expect",
-            align:"center",
-            width:'30%',
             editable: true,
         },
         {
             title: `实际结果`,
             dataIndex: "actual",
             key: "actual",
-            align:"center",
-            width:'30%',
         },
         {
             title: '操作',
             // align:'center',
             dataIndex: 'operation',
-            width:'25%',
+            width:120,
             render: (text, record) => (
                 <Space size="middle">
                     <FuncUnitStepEdit
@@ -59,7 +54,10 @@ const FuncUnitStepList = (props) => {
                         okText='确定'
                         cancelText='取消'
                     >
-                        <a href="#" style={{color:'red'}}>删除</a>
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                        />
                     </Popconfirm>
                 </Space>
             ),
@@ -76,19 +74,26 @@ const FuncUnitStepList = (props) => {
 
 
     return(
-        <div className={'funtionalTest-step'}>
-            <FuncUnitStepEdit
-                name={'添加步骤'}
-                btn={'btn'}
-                findPage={findFuncUnitStepList}
-            />
-            <Table
-                columns={columns}
-                dataSource={funcUnitStepList}
-                rowKey = {record => record.id}
-                pagination={false}
-            />
-        </div>
+        <>
+            <div className='title-space-between'>
+                <div className={'test-title'}>
+                    <div>场景步骤</div>
+                </div>
+                <FuncUnitStepEdit
+                    name={'添加步骤'}
+                    btn={'btn'}
+                    findPage={findFuncUnitStepList}
+                />
+            </div>
+            <div className={"table-list-box"}>
+                <Table
+                    columns={columns}
+                    dataSource={funcUnitStepList}
+                    rowKey = {record => record.id}
+                    pagination={false}
+                />
+            </div>
+        </>
     )
 }
 

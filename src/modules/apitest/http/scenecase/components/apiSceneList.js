@@ -3,6 +3,7 @@ import {Input, Popconfirm, Space, Table} from "antd";
 import BreadcrumbCommon from "../../../../common/breadcrumbCommon";
 import ApiSceneEdit from "./apiSceneEdit";
 import {inject, observer} from "mobx-react";
+import IconCommon from "../../../../common/iconCommon";
 
 const ApiSceneList = (props)=>{
     const {apiSceneStore} = props;
@@ -40,7 +41,10 @@ const ApiSceneList = (props)=>{
                         okText='确定'
                         cancelText='取消'
                     >
-                        <a className="table-delete"> 删除 </a>
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                        />
                     </Popconfirm>
                 </Space>
             )

@@ -1,10 +1,10 @@
 
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import BackCommon from "../../../common/backCommon";
 import WebSceneStepList from "./webSceneStepList";
-import ExecuteTestDrawer from "./executeTestDrawer";
+import WebExecuteTestDrawer from "./webExecuteTestDrawer";
 import DetailCommon from "../../../common/detailCommon";
+import "../../webtest/webStyle.scss"
 
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;
@@ -33,33 +33,27 @@ const WebSceneDetail = (props) => {
     }
 
 
-    const goBack = () =>{
-        props.history.push("/repositorypage/testcase/list")
-    }
-
     const toHistory = () =>{
-        props.history.push("/repositorypage/testcase/scenecase-instance")
+        props.history.push("/repositorypage/testcase/web-scenecase-instance")
     }
 
 
     return(
-        <>
-            {/*<BackCommon clickBack={goBack}/>*/}
-            <div className={"content-box-center"}>
-                <DetailCommon
-                    detailInfo={detailInfo}
-                    updateTitle={updateTitle}
-                    toHistory={toHistory}
-                    test={
-                        <ExecuteTestDrawer
-                            webSceneId={webSceneId}
-                            webSceneStore={webSceneStore}
-                        />
-                    }
-                />
-                <WebSceneStepList />
-            </div>
-        </>
+        <div className={"content-box-center"}>
+            <DetailCommon
+                detailInfo={detailInfo}
+                updateTitle={updateTitle}
+                toHistory={toHistory}
+                test={
+                    <WebExecuteTestDrawer
+                        webSceneId={webSceneId}
+                        webSceneStore={webSceneStore}
+                    />
+                }
+            />
+            <WebSceneStepList />
+        </div>
+
     )
 }
 

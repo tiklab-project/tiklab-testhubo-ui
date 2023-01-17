@@ -10,25 +10,22 @@ import {
 
 export class AppSceneInstanceStore {
 
-    @observable instanceList = [];
-    @observable instanceId = '';
-    @observable	totalRecord = "";
+    @observable appSceneInstanceList = [];
     @observable params
 
     @action
-    findAppSceneInstancePage = async (id,value) => {
-        this.params = {
+    findAppSceneInstancePage = async (value) => {
+        let params = {
             ...value,
-            testcaseId:id,
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await findAppSceneInstancePage(this.params );
+        const res = await findAppSceneInstancePage(params );
         if(res.code === 0) {
-            this.instanceList = res.data.dataList;
-            this.totalRecord = res.data.totalRecord;
-            return res
+            this.appSceneInstanceList = res.data.dataList;
         }
+        
+        return res
     }
 
     @action
@@ -40,31 +37,19 @@ export class AppSceneInstanceStore {
 
         const res = await findAppSceneInstanceList(param);
         if(res.code===0){
-            this.instanceList = res.data;
+            this.appSceneInstanceList = res.data;
             return res.data;
         }
     }
 
     @action
     findAppSceneInstance = async (id) => {
-        this.instanceId = id;
-
         const param = new FormData();
         param.append('id', id);
 
         const res = await findAppSceneInstance(param)
         if(res.code === 0){
-
             return res.data;
-        }
-    }
-
-    @action
-    createAppSceneInstance = async (values) => {
-        const res = await createAppSceneInstance(values)
-        if(res.code === 0) {
-            this.findAppSceneInstanceList(this.params );
-            return res.data
         }
     }
 
@@ -73,10 +58,7 @@ export class AppSceneInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteAppSceneInstance(param)
-        if(res.code === 0) {
-            this.findAppSceneInstanceList(this.params )
-        }
+        await deleteAppSceneInstance(param)
     }
 
 

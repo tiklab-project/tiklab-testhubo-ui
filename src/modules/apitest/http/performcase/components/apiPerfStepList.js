@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {Popconfirm, Space, Switch, Table} from "antd";
 import ApiPerformBindScene from "./apiPerformBindScene";
 import {inject, observer} from "mobx-react";
+import IconCommon from "../../../../common/iconCommon";
 
 const ApiPerfStepList = (props) =>{
     const {apiPerfStepStore} = props;
@@ -35,7 +36,10 @@ const ApiPerfStepList = (props) =>{
                     okText='确定'
                     cancelText='取消'
                 >
-                    <a className="table-delete"> 删除 </a>
+                    <IconCommon
+                        className={"icon-s edit-icon"}
+                        icon={"shanchu3"}
+                    />
                 </Popconfirm>
             )
         },

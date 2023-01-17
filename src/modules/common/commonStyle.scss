@@ -7,38 +7,61 @@
 
 .requestType-post{
     color: white;
-    background: #d55e4d;
+    background: var(--pi-error-color);
+}
+
+.requestType-post-text{
+    color: var(--pi-error-color);
 }
 
 .requestType-get{
     color: white;
-    background: #2bd583;
+    background: var(--pi-success-color);
+}
+.requestType-get-text{
+    color: var(--pi-success-color);
 }
 
 .requestType-delete{
     color: white;
-    background: #ff0000;
+    background: var(--pi-delete-color);
+}
+.requestType-delete-text{
+    color: var(--pi-delete-color);
 }
 
 .requestType-head{
     color: white;
-    background: #439591;
+    background: var(--pi-head-color);
+}
+.requestType-head-text{
+    color: var(--pi-head-color);
 }
 
 .requestType-put{
     color: white;
-    background: #7e97bd;
+    background: var(--pi-put-color);
+}
+.requestType-put-text{
+    color: var(--pi-put-color);
 }
 
 .requestType-options{
     color: white;
-    background: #7e97bd;
+    background: var(--pi-option-color);
+}
+.requestType-options-text{
+    color: var(--pi-option-color);
 }
 
 .requestType-patch{
     color: white;
-    background: #7e97bd;
+    background: var(--pi-patch-color);
 }
+.requestType-patch-text{
+    color: var(--pi-patch-color);
+}
+
 
 
 // testResultCommon

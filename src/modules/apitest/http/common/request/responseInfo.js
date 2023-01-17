@@ -46,7 +46,7 @@ const ResponseInfo = (props)=>{
     return(
         <div className="test-responseInfo">
             <div>
-                结果:
+                <span style={{fontSize:"13px"}}>断言结果:</span>
                 {
                     result===1
                         ? <span style={{color:"green"}}>成功</span>

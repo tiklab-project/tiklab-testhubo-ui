@@ -79,6 +79,7 @@ const AppSceneInstanceModal=(props) => {
                 visible={visible}
                 width={1200}
                 destroyOnClose={true}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
             >
                 <div className={"scene-step-detail"}>
                     <div className={"header-item"}>用例详情</div>

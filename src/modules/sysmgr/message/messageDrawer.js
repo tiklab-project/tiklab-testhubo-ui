@@ -221,7 +221,7 @@ const MessageDrawer = (props) =>{
 
 
     return (
-        <div className={"header-msg-box"}>
+        <div>
             <Badge count={length}>
                 <BellOutlined className={"header-icon-item"} style={{fontSize: 21}} onClick={showDrawer}/>
             </Badge>

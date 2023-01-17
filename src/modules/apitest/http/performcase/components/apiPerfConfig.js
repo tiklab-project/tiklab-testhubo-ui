@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, InputNumber, Radio, Checkbox, Form, Input} from "antd";
+import {Button, InputNumber, Radio, Checkbox, Form, Input, Popconfirm} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/iconCommon";
 
@@ -102,13 +102,18 @@ const ApiPerfConfig = (props) =>{
         })
     }
 
+    const toAgentPage = ()=>{
+        props.history.push("/repositorypage/setting/agent")
+    }
+
 
     return(
-        <>
+        <div style={{margin:"20px 0 0"}}>
             <Form
                 form={form}
                 preserve={false}
                 {...layout}
+                labelAlign={"left"}
             >
                 <Form.Item
                     label="并发数"
@@ -135,21 +140,31 @@ const ApiPerfConfig = (props) =>{
                     name="executeType"
                 >
                     <Radio.Group onChange={(e)=>changeExeType(e.target.value)} value={exeMode}>
-                        <Radio value={0}>循环</Radio>
-                        <Radio value={1}>随机</Radio>
+                        <Radio value={1}>循环</Radio>
+                        <Radio value={2}>随机</Radio>
                     </Radio.Group>
                 </Form.Item>
                 <Form.Item
                     label="节点"
                     name="executeCount"
                 >
-                    {
-                        showClient(agentConfigList)
-                    }
+                    <Popconfirm
+                        title="确定离开？"
+                        onConfirm={toAgentPage}
+                        okText='确定'
+                        cancelText='取消'
+                    >
+                        <div style={{
+                            width: "140px",
+                            color:"#0078d6",
+                            cursor:"pointer"
+                        }}>前往Agent管理页管理</div>
+                    </Popconfirm>
+
                 </Form.Item>
 
             </Form>
-        </>
+        </div>
     )
 }
 

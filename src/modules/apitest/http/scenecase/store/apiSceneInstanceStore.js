@@ -2,7 +2,8 @@ import { observable,  action } from "mobx";
 import {
     findApiSceneInstanceList,
     findApiSceneInstance,
-    deleteApiSceneInstance
+    deleteApiSceneInstance,
+    findApiSceneInstancePage
 } from '../api/apiSceneInstanceApi'
 
 export class ApiSceneInstanceStore {
@@ -10,6 +11,21 @@ export class ApiSceneInstanceStore {
     @observable apiSceneInstanceList = [];
     @observable apiSceneInstanceInfo;
     @observable apiSceneId;
+
+    @action
+    findApiSceneInstancePage = async (value) => {
+        const params = {
+            ...value,
+            orderParams:[{name:'createTime', orderType:'desc'}],
+        }
+        const res = await findApiSceneInstancePage(params);
+        if(res.code === 0) {
+            this.apiSceneInstanceList = res.data.dataList;
+        }
+
+        return res
+    }
+
 
     @action
     findApiSceneInstanceList = async (id) => {
@@ -43,10 +59,9 @@ export class ApiSceneInstanceStore {
     deleteApiSceneInstance = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        const res = await deleteApiSceneInstance(param)
-        if( res.code === 0){
-            this.findApiSceneInstancePage(this.apiSceneId);
-        }
+
+        await deleteApiSceneInstance(param)
+
     }
 
 }

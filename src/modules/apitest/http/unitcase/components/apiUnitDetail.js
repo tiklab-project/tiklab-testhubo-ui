@@ -8,6 +8,7 @@ import {dictionary} from "../../../../common/dictionary/dictionary";
 import ApiUnitTestResult from "./apiUnitTestResult";
 import {messageFn} from "../../../../common/messageCommon/messageCommon";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
+import ApiUnitInstanceDrawer from "./apiUnitInstanceDrawer";
 
 const {Option} = Select;
 
@@ -144,7 +145,6 @@ const ApiUnitDetail = (props) => {
                 </div>
 
                 <a onClick={toHistory}>测试历史</a>
-                {/*<DropdownInstance testcaseId={testCaseId}/>*/}
             </div>
             <div className={"test-base"}>
                 <Form form = {form} layout={"inline"}>

@@ -1,7 +1,6 @@
 import jsonPath from "../../../../../common/utils/jsonPath";
 
 export const assertIsOrNotSuccess = (data) =>{
-    debugger
     let listResult ;
     if(data.assertList&&data.assertList.length>0){
         listResult=assertCompare(data)

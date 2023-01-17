@@ -35,36 +35,26 @@ const AppSceneDetail = (props) => {
     }
 
 
-    const goBack = () =>{
-        props.history.push("/repositorypage/testcase/list")
-    }
-
-
     const toHistory = () =>{
-        props.history.push("/repositorypage/testcase/scenecase-instance")
+        props.history.push("/repositorypage/testcase/app-scenecase-instance")
     }
 
     return(
-        <>
-            {/*<BackCommon*/}
-            {/*    clickBack={goBack}*/}
-            {/*    // right={<AppEnvSelect history={props.history}/>}*/}
-            {/*/>*/}
-            <div className={"content-box-center"}>
-                <DetailCommon
-                    detailInfo={detailInfo}
-                    updateTitle={updateTitle}
-                    toHistory={toHistory}
-                    test={
-                        <AppExecuteTestDrawer
-                            appSceneId={appSceneId}
-                            appSceneStore={appSceneStore}
-                        />
-                    }
-                />
-                <AppSceneStepList />
-            </div>
-        </>
+        <div className={"content-box-center"}>
+            <DetailCommon
+                detailInfo={detailInfo}
+                updateTitle={updateTitle}
+                toHistory={toHistory}
+                test={
+                    <AppExecuteTestDrawer
+                        appSceneId={appSceneId}
+                        appSceneStore={appSceneStore}
+                    />
+                }
+            />
+            <AppSceneStepList />
+        </div>
+
     )
 }
 

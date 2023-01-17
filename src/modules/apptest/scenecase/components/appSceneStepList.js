@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {Input, Popconfirm, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import AppSceneBindUnit from "./AppSceneBindUnit";
+import IconCommon from "../../../common/iconCommon";
 
 const AppSceneStepList = (props) => {
     const {appSceneStepStore} =props;
@@ -9,7 +10,7 @@ const AppSceneStepList = (props) => {
 
     const column = [
         {
-            title:`测试用例名称`,
+            title:`用例名称`,
             dataIndex: "name",
             key: "name",
         }, {
@@ -21,8 +22,7 @@ const AppSceneStepList = (props) => {
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            align: 'center',
-            width: "15%",
+            width: 120,
             render: (text, record) => (
                 <Space size="middle">
                     <Popconfirm
@@ -31,7 +31,10 @@ const AppSceneStepList = (props) => {
                         okText='确定'
                         cancelText='取消'
                     >
-                        <a className="table-delete"> 删除 </a>
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                        />
                     </Popconfirm>
                 </Space>
             )

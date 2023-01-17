@@ -10,30 +10,25 @@ import {
 
 export class WebSceneInstanceStore {
 
-    @observable instanceList = [];
+    @observable webSceneInstanceList = [];
     @observable instanceId = '';
     @observable	totalRecord = "";
     @observable params
-    @observable responseBodyData;
-    @observable responseHeaderData;
-    @observable requestBodyData;
-    @observable requestHeaderData;
-    @observable assertList;
+
 
     @action
-    findWebSceneInstancePage = async (id,value) => {
+    findWebSceneInstancePage = async (value) => {
         this.params = {
             ...value,
-            webSceneId:id,
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
         const res = await findWebSceneInstancePage(this.params );
         if(res.code === 0) {
-            this.instanceList = res.data.dataList;
+            this.webSceneInstanceList = res.data.dataList;
             this.totalRecord = res.data.totalRecord;
-            return res
         }
+        return res
     }
 
     @action
@@ -45,7 +40,7 @@ export class WebSceneInstanceStore {
 
         const res = await findWebSceneInstanceList(param);
         if(res.code===0){
-            this.instanceList = res.data;
+            this.webSceneInstanceList = res.data;
             return res.data;
         }
     }
@@ -65,23 +60,15 @@ export class WebSceneInstanceStore {
     }
 
     @action
-    createWebSceneInstance = async (values) => {
-        const res = await createWebSceneInstance(values)
-        if(res.code === 0) {
-            this.findWebSceneInstanceList(this.params );
-            return res.data
-        }
-    }
+    createWebSceneInstance = async (values) =>  await createWebSceneInstance(values)
+
 
     @action
     deleteWebSceneInstance = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteWebSceneInstance(param)
-        if(res.code === 0) {
-            this.findWebSceneInstanceList(this.params )
-        }
+        await deleteWebSceneInstance(param)
     }
 
 

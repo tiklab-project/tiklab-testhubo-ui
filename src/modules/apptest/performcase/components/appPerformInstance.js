@@ -25,7 +25,7 @@ const AppPerfInstance =(props)=>{
 
 
     const goback = () =>{
-        props.history.push("/repositorypage/apptest/performdetail")
+        props.history.push("/repositorypage/testcase/app-perform-detail")
     }
 
     const showInstanceListView = (data) =>{

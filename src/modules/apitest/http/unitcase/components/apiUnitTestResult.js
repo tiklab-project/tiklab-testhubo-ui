@@ -45,35 +45,13 @@ const ApiUnitTestResult =(props)=>{
         let req = response.requestInstance;
         let res = response.responseInstance;
 
-
         let time = response.elapsedTime;
         let status = response.statusCode;
 
-        // let requestHeaders= req.requestHeader.split(";")[0];
-        // let mediaType = requestHeaders["Content-Type"]
-
-
-        let processHeaders = (headerArr)=>{
-            let obj={};
-            headerArr.map(item=>{
-                let itemArr = item.split(":")
-                let index0=itemArr[0];
-                let index1 = itemArr[1]
-
-                if(index0){
-                    obj=Object.assign({},obj,{[index0] : index1})
-                }
-            })
-
-            return obj
-        }
-
-
-        let headers = processHeaders(res.responseHeader.split("\n"));
+        let reqHeaders = req.requestHeader;
+        let headers = res.responseHeader;
 
         let body = res.responseBody;
-
-
 
         //大小
         let size = body.length;
@@ -88,16 +66,6 @@ const ApiUnitTestResult =(props)=>{
         // 断言值的比较，结果返回 1，-1
         let allAssertResult=assertIsOrNotSuccess(assertNeedData)
 
-        //assert
-        // let assertList = processAssert(response.assertList);
-        // const assertNeedData ={
-        //     "status":status,
-        //     "header":headers,
-        //     "body":body,
-        //     "assertList":assertList
-        // }
-        //断言list，添加result 字段。用于测试结果中的断言回显
-        // assertCommonStore.assertCompare(assertNeedData);
 
         return(
             <Tabs
@@ -117,9 +85,9 @@ const ApiUnitTestResult =(props)=>{
                 <TabPane tab="响应头" key="2">
                     <ResHeaderCommon headers={processResHeader(headers)}/>
                 </TabPane>
-                {/*<TabPane tab="请求头" key="3">*/}
-                {/*    /!*<ResHeaderCommon headers={processResHeader(requestHeaders)}/>*!/*/}
-                {/*</TabPane>*/}
+                <TabPane tab="请求头" key="3">
+                    <ResHeaderCommon headers={processResHeader(reqHeaders)}/>
+                </TabPane>
                 <TabPane tab="断言" key="5">
                     <AssertResponseCommon assertList={assertList} />
                 </TabPane>

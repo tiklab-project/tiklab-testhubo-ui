@@ -1,19 +1,26 @@
 import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
-import {Button, Collapse, Drawer, Input, message, Spin} from "antd";
+import {Button, Collapse, Drawer, Input, message, Spin, Tabs} from "antd";
+import {TextMethodType} from "../../common/methodType";
+import ResponseBodyCommon from "../../common/response/responseBodyCommon";
+import ResHeaderCommon from "../../common/response/resHeaderCommon";
+import {processResHeader} from "../../common/response/testResponseFnCommon";
+import EmptyTip from "../../common/instance/emptyTip";
+import {messageFn} from "../../../../common/messageCommon/messageCommon";
 
 const {TextArea} = Input;
 const { Panel } = Collapse;
+const {TabPane} = Tabs
 
 const ApiSceneTestResult =(props)=>{
     const { apiSceneTestDispatchStore,apiEnvStore } = props;
     const { apiSceneExecute } = apiSceneTestDispatchStore;
     const { envUrl } =apiEnvStore;
-    const [visible, setVisible] = useState(false);
+
 
     let apiSceneId = sessionStorage.getItem("apiSceneId");
 
-
+    const [visible, setVisible] = useState(false);
     const [allData, setAllData] = useState();
     const [stepList, setStepList] = useState([]);
     const [selected, setSelected] = useState();
@@ -32,7 +39,7 @@ const ApiSceneTestResult =(props)=>{
 
             setVisible(true);
         }else {
-            message.error("请选择环境")
+            messageFn("error","请选择环境")
         }
 
 
@@ -40,6 +47,7 @@ const ApiSceneTestResult =(props)=>{
 
     const onClose = () => {
         setVisible(false);
+        setLoading(true)
     };
 
     const clickFindInstance = index =>{
@@ -64,17 +72,61 @@ const ApiSceneTestResult =(props)=>{
                     <div className='history-item-detail'>
                         <div>{item.apiUnit.path}</div>
                         <div>
-                            <span style={{margin:" 0 10px 0 0"}}>{item?.requestInstance?.requestType}</span>
-                            <span>{item.elapsedTime}</span>
+                            <TextMethodType type={item?.requestInstance?.requestType} />
+                            {/*<span style={{margin:" 0 10px 0 0"}}>{item?.requestInstance?.requestType}</span>*/}
+                            <span>{item.elapsedTime} ms</span>
                         </div>
-
-                        <div>{item?.apiUnit.testCase.name}</div>
                     </div>
                 </div>
+
             )
         })
     }
 
+
+    const detail = [
+        {
+            title:"请求地址:",
+            value:selectedStepData?.requestInstance?.requestUrl,
+            key:"url"
+        },{
+            title:"请求方式:",
+            value:selectedStepData?.requestInstance?.requestType,
+            key:"methodType"
+        },{
+            title:"状态码:",
+            value:selectedStepData?.statusCode,
+            key:"statusCode"
+        },{
+            title:"测试结果:",
+            value:selectedStepData?.result ? '成功' : '失败',
+            key:"result"
+        },{
+            title:"用时:",
+            value:selectedStepData?.elapsedTime+"ms",
+            key:"testTime"
+        },
+    ]
+
+
+    const showDetail = (data) =>{
+        return data.map(item=>{
+            return(
+                <div key={item.key} className={"history-detail-item-box"}>
+                    <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
+                        <span className={"history-detail-item-box-title"}>{item.title}</span>
+                    </div>
+
+                    {
+                        item.key==="methodType"
+                            ? <TextMethodType type={selectedStepData?.requestInstance?.requestType} />
+                            :<span className={"history-detail-item-box-value"}>{item.value}</span>
+                    }
+
+                </div>
+            )
+        })
+    }
 
 
     return(
@@ -85,9 +137,12 @@ const ApiSceneTestResult =(props)=>{
                 placement={"right"}
                 onClose={onClose}
                 visible={visible}
-                width={1400}
+                width={1240}
+                destroyOnClose={true}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
             >
-                <Spin spinning={loading}>
+                <div  className={"result-spin-box"}>
+                    <Spin spinning={loading}>
                     <div className={"history-detail history-detail-box"}>
                         <div className={"history-detail-all"}>
                             <div className={"history-detail-all-box"}>
@@ -128,74 +183,37 @@ const ApiSceneTestResult =(props)=>{
                                 </div>
                             </div>
                             <div className={"scene-step-detail"}>
-                                <div className={"header-item"}>场景详情</div>
+                                <div className={"header-item"}>步骤详情</div>
                                 {
                                     selectedStepData
-                                        ?<div>
-                                            <div>
-                                                <span>接口名称:  </span>
-                                                <span>{selectedStepData?.apiUnit.testCase.name}</span>
-                                            </div>
-                                            <div>
-                                                <span>请求地址:  </span>
-                                                <span>{selectedStepData?.requestInstance.requestUrl}</span>
-                                            </div>
-                                            <div>
-                                                <span>请求方式:  </span>
-                                                <span>{selectedStepData?.requestInstance.requestType}</span>
-                                            </div>
-                                            <div>
-                                                <span>状态码:  </span>
-                                                <span>{selectedStepData?.statusCode}</span>
-                                            </div>
-                                            <div>
-                                                <span>测试结果:  </span>
-                                                <span>{selectedStepData?.result=== "1" ? '成功' : '失败'}</span>
-                                            </div>
-                                            <Collapse
-                                                defaultActiveKey={['1']}
-                                                expandIconPosition={"right"}
-                                                ghost
-                                            >
-                                                <Panel header="响应体" key="1" >
-                                                    <TextArea
-                                                        autoSize={{minRows: 4, maxRows: 10 }}
-                                                        value={selectedStepData?.responseInstance?.responseBody}
+                                        ?<div style={{margin:"0 10px",overflow: "auto",height: "calc( 100% - 48px )"}}>
+                                            <div >{showDetail(detail)}</div>
+                                            <Tabs defaultActiveKey="1"  >
+                                                <TabPane tab="响应体" key="1">
+                                                    <ResponseBodyCommon
+                                                        responseBodyData={selectedStepData?.responseInstance?.responseBody}
                                                     />
-                                                </Panel>
-                                                <Panel header="响应头" key="2" >
-                                                    <TextArea
-                                                        autoSize={{minRows: 4, maxRows: 10 }}
-                                                        value={selectedStepData?.responseInstance?.responseHeader}
+                                                </TabPane>
+                                                <TabPane tab="响应头" key="2">
+                                                    <ResHeaderCommon
+                                                        headers={processResHeader(selectedStepData?.responseInstance?.responseHeader)}
                                                     />
-                                                </Panel>
-                                                <Panel header="请求体" key="3" >
-                                                    <TextArea
-                                                        autoSize={{minRows: 4, maxRows: 10 }}
-                                                        value={selectedStepData?.requestInstance?.requestParam}
+                                                </TabPane>
+                                                <TabPane tab="请求头" key="3">
+                                                    <ResHeaderCommon
+                                                        headers={processResHeader(selectedStepData?.requestInstance?.requestHeader)}
                                                     />
-                                                </Panel>
-                                                <Panel header="请求头" key="4" >
-                                                    <TextArea
-                                                        autoSize={{minRows: 4, maxRows: 10 }}
-                                                        value={selectedStepData?.requestInstance.requestHeader}
-                                                    />
-                                                </Panel>
-                                                <Panel header="断言" key="5" >
-                                                    <TextArea
-                                                        autoSize={{minRows: 4, maxRows: 10 }}
-                                                        value={selectedStepData?.responseHeader}
-                                                    />
-                                                </Panel>
-                                            </Collapse>
+                                                </TabPane>
+                                            </Tabs>
                                         </div>
-                                        :null
+                                        :<EmptyTip />
                                 }
 
                             </div>
                         </div>
                     </div>
                 </Spin>
+                </div>
             </Drawer>
 
         </>

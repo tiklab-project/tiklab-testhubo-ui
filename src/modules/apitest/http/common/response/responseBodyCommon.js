@@ -3,7 +3,7 @@ import "./testResponseStyle.scss"
 import ReactMonacoEditor from "../../../../common/reactMonacoEditor";
 
 const ResponseBodyCommon = (props) => {
-    const {responseBodyData,mediaType} = props;
+    const {responseBodyData,mediaType,height} = props;
 
 
     const [language, setLanguage] = useState();
@@ -14,10 +14,10 @@ const ResponseBodyCommon = (props) => {
         if(!data) return
 
         if(JSON.parse(data) instanceof Object){
-            setLanguage("json")
+
             return JSON.stringify(JSON.parse(data),null,4)
         }else {
-            setLanguage("text")
+
             return  JSON.parse(data)
         }
     }
@@ -28,9 +28,9 @@ const ResponseBodyCommon = (props) => {
         <div className={"codemirror-box"}>
 
             <ReactMonacoEditor
-                value={JSON.stringify(JSON.parse(responseBodyData),null,4)}
+                value={processData(responseBodyData)}
                 language={"json"}
-                height={"400px"}
+                height={height?height:"400px"}
                 width={"100%"}
                 readOnly={true}
             />

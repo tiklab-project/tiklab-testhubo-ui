@@ -25,18 +25,34 @@
 
 
 //
+.result-spin-box{
+    height: 100%;
+
+
+}
+
+.ant-spin-nested-loading{
+    height: 100%;
+
+    .ant-spin-container{
+        height: 100%;
+    }
+}
 
 .history-detail-box{
     display: flex;
     flex-direction: column;
 
 
+    .history-item-box{
+        display: flex;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
 
 }
-.history-item-box{
-    display: flex;
-    flex-grow: 1;
-}
+
 .history-detail-all-box{
     height: 140px;
     display: flex;
@@ -46,7 +62,7 @@
 }
 
 .history-detail-all-item{
-    width: 200px;
+    width: 180px;
     height: 100px;
     background: #efefef;
     border-radius: 5px;
@@ -62,9 +78,10 @@
 }
 .history-detail{
     flex: 1;
+    height: 100%;
 
     .history-detail-all{
-        height: 180px;
+        //height: 180px;
     }
 }
 
@@ -91,6 +108,7 @@
 
 
 .scene-step-detail{
+    overflow: auto;
     flex: 1;
 }
 
@@ -135,7 +153,7 @@
 .api-perf-test-header-box{
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: space-between;
     margin: 10px;
 }
 

@@ -15,19 +15,17 @@ export class ApiUnitInstanceStore {
     @observable params
 
     @action
-    findApiUnitInstancePage = async (id,value) => {
+    findApiUnitInstancePage = async (value) => {
         this.params = {
             ...value,
-            apiUnitId:id,
             orderParams:[{name:'createTime', orderType:'asc' }]
         }
 
         const res = await findApiUnitInstancePage(this.params );
         if(res.code === 0) {
             this.apiUnitInstanceList = res.data.dataList;
-            this.totalRecord = res.data.totalRecord;
-            return res.data
         }
+        return res
     }
 
     @action
@@ -66,10 +64,7 @@ export class ApiUnitInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteApiUnitInstance(param)
-        if(res.code === 0) {
-            this.findApiUnitInstanceList(this.params )
-        }
+        await deleteApiUnitInstance(param)
     }
 
 

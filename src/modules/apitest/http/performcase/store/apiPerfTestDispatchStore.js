@@ -18,8 +18,8 @@ export class ApiPerfTestDispatchStore {
         const res = await  apiPerfExecute(param);
         if(res.code === 0) {
             this.apiPerfTestResult = res.data;
-            return res.data
         }
+        return res
     }
 
     @action

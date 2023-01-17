@@ -1,21 +1,25 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {Button, Collapse, Input} from "antd";
 import BackCommon from "../../../../common/backCommon";
+import {processResHeader} from "../../common/response/testResponseFnCommon";
+import {TextMethodType} from "../../common/methodType";
+import EmptyTip from "../../common/instance/emptyTip";
+import IconCommon from "../../../../common/iconCommon";
+import "./apiUnitInstanceStyle.scss"
+import ResponseCommon from "../../common/response/responseCommon";
 
-const {TextArea} = Input;
-const { Panel } = Collapse;
 
 const ApiUnitInstance = (props) =>{
     const {apiUnitInstanceStore} = props;
-    const {findApiUnitInstanceList,apiUnitInstanceList,findApiUnitInstance} = apiUnitInstanceStore;
+    const {
+        findApiUnitInstanceList,
+        apiUnitInstanceList,
+        findApiUnitInstance,
+        deleteApiUnitInstance
+    } = apiUnitInstanceStore;
 
     const [selected, setSelected] = useState();
-    const [requestInstance,setRequestInstance]=useState({})
-    const [responseInstance, setResponseInstance] = useState();
-    const [statusCode, setStatusCode] = useState("");
-    const [result, setResult] = useState("");
-    const [testTime, setTestTime] = useState();
+    const [allData, setAllData] = useState();
 
     const apiUnitId = sessionStorage.getItem("apiUnitId")
 
@@ -23,127 +27,138 @@ const ApiUnitInstance = (props) =>{
         findApiUnitInstanceList(apiUnitId)
     },[])
 
+    //点击步骤
     const clickFindInstance = id =>{
         setSelected(id)
         findApiUnitInstance(id).then(res=>{
-            setStatusCode(res.statusCode);
-            setResult(res.result)
-            setRequestInstance(res.requestInstance);
-            setResponseInstance(res.responseInstance);
-            setTestTime(res.createTime)
+            setAllData(res)
         })
     }
 
+    //删除历史
+    const deleteFn = (id)=>{
+        deleteApiUnitInstance(id).then(()=> findApiUnitInstanceList(apiUnitId))
+    }
+
+    //历史列表项
     const showInstanceListView = (data) =>{
         return data&&data.map(item=>{
             return (
-                <div className={`history-item ${selected===item.id?"history-item-selected":""}`} key={item.id} onClick={()=>clickFindInstance(item.id)}>
-                    {
-                        item.result===1
-                            ?<div className='history-item-result '>
-                                <div className={"isSucceed"}>通过</div>
+                <div className={"history-item-box"}>
+                    <div
+                        className={`history-item ${selected===item.id?"history-item-selected":""}`}
+                        key={item.id}
+                        onClick={()=>clickFindInstance(item.id)}
+                    >
+                        {
+                            item.result===1
+                                ?<div className='history-item-result '>
+                                    <div className={"isSucceed"}>通过</div>
+                                </div>
+                                :<div className='history-item-result '>
+                                    <div className={"isFailed"}>未通过</div>
+                                </div>
+                        }
+                        <div className='history-item-detail'>
+                            <div>{item.createTime}</div>
+                            <div>
+                                <span style={{margin:" 0 10px 0 0"}}>{item.apiUnit?.methodType}</span>
+                                <span>{item.elapsedTime} ms</span>
                             </div>
-                            :<div className='history-item-result '>
-                                <div className={"isFailed"}>未通过</div>
-                            </div>
-                    }
-                    <div className='history-item-detail'>
-                        <div>{item.createTime}</div>
-                        <div>
-                            <span style={{margin:" 0 10px 0 0"}}>{item.apiUnit?.methodType}</span>
-                            <span>{item.elapsedTime} ms</span>
+                            <div>{item.name}</div>
                         </div>
 
-                        <div>{item.name}</div>
                     </div>
+                    <IconCommon
+                        icon={"shanchu1"}
+                        className={"history-delete-icon icon-s"}
+                        onClick={()=>deleteFn(item.id)}
+                    />
+                </div>
+
+            )
+        })
+    }
+
+    // 返回详情页
+    const toUnitDetail =()=>{
+        props.history.push("/repositorypage/testcase/api-unit-detail")
+    }
+
+    //响应结果基础信息项
+    const detail = [
+        {
+            title:"请求地址:",
+            value:allData?.requestInstance?.requestUrl,
+            key:"url"
+        },{
+            title:"请求方式:",
+            value:allData?.requestInstance?.requestType,
+            key:"methodType"
+        },{
+            title:"状态码:",
+            value:allData?.statusCode,
+            key:"statusCode"
+        },{
+            title:"测试结果:",
+            value:allData?.result ? '成功' : '失败',
+            key:"result"
+        },{
+            title:"测试时间:",
+            value:allData?.createTime,
+            key:"testTime"
+        },
+    ]
+
+    //响应结果基础信息展示
+    const showDetail = (data) =>{
+        return data.map(item=>{
+            return(
+                <div key={item.key} className={"history-detail-item-box"}>
+                    <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
+                        <span className={"history-detail-item-box-title"}>{item.title}</span>
+                    </div>
+
+                    {
+                        item.key==="methodType"
+                            ? <TextMethodType type={allData?.requestInstance?.requestType} />
+                            :<span className={"history-detail-item-box-value"}>{item.value}</span>
+                    }
+
                 </div>
             )
         })
     }
 
-    const changeCollapse = () =>{
-
-    }
-
-    const toUnitDetail =()=>{
-        props.history.push("/repositorypage/testcase/api-unitdetail")
-    }
 
     return(
-        <>
+        <div style={{height:"calc( 100% - 48px)"}}>
             <BackCommon clickBack={toUnitDetail}/>
             <div className={"unit-instance"}>
                 <div className={"test-detail-history"}>
                     <div className={"header-item"}>历史列表</div>
-                    {
-                        showInstanceListView(apiUnitInstanceList)
-                    }
+                    <div className={"history-list"}>
+                        {
+                            showInstanceListView(apiUnitInstanceList)
+                        }
+                    </div>
                 </div>
                 <div className={"unit-instance-detail"}>
-                    <div className={"header-item"}>历史详情</div>
-                    <div>
-                        <div>
-                            <span>请求地址:  </span>
-                            <span>{requestInstance?.requestUrl}</span>
-                        </div>
-                        <div>
-                            <span>请求方式:  </span>
-                            <span>{requestInstance?.requestType}</span>
-                        </div>
-                        <div>
-                            <span>状态码:  </span>
-                            <span>{statusCode}</span>
-                        </div>
-                        <div>
-                            <span>测试结果:  </span>
-                            <span>{result=== "1" ? '成功' : '失败'}</span>
-                        </div>
-                        <div>
-                            <span>测试时间:  </span>
-                            <span>{testTime}</span>
-                        </div>
-                        <Collapse
-                            defaultActiveKey={['1']}
-                            onChange={changeCollapse}
-                            expandIconPosition={"right"}
-                            ghost
-                        >
-                            <Panel header="响应体" key="1" >
-                                <TextArea
-                                    autoSize={{minRows: 4, maxRows: 10 }}
-                                    value={responseInstance?.responseBody}
-                                />
-                            </Panel>
-                            <Panel header="响应头" key="2" >
-                                <TextArea
-                                    autoSize={{minRows: 4, maxRows: 10 }}
-                                    value={responseInstance?.responseHeader}
-                                />
-                            </Panel>
-                            <Panel header="请求体" key="3" >
-                                <TextArea
-                                    autoSize={{minRows: 4, maxRows: 10 }}
-                                    value={requestInstance?.requestParam}
-                                />
-                            </Panel>
-                            <Panel header="请求头" key="4" >
-                                <TextArea
-                                    autoSize={{minRows: 4, maxRows: 10 }}
-                                    value={requestInstance?.requestHeader}
-                                />
-                            </Panel>
-                            <Panel header="断言" key="5" >
-                                <TextArea
-                                    autoSize={{minRows: 4, maxRows: 10 }}
-                                    value={requestInstance?.responseHeader}
-                                />
-                            </Panel>
-                        </Collapse>
-                    </div>
+                    <div className={"header-item"}>步骤详情</div>
+                    {
+                        allData
+                            ?<ResponseCommon
+                                detail={showDetail(detail)}
+                                resBody={allData?.responseInstance?.responseBody}
+                                resHeader={processResHeader(allData?.responseInstance?.responseHeader)}
+                                reqHeader={processResHeader(allData?.requestInstance?.requestHeader)}
+                            />
+                            :<EmptyTip />
+                    }
 
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

@@ -4,9 +4,9 @@
  */
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import BackCommon from "../../../common/backCommon";
 import {Form, Input} from "antd";
 import DetailCommon from "../../../common/detailCommon";
+import LeftRightBox from "../../../common/leftRightBox";
 
 const layout = {
     labelCol: {span: 4},
@@ -49,48 +49,45 @@ const AppUnitDetail = (props) => {
     }
 
 
-    const goback = () =>{
-        props.history.push("/repositorypage/testcase/list")
-    }
-
-
     return(
-        <>
-            {/*<BackCommon clickBack={goback} />*/}
-            <div className={"content-box-center"}>
-                <DetailCommon
-                    detailInfo={detailInfo}
-                    updateTitle={updateTitle}
-                />
-                <div style={{"width":"600px"}}>
+        <div className={"content-box-center"}>
+            <DetailCommon
+                detailInfo={detailInfo}
+                updateTitle={updateTitle}
+            />
+            <LeftRightBox
+                left={<div style={{fontWeight:"bold"}}>用例录入</div>}
+            />
+            <div className={"case-unit-step-box"}>
                 <Form
                     form={form}
                     preserve={false}
                     {...layout}
+                    labelAlign={"left"}
                 >
                     <Form.Item
                         label="操作方法"
                         name="actionType"
                     >
-                        <Input />
+                        <Input bordered={false}/>
                     </Form.Item>
                     <Form.Item
                         label="参数"
                         name="parameter"
                     >
-                        <Input />
+                        <Input bordered={false}/>
                     </Form.Item>
                     <Form.Item
                         label="定位器"
                         name="location"
                     >
-                        <Input />
+                        <Input bordered={false}/>
                     </Form.Item>
                     <Form.Item
                         label="定位器的值"
                         name="locationValue"
                     >
-                        <Input />
+                        <Input bordered={false}/>
                     </Form.Item>
 
 
@@ -104,12 +101,12 @@ const AppUnitDetail = (props) => {
                         label="描述"
                         name="desc"
                     >
-                        <Input />
+                        <Input bordered={false}/>
                     </Form.Item>
                 </Form>
             </div>
-            </div>
-        </>
+        </div>
+
     )
 }
 

@@ -9,23 +9,20 @@ import {
 export class AppPerfInstanceStore {
 
     @observable appPerfInstanceList = [];
-    @observable	totalRecord = "";
-    @observable params
+
 
     @action
-    findAppPerfInstancePage = async (id,value) => {
-        this.params = {
+    findAppPerfInstancePage = async (value) => {
+        let params = {
             ...value,
-            appPerfId:id,
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await findAppPerfInstancePage(this.params );
+        const res = await findAppPerfInstancePage(params );
         if(res.code === 0) {
             this.appPerfInstanceList = res.data.dataList;
-            this.totalRecord = res.data.totalRecord;
-            return res
         }
+        return res
     }
 
     @action

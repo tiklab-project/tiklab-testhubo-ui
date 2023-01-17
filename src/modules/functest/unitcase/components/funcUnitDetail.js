@@ -41,8 +41,6 @@ const FuncUnitDetail = (props) => {
 
     return(
         <div className={"content-box-center"}>
-            {/*<BackCommon clickBack={goback} />*/}
-
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}

@@ -4,16 +4,16 @@ export const processResHeader = (data)=>{
 
     if(!data) return
 
-    // let resHeader = JSON.parse(data)
+    let resHeader = JSON.parse(data)
 
-    let arr = Object.keys(data)
+    let arr = Object.keys(resHeader)
 
     let list = []
     arr.map(item=>{
         list.push(
             {
                 key:item,
-                value:data[item],
+                value:resHeader[item],
                 id:item
             }
         )

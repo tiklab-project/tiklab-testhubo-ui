@@ -4,7 +4,7 @@ import {
     createApiPerfInstance,
     findApiPerfInstance,
     updateApiPerfInstance,
-    deleteApiPerfInstance
+    deleteApiPerfInstance, findApiPerfInstancePage
 } from '../api/apiPerfInstanceApi'
 
 export class ApiPerfInstanceStore {
@@ -12,6 +12,22 @@ export class ApiPerfInstanceStore {
     @observable apiPerfInstanceList = [];
     @observable apiPerfInstanceInfo;
     @observable apiPerformId;
+
+    @action
+    findApiPerfInstancePage = async (value) => {
+        const params = {
+            ...value,
+            orderParams:[{name:'createTime', orderType:'desc'}],
+        }
+        const res = await findApiPerfInstancePage(params);
+
+        if(res.code === 0) {
+            this.apiPerfInstanceList = res.data.dataList;
+        }
+
+        return res
+    }
+
 
     @action
     findApiPerfInstanceList = async (id) => {

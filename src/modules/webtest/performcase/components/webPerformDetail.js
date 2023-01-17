@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import { Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import WebPerfStepList from "./webPerfStepList";
-import WebPerformCofig from "./webPerfConfig";
+import WebPerformConfig from "./webPerfConfig";
 import DetailCommon from "../../../common/detailCommon";
+import WebPerformTestDrawer from "./webPerformTestDrawer";
 const { TabPane } = Tabs;
 
 const WebPerformDetail = (props) =>{
@@ -32,21 +33,28 @@ const WebPerformDetail = (props) =>{
         updateWebPerf(param)
     }
 
+    //去往历史页
+    const toHistory = () =>{
+        props.history.push("/repositorypage/testcase/web-perform-instance")
+    }
+
     return(
-        <>
+        <div className={"content-box-center"}>
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
+                toHistory={toHistory}
+                test={<WebPerformTestDrawer />}
             />
             <Tabs defaultActiveKey="1" >
                 <TabPane tab="场景配置" key="1">
                     <WebPerfStepList />
                 </TabPane>
                 <TabPane tab="压力配置" key="2">
-                    <WebPerformCofig />
+                    <WebPerformConfig {...props} />
                 </TabPane>
             </Tabs>
-        </>
+        </div>
     )
 }
 export default inject("webPerfStore")(observer(WebPerformDetail));

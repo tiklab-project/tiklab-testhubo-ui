@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input} from 'antd';
+import IconCommon from "../../../common/iconCommon";
 
 const layout = {
     labelCol: {span: 4},
@@ -59,7 +60,11 @@ const FuncUnitStepEdit = (props) => {
             {
                 props.name === "添加步骤"
                     ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
-                    : <a onClick={showModal}>{props.name}</a>
+                    : <IconCommon
+                        icon={"bianji11"}
+                        className={"icon-s edit-icon"}
+                        onClick={showModal}
+                    />
             }
 
             <Modal

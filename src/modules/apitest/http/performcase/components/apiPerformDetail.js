@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Button, Tabs} from "antd";
+import {Button, Space, Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import ApiPerfStepList from "./apiPerfStepList";
 import ApiPerformConfig from "./apiPerfConfig";
 import DetailCommon from "../../../../common/detailCommon";
-
+import ApiPerformTest from "./apiPerformTestDrawer";
 
 const { TabPane } = Tabs;
 
@@ -35,9 +35,9 @@ const ApiPerformDetail = (props) =>{
     }
 
 
-    //去往测试页面
-    const toTestPage=()=>{
-        props.history.push("/repositorypage/testcase/api-perform-test")
+    //去往历史页
+    const toHistory = () =>{
+        props.history.push("/repositorypage/testcase/api-perform-instance")
     }
 
     return(
@@ -45,7 +45,8 @@ const ApiPerformDetail = (props) =>{
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
-                test={<Button className={"important-btn"} onClick={toTestPage}>测试</Button>}
+                toHistory={toHistory}
+                test={<ApiPerformTest />}
             />
 
             <Tabs defaultActiveKey="1" >
@@ -53,7 +54,7 @@ const ApiPerformDetail = (props) =>{
                     <ApiPerfStepList />
                 </TabPane>
                 <TabPane tab="压力配置" key="2">
-                    <ApiPerformConfig />
+                    <ApiPerformConfig {...props}/>
                 </TabPane>
             </Tabs>
         </div>

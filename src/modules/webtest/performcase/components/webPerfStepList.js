@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {Popconfirm, Space, Switch, Table} from "antd";
 import WebPerformBindScene from "./webPerformBindScene";
 import {inject, observer} from "mobx-react";
+import IconCommon from "../../../common/iconCommon";
 
 const WebPerfStep = (props) =>{
     const {webPerfStepStore} = props;
@@ -23,8 +24,7 @@ const WebPerfStep = (props) =>{
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            align: 'center',
-            width: "15%",
+            width: "120",
             render: (text, record) => (
                 <Popconfirm
                     title="确定删除？"
@@ -32,7 +32,10 @@ const WebPerfStep = (props) =>{
                     okText='确定'
                     cancelText='取消'
                 >
-                    <a className="table-delete"> 删除 </a>
+                    <IconCommon
+                        className={"icon-s edit-icon"}
+                        icon={"shanchu3"}
+                    />
                 </Popconfirm>
             )
         },
@@ -47,17 +50,20 @@ const WebPerfStep = (props) =>{
 
     return(
         <>
-            <WebPerformBindScene
-                webPerfStepStore={webPerfStepStore}
-                webPerfId={webPerfId}
-            />
-
-            <Table
-                columns={column}
-                dataSource={webPerfStepList}
-                rowKey = {record => record.id}
-                pagination={false}
-            />
+            <div className='title-space-between'>
+                <WebPerformBindScene
+                    webPerfStepStore={webPerfStepStore}
+                    webPerfId={webPerfId}
+                />
+            </div>
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={webPerfStepList}
+                    rowKey = {record => record.id}
+                    pagination={false}
+                />
+            </div>
         </>
     )
 }

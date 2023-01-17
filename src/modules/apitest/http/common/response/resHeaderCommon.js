@@ -11,7 +11,7 @@ const ResHeaderCommon = (props) => {
             title:` 属性`,
             dataIndex: "key",
             key: "key",
-            width:"20%",
+            width:"30%",
         },
         {
             title: `值`,
@@ -23,6 +23,7 @@ const ResHeaderCommon = (props) => {
 
     return(
         <Table
+            bordered
             dataSource={headers}
             pagination={false}
             rowKey={record => record.id}

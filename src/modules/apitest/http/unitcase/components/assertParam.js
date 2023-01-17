@@ -54,19 +54,19 @@ const AssertParam = (props) =>{
         {
             title: '属性',
             dataIndex: 'propertyName',
-            width: '20%',
+            width: '32%',
             editable: true,
         },
-        {
-            title: '比较符',
-            width: '10%',
-            dataIndex: 'comparator',
-            render:()=>(<span>=</span>)
-
-        },
+        // {
+        //     title: '比较符',
+        //     width: '10%',
+        //     dataIndex: 'comparator',
+        //     render:()=>(<span>=</span>)
+        //
+        // },
         {
             title: '值',
-            width: '30%',
+            width: '32%',
             dataIndex: 'value',
             editable: true,
         },

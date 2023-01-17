@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, InputNumber, Radio, Checkbox, Form, Input} from "antd";
+import {Button, InputNumber, Radio, Checkbox, Form, Input, Popconfirm} from "antd";
 import {inject, observer} from "mobx-react";
 
 const layout = {
@@ -32,11 +32,11 @@ const WebPerfConfig = (props) =>{
         })
     },[webPerfId])
 
-    useEffect(()=>{
-        findAgentConfigList(repositoryId).then(res=>{
-            setAgentConfigList(res)
-        })
-    },[repositoryId])
+    // useEffect(()=>{
+    //     findAgentConfigList(repositoryId).then(res=>{
+    //         setAgentConfigList(res)
+    //     })
+    // },[repositoryId])
 
 
     //并发数
@@ -108,14 +108,18 @@ const WebPerfConfig = (props) =>{
         })
     }
 
+    const toAgentPage = ()=>{
+        props.history.push("/repositorypage/setting/agent")
+    }
 
 
     return(
-        <>
+        <div style={{margin:"20px 0 0"}}>
             <Form
                 form={form}
                 preserve={false}
                 {...layout}
+                labelAlign={"left"}
             >
                 <Form.Item
                     label="并发数"
@@ -150,13 +154,26 @@ const WebPerfConfig = (props) =>{
                     label="节点"
                     name="agent"
                 >
-                    {
-                        showClient(agentConfigList)
-                    }
+                    {/*{*/}
+                    {/*    showClient(agentConfigList)*/}
+                    {/*}*/}
+                    <Popconfirm
+                        title="确定离开？"
+                        onConfirm={toAgentPage}
+                        okText='确定'
+                        cancelText='取消'
+                    >
+                        <div style={{
+                            width: "140px",
+                            color:"#0078d6",
+                            cursor:"pointer"
+                        }}>前往Agent管理页管理</div>
+                    </Popconfirm>
                 </Form.Item>
 
+
             </Form>
-        </>
+        </div>
     )
 }
 

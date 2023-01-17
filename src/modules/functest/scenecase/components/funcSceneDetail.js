@@ -33,22 +33,14 @@ const FuncSceneDetail = (props) => {
         updateFuncScene(param)
     }
 
-
-    const goback = () =>{
-        props.history.push("/repositorypage/testcase/list")
-    }
-
-
     return(
         <div className={"content-box-center"}>
-            {/*<BackCommon clickBack={goback} />*/}
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
             />
 
             <FuncSceneStepList />
-
         </div>
     )
 }

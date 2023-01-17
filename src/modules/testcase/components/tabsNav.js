@@ -61,15 +61,15 @@ const TabsNav = (props) =>{
         switch (record.caseType) {
             case "unit":
                 sessionStorage.setItem(`${record.testType}UnitId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-unitdetail`)
+                props.history.push(`/repositorypage/testcase/${record.testType}-unit-detail`)
                 break;
             case "scene":
                 sessionStorage.setItem(`${record.testType}SceneId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-scenedetail`)
+                props.history.push(`/repositorypage/testcase/${record.testType}-scene-detail`)
                 break;
             case "perform":
                 sessionStorage.setItem(`${record.testType}PerfId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-performdetail`)
+                props.history.push(`/repositorypage/testcase/${record.testType}-perform-detail`)
                 break;
         }
     }
@@ -113,7 +113,11 @@ const TabsNav = (props) =>{
             onChange={onChange}
             activeKey={activeKey}
             onEdit={onEdit}
-            tabBarExtraContent={testType==="api"?<ApiEnvSelect />:null}
+            tabBarExtraContent={
+                testType==="api"
+                    ?<div style={{margin:"0 10px"}}><ApiEnvSelect /></div>
+                    :null
+            }
         >
             {
                 tabList&&tabList.map((item,index )=> (
@@ -124,9 +128,11 @@ const TabsNav = (props) =>{
                         closable={!!item.testType}
                         // className={"tab-pane"}
                     >
-                        {
-                            renderRoutes(router)
-                        }
+                        <div className={"content-main-box"}>
+                            {
+                                renderRoutes(router)
+                            }
+                        </div>
                     </TabPane>
                 ))
             }

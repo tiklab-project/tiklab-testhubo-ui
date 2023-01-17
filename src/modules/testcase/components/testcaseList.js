@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Dropdown, Empty, Input, Menu, Popconfirm, Select, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import "./testcaseStyle.scss"
+import "../../apitest/http/apitest/caseContantStyle.scss"
 import emptyImg from "../../../assets/img/empty.png"
 import ApiUnitEdit from "../../apitest/http/unitcase/components/apiUnitEdit";
 import ApiSceneEdit from "../../apitest/http/scenecase/components/apiSceneEdit";
@@ -151,15 +152,15 @@ const TestCaseList = (props) => {
         switch (record.caseType) {
             case "unit":
                 sessionStorage.setItem(`${record.testType}UnitId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-unitdetail`)
+                props.history.push(`/repositorypage/testcase/${record.testType}-unit-detail`)
                 break;
             case "scene":
                 sessionStorage.setItem(`${record.testType}SceneId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-scenedetail`)
+                props.history.push(`/repositorypage/testcase/${record.testType}-scene-detail`)
                 break;
             case "perform":
                 sessionStorage.setItem(`${record.testType}PerfId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-performdetail`)
+                props.history.push(`/repositorypage/testcase/${record.testType}-perform-detail`)
                 break;
         }
     }
@@ -368,6 +369,7 @@ const TestCaseList = (props) => {
         </Menu>
     )
     return(
+
         <div className={"testcase-box"}>
             <div  className={"header-box-space-between"} >
                 <div className={'header-box-title'}>用例列表</div>
@@ -426,7 +428,9 @@ const TestCaseList = (props) => {
                     }}
                 />
             </div>
+
         </div>
+
     )
 
 
