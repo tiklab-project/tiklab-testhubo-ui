@@ -15,7 +15,7 @@ const AppPerfomDetailContant = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repositorypage/testcase/list")
+        props.history.push("/repository/testcase/list")
     }
 
 
@@ -29,10 +29,10 @@ const AppPerfomDetailContant = (props) =>{
                     mode="horizontal"
                 >
                     <Menu.Item key="config">
-                        <Link to='/repositorypage/apptest/performdetail/config'>配置</Link>
+                        <Link to='/repository/apptest/performdetail/config'>配置</Link>
                     </Menu.Item>
                     <Menu.Item key="test"  >
-                        <Link to='/repositorypage/apptest/performdetail/test'>测试</Link>
+                        <Link to='/repository/apptest/performdetail/test'>测试</Link>
                     </Menu.Item>
                 </Menu>
 

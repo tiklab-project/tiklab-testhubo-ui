@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { observer, inject } from "mobx-react";
 import {Modal, Form, Input, Button} from 'antd';
+import IconCommon from "../../common/iconCommon";
 
 // 目录的编辑与添加
 const CategoryEdit =(props)=>{
@@ -54,9 +55,44 @@ const CategoryEdit =(props)=>{
         setVisible(false)
     };
 
+
+    //展示组件
+    const showEditView = () =>{
+
+        if(props.children){
+            return(
+                <IconCommon
+                    icon={"xinzeng"}
+                    className={"icon-s edit-icon"}
+                    onClick={showModal}
+                />
+            )
+        }
+
+        if(props.type==="edit"){
+            return(
+                <IconCommon
+                    icon={"bianji11"}
+                    className={"icon-s edit-icon"}
+                    onClick={showModal}
+                />
+            )
+        }
+
+        return(
+            <Button
+                className={"important-btn"}
+                onClick={showModal}
+            >
+                {props.name}
+            </Button>
+        )
+
+    }
+
     return(
-        <Fragment>
-            <a onClick={showModal}>{props.name}</a>
+        <>
+            {showEditView()}
             <Modal
                 title={props.type==="edit"?"编辑":"添加"}
                 visible={visible}
@@ -82,7 +118,7 @@ const CategoryEdit =(props)=>{
                     </Form.Item>
                 </Form>
             </Modal>
-        </Fragment>
+        </>
     )
 
 }

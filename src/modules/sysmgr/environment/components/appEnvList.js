@@ -93,7 +93,7 @@ const AppEnvList = (props) => {
                         imageStyle={{
                             height: 120,
                         }}
-                        description={<span>暂无空间</span>}
+                        description={<span>暂无环境</span>}
                         image={emptyImg}
                     />,
                 }}

@@ -92,7 +92,7 @@ const ApiPerfList = (props) =>{
     const setStorage = (id) => {
         sessionStorage.setItem('apiPerfId',id);
 
-        props.history.push('/repositorypage/apitest/performdetail')
+        props.history.push('/repository/apitest/performdetail')
     }
 
 

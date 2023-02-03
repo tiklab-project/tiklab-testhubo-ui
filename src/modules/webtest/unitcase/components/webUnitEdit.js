@@ -1,13 +1,15 @@
 
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select, Cascader} from 'antd';
+import {Form, Modal, Button, Input, Select, Cascader, TreeSelect} from 'antd';
 
 
 const layout = {
     labelCol: {span: 4},
     wrapperCol: {span: 20},
 };
+
+const {Option} = Select
 
 // 添加与编辑
 const WebUnitEdit = (props) => {
@@ -36,9 +38,7 @@ const WebUnitEdit = (props) => {
         findAllLocation();
         findActionTypeList({"type": "WEB"});
 
-        if(props.isCategory!==true){
-            findCategoryListTreeTable(repositoryId)
-        }
+        findCategoryListTreeTable(repositoryId)
 
 
         if(props.type==="edit"){
@@ -66,6 +66,7 @@ const WebUnitEdit = (props) => {
         if(props.type!=="edit"){
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                repositoryId:repositoryId,
                 name:values.name,
                 testType:"web",
                 caseType:"unit",
@@ -76,8 +77,11 @@ const WebUnitEdit = (props) => {
             delete values.name
             delete values.desc
 
-            createWebUnit(values).then(()=> {
-                findList()
+            createWebUnit(values).then((res)=> {
+                if(res.code===0){
+                    sessionStorage.setItem(`webUnitId`,res.data);
+                    props.history.push(`/repository/web-unit-detail`)
+                }
             })
         }else {
             values.id=webUnitId;
@@ -143,8 +147,7 @@ const WebUnitEdit = (props) => {
     //获取分组id
     const changeCategory=(value)=> {
         //获取最后数组最后一位值
-        const list = value.slice(-1);
-        setCascaderCategoryId(list[0])
+        setCascaderCategoryId(value)
     }
 
     const onCancel = () => { setVisible(false) };
@@ -172,30 +175,31 @@ const WebUnitEdit = (props) => {
                     preserve={false}
                     layout={"vertical"}
                 >
-                    {
-                        props.isCategory!==true
-                            ? <Form.Item
-                                label="分组"
-                                rules={[{ required: true, }]}
-                                name="category"
-                            >
-                                <Cascader
-                                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
-                                    options={categoryTableList}
-                                    onChange={changeCategory}
-                                    changeOnSelect
-                                    expandTrigger={"hover"}
-                                    placeholder="请选择分组"
-                                />
-                            </Form.Item>
-                            :null
-                    }
                     <Form.Item
                         label="名称"
                         rules={[{ required: true, }]}
                         name="name"
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="模块"
+                        name="category"
+                    >
+                        <TreeSelect
+                            fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                            style={{  width: '100%'}}
+                            value={cascaderCategoryId}
+                            dropdownStyle={{
+                                maxHeight: 400,
+                                overflow: 'auto',
+                            }}
+                            placeholder="请选择模块"
+                            allowClear
+                            treeDefaultExpandAll
+                            onChange={changeCategory}
+                            treeData={categoryTableList}
+                        />
                     </Form.Item>
                     <Form.Item
                         label="操作方法"

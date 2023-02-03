@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, Input, Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
+import IconBtn from "../../../common/iconBtn/IconBtn";
 
 const AppPerformBindScene = (props) =>{
     const {appSceneStore,appPerfStepStore,appPerfId} = props;
@@ -60,7 +61,11 @@ const AppPerformBindScene = (props) =>{
 
     return(
         <>
-            <Button className="important-btn" onClick={showModal}>关联场景</Button>
+            <IconBtn
+                className="pi-icon-btn-grey"
+                name={"关联场景"}
+                onClick={showModal}
+            />
             <Modal
                 destroyOnClose={true}
                 title="关联场景"

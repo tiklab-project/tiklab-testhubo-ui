@@ -94,7 +94,7 @@ const WebSceneList = (props) => {
     const setStorage = (id) =>{
         sessionStorage.setItem("webSceneId",id);
 
-        props.history.push("/repositorypage/webtest/scenedetail")
+        props.history.push("/repository/webtest/scenedetail")
     }
 
 

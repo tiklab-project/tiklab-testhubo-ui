@@ -45,7 +45,7 @@ const AppTestcase = (props) => {
         })
     },[])
 
-    const toTestcase = () => props.history.push('/repositorypage/Testcase');
+    const toTestcase = () => props.history.push('/repository/Testcase');
 
     const itemDataObj =[
         {

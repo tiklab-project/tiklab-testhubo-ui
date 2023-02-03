@@ -8,7 +8,7 @@ import {dictionary} from "../../../../common/dictionary/dictionary";
 import ApiUnitTestResult from "./apiUnitTestResult";
 import {messageFn} from "../../../../common/messageCommon/messageCommon";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
-import ApiUnitInstanceDrawer from "./apiUnitInstanceDrawer";
+import IconCommon from "../../../../common/iconCommon";
 
 const {Option} = Select;
 
@@ -71,7 +71,7 @@ const ApiUnitDetail = (props) => {
     }
 
     const toHistory = () =>{
-        addRouter("/repositorypage/testcase/api-unitcase-instance")
+        addRouter("/repository/api-unit-instance")
     }
 
     //编辑名称
@@ -120,10 +120,23 @@ const ApiUnitDetail = (props) => {
         }
     }
 
+    const goBack = () =>{
+        props.history.push("/repository/testcase")
+    }
+
+
     return(
         <div className={"content-box-center"}>
             <div className='header-box-space-between'>
-                <div style={{height:32}}>
+                <div style={{height:32,"display":"flex","gap":"10px","alignItems":"center"}}>
+                    <IconCommon
+                        icon={"31fanhui1"}
+                        className={"icon-s"}
+                        style={{cursor: "pointer"}}
+                        onClick={goBack}
+                    />
+
+
                     <EdiText
                         value={name}
                         tabIndex={2}

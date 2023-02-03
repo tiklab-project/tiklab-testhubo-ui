@@ -83,7 +83,7 @@ const FuncUnitList = (props) => {
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("funcUnitId",id);
 
-        props.history.push("/repositorypage/functest/unitdetail")
+        props.history.push("/repository/functest/unitdetail")
     }
 
     const deleteFn = (id)=>{

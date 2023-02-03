@@ -12,6 +12,12 @@ export class WebEnvStore {
 
 	@observable webEnvList = [];
 	@observable webEnvInfo;
+	@observable webEnv;
+
+	@action
+	getWebEnv = (data) =>{
+		this.webEnv = data;
+	}
 
 	@action
 	findWebEnvPage = async (id) => {

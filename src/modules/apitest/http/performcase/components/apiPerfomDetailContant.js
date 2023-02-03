@@ -19,10 +19,10 @@ const ApiPerformDetailContant = (props) =>{
                 mode="horizontal"
             >
                 <Menu.Item key="config">
-                    <Link to='/repositorypage/testcase/api-performdetail/config'>配置</Link>
+                    <Link to='/repository/testcase/api-performdetail/config'>配置</Link>
                 </Menu.Item>
                 <Menu.Item key="test"  >
-                    <Link to='/repositorypage/testcase/api-performdetail/test'>测试</Link>
+                    <Link to='/repository/testcase/api-performdetail/test'>测试</Link>
                 </Menu.Item>
             </Menu>
 

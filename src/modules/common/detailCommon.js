@@ -1,6 +1,7 @@
 import React from "react";
 import EdiText from "react-editext";
 import {Space} from "antd";
+import IconCommon from "./iconCommon";
 
 const DetailCommon = (props) =>{
     const {updateTitle,detailInfo,toHistory } = props;
@@ -8,24 +9,26 @@ const DetailCommon = (props) =>{
     return(
         <div className={"detail-box"}>
             <div className={"detail-header"}>
-                <EdiText
-                    value={detailInfo?.testCase?.name}
-                    // tabIndex={2}
-                    onSave={updateTitle}
-                    startEditingOnFocus
-                    submitOnUnfocus
-                    showButtonsOnHover
-                    viewProps={{ className: 'edit-api-name' }}
-                    editButtonClassName="ediText-edit"
-                    saveButtonClassName="ediText-save"
-                    cancelButtonClassName="ediText-cancel"
-                    editButtonContent={
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref= {`#icon-bianji1`} />
-                        </svg>
-                    }
-                    hideIcons
-                />
+                <div style={{"display":"flex","gap":"10px","alignItems":"center"}}>
+                    <EdiText
+                        value={detailInfo?.testCase?.name}
+                        // tabIndex={2}
+                        onSave={updateTitle}
+                        startEditingOnFocus
+                        submitOnUnfocus
+                        showButtonsOnHover
+                        viewProps={{ className: 'edit-api-name' }}
+                        editButtonClassName="ediText-edit"
+                        saveButtonClassName="ediText-save"
+                        cancelButtonClassName="ediText-cancel"
+                        editButtonContent={
+                            <svg className="icon" aria-hidden="true">
+                                <use xlinkHref= {`#icon-bianji1`} />
+                            </svg>
+                        }
+                        hideIcons
+                    />
+                </div>
                 <Space>
                     {toHistory?<a onClick={toHistory}>测试历史</a>:null}
                     {props.test}

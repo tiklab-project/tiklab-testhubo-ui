@@ -3,7 +3,7 @@
  * @Author: sunxiancheng
  * @LastEditTime: 2021-10-13 17:05:48
  */
-import React from 'react';
+import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Select} from 'antd';
 import IconCommon from "../../../common/iconCommon";
@@ -27,6 +27,7 @@ const WebEnvEdit = (props) => {
     const [form] = Form.useForm();
     
     const [visible, setVisible] = React.useState(false);
+    const [allData, setAllData] = useState();
 
     // 弹框展示
     const showModal = () => {
@@ -36,6 +37,8 @@ const WebEnvEdit = (props) => {
                     name: res.name,
                     webDriver:res.webDriver
                 })
+
+                setAllData(res)
             })
         }
         setVisible(true);
@@ -48,6 +51,7 @@ const WebEnvEdit = (props) => {
         if(props.type === "add" ){
             createWebEnv(values);
         }else{
+            values.id=allData?.id
             updateWebEnv(values);
         }
         setVisible(false);

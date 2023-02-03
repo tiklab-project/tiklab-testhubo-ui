@@ -51,7 +51,7 @@ const FuncUnitCategory = (props) =>{
 
         sessionStorage.setItem('categoryId',item.id);
 
-        addRouter('/repositorypage/functest/unitcase');
+        addRouter('/repository/functest/unitcase');
     }
 
     //保存接口id，跳往接口详情页
@@ -59,7 +59,7 @@ const FuncUnitCategory = (props) =>{
         setClickKey(item.id);
 
         sessionStorage.setItem('nodeId',item.id);
-        addRouter('/repositorypage/functest/unitdetail');
+        addRouter('/repository/functest/unitdetail');
     }
 
     //目录悬浮的操作项
@@ -193,7 +193,7 @@ const FuncUnitCategory = (props) =>{
 
 
     // const toCategoryManag = () =>{
-    //     props.history.push("/repositorypage/category")
+    //     props.history.push("/repository/category")
     // }
 
     // const menu = (

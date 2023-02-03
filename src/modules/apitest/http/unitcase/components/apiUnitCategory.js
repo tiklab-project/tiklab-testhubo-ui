@@ -54,7 +54,7 @@ const ApiUnitCategory = (props) =>{
 
         sessionStorage.setItem('categoryId',item.id);
 
-        addRouter('/repositorypage/apitest/unitcase');
+        addRouter('/repository/apitest/unitcase');
     }
 
     //保存接口id，跳往接口详情页
@@ -62,7 +62,7 @@ const ApiUnitCategory = (props) =>{
         setClickKey(item.id);
 
         sessionStorage.setItem('apiUnitId',item.id);
-        addRouter('/repositorypage/apitest/unitdetail');
+        addRouter('/repository/apitest/unitdetail');
     }
 
     //目录悬浮的操作项
@@ -196,7 +196,7 @@ const ApiUnitCategory = (props) =>{
 
 
     // const toCategoryManag = () =>{
-    //     props.history.push("/repositorypage/category")
+    //     props.history.push("/repository/category")
     // }
 
     // const menu = (

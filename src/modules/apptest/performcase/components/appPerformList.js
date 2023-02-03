@@ -90,7 +90,7 @@ const AppPerformList = (props) =>{
     // 保存id到缓存
     const setLocalStorage = (type,id) => {
         sessionStorage.setItem('appPerfId',id);
-        props.history.push('/repositorypage/apptest/performdetail')
+        props.history.push('/repository/apptest/performdetail')
     }
 
 

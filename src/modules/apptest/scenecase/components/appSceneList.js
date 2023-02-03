@@ -96,7 +96,7 @@ const AppSceneList = (props) => {
     const setStorage = (id) =>{
         sessionStorage.setItem("appSceneId",id);
 
-        props.history.push("/repositorypage/apptest/scenedetail")
+        props.history.push("/repository/apptest/scenedetail")
     }
 
 

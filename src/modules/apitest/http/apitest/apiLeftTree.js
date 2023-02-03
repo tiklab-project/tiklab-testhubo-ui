@@ -62,15 +62,15 @@ const ApiLeftTree = (props) =>{
         switch (item.caseType){
             case "unit":
                 sessionStorage.setItem('apiUnitId',item.id);
-                props.history.push('/repositorypage/apitest/unitdetail');
+                props.history.push('/repository/apitest/unitdetail');
                 break;
             case "scene":
                 sessionStorage.setItem('apiSceneId',item.id);
-                props.history.push('/repositorypage/apitest/scenedetail');
+                props.history.push('/repository/apitest/scenedetail');
                 break;
             case "perform":
                 sessionStorage.setItem('apiPerfId',item.id);
-                props.history.push('/repositorypage/apitest/performdetail');
+                props.history.push('/repository/apitest/performdetail');
                 break;
         }
     }

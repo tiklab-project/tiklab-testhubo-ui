@@ -8,6 +8,7 @@ import BackCommon from "../../../common/backCommon";
 import AppSceneStepList from "./appSceneStepList";
 import AppExecuteTestDrawer from "./appExecuteTestDrawer";
 import DetailCommon from "../../../common/detailCommon";
+import {Breadcrumb} from "antd";
 
 const AppSceneDetail = (props) => {
     const {appSceneStore} = props;
@@ -36,11 +37,21 @@ const AppSceneDetail = (props) => {
 
 
     const toHistory = () =>{
-        props.history.push("/repositorypage/testcase/app-scenecase-instance")
+        props.history.push("/repository/app-scene-instance")
     }
+
+    const goBack = () =>{
+        props.history.push("/repository/testcase")
+    }
+
 
     return(
         <div className={"content-box-center"}>
+            <Breadcrumb className={"breadcrumb-box"}>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
+                <Breadcrumb.Item>场景详情</Breadcrumb.Item>
+            </Breadcrumb>
+
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}

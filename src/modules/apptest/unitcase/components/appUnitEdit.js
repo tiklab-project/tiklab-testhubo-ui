@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select, Cascader} from 'antd';
+import {Form, Modal, Button, Input, Select, Cascader, TreeSelect} from 'antd';
 import {Option} from "antd/es/mentions";
 
 
@@ -36,10 +36,8 @@ const AppUnitEdit = (props) => {
     const showModal = () => {
         findAllLocation();
         findActionTypeList({"type": "APP"});
-        if(props.isCategory!==true){
-            findCategoryListTreeTable(repositoryId)
-        }
 
+        findCategoryListTreeTable(repositoryId)
 
         if(props.type === "edit"){
             findAppUnit(appUnitId).then(res=>{
@@ -66,6 +64,7 @@ const AppUnitEdit = (props) => {
         if(props.type !=="edit"){
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                repositoryId:repositoryId,
                 name:values.name,
                 testType:"app",
                 caseType:"unit",
@@ -76,8 +75,11 @@ const AppUnitEdit = (props) => {
             delete values.name
             delete values.desc
             
-            createAppUnit(values).then(()=> {
-                findList()
+            createAppUnit(values).then((res)=> {
+                if(res.code===0){
+                    sessionStorage.setItem(`appUnitId`,res.data);
+                    props.history.push(`/repository/app-unit-detail`)
+                }
             })
         }else {
             values.id=appUnitId;
@@ -144,8 +146,7 @@ const AppUnitEdit = (props) => {
     //获取分组id
     const changeCategory=(value)=> {
         //获取最后数组最后一位值
-        const list = value.slice(-1);
-        setCascaderCategoryId(list[0])
+        setCascaderCategoryId(value)
     }
 
 
@@ -175,30 +176,31 @@ const AppUnitEdit = (props) => {
                     preserve={false}
                     layout={"vertical"}
                 >
-                    {
-                        props.isCategory!==true
-                            ? <Form.Item
-                                label="分组"
-                                rules={[{ required: true, }]}
-                                name="category"
-                            >
-                                <Cascader
-                                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
-                                    options={categoryTableList}
-                                    onChange={changeCategory}
-                                    changeOnSelect
-                                    expandTrigger={"hover"}
-                                    placeholder="请选择分组"
-                                />
-                            </Form.Item>
-                            :null
-                    }
                     <Form.Item
                         label="名称"
                         rules={[{ required: true, }]}
                         name="name"
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="模块"
+                        name="category"
+                    >
+                        <TreeSelect
+                            fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                            style={{  width: '100%'}}
+                            value={cascaderCategoryId}
+                            dropdownStyle={{
+                                maxHeight: 400,
+                                overflow: 'auto',
+                            }}
+                            placeholder="请选择模块"
+                            allowClear
+                            treeDefaultExpandAll
+                            onChange={changeCategory}
+                            treeData={categoryTableList}
+                        />
                     </Form.Item>
                     <Form.Item
                         label="操作方法"

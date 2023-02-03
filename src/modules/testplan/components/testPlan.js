@@ -114,7 +114,7 @@ const TestPlan = (props) => {
     // 保存id到缓存
     const setLocalStorage = (id) => {
         sessionStorage.setItem('testPlanId',id);
-        props.history.push('/repositorypage/testplandetail');
+        props.history.push('/repository/testplandetail');
     };
 
     const showState = (type)=>{
@@ -233,7 +233,7 @@ const TestPlan = (props) => {
                             imageStyle={{
                                 height: 120,
                             }}
-                            description={<span>暂无空间</span>}
+                            description={<span>暂无计划</span>}
                             image={emptyImg}
                         />,
                     }}

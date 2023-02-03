@@ -93,7 +93,7 @@ const WebPerformList = (props) =>{
     const setStorage = (id) =>{
         sessionStorage.setItem("webPerfId",id);
 
-        props.history.push("/repositorypage/webtest/performdetail")
+        props.history.push("/repository/webtest/performdetail")
     }
 
 

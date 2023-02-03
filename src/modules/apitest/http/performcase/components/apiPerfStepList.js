@@ -63,7 +63,7 @@ const ApiPerfStepList = (props) =>{
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiSceneId",id);
-        props.history.push("/repositorypage/apitest/scenedetail")
+        props.history.push("/repository/apitest/scenedetail")
     }
 
     return(

@@ -5,7 +5,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import BackCommon from "../../../common/backCommon";
-import {Form, Input} from "antd";
+import {Breadcrumb, Form, Input} from "antd";
 import ApiSceneTestResult from "../../../apitest/http/scenecase/components/apiSceneTestResult";
 import DetailCommon from "../../../common/detailCommon";
 import LeftRightBox from "../../../common/leftRightBox";
@@ -51,10 +51,17 @@ const WebUnitDetail = (props) => {
     }
 
 
-
+    const goBack = () =>{
+        props.history.push("/repository/testcase")
+    }
 
     return(
         <div className={"content-box-center"}>
+            <Breadcrumb className={"breadcrumb-box"}>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
+                <Breadcrumb.Item>单元详情</Breadcrumb.Item>
+            </Breadcrumb>
+
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}

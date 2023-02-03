@@ -31,24 +31,27 @@ const ApiEnvSelect = (props) =>{
     }
 
     const toEnvMana= () =>{
-        props.history.push("/repositorypage/setting/envMana")
+        props.history.push("/repository/setting/envMana")
     }
 
 
     return(
         <Select
-            style={{width:200}}
+            bordered={false}
+            className={"api-env-select-box"}
+            placeholder={"未设置环境"}
             onChange={(value)=> onSelectChange(value)}
             defaultValue={envUrl}
-            dropdownRender={item=>(
-                <>
-                    <div style={{"overflow":"auto","height":"100px"}}>{item}</div>
-
-                    <Divider  />
-                    <div className={'env-click'} onClick={toEnvMana}>环境管理</div>
-                </>
-            )}
+            // dropdownRender={item=>(
+            //     <>
+            //         <div style={{"overflow":"auto","height":"100px"}}>{item}</div>
+            //
+            //         <Divider style={{ margin: '8px 0' }} />
+            //         <div className={'env-click'} onClick={toEnvMana}>环境管理</div>
+            //     </>
+            // )}
         >
+            <Option value={null}>无</Option>
             {
                 showOption(apiEnvList)
             }

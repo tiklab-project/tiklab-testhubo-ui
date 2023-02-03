@@ -63,11 +63,11 @@ const FuncLeftTree = (props) =>{
         switch (item.caseType){
             case "unit":
                 sessionStorage.setItem('funcUnitId',item.id);
-                props.history.push('/repositorypage/functest/unitdetail');
+                props.history.push('/repository/functest/unitdetail');
                 break;
             case "scene":
                 sessionStorage.setItem('funcSceneId',item.id);
-                props.history.push('/repositorypage/functest/scenedetail');
+                props.history.push('/repository/functest/scenedetail');
                 break;
         }
     }

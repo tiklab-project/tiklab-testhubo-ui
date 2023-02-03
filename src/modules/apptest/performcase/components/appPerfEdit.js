@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Cascader} from 'antd';
+import {Form, Modal, Button, Input, Cascader, TreeSelect} from 'antd';
 
 const layout = {
     labelCol: {span: 4},
@@ -23,9 +23,8 @@ const AppPerfEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
-        if(props.isCategory!==true){
-            findCategoryListTreeTable(repositoryId)
-        }
+         findCategoryListTreeTable(repositoryId)
+
 
         if(props.type==="edit"){
             findAppPerf(appPerfId).then(res=>{
@@ -47,6 +46,7 @@ const AppPerfEdit = (props) => {
         if(props.type!=="edit"){
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                repositoryId:repositoryId,
                 name:values.name,
                 testType:"app",
                 caseType:"perf",
@@ -57,8 +57,11 @@ const AppPerfEdit = (props) => {
             delete values.name
             delete values.desc
 
-            createAppPerf(values).then(()=> {
-                findList()
+            createAppPerf(values).then((res)=> {
+                if(res.code===0){
+                    sessionStorage.setItem(`appPerfId`,res.data);
+                    props.history.push(`/repository/app-perform-detail`)
+                }
             })
         }else {
             values.id=appPerfId;
@@ -82,8 +85,7 @@ const AppPerfEdit = (props) => {
     //获取分组id
     const changeCategory=(value)=> {
         //获取最后数组最后一位值
-        const list = value.slice(-1);
-        setCascaderCategoryId(list[0])
+        setCascaderCategoryId(value)
     }
 
     const onCancel = () => { setVisible(false) };
@@ -112,24 +114,25 @@ const AppPerfEdit = (props) => {
                     preserve={false}
                     layout={"vertical"}
                 >
-                    {
-                        props.isCategory!==true
-                            ? <Form.Item
-                                label="分组"
-                                rules={[{ required: true, }]}
-                                name="category"
-                            >
-                                <Cascader
-                                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
-                                    options={categoryTableList}
-                                    onChange={changeCategory}
-                                    changeOnSelect
-                                    expandTrigger={"hover"}
-                                    placeholder="请选择分组"
-                                />
-                            </Form.Item>
-                            :null
-                    }
+                    <Form.Item
+                        label="模块"
+                        name="category"
+                    >
+                        <TreeSelect
+                            fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                            style={{  width: '100%'}}
+                            value={cascaderCategoryId}
+                            dropdownStyle={{
+                                maxHeight: 400,
+                                overflow: 'auto',
+                            }}
+                            placeholder="请选择模块"
+                            allowClear
+                            treeDefaultExpandAll
+                            onChange={changeCategory}
+                            treeData={categoryTableList}
+                        />
+                    </Form.Item>
                     <Form.Item
                         label="名称"
                         rules={[{ required: true, }]}

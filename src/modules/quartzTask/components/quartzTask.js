@@ -36,7 +36,7 @@ const QuartzTask = (props) => {
     },[quartzMasterId])
 
     //返回
-    const goBack = () => props.history.push('/repositorypage/quartzMaster');
+    const goBack = () => props.history.push('/repository/quartzMaster');
 
     return(
         <>

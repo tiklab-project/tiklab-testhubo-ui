@@ -124,7 +124,7 @@ const WebSceneInstance = (props) =>{
 
 
     const toSceneDetail =()=>{
-        props.history.push("/repositorypage/testcase/web-scene-detail")
+        props.history.push("/repository/testcase/web-scene-detail")
     }
 
     return(

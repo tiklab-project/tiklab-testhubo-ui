@@ -47,3 +47,20 @@ export function findTesCaseList(data){
         data
     })
 }
+
+export function testPlanTestDispatch(data){
+    return service.request({
+        url: "/testPlanTestDispatch/execute",
+        method: "post",
+        data
+    })
+}
+
+
+export function testPlanExeResult(data){
+    return service.request({
+        url: "/testPlanTestDispatch/exeResult",
+        method: "post",
+        data
+    })
+}

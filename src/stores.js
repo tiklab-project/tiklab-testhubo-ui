@@ -39,6 +39,8 @@ import {TESTCASE_STORE,TestCaseStore} from "./modules/testcase/store/testcaseSto
 
 import {TESTPLAN_STORE, TestPlanStore} from './modules/testplan/store/testPlanStore';
 import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './modules/testplan/store/testPlanDetailStore';
+import {TEST_PLAN_INSTANCE_STORE,TestPlanInstanceStore} from "./modules/testplan/store/testPlanInstanceStore";
+
 import {USERSELECT_STORE, UserSelectStore} from './modules/common/userSelect/store/userSelectStore'
 
 import {APISCENE_STORE, ApiSceneStore} from "./modules/apitest/http/scenecase/store/apiSceneStore";
@@ -154,6 +156,7 @@ function createStores() {
 
         [TESTPLAN_STORE]: new TestPlanStore(),
         [TESTPLANDETAIL_STORE]: new TestPlanDetailStore(),
+        [TEST_PLAN_INSTANCE_STORE]: new TestPlanInstanceStore(),
 
         [USERSELECT_STORE]: new UserSelectStore(),
         [EAM_STORE]: new EamStore(),

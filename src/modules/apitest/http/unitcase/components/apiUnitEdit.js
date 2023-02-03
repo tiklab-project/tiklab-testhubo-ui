@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select, message, Cascader} from 'antd';
+import {Form, Modal, Button, Input, Select, message, Cascader, TreeSelect} from 'antd';
 
 const {Option} = Select;
 
@@ -29,10 +29,7 @@ const ApiUnitEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
-        if(props.isCategory!==true){
-            findCategoryListTreeTable(repositoryId)
-        }
-
+        findCategoryListTreeTable(repositoryId)
 
         if(props.type === "edit"){
             findApiUnit(apiUnitId).then((res)=>{
@@ -55,6 +52,7 @@ const ApiUnitEdit = (props) => {
         if(props.type !== "edit" ){
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                repositoryId:repositoryId,
                 name:values.name,
                 testType:"api",
                 caseType:"unit",
@@ -67,7 +65,8 @@ const ApiUnitEdit = (props) => {
 
             createApiUnit(values).then(res=>{
                 if(res.code===0){
-                    findList()
+                    sessionStorage.setItem(`apiUnitId`,res.data);
+                    props.history.push(`/repository/api-unit-detail`)
                 }else {
                     message.error('This is an error message');
                 }
@@ -95,10 +94,9 @@ const ApiUnitEdit = (props) => {
     };
 
 
+
     const changeCategory=(value)=> {
-        //获取最后数组最后一位值
-        const list = value.slice(-1);
-        setCascaderCategoryId(list[0])
+        setCascaderCategoryId(value)
     }
 
 
@@ -127,25 +125,6 @@ const ApiUnitEdit = (props) => {
                     preserve={false}
                     layout={"vertical"}
                 >
-                    {
-                        props.isCategory!==true
-                            ? <Form.Item
-                                label="分组"
-                                rules={[{ required: true, }]}
-                                name="category"
-                            >
-                                <Cascader
-                                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
-                                    options={categoryTableList}
-                                    onChange={changeCategory}
-                                    changeOnSelect
-                                    expandTrigger={"hover"}
-                                    placeholder="请选择分组"
-                                />
-                            </Form.Item>
-                            :null
-                    }
-
                     <Form.Item
                         label="名称"
                         rules={[{ required: true, }]}
@@ -169,6 +148,25 @@ const ApiUnitEdit = (props) => {
                         name="path"
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="模块"
+                        name="category"
+                    >
+                        <TreeSelect
+                            fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                            style={{  width: '100%'}}
+                            value={cascaderCategoryId}
+                            dropdownStyle={{
+                                maxHeight: 400,
+                                overflow: 'auto',
+                            }}
+                            placeholder="请选择模块"
+                            allowClear
+                            treeDefaultExpandAll
+                            onChange={changeCategory}
+                            treeData={categoryTableList}
+                        />
                     </Form.Item>
                     <Form.Item
                         label="描述"

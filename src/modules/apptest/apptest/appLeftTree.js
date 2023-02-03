@@ -61,15 +61,15 @@ const AppLeftTree = (props) =>{
         switch (item.caseType){
             case "unit":
                 sessionStorage.setItem('appUnitId',item.id);
-                props.history.push('/repositorypage/apptest/unitdetail');
+                props.history.push('/repository/apptest/unitdetail');
                 break;
             case "scene":
                 sessionStorage.setItem('appSceneId',item.id);
-                props.history.push('/repositorypage/apptest/scenedetail');
+                props.history.push('/repository/apptest/scenedetail');
                 break;
             case "perform":
                 sessionStorage.setItem('appPerfId',item.id);
-                props.history.push('/repositorypage/apptest/performdetail');
+                props.history.push('/repository/apptest/performdetail');
                 break;
         }
     }

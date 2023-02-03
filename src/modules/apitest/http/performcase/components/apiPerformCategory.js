@@ -54,7 +54,7 @@ const ApiPerformCategory=(props) => {
 
         sessionStorage.setItem('categoryId',item.id);
 
-        addRouter('/repositorypage/apitest/performcase');
+        addRouter('/repository/apitest/performcase');
     }
 
     //保存接口id，跳往接口详情页
@@ -62,7 +62,7 @@ const ApiPerformCategory=(props) => {
         setClickKey(item.id);
 
         sessionStorage.setItem('nodeId',item.id);
-        addRouter('/repositorypage/apitest/performdetail');
+        addRouter('/repository/apitest/performdetail');
     }
 
     //目录悬浮的操作项
@@ -196,7 +196,7 @@ const ApiPerformCategory=(props) => {
 
 
     // const toCategoryManag = () =>{
-    //     props.history.push("/repositorypage/category")
+    //     props.history.push("/repository/category")
     // }
 
     // const menu = (

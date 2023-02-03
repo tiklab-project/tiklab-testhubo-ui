@@ -5,6 +5,7 @@ import WebSceneStepList from "./webSceneStepList";
 import WebExecuteTestDrawer from "./webExecuteTestDrawer";
 import DetailCommon from "../../../common/detailCommon";
 import "../../webtest/webStyle.scss"
+import {Breadcrumb} from "antd";
 
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;
@@ -34,12 +35,20 @@ const WebSceneDetail = (props) => {
 
 
     const toHistory = () =>{
-        props.history.push("/repositorypage/testcase/web-scenecase-instance")
+        props.history.push("/repository/web-scene-instance")
     }
 
+    const goBack = () =>{
+        props.history.push("/repository/testcase")
+    }
 
     return(
         <div className={"content-box-center"}>
+            <Breadcrumb className={"breadcrumb-box"}>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
+                <Breadcrumb.Item>场景详情</Breadcrumb.Item>
+            </Breadcrumb>
+
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}

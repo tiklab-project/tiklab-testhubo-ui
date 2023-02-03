@@ -82,7 +82,7 @@ const ApiUnitInstance = (props) =>{
 
     // 返回详情页
     const toUnitDetail =()=>{
-        props.history.push("/repositorypage/testcase/api-unit-detail")
+        props.history.push("/repository/testcase/api-unit-detail")
     }
 
     //响应结果基础信息项

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Tabs} from "antd";
+import {Breadcrumb, Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import WebPerfStepList from "./webPerfStepList";
 import WebPerformConfig from "./webPerfConfig";
@@ -35,11 +35,19 @@ const WebPerformDetail = (props) =>{
 
     //去往历史页
     const toHistory = () =>{
-        props.history.push("/repositorypage/testcase/web-perform-instance")
+        props.history.push("/repository/web-perform-instance")
+    }
+
+    const goBack = () =>{
+        props.history.push("/repository/testcase")
     }
 
     return(
         <div className={"content-box-center"}>
+            <Breadcrumb className={"breadcrumb-box"}>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
+                <Breadcrumb.Item>性能详情</Breadcrumb.Item>
+            </Breadcrumb>
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}

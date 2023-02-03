@@ -69,7 +69,7 @@ const LeftTree = (props) =>{
         //
         // setTabList(newItem)
 
-        props.history.push('/repositorypage/testcase/list');
+        props.history.push('/repository/testcase/list');
     }
 
     //目录悬浮的操作项

@@ -51,7 +51,7 @@ const TabsNav = (props) =>{
             }
         }else {
             localStorage.setItem("testType","isList")
-            props.history.push(`/repositorypage/testcase/list`)
+            props.history.push(`/repository/testcase/list`)
         }
 
     }
@@ -61,15 +61,15 @@ const TabsNav = (props) =>{
         switch (record.caseType) {
             case "unit":
                 sessionStorage.setItem(`${record.testType}UnitId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-unit-detail`)
+                props.history.push(`/repository/testcase/${record.testType}-unit-detail`)
                 break;
             case "scene":
                 sessionStorage.setItem(`${record.testType}SceneId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-scene-detail`)
+                props.history.push(`/repository/testcase/${record.testType}-scene-detail`)
                 break;
             case "perform":
                 sessionStorage.setItem(`${record.testType}PerfId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-perform-detail`)
+                props.history.push(`/repository/testcase/${record.testType}-perform-detail`)
                 break;
         }
     }

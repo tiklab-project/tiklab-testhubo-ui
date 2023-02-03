@@ -45,3 +45,22 @@
     }
 
 }
+
+.bind-case-select{
+    width: 150px;
+    margin: 0 15px 0 0;
+
+    .ant-select-selector{
+        border-radius: var(--pi-border-radius)!important;
+        border: none!important;
+        background-color: #f4f5f7!important;
+    }
+}
+
+.test-plan-env-width{
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 10px ;
+}

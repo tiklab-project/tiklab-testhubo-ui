@@ -68,7 +68,7 @@ const ApiSceneStepList =(props) =>{
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiUnitId",id)
-        props.history.push("/repositorypage/apitest/scenestep")
+        props.history.push("/repository/apitest/scenestep")
     }
 
     const rowSelection = {

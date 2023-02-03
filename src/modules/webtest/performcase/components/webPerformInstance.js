@@ -25,7 +25,7 @@ const WebPerfInstance =(props)=>{
 
 
     const goback = () =>{
-        props.history.push("/repositorypage/testcase/web-perform-detail")
+        props.history.push("/repository/testcase/web-perform-detail")
     }
 
     const showInstanceListView = (data) =>{

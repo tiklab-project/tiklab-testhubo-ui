@@ -99,7 +99,7 @@ const AppSceneInstance = (props) =>{
 
 
     const toSceneDetail =()=>{
-        props.history.push("/repositorypage/testcase/app-scene-detail")
+        props.history.push("/repository/testcase/app-scene-detail")
     }
 
     return(

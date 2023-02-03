@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {Button, Input, Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
+import IconBtn from "../../../common/iconBtn/IconBtn";
 
 const AppSceneBindUnit =(props) =>{
     const {appUnitStore,appSceneStepStore,appSceneId} = props;
@@ -60,7 +61,11 @@ const AppSceneBindUnit =(props) =>{
 
     return(
         <>
-            <Button className="important-btn" onClick={showModal}>关联测试用例</Button>
+            <IconBtn
+                className="pi-icon-btn-grey"
+                name={"关联用例"}
+                onClick={showModal}
+            />
             <Modal
                 destroyOnClose={true}
                 title="关联用例"
@@ -72,12 +77,6 @@ const AppSceneBindUnit =(props) =>{
                 centered
                 width={800}
             >
-                {/*<Input*/}
-                {/*    placeholder={`搜索`}*/}
-                {/*    // onPressEnter={onSearch}*/}
-                {/*    className='search-input'*/}
-                {/*    style={{width:240}}*/}
-                {/*/>*/}
 
                 <Table
                     columns={column}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Popconfirm, Space, Table, Tag} from "antd";
+import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../common/iconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
@@ -117,23 +117,16 @@ const WebPerfInstanceList = (props) =>{
 
 
     const goBack = () =>{
-        props.history.push("/repositorypage/testcase/web-perform-detail")
+        props.history.push("/repository/web-perform-detail")
     }
 
     return(
         <div className={"content-box-center"}>
-            <div  className={"header-box-space-between"} >
-                <div style={{"display":"flex","gap":"10px","alignItems":"center"}}>
-                    <IconCommon
-                        icon={"31fanhui1"}
-                        className={"icon-s edit-icon"}
-                        onClick={goBack}
-                    />
+            <Breadcrumb className={"breadcrumb-box"}>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>性能详情</Breadcrumb.Item>
+                <Breadcrumb.Item>性能历史</Breadcrumb.Item>
+            </Breadcrumb>
 
-                    <div className={'header-box-title'}>WEB性能历史</div>
-                </div>
-
-            </div>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

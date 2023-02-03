@@ -82,7 +82,7 @@ const FunctionalTestDetail = (props) => {
         }
     }
 
-    const toTestcase = () => props.history.push('/repositorypage/Testcase')
+    const toTestcase = () => props.history.push('/repository/Testcase')
 
     return(
         <>

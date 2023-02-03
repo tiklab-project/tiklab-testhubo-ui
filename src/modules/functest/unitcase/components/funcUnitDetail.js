@@ -7,6 +7,7 @@ import {inject, observer} from "mobx-react";
 import BackCommon from "../../../common/backCommon";
 import FuncUnitStepList from "./funcUnitStepList";
 import DetailCommon from "../../../common/detailCommon";
+import {Breadcrumb} from "antd";
 
 const FuncUnitDetail = (props) => {
     const {funcUnitStore} = props;
@@ -34,13 +35,19 @@ const FuncUnitDetail = (props) => {
     }
 
 
-    const goback = () =>{
-        props.history.push("/repositorypage/testcase/list")
+    const goBack = () =>{
+        props.history.push("/repository/testcase")
     }
+
 
 
     return(
         <div className={"content-box-center"}>
+            <Breadcrumb className={"breadcrumb-box"}>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
+                <Breadcrumb.Item>单元详情</Breadcrumb.Item>
+            </Breadcrumb>
+
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}

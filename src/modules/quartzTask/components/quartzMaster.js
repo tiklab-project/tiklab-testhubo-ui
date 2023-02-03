@@ -119,7 +119,7 @@ const QuartzMasterList = (props) => {
     // 保存id到缓存
     const setLocalStorage = (quartzMasterId,id) => {
         localStorage.setItem(quartzMasterId,id);
-        props.history.push('/repositorypage/quartzTask');
+        props.history.push('/repository/quartzTask');
     }
 
     //分页

@@ -80,7 +80,7 @@ const RepositoryCreate = (props) => {
         sessionStorage.setItem("repositoryId",id);
 
         //给左侧导航设置一个选择项
-        localStorage.setItem("leftRouter","/repositorypage/detail")
+        localStorage.setItem("leftRouter","/repository/detail")
 
         //最近空间
         let params = {
@@ -90,7 +90,7 @@ const RepositoryCreate = (props) => {
         repositoryRecent(params)
 
 
-        props.history.push('/repositorypage');
+        props.history.push('/repository');
     }
 
 

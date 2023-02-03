@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Divider, Drawer, Form, Input, Spin, Table} from "antd";
+import {Button,Drawer, Form, Input, Spin, Table} from "antd";
 
 
 const layout = {

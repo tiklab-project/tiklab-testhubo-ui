@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Space, Tabs} from "antd";
+import {Breadcrumb, Button, Space, Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import AppPerfStepList from "./appPerfStepList";
 import AppPerformCofig from "./appPerformCofig";
@@ -37,7 +37,7 @@ const AppPerformDetail = (props) =>{
 
     //去往历史页
     const toHistory = () =>{
-        props.history.push("/repositorypage/testcase/app-perform-instance")
+        props.history.push("/repository/app-perform-instance")
     }
 
     //tab切换项
@@ -46,8 +46,18 @@ const AppPerformDetail = (props) =>{
         { label: '压力配置', key: '2', children: <AppPerformCofig {...props} /> },
     ];
 
+    const goBack = () =>{
+        props.history.push("/repository/testcase")
+    }
+
+
     return(
         <div className={"content-box-center"}>
+            <Breadcrumb className={"breadcrumb-box"}>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
+                <Breadcrumb.Item>性能详情</Breadcrumb.Item>
+            </Breadcrumb>
+
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}

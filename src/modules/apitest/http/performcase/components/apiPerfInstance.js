@@ -27,7 +27,7 @@ const ApiPerfInstance =(props)=>{
 
 
     const goback = () =>{
-        props.history.push("/repositorypage/testcase/api-perform-detail")
+        props.history.push("/repository/testcase/api-perform-detail")
     }
 
     //删除历史

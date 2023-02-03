@@ -10,10 +10,7 @@ import {
 export class CategoryStore{
     @observable categoryList = [];
     @observable categoryTableList=[]
-    @observable categoryInfo = [];
-    @observable repositoryId = '';
-    @observable categoryId= '';
-    @observable categoryName='';
+
 
     @action
     findCategoryListTree = async (value,categoryName) => {

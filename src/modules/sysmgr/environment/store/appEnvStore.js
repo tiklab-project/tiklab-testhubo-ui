@@ -12,6 +12,12 @@ export class AppEnvStore {
 
 	@observable appEnvList = [];
 	@observable appEnvInfo;
+	@observable appEnv;
+
+	@action
+	getAppEnv = (data) =>{
+		this.appEnv = data;
+	}
 
 	@action
 	findAppEnvPage = async (id) => {

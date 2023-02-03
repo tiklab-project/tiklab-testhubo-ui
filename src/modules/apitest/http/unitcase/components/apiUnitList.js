@@ -77,7 +77,7 @@ const ApiUnitList = (props) => {
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiUnitId",id);
 
-        props.history.push("/repositorypage/apitest/unitdetail")
+        props.history.push("/repository/apitest/unitdetail")
     }
 
     const deleteCase = (id) =>{

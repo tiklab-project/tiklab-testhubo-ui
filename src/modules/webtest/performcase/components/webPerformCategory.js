@@ -52,7 +52,7 @@ const WebPerformCategory = (props) =>{
 
         sessionStorage.setItem('categoryId',item.id);
 
-        addRouter('/repositorypage/webtest/performcase');
+        addRouter('/repository/webtest/performcase');
     }
 
     //保存接口id，跳往接口详情页
@@ -60,7 +60,7 @@ const WebPerformCategory = (props) =>{
         setClickKey(item.id);
 
         sessionStorage.setItem('nodeId',item.id);
-        addRouter('/repositorypage/webtest/performdetail');
+        addRouter('/repository/webtest/performdetail');
     }
 
     //目录悬浮的操作项
@@ -196,7 +196,7 @@ const WebPerformCategory = (props) =>{
 
 
     // const toCategoryManag = () =>{
-    //     props.history.push("/repositorypage/category")
+    //     props.history.push("/repository/category")
     // }
 
     // const menu = (

@@ -13,7 +13,7 @@ import QuartzTask from "./quartzTask/components/quartzTask";
 
 import FunctionalTestDetail from './functest/scenecase/components/functionalTestDetail';
 
-import CategoryList from "./category/components/category";
+import CategoryList from "./category/components/categoryList";
 import {
 
     Step,

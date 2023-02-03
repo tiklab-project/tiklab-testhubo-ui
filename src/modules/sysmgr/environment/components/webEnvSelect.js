@@ -6,7 +6,7 @@ const {Option} = Select
 
 const WebEnvSelect = (props) =>{
     const {webEnvStore} = props;
-    const {findWebEnvList,webEnvList,getTestEnvUrl,envUrl} = webEnvStore;
+    const {findWebEnvList,webEnvList,getWebEnv,webEnv} = webEnvStore;
 
     let repositoryId = sessionStorage.getItem("repositoryId")
 
@@ -16,7 +16,7 @@ const WebEnvSelect = (props) =>{
 
     // 选择测试环境 input框呈现相应的地址
     const onSelectChange = (value) => {
-        getTestEnvUrl(value)
+        getWebEnv(value)
     }
 
     const showOption = (data)=>{
@@ -37,18 +37,21 @@ const WebEnvSelect = (props) =>{
 
     return(
         <Select
-            style={{width:200}}
+            placeholder={"未设置环境"}
+            bordered={false}
+            className={"api-env-select-box"}
             onChange={(value)=> onSelectChange(value)}
-            defaultValue={envUrl}
-            dropdownRender={item=>(
-                <>
-                    <div style={{"overflow":"auto","height":"100px"}}>{item}</div>
-
-                    <Divider  />
-                    <div className={'env-click'} onClick={toEnvMana}>环境管理</div>
-                </>
-            )}
+            defaultValue={webEnv}
+            // dropdownRender={item=>(
+            //     <>
+            //         <div style={{"overflow":"auto","height":"100px"}}>{item}</div>
+            //
+            //         <Divider  />
+            //         <div className={'env-click'} onClick={toEnvMana}>环境管理</div>
+            //     </>
+            // )}
         >
+            <Option value={null}>无</Option>
             {
                 showOption(webEnvList)
             }

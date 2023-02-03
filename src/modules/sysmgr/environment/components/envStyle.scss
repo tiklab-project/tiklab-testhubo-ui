@@ -30,3 +30,14 @@
         border-bottom: 0px solid #f0f0f0;
     }
 }
+
+
+.api-env-select-box{
+    width: 200px;
+    height: 32px;
+    border-radius: var(--pi-border-radius);
+    border: var(--pi-input-border);
+    background-color: white;
+    margin: 0 10px!important;
+    font-size: 12px!important;
+}

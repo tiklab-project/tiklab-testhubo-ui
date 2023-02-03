@@ -61,15 +61,15 @@ const WebLeftTree = (props) =>{
         switch (item.caseType){
             case "unit":
                 sessionStorage.setItem('webUnitId',item.id);
-                props.history.push('/repositorypage/webtest/unitdetail');
+                props.history.push('/repository/webtest/unitdetail');
                 break;
             case "scene":
                 sessionStorage.setItem('webSceneId',item.id);
-                props.history.push('/repositorypage/webtest/scenedetail');
+                props.history.push('/repository/webtest/scenedetail');
                 break;
             case "perform":
                 sessionStorage.setItem('webPerfId',item.id);
-                props.history.push('/repositorypage/webtest/performdetail');
+                props.history.push('/repository/webtest/performdetail');
                 break;
         }
     }

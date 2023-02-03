@@ -1,13 +1,13 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input} from 'antd';
+import {Form, Modal, Button, Input, Cascader, TreeSelect} from 'antd';
 
 // 添加与编辑
 const FuncSceneEdit = (props) => {
     const {funcSceneStore, categoryStore,funcSceneId,findList  } = props;
     const {findFuncSceneList,findFuncScene,createFuncScene,updateFuncScene} = funcSceneStore;
-    const {findCategoryListTree} = categoryStore;
+    const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const [form] = Form.useForm();
 
@@ -18,6 +18,8 @@ const FuncSceneEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
+        findCategoryListTreeTable(repositoryId)
+
         if(props.type==="edit"){
             findFuncScene(funcSceneId).then(res=>{
                 form.setFieldsValue({
@@ -38,7 +40,8 @@ const FuncSceneEdit = (props) => {
 
         if(props.type!=="edit"){
             values.testCase={
-                category:{id:categoryId},
+                category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                repositoryId:repositoryId,
                 name:values.name,
                 testType:"func",
                 caseType:"scene",
@@ -47,8 +50,11 @@ const FuncSceneEdit = (props) => {
             delete values.name
             delete values.desc
 
-            createFuncScene(values).then(()=> {
-                findList()
+            createFuncScene(values).then((res)=> {
+                if(res.code===0){
+                    sessionStorage.setItem(`funcSceneId`,res.data);
+                    props.history.push(`/repository/func-scene-detail`)
+                }
             })
         }else {
             values.id=funcSceneId;
@@ -68,6 +74,13 @@ const FuncSceneEdit = (props) => {
         setVisible(false);
     };
 
+
+    const [cascaderCategoryId, setCascaderCategoryId] = useState();
+    //获取分组id
+    const changeCategory=(value)=> {
+        //获取最后数组最后一位值
+        setCascaderCategoryId(value)
+    }
 
 
     const onCancel = () => { setVisible(false) };
@@ -96,12 +109,32 @@ const FuncSceneEdit = (props) => {
                     preserve={false}
                     layout={"vertical"}
                 >
+
                     <Form.Item
                         label="名称"
                         rules={[{ required: true, }]}
                         name="name"
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="模块"
+                        name="category"
+                    >
+                        <TreeSelect
+                            fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                            style={{  width: '100%'}}
+                            value={cascaderCategoryId}
+                            dropdownStyle={{
+                                maxHeight: 400,
+                                overflow: 'auto',
+                            }}
+                            placeholder="请选择模块"
+                            allowClear
+                            treeDefaultExpandAll
+                            onChange={changeCategory}
+                            treeData={categoryTableList}
+                        />
                     </Form.Item>
                     <Form.Item
                         label="描述"

@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {Button, Input, Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
+import IconBtn from "../../../common/iconBtn/IconBtn";
 const WebSceneBindUnit =(props) =>{
     const {webUnitStore,webSceneStepStore,webSceneId} = props;
     const {findWebUnitList,webUnitList} = webUnitStore;
@@ -60,7 +61,11 @@ const WebSceneBindUnit =(props) =>{
 
     return(
         <>
-            <Button className="important-btn" onClick={showModal}>关联测试用例</Button>
+            <IconBtn
+                className="pi-icon-btn-grey"
+                name={"关联用例"}
+                onClick={showModal}
+            />
             <Modal
                 destroyOnClose={true}
                 title="关联用例"

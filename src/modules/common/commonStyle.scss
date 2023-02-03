@@ -63,40 +63,6 @@
 }
 
 
-
-// testResultCommon
-//.test-response-before{
-//    position: relative;
-//    margin: 10px 0 0 0;
-//    height: 300px;
-//    border: 1px solid #eaeaea
-//}
-//.test-response-before-alert{
-//    // width: 200px;
-//    height: 20px;
-//    position: absolute;
-//    left: 50%;
-//    top: 50%;
-//    margin-left: -70px;
-//    margin-top: -10px;
-//
-//}
-//
-//.test-response-show{
-//    display: block;
-//}
-//.test-response-hide{
-//    display: none;
-//}
-//
-//
-//.test-responseInfo{
-//    width: 200px;
-//    display: flex;
-//    justify-content: space-around;
-//}
-//
-
 //testDarg
 
 .middleBox{
@@ -217,4 +183,15 @@
 .edit-api-title{
     cursor: auto;
 }
+
+//面包屑
+.breadcrumb-box{
+    padding: 10px 6px 0;
+
+    .first-item:hover{
+        cursor: pointer;
+        color: #48a8d9;
+    }
+}
+
 

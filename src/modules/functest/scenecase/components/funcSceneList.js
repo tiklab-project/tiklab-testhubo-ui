@@ -96,7 +96,7 @@ const FuncSceneList = (props) => {
     const setStorage = (id) =>{
         sessionStorage.setItem("funcSceneId",id);
 
-        props.history.push("/repositorypage/functest/scenedetail")
+        props.history.push("/repository/functest/scenedetail")
     }
 
 

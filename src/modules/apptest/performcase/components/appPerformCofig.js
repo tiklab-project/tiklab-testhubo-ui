@@ -76,7 +76,7 @@ const AppPerfConfig = (props) =>{
 
 
     const toAgentPage = ()=>{
-        props.history.push("/repositorypage/setting/agent")
+        props.history.push("/repository/setting/agent")
     }
 
     const showClient = (data)=>{

@@ -112,7 +112,7 @@ const RepositoryList = (props) => {
         sessionStorage.setItem("repositoryId",id);
 
         //给左侧导航设置一个选择项
-        localStorage.setItem("leftRouter","/repositorypage/detail")
+        localStorage.setItem("leftRouter","/repository/detail")
 
         //最近空间
         let params = {
@@ -122,7 +122,7 @@ const RepositoryList = (props) => {
         repositoryRecent(params)
 
 
-        props.history.push('/repositorypage');
+        props.history.push('/repository');
     }
 
     //可见范围的展示
@@ -149,7 +149,7 @@ const RepositoryList = (props) => {
                         imageStyle={{
                             height: 120,
                         }}
-                        description={<span>暂无空间</span>}
+                        description={<span>暂无仓库</span>}
                         image={emptyImg}
                     />,
                 }}

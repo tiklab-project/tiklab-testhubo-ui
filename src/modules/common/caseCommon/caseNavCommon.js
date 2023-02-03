@@ -98,7 +98,7 @@ const CaseNavCommon = (props) =>{
 
         localStorage.setItem('categoryId',item.id);
 
-        props.history.push('/repositorypage/apitest/unitcase');
+        props.history.push('/repository/apitest/unitcase');
     }
 
     //保存接口id，跳往接口详情页
@@ -107,7 +107,7 @@ const CaseNavCommon = (props) =>{
 
 
         localStorage.setItem('nodeId',item.id);
-        props.history.push('/repositorypage/apitest/unitdetail');
+        props.history.push('/repository/apitest/unitdetail');
     }
 
     //目录悬浮的操作项
@@ -241,7 +241,7 @@ const CaseNavCommon = (props) =>{
 
 
     // const toCategoryManag = () =>{
-    //     props.history.push("/repositorypage/category")
+    //     props.history.push("/repository/category")
     // }
 
     // const menu = (

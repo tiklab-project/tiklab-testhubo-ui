@@ -16,6 +16,7 @@ import AppPerfEdit from "../../apptest/performcase/components/appPerfEdit";
 import FuncUnitEdit from "../../functest/unitcase/components/funcUnitEdit";
 import FuncSceneEdit from "../../functest/scenecase/components/funcSceneEdit";
 import IconCommon from "../../common/iconCommon";
+import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/caseCommonFn";
 
 
 const TestCaseList = (props) => {
@@ -41,29 +42,26 @@ const TestCaseList = (props) => {
             render: (text,record) =>(
                 <a onClick = {()=>toPage(record)}>{text}</a>
             )
-        },
-        {
+        },{
+            title: `分组`,
+            dataIndex: ["category","name"],
+            key: "category",
+            // render: (text) =>(text?"-":text)
+        },{
             title: `测试类型`,
             dataIndex: "testType",
             key: "testType",
-            render: (text,record) =>(showTestTypeView(text))
+            render: (text) =>(showTestTypeView(text))
         },{
             title: `用例类型`,
             dataIndex: "caseType",
             key: "caseType",
-            render: (text,record) =>(showCaseTypeView(text))
-        },
-        {
+            render: (text) =>(showCaseTypeView(text))
+        },{
             title: `创建时间`,
             dataIndex: 'createTime',
             key: "createTime",
         },
-
-        // {
-        //     title: `等级`,
-        //     dataIndex: "level",
-        //     key: "level",
-        // },
         {
             title: '操作',
             dataIndex: 'operation',
@@ -100,18 +98,19 @@ const TestCaseList = (props) => {
     })
 
 
-    const categoryId = sessionStorage.getItem("categoryId")
+    // const categoryId = sessionStorage.getItem("categoryId")
     const repositoryId = sessionStorage.getItem("repositoryId")
 
 
     useEffect(()=>{
         findPage(testType,caseType)
-    },[categoryId,pageParam])
+    },[pageParam])
 
 
     const findPage = (testType,caseType) =>{
         const param = {
-            categoryId:categoryId,
+            repositoryId:repositoryId,
+            // categoryId:categoryId,
             testType:testType,
             caseType:caseType,
             ...pageParam
@@ -123,13 +122,6 @@ const TestCaseList = (props) => {
 
     //点击名称不同的类型的用例跳到不同页面
     const toPage =(record)=>{
-
-        let list = [...tabList]
-
-        let newList =  list.filter(item=>item.id!==record.id)
-        newList.push(record)
-        setTabList(newList)
-        setActiveKey(record.id)
 
         switch (record.testType) {
             case "api":
@@ -152,42 +144,16 @@ const TestCaseList = (props) => {
         switch (record.caseType) {
             case "unit":
                 sessionStorage.setItem(`${record.testType}UnitId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-unit-detail`)
+                props.history.push(`/repository/${record.testType}-unit-detail`)
                 break;
             case "scene":
                 sessionStorage.setItem(`${record.testType}SceneId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-scene-detail`)
+                props.history.push(`/repository/${record.testType}-scene-detail`)
                 break;
             case "perform":
                 sessionStorage.setItem(`${record.testType}PerfId`,record.id);
-                props.history.push(`/repositorypage/testcase/${record.testType}-perform-detail`)
+                props.history.push(`/repository/${record.testType}-perform-detail`)
                 break;
-        }
-    }
-
-    //表格中测试类型展示
-    const showTestTypeView = (type)=>{
-        switch (type) {
-            case "api":
-                return "接口"
-            case "web":
-                return "WEB"
-            case "app":
-                return "APP"
-            case "func":
-                return "功能"
-        }
-    }
-
-    //表格中用例类型展示
-    const showCaseTypeView = (type)=>{
-        switch (type) {
-            case "unit":
-                return "单元"
-            case "scene":
-                return "场景"
-            case "perform":
-                return "性能"
         }
     }
 
@@ -275,24 +241,27 @@ const TestCaseList = (props) => {
                     <ApiUnitEdit
                         name={"添加Unit用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"api-scene-add"}>
                     <ApiSceneEdit
                         name={"添加场景用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"api-perf-add"}>
                     <ApiPerfEdit
                         name={"添加压测用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
             </Menu.SubMenu>
@@ -301,24 +270,27 @@ const TestCaseList = (props) => {
                     <WebUnitEdit
                         name={"添加Unit用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"web-scene-add"}>
                     <WebSceneEdit
                         name={"添加场景用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"web-perf-add"}>
                     <WebPerfEdit
                         name={"添加压测用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
             </Menu.SubMenu>
@@ -327,24 +299,27 @@ const TestCaseList = (props) => {
                     <AppUnitEdit
                         name={"添加Unit用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"app-scene-add"}>
                     <AppSceneEdit
                         name={"添加场景用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"app-perf-add"}>
                     <AppPerfEdit
                         name={"添加压测用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
             </Menu.SubMenu>
@@ -353,16 +328,18 @@ const TestCaseList = (props) => {
                     <FuncUnitEdit
                         name={"添加Unit用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"func-scene-add"}>
                     <FuncSceneEdit
                         name={"添加场景用例"}
                         isCategory={true}
-                        categoryId={categoryId}
+                        // categoryId={categoryId}
                         findList={findPage}
+                        {...props}
                     />
                 </Menu.Item>
             </Menu.SubMenu>
@@ -370,7 +347,7 @@ const TestCaseList = (props) => {
     )
     return(
 
-        <div className={"testcase-box"}>
+        <div className={"testcase-box"} >
             <div  className={"header-box-space-between"} >
                 <div className={'header-box-title'}>用例列表</div>
                 <Dropdown overlay={addMenu} placement="bottom">
@@ -419,9 +396,7 @@ const TestCaseList = (props) => {
                     onChange = {(pagination) => onTableChange(pagination)}
                     locale={{
                         emptyText: <Empty
-                            imageStyle={{
-                                height: 120,
-                            }}
+                            imageStyle={{height: 120}}
                             description={<span>暂无用例</span>}
                             image={emptyImg}
                         />,

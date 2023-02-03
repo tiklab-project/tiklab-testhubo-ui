@@ -5,7 +5,7 @@ const RepositorySettingMenu = (props) =>{
 
     const routes = props.route.routes;
 
-    const [selected, setSelected] = useState("/repositorypage/setting/detail");
+    const [selected, setSelected] = useState("/repository/setting/detail");
 
     /**
      * 点击左侧菜单，设置路由地址
@@ -19,25 +19,29 @@ const RepositorySettingMenu = (props) =>{
     const items=[
         {
             title: '仓库信息',
-            key: '/repositorypage/setting/detail',
+            key: '/repository/setting/detail',
             // icon: 'icon-setting',
+        }, {
+            title: '模块',
+            // icon: 'icon-modular',
+            key: '/repository/setting/category',
         },
         {
             title: '环境管理',
             // icon: 'icon-modular',
-            key: '/repositorypage/setting/envMana',
+            key: '/repository/setting/envMana',
         },
         {
             title: 'Agent配置',
-            key: '/repositorypage/setting/agent',
+            key: '/repository/setting/agent',
             // icon: 'icon-modular',
         },{
             title: '成员',
-            key: '/repositorypage/setting/role',
+            key: '/repository/setting/role',
             // icon: 'icon-chengyuan',
         },{
             title: '权限',
-            key: '/repositorypage/setting/privilege',
+            key: '/repository/setting/privilege',
             // icon: 'icon-quanxian',
         }
     ]

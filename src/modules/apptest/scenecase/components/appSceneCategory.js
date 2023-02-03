@@ -54,7 +54,7 @@ const AppSceneCategory = (props) =>{
 
         sessionStorage.setItem('categoryId',item.id);
 
-        addRouter('/repositorypage/apptest/scenecase');
+        addRouter('/repository/apptest/scenecase');
     }
 
     //保存接口id，跳往接口详情页
@@ -62,7 +62,7 @@ const AppSceneCategory = (props) =>{
         setClickKey(item.id);
 
         sessionStorage.setItem('nodeId',item.id);
-        addRouter('/repositorypage/apptest/scenedetail');
+        addRouter('/repository/apptest/scenedetail');
     }
 
     //目录悬浮的操作项
@@ -196,7 +196,7 @@ const AppSceneCategory = (props) =>{
 
 
     // const toCategoryManag = () =>{
-    //     props.history.push("/repositorypage/category")
+    //     props.history.push("/repository/category")
     // }
 
     // const menu = (

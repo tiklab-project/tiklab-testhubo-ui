@@ -309,3 +309,20 @@ table .icon{
     height: 100%;
 
 }
+
+
+
+//flex  between
+.display-flex-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.display-flex-gap{
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+
+

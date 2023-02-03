@@ -15,18 +15,18 @@ const LeftNav = (props) =>{
             "icon":"layers",
             "name":"概况",
             "key":"detail",
-            "router":"/repositorypage/detail"
+            "router":"/repository/detail"
         }, {
             "icon":"layers",
             "name":"测试用例",
             "key":"detail",
-            "router":"/repositorypage/testcase"
+            "router":"/repository/testcase"
         },
         {
             "icon":"jihua",
             "name":"测试计划",
             "key":"testplan",
-            "router":"/repositorypage/testplan"
+            "router":"/repository/testplan"
         }
     ]
 
@@ -107,7 +107,7 @@ const LeftNav = (props) =>{
         sessionStorage.setItem("repositoryId",repositoryId);
 
         //给左侧导航设置一个选择项
-        localStorage.setItem("leftRouter","/repositorypage/detail")
+        localStorage.setItem("leftRouter","/repository/detail")
 
         //最近仓库
         let params = {
@@ -116,7 +116,7 @@ const LeftNav = (props) =>{
         }
         repositoryRecent(params)
 
-        props.history.push('/repositorypage');
+        props.history.push('/repository');
     }
 
 
@@ -124,7 +124,7 @@ const LeftNav = (props) =>{
         //点击左侧导航，设置选择项,用于刷新后还能选择。
         localStorage.setItem("leftRouter","setting");
 
-        props.history.push("/repositorypage/setting/detail");
+        props.history.push("/repository/setting/detail");
     }
 
 

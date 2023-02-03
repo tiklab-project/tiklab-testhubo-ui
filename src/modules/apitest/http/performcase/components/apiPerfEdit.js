@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Cascader} from 'antd';
+import {Form, Modal, Button, Input, Cascader, TreeSelect} from 'antd';
 
 const layout = {
     labelCol: {span: 4},
@@ -22,9 +22,7 @@ const ApiPerfEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
-        if(props.isCategory!==true){
-            findCategoryListTreeTable(repositoryId)
-        }
+        findCategoryListTreeTable(repositoryId)
 
         if(props.type==="edit"){
             findApiPerf(apiPerfId).then(res=>{
@@ -46,6 +44,7 @@ const ApiPerfEdit = (props) => {
         if(props.type!=="edit"){
             values.testCase={
                 category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                repositoryId:repositoryId,
                 name:values.name,
                 testType:"api",
                 caseType:"perf",
@@ -58,7 +57,8 @@ const ApiPerfEdit = (props) => {
             
             createApiPerf(values).then(res=>{
                 if(res.code===0){
-                    findList()
+                    sessionStorage.setItem(`apiPerfId`,res.data);
+                    props.history.push(`/repository/api-perform-detail`)
                 }
             })
         }else {
@@ -85,8 +85,7 @@ const ApiPerfEdit = (props) => {
     //获取分组id
     const changeCategory=(value)=> {
         //获取最后数组最后一位值
-        const list = value.slice(-1);
-        setCascaderCategoryId(list[0])
+        setCascaderCategoryId(value)
     }
 
     const onCancel = () => { setVisible(false) };
@@ -115,30 +114,31 @@ const ApiPerfEdit = (props) => {
                     preserve={false}
                     layout={"vertical"}
                 >
-                    {
-                        props.isCategory!==true
-                            ? <Form.Item
-                                label="分组"
-                                rules={[{ required: true, }]}
-                                name="category"
-                            >
-                                <Cascader
-                                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
-                                    options={categoryTableList}
-                                    onChange={changeCategory}
-                                    changeOnSelect
-                                    expandTrigger={"hover"}
-                                    placeholder="请选择分组"
-                                />
-                            </Form.Item>
-                            :null
-                    }
                     <Form.Item
                         label="名称"
                         rules={[{ required: true, }]}
                         name="name"
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="模块"
+                        name="category"
+                    >
+                        <TreeSelect
+                            fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                            style={{  width: '100%'}}
+                            value={cascaderCategoryId}
+                            dropdownStyle={{
+                                maxHeight: 400,
+                                overflow: 'auto',
+                            }}
+                            placeholder="请选择模块"
+                            allowClear
+                            treeDefaultExpandAll
+                            onChange={changeCategory}
+                            treeData={categoryTableList}
+                        />
                     </Form.Item>
                     <Form.Item
                         label="描述"

@@ -1,10 +1,12 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import {Popconfirm, Select, Space, Table} from "antd";
-import TestPlanTestcaseAdd from "./testPlanTestcaseAdd";
+import TestPlanTestcaseAdd from "./testPlanBindCaseModal";
+import IconCommon from "../../common/iconCommon";
+import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/caseCommonFn";
 
 const {Option} = Select;
-const TestPlanTestcase = (props) =>{
+const TestPlanBindCaseList = (props) =>{
     const {testPlanDetailStore} = props;
     const {findBindTestCaseList,testPlanDetailList,deleteTestPlanDetail,updateTestPlanDetail} = testPlanDetailStore;
     //列表头
@@ -18,29 +20,24 @@ const TestPlanTestcase = (props) =>{
             title:`测试类型`,
             dataIndex:["testCase","testType"],
             key: "type",
-            render:(text,record)=>(showTestType(record.testCase?.testType))
+            render:(text,record)=>(showTestTypeView(record.testCase?.testType))
         },
         {
             title:`用例类型`,
             dataIndex:["testCase","caseType"],
             key: "type",
-            render:(text,record)=>(showCaseType(record.testCase?.caseType))
+            render:(text,record)=>(showCaseTypeView(record.testCase?.caseType))
         },
-        {
-            title:`状态`,
-            dataIndex:"status",
-            key: "status",
-            render:(text,record)=>(
-                <Select defaultValue={text} onChange={(e)=>changeStatus(e,record)}>
-                    <Option value={0}>失败</Option>
-                    <Option value={1}>通过</Option>
-                    <Option value={2}>未执行</Option>
-                </Select>
-            )
-        },
+        // {
+        //     title:`状态`,
+        //     dataIndex:"status",
+        //     key: "status",
+        //     render:(text)=>(showStatus(text))
+        // },
         {
             title: `操作`,
             key: "action",
+            width: 150,
             render: (text, record) => (
                 <Space size="middle">
                     <Popconfirm
@@ -49,7 +46,10 @@ const TestPlanTestcase = (props) =>{
                         okText='确定'
                         cancelText='取消'
                     >
-                        <a href="#" style={{color:'red'}}>删除</a>
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                        />
                     </Popconfirm>
                 </Space>
             ),
@@ -71,27 +71,14 @@ const TestPlanTestcase = (props) =>{
         updateTestPlanDetail(params)
     }
 
-    const showTestType = (testType)=>{
-        switch (testType) {
-            case "api":
-                return "API";
-            case "web":
-                return "WEB";
-            case "app":
-                return "APP";
-            case "func":
-                return "功能";
-        }
-    }
-
-    const showCaseType = (caseType)=>{
-        switch (caseType) {
-            case "unit":
-                return "单元测试";
-            case "scene":
-                return "场景测试";
-            case "perform":
-                return "压力测试";
+    const showStatus = (text) =>{
+        switch (text) {
+            case 0:
+                return "失败"
+            case 1:
+                return "通过"
+            case 2:
+                return "未执行"
         }
     }
 
@@ -121,4 +108,4 @@ const TestPlanTestcase = (props) =>{
     )
 }
 
-export default inject('testPlanDetailStore')(observer(TestPlanTestcase));
+export default inject('testPlanDetailStore')(observer(TestPlanBindCaseList));

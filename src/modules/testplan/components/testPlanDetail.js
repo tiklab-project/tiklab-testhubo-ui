@@ -1,10 +1,12 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {Breadcrumb, Button, DatePicker, Form, Input, Select} from "antd";
+import {Breadcrumb, Button, DatePicker, Form, Input, Select, Space} from "antd";
 import {inject, observer} from "mobx-react";
-import TestPlanTestcase from "./testPlanTestcase";
+import TestPlanTestcase from "./testPlanBindCaseList";
 import EdiText from "react-editext";
 import moment from "moment";
 import {CaretDownOutlined} from "@ant-design/icons";
+import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
+import TestPlanENVModal from "./testPlanENVModal";
 
 const {Option} = Select;
 
@@ -31,8 +33,14 @@ const TestPlanDetail = (props) =>{
 
     //返回
     const goBack = () => {
-        props.history.push('/repositorypage/testplan');
+        props.history.push('/repository/testplan');
     }
+
+    //去往历史页
+    const toHistory = () => {
+        props.history.push('/repository/plan-instance');
+    }
+
 
     //编辑名字
     const editName = (value) => {
@@ -84,19 +92,13 @@ const TestPlanDetail = (props) =>{
 
     return(
         <div className={"teston-page-center"}>
-            <div className='header-flexbox'>
-                <span
-                    onClick={goBack}
-                    className={"back-contant"}
-                >
-                    <svg className="icon" aria-hidden="true">
-                        <use xlinkHref="#icon-31fanhui1"/>
-                    </svg>
-                    返回
-                </span>
-            </div>
+            <Breadcrumb className={"breadcrumb-box"}>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试计划</Breadcrumb.Item>
+                <Breadcrumb.Item>计划详情</Breadcrumb.Item>
+            </Breadcrumb>
+
             <Form className="testplan-form-info" form={form} labelAlign={"left"} >
-                <div className="test-plan-title-between">
+                <div className="display-flex-between">
                     <div style={{width:200,height: 32}}>
                         <EdiText
                             value={executeDate?.name}
@@ -116,6 +118,11 @@ const TestPlanDetail = (props) =>{
                             }
                             hideIcons
                         />
+                    </div>
+                    <div className={"display-flex-between"} style={{width: 220}}>
+                        <a onClick={toHistory}>测试历史</a>
+                        <TestPlanENVModal {...props}/>
+                        <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
                     </div>
 
                 </div>

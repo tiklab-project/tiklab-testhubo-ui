@@ -98,7 +98,7 @@ const QuartzMasterEdit = (props) => {
         if(props.name === "添加任务" ){
             createQuartzMaster(values).then((res)=>{
                 localStorage.setItem('quartzMasterId',res.data)
-                props.history.push('/repositorypage/quartzTask')
+                props.history.push('/repository/quartzTask')
             });
         }else{
             values.id=quartzMasterId;

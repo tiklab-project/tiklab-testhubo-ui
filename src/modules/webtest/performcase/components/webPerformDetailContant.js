@@ -15,7 +15,7 @@ const WebPerfomDetailContant = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repositorypage/testcase/list")
+        props.history.push("/repository/testcase/list")
     }
 
 
@@ -29,10 +29,10 @@ const WebPerfomDetailContant = (props) =>{
                     mode="horizontal"
                 >
                     <Menu.Item key="config">
-                        <Link to='/repositorypage/webtest/performdetail/config'>配置</Link>
+                        <Link to='/repository/webtest/performdetail/config'>配置</Link>
                     </Menu.Item>
                     <Menu.Item key="test"  >
-                        <Link to='/repositorypage/webtest/performdetail/test'>测试</Link>
+                        <Link to='/repository/webtest/performdetail/test'>测试</Link>
                     </Menu.Item>
                 </Menu>
 

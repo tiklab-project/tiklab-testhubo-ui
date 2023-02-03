@@ -21,7 +21,7 @@ export class TestPlanDetailStore {
         const params = {
             testPlanId:id,
             ...param,
-            orderParams: [{name:'id', orderType:'asc'}],
+            orderParams: [{name:'id', orderType:'desc'}],
         };
         const res = await findBindTestCaseList(params)
         if(res.code === 0) {
@@ -34,19 +34,16 @@ export class TestPlanDetailStore {
 
     //点击添加用例，弹框中的查询
     @action
-    findTesCaseList = async (repositoryId,testPlanId,param) =>{
-        const params = {
-            repositoryId:repositoryId,
-            testPlan:{id:testPlanId},
-            ...param,
-        };
-        const res = await findTesCaseList(params)
+    findTesCaseList = async (values) =>{
+
+        const res = await findTesCaseList(values)
 
         if(res.code === 0) {
             this.tcTotalRecord = res.data.totalRecord;
             this.testPlanTestcaseList = res.data.dataList;
-            return res.data;
         }
+
+        return res;
     }
 
     @action

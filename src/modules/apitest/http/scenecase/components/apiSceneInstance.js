@@ -107,7 +107,7 @@ const ApiSceneInstance = (props) =>{
 
     //返回场景详情页
     const toUnitDetail =()=>{
-        props.history.push("/repositorypage/testcase/api-scene-detail")
+        props.history.push("/repository/api-scene-detail")
     }
 
 
