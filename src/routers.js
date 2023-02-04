@@ -235,13 +235,13 @@ const routers =  [
                         component: CategoryList,
                     },
                     {
-                        path: "/repository/testplan",
+                        path: "/repository/plan",
                         key:'TestPlan',
                         exact: true,
                         component: TestPlan,
                     },
                     {
-                        path: "/repository/testplandetail",
+                        path: "/repository/plan-detail",
                         key:'TestPlan',
                         exact: true,
                         component: TestPlanDetail,

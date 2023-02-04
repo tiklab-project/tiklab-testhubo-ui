@@ -81,14 +81,16 @@ const ApiSceneInstanceDrawer = (props) =>{
     //展示步骤列表
     const showStepListView = (data)=>{
         return data&&data.map(item=>{
+
+            let apiUnitInstance = item.apiUnitInstance;
             return(
                 <div
                     className={`history-step-item ${stepSelect===item.id?"history-item-selected":""}`}
                     key={item.id}
-                    onClick={()=>clickFindStep(item.id)}
+                    onClick={()=>clickFindStep(apiUnitInstance.id)}
                 >
                     {
-                        item.result===1
+                        apiUnitInstance.result===1
                             ?<div className='history-item-result isSucceed'>通过</div>
                             :<div className='history-item-result isFailed'>未通过</div>
                     }

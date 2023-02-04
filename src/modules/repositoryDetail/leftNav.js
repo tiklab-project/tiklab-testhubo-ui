@@ -26,7 +26,7 @@ const LeftNav = (props) =>{
             "icon":"jihua",
             "name":"测试计划",
             "key":"testplan",
-            "router":"/repository/testplan"
+            "router":"/repository/plan"
         }
     ]
 

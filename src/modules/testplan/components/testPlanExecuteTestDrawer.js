@@ -1,16 +1,12 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import IconBtn from "../../common/iconBtn/IconBtn";
-import {Drawer, Empty, Form, Input, Spin, Table} from "antd";
-import {testPlanTestDispatch} from "../api/testPlanDetailApi";
+import {Drawer, Empty, Spin, Table} from "antd";
+import {testPlanExeResult, testPlanTestDispatch} from "../api/testPlanDetailApi";
 import {inject, observer} from "mobx-react";
 import {messageFn} from "../../common/messageCommon/messageCommon";
 import emptyImg from "../../../assets/img/empty.png";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/caseCommonFn";
 
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 5},
-};
 
 const TestPlanExecuteTestDrawer = (props) =>{
     const {apiEnvStore,appEnvStore,webEnvStore,testPlanId} = props;
@@ -23,7 +19,6 @@ const TestPlanExecuteTestDrawer = (props) =>{
     const [spinning, setSpinning] = useState(true);
     const [caseList, setCaseList] = useState();
 
-    const [form] = Form.useForm();
 
     let columns= [
         {
@@ -55,9 +50,38 @@ const TestPlanExecuteTestDrawer = (props) =>{
         },
     ]
 
+    const [result, setResult] = useState();
+    const [start, setStart] = useState(false);
+    let ref = useRef(null)
 
+    useEffect(()=>{
+        if (start) {
+            ref.current =  setInterval(()=>{
+                testPlanExeResult().then(res=>{
+                    if(res.code===0){
+                        if (res.data.resultType === "end") {
+                            messageFn("success","执行完毕")
 
-    const showModal = async () =>{
+                            clearInterval(ref.current)
+
+                            setStart(false)
+                        }
+                        setSpinning(false)
+                        setResult(res.data.testPlanInstance)
+                        setCaseList(res.data.testPlanCaseInstanceList)
+                    }else {
+                        setStart(false)
+                    }
+
+                })
+            },1500);
+
+            setSpinning(true)
+        }
+        return () => ref.current = null
+    },[start])
+
+    const showModal =  () =>{
         if(envUrl) {
             setVisible(true)
 
@@ -65,25 +89,13 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 apiEnv: envUrl,
                 testPlanId:testPlanId,
                 appEnv:appEnv,
-                webEnv:webEnv
+                webEnv:webEnv,
+
             }
 
-            let res = await testPlanTestDispatch(params)
-            if(res.code===0){
-                let data = res.data
+            testPlanTestDispatch(params)
 
-                form.setFieldsValue({
-                    result:data.result===1?"成功":"失败",
-                    total:data.total,
-                    passNum:data.passNum,
-                    failNum:data.failNum,
-                    passRate:data.passRate,
-                })
-
-                setCaseList(data?.testPlanCaseInstanceList)
-
-                setSpinning(false)
-            }
+            setStart(true)
         }else {
             messageFn("error","请选择环境")
         }
@@ -93,6 +105,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
         setVisible(false);
         setCaseList([])
         setSpinning(true)
+        setResult(null)
     };
 
     return(
@@ -114,37 +127,28 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 <Spin spinning={spinning}>
                     <div className={"unit-instance-detail"}>
                         <div className={"header-item"}>测试详情</div>
-                        <div style={{padding:"10px 0 "}}>
-                            <Form
-                                form={form}
-                                preserve={false}
-                                {...layout}
-                                labelCol={{ style: { width: '100%', height: '30px' } }} //label样式
-                                labelAlign="left" //label样式
-                            >
-                                <div className='test-detail-from'>
-                                    <div className={'test-detail-form-item'}>
-                                        <span className='test-detail-form-label'>测试结果</span>
-                                        <Form.Item name="result"><Input /></Form.Item>
-                                    </div>
-                                    <div className={'test-detail-form-item'}>
-                                        <span className='test-detail-form-label'>用例数</span>
-                                        <Form.Item name="total"><Input /></Form.Item>
-                                    </div>
-                                    <div className={'test-detail-form-item'}>
-                                        <span className='test-detail-form-label'>测试通过率</span>
-                                        <Form.Item name="passRate"><Input /></Form.Item>
-                                    </div>
-                                    <div className={'test-detail-form-item'}>
-                                        <span className='test-detail-form-label'>通过步骤数</span>
-                                        <Form.Item name="passNum"><Input /></Form.Item>
-                                    </div>
-                                    <div className={'test-detail-form-item'}>
-                                        <span className='test-detail-form-label'>未通过步骤数</span>
-                                        <Form.Item name="failNum"><Input /></Form.Item>
-                                    </div>
-                                </div>
-                            </Form>
+                        <div className={"history-detail-all-box"}>
+                            <div className={"history-detail-all-item"}>
+                                <div>测试结果</div>
+                                <div className={"history-detail-all-item-value"}>{result?.result===1?"成功":"失败"}</div>
+                            </div>
+                            <div className={"history-detail-all-item"}>
+                                <div>步骤数</div>
+                                <div className={"history-detail-all-item-value"}>{result?.total}</div>
+                            </div>
+                            <div className={"history-detail-all-item"}>
+                                <div>测试通过率</div>
+                                <div className={"history-detail-all-item-value"}>{result?.passRate}</div>
+                            </div>
+
+                            <div className={"history-detail-all-item"}>
+                                <div>通过步骤数</div>
+                                <div className={"history-detail-all-item-value"}>{result?.passNum}</div>
+                            </div>
+                            <div className={"history-detail-all-item"}>
+                                <div>未通过步骤数</div>
+                                <div className={"history-detail-all-item-value"}>{result?.failNum}</div>
+                            </div>
                         </div>
                         <div className={"header-item"}>用例列表</div>
                         <div className='table-list-box' style={{margin: "10px"}}>

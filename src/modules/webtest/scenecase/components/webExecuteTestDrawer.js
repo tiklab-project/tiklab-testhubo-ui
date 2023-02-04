@@ -52,7 +52,7 @@ const WebExecuteTestDrawer =(props)=>{
     ]
 
     const showDrawer = () => {
-        webSceneTestDispatch({webSceneId:webSceneId}).then(res=>{
+        webSceneTestDispatch({webSceneId:webSceneId,webDriver:"chrome"}).then(res=>{
 
             if(res.code !==0) return;
 

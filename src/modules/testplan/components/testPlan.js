@@ -114,7 +114,7 @@ const TestPlan = (props) => {
     // 保存id到缓存
     const setLocalStorage = (id) => {
         sessionStorage.setItem('testPlanId',id);
-        props.history.push('/repository/testplandetail');
+        props.history.push('/repository/plan-detail');
     };
 
     const showState = (type)=>{

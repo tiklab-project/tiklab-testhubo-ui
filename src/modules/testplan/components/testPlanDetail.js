@@ -33,7 +33,7 @@ const TestPlanDetail = (props) =>{
 
     //返回
     const goBack = () => {
-        props.history.push('/repository/testplan');
+        props.history.push('/repository/plan');
     }
 
     //去往历史页

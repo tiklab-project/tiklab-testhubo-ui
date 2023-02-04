@@ -117,7 +117,7 @@ const TestPlanInstanceList = (props) =>{
 
 
     const goBack = () =>{
-        props.history.push("/repository/testplandetail")
+        props.history.push("/repository/plan-detail")
     }
 
     return(
