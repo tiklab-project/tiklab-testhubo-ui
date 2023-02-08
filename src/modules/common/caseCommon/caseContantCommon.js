@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {renderRoutes} from "react-router-config";
 import CaseLeftCommon from "./caseLeftCommon";
-import "../../apitest/http/apitest/caseContantStyle.scss"
+import "../../testcase/components/caseContantStyle.scss"
 
 //api,web,app,function;最外层架子
 const CaseContantCommon = (props) =>{

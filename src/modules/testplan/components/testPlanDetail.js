@@ -91,7 +91,7 @@ const TestPlanDetail = (props) =>{
 
 
     return(
-        <div className={"teston-page-center"}>
+        <div className={"testcase-box"}>
             <Breadcrumb className={"breadcrumb-box"}>
                 <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试计划</Breadcrumb.Item>
                 <Breadcrumb.Item>计划详情</Breadcrumb.Item>

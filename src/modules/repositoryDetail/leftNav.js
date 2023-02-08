@@ -27,6 +27,11 @@ const LeftNav = (props) =>{
             "name":"测试计划",
             "key":"testplan",
             "router":"/repository/plan"
+        },{
+            "icon":"gongdan",
+            "name":"测试报告",
+            "key":"report",
+            "router":"/repository/report"
         }
     ]
 

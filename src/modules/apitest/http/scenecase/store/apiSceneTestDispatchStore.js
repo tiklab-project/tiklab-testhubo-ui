@@ -12,7 +12,7 @@ export class ApiSceneTestDispatchStore {
 
         const param = {
             apiSceneCase:{id:id},
-            apiSceneTestConfig:{"prepositionUrl":url}
+            apiEnv:url
         }
 
         const res = await  apiSceneExecute(param);

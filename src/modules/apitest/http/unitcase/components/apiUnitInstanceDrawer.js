@@ -92,7 +92,7 @@ const ApiUnitInstanceDrawer = (props) =>{
         <div className={"case-history-box"}>
             {showHistoryView()}
             <Drawer
-                title="历史记录"
+                title="测试结果"
                 placement="right"
                 onClose={onClose}
                 visible={visible}

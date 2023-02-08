@@ -3,7 +3,6 @@ import { inject,observer } from 'mobx-react';
 import ApiSceneStepList from "./apiSceneStepList";
 import ApiSceneTestResult from "./apiSceneTestResult";
 import DetailCommon from "../../../../common/detailCommon";
-import BreadcrumbEx from "../../../../common/breadcrumbEx";
 import {Breadcrumb} from "antd";
 
 const ApiSceneDetail = (props) => {
@@ -18,12 +17,6 @@ const ApiSceneDetail = (props) => {
         })
     },[apiSceneId])
 
-    //
-    const rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-            getSelectItem(selectedRows)
-        },
-    };
 
     //更新名称
     const updateTitle = (value) =>{

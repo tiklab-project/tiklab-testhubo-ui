@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Input, Modal, Table} from "antd";
+import { Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 
@@ -39,7 +39,7 @@ const AppPerformBindScene = (props) =>{
 
     // 弹框展示
     const showModal = () => {
-        findAppSceneList({caseType: "scene", testType: "app"});
+        findAppSceneList({caseType: "app-scene", testType: "auto"});
         setVisible(true);
     };
 

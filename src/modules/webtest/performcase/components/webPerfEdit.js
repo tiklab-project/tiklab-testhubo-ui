@@ -1,23 +1,18 @@
 
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Cascader, TreeSelect} from 'antd';
+import {Form, Modal, Input, TreeSelect} from 'antd';
 
-
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
 
 // 添加与编辑
 const WebPerfEdit = (props) => {
-    const {webPerfStore, categoryStore,webPerfId,categoryId,findList} = props;
-    const {findWebPerfList,findWebPerf,createWebPerf,updateWebPerf}=webPerfStore;
-    const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
+    const {webPerfStore, categoryStore} = props;
+    const {createWebPerf}=webPerfStore;
+    const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const [form] = Form.useForm();
 
-    const [cascaderCategoryId, setCascaderCategoryId] = useState();
+    const [categoryId, setCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
     const repositoryId = sessionStorage.getItem("repositoryId")
@@ -27,16 +22,6 @@ const WebPerfEdit = (props) => {
     const showModal = () => {
         findCategoryListTreeTable(repositoryId)
 
-        if(props.type==="edit"){
-            findWebPerf(webPerfId).then(res=>{
-                form.setFieldsValue({
-                    name:res.testCase.name,
-                    desc:res.testCase.desc
-                })
-            })
-        }
-
-
         setVisible(true);
     };
 
@@ -45,13 +30,13 @@ const WebPerfEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
-        if(props.type!=="edit"){
+        if(props.type==="add"){
             values.testCase={
-                category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                category:{id:categoryId},
                 repositoryId:repositoryId,
                 name:values.name,
-                testType:"web",
-                caseType:"perf",
+                testType:"perform",
+                caseType:"web-perform",
                 desc:values.desc
             }
 
@@ -66,21 +51,7 @@ const WebPerfEdit = (props) => {
                 }
 
             })
-        }else {
-            values.id=webPerfId;
-            values.testCase={
-                id:webPerfId,
-                name:values.name,
-                desc:values.desc
-            }
-            delete values.name
-            delete values.desc
-
-            updateWebPerf(values).then(()=> {
-                findList()
-            })
         }
-
 
 
         setVisible(false);
@@ -89,7 +60,7 @@ const WebPerfEdit = (props) => {
     //获取分组id
     const changeCategory=(value)=> {
         //获取最后数组最后一位值
-        setCascaderCategoryId(value)
+        setCategoryId(value)
     }
 
 
@@ -97,11 +68,7 @@ const WebPerfEdit = (props) => {
 
     return (
         <>
-            {
-                props.btn === "btn"
-                    ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
-                    : <a onClick={showModal}>{props.name}</a>
-            }
+            <a onClick={showModal}>{props.name}</a>
 
             <Modal
                 destroyOnClose={true}
@@ -133,7 +100,7 @@ const WebPerfEdit = (props) => {
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
                             style={{  width: '100%'}}
-                            value={cascaderCategoryId}
+                            value={categoryId}
                             dropdownStyle={{
                                 maxHeight: 400,
                                 overflow: 'auto',
@@ -144,12 +111,6 @@ const WebPerfEdit = (props) => {
                             onChange={changeCategory}
                             treeData={categoryTableList}
                         />
-                    </Form.Item>
-                    <Form.Item
-                        label="描述"
-                        name="desc"
-                    >
-                        <Input />
                     </Form.Item>
                 </Form>
             </Modal>

@@ -50,6 +50,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
         },
     ]
 
+    let repositoryId = sessionStorage.getItem("repositoryId")
     const [result, setResult] = useState();
     const [start, setStart] = useState(false);
     let ref = useRef(null)
@@ -59,7 +60,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
             ref.current =  setInterval(()=>{
                 testPlanExeResult().then(res=>{
                     if(res.code===0){
-                        if (res.data.resultType === "end") {
+                        if (res.data.status === 2) {
                             messageFn("success","执行完毕")
 
                             clearInterval(ref.current)
@@ -88,6 +89,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
             let params = {
                 apiEnv: envUrl,
                 testPlanId:testPlanId,
+                repositoryId:repositoryId,
                 appEnv:appEnv,
                 webEnv:webEnv,
 

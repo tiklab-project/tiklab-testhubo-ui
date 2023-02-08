@@ -4,11 +4,11 @@
  */
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import BackCommon from "../../../common/backCommon";
 import AppSceneStepList from "./appSceneStepList";
 import AppExecuteTestDrawer from "./appExecuteTestDrawer";
 import DetailCommon from "../../../common/detailCommon";
 import {Breadcrumb} from "antd";
+import "./appStyle.scss"
 
 const AppSceneDetail = (props) => {
     const {appSceneStore} = props;

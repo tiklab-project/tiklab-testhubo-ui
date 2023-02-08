@@ -85,7 +85,7 @@ const AppSceneInstanceDrawer =(props)=>{
                 onClick={showDrawer}
             />
             <Drawer
-                title="App场景历史"
+                title="测试结果"
                 placement="right"
                 onClose={onClose}
                 visible={visible}

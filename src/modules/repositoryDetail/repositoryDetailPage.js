@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState} from "react";
 import { observer, inject } from "mobx-react";
-import DynamicWidget from "../home/dynamicWidget";
+import DynamicWidget from "../integration/home/dynamicWidget";
 
 const RepositoryDetailPage = (props) => {
     const {repositoryStore} = props;

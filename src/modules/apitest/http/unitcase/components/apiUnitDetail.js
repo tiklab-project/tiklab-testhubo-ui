@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import { observer, inject } from 'mobx-react';
-import {Button, Form, Input, message, Select, Space, Tooltip} from 'antd';
+import { Form, Input, Select, Space, Tooltip} from 'antd';
 import Request from './request';
 import EdiText from "react-editext";
 import './unitcase.scss'
@@ -14,7 +14,7 @@ const {Option} = Select;
 
 const ApiUnitDetail = (props) => {
     const { apiUnitStore,apiEnvStore,apiUnitTestDispatchStore,assertParamStore } = props;
-    const { findApiUnit,deleteApiUnit,updateApiUnit } = apiUnitStore;
+    const { findApiUnit,updateApiUnit } = apiUnitStore;
     const { apiUnitExecute } = apiUnitTestDispatchStore;
     const { envUrl } = apiEnvStore;
     const {findAssertParamList} = assertParamStore

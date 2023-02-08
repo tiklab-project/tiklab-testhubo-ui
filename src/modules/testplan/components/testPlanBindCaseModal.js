@@ -4,8 +4,9 @@
  */
 import React, { useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Modal, Button, Table, Space, Select,} from 'antd';
+import {Modal, Table, Space, Select,} from 'antd';
 import IconBtn from "../../common/iconBtn/IconBtn";
+import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/caseCommonFn";
 
 // 添加与编辑
 const TestPlanBindCaseModal = (props) => {
@@ -23,17 +24,17 @@ const TestPlanBindCaseModal = (props) => {
         },
         {
             title:`测试类型`,
-            dataIndex: "type",
-            key: "type",
+            dataIndex: "testType",
+            key: "testType",
             width:'30%',
-            render:(text,record)=>(showTestType(record.testType))
+            render:(text,record)=>(showTestTypeView(record.testType))
         },
         {
             title:`用例类型`,
-            dataIndex: "type",
-            key: "type",
+            dataIndex: "caseType",
+            key: "caseType",
             width:'30%',
-            render:(text,record)=>(showCaseType(record.caseType))
+            render:(text,record)=>(showCaseTypeView(record.caseType))
         },
     ]
 
@@ -43,12 +44,6 @@ const TestPlanBindCaseModal = (props) => {
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
-    // const [pageParam, setPageParam] = useState({
-    //     pageParam: {
-    //         pageSize: pageSize,
-    //         currentPage: currentPage
-    //     }
-    // })
 
     const [visible, setVisible] = useState(false);
     const [selectRow,setSelectRow]=useState()
@@ -93,29 +88,6 @@ const TestPlanBindCaseModal = (props) => {
         setVisible(false)
     }
 
-    const showTestType = (testType)=>{
-        switch (testType) {
-            case "api":
-                return "API";
-            case "web":
-                return "WEB";
-            case "app":
-                return "APP";
-            case "func":
-                return "功能";
-        }
-    }
-
-    const showCaseType = (caseType)=>{
-        switch (caseType) {
-            case "unit":
-                return "单元测试";
-            case "scene":
-                return "场景测试";
-            case "perform":
-                return "压力测试";
-        }
-    }
 
 
     // 关闭弹框
@@ -141,26 +113,6 @@ const TestPlanBindCaseModal = (props) => {
         findPage(newParams)
     }
 
-    //搜索
-    const onSearch = (e) => {
-        setCurrentPage(1)
-        let newParams = {
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: 1
-            },
-        }
-        if (e.target.value) {
-            newParams = {
-                pageParam: {
-                    pageSize: pageSize,
-                    currentPage: 1
-                },
-                name:e.target.value,
-            }
-        }
-        // setPageParam(newParams)
-    }
 
     //测试类型筛选
     const testTypeFn = (type)=>{
@@ -174,17 +126,6 @@ const TestPlanBindCaseModal = (props) => {
         findPage(params)
     }
 
-    //用例类型筛选
-    const caseSelectFn = (type) =>{
-        let params = {
-            caseType:type,
-            pageParam: {
-                pageSize: 8,
-                currentPage: 1
-            }
-        }
-        findPage(params)
-    }
 
 
     return (
@@ -218,44 +159,19 @@ const TestPlanBindCaseModal = (props) => {
                                 value: null,
                                 label: '所有',
                             },{
-                                value: 'api',
-                                label: '接口',
+                                value: 'auto',
+                                label: '自动化',
                             },
                             {
-                                value: 'web',
-                                label: 'WEB',
+                                value: 'perform',
+                                label: '性能',
                             },{
-                                value: 'app',
-                                label: 'APP',
-                            },{
-                                value: 'func',
+                                value: 'function',
                                 label: '功能',
                             },
                         ]}
                     />
-                    <Select
-                        // defaultValue={null}
-                        placeholder={"用例类型"}
-                        className={"bind-case-select"}
-                        onChange={caseSelectFn}
-                        style={{width:120}}
-                        options={[
-                            {
-                                value: null,
-                                label: '所有',
-                            },{
-                                value: 'unit',
-                                label: '单元用例',
-                            },
-                            {
-                                value: 'scene',
-                                label: '场景用例',
-                            },{
-                                value: 'perform',
-                                label: '性能用例',
-                            },
-                        ]}
-                    />
+
                 </Space>
 
                 <div className={"table-list-box"}>

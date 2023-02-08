@@ -1,28 +1,19 @@
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select, message, Cascader, TreeSelect} from 'antd';
+import {Form, Modal,  Input, Select, TreeSelect} from 'antd';
+import {messageFn} from "../../../../common/messageCommon/messageCommon";
 
 const {Option} = Select;
 
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
-
 // 添加与编辑
 const ApiUnitEdit = (props) => {
-    const { apiUnitStore, apiUnitId,categoryStore,categoryId,testType,findList } = props;
-    const {
-        findApiUnitList,
-        findApiUnit,
-        createApiUnit,
-        updateApiUnit,
-    } = apiUnitStore;
-    const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
+    const { apiUnitStore, categoryStore } = props;
+    const {createApiUnit} = apiUnitStore;
+    const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const [form] = Form.useForm();
 
-    const [cascaderCategoryId, setCascaderCategoryId] = useState();
+    const [categoryId, setCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
     const repositoryId = sessionStorage.getItem("repositoryId")
@@ -31,17 +22,6 @@ const ApiUnitEdit = (props) => {
     const showModal = () => {
         findCategoryListTreeTable(repositoryId)
 
-        if(props.type === "edit"){
-            findApiUnit(apiUnitId).then((res)=>{
-                form.setFieldsValue({
-                    name: res.testCase.name,
-                    methodType:res.methodType,
-                    path:res.path,
-                    desc:res.testCase.desc
-                })
-            })
-        }
-
         setVisible(true);
     };
 
@@ -49,13 +29,13 @@ const ApiUnitEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
-        if(props.type !== "edit" ){
+        if(props.type === "add" ){
             values.testCase={
-                category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                category:{id:categoryId},
                 repositoryId:repositoryId,
                 name:values.name,
-                testType:"api",
-                caseType:"unit",
+                testType:"auto",
+                caseType:"api-unit",
                 desc:values.desc
             }
 
@@ -68,35 +48,19 @@ const ApiUnitEdit = (props) => {
                     sessionStorage.setItem(`apiUnitId`,res.data);
                     props.history.push(`/repository/api-unit-detail`)
                 }else {
-                    message.error('This is an error message');
-                }
-            });
-        }else{
-            values.id=apiUnitId;
-            values.testCase={
-                id:apiUnitId,
-                name:values.name,
-                desc:values.desc
-            }
-
-            delete values.name
-            delete values.desc
-
-            updateApiUnit(values).then(res=>{
-                if(res.code===0){
-                    findList()
-                }else {
-                    message.error('This is an error message');
+                    messageFn("error",'创建失败');
                 }
             });
         }
+
+
         setVisible(false);
     };
 
 
 
     const changeCategory=(value)=> {
-        setCascaderCategoryId(value)
+        setCategoryId(value)
     }
 
 
@@ -104,12 +68,7 @@ const ApiUnitEdit = (props) => {
 
     return (
         <>
-            {
-                props.btn === "btn"
-                    ? <Button onClick={showModal}>{props.name}</Button>
-                    : <a onClick={showModal}>{props.name}</a>
-            }
-
+             <a onClick={showModal}>{props.name}</a>
             <Modal
                 destroyOnClose={true}
                 title={props.name}
@@ -156,7 +115,7 @@ const ApiUnitEdit = (props) => {
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
                             style={{  width: '100%'}}
-                            value={cascaderCategoryId}
+                            value={categoryId}
                             dropdownStyle={{
                                 maxHeight: 400,
                                 overflow: 'auto',
@@ -167,12 +126,6 @@ const ApiUnitEdit = (props) => {
                             onChange={changeCategory}
                             treeData={categoryTableList}
                         />
-                    </Form.Item>
-                    <Form.Item
-                        label="描述"
-                        name="desc"
-                    >
-                        <Input />
                     </Form.Item>
                 </Form>
             </Modal>

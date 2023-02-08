@@ -1,11 +1,10 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import {Popconfirm, Select, Space, Table} from "antd";
+import {Popconfirm, Space, Table} from "antd";
 import TestPlanTestcaseAdd from "./testPlanBindCaseModal";
 import IconCommon from "../../common/iconCommon";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/caseCommonFn";
 
-const {Option} = Select;
 const TestPlanBindCaseList = (props) =>{
     const {testPlanDetailStore} = props;
     const {findBindTestCaseList,testPlanDetailList,deleteTestPlanDetail,updateTestPlanDetail} = testPlanDetailStore;

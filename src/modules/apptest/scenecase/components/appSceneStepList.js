@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import {Input, Popconfirm, Space, Table} from "antd";
+import { Popconfirm, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
-import AppSceneBindUnit from "./AppSceneBindUnit";
 import IconCommon from "../../../common/iconCommon";
+import AppSceneStepEdit from "./appSceneStepEdit";
 
 const AppSceneStepList = (props) => {
     const {appSceneStepStore} =props;
@@ -10,14 +10,40 @@ const AppSceneStepList = (props) => {
 
     const column = [
         {
-            title:`用例名称`,
-            dataIndex: "name",
+            title:`名称`,
+            dataIndex:  "name",
             key: "name",
-        }, {
-            title: `创建时间`,
-            dataIndex: "createTime",
-            key: "user",
+            width: '10%',
         },
+        {
+            title: '操作方法',
+            width: '15%',
+            dataIndex: 'actionType',
+            // align:'center',
+        },
+        {
+            title: '参数',
+            width: '15%',
+            dataIndex: 'parameter',
+            // align:'center',
+        },
+        {
+            title: '定位器',
+            dataIndex: 'location',
+            width: '15%',
+            // align:'center',
+        },
+        {
+            title: '定位器的值',
+            dataIndex: 'locationValue',
+            // width: '15%',
+            // align:'center',
+        },
+        // {
+        //     title: `创建时间`,
+        //     dataIndex: "createTime",
+        //     key: "createTime",
+        // },
         {
             title: '操作',
             dataIndex: 'operation',
@@ -25,6 +51,12 @@ const AppSceneStepList = (props) => {
             width: 120,
             render: (text, record) => (
                 <Space size="middle">
+                    <AppSceneStepEdit
+                        type={"edit"}
+                        findList={findList}
+                        appSceneStepId={record.id}
+                    />
+
                     <Popconfirm
                         title="确定删除？"
                         onConfirm={() => deleteAppSceneStep(record.id).then(()=>findAppSceneStepList(appSceneId))}
@@ -44,10 +76,12 @@ const AppSceneStepList = (props) => {
     let appSceneId = sessionStorage.getItem("appSceneId")
 
     useEffect(()=>{
-        findAppSceneStepList(appSceneId)
+        findList()
     },[appSceneId])
 
-   
+    const findList = () =>{
+        findAppSceneStepList(appSceneId)
+    }
 
     return(
         <>
@@ -55,10 +89,10 @@ const AppSceneStepList = (props) => {
                 <div className={'test-title'}>
                     <div>场景步骤</div>
                 </div>
-               <AppSceneBindUnit
-                   appSceneStepStore={appSceneStepStore}
-                   appSceneId={appSceneId}
-               />
+                <AppSceneStepEdit
+                    type={"add"}
+                    findList={findList}
+                />
             </div>
             <div className={"table-list-box"}>
                 <Table

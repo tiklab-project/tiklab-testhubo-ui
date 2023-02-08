@@ -1,40 +1,26 @@
 
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Select, Cascader, TreeSelect} from 'antd';
+import {Form, Modal,Input, TreeSelect} from 'antd';
 
-const {Option} = Select;
-
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
 
 // 添加与编辑
 const AppSceneEdit = (props) => {
-    const { appSceneStore,categoryStore,appSceneId,categoryId ,findList } = props;
-    const {findAppSceneList,findAppScene,createAppScene,updateAppScene} = appSceneStore;
-    const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
+    const { appSceneStore,categoryStore } = props;
+    const {createAppScene} = appSceneStore;
+    const {findCategoryListTreeTable,categoryTableList} = categoryStore;
     
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
-
+    const [categoryId, setCategoryId] = useState();
+    
+    
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
     const showModal = () => {
         findCategoryListTreeTable(repositoryId)
-
-
-        if(props.type === "edit"){
-            findAppScene(appSceneId).then(res=>{
-                form.setFieldsValue({
-                    name:res.testCase.name,
-                    desc:res.testCase.desc
-                })
-            })
-        }
         
         setVisible(true);
     };
@@ -44,13 +30,13 @@ const AppSceneEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
-        if(props.type !=="edit"){
+        if(props.type ==="add"){
             values.testCase={
-                category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                category:{id:categoryId},
                 repositoryId:repositoryId,
                 name:values.name,
-                testType:"app",
-                caseType:"scene",
+                testType:"auto",
+                caseType:"app-scene",
                 desc:values.desc
             }
 
@@ -64,39 +50,24 @@ const AppSceneEdit = (props) => {
                     props.history.push(`/repository/app-scene-detail`)
                 }
             })
-        }else {
-            values.id=appSceneId;
-            values.testCase={
-                id:appSceneId,
-                name:values.name,
-                desc:values.desc
-            }
-            updateAppScene(values).then(()=> {
-                findList()
-            })
         }
 
         setVisible(false);
     };
 
 
-    const [cascaderCategoryId, setCascaderCategoryId] = useState();
 
     //获取分组id
     const changeCategory=(value)=> {
         //获取最后数组最后一位值
-        setCascaderCategoryId(value)
+        setCategoryId(value)
     }
 
     const onCancel = () => { setVisible(false) };
 
     return (
         <>
-            {
-                props.btn === "btn"
-                    ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
-                    : <a onClick={showModal}>{props.name}</a>
-            }
+            <a onClick={showModal}>{props.name}</a>
 
             <Modal
                 destroyOnClose={true}
@@ -128,7 +99,7 @@ const AppSceneEdit = (props) => {
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
                             style={{  width: '100%'}}
-                            value={cascaderCategoryId}
+                            value={categoryId}
                             dropdownStyle={{
                                 maxHeight: 400,
                                 overflow: 'auto',
@@ -139,12 +110,6 @@ const AppSceneEdit = (props) => {
                             onChange={changeCategory}
                             treeData={categoryTableList}
                         />
-                    </Form.Item>
-                    <Form.Item
-                        label="描述"
-                        name="desc"
-                    >
-                        <Input />
                     </Form.Item>
                 </Form>
             </Modal>

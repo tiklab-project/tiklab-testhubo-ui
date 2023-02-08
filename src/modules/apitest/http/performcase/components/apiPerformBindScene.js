@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Input, Modal, Table} from "antd";
+import { Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 
@@ -36,7 +36,7 @@ const ApiPerformBindScene = (props) =>{
 
     // 弹框展示
     const showModal = () => {
-        findApiSceneList({caseType:"scene",testType:"api"});
+        findApiSceneList({caseType:"api-scene",testType:"auto"});
 
         setVisible(true);
     };
@@ -75,12 +75,6 @@ const ApiPerformBindScene = (props) =>{
                 centered
                 width={1000}
             >
-                {/*<Input*/}
-                {/*    placeholder={`搜索`}*/}
-                {/*    // onPressEnter={onSearch}*/}
-                {/*    className='search-input'*/}
-                {/*    style={{width:240}}*/}
-                {/*/>*/}
 
                 <Table
                     columns={column}

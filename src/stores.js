@@ -40,6 +40,7 @@ import {TESTCASE_STORE,TestCaseStore} from "./modules/testcase/store/testcaseSto
 import {TESTPLAN_STORE, TestPlanStore} from './modules/testplan/store/testPlanStore';
 import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './modules/testplan/store/testPlanDetailStore';
 import {TEST_PLAN_INSTANCE_STORE,TestPlanInstanceStore} from "./modules/testplan/store/testPlanInstanceStore";
+import {TEST_PLAN_BIND_CASE_INSTANCE_STORE,TestPlanBindCaseInstanceStore} from "./modules/testplan/store/testPlanBindCaseInstanceStore";
 
 import {USERSELECT_STORE, UserSelectStore} from './modules/common/userSelect/store/userSelectStore'
 
@@ -53,7 +54,6 @@ import {API_UNIT_DISPATCH_STORE, ApiUnitTestDispatchStore} from "./modules/apite
 import {API_SCENE_DISPATCH_STORE,ApiSceneTestDispatchStore} from "./modules/apitest/http/scenecase/store/apiSceneTestDispatchStore";
 import {API_PERF_DISPATCH_STORE,ApiPerfTestDispatchStore} from "./modules/apitest/http/performcase/store/apiPerfTestDispatchStore";
 
-import {WEB_UNIT_STORE, WebUnitStore} from "./modules/webtest/unitcase/store/webUnitStore"
 import {WEB_SCENE_STORE, WebSceneStore} from "./modules/webtest/scenecase/store/webSceneStore";
 import {WEB_SCENESTEP_STORE,WebSceneStepStore} from "./modules/webtest/scenecase/store/webSceneStepStore";
 import {WEB_SCENEINSTANCE_STORE,WebSceneInstanceStore} from "./modules/webtest/scenecase/store/webSceneInstanceStore";
@@ -62,8 +62,6 @@ import {WEB_PERF_STEP_STORE,WebPerfStepStore} from "./modules/webtest/performcas
 import {WEB_PERF_INSTANCE_STORE,WebPerfInstanceStore} from "./modules/webtest/performcase/store/webPerfInstanceStore";
 import {WEB_PERF_DISPATCH_STORE,WebPerfTestDispatchStore} from "./modules/webtest/performcase/store/webPerfTestDispatchStore";
 
-import {APP_UNIT_STORE,AppUnitStore} from "./modules/apptest/unitcase/store/appUnitStore";
-import {APP_UNITSTEP_STORE,AppUnitStepStore} from "./modules/apptest/unitcase/store/appUnitStepStore";
 import {APP_SCENE_STORE,AppSceneStore} from "./modules/apptest/scenecase/store/appSceneStore";
 import {APP_SCENESTEP_STORE,AppSceneStepStore} from "./modules/apptest/scenecase/store/appSceneStepStore";
 import {APP_SCENEINSTANCE_STORE,AppSceneInstanceStore} from "./modules/apptest/scenecase/store/appSceneInstanceStore";
@@ -72,10 +70,8 @@ import {APP_PERF_STEP_STORE,AppPerfStepStore} from "./modules/apptest/performcas
 import {APP_PERF_INSTANCE_STORE,AppPerfInstanceStore} from "./modules/apptest/performcase/store/appPerfInstanceStore";
 import {APP_PERF_DISPATCH_STORE,AppPerfTestDispatchStore} from "./modules/apptest/performcase/store/appPerfTestDispatchStore";
 
-import {FUNC_UNIT_STORE , FuncUnitStore} from "./modules/functest/unitcase/store/funcUnitStore";
-import {FUNC_UNITSTEP_STORE , FuncUnitStepStore} from "./modules/functest/unitcase/store/funcUnitStepStore";
-import { FUNC_SCENE_STORE, FuncSceneStore} from "./modules/functest/scenecase/store/funcSceneStore";
-import {FUNC_SCENESTEP_STORE, FuncSceneStepStore} from "./modules/functest/scenecase/store/funcSceneStepStore"
+import {FUNC_UNIT_STORE , FuncUnitStore} from "./modules/functest/store/funcUnitStore";
+import {FUNC_UNITSTEP_STORE , FuncUnitStepStore} from "./modules/functest/store/funcUnitStepStore";
 
 import {API_ENV_STORE,ApiEnvStore} from "./modules/sysmgr/environment/store/apiEnvStore";
 import {WEB_ENV_STORE,WebEnvStore} from "./modules/sysmgr/environment/store/webEnvStore";
@@ -119,7 +115,6 @@ function createStores() {
         [API_SCENE_DISPATCH_STORE]: new ApiSceneTestDispatchStore(),
         [API_PERF_DISPATCH_STORE]: new ApiPerfTestDispatchStore(),
 
-        [WEB_UNIT_STORE]:new WebUnitStore(),
         [WEB_SCENE_STORE]:new WebSceneStore(),
         [WEB_PERF_STORE]:new WebPerfStore(),
         [WEB_SCENESTEP_STORE]: new WebSceneStepStore(),
@@ -128,8 +123,6 @@ function createStores() {
         [WEB_PERF_INSTANCE_STORE]: new WebPerfInstanceStore(),
         [WEB_PERF_DISPATCH_STORE]: new WebPerfTestDispatchStore(),
 
-        [APP_UNIT_STORE]: new AppUnitStore(),
-        [APP_UNITSTEP_STORE]: new AppUnitStepStore(),
         [APP_SCENE_STORE]: new AppSceneStore(),
         [APP_SCENESTEP_STORE]: new AppSceneStepStore(),
         [APP_SCENEINSTANCE_STORE]: new AppSceneInstanceStore(),
@@ -140,8 +133,6 @@ function createStores() {
 
         [FUNC_UNIT_STORE]: new FuncUnitStore(),
         [FUNC_UNITSTEP_STORE]:new FuncUnitStepStore(),
-        [FUNC_SCENE_STORE]: new FuncSceneStore(),
-        [FUNC_SCENESTEP_STORE]:new FuncSceneStepStore(),
 
         [API_ENV_STORE]: new ApiEnvStore(),
         [WEB_ENV_STORE]: new WebEnvStore(),
@@ -157,10 +148,10 @@ function createStores() {
         [TESTPLAN_STORE]: new TestPlanStore(),
         [TESTPLANDETAIL_STORE]: new TestPlanDetailStore(),
         [TEST_PLAN_INSTANCE_STORE]: new TestPlanInstanceStore(),
+        [TEST_PLAN_BIND_CASE_INSTANCE_STORE]: new TestPlanBindCaseInstanceStore(),
 
         [USERSELECT_STORE]: new UserSelectStore(),
         [EAM_STORE]: new EamStore(),
-        // [PLUGIN_STORE]: new PluginStore(),
     };
 }
 

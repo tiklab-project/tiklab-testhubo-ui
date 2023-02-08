@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import WebSceneStepList from "./webSceneStepList";
 import WebExecuteTestDrawer from "./webExecuteTestDrawer";
 import DetailCommon from "../../../common/detailCommon";
-import "../../webtest/webStyle.scss"
+import "./webStyle.scss"
 import {Breadcrumb} from "antd";
 
 const WebSceneDetail = (props) => {

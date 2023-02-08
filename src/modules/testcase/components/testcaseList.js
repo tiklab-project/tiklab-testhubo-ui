@@ -1,22 +1,19 @@
 import React, {useEffect, useState} from "react";
-import {Button, Dropdown, Empty, Input, Menu, Popconfirm, Select, Space, Table} from "antd";
+import {Button, Dropdown, Empty, Menu, Popconfirm, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import "./testcaseStyle.scss"
-import "../../apitest/http/apitest/caseContantStyle.scss"
+import "./caseContantStyle.scss"
 import emptyImg from "../../../assets/img/empty.png"
 import ApiUnitEdit from "../../apitest/http/unitcase/components/apiUnitEdit";
 import ApiSceneEdit from "../../apitest/http/scenecase/components/apiSceneEdit";
 import ApiPerfEdit from "../../apitest/http/performcase/components/apiPerfEdit";
-import WebUnitEdit from "../../webtest/unitcase/components/webUnitEdit";
 import WebSceneEdit from "../../webtest/scenecase/components/webSceneEdit";
 import WebPerfEdit from "../../webtest/performcase/components/webPerfEdit";
-import AppUnitEdit from "../../apptest/unitcase/components/appUnitEdit";
 import AppSceneEdit from "../../apptest/scenecase/components/appSceneEdit";
 import AppPerfEdit from "../../apptest/performcase/components/appPerfEdit";
-import FuncUnitEdit from "../../functest/unitcase/components/funcUnitEdit";
-import FuncSceneEdit from "../../functest/scenecase/components/funcSceneEdit";
 import IconCommon from "../../common/iconCommon";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/caseCommonFn";
+import FuncUnitEdit from "../../functest/components/funcUnitEdit";
 
 
 const TestCaseList = (props) => {
@@ -25,9 +22,6 @@ const TestCaseList = (props) => {
         findTestCaseList,
         testcaseList,
         deleteTestCase,
-        tabList,
-        setTabList,
-        setActiveKey,
         testType,
         setTestType,
         caseType,
@@ -71,7 +65,7 @@ const TestCaseList = (props) => {
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteTestCase(record.id).then(()=>findPage())}
+                        onConfirm={() =>deleteTestCase(record.id).then(()=>findPage(testType,caseType))}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -97,15 +91,12 @@ const TestCaseList = (props) => {
         }
     })
 
-
-    // const categoryId = sessionStorage.getItem("categoryId")
     const repositoryId = sessionStorage.getItem("repositoryId")
 
 
     useEffect(()=>{
         findPage(testType,caseType)
     },[pageParam])
-
 
     const findPage = (testType,caseType) =>{
         const param = {
@@ -120,42 +111,61 @@ const TestCaseList = (props) => {
         })
     }
 
-    //点击名称不同的类型的用例跳到不同页面
+    //点击名称 先通过测试类型分类
     const toPage =(record)=>{
 
         switch (record.testType) {
-            case "api":
+            case "auto":
                 switchCaseType(record);
                 break;
-            case "web":
+            case "perform":
                 switchCaseType(record);
                 break;
-            case "app":
-                switchCaseType(record);
-                break;
-            case "func":
-                switchCaseType(record);
+            case "function":
+                sessionStorage.setItem(`funcUnitId`,record.id);
+                props.history.push(`/repository/function-detail`)
                 break;
         }
     }
 
+    //再根据不同的用例类型跳到不同的页面
     const switchCaseType = (record)=>{
         localStorage.setItem("testType",record.testType)
+
         switch (record.caseType) {
-            case "unit":
-                sessionStorage.setItem(`${record.testType}UnitId`,record.id);
-                props.history.push(`/repository/${record.testType}-unit-detail`)
+            case "api-unit":
+                toDetailAddRouterCommon("apiUnitId",record)
                 break;
-            case "scene":
-                sessionStorage.setItem(`${record.testType}SceneId`,record.id);
-                props.history.push(`/repository/${record.testType}-scene-detail`)
+            case "api-scene":
+                toDetailAddRouterCommon("apiSceneId",record)
                 break;
-            case "perform":
-                sessionStorage.setItem(`${record.testType}PerfId`,record.id);
-                props.history.push(`/repository/${record.testType}-perform-detail`)
+            case "api-perform":
+                toDetailAddRouterCommon("apiPerfId",record)
+                break;
+
+            case "web-scene":
+                toDetailAddRouterCommon("webSceneId",record)
+                break;
+            case "web-perform":
+                toDetailAddRouterCommon("webPerfId",record)
+                break;
+
+            case "app-scene":
+                toDetailAddRouterCommon("appSceneId",record)
+                break;
+
+            case "app-perform":
+                toDetailAddRouterCommon("appPerfId",record)
                 break;
         }
     }
+
+    //跳转路由
+    const toDetailAddRouterCommon = (setId,record)=>{
+        sessionStorage.setItem(`${setId}`,record.id);
+        props.history.push(`/repository/${record.caseType}-detail`)
+    }
+
 
 
     //渲染筛选项
@@ -190,24 +200,26 @@ const TestCaseList = (props) => {
 
     }
 
+    //测试类型筛选项
     const items=[
         {
             key: null,
             title: '所有',
         },{
-            key: 'api',
-            title: '接口',
+            key: 'auto',
+            title: '自动化',
         },
         {
-            key: 'web',
-            title: 'WEB',
+            key: 'perform',
+            title: '性能',
         },{
-            key: 'app',
-            title: 'APP',
-        },{
-            key: 'func',
+            key: 'function',
             title: '功能',
         },
+        // {
+        //     key: 'func',
+        //     title: '功能',
+        // },
     ]
 
 
@@ -234,115 +246,71 @@ const TestCaseList = (props) => {
     }
 
 
+    //添加不同用例
     const addMenu =(
         <Menu>
-            <Menu.SubMenu title="接口添加" key={"api-add"}>
+            <Menu.SubMenu title="自动化测试" key={"auto-add"}>
                 <Menu.Item key={"api-unit-add"}>
                     <ApiUnitEdit
-                        name={"添加Unit用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
+                        name={"添加接口测试"}
+                        type={"add"}
                         {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"api-scene-add"}>
                     <ApiSceneEdit
-                        name={"添加场景用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
-                        {...props}
-                    />
-                </Menu.Item>
-                <Menu.Item key={"api-perf-add"}>
-                    <ApiPerfEdit
-                        name={"添加压测用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
-                        {...props}
-                    />
-                </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu title="WEB添加" key={"web-add"}>
-                <Menu.Item key={"web-unit-add"}>
-                    <WebUnitEdit
-                        name={"添加Unit用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
+                        name={"添加接口场景"}
+                        type={"add"}
                         {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"web-scene-add"}>
                     <WebSceneEdit
-                        name={"添加场景用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
-                        {...props}
-                    />
-                </Menu.Item>
-                <Menu.Item key={"web-perf-add"}>
-                    <WebPerfEdit
-                        name={"添加压测用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
-                        {...props}
-                    />
-                </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu title="APP添加" key={"app-add"}>
-                <Menu.Item key={"app-unit-add"}>
-                    <AppUnitEdit
-                        name={"添加Unit用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
+                        name={"添加Web用例"}
+                        type={"add"}
                         {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"app-scene-add"}>
                     <AppSceneEdit
-                        name={"添加场景用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
+                        name={"添加App用例"}
+                        type={"add"}
+                        {...props}
+                    />
+                </Menu.Item>
+            </Menu.SubMenu>
+            <Menu.SubMenu title="性能测试" key={"perform-add"}>
+                <Menu.Item key={"api-perf-add"}>
+                    <ApiPerfEdit
+                        name={"添加接口性能"}
+                        type={"add"}
+                        {...props}
+                    />
+                </Menu.Item>
+
+                <Menu.Item key={"web-perf-add"}>
+                    <WebPerfEdit
+                        name={"添加Web性能"}
+                        type={"add"}
                         {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"app-perf-add"}>
                     <AppPerfEdit
-                        name={"添加压测用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
+                        name={"添加App性能"}
+                        type={"add"}
                         {...props}
                     />
                 </Menu.Item>
             </Menu.SubMenu>
-            <Menu.SubMenu title="功能添加" key={"func-add"}>
-                <Menu.Item key={"func-unit-add"}>
-                    <FuncUnitEdit
-                        name={"添加Unit用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
-                        {...props}
-                    />
-                </Menu.Item>
-                <Menu.Item key={"func-scene-add"}>
-                    <FuncSceneEdit
-                        name={"添加场景用例"}
-                        isCategory={true}
-                        // categoryId={categoryId}
-                        findList={findPage}
-                        {...props}
-                    />
-                </Menu.Item>
-            </Menu.SubMenu>
+
+            <Menu.Item key={"function-add"}>
+                <FuncUnitEdit
+                    name={"添加功能用例"}
+                    type={"add"}
+                    {...props}
+                />
+            </Menu.Item>
         </Menu>
     )
     return(
@@ -359,28 +327,28 @@ const TestCaseList = (props) => {
                 <div className={"ws-header-menu-left"}>
                     {showMenu(items)}
                 </div>
-                <Select
-                    // defaultValue={null}
-                    placeholder={"用例类型"}
-                    className={"dynamic-select-box-item"}
-                    onChange={caseSelectFn}
-                    options={[
-                        {
-                            value: null,
-                            label: '所有',
-                        },{
-                            value: 'unit',
-                            label: '单元用例',
-                        },
-                        {
-                            value: 'scene',
-                            label: '场景用例',
-                        },{
-                            value: 'perform',
-                            label: '性能用例',
-                        },
-                    ]}
-                />
+                {/*<Select*/}
+                {/*    // defaultValue={null}*/}
+                {/*    placeholder={"用例类型"}*/}
+                {/*    className={"dynamic-select-box-item"}*/}
+                {/*    onChange={caseSelectFn}*/}
+                {/*    options={[*/}
+                {/*        {*/}
+                {/*            value: null,*/}
+                {/*            label: '所有',*/}
+                {/*        },{*/}
+                {/*            value: 'unit',*/}
+                {/*            label: '单元用例',*/}
+                {/*        },*/}
+                {/*        {*/}
+                {/*            value: 'scene',*/}
+                {/*            label: '场景用例',*/}
+                {/*        },{*/}
+                {/*            value: 'perform',*/}
+                {/*            label: '性能用例',*/}
+                {/*        },*/}
+                {/*    ]}*/}
+                {/*/>*/}
             </div>
 
             <div className={"table-list-box"}>

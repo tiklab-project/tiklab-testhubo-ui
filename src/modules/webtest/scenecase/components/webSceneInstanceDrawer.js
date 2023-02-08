@@ -6,7 +6,7 @@ import {inject, observer} from "mobx-react";
 
 const layout = {
     labelCol: {span: 4},
-    wrweberCol: {span: 5},
+    wrapperCol: {span: 5},
 };
 
 
@@ -85,7 +85,7 @@ const WebSceneInstanceDrawer =(props)=>{
                 onClick={showDrawer}
             />
             <Drawer
-                title="Web场景历史"
+                title="测试结果"
                 placement="right"
                 onClose={onClose}
                 visible={visible}

@@ -1,26 +1,30 @@
 
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Input,TreeSelect} from 'antd';
+import {Form, Modal, Input, TreeSelect} from 'antd';
 
+const layout = {
+    labelCol: {span: 4},
+    wrapperCol: {span: 20},
+};
 
 // 添加与编辑
-const WebSceneEdit = (props) => {
-    const {webSceneStore, categoryStore} = props;
-    const {createWebScene} = webSceneStore;
+const FuncUnitEdit = (props) => {
+    const { funcUnitStore,categoryStore} = props;
+    const {createFuncUnit} = funcUnitStore
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const [form] = Form.useForm();
 
-    const [categoryId, setCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
+    const [categoryId, setCategoryId] = useState();
 
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
     const showModal = () => {
         findCategoryListTreeTable(repositoryId)
-        
+
         setVisible(true);
     };
 
@@ -29,24 +33,22 @@ const WebSceneEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
+
         if(props.type==="add"){
             values.testCase={
                 category:{id:categoryId},
                 repositoryId:repositoryId,
                 name:values.name,
-                testType:"auto",
-                caseType:"web-scene",
+                testType:"function",
                 desc:values.desc
             }
-
-            delete values?.category
             delete values.name
             delete values.desc
 
-            createWebScene(values).then((res)=> {
+            createFuncUnit(values).then((res)=> {
                 if(res.code===0){
-                    sessionStorage.setItem(`webSceneId`,res.data);
-                    props.history.push(`/repository/web-Scene-detail`)
+                    sessionStorage.setItem(`functionId`,res.data);
+                    props.history.push(`/repository/function-detail`)
                 }
             })
         }
@@ -66,6 +68,7 @@ const WebSceneEdit = (props) => {
     return (
         <>
             <a onClick={showModal}>{props.name}</a>
+
             <Modal
                 destroyOnClose={true}
                 title={props.name}
@@ -78,8 +81,9 @@ const WebSceneEdit = (props) => {
             >
                 <Form
                     form={form}
+                    onFinish={onFinish}
                     preserve={false}
-                    layout={"vertical"}
+                    {...layout}
                 >
                     <Form.Item
                         label="名称"
@@ -113,4 +117,4 @@ const WebSceneEdit = (props) => {
     );
 };
 
-export default inject("webSceneStore","categoryStore")(observer(WebSceneEdit));
+export default inject("funcUnitStore","categoryStore")(observer(FuncUnitEdit));

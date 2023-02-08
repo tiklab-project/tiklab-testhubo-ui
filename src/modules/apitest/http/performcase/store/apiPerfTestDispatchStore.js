@@ -12,7 +12,7 @@ export class ApiPerfTestDispatchStore {
 
         const param = {
             apiPerfCase:{id:id},
-            apiPerfTestConfig:{"prepositionUrl":url}
+            apiEnv:url
         }
 
         const res = await  apiPerfExecute(param);
@@ -26,7 +26,7 @@ export class ApiPerfTestDispatchStore {
     exeResult = async (id,url)=>{
         const param = {
             apiPerfCase:{id:id},
-            apiPerfTestConfig:{"prepositionUrl":url}
+            apiEnv:url
         }
 
         const res  =  await exeResult(param);

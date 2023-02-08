@@ -1,23 +1,22 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
+import {Empty, Popconfirm, Space, Table, Tag} from "antd";
+import IconCommon from "../common/iconCommon";
+import emptyImg from "../../assets/img/empty.png";
 import {inject, observer} from "mobx-react";
-import IconCommon from "../../common/iconCommon";
-import emptyImg from "../../../assets/img/empty.png";
 
-const TestPlanInstanceList = (props) =>{
+const TestReportList = (props) =>{
     const {testPlanInstanceStore} = props;
     const {
         findTestPlanInstancePage,
-        testPlanInstanceList,
-        findTestPlanInstance,
-        deleteTestPlanInstance
+        deleteTestPlanInstance,
+        testPlanInstanceList
     } = testPlanInstanceStore;
 
     const column = [
         {
             title: '总结果',
             dataIndex: 'result',
-            render: (text, record) => (
+            render: (text) => (
                 text===1
                     ?<div className={"history-item-result isSucceed"} style={{margin:0}}>通过</div>
                     :<div className={"history-item-result isFailed"} style={{margin:0}}>未通过</div>
@@ -77,7 +76,7 @@ const TestPlanInstanceList = (props) =>{
         },
     ]
 
-    const testPlanId = sessionStorage.getItem("testPlanId")
+    const repositoryId = sessionStorage.getItem("repositoryId")
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
@@ -95,21 +94,20 @@ const TestPlanInstanceList = (props) =>{
 
     const findPage = async () => {
         let param = {
-            testPlanId:testPlanId,
+            repositoryId:repositoryId,
             ...pageParam
         }
         let res = await findTestPlanInstancePage(param)
         if(res.code===0){
             setTotalRecord(res.data.totalRecord)
         }
-
     }
+
 
     //跳往用例历史列表页
     const toCaseInstanceList = (testPlanInstanceId) =>{
         sessionStorage.setItem("testPlanInstanceId",testPlanInstanceId)
-        props.history.push("/repository/plan-instance-case")
-
+        props.history.push("/repository/report-detail")
     }
 
     // 分页
@@ -127,17 +125,11 @@ const TestPlanInstanceList = (props) =>{
     }
 
 
-    const goBack = () =>{
-        props.history.push("/repository/plan-detail")
-    }
-
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>计划详情</Breadcrumb.Item>
-                <Breadcrumb.Item>计划历史</Breadcrumb.Item>
-            </Breadcrumb>
-
+            <div className='header-box-space-between'>
+                <div className={'header-box-title'}>测试报告</div>
+            </div>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}
@@ -163,4 +155,4 @@ const TestPlanInstanceList = (props) =>{
     )
 }
 
-export default inject("testPlanInstanceStore")(observer(TestPlanInstanceList));
+export default  inject("testPlanInstanceStore")(observer(TestReportList));

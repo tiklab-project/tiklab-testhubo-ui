@@ -11,8 +11,9 @@ export class ApiUnitTestDispatchStore {
     apiUnitExecute = async (id,url) => {
 
         const param = {
+
             apiUnitCase:{id:id},
-            apiUnitTestConfig:{"prepositionUrl":url}
+            apiEnv:url
         }
 
         const res = await  apiUnitExecute(param);

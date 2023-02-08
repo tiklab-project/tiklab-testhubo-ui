@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Input, Modal, Table} from "antd";
+import {Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 
@@ -33,7 +33,7 @@ const WebPerformBindScene = (props) =>{
 
     // 弹框展示
     const showModal = () => {
-        findWebSceneList({caseType: "scene", testType: "web"});
+        findWebSceneList({caseType: "web-scene", testType: "auto"});
 
         setVisible(true);
     };

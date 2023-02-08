@@ -1,22 +1,17 @@
 
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Cascader, TreeSelect} from 'antd';
-
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
+import {Form, Modal, Input, TreeSelect} from 'antd';
 
 // 添加与编辑
 const ApiSceneEdit = (props) => {
-    const { apiSceneStore,categoryStore, apiSceneId,categoryId,testType,findList } = props;
-    const {findApiSceneList,findApiScene,createApiScene,updateApiScene} = apiSceneStore
-    const {findCategoryListTree,findCategoryListTreeTable,categoryTableList} = categoryStore;
+    const { apiSceneStore,categoryStore} = props;
+    const {createApiScene} = apiSceneStore
+    const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const [form] = Form.useForm();
 
-    const [cascaderCategoryId, setCascaderCategoryId] = useState();
+    const [categoryId, setCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
     const repositoryId = sessionStorage.getItem("repositoryId")
@@ -26,15 +21,6 @@ const ApiSceneEdit = (props) => {
 
         findCategoryListTreeTable(repositoryId)
 
-        if(props.type==="edit"){
-            findApiScene(apiSceneId).then(res=>{
-                form.setFieldsValue({
-                    name:res.testCase.name,
-                    desc:res.testCase.desc
-                })
-            })
-        }
-
         setVisible(true);
     };
 
@@ -42,15 +28,17 @@ const ApiSceneEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
 
-        if(props.type!=="edit"){
+        if(props.type==="add"){
+            
             values.testCase={
-                category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                category:{id:categoryId},
                 repositoryId:repositoryId,
                 name:values.name,
-                testType:"api",
-                caseType:"scene",
+                testType:"auto",
+                caseType:"api-scene",
                 desc:values.desc
             }
+            
             delete values?.category
             delete values.name
             delete values.desc
@@ -61,21 +49,6 @@ const ApiSceneEdit = (props) => {
                     props.history.push(`/repository/api-scene-detail`)
                 }
             })
-        }else {
-            values.id=apiSceneId;
-            values.testCase={
-                id:apiSceneId,
-                name:values.name,
-                desc:values.desc
-            }
-
-            delete values.name
-            delete values.desc
-
-            updateApiScene(values).then(()=> {
-                findList()
-            })
-
         }
 
         setVisible(false);
@@ -83,7 +56,7 @@ const ApiSceneEdit = (props) => {
 
     //获取分组id
     const changeCategory=(value)=> {
-        setCascaderCategoryId(value)
+        setCategoryId(value)
     }
 
 
@@ -91,11 +64,7 @@ const ApiSceneEdit = (props) => {
 
     return (
         <>
-            {
-                props.btn === "btn"
-                    ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
-                    : <a onClick={showModal}>{props.name}</a>
-            }
+            <a onClick={showModal}>{props.name}</a>
 
             <Modal
                 destroyOnClose={true}
@@ -128,7 +97,7 @@ const ApiSceneEdit = (props) => {
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
                             style={{  width: '100%'}}
-                            value={cascaderCategoryId}
+                            value={categoryId}
                             dropdownStyle={{
                                 maxHeight: 400,
                                 overflow: 'auto',
@@ -139,12 +108,6 @@ const ApiSceneEdit = (props) => {
                             onChange={changeCategory}
                             treeData={categoryTableList}
                         />
-                    </Form.Item>
-                    <Form.Item
-                        label="描述"
-                        name="desc"
-                    >
-                        <Input />
                     </Form.Item>
                 </Form>
             </Modal>

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Popconfirm, Space, Switch, Table} from "antd";
+import {Popconfirm, Table} from "antd";
 import WebPerformBindScene from "./webPerformBindScene";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../common/iconCommon";

@@ -174,7 +174,7 @@ const TestPlan = (props) => {
     }
 
     return(
-        <div className={"teston-page-center"}>
+        <div className={"testcase-box"}>
             <div className='header-box-space-between'>
                 <div className={'header-box-title'}>测试计划</div>
                 <TestPlanEdit

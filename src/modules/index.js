@@ -1,7 +1,7 @@
 
-import Home from './home/home';
-import HeaderContent from "./header/headerContent";
-import PageContent from "./header/pageContent";
+import Home from './integration/home/home';
+import HeaderContent from "./integration/header/headerContent";
+import PageContent from "./integration/header/pageContent";
 import Repository from "./repository/components/repository";
 import RepositoryDetailPage from "./repositoryDetail/repositoryDetailPage";
 import {SystemManagement} from "./sysmgr";
@@ -11,7 +11,6 @@ import TestPlanDetail from "./testplan/components/testPlanDetail";
 import QuartzTaskList from './quartzTask/components/quartzMaster';
 import QuartzTask from "./quartzTask/components/quartzTask";
 
-import FunctionalTestDetail from './functest/scenecase/components/functionalTestDetail';
 
 import CategoryList from "./category/components/categoryList";
 import {
@@ -31,8 +30,6 @@ export {
     StepDetail,
 
     QuartzTaskList, QuartzTask,
-
-    FunctionalTestDetail,
 
     CategoryList,
 

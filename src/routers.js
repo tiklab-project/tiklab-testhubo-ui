@@ -14,16 +14,14 @@ import {
 
 import {Directory, OrgaList, UserGroup} from 'tiklab-user-ui';
 import {Redirect} from "react-router";
-import PortalHeader from "./modules/header/portalContent";
+import PortalHeader from "./modules/integration/header/portalContent";
 import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
 import ApiUnitcaseDetail from "./modules/apitest/http/unitcase/components/apiUnitDetail";
 import ApiScenecaseDetail from "./modules/apitest/http/scenecase/components/apiSceneDetail";
-import FuncUnitDetail from "./modules/functest/unitcase/components/funcUnitDetail";
-import FuncSceneDetail from "./modules/functest/scenecase/components/funcSceneDetail";
-import AppSceneDetailContant from "./modules/apptest/scenecase/components/appSceneDetailContant";
+import FuncUnitDetail from "./modules/functest/components/funcUnitDetail";
 import EnvContent from "./modules/sysmgr/environment/components/envContent";
 import ApiPerformDetail from "./modules/apitest/http/performcase/components/apiPerformDetail";
-import LoginOut from "./modules/header/loginOut";
+import LoginOut from "./modules/integration/header/loginOut";
 import WebPerformDetail from "./modules/webtest/performcase/components/webPerformDetail";
 import AppPerformDetail from "./modules/apptest/performcase/components/appPerformDetail";
 
@@ -32,10 +30,8 @@ import TestPlanDetail from "./modules/testplan/components/testPlanDetail";
 import AgentConfigList from "./modules/integration/agentconfig/components/agentConfigList";
 import DomainRole from "./modules/integration/domainRole/domainRole";
 import DomainPrivilege from "./modules/integration/domainPrivilege/domainPrivilege";
-import WebUnitDetail from "./modules/webtest/unitcase/components/webUnitDetail";
-import AppUnitDetail from "./modules/apptest/unitcase/components/appUnitDetail";
 import SystemContent from "./modules/sysmgr/system/systemContent";
-import LoginContent from "./modules/login/LoginContent";
+import LoginContent from "./modules/integration/login/LoginContent";
 import UserList from "tiklab-user-ui/lib/user-list";
 import {MyTodoTask, TaskList, TodoTempList} from "tiklab-todotask-ui";
 import {PluginDetail, PluginList} from "tiklab-plugin-ui";
@@ -44,7 +40,7 @@ import {ProjectFeatureList, ProjectRoleList, SystemFeatureList, SystemRoleList} 
 import {LogList, LogTemplateList, LogTypeList} from "tiklab-oplog-ui";
 import Version from "./modules/sysmgr/version/version";
 import RepositorySettingMenu from "./modules/integration/repositorySetting/repositorySettingMenu";
-import DynamicDetail from "./modules/home/dynamicDetail";
+import DynamicDetail from "./modules/integration/home/dynamicDetail";
 import TestCaseList from "./modules/testcase/components/testcaseList";
 import RepositorySetting from "./modules/integration/repositorySetting/repositorySetting";
 import ApiUnitInstanceList from "./modules/apitest/http/unitcase/components/apiUnitInstanceList";
@@ -55,6 +51,10 @@ import WebPerfInstanceList from "./modules/webtest/performcase/components/webPer
 import AppSceneInstanceList from "./modules/apptest/scenecase/components/appSceneInstanceList";
 import AppPerfInstanceList from "./modules/apptest/performcase/components/appPerfInstanceList";
 import TestPlanInstanceList from "./modules/testplan/components/testPlanInstanceList";
+import AppSceneDetail from "./modules/apptest/scenecase/components/appSceneDetail";
+import TestPlanBindCaseInstanceList from "./modules/testplan/components/testPlanBindCaseInstanceList";
+import TestReportList from "./modules/testreport/testReportList";
+import TestReportDetail from "./modules/testreport/testReportDetail";
 
 
 
@@ -129,10 +129,6 @@ const routers =  [
                     },
 
                     {
-                        path: "/repository/web-unit-detail",
-                        component: WebUnitDetail,
-                    },
-                    {
                         path: "/repository/web-scene-detail",
                         component: WebSceneDetail,
                     },{
@@ -148,13 +144,10 @@ const routers =  [
                         component: WebPerfInstanceList,
                     },
 
-                    {
-                        path: "/repository/app-unit-detail",
-                        component: AppUnitDetail,
-                    },
+
                     {
                         path: "/repository/app-scene-detail",
-                        component: AppSceneDetailContant,
+                        component: AppSceneDetail,
                     },
                     {
                         path: "/repository/app-scene-instance",
@@ -170,13 +163,10 @@ const routers =  [
                     },
 
                     {
-                        path: "/repository/func-unit-detail",
+                        path: "/repository/function-detail",
                         component: FuncUnitDetail,
                     },
-                    {
-                        path: "/repository/func-scene-detail",
-                        component: FuncSceneDetail,
-                    },
+
 
 
                     {
@@ -242,16 +232,29 @@ const routers =  [
                     },
                     {
                         path: "/repository/plan-detail",
-                        key:'TestPlan',
                         exact: true,
                         component: TestPlanDetail,
                     },
                     {
                         path: "/repository/plan-instance",
-                        key:'plan-instance',
                         exact: true,
                         component: TestPlanInstanceList,
                     },
+                    {
+                        path: "/repository/plan-instance-case",
+                        exact: true,
+                        component: TestPlanBindCaseInstanceList,
+                    },
+                    {
+                        path: "/repository/report",
+                        exact: true,
+                        component: TestReportList,
+                    },{
+                        path: "/repository/report-detail",
+                        exact: true,
+                        component: TestReportDetail,
+                    },
+
                     {
                         path:"/repository",
                         exact: true,

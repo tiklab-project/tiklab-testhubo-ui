@@ -1,21 +1,17 @@
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Cascader, TreeSelect} from 'antd';
+import {Form, Modal, Input, TreeSelect} from 'antd';
 
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
 
 // 添加与编辑
 const ApiPerfEdit = (props) => {
-    const { apiPerfStore,categoryStore,apiPerfId,categoryId,testType,findList } = props;
-    const { findApiPerfList,findApiPerf,createApiPerf,updateApiPerf}= apiPerfStore;
-    const {findCategoryListTree,findCategoryListTreeTable,categoryTableList}=categoryStore;
+    const { apiPerfStore,categoryStore } = props;
+    const { createApiPerf}= apiPerfStore;
+    const { findCategoryListTreeTable,categoryTableList}=categoryStore;
 
     const [form] = Form.useForm();
 
-    const [cascaderCategoryId, setCascaderCategoryId] = useState();
+    const [categoryId, setCategoryId] = useState();
     const [visible, setVisible] = React.useState(false);
 
     const repositoryId = sessionStorage.getItem("repositoryId")
@@ -23,15 +19,6 @@ const ApiPerfEdit = (props) => {
     // 弹框展示
     const showModal = () => {
         findCategoryListTreeTable(repositoryId)
-
-        if(props.type==="edit"){
-            findApiPerf(apiPerfId).then(res=>{
-                form.setFieldsValue({
-                    name:res.testCase.name,
-                    desc:res.testCase.desc,
-                });
-            })
-        }
 
         setVisible(true);
     };
@@ -41,13 +28,13 @@ const ApiPerfEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
         
-        if(props.type!=="edit"){
+        if(props.type==="add"){
             values.testCase={
-                category:{id:cascaderCategoryId?cascaderCategoryId:categoryId},
+                category:{id:categoryId},
                 repositoryId:repositoryId,
                 name:values.name,
-                testType:"api",
-                caseType:"perf",
+                testType:"perform",
+                caseType:"api-perform",
                 desc:values.desc
             }
 
@@ -61,21 +48,6 @@ const ApiPerfEdit = (props) => {
                     props.history.push(`/repository/api-perform-detail`)
                 }
             })
-        }else {
-            values.id=apiPerfId;
-            values.testCase={
-                id:apiPerfId,
-                name:values.name,
-                desc:values.desc
-            }
-            delete values.name
-            delete values.desc
-            
-            updateApiPerf(values).then(res=>{
-                if(res.code===0){
-                    findList()
-                }
-            })
         }
 
         setVisible(false);
@@ -85,19 +57,15 @@ const ApiPerfEdit = (props) => {
     //获取分组id
     const changeCategory=(value)=> {
         //获取最后数组最后一位值
-        setCascaderCategoryId(value)
+        setCategoryId(value)
     }
 
     const onCancel = () => { setVisible(false) };
 
     return (
         <>
-            {
-                props.btn === "btn"
-                    ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
-                    : <a onClick={showModal}>{props.name}</a>
-            }
-
+            <a onClick={showModal}>{props.name}</a>
+            
             <Modal
                 destroyOnClose={true}
                 title={props.name}
@@ -128,7 +96,7 @@ const ApiPerfEdit = (props) => {
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
                             style={{  width: '100%'}}
-                            value={cascaderCategoryId}
+                            value={categoryId}
                             dropdownStyle={{
                                 maxHeight: 400,
                                 overflow: 'auto',
@@ -139,12 +107,6 @@ const ApiPerfEdit = (props) => {
                             onChange={changeCategory}
                             treeData={categoryTableList}
                         />
-                    </Form.Item>
-                    <Form.Item
-                        label="描述"
-                        name="desc"
-                    >
-                        <Input />
                     </Form.Item>
                 </Form>
             </Modal>
