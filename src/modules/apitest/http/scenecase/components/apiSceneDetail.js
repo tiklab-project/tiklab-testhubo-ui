@@ -3,7 +3,8 @@ import { inject,observer } from 'mobx-react';
 import ApiSceneStepList from "./apiSceneStepList";
 import ApiSceneTestResult from "./apiSceneTestResult";
 import DetailCommon from "../../../../common/detailCommon";
-import {Breadcrumb} from "antd";
+import {Breadcrumb, Space} from "antd";
+import ApiEnvSelect from "../../../../sysmgr/environment/components/apiEnvSelect";
 
 const ApiSceneDetail = (props) => {
     const {apiSceneStore} = props;
@@ -41,10 +42,15 @@ const ApiSceneDetail = (props) => {
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
-                <Breadcrumb.Item>场景详情</Breadcrumb.Item>
-            </Breadcrumb>
+            <div style={{"display":"flex","justifyContent":"space-between","margin":"5px  0 0 0"}}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
+                    <Breadcrumb.Item>场景详情</Breadcrumb.Item>
+                </Breadcrumb>
+
+                <ApiEnvSelect {...props}/>
+            </div>
+
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}

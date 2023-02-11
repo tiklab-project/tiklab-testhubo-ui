@@ -64,7 +64,7 @@ const ApiPerformTestDrawer = (props) =>{
         if (start) {
             ref.current =  setInterval(()=>{
                 exeResult(apiPerfId,envUrl).then(res=>{
-                    if (res.resultType === "end") {
+                    if (res.status === 2) {
                         clearInterval(ref.current)
                         setStart(false)
                         setLoading(false)

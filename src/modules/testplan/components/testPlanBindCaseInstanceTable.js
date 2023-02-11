@@ -99,8 +99,29 @@ const TestPlanBindCaseInstanceTable = (props) =>{
                 return <WebSceneInstanceDrawer icon={true}  webSceneInstanceId={record.caseInstanceId}/>
             case "app-scene":
                 return <AppSceneInstanceDrawer icon={true}  appSceneInstanceId={record.caseInstanceId}/>
+
+            // case "api-perform":
+            //     return <IconCommon
+            //         icon={"lishi"}
+            //         className={"icon-s "}
+            //         style={{margin:"5px 0 0 0",cursor:"pointer"}}
+            //         onClick={()=>apiPerfInstance(record.caseInstanceId)}
+            //     />
+            //
+            //
+            // case "web-perform":
+            //
+            // case "app-perform":
+
         }
     }
+
+    //去往历史页
+    const apiPerfInstance = (caseInstanceId) =>{
+        sessionStorage.setItem("apiPerfInstanceId",caseInstanceId)
+        props.history.push("/repository/api-perform-instance")
+    }
+
 
 
     // 分页

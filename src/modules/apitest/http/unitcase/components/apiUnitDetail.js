@@ -9,6 +9,7 @@ import ApiUnitTestResult from "./apiUnitTestResult";
 import {messageFn} from "../../../../common/messageCommon/messageCommon";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import IconCommon from "../../../../common/iconCommon";
+import ApiEnvSelect from "../../../../sysmgr/environment/components/apiEnvSelect";
 
 const {Option} = Select;
 
@@ -157,7 +158,11 @@ const ApiUnitDetail = (props) => {
                     />
                 </div>
 
-                <a onClick={toHistory}>测试历史</a>
+                <Space>
+                    <a onClick={toHistory}>测试历史</a>
+                    <ApiEnvSelect {...props}/>
+                </Space>
+
             </div>
             <div className={"test-base"}>
                 <Form form = {form} layout={"inline"}>

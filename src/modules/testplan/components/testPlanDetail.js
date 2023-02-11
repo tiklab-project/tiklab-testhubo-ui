@@ -7,6 +7,7 @@ import moment from "moment";
 import {CaretDownOutlined} from "@ant-design/icons";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import TestPlanENVModal from "./testPlanENVModal";
+import IconBtn from "../../common/iconBtn/IconBtn";
 
 const {Option} = Select;
 
@@ -119,8 +120,12 @@ const TestPlanDetail = (props) =>{
                             hideIcons
                         />
                     </div>
-                    <div className={"display-flex-between"} style={{width: 220}}>
-                        <a onClick={toHistory}>测试历史</a>
+                    <div className={"display-flex-between"} style={{width: 240}}>
+                        <IconBtn
+                            className="pi-icon-btn-grey"
+                            name={"测试历史"}
+                            onClick={toHistory}
+                        />
                         <TestPlanENVModal {...props}/>
                         <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
                     </div>
