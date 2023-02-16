@@ -12,12 +12,12 @@ const ApiPerfStepList = (props) =>{
     const column =[
         {
             title: '场景名称',
-            dataIndex: ['testCase','name'],
+            dataIndex: ["apiScene",'testCase','name'],
             key: 'name',
-            // width: "30%",
-            // render: (text, record) => (
-            //     <a onClick={() => setSessionStorage(record.id)}>{text}</a>
-            // )
+            width: "30%",
+            render: (text, record) => (
+                props.type ? <a onClick={() => setSessionStorage(record.apiScene.id)}>{text}</a>:<span>{text}</span>
+            )
         },
         {
             title: `创建时间`,
@@ -63,7 +63,7 @@ const ApiPerfStepList = (props) =>{
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiSceneId",id);
-        props.history.push("/repository/apitest/scenedetail")
+        props.history.push("/repository/api-perform-to-scene")
     }
 
     return(

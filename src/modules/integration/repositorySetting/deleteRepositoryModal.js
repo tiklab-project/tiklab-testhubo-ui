@@ -26,7 +26,7 @@ const DeleteRepositoryModal = (props) =>{
 
     const deleteFn = () =>{
         deleteRepository(repositoryId).then(()=>{
-            props.history.push("/repository")
+            props.history.push("/repository-page")
         })
     }
 

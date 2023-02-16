@@ -4,7 +4,7 @@
     "tcdesc":"描述",
     "tcoperation":"操作",
     "tcMgr": "用例管理",
-    "tcList": "用例列表",
+    "tcList": "测试用例",
     "tcsearch": "搜索用例",
     "tcedit": "编辑",
     "tcdelete": "删除",

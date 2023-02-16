@@ -1,7 +1,7 @@
-import React, {Fragment, useEffect, useState} from "react";
-import {Breadcrumb, Button, DatePicker, Form, Input, Select, Space} from "antd";
+import React, { useEffect, useState} from "react";
+import {Breadcrumb,  DatePicker, Form, Select} from "antd";
 import {inject, observer} from "mobx-react";
-import TestPlanTestcase from "./testPlanBindCaseList";
+import TestPlanBindCaseList from "./testPlanBindCaseList";
 import EdiText from "react-editext";
 import moment from "moment";
 import {CaretDownOutlined} from "@ant-design/icons";
@@ -49,7 +49,9 @@ const TestPlanDetail = (props) =>{
             id:testPlanId,
             name:value
         }
-        updateTestPlan(param)
+        updateTestPlan(param).then(()=>{
+            findTestPlan(testPlanId)
+        })
     };
 
 
@@ -95,7 +97,7 @@ const TestPlanDetail = (props) =>{
         <div className={"testcase-box"}>
             <Breadcrumb className={"breadcrumb-box"}>
                 <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试计划</Breadcrumb.Item>
-                <Breadcrumb.Item>计划详情</Breadcrumb.Item>
+                <Breadcrumb.Item>{executeDate?.name}</Breadcrumb.Item>
             </Breadcrumb>
 
             <Form className="testplan-form-info" form={form} labelAlign={"left"} >
@@ -183,7 +185,7 @@ const TestPlanDetail = (props) =>{
                 </div>
             </Form>
 
-            <TestPlanTestcase/>
+            <TestPlanBindCaseList {...props}/>
 
         </div>
     )

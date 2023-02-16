@@ -4,75 +4,144 @@
     margin: 15px 0;
 }
 
-.test-base{
-    margin: 10px 0 20px;
-
-    .ant-form-item{
-        margin: 0;
-        width: 43.5%;
-    }
-
-
-    .test-host-url{
-        //cursor: pointer;
-        padding: 8px;
-        width: 43.5%;
-        border: 1px solid #d9d9d9;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        background: #fff;
-    }
-    .test-host-url:hover{
-        cursor: auto;
-        color: #00adff;
-    }
-
-
-    .ant-input[disabled]{
-        color: #000;
-        background: white;
-        border-left: none;
-        flex: 1;
-    }
+.api-unit-base{
 
     .ant-select:not(.ant-select-customize-input) .ant-select-selector{
-        height: 40px;
-        align-items: center;
-        color: #000;
-        background: white;
-        border-right: none;
-    }
+        height: 32px;
+        border: none;
+        padding: 0;
+        border-radius:var(--pi-border-radius);
 
-    .ant-btn{
-        height: 40px;
-        border-radius: 5px;
-    }
+        span{
+            line-height: 32px;
+        }
 
-    //.test-header{
-    //    display: flex;
-    //    margin: 0 0 15px 0 ;
-    //}
+        .ant-select-selection-item{
+            span{
+                line-height: 32px;
+            }
 
-    .test-url{
-        display: flex;
-        width: 100%;
-    }
-
-    .test-base-item{
-        margin: 0 0 0 15px;
-
-        .ant-btn{
-            height: 40px;
-            border-radius: 5px;
-            font-size: 16px;
         }
     }
 
-    .ant-input{
-        border-radius: 0;
-        height: 40px;
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector:hover{
+        background: var(--pi-hover-color);
     }
+
+    .api-base-edit-url-box{
+        margin: 0 0 10px -10px;
+
+        input{
+            width: 480px;
+            border: none;
+        }
+        input:hover{
+            background: var(--pi-hover-color);
+        }
+
+        .ant-form-item{
+            margin: 0;
+        }
+    }
+
+
+    .api-base-info-box-name{
+        input{
+            width: 480px;
+            border: none;
+        }
+        input:hover{
+            background: var(--pi-hover-color);
+        }
+
+        .ant-form-item{
+            margin: 0;
+        }
+    }
+
+
+
+    .method{
+        //padding: 0 0 0 5px;
+        margin: 0 0 10px 0 ;
+
+        .method-info{
+
+
+            .method-info-item{
+                margin: 0 10px 0 0;
+            }
+
+            .method-info-path{
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
+
+        .info-item{
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            height: 41px;
+        }
+
+        .method-people-info{
+            display: flex;
+
+            .people-item{
+                margin: 0 70px 0 0;
+                color: #999;
+                max-width: 28%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+                white-space: nowrap;
+                text-indent: 0;
+                font-size: var(--pi-font-size-13);
+                line-height: 32px;
+
+                .ant-select-selection-placeholder{
+                    color: black;
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .ant-select:not(.ant-select-customize-input) .ant-select-selector{
+            border: none;
+        }
+
+        .api-base-info-desc{
+            margin: 15px 0 0 ;
+
+            &-text{
+                color: #9b9b9b;
+                font-size: var(--pi-font-size-13);
+                cursor: text;
+                width: 700px;
+                //height: 32px;
+                //line-height: 32px;
+            }
+
+            &-text-show{
+                height: 32px;
+                line-height: 32px;
+            }
+
+            &-text-show:hover{
+                background: var(--pi-hover-color);
+            }
+
+
+            &-hide{
+                display: none;
+            }
+
+        }
+
+    }
+
+
 }
 
 .test-response-before{

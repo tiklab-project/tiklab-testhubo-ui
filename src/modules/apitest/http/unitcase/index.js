@@ -1,6 +1,6 @@
 
-import Step from "../scenecase/components/apiSceneDetail";
-import StepDetail from './components/apiUnitDetail';
+import Step from "../scenecase/components/apiScenePage";
+import StepDetail from './components/apiUnitEditPage';
 import {API_UNIT_STORE ,ApiUnitStore}from './store/apiUnitStore';
 import { REQUESTBODY_STORE, RequestBodyStore } from './store/requestBodyStore';
 import {REQUESTHEADER_STORE, RequestHeaderStore} from './store/requestHeaderStore';

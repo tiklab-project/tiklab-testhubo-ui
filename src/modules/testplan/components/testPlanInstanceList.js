@@ -15,13 +15,10 @@ const TestPlanInstanceList = (props) =>{
 
     const column = [
         {
-            title: '总结果',
-            dataIndex: 'result',
-            render: (text, record) => (
-                text===1
-                    ?<div className={"history-item-result isSucceed"} style={{margin:0}}>通过</div>
-                    :<div className={"history-item-result isFailed"} style={{margin:0}}>未通过</div>
-            )
+            title: '执行次数',
+            dataIndex: 'executeNumber',
+            key: "executeNumber",
+            render:(text,record)=>(<a style={{fontWeight:"bold"}} onClick={()=>toCaseInstanceList(record.id)}>#{text}</a>)
         },{
             title: `用例数`,
             dataIndex: "total",
@@ -36,6 +33,11 @@ const TestPlanInstanceList = (props) =>{
             title: `成功数`,
             dataIndex: "passNum",
             key: "passNum",
+        },{
+            title: `失误率`,
+            dataIndex: "errorRate",
+            key: "errorRate",
+            render:(text)=>(<Tag color="error">{text}</Tag>)
         },
         {
             title: `失败数`,
@@ -53,26 +55,17 @@ const TestPlanInstanceList = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <Space size="middle">
-                    <Popconfirm
-                        title="确定删除？"
-                        onConfirm={() => deleteTestPlanInstance(record.id).then(()=>findPage())}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <IconCommon
-                            className={"icon-s edit-icon"}
-                            icon={"shanchu3"}
-                        />
-                    </Popconfirm>
-
+                <Popconfirm
+                    title="确定删除？"
+                    onConfirm={() => deleteTestPlanInstance(record.id).then(()=>findPage())}
+                    okText='确定'
+                    cancelText='取消'
+                >
                     <IconCommon
-                        icon={"lishi"}
-                        className={"icon-s "}
-                        style={{margin:"5px 0 0 0",cursor:"pointer"}}
-                        onClick={()=>toCaseInstanceList(record.id)}
+                        className={"icon-s edit-icon"}
+                        icon={"shanchu3"}
                     />
-                </Space>
+                </Popconfirm>
             )
         },
     ]

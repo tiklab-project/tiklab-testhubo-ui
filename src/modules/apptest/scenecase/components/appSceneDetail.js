@@ -32,7 +32,11 @@ const AppSceneDetail = (props) => {
                 name:value,
             }
         }
-        updateAppScene(param)
+        updateAppScene(param).then(()=>{
+            findAppScene(appSceneId).then(res=>{
+                setDetailInfo(res);
+            })
+        })
     }
 
 
@@ -48,11 +52,12 @@ const AppSceneDetail = (props) => {
     return(
         <div className={"content-box-center"}>
             <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
-                <Breadcrumb.Item>场景详情</Breadcrumb.Item>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
+                <Breadcrumb.Item>{detailInfo?.testCase.name}</Breadcrumb.Item>
             </Breadcrumb>
 
             <DetailCommon
+                type={true}
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
                 toHistory={toHistory}

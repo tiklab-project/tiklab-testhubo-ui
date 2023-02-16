@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Breadcrumb, Tabs} from "antd";
 import {inject, observer} from "mobx-react";
-import ApiPerfStepList from "./apiPerfStepList";
-import ApiPerformConfig from "./apiPerfConfig";
 import DetailCommon from "../../../../common/detailCommon";
 import ApiPerformTest from "./apiPerformTestDrawer";
+import ApiPerformDetailCommon from "./apiPerformDetailCommon";
+import IconBtn from "../../../../common/iconBtn/IconBtn";
+import ApiEnvDropDownSelect from "../../../../sysmgr/environment/components/apiEnvDropDownSelect";
 
-const { TabPane } = Tabs;
 
 const ApiPerformDetail = (props) =>{
     const {apiPerfStore} = props;
@@ -31,7 +31,11 @@ const ApiPerformDetail = (props) =>{
                 name:value,
             }
         }
-        updateApiPerf(param)
+        updateApiPerf(param).then(()=>{
+            findApiPerf(apiPerfId).then(res=>{
+                setDetailInfo(res);
+            })
+        })
     }
 
 
@@ -48,25 +52,30 @@ const ApiPerformDetail = (props) =>{
     return(
         <div className={"content-box-center"}>
             <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
-                <Breadcrumb.Item>性能详情</Breadcrumb.Item>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
+                <Breadcrumb.Item>{detailInfo?.testCase.name}</Breadcrumb.Item>
             </Breadcrumb>
 
             <DetailCommon
+                type={true}
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
-                toHistory={toHistory}
-                test={<ApiPerformTest />}
+
+                test={
+                    <>
+                        <IconBtn
+                            className="pi-icon-btn-grey"
+                            icon={"lishi"}
+                            onClick={toHistory}
+                            name={"历史"}
+                        />
+                        <ApiEnvDropDownSelect />
+                        <ApiPerformTest />
+                    </>
+                }
             />
 
-            <Tabs defaultActiveKey="1" >
-                <TabPane tab="场景配置" key="1">
-                    <ApiPerfStepList />
-                </TabPane>
-                <TabPane tab="压力配置" key="2">
-                    <ApiPerformConfig {...props}/>
-                </TabPane>
-            </Tabs>
+            <ApiPerformDetailCommon type={true} {...props} />
         </div>
     )
 }

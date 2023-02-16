@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Dropdown, Empty, Menu, Popconfirm, Space, Table} from "antd";
+import {Button, Dropdown, Empty, Input, Menu, Popconfirm, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import "./testcaseStyle.scss"
 import "./caseContantStyle.scss"
@@ -14,10 +14,11 @@ import AppPerfEdit from "../../apptest/performcase/components/appPerfEdit";
 import IconCommon from "../../common/iconCommon";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/caseCommonFn";
 import FuncUnitEdit from "../../functest/components/funcUnitEdit";
+import {SearchOutlined} from "@ant-design/icons";
 
 
 const TestCaseList = (props) => {
-    const {testcaseStore,categoryStore} = props;
+    const {testcaseStore} = props;
     const {
         findTestCaseList,
         testcaseList,
@@ -116,8 +117,6 @@ const TestCaseList = (props) => {
 
         switch (record.testType) {
             case "auto":
-                switchCaseType(record);
-                break;
             case "perform":
                 switchCaseType(record);
                 break;
@@ -130,7 +129,6 @@ const TestCaseList = (props) => {
 
     //再根据不同的用例类型跳到不同的页面
     const switchCaseType = (record)=>{
-        localStorage.setItem("testType",record.testType)
 
         switch (record.caseType) {
             case "api-unit":
@@ -223,13 +221,6 @@ const TestCaseList = (props) => {
     ]
 
 
-    //用例筛选
-    const caseSelectFn = (type) =>{
-        setCaseType(type)
-
-        findPage(testType,type)
-    }
-
 
     // 分页
     const onTableChange = (pagination) => {
@@ -242,6 +233,27 @@ const TestCaseList = (props) => {
             },
         }
 
+        setPageParam(newParams)
+    }
+
+    //搜索
+    const onSearch = (e) =>{
+        setCurrentPage(1)
+        let newParams = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: 1
+            },
+        }
+        if (e.target.value) {
+            newParams = {
+                pageParam: {
+                    pageSize: pageSize,
+                    currentPage: 1
+                },
+                name:e.target.value,
+            }
+        }
         setPageParam(newParams)
     }
 
@@ -313,11 +325,12 @@ const TestCaseList = (props) => {
             </Menu.Item>
         </Menu>
     )
+
     return(
 
         <div className={"testcase-box"} >
             <div  className={"header-box-space-between"} >
-                <div className={'header-box-title'}>用例列表</div>
+                <div className={'header-box-title'}>测试用例</div>
                 <Dropdown overlay={addMenu} placement="bottom">
                     <Button className={"important-btn"}>添加用例</Button>
                 </Dropdown>
@@ -327,28 +340,13 @@ const TestCaseList = (props) => {
                 <div className={"ws-header-menu-left"}>
                     {showMenu(items)}
                 </div>
-                {/*<Select*/}
-                {/*    // defaultValue={null}*/}
-                {/*    placeholder={"用例类型"}*/}
-                {/*    className={"dynamic-select-box-item"}*/}
-                {/*    onChange={caseSelectFn}*/}
-                {/*    options={[*/}
-                {/*        {*/}
-                {/*            value: null,*/}
-                {/*            label: '所有',*/}
-                {/*        },{*/}
-                {/*            value: 'unit',*/}
-                {/*            label: '单元用例',*/}
-                {/*        },*/}
-                {/*        {*/}
-                {/*            value: 'scene',*/}
-                {/*            label: '场景用例',*/}
-                {/*        },{*/}
-                {/*            value: 'perform',*/}
-                {/*            label: '性能用例',*/}
-                {/*        },*/}
-                {/*    ]}*/}
-                {/*/>*/}
+
+                <Input
+                    placeholder={`搜索用例`}
+                    onPressEnter={onSearch}
+                    className='search-input-common'
+                    prefix={<SearchOutlined />}
+                />
             </div>
 
             <div className={"table-list-box"}>

@@ -15,11 +15,8 @@ export class TestPlanDetailStore {
     @observable tcTotalRecord;
 
     @action
-    findBindTestCaseList = async (id,param) => {
-        this.testPlanId = id;
-        this.param = param;
+    findBindTestCaseList = async (param) => {
         const params = {
-            testPlanId:id,
             ...param,
             orderParams: [{name:'id', orderType:'desc'}],
         };

@@ -40,6 +40,7 @@ const FuncUnitEdit = (props) => {
                 repositoryId:repositoryId,
                 name:values.name,
                 testType:"function",
+                caseType:"function",
                 desc:values.desc
             }
             delete values.name

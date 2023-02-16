@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Tabs} from "antd";
+import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
-import WebPerfStepList from "./webPerfStepList";
-import WebPerformConfig from "./webPerfConfig";
 import DetailCommon from "../../../common/detailCommon";
 import WebPerformTestDrawer from "./webPerformTestDrawer";
-const { TabPane } = Tabs;
+import WebPerformDetailCommon from "./webPerformDetailCommon";
+
 
 const WebPerformDetail = (props) =>{
     const {webPerfStore} = props;
@@ -30,7 +29,11 @@ const WebPerformDetail = (props) =>{
                 name:value,
             }
         }
-        updateWebPerf(param)
+        updateWebPerf(param).then(()=>{
+            findWebPerf(webPerfId).then(res=>{
+                setDetailInfo(res);
+            })
+        })
     }
 
     //去往历史页
@@ -45,23 +48,17 @@ const WebPerformDetail = (props) =>{
     return(
         <div className={"content-box-center"}>
             <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
-                <Breadcrumb.Item>性能详情</Breadcrumb.Item>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
+                <Breadcrumb.Item>{detailInfo?.testCase.name}</Breadcrumb.Item>
             </Breadcrumb>
             <DetailCommon
+                type={true}
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
                 toHistory={toHistory}
                 test={<WebPerformTestDrawer />}
             />
-            <Tabs defaultActiveKey="1" >
-                <TabPane tab="场景配置" key="1">
-                    <WebPerfStepList />
-                </TabPane>
-                <TabPane tab="压力配置" key="2">
-                    <WebPerformConfig {...props} />
-                </TabPane>
-            </Tabs>
+            <WebPerformDetailCommon  type={true} {...props}/>
         </div>
     )
 }

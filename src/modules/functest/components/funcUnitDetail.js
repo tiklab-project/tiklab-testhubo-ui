@@ -30,7 +30,11 @@ const FuncUnitDetail = (props) => {
                 name:value,
             }
         }
-        updateFuncUnit(param)
+        updateFuncUnit(param).then(()=>{
+            findFuncUnit(funcUnitId).then(res=>{
+                setDetailInfo(res);
+            })
+        })
     }
 
 
@@ -43,8 +47,8 @@ const FuncUnitDetail = (props) => {
     return(
         <div className={"content-box-center"}>
             <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例列表</Breadcrumb.Item>
-                <Breadcrumb.Item>功能用例详情</Breadcrumb.Item>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
+                <Breadcrumb.Item>{detailInfo?.testCase.name}</Breadcrumb.Item>
             </Breadcrumb>
 
             <DetailCommon

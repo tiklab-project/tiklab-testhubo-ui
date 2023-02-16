@@ -12,8 +12,11 @@ const WebPerfStep = (props) =>{
     const column =[
         {
             title: '场景名称',
-            dataIndex: ['testCase','name'],
+            dataIndex: ["webScene",'testCase','name'],
             key: 'name',
+            render: (text, record) => (
+                props.type ? <a onClick={() => setSessionStorage(record.webScene.id)}>{text}</a>:<span>{text}</span>
+            )
         },
         {
             title: `创建时间`,
@@ -47,6 +50,10 @@ const WebPerfStep = (props) =>{
         findWebPerfStepList(webPerfId)
     },[webPerfId])
 
+    const setSessionStorage = (id) =>{
+        sessionStorage.setItem("webSceneId",id);
+        props.history.push("/repository/web-perform-to-scene")
+    }
 
     return(
         <>

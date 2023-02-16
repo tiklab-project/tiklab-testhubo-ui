@@ -6,36 +6,31 @@ import IconCommon from "../../../../common/iconCommon";
 
 const ApiSceneStepList =(props) =>{
     const {apiSceneStepStore} = props;
-    const {findApiSceneStepPage,apiSceneStepList,deleteApiSceneStep} = apiSceneStepStore;
+    const {findApiSceneStepList,apiSceneStepList,deleteApiSceneStep} = apiSceneStepStore;
 
     const column = [
         {
             title: '用例名称',
-            dataIndex: 'name',
+            dataIndex: ["apiUnit","testCase",'name'],
             key: 'name',
-            width: "20%",
+            width: "25%",
             render: (text, record) => (
-                <a onClick={() => setSessionStorage(record.id)}>{text}</a>
+                props.type ? <a onClick={() => setSessionStorage(record.apiUnit.id)}>{text}</a>:<span>{text}</span>
             )
         },{
             title: '请求类型',
             dataIndex: ["apiUnit","methodType"],
             key: 'requestType',
-            width: "15%",
+            width: "20%",
         },{
             title: '请求路径',
             dataIndex: ["apiUnit",'path'],
             key: 'path',
-            width: "20%",
+            width: "25%",
         },{
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime',
-            width: "15%",
-        },{
-            title: '描述',
-            dataIndex: 'desc',
-            key: 'desc',
             width: "20%",
         },{
             title: '操作',
@@ -46,7 +41,7 @@ const ApiSceneStepList =(props) =>{
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteApiSceneStep(record.id).then(()=>findApiSceneStepPage(apiSceneId))}
+                        onConfirm={() =>deleteApiSceneStep(record.id).then(()=>findApiSceneStepList(apiSceneId))}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -63,12 +58,12 @@ const ApiSceneStepList =(props) =>{
     const apiSceneId = sessionStorage.getItem("apiSceneId");
 
     useEffect(()=>{
-        findApiSceneStepPage(apiSceneId)
+        findApiSceneStepList(apiSceneId)
     },[apiSceneId])
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiUnitId",id)
-        props.history.push("/repository/apitest/scenestep")
+        props.history.push("/repository/api-scene-to-unit")
     }
 
     const rowSelection = {

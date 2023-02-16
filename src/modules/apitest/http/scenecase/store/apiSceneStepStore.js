@@ -1,6 +1,6 @@
 import { observable,  action } from "mobx";
 import {
-    findApiSceneStepPage,
+    findApiSceneStepList,
     bindApiUnit,
     findApiSceneStep,
     updateApiSceneStep,
@@ -12,16 +12,17 @@ export class ApiSceneStepStore {
     @observable apiSceneStepList = [];
     @observable apiSceneStepInfo;
     @observable apiSceneId;
+    @observable apiSceneName;
 
     @action
-    findApiSceneStepPage = async (id) => {
+    findApiSceneStepList = async (id) => {
         this.apiSceneId = id;
         const params = { apiSceneId: id }
 
-        const res = await findApiSceneStepPage(params);
+        const res = await findApiSceneStepList(params);
 
         if(res.code === 0) {
-            this.apiSceneStepList = res.data.dataList;
+            this.apiSceneStepList = res.data;
             return res.data
         }
     }
@@ -34,6 +35,7 @@ export class ApiSceneStepStore {
         const res = await findApiSceneStep(param);
         if( res.code === 0){
             this.apiSceneStepInfo = res.data;
+            this.apiSceneName=res.data.name;
             return res.data;
         }
     }

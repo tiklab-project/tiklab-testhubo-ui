@@ -12,9 +12,11 @@ const AppPerfStepList = (props) =>{
     const column =[
         {
             title: '场景名称',
-            dataIndex: ['testCase','name'],
+            dataIndex: ["appScene",'testCase','name'],
             key: 'name',
-            
+            render: (text, record) => (
+                props.type ? <a onClick={() => setSessionStorage(record.appScene.id)}>{text}</a>:<span>{text}</span>
+            )
         },
         {
             title: `创建时间`,
@@ -47,6 +49,11 @@ const AppPerfStepList = (props) =>{
     useEffect(()=>{
         findAppPerfStepList(appPerfId)
     },[appPerfId])
+
+    const setSessionStorage = (id) =>{
+        sessionStorage.setItem("appSceneId",id);
+        props.history.push("/repository/app-perform-to-scene")
+    }
 
 
     return(

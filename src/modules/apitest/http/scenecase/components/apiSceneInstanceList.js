@@ -115,6 +115,10 @@ const ApiSceneInstanceList = (props) =>{
     }
 
 
+    const toTestCase = () =>{
+        props.history.push("/repository/testcase")
+    }
+
     const goBack = () =>{
         props.history.push("/repository/api-scene-detail")
     }
@@ -122,6 +126,7 @@ const ApiSceneInstanceList = (props) =>{
     return(
         <div className={"content-box-center"}>
             <Breadcrumb className={"breadcrumb-box"}>
+                <Breadcrumb.Item onClick={toTestCase} className={"first-item"}>测试用例</Breadcrumb.Item>
                 <Breadcrumb.Item onClick={goBack} className={"first-item"}>场景详情</Breadcrumb.Item>
                 <Breadcrumb.Item>场景历史</Breadcrumb.Item>
             </Breadcrumb>

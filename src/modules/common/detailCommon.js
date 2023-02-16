@@ -1,6 +1,6 @@
 import React from "react";
 import EdiText from "react-editext";
-import {Space} from "antd";
+import {Input, Space} from "antd";
 import IconCommon from "./iconCommon";
 
 const DetailCommon = (props) =>{
@@ -28,11 +28,25 @@ const DetailCommon = (props) =>{
                         }
                         hideIcons
                     />
+                    {/*<Input*/}
+                    {/*    defaultValue={detailInfo?.testCase?.name}*/}
+                    {/*    onPressEnter={updateTitle}*/}
+                    {/*    onBlur={updateTitle}*/}
+                    {/*    value={detailInfo?.testCase?.name}*/}
+                    {/*    // onChange={(e)=>setName(e.target.value)}*/}
+                    {/*/>*/}
                 </div>
-                <Space>
-                    {toHistory?<a onClick={toHistory}>测试历史</a>:null}
-                    {props.test}
-                </Space>
+
+                {
+                   props.type
+                        ? <Space>
+                               {toHistory?<a onClick={toHistory}>测试历史</a>:null}
+                               {props.test}
+                           </Space>
+                       :null
+                }
+
+
             </div>
             <div className={"detail-bottom"}>
                 <span className={"detail-bottom-item "}>分组:{detailInfo?.testCase?.category?.name} </span>

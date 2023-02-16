@@ -16,8 +16,8 @@ import {Directory, OrgaList, UserGroup} from 'tiklab-user-ui';
 import {Redirect} from "react-router";
 import PortalHeader from "./modules/integration/header/portalContent";
 import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
-import ApiUnitcaseDetail from "./modules/apitest/http/unitcase/components/apiUnitDetail";
-import ApiScenecaseDetail from "./modules/apitest/http/scenecase/components/apiSceneDetail";
+import ApiUnitcaseDetail from "./modules/apitest/http/unitcase/components/apiUnitEditPage";
+import ApiScenecaseDetail from "./modules/apitest/http/scenecase/components/apiScenePage";
 import FuncUnitDetail from "./modules/functest/components/funcUnitDetail";
 import EnvContent from "./modules/sysmgr/environment/components/envContent";
 import ApiPerformDetail from "./modules/apitest/http/performcase/components/apiPerformDetail";
@@ -37,7 +37,7 @@ import {MyTodoTask, TaskList, TodoTempList} from "tiklab-todotask-ui";
 import {PluginDetail, PluginList} from "tiklab-plugin-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
 import {ProjectFeatureList, ProjectRoleList, SystemFeatureList, SystemRoleList} from "tiklab-privilege-ui";
-import {LogList, LogTemplateList, LogTypeList} from "tiklab-oplog-ui";
+import {MyLogList, LogTemplateList, LogTypeList} from "tiklab-oplog-ui";
 import Version from "./modules/sysmgr/version/version";
 import RepositorySettingMenu from "./modules/integration/repositorySetting/repositorySettingMenu";
 import DynamicDetail from "./modules/integration/home/dynamicDetail";
@@ -55,6 +55,18 @@ import AppSceneDetail from "./modules/apptest/scenecase/components/appSceneDetai
 import TestPlanBindCaseInstanceList from "./modules/testplan/components/testPlanBindCaseInstanceList";
 import TestReportList from "./modules/testreport/testReportList";
 import TestReportDetail from "./modules/testreport/testReportDetail";
+import ApiSceneToUnitPage from "./modules/apitest/http/scenecase/components/apiSceneToUnitPage";
+import ApiPerformToScenePage from "./modules/apitest/http/performcase/components/apiPerformToScenePage";
+import WebPerformToScenePage from "./modules/webtest/performcase/components/webPerformToScenePage";
+import AppPerformToScenePage from "./modules/apptest/performcase/components/appPerformToScenePage";
+import PlanToApiUnitPage from "./modules/testplan/components/planToCase/planToApiUnitPage";
+import PlanToApiScenePage from "./modules/testplan/components/planToCase/planToApiScenePage";
+import PlanToApiPerformPage from "./modules/testplan/components/planToCase/planToApiPerformPage";
+import PlanToWebScenePage from "./modules/testplan/components/planToCase/planToWebScenePage";
+import planToWebPerformPage from "./modules/testplan/components/planToCase/planToWebPerformPage";
+import PlanToFuncUnitPage from "./modules/testplan/components/planToCase/planToFuncUnitPage";
+import PlanToAppPerformPage from "./modules/testplan/components/planToCase/planToAppPerformPage";
+import PlanToAppScenePage from "./modules/testplan/components/planToCase/planToAppScenePage";
 
 
 
@@ -115,13 +127,22 @@ const routers =  [
                     {
                         path: "/repository/api-scene-detail",
                         component: ApiScenecaseDetail,
-                    },{
+                    },
+                    {
+                        path: "/repository/api-scene-to-unit",
+                        component: ApiSceneToUnitPage,
+                    },
+                    {
                         path: "/repository/api-scene-instance",
                         component: ApiSceneInstanceList,
                     },
                     {
                         path: "/repository/api-perform-detail",
                         component: ApiPerformDetail,
+                    },
+                    {
+                        path: "/repository/api-perform-to-scene",
+                        component: ApiPerformToScenePage ,
                     },
                     {
                         path: "/repository/api-perform-instance",
@@ -140,6 +161,10 @@ const routers =  [
                         component:WebPerformDetail,
                     },
                     {
+                        path: "/repository/web-perform-to-scene",
+                        component: WebPerformToScenePage ,
+                    },
+                    {
                         path: "/repository/web-perform-instance",
                         component: WebPerfInstanceList,
                     },
@@ -156,6 +181,10 @@ const routers =  [
                     {
                         path: "/repository/app-perform-detail",
                         component:AppPerformDetail,
+                    },
+                    {
+                        path: "/repository/app-perform-to-scene",
+                        component: AppPerformToScenePage ,
                     },
                     {
                         path: "/repository/app-perform-instance",
@@ -245,6 +274,49 @@ const routers =  [
                         exact: true,
                         component: TestPlanBindCaseInstanceList,
                     },
+                    {
+                        path: "/repository/plan-api-unit",
+                        exact: true,
+                        component: PlanToApiUnitPage,
+                    },
+                    {
+                        path: "/repository/plan-api-scene",
+                        exact: true,
+                        component: PlanToApiScenePage,
+                    },
+                    {
+                        path: "/repository/plan-api-perform",
+                        exact: true,
+                        component: PlanToApiPerformPage,
+                    },
+                    {
+                        path: "/repository/plan-web-scene",
+                        exact: true,
+                        component: PlanToWebScenePage,
+                    },
+                    {
+                        path: "/repository/plan-web-perform",
+                        exact: true,
+                        component: planToWebPerformPage,
+                    },
+                    {
+                        path: "/repository/plan-app-scene",
+                        exact: true,
+                        component: PlanToAppScenePage,
+                    },
+                    {
+                        path: "/repository/plan-app-perform",
+                        exact: true,
+                        component: PlanToAppPerformPage,
+                    },
+                    {
+                        path: "/repository/plan-function",
+                        exact: true,
+                        component: PlanToFuncUnitPage,
+                    },
+
+
+
                     {
                         path: "/repository/report",
                         exact: true,
@@ -336,7 +408,7 @@ const routers =  [
                         path: "/systemManagement/log",
                         key:'log',
                         exact: true,
-                        render:(props)=>  <LogList {...props} bgroup={"teston"}/>,
+                        render:(props)=>  <MyLogList {...props} bgroup={"teston"}/>,
                     },
                     //版本
                     {
