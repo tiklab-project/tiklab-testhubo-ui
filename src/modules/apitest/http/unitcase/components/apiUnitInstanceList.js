@@ -16,6 +16,17 @@ const ApiUnitInstanceList = (props) =>{
 
     const column = [
         {
+            title: '执行次数',
+            dataIndex: 'executeNumber',
+            key: "executeNumber",
+            render:(text,record)=>(
+                <ApiUnitInstanceDrawer
+                    name={text}
+                    apiUnitInstanceId={record.id}
+                />
+            )
+        },
+        {
             title: '是否通过',
             dataIndex: 'result',
             render: (text, record) => (
@@ -55,21 +66,17 @@ const ApiUnitInstanceList = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <Space size="middle">
-                    <Popconfirm
-                        title="确定删除？"
-                        onConfirm={() => deleteApiUnitInstance(record.id).then(()=>findPage())}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <IconCommon
-                            className={"icon-s edit-icon"}
-                            icon={"shanchu3"}
-                        />
-                    </Popconfirm>
-
-                    <ApiUnitInstanceDrawer icon={true}  apiUnitInstanceId={record.id}/>
-                </Space>
+                <Popconfirm
+                    title="确定删除？"
+                    onConfirm={() => deleteApiUnitInstance(record.id).then(()=>findPage())}
+                    okText='确定'
+                    cancelText='取消'
+                >
+                    <IconCommon
+                        className={"icon-s edit-icon"}
+                        icon={"shanchu3"}
+                    />
+                </Popconfirm>
             )
         },
     ]

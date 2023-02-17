@@ -1,7 +1,6 @@
 import React from "react";
 import EdiText from "react-editext";
-import {Input, Space} from "antd";
-import IconCommon from "./iconCommon";
+import {Space} from "antd";
 
 const DetailCommon = (props) =>{
     const {updateTitle,detailInfo,toHistory } = props;

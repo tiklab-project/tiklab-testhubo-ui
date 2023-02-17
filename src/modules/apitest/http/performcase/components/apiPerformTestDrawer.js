@@ -72,7 +72,7 @@ const ApiPerformTestDrawer = (props) =>{
                     setResult(res.apiPerfInstance)
                     setStepList(res.apiSceneInstanceList)
                 })
-            },5000);
+            },1000);
         }
         return () => ref.current = null
     },[start])
@@ -82,14 +82,14 @@ const ApiPerformTestDrawer = (props) =>{
         if(envUrl){
             setVisible(true);
 
-            let res = await apiPerfExecute(apiPerfId,envUrl);
-
-            if(res.code===0){
-                setStart(true)
+            apiPerfExecute(apiPerfId,envUrl);
+            setStart(true)
+            // if(res.code===0){
+            //
                 setLoading(true)
-            }else {
-                messageFn("error","Agent执行错误！")
-            }
+            // }else {
+            //     messageFn("error","Agent执行错误！")
+            // }
 
         }else {
             messageFn("error","请选择环境地址")

@@ -78,12 +78,7 @@ const WebSceneInstanceDrawer =(props)=>{
 
     return (
         <>
-            <IconCommon
-                icon={"lishi"}
-                className={"icon-s "}
-                style={{margin:"5px 0 0 0",cursor:"pointer"}}
-                onClick={showDrawer}
-            />
+            <a style={{fontWeight:"bold"}} onClick={showDrawer}>#{props.name}</a>
             <Drawer
                 title="测试结果"
                 placement="right"

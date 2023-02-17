@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
+import {Breadcrumb, Empty, Popconfirm, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../common/iconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import AppSceneInstanceDrawer from "./appSceneInstanceDrawer";
-// import AppSceneInstanceDrawer from "./appSceneInstanceDrawer";
 
 const AppSceneInstanceList = (props) =>{
     const {appSceneInstanceStore} = props;
@@ -16,6 +15,12 @@ const AppSceneInstanceList = (props) =>{
     } = appSceneInstanceStore;
 
     const column = [
+        {
+            title: '执行次数',
+            dataIndex: 'executeNumber',
+            key: "executeNumber",
+            render:(text,record)=>(  <AppSceneInstanceDrawer name={text} appSceneInstanceId={record.id}/>)
+        },
         {
             title: '总结果',
             dataIndex: 'result',
@@ -55,21 +60,17 @@ const AppSceneInstanceList = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <Space size="middle">
-                    <Popconfirm
-                        title="确定删除？"
-                        onConfirm={() => deleteAppSceneInstance(record.id).then(()=>findPage())}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <IconCommon
-                            className={"icon-s edit-icon"}
-                            icon={"shanchu3"}
-                        />
-                    </Popconfirm>
-
-                    <AppSceneInstanceDrawer icon={true}  appSceneInstanceId={record.id}/>
-                </Space>
+                <Popconfirm
+                    title="确定删除？"
+                    onConfirm={() => deleteAppSceneInstance(record.id).then(()=>findPage())}
+                    okText='确定'
+                    cancelText='取消'
+                >
+                    <IconCommon
+                        className={"icon-s edit-icon"}
+                        icon={"shanchu3"}
+                    />
+                </Popconfirm>
             )
         },
     ]

@@ -4,7 +4,6 @@ import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/iconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import ApiSceneInstanceDrawer from "./apiSceneInstanceDrawer";
-// import ApiSceneInstanceDrawer from "./apiSceneInstanceDrawer";
 
 const ApiSceneInstanceList = (props) =>{
     const {apiSceneInstanceStore} = props;
@@ -17,6 +16,11 @@ const ApiSceneInstanceList = (props) =>{
 
     const column = [
         {
+            title: '执行次数',
+            dataIndex: 'executeNumber',
+            key: "executeNumber",
+            render:(text,record)=>(<ApiSceneInstanceDrawer name={text}  apiSceneInstanceId={record.id}/>)
+        },{
             title: '总结果',
             dataIndex: 'result',
             render: (text, record) => (
@@ -52,21 +56,17 @@ const ApiSceneInstanceList = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <Space size="middle">
-                    <Popconfirm
-                        title="确定删除？"
-                        onConfirm={() => deleteApiSceneInstance(record.id).then(()=>findPage())}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <IconCommon
-                            className={"icon-s edit-icon"}
-                            icon={"shanchu3"}
-                        />
-                    </Popconfirm>
-
-                    <ApiSceneInstanceDrawer icon={true}  apiSceneInstanceId={record.id}/>
-                </Space>
+                <Popconfirm
+                    title="确定删除？"
+                    onConfirm={() => deleteApiSceneInstance(record.id).then(()=>findPage())}
+                    okText='确定'
+                    cancelText='取消'
+                >
+                    <IconCommon
+                        className={"icon-s edit-icon"}
+                        icon={"shanchu3"}
+                    />
+                </Popconfirm>
             )
         },
     ]

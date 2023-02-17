@@ -52,6 +52,7 @@ const AppExecuteTestDrawer =(props)=>{
         },
     ]
 
+
     const showDrawer = () => {
         let param = {
             appSceneId:appSceneId,

@@ -52,7 +52,16 @@ const TestCaseList = (props) => {
             dataIndex: "caseType",
             key: "caseType",
             render: (text) =>(showCaseTypeView(text))
-        },{
+        },
+        {
+            title: `最近执行`,
+            dataIndex: "recentInstance",
+            key: "recentInstance",
+            render:(text,record)=>(
+                showRecentInstance(record.recentInstance)
+            )
+        },
+        {
             title: `创建时间`,
             dataIndex: 'createTime',
             key: "createTime",
@@ -110,6 +119,17 @@ const TestCaseList = (props) => {
         findTestCaseList(param).then((res)=>{
             setTotalRecord(res.totalRecord)
         })
+    }
+
+    const showRecentInstance = (recent) =>{
+        switch (recent.result) {
+            case 0:
+                return "失败"
+            case 1:
+                return "成功"
+            default:
+                return "-"
+        }
     }
 
     //点击名称 先通过测试类型分类

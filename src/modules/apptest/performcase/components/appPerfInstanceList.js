@@ -15,6 +15,11 @@ const AppPerfInstanceList = (props) =>{
 
     const column = [
         {
+            title: '执行次数',
+            dataIndex: 'executeNumber',
+            key: "executeNumber",
+            render:(text,record)=>(<div style={{fontWeight:"bold"}}>#{text}</div>)
+        },{
             title: `总场景数`,
             dataIndex: "total",
             key: "total",
@@ -52,19 +57,17 @@ const AppPerfInstanceList = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <Space size="middle">
-                    <Popconfirm
-                        title="确定删除？"
-                        onConfirm={() => deleteAppPerfInstance(record.id).then(()=>findPage())}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <IconCommon
-                            className={"icon-s edit-icon"}
-                            icon={"shanchu3"}
-                        />
-                    </Popconfirm>
-                </Space>
+                <Popconfirm
+                    title="确定删除？"
+                    onConfirm={() => deleteAppPerfInstance(record.id).then(()=>findPage())}
+                    okText='确定'
+                    cancelText='取消'
+                >
+                    <IconCommon
+                        className={"icon-s edit-icon"}
+                        icon={"shanchu3"}
+                    />
+                </Popconfirm>
             )
         },
     ]

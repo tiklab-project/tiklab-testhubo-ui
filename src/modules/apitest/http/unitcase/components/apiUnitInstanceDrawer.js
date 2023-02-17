@@ -38,7 +38,7 @@ const ApiUnitInstanceDrawer = (props) =>{
                     onClick={showDrawer}
                 />
         }else {
-            return <a onClick={showDrawer}>历史记录</a>
+            return <a onClick={showDrawer} style={{fontWeight:"bold"}}>#{props.name}</a>
         }
     }
 
