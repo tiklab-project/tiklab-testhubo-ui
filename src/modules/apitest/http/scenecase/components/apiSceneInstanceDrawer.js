@@ -107,7 +107,7 @@ const ApiSceneInstanceDrawer = (props) =>{
 
     return(
         <>
-            <a onClick={showDrawer} style={{fontWeight:"bold"}}>#{props.name}</a>
+            <a onClick={showDrawer} style={{fontWeight:"bold"}}>{props.name}</a>
             <Drawer
                 title="测试结果"
                 placement={"right"}

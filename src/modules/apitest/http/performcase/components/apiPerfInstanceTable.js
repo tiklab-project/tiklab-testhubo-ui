@@ -3,6 +3,7 @@ import {Empty, Popconfirm, Space, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/iconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
+import ApiPerformInstanceDrawer from "./apiPerformInstanceDrawer";
 
 const ApiPerfInstanceTable = (props) =>{
     const {apiPerfInstanceStore,apiPerfId} = props;
@@ -18,7 +19,10 @@ const ApiPerfInstanceTable = (props) =>{
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
-            render:(text,record)=>(<div style={{fontWeight:"bold"}}>#{text}</div>)
+            render:(text,record)=>(
+                <div style={{fontWeight:"bold"}}>#{text}</div>
+                // <ApiPerformInstanceDrawer name={`#${text}`} apiPerfInstanceId={record.id}/>
+            )
         },
         {
             title: `总场景数`,

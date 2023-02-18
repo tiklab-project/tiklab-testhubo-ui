@@ -19,7 +19,7 @@ const WebSceneInstanceList = (props) =>{
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
-            render:(text,record)=>(<WebSceneInstanceDrawer name={text} webSceneInstanceId={record.id}/>)
+            render:(text,record)=>(<WebSceneInstanceDrawer name={`#${text}`} webSceneInstanceId={record.id}/>)
         },
         {
             title: '总结果',

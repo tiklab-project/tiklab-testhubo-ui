@@ -5,7 +5,8 @@ const ReactMonacoEditor = (props) =>{
     const {value,editorChange,language,readOnly,width,height} = props
 
     const options = {
-        selectOnLineNumbers: true,
+        selection:false,
+        // selectOnLineNumbers: true,
         minimap: { enabled: false }, // 小地图
         automaticLayout: true, // 自动布局,
         autoClosingBrackets: 'always', // 是否自动添加结束括号(包括中括号) "always" | "languageDefined" | "beforeWhitespace" | "never"

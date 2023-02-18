@@ -7,33 +7,39 @@ import ApiUnitInstanceDrawer from "../../apitest/http/unitcase/components/apiUni
 import ApiSceneInstanceDrawer from "../../apitest/http/scenecase/components/apiSceneInstanceDrawer";
 import WebSceneInstanceDrawer from "../../webtest/scenecase/components/webSceneInstanceDrawer";
 import AppSceneInstanceDrawer from "../../apptest/scenecase/components/appSceneInstanceDrawer";
+import ApiPerformInstanceDrawer from "../../apitest/http/performcase/components/apiPerformInstanceDrawer";
+import WebPerformInstanceDrawer from "../../webtest/performcase/components/webPerformInstanceDrawer";
+import AppPerformInstanceDrawer from "../../apptest/performcase/components/appPerformInstanceDrawer";
 
 const TestPlanBindCaseInstanceTable = (props) =>{
-    const {testPlanBindCaseInstanceStore} = props;
+    const {testPlanInstanceStore,testPlanBindCaseInstanceStore} = props;
     const {
         findTestPlanBindCaseInstancePage,
         testPlanBindCaseInstanceList,
     } = testPlanBindCaseInstanceStore;
+
+    const {findTestPlanInstance} = testPlanInstanceStore;
 
     const column = [
         {
             title:`名称`,
             dataIndex: "name",
             key: "name",
-            width:'25%'
+            width:'30%',
+            render:(text,record)=>(showCaseInstance(record))
         },
         {
             title:`测试类型`,
             dataIndex: "testType",
             key: "testType",
-            width:'25%',
+            width:'30%',
             render:(text,record)=>(showTestTypeView(record.testType))
         },
         {
             title:`用例类型`,
             dataIndex: "caseType",
             key: "caseType",
-            width:'25%',
+            width:'30%',
             render:(text,record)=>(showCaseTypeView(record.caseType))
         },
         {
@@ -46,21 +52,11 @@ const TestPlanBindCaseInstanceTable = (props) =>{
                     :<div className={"history-item-result isFailed"} style={{margin:0}}>未通过</div>
             )
         },
-        {
-            title: '操作',
-            dataIndex: 'operation',
-            key: 'operation',
-            width: 120,
-            render: (text, record) => (
-                <Space size="middle">
-                    {showCaseInstance(record)}
-
-                </Space>
-            )
-        },
     ]
 
     const testPlanInstanceId = sessionStorage.getItem("testPlanInstanceId")
+
+    const [allData, setAllData] = useState();
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
@@ -71,6 +67,11 @@ const TestPlanBindCaseInstanceTable = (props) =>{
         }
     })
 
+    useEffect(async ()=>{
+        let res = await findTestPlanInstance(testPlanInstanceId)
+
+        setAllData(res)
+    },[testPlanInstanceId])
 
     useEffect(()=>{
         findPage()
@@ -92,34 +93,22 @@ const TestPlanBindCaseInstanceTable = (props) =>{
     const showCaseInstance = (record) =>{
         switch (record.caseType) {
             case "api-unit":
-                return <ApiUnitInstanceDrawer icon={true} apiUnitInstanceId={record.caseInstanceId}/>
+                return <ApiUnitInstanceDrawer name={record.name}  apiUnitInstanceId={record.caseInstanceId}/>
             case "api-scene":
-                return <ApiSceneInstanceDrawer icon={true}  apiSceneInstanceId={record.caseInstanceId}/>
+                return <ApiSceneInstanceDrawer name={record.name}  apiSceneInstanceId={record.caseInstanceId}/>
             case "web-scene":
-                return <WebSceneInstanceDrawer icon={true}  webSceneInstanceId={record.caseInstanceId}/>
+                return <WebSceneInstanceDrawer name={record.name}  webSceneInstanceId={record.caseInstanceId}/>
             case "app-scene":
-                return <AppSceneInstanceDrawer icon={true}  appSceneInstanceId={record.caseInstanceId}/>
+                return <AppSceneInstanceDrawer name={record.name}  appSceneInstanceId={record.caseInstanceId}/>
 
-            // case "api-perform":
-            //     return <IconCommon
-            //         icon={"lishi"}
-            //         className={"icon-s "}
-            //         style={{margin:"5px 0 0 0",cursor:"pointer"}}
-            //         onClick={()=>apiPerfInstance(record.caseInstanceId)}
-            //     />
-            //
-            //
-            // case "web-perform":
-            //
-            // case "app-perform":
+            case "api-perform":
+                return <ApiPerformInstanceDrawer name={record.name} apiPerfInstanceId={record.caseInstanceId} />
 
+            case "web-perform":
+                return  <WebPerformInstanceDrawer name={record.name} webPerfInstanceId={record.caseInstanceId} />
+            case "app-perform":
+                return <AppPerformInstanceDrawer name={record.name} appPerfInstanceId={record.caseInstanceId} />
         }
-    }
-
-    //去往历史页
-    const apiPerfInstance = (caseInstanceId) =>{
-        sessionStorage.setItem("apiPerfInstanceId",caseInstanceId)
-        props.history.push("/repository/api-perform-instance")
     }
 
 
@@ -141,28 +130,62 @@ const TestPlanBindCaseInstanceTable = (props) =>{
 
 
     return(
-        <div className={"table-list-box"}>
-            <Table
-                columns={column}
-                dataSource={testPlanBindCaseInstanceList}
-                rowKey = {record => record.id}
-                pagination={{
-                    current:currentPage,
-                    pageSize:pageSize,
-                    total:totalRecord,
-                }}
-                onChange = {(pagination) => onTableChange(pagination)}
+        <>
+            <div className={"history-detail-all"}>
+                <div className={"history-detail-all-box"}>
+                    <div className={"history-detail-all-item"}>
+                        <div>测试结果</div>
+                        <div className={"history-detail-all-item-value"}>{allData?.result===1?"成功":"失败"}</div>
+                    </div>
+                    <div className={"history-detail-all-item"}>
+                        <div>用例数</div>
+                        <div className={"history-detail-all-item-value"}>{allData?.total}</div>
+                    </div>
+                    <div className={"history-detail-all-item"}>
+                        <div>通过率</div>
+                        <div className={"history-detail-all-item-value"}>{allData?.passRate}</div>
+                    </div>
+                    <div className={"history-detail-all-item"}>
+                        <div>通过数</div>
+                        <div className={"history-detail-all-item-value"}>{allData?.passNum}</div>
+                    </div>
+                    <div className={"history-detail-all-item"}>
+                        <div>失败率</div>
+                        <div className={"history-detail-all-item-value"}>{allData?.errorRate}</div>
+                    </div>
 
-                locale={{
-                    emptyText: <Empty
-                        imageStyle={{height: 120 }}
-                        description={<span>暂无历史</span>}
-                        image={emptyImg}
-                    />,
-                }}
-            />
-        </div>
+                    <div className={"history-detail-all-item"}>
+                        <div>失败数</div>
+                        <div className={"history-detail-all-item-value"}>{allData?.failNum}</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={testPlanBindCaseInstanceList}
+                    rowKey = {record => record.id}
+                    pagination={{
+                        current:currentPage,
+                        pageSize:pageSize,
+                        total:totalRecord,
+                    }}
+                    onChange = {(pagination) => onTableChange(pagination)}
+
+                    locale={{
+                        emptyText: <Empty
+                            imageStyle={{height: 120 }}
+                            description={<span>暂无历史</span>}
+                            image={emptyImg}
+                        />,
+                    }}
+                />
+            </div>
+        </>
+
     )
 }
 
-export default inject("testPlanBindCaseInstanceStore")(observer(TestPlanBindCaseInstanceTable));
+export default inject("testPlanInstanceStore","testPlanBindCaseInstanceStore")(observer(TestPlanBindCaseInstanceTable));

@@ -15,7 +15,13 @@ import IconCommon from "../../common/iconCommon";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/caseCommonFn";
 import FuncUnitEdit from "../../functest/components/funcUnitEdit";
 import {SearchOutlined} from "@ant-design/icons";
-
+import ApiUnitInstanceDrawer from "../../apitest/http/unitcase/components/apiUnitInstanceDrawer";
+import ApiSceneInstanceDrawer from "../../apitest/http/scenecase/components/apiSceneInstanceDrawer";
+import WebSceneInstanceDrawer from "../../webtest/scenecase/components/webSceneInstanceDrawer";
+import AppSceneInstanceDrawer from "../../apptest/scenecase/components/appSceneInstanceDrawer";
+import ApiPerformInstanceDrawer from "../../apitest/http/performcase/components/apiPerformInstanceDrawer";
+import WebPerformInstanceDrawer from "../../webtest/performcase/components/webPerformInstanceDrawer";
+import AppPerformInstanceDrawer from "../../apptest/performcase/components/appPerformInstanceDrawer";
 
 const TestCaseList = (props) => {
     const {testcaseStore} = props;
@@ -58,7 +64,7 @@ const TestCaseList = (props) => {
             dataIndex: "recentInstance",
             key: "recentInstance",
             render:(text,record)=>(
-                showRecentInstance(record.recentInstance)
+                showRecentInstance(record)
             )
         },
         {
@@ -121,16 +127,40 @@ const TestCaseList = (props) => {
         })
     }
 
-    const showRecentInstance = (recent) =>{
-        switch (recent.result) {
+    //表格中最近执行展示
+    const showRecentInstance = (record) =>{
+        let recent = record.recentInstance
+
+
+        switch (record.caseType) {
+            case "api-unit":
+                return recent.result===2?<div>暂无</div>:<ApiUnitInstanceDrawer name={showRecent(recent)} apiUnitInstanceId={recent.instanceId} />
+            case "api-scene":
+                return recent.result===2?<div>暂无</div>:<ApiSceneInstanceDrawer name={showRecent(recent)} apiSceneInstanceId={recent.instanceId}/>
+            case "api-perform":
+                return recent.result===2?<div>暂无</div>:<ApiPerformInstanceDrawer name={showRecent(recent)} apiPerfInstanceId={recent.instanceId} />
+            case "web-scene":
+                return recent.result===2?<div>暂无</div>:<WebSceneInstanceDrawer name={showRecent(recent)} webSceneInstanceId={recent.instanceId} />
+            case "web-perform":
+
+                return recent.result===2?<div>暂无</div>:<WebPerformInstanceDrawer name={showRecent(recent)} webPerfInstanceId={recent.instanceId} />
+            case "app-scene":
+                return recent.result===2?<div>暂无</div>:<AppSceneInstanceDrawer name={showRecent(recent)} appSceneInstanceId={recent.instanceId}/>
+
+            case "app-perform":
+                return recent.result===2?<div>暂无</div>:<AppPerformInstanceDrawer name={showRecent(recent)} appPerfInstanceId={recent.instanceId} />
+                break;
+        }
+    }
+    const showRecent=(recentInstance)=>{
+        switch (recentInstance.result) {
             case 0:
                 return "失败"
             case 1:
                 return "成功"
-            default:
-                return "-"
         }
     }
+
 
     //点击名称 先通过测试类型分类
     const toPage =(record)=>{

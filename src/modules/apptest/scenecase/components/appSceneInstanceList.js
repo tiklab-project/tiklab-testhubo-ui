@@ -19,7 +19,7 @@ const AppSceneInstanceList = (props) =>{
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
-            render:(text,record)=>(  <AppSceneInstanceDrawer name={text} appSceneInstanceId={record.id}/>)
+            render:(text,record)=>(  <AppSceneInstanceDrawer name={`#${text}`} appSceneInstanceId={record.id}/>)
         },
         {
             title: '总结果',

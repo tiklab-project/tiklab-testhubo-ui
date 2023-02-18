@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './homestyle.scss';
 import RepositoryRecentHome from "../../repository/components/repositoryRecentHome";
 import {RightOutlined} from "@ant-design/icons";

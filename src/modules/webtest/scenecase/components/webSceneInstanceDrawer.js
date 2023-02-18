@@ -78,7 +78,7 @@ const WebSceneInstanceDrawer =(props)=>{
 
     return (
         <>
-            <a style={{fontWeight:"bold"}} onClick={showDrawer}>#{props.name}</a>
+            <a style={{fontWeight:"bold"}} onClick={showDrawer}>{props.name}</a>
             <Drawer
                 title="测试结果"
                 placement="right"

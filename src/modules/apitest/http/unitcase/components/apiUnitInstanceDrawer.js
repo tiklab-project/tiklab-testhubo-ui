@@ -29,19 +29,6 @@ const ApiUnitInstanceDrawer = (props) =>{
     };
 
 
-    const showHistoryView = ()=>{
-        if(props.icon){
-            return <IconCommon
-                    icon={"lishi"}
-                    className={"icon-s "}
-                    style={{margin:"5px 0 0 0",cursor:"pointer"}}
-                    onClick={showDrawer}
-                />
-        }else {
-            return <a onClick={showDrawer} style={{fontWeight:"bold"}}>#{props.name}</a>
-        }
-    }
-
     //响应结果基础信息项
     const detail = [
         {
@@ -90,7 +77,7 @@ const ApiUnitInstanceDrawer = (props) =>{
 
     return(
         <div className={"case-history-box"}>
-            {showHistoryView()}
+            <a onClick={showDrawer} style={{fontWeight:"bold"}}>{props.name}</a>
             <Drawer
                 title="测试结果"
                 placement="right"

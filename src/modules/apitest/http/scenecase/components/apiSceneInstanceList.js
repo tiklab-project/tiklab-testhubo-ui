@@ -19,7 +19,7 @@ const ApiSceneInstanceList = (props) =>{
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
-            render:(text,record)=>(<ApiSceneInstanceDrawer name={text}  apiSceneInstanceId={record.id}/>)
+            render:(text,record)=>(<ApiSceneInstanceDrawer name={`#${text}`}  apiSceneInstanceId={record.id}/>)
         },{
             title: '总结果',
             dataIndex: 'result',
