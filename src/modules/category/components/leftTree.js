@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import {Dropdown, Input, Menu, Popconfirm} from "antd";
 import {CaretDownOutlined, CaretRightOutlined, SearchOutlined} from "@ant-design/icons";
 import CategoryEdit from "./categoryEdit";
-import TestCaseList from "../../testcase/components/testcaseList";
+import TestCaseList from "../../test/testcase/components/testcaseList";
 import {renderRoutes} from "react-router-config";
 
 const LeftTree = (props) =>{

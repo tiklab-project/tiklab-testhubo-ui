@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../common/detailCommon";
-import WebPerformDetailCommon from "../../../webtest/performcase/components/webPerformDetailCommon";
+import WebPerformDetailCommon from "../../../test/web/perf/components/webPerformDetailCommon";
 
 
 const PlanToWebPerformPage = (props) =>{

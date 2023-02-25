@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../common/detailCommon";
-import ApiSceneStepList from "../../../apitest/http/scenecase/components/apiSceneStepList";
+import ApiSceneStepList from "../../../test/api/http/scene/components/apiSceneStepList";
 
 const PlanToApiScenePage = (props) =>{
     const {testPlanStore,apiSceneStore} = props;

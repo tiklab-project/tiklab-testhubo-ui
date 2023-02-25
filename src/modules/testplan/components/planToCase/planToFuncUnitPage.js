@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../common/detailCommon";
-import FuncUnitStepList from "../../../functest/components/funcUnitStepList";
+import FuncUnitStepList from "../../../test/function/components/funcUnitStepList";
 
 const PlanToFuncUnitPage = (props) =>{
     const {testPlanStore,funcUnitStore} = props;

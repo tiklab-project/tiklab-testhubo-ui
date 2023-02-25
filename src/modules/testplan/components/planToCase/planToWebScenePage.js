@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../common/detailCommon";
-import WebSceneStepList from "../../../webtest/scenecase/components/webSceneStepList";
+import WebSceneStepList from "../../../test/web/scene/components/webSceneStepList";
 
 const PlanToWebScenePage = (props) =>{
     const {testPlanStore,webSceneStore} = props;

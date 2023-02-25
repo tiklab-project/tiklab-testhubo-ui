@@ -1,15 +1,13 @@
 
-import Home from './integration/home/home';
-import HeaderContent from "./integration/header/headerContent";
-import PageContent from "./integration/header/pageContent";
-import Repository from "./repository/components/repository";
-import RepositoryDetailPage from "./repositoryDetail/repositoryDetailPage";
-import {SystemManagement} from "./sysmgr";
+import Home from './home/home/home';
+import HeaderContent from "./home/header/headerContent";
+import PageContent from "./home/header/pageContent";
+import Repository from "./repository/repository/components/repository";
+import RepositoryDetailPage from "./repository/repositoryDetail/repositoryDetailPage";
+import {SystemManagement} from "./setting";
 import TestPlan  from './testplan/components/testPlan';
 import TestPlanDetail from "./testplan/components/testPlanDetail";
 
-import QuartzTaskList from './quartzTask/components/quartzMaster';
-import QuartzTask from "./quartzTask/components/quartzTask";
 
 
 import CategoryList from "./category/components/categoryList";
@@ -17,7 +15,7 @@ import {
 
     Step,
     StepDetail,
-}from './apitest/http/unitcase'
+}from './test/api/http/unit'
 
 
 export {
@@ -29,7 +27,6 @@ export {
     Step,
     StepDetail,
 
-    QuartzTaskList, QuartzTask,
 
     CategoryList,
 

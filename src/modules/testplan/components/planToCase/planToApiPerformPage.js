@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../common/detailCommon";
-import ApiPerformDetailCommon from "../../../apitest/http/performcase/components/apiPerformDetailCommon";
+import ApiPerformDetailCommon from "../../../test/api/http/perf/components/apiPerformDetailCommon";
 
 const PlanToApiPerformPage = (props) =>{
     const {testPlanStore,apiPerfStore} = props;

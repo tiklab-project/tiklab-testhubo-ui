@@ -5,8 +5,6 @@ import {
     Repository,
     RepositoryDetailPage,
 
-    QuartzTask,
-
     CategoryList,
     TestPlan,
 
@@ -14,51 +12,51 @@ import {
 
 import {Directory, OrgaList, UserGroup} from 'tiklab-user-ui';
 import {Redirect} from "react-router";
-import PortalHeader from "./modules/integration/header/portalContent";
-import RepositoryDetailLayout from "./modules/repositoryDetail/repositoryDetailLayout";
-import ApiUnitcaseDetail from "./modules/apitest/http/unitcase/components/apiUnitEditPage";
-import ApiScenecaseDetail from "./modules/apitest/http/scenecase/components/apiScenePage";
-import FuncUnitDetail from "./modules/functest/components/funcUnitDetail";
-import EnvContent from "./modules/sysmgr/environment/components/envContent";
-import ApiPerformDetail from "./modules/apitest/http/performcase/components/apiPerformDetail";
-import LoginOut from "./modules/integration/header/loginOut";
-import WebPerformDetail from "./modules/webtest/performcase/components/webPerformDetail";
-import AppPerformDetail from "./modules/apptest/performcase/components/appPerformDetail";
+import PortalHeader from "./modules/home/header/portalContent";
+import RepositoryDetailLayout from "./modules/repository/repositoryDetail/repositoryDetailLayout";
+import ApiUnitcaseDetail from "./modules/test/api/http/unit/components/apiUnitEditPage";
+import ApiScenecaseDetail from "./modules/test/api/http/scene/components/apiScenePage";
+import FuncUnitDetail from "./modules/test/function/components/funcUnitDetail";
+import EnvContent from "./modules/support/environment/components/envContent";
+import ApiPerformDetail from "./modules/test/api/http/perf/components/apiPerformDetail";
+import LoginOut from "./modules/home/header/loginOut";
+import WebPerformDetail from "./modules/test/web/perf/components/webPerformDetail";
+import AppPerformDetail from "./modules/test/app/perf/components/appPerformDetail";
 
-import WebSceneDetail from "./modules/webtest/scenecase/components/webSceneDetail";
+import WebSceneDetail from "./modules/test/web/scene/components/webSceneDetail";
 import TestPlanDetail from "./modules/testplan/components/testPlanDetail";
-import AgentConfigList from "./modules/integration/agentconfig/components/agentConfigList";
-import DomainRole from "./modules/integration/domainRole/domainRole";
-import DomainPrivilege from "./modules/integration/domainPrivilege/domainPrivilege";
-import SystemContent from "./modules/sysmgr/system/systemContent";
-import LoginContent from "./modules/integration/login/LoginContent";
+import AgentConfigList from "./modules/support/agent/components/agentConfigList";
+import DomainRole from "./modules/repository/repositorySetting/domainRole";
+import DomainPrivilege from "./modules/repository/repositorySetting/domainPrivilege";
+import SystemContent from "./modules/setting/system/systemContent";
+import LoginContent from "./modules/home/login/LoginContent";
 import UserList from "tiklab-user-ui/lib/user-list";
 import {MyTodoTask, TaskList, TodoTempList} from "tiklab-todotask-ui";
 import {PluginDetail, PluginList} from "tiklab-plugin-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
 import {ProjectFeatureList, ProjectRoleList, SystemFeatureList, SystemRoleList} from "tiklab-privilege-ui";
 import {MyLogList, LogTemplateList, LogTypeList} from "tiklab-oplog-ui";
-import Version from "./modules/sysmgr/version/version";
-import RepositorySettingMenu from "./modules/integration/repositorySetting/repositorySettingMenu";
-import DynamicDetail from "./modules/integration/home/dynamicDetail";
-import TestCaseList from "./modules/testcase/components/testcaseList";
-import RepositorySetting from "./modules/integration/repositorySetting/repositorySetting";
-import ApiUnitInstanceList from "./modules/apitest/http/unitcase/components/apiUnitInstanceList";
-import ApiSceneInstanceList from "./modules/apitest/http/scenecase/components/apiSceneInstanceList";
-import ApiPerfInstanceList from "./modules/apitest/http/performcase/components/apiPerfInstanceList";
-import WebSceneInstanceList from "./modules/webtest/scenecase/components/webSceneInstanceList";
-import WebPerfInstanceList from "./modules/webtest/performcase/components/webPerfInstanceList";
-import AppSceneInstanceList from "./modules/apptest/scenecase/components/appSceneInstanceList";
-import AppPerfInstanceList from "./modules/apptest/performcase/components/appPerfInstanceList";
+import Version from "./modules/setting/version/version";
+import RepositorySettingMenu from "./modules/repository/repositorySetting/repositorySettingMenu";
+import DynamicDetail from "./modules/home/home/dynamicDetail";
+import TestCaseList from "./modules/test/testcase/components/testcaseList";
+import RepositorySetting from "./modules/repository/repositorySetting/repositorySetting";
+import ApiUnitInstanceList from "./modules/test/api/http/unit/components/apiUnitInstanceList";
+import ApiSceneInstanceList from "./modules/test/api/http/scene/components/apiSceneInstanceList";
+import ApiPerfInstanceList from "./modules/test/api/http/perf/components/apiPerfInstanceList";
+import WebSceneInstanceList from "./modules/test/web/scene/components/webSceneInstanceList";
+import WebPerfInstanceList from "./modules/test/web/perf/components/webPerfInstanceList";
+import AppSceneInstanceList from "./modules/test/app/scene/components/appSceneInstanceList";
+import AppPerfInstanceList from "./modules/test/app/perf/components/appPerfInstanceList";
 import TestPlanInstanceList from "./modules/testplan/components/testPlanInstanceList";
-import AppSceneDetail from "./modules/apptest/scenecase/components/appSceneDetail";
+import AppSceneDetail from "./modules/test/app/scene/components/appSceneDetail";
 import TestPlanBindCaseInstanceList from "./modules/testplan/components/testPlanBindCaseInstanceList";
 import TestReportList from "./modules/testreport/testReportList";
 import TestReportDetail from "./modules/testreport/testReportDetail";
-import ApiSceneToUnitPage from "./modules/apitest/http/scenecase/components/apiSceneToUnitPage";
-import ApiPerformToScenePage from "./modules/apitest/http/performcase/components/apiPerformToScenePage";
-import WebPerformToScenePage from "./modules/webtest/performcase/components/webPerformToScenePage";
-import AppPerformToScenePage from "./modules/apptest/performcase/components/appPerformToScenePage";
+import ApiSceneToUnitPage from "./modules/test/api/http/scene/components/apiSceneToUnitPage";
+import ApiPerformToScenePage from "./modules/test/api/http/perf/components/apiPerformToScenePage";
+import WebPerformToScenePage from "./modules/test/web/perf/components/webPerformToScenePage";
+import AppPerformToScenePage from "./modules/test/app/perf/components/appPerformToScenePage";
 import PlanToApiUnitPage from "./modules/testplan/components/planToCase/planToApiUnitPage";
 import PlanToApiScenePage from "./modules/testplan/components/planToCase/planToApiScenePage";
 import PlanToApiPerformPage from "./modules/testplan/components/planToCase/planToApiPerformPage";

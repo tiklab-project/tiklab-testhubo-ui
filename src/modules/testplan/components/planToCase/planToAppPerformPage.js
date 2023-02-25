@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../common/detailCommon";
-import AppPerfStepList from "../../../apptest/performcase/components/appPerfStepList";
-import AppPerformDetailCommon from "../../../apptest/performcase/components/appPerformDetailCommon";
+import AppPerfStepList from "../../../test/app/perf/components/appPerfStepList";
+import AppPerformDetailCommon from "../../../test/app/perf/components/appPerformDetailCommon";
 
 
 const PlanToAppPerformPage = (props) =>{

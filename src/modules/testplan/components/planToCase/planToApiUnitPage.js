@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
-import ApiUnitEditPageCommon from "../../../apitest/http/unitcase/components/apiUnitEditPageCommon";
+import ApiUnitEditPageCommon from "../../../test/api/http/unit/components/apiUnitEditPageCommon";
 
 
 const PlanToApiUnitPage = (props) =>{

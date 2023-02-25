@@ -3,13 +3,13 @@ import {Empty, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/caseCommonFn";
-import ApiUnitInstanceDrawer from "../../apitest/http/unitcase/components/apiUnitInstanceDrawer";
-import ApiSceneInstanceDrawer from "../../apitest/http/scenecase/components/apiSceneInstanceDrawer";
-import WebSceneInstanceDrawer from "../../webtest/scenecase/components/webSceneInstanceDrawer";
-import AppSceneInstanceDrawer from "../../apptest/scenecase/components/appSceneInstanceDrawer";
-import ApiPerformInstanceDrawer from "../../apitest/http/performcase/components/apiPerformInstanceDrawer";
-import WebPerformInstanceDrawer from "../../webtest/performcase/components/webPerformInstanceDrawer";
-import AppPerformInstanceDrawer from "../../apptest/performcase/components/appPerformInstanceDrawer";
+import ApiUnitInstanceDrawer from "../../test/api/http/unit/components/apiUnitInstanceDrawer";
+import ApiSceneInstanceDrawer from "../../test/api/http/scene/components/apiSceneInstanceDrawer";
+import WebSceneInstanceDrawer from "../../test/web/scene/components/webSceneInstanceDrawer";
+import AppSceneInstanceDrawer from "../../test/app/scene/components/appSceneInstanceDrawer";
+import ApiPerformInstanceDrawer from "../../test/api/http/perf/components/apiPerformInstanceDrawer";
+import WebPerformInstanceDrawer from "../../test/web/perf/components/webPerformInstanceDrawer";
+import AppPerformInstanceDrawer from "../../test/app/perf/components/appPerformInstanceDrawer";
 
 const TestPlanBindCaseInstanceTable = (props) =>{
     const {testPlanInstanceStore,testPlanBindCaseInstanceStore} = props;
