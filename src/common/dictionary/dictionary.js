@@ -1,3 +1,12 @@
+
+
+export const dictionary ={
+    requestType:[
+        "get",
+        "post"
+    ]
+}
+
 const headerParamDictionary = [
     'Accept',
     'Accept-Charset',

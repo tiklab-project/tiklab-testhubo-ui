@@ -7,7 +7,7 @@ import routers from './components/routers';
 import App from "./components/app";
 import {
     PageContent,HeaderContent,SystemManagement
-} from "./components/modules/index"
+} from "./components/container/index"
 
 
 export {
