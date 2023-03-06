@@ -2,9 +2,11 @@ import React from "react";
 import "./iconBtnStyle.scss"
 import {Button} from "antd";
 
+/**
+ * 按钮 可带icon
+ */
 const IconBtn = (props) =>{
     const {name,className,onClick,icon,} = props;
-
 
     return(
         <div className={"pi-icon-btn-box"}>

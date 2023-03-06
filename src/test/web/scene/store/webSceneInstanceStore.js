@@ -1,12 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    findWebSceneInstancePage,
-    createWebSceneInstance,
-    findWebSceneInstance,
-    updateWebSceneInstance,
-    deleteWebSceneInstance,
-    findWebSceneInstanceList
-} from '../api/webSceneInstanceApi'
+import {Axios} from "tiklab-core-ui";
+
 
 export class WebSceneInstanceStore {
 
@@ -23,7 +17,7 @@ export class WebSceneInstanceStore {
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await findWebSceneInstancePage(this.params );
+        const res = await Axios.post("/webSceneInstance/findWebSceneInstancePage",this.params );
         if(res.code === 0) {
             this.webSceneInstanceList = res.data.dataList;
             this.totalRecord = res.data.totalRecord;
@@ -38,7 +32,7 @@ export class WebSceneInstanceStore {
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await findWebSceneInstanceList(param);
+        const res = await Axios.post("/webSceneInstance/findWebSceneInstanceList",param);
         if(res.code===0){
             this.webSceneInstanceList = res.data;
             return res.data;
@@ -52,15 +46,12 @@ export class WebSceneInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findWebSceneInstance(param)
+        const res = await Axios.post("/webSceneInstance/findWebSceneInstance",param)
         if(res.code === 0){
 
             return res.data;
         }
     }
-
-    @action
-    createWebSceneInstance = async (values) =>  await createWebSceneInstance(values)
 
 
     @action
@@ -68,7 +59,7 @@ export class WebSceneInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteWebSceneInstance(param)
+        await Axios.post("/webSceneInstance/deleteWebSceneInstance",param)
     }
 
 

@@ -4,7 +4,9 @@ import {Axios, getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../assets/img/empty.png";
 
-
+/**
+ * 首页中动态
+ */
 const DynamicWidget = (props) =>{
     const {screen,repositoryStore} = props;
     const {findRepositoryJoinList} = repositoryStore;
@@ -35,7 +37,9 @@ const DynamicWidget = (props) =>{
         })
     }, []);
 
-
+    /**
+     * 查询日志列表
+     */
     const findList = async (value) => {
         const params = {
             ...value,

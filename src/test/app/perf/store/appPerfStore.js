@@ -1,12 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    findAppPerfPage,
-    createAppPerf,
-    findAppPerf,
-    updateAppPerf,
-    deleteAppPerf,
-    findAppPerfListByTestCase
-} from '../api/appPerfApi'
+import {Axios} from "tiklab-core-ui";
+
 
 export class AppPerfStore {
     @observable appPerfList = [];
@@ -15,7 +9,7 @@ export class AppPerfStore {
     @action
     findAppPerfList = async (value) => {
 
-        const res = await findAppPerfListByTestCase(value);
+        const res = await Axios.post("/appPerfCase/findAppPerfCaseListByTestCase",value);
 
         if(res.code === 0) {
             this.appPerfList = res.data;
@@ -28,7 +22,7 @@ export class AppPerfStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findAppPerf(param);
+        const res = await Axios.post("/appPerfCase/findAppPerfCase",param);
         if( res.code === 0){
             this.appPerfInfo = res.data;
             return res.data;
@@ -37,18 +31,18 @@ export class AppPerfStore {
 
 
     @action
-    createAppPerf = async (values) =>  await createAppPerf(values)
+    createAppPerf = async (values) =>  await Axios.post("/appPerfCase/createAppPerfCase",values)
 
 
     @action
-    updateAppPerf = async (values) =>  await updateAppPerf(values)
+    updateAppPerf = async (values) =>  await Axios.post("/appPerfCase/updateAppPerfCase",values)
 
     @action
     deleteAppPerf = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteAppPerf(param)
+        await Axios.post("/appPerfCase/deleteAppPerfCase",param)
     }
 
 }

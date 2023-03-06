@@ -1,9 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    findRawResponse,
-    createRawResponse,
-    updateRawResponse
-} from '../api/rawResponseApi';
+import {Axios} from "tiklab-core-ui";
 
 export class RawResponseStore {
 
@@ -19,22 +15,22 @@ export class RawResponseStore {
         const param = new FormData();
         param.append('id', id)
 
-        const res = await findRawResponse(param);
+        const res = await Axios.post("/rawParam/findRawParam",param);
         if( res.code === 0){
             return this.rawResponseInfo = res.data
         }
     }
 
     @action
-    createRawResponse = (values) => {
+    createRawResponse = async (values) => {
         values.apiUnit = {id: this.apiUnitId}
         values.id =  this.rawResponseId;
 
-        createRawResponse(values).then((res) => {
-            if( res.code === 0){
-                this.findRawResponse(this.apiUnitId);
-            }
-        })
+        let res = await Axios.post("/rawParam/createRawParam",values)
+        if( res.code === 0){
+            this.findRawResponse(this.apiUnitId);
+        }
+
     }
 
     @action
@@ -42,11 +38,11 @@ export class RawResponseStore {
         values.apiUnit = { id: this.apiUnitId}
         values.id =  this.rawResponseId;
 
-        updateRawResponse(values).then((res) => {
-            if( res.code === 0){
-                this.findRawResponse(this.apiUnitId);
-            }
-        })
+        let res = Axios.post("/rawParam/updateRawParam",values)
+        if( res.code === 0){
+            this.findRawResponse(this.apiUnitId);
+        }
+
     }
 
 }

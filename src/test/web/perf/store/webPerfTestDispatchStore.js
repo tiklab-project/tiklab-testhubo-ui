@@ -1,6 +1,5 @@
 import {observable,action} from "mobx";
-import {webPerfExecute,exeResult} from '../api/webPerfTestDispatchApi';
-
+import {Axios} from "tiklab-core-ui";
 
 export class WebPerfTestDispatchStore {
     @observable webPerfTestResult;
@@ -14,7 +13,7 @@ export class WebPerfTestDispatchStore {
             webPerfCase:{id:id}
         }
 
-        const res = await  webPerfExecute(param);
+        const res = await Axios.post("/webPerfTestDispatch/execute",param);
         if(res.code === 0) {
             this.webPerfTestResult = res.data;
             return res.data
@@ -27,7 +26,7 @@ export class WebPerfTestDispatchStore {
             webPerfCase:{id:id},
         }
 
-        const res  =  await exeResult(param);
+        const res  =  await Axios.post("/webPerfTestDispatch/exeResult",param);
         if(res.code === 0 ){
             return res.data;
         }

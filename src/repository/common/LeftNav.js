@@ -4,6 +4,9 @@ import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
 import IconCommon from "../../common/IconCommon";
 
+/**
+ * 左侧导航展示
+ */
 const LeftNav = (props) =>{
     const {repositoryStore,systemRoleStore,repositoryRecentStore,testcaseStore} = props;
     const {findRepository,findRepositoryList,repositoryList} = repositoryStore;
@@ -50,7 +53,9 @@ const LeftNav = (props) =>{
     },[])
 
 
-
+    /**
+     * 点击左侧导航事件
+     */
     const clickAddRouter = (item) =>{
         //设置用例列表筛选项
         setTestType(null)
@@ -85,8 +90,9 @@ const LeftNav = (props) =>{
     }
 
 
-
-    //展示切换的仓库
+    /**
+     * 展示切换的仓库
+     */
     const showRepositoryList = (list) =>{
         return list&&list.map(item=>{
             return (
@@ -100,7 +106,9 @@ const LeftNav = (props) =>{
         })
     }
 
-    //切换仓库
+    /**
+     * 切换仓库
+     */
     const toggleRepository = (repositoryId)=>{
 
         sessionStorage.setItem("repositoryId",repositoryId);
@@ -118,7 +126,9 @@ const LeftNav = (props) =>{
         props.history.push('/repository');
     }
 
-
+    /**
+     * 点击设置
+     */
     const clickSetting = ()=>{
         //点击左侧导航，设置选择项,用于刷新后还能选择。
         localStorage.setItem("leftRouter","setting");

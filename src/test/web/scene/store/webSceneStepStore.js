@@ -1,14 +1,5 @@
-
 import {observable,action} from "mobx";
-import {
-    findWebSceneStepList,
-    findWebSceneStepPage,
-    findWebSceneStep,
-    createWebSceneStep,
-    deleteWebSceneStep,
-    updateWebSceneStep,
-    bindWebUnit
-} from '../api/webSceneStepApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class WebSceneStepStore {
@@ -18,20 +9,6 @@ export class WebSceneStepStore {
 
 
     @action
-    bindWebUnit = async (selectItem) => {
-        let bindList = [];
-        for (let i=0;i<selectItem.length;i++){
-            bindList.push({
-                webScene: {id: this.webSceneId},
-                webUnit: {id:selectItem[i]}
-            });
-        }
-
-        await bindWebUnit(bindList)
-
-    }
-
-    @action
     findWebSceneStepPage = async (id) => {
         this.webSceneId=id;
         const params = {
@@ -39,7 +16,7 @@ export class WebSceneStepStore {
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 
-        const res = await findWebSceneStepPage(params)
+        const res = await Axios.post("/webSceneStep/findWebSceneStepPage",params)
         if(res.code === 0) {
 
             this.webSceneStepList=res.data.dataList
@@ -55,7 +32,7 @@ export class WebSceneStepStore {
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 
-        const res = await findWebSceneStepList(params)
+        const res = await Axios.post("/webSceneStep/findWebSceneStepList",params)
         if(res.code === 0) {
 
             this.webSceneStepList=res.data
@@ -69,7 +46,7 @@ export class WebSceneStepStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findWebSceneStep(param);
+        const res = await Axios.post("/webSceneStep/findWebSceneStepPage",param);
         if(res.code === 0){
             this.webSceneStepInfo = res.data;
             return res.data;
@@ -77,18 +54,18 @@ export class WebSceneStepStore {
     }
 
     @action
-    createWebSceneStep = async (values) => await createWebSceneStep(values)
+    createWebSceneStep = async (values) => await Axios.post("/webSceneStep/createWebSceneStep",values)
 
 
     @action
-    updateWebSceneStep = async (values) =>  await updateWebSceneStep(values)
+    updateWebSceneStep = async (values) =>  await Axios.post("/webSceneStep/updateWebSceneStep",values)
 
     @action
     deleteWebSceneStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        await deleteWebSceneStep(param);
+        await Axios.post("/category/findCategory",param);
 
     }
 }

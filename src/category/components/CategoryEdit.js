@@ -1,9 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { observer, inject } from "mobx-react";
 import {Modal, Form, Input, Button} from 'antd';
 import IconCommon from "../../common/IconCommon";
 
-// 目录的编辑与添加
+/**
+ * 目录的编辑与添加
+ */
 const CategoryEdit =(props)=>{
     const { categoryStore,categoryId } = props;
     const {
@@ -20,7 +22,9 @@ const CategoryEdit =(props)=>{
 
     const repositoryId = sessionStorage.getItem('repositoryId');
 
-    // 弹框展示
+    /**
+     * 弹框展示
+     */
     const showModal = async () => {
         if(props.type === "edit"){
             let res = await findCategory(categoryId)
@@ -32,10 +36,14 @@ const CategoryEdit =(props)=>{
         setVisible(true);
     };
 
-    // 收起弹框
+    /**
+     * 收起弹框
+     */
     const hideModal = () => {setVisible(false)};
 
-    // 弹框提交
+    /**
+     * 弹框提交
+     */
     const onFinish = async () => {
         let values = await form.validateFields();
         values.repository = { id:repositoryId }
@@ -56,7 +64,9 @@ const CategoryEdit =(props)=>{
     };
 
 
-    //展示组件
+    /**
+     * 展示组件
+     */
     const showEditView = () =>{
 
         if(props.children){

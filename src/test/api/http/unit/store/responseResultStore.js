@@ -1,9 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    findResponseResult,
-    createResponseResult,
-    updateResponseResult
-} from '../api/responseResultApi';
+import {Axios} from "tiklab-core-ui";
+
 
 export class ResponseResultStore {
     @observable responseResultInfo = [];
@@ -18,7 +15,7 @@ export class ResponseResultStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findResponseResult(param);
+        const res = await Axios.post("/responseResult/findResponseResult",param);
         if( res.code === 0){
             return res.data;
         }
@@ -29,7 +26,7 @@ export class ResponseResultStore {
         values.apiUnit = {id: this.apiUnitId}
         values.id =  this.responseResultId;
 
-        await createResponseResult(values);
+        await Axios.post("/responseResult/createResponseResult",values);
     }
 
     @action
@@ -37,7 +34,7 @@ export class ResponseResultStore {
         values.apiUnit = {id: this.apiUnitId}
         values.id= this.responseResultId;
 
-        await updateResponseResult(values)
+        await Axios.post("/responseResult/updateResponseResult",values)
     }
 
 }

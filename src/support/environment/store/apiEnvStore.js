@@ -1,12 +1,5 @@
 import { observable,  action } from "mobx";
-import { 
-	deleteApiEnv,
-	createApiEnv, 
-    findApiEnv, 
-	updateApiEnv, 
-	findApiEnvPage ,
-	findApiEnvList
-} from '../api/apiEnvApi';
+import {Axios} from "tiklab-core-ui";
 
 export class ApiEnvStore {
 	@observable apiEnvList = [];
@@ -26,7 +19,7 @@ export class ApiEnvStore {
 			orderParams: [{name:'name',orderType:'asc'}],
 		}
 		
-		const res = await findApiEnvPage(params)
+		const res = await Axios.post("/apiEnv/findApiEnvPage",params)
 		if(res.code === 0) {
 			this.apiEnvList = res.data.dataList;
 			this.totalRecord = res.data.totalRecord;
@@ -41,7 +34,7 @@ export class ApiEnvStore {
 			orderParams: [{name:'name',orderType:'asc'}],
 		}
 
-		const res = await findApiEnvList(params)
+		const res = await Axios.post("/apiEnv/findApiEnvList",params)
 		if(res.code === 0) {
 			this.apiEnvList = res.data;
 
@@ -53,7 +46,7 @@ export class ApiEnvStore {
 	deleteApiEnv = async (id) => {
 		const param = new FormData();
 		param.append('id', id);
-		const res = await deleteApiEnv(param)
+		const res = await Axios.post("/apiEnv/deleteApiEnv",param)
 		if(res.code === 0) {
 			this.findApiEnvPage();
 		}
@@ -62,7 +55,7 @@ export class ApiEnvStore {
 
     @action
 	createApiEnv = async (values) => {
-		const res = await createApiEnv(values)
+		const res = await Axios.post("/apiEnv/createApiEnv",values)
 		if(res.code === 0) {
 			this.findApiEnvPage()
 		}
@@ -72,7 +65,7 @@ export class ApiEnvStore {
 	@action
 	updateApiEnv = async (values) => {
 		values.id = this.apiEnvId;
-		const res = await updateApiEnv(values)
+		const res = await Axios.post("/apiEnv/updateApiEnv",values)
 		if(res.code === 0) {
 			this.findApiEnvPage()
 		}
@@ -85,7 +78,7 @@ export class ApiEnvStore {
 		const param = new FormData();
 		param.append('id', id);
 		
-		const res = await  findApiEnv(param)
+		const res = await Axios.post("/category/findCategory",param)
 		if( res.code === 0){
 			return res.data;
 		}

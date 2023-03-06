@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import IconBtn from "../../common/iconBtn/IconBtn";
 import {Drawer, Empty, Spin, Table} from "antd";
-import {testPlanExeResult, testPlanTestDispatch} from "../api/testPlanDetailApi";
 import {inject, observer} from "mobx-react";
 import {messageFn} from "../../common/messageCommon/MessageCommon";
 import emptyImg from "../../assets/img/empty.png";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import {Axios} from "tiklab-core-ui";
 
 
 const TestPlanExecuteTestDrawer = (props) =>{
@@ -58,7 +58,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
     useEffect(()=>{
         if (start) {
             ref.current =  setInterval(()=>{
-                testPlanExeResult().then(res=>{
+                Axios.post("/testPlanTestDispatch/exeResult").then(res=>{
                     if(res.code===0){
                         if (res.data.status === 2) {
                             messageFn("success","执行完毕")
@@ -95,7 +95,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
 
             }
 
-            testPlanTestDispatch(params)
+            Axios.post("/testPlanTestDispatch/execute",params)
 
             setStart(true)
         }else {

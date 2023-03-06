@@ -1,11 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    createApiScene,
-    findApiScene,
-    updateApiScene,
-    deleteApiScene,
-    findApiSceneCaseListByTestCase
-} from '../api/apiSceneApi'
+import {Axios} from "tiklab-core-ui";
 
 export class ApiSceneStore {
 
@@ -15,7 +9,7 @@ export class ApiSceneStore {
     @action
     findApiSceneList = async (value) => {
 
-        const res = await findApiSceneCaseListByTestCase(value);
+        const res = await Axios.post("/apiSceneCase/findApiSceneCaseListByTestCase",value);
 
         if(res.code === 0) {
             this.apiSceneList = res.data;
@@ -28,7 +22,7 @@ export class ApiSceneStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findApiScene(param);
+        const res = await Axios.post("/apiSceneCase/findApiSceneCase",param);
         if( res.code === 0){
             this.apiSceneInfo = res.data;
             return  res.data;
@@ -37,10 +31,10 @@ export class ApiSceneStore {
 
 
     @action
-    createApiScene = async (values) => await createApiScene(values)
+    createApiScene = async (values) => await Axios.post("/apiSceneCase/createApiSceneCase",values)
 
     @action
-    updateApiScene = async (values) => await updateApiScene(values)
+    updateApiScene = async (values) => await Axios.post("/apiSceneCase/updateApiSceneCase",values)
 
 
     @action
@@ -48,7 +42,7 @@ export class ApiSceneStore {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteApiScene(param)
+        await Axios.post("/apiSceneCase/deleteApiSceneCase",param)
     }
 
 }

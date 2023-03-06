@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react';
 import { observer, inject } from "mobx-react";
 import {Popconfirm, Space, Table} from "antd";
 import AgentConfigEdit from "./AgentConfigEdit";
-import BreadcrumbCommon from "../../../common/BreadcrumbCommon";
 import IconCommon from "../../../common/IconCommon";
 
 //

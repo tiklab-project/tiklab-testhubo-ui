@@ -1,8 +1,4 @@
-/*
- * @Description: 添加与编辑空间组件
- * @Author: sunxiancheng
- * @LastEditTime: 2021-05-08 17:22:18
- */
+
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Radio, Row, Col, Select} from 'antd';
@@ -23,6 +19,9 @@ const tailLayout = {
     wrapperCol: { offset: 0, span: 24 },
 };
 
+/**
+ * 仓库 新增
+ */
 const RepositoryEdit = (props) => {
     const { repositoryStore, repositoryId,findList,selectItem } = props;
     const {
@@ -68,7 +67,9 @@ const RepositoryEdit = (props) => {
         setVisible(false);
     };
 
-    //随机获取一张图片
+    /**
+     * 随机获取一张图片
+     */
     const iconRandom = () =>{
         let arr = [
             "/images/pi1.png",
@@ -84,7 +85,9 @@ const RepositoryEdit = (props) => {
     }
 
 
-    //成员下拉框选项
+    /**
+     * 成员下拉框选项
+     */
     const showOption = (list) =>{
         return  list&&list.map((item) => <Option key={item.id} value={item.id}>
                 <div className={"ws-edit-box-select"}>

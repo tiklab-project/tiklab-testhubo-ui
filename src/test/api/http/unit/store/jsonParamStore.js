@@ -1,11 +1,6 @@
-import { observable,  action , toJS} from "mobx";
-import {
-    findJsonParamListTree,
-    createJsonParam,
-    findJsonParam,
-    updateJsonParam,
-    deleteJsonParam
-} from '../api/jsonParamApi'
+import { observable,  action } from "mobx";
+import {Axios} from "tiklab-core-ui";
+
 
 export class JsonParamStore {
 
@@ -30,7 +25,7 @@ export class JsonParamStore {
         }
         const newRow =[ { id: 'jsonParamInitRow'}]
 
-        const res = await findJsonParamListTree(params)
+        const res = await Axios.post("/jsonParam/findJsonParamListTree",params)
         if(res.code === 0) {
             this.jsonParamDataSource = res.data;
             if( res.data.length === 0){
@@ -48,7 +43,7 @@ export class JsonParamStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findJsonParam(param)
+        const res = await Axios.post("/jsonParam/findJsonParam",param)
         if( res.code === 0){
             this.jsonParamInfo = res.data;
             return  res.data;
@@ -60,7 +55,7 @@ export class JsonParamStore {
     createJsonParam =async (values) => {
         values.apiUnit = { id:this.apiUnitId }
 
-        const res = await createJsonParam(values)
+        const res = await Axios.post("/jsonParam/createJsonParam",values)
         if( res.code === 0){
             this.findJsonParamListTree(this.apiUnitId);
         }
@@ -69,7 +64,7 @@ export class JsonParamStore {
 
     @action
     updateJsonParam = async (values) => {
-        const res = await updateJsonParam(values)
+        const res = await Axios.post("/jsonParam/updateJsonParam",values)
 
         if( res.code === 0){
             return this.findJsonParamListTree(this.apiUnitId);
@@ -81,7 +76,7 @@ export class JsonParamStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteJsonParam(param)
+        const res = await Axios.post("/jsonParam/deleteJsonParam",param)
         if( res.code === 0){
             this.findJsonParamListTree(this.apiUnitId);
         }

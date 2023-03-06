@@ -4,8 +4,9 @@ import IconCommon from "../IconCommon";
 import {ApiOutlined, LaptopOutlined, TabletOutlined} from "@ant-design/icons";
 
 
-
-//表格中测试类型展示
+/**
+ * 表格中测试类型展示
+ */
 export const showTestTypeView = (type)=>{
     switch (type) {
         case "auto":
@@ -17,7 +18,9 @@ export const showTestTypeView = (type)=>{
     }
 }
 
-//表格中用例类型展示
+/**
+ * 表格中用例类型展示
+ */
 export const showCaseTypeView = (type)=>{
     switch (type) {
         case "api-unit":

@@ -1,5 +1,5 @@
 import {observable,action} from "mobx";
-import {apiPerfExecute,exeResult} from '../api/apiPerfTestDispatchApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class ApiPerfTestDispatchStore {
@@ -15,7 +15,7 @@ export class ApiPerfTestDispatchStore {
             apiEnv:url
         }
 
-        const res = await  apiPerfExecute(param);
+        const res = await Axios.post("/apiPerfTestDispatch/execute",param);
         if(res.code === 0) {
             this.apiPerfTestResult = res.data;
         }
@@ -29,7 +29,7 @@ export class ApiPerfTestDispatchStore {
             apiEnv:url
         }
 
-        const res  =  await exeResult(param);
+        const res  = await Axios.post("/apiPerfTestDispatch/exeResult",param);
         if(res.code === 0 ){
             return res.data;
         }

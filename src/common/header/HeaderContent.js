@@ -9,6 +9,10 @@ import logo from "../../assets/img/teston-log.png";
 import {QuestionCircleOutlined, RightOutlined, SettingOutlined} from "@ant-design/icons";
 import MessageDrawer from "../../setting/message/MessageDrawer";
 
+
+/**
+ * 页面头部
+ */
 const HeaderContent = props => {
     const {logout} = props;
 
@@ -21,6 +25,7 @@ const HeaderContent = props => {
         i18n.changeLanguage(languageData[key])
     };
 
+    // 帮助项
     const helpItem = [
         {
             label: '文档',
@@ -52,7 +57,9 @@ const HeaderContent = props => {
         },
     ]
 
-    //帮助与支持
+    /**
+     * 渲染帮助项
+     */
     const helpMenu = (
         <Menu style={{padding:10,width:180}} >
             {
@@ -65,7 +72,9 @@ const HeaderContent = props => {
         </Menu>
     );
 
-    //语言包选项
+    /**
+     * 语言包选项
+     */
     const lanMenu = (list) =>{
         return list&&list.map(item=>{
             return <div className={"header-lan-box-item"} key={item} onClick={()=>onClickLan(item)}>{item}</div>

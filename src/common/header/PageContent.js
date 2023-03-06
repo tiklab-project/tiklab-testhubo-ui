@@ -7,6 +7,9 @@ import {getUser} from "tiklab-core-ui";
 import { SYSTEM_ROLE_STORE } from 'tiklab-privilege-ui/es/store';
 import './portalStyle.scss'
 
+/**
+ * 整个页面
+ */
  const  PageContent =(props)=> {
 
      const router = props.route.routes;
@@ -18,6 +21,9 @@ import './portalStyle.scss'
          }
      }, [user])
 
+    /**
+     * 头部退出方法跳往退出页
+     */
     const Logout = () => {
         props.history.push({
             pathname: '/logout',

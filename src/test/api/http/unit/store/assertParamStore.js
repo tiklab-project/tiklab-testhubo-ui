@@ -1,15 +1,5 @@
-/**
- * @description：
- * @date: 2021-08-13 17:40
- */
 import { observable,  action } from "mobx";
-import {
-    findAssertParamList,
-    createAssertParam,
-    findAssertParam,
-    updateAssertParam,
-    deleteAssertParam
-} from '../api/assertParamApi'
+import {Axios} from "tiklab-core-ui";
 
 export class AssertParamStore {
 
@@ -49,7 +39,7 @@ export class AssertParamStore {
             orderParams:[{ name:'source', orderType:'asc' }],
         }
         
-        const res = await findAssertParamList(params)
+        const res = await Axios.post("/assertParam/findAssertParamList",params)
         if(res.code === 0) {
             this.dataLength = res.data.length;
             this.processList(res.data);
@@ -62,7 +52,7 @@ export class AssertParamStore {
         const param = new FormData();
         param.append('id', id);
         
-        const res = await findAssertParam(param);
+        const res = await Axios.post("/assertParam/findAssertParam",param);
         if( res.code === 0){
             this.assertParamInfo = res.data;
             return res.data;
@@ -74,7 +64,7 @@ export class AssertParamStore {
     createAssertParam = async (values) => {
         values.apiUnit = { id: this.apiUnitId }
 
-        const res = await createAssertParam(values)
+        const res = await Axios.post("/assertParam/createAssertParam",values)
         if( res.code === 0){
             return this.findAssertParamList(this.apiUnitId);
         }
@@ -82,7 +72,7 @@ export class AssertParamStore {
 
     @action
     updateAssertParam = async (values) => {
-        const res = await updateAssertParam(values)
+        const res = await Axios.post("/assertParam/updateAssertParam",values)
         if( res.code === 0){
             return this.findAssertParamList(this.apiUnitId);
         }
@@ -94,7 +84,7 @@ export class AssertParamStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteAssertParam(param)
+        const res = await Axios.post("/assertParam/deleteAssertParam",param)
         if( res.code === 0){
             this.findAssertParamList(this.apiUnitId);
         }

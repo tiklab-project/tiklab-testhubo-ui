@@ -1,11 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    findRequestHeaderList,
-    createRequestHeader,
-    findRequestHeader,
-    updateRequestHeader,
-    deleteRequestHeader
-} from '../api/requestHeaderApi';
+import {Axios} from "tiklab-core-ui";
+
 
 export  class RequestHeaderStore {
     @observable headerList = [];
@@ -29,7 +24,7 @@ export  class RequestHeaderStore {
 
         const newRow =[ { id: 'InitNewRowId'}];
 
-        const res = await findRequestHeaderList(params);
+        const res = await Axios.post("/requestHeader/findRequestHeaderList",params);
 
         if( res.code===0 ){
             this.dataLength = res.data.length
@@ -49,7 +44,7 @@ export  class RequestHeaderStore {
     findRequestHeader = async (id) => {
         const param = new FormData();
         param.append('id', id);
-        const res = await findRequestHeader(param)
+        const res = await Axios.post("/requestHeader/findRequestHeader",param)
         if( res.code === 0){
             this.requestHeaderInfo = res.data;
             return res.data;
@@ -59,7 +54,7 @@ export  class RequestHeaderStore {
     @action
     createRequestHeader = async (values) => {
         values.apiUnit = {id:this.apiUnitId}
-        const res = await createRequestHeader(values)
+        const res = await Axios.post("/requestHeader/createRequestHeader",values)
         if( res.code === 0){
             return this.findRequestHeaderList(this.apiUnitId);
         }
@@ -67,7 +62,7 @@ export  class RequestHeaderStore {
 
     @action
     updateRequestHeader = async (values) => {
-        const res = await updateRequestHeader(values)
+        const res = await Axios.post("/requestHeader/updateRequestHeader",values)
         if( res.code === 0){
             return this.findRequestHeaderList(this.apiUnitId);
         }
@@ -77,7 +72,7 @@ export  class RequestHeaderStore {
     deleteRequestHeader = async (id) => {
         const param = new FormData();
         param.append('id', id)
-        const res = await deleteRequestHeader(param)
+        const res = await Axios.post("/requestHeader/deleteRequestHeader",values)
         if(res.code === 0){
             this.findRequestHeaderList(this.apiUnitId);
         }

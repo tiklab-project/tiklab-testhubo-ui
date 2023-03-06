@@ -1,10 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    findAppPerfInstancePage,
-    findAppPerfInstance,
-    deleteAppPerfInstance,
-    findAppPerfInstanceList
-} from '../api/appPerfInstanceApi'
+import {Axios} from "tiklab-core-ui";
+
 
 export class AppPerfInstanceStore {
 
@@ -18,7 +14,7 @@ export class AppPerfInstanceStore {
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await findAppPerfInstancePage(params );
+        const res = await Axios.post("/appPerfInstance/findAppPerfInstancePage",params );
         if(res.code === 0) {
             this.appPerfInstanceList = res.data.dataList;
         }
@@ -32,7 +28,7 @@ export class AppPerfInstanceStore {
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await findAppPerfInstanceList(param);
+        const res = await Axios.post("/appPerfInstance/findAppPerfInstanceList",param);
         if(res.code===0){
             this.appPerfInstanceList = res.data;
             return res.data;
@@ -44,7 +40,7 @@ export class AppPerfInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findAppPerfInstance(param)
+        const res = await Axios.post("/appPerfInstance/findAppPerfInstance",param)
         if(res.code === 0){
               return res.data;
         }
@@ -56,7 +52,7 @@ export class AppPerfInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteAppPerfInstance(param)
+        await Axios.post("/appPerfInstance/deleteAppPerfInstance",param)
     }
 
 

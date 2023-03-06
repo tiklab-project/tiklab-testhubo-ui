@@ -1,6 +1,9 @@
 import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
 
+/**
+ * 头部左侧导航
+ */
 const HeaderMenu = (props) =>{
     const items = [
         {
@@ -15,11 +18,17 @@ const HeaderMenu = (props) =>{
 
     const [current, setCurrent] = useState('/home');
 
+    /**
+     * 点击跳往
+     */
     const onClick = (e) => {
         props.history.push(e.key)
         setCurrent(e.key);
     };
 
+    /**
+     * 渲染导航项
+     */
     const showMenuItem = (data) =>{
         return data&&data.map(item=>{
             return (

@@ -1,17 +1,6 @@
-/*
- * @Description: 空间store
- * @Author: sunxiancheng
- * @LastEditTime: 2023-01-4 15:53:09
- */
-
 import { observable,  action } from "mobx";
-import { 
-	deleteRepositoryFollow,
-	createRepositoryFollow,
-	updateRepositoryFollow,
-	findRepositoryFollowList,
-	findRepositoryFollowPage
-} from '../api/repositoryFollowApi';
+import {Axios} from "tiklab-core-ui";
+
 
 export class RepositoryFollowStore {
 	@observable followList = [];
@@ -23,7 +12,7 @@ export class RepositoryFollowStore {
 			orderParams:[{name:'createTime', orderType:'desc'}],
 			...value
 		}
-		const res = await findRepositoryFollowPage(this.pageParams)
+		const res = await Axios.post("/repositoryFollow/findRepositoryFollowPage",this.pageParams)
 		if(res.code === 0 ) {
 			this.followList = res.data.dataList;
 			this.totalRecord = res.data.totalRecord;
@@ -37,7 +26,7 @@ export class RepositoryFollowStore {
 			...value,
 			orderParams:[{name:'createTime', orderType:'desc'}],
 		}
-		const res = await findRepositoryFollowList(this.params)
+		const res = await Axios.post("/repositoryFollow/findRepositoryFollowList",this.params)
 		if(res.code === 0 ) {
 			this.followList = res.data;
 
@@ -51,7 +40,7 @@ export class RepositoryFollowStore {
 	deleteRepositoryFollow = async (id) => {
 		const param = new FormData();
 		param.append('id', id)
-		const res = await deleteRepositoryFollow(param)
+		const res = await Axios.post("/repositoryFollow/deleteRepositoryFollow",param)
 
 		if(res.code === 0){
 			return res.data
@@ -61,11 +50,11 @@ export class RepositoryFollowStore {
 
 	// 新建
 	@action
-	createRepositoryFollow = async (values) => await createRepositoryFollow(values);
+	createRepositoryFollow = async (values) => await Axios.post("/repositoryFollow/createRepositoryFollow",values);
 
 	//更新
 	@action
-	updateRepositoryFollow = async (values) => await updateRepositoryFollow(values);
+	updateRepositoryFollow = async (values) => await Axios.post("/repositoryFollow/updateRepositoryFollow",values);
 
 }
 

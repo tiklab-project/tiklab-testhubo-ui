@@ -1,12 +1,5 @@
 import {observable,action} from "mobx";
-import {
-    findApiUnitList,
-    findApiUnit,
-    createApiUnit,
-    deleteApiUnit,
-    updateApiUnit,
-    findApiUnitListByTestCase
-} from '../api/apiUnitApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class ApiUnitStore {
@@ -17,7 +10,7 @@ export class ApiUnitStore {
     @action
     findApiUnitList = async (value) => {
 
-        const res = await  findApiUnitListByTestCase(value);
+        let res = await Axios.post("/apiUnitCase/findApiUnitCaseListByTestCase",value);
         if(res.code === 0) {
             this.apiUnitList = res.data;
         }
@@ -26,10 +19,10 @@ export class ApiUnitStore {
 
     @action
     findApiUnit = async (id) => {
-        const param = new FormData();
+        let param = new FormData();
         param.append('id', id);
 
-        const res = await findApiUnit(param)
+        let res = await Axios.post("/apiUnitCase/findApiUnitCase",param)
         if(res.code === 0){
             this.apiUnitInfo = res.data;
             return res.data
@@ -37,17 +30,17 @@ export class ApiUnitStore {
     }
 
     @action
-    createApiUnit =async (values) =>  await createApiUnit(values)
+    createApiUnit =async (values) =>  await Axios.post("/apiUnitCase/createApiUnitCase",values)
 
     @action
-    updateApiUnit = async (values) => await updateApiUnit(values);
+    updateApiUnit = async (values) => await Axios.post("/apiUnitCase/updateApiUnitCase",values);
 
     @action
     deleteApiUnit = async (id) => {
-        const param = new FormData();
+        let param = new FormData();
         param.append('id', id)
 
-        return await deleteApiUnit(param)
+        return await Axios.post("/apiUnitCase/deleteApiUnitCase",param)
 
     }
     

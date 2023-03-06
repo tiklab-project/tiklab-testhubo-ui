@@ -1,7 +1,9 @@
 import React from "react";
 import "./commonStyle.scss"
 
-//请求类型，如：get，post
+/**
+ * 请求类型，如：get，post
+ */
 const RequestType =(props) =>{
 
     const showRequestType = (type)=>{

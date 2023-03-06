@@ -1,11 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    findApiPerfInstanceList,
-    createApiPerfInstance,
-    findApiPerfInstance,
-    updateApiPerfInstance,
-    deleteApiPerfInstance, findApiPerfInstancePage
-} from '../api/apiPerfInstanceApi'
+import {Axios} from "tiklab-core-ui";
 
 export class ApiPerfInstanceStore {
 
@@ -19,7 +13,7 @@ export class ApiPerfInstanceStore {
             ...value,
             orderParams:[{name:'createTime', orderType:'desc'}],
         }
-        const res = await findApiPerfInstancePage(params);
+        const res = await Axios.post("/apiPerfInstance/findApiPerfInstancePage",params);
 
         if(res.code === 0) {
             this.apiPerfInstanceList = res.data.dataList;
@@ -36,7 +30,7 @@ export class ApiPerfInstanceStore {
             apiPerfId: id,
             orderParams:[{name:'createTime', orderType:'desc'}],
         }
-        const res = await findApiPerfInstanceList(params);
+        const res = await Axios.post("/apiPerfInstance/findApiPerfInstanceList",params);
 
         if(res.code === 0) {
             this.apiPerfInstanceList = res.data;
@@ -49,7 +43,7 @@ export class ApiPerfInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findApiPerfInstance(param);
+        const res = await Axios.post("/apiPerfInstance/findApiPerfInstance",param);
         if( res.code === 0){
             this.apiPerfInstanceInfo = res.data;
 
@@ -57,15 +51,13 @@ export class ApiPerfInstanceStore {
         }
     }
 
-    @action
-    updateApiPerfInstance = async (values) =>  await updateApiPerfInstance(values)
 
     @action
     deleteApiPerfInstance = async (id) => {
         const param = new FormData();
         param.append('id', id);
         
-        await deleteApiPerfInstance(param)
+        await Axios.post("/apiPerfInstance/deleteApiPerfInstance",param)
     }
 
 }

@@ -1,9 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    findPreScript,
-    createPreScript,
-    updatePreScript
-} from '../api/preParamApi';
+import {Axios} from "tiklab-core-ui";
 
 export class PreParamStore {
 
@@ -17,7 +13,7 @@ export class PreParamStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findPreScript(param);
+        const res = await Axios.post("/preScript/findPreScript",param);
         if( res.code === 0){
             this.preScriptInfo = res.data;
             return  res.data;
@@ -29,7 +25,7 @@ export class PreParamStore {
         values.apiUnit = {id: this.apiUnitId};
         values.id =  this.apiUnitId;
 
-        await createPreScript(values);
+        await Axios.post("/preScript/createPreScript",values);
     }
 
     @action
@@ -37,7 +33,7 @@ export class PreParamStore {
         values.apiUnit = {id: this.apiUnitId}
         values.id = this.apiUnitId;
 
-        await updatePreScript(values);
+        await Axios.post("/preScript/updatePreScript",values);
     }
 
 }

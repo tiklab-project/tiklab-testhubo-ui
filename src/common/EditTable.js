@@ -5,10 +5,15 @@
 import React, {useEffect, useState, useRef, useContext} from 'react';
 import {Form, Input, Table} from "antd";
 
-// 共享父组件的值
+
+/**
+ * 共享父组件的值
+ */
 const EditableContext = React.createContext();
 
-// 可编辑行
+/**
+ * 可编辑行
+ */
 const EditableRow = ({ index, ...props }) => {
     const [form] = Form.useForm();
     return (
@@ -20,7 +25,9 @@ const EditableRow = ({ index, ...props }) => {
     );
 };
 
-// 可编辑单元格
+/**
+ *可编辑单元格
+ */
 const EditableCell = ({
           title,
           editable,

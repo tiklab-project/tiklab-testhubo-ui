@@ -2,6 +2,9 @@ import React from "react";
 import EdiText from "react-editext";
 import {Space} from "antd";
 
+/**
+ * 用于详情
+ */
 const DetailCommon = (props) =>{
     const {updateTitle,detailInfo,toHistory } = props;
 

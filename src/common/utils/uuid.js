@@ -1,4 +1,6 @@
-//生成Id
+/**
+ * 生成Id
+ */
 export let uuid=(times) =>{
     let frequency = times||18;
 

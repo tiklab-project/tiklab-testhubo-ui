@@ -1,14 +1,6 @@
-/*
- * @Description: 空间store
- * @Author: sunxiancheng
- * @LastEditTime: 2021-05-24 09:53:09
- */
-
 import { observable,  action } from "mobx";
-import {
-	repositoryRecent,
-	findRepositoryRecentList,
-} from '../api/repositoryRecentApi';
+import {Axios} from "tiklab-core-ui";
+
 
 export class RepositoryRecentStore {
 	@observable recentList = [];
@@ -20,7 +12,7 @@ export class RepositoryRecentStore {
 			orderParams:[{name:'updateTime', orderType:'desc'}],
 			...values
 		}
-		const res = await repositoryRecent(params);
+		const res = await Axios.post("/repositoryRecent/repositoryRecent",params);
 		if(res.code === 0 ) {
 			return res.data;
 		}
@@ -29,11 +21,11 @@ export class RepositoryRecentStore {
 
 	@action
 	findRepositoryRecentList = async (userId) => {
-		this.params = {
+		let params = {
 			userId:userId,
 			orderParams:[{name:'updateTime', orderType:'desc'}],
 		}
-		const res = await findRepositoryRecentList(this.params)
+		const res = await Axios.post("/repositoryRecent/findRepositoryRecentList",params)
 		if(res.code === 0 ) {
 			this.recentList = res.data;
 			this.length = res.data.length;

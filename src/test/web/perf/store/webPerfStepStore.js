@@ -1,17 +1,5 @@
-/**
- * @description：功能测试步骤store
- * @date: 2021-10-08 13:32
- */
 import {observable,action} from "mobx";
-import {
-    findWebPerfStepList,
-    findWebPerfStepPage,
-    findWebPerfStep,
-    createWebPerfStep,
-    deleteWebPerfStep,
-    updateWebPerfStep,
-    bindWebScene
-} from '../api/webPerfStepApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class WebPerfStepStore {
@@ -29,7 +17,7 @@ export class WebPerfStepStore {
             });
         }
 
-        await bindWebScene(bindList)
+        await Axios.post("/webPerfStep/bindWebScene",bindList)
 
     }
 
@@ -41,7 +29,7 @@ export class WebPerfStepStore {
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 
-        const res = await findWebPerfStepPage(params)
+        const res = await Axios.post("/webPerfStep/findWebPerfStepPage",params)
         if(res.code === 0) {
 
             this.webPerfStepList=res.data.dataList
@@ -57,7 +45,7 @@ export class WebPerfStepStore {
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 
-        const res = await findWebPerfStepList(params)
+        const res = await Axios.post("/webPerfStep/findWebPerfStepList",params)
         if(res.code === 0) {
 
             this.webPerfStepList=res.data;
@@ -71,7 +59,7 @@ export class WebPerfStepStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findWebPerfStep(param);
+        const res = await Axios.post("/webPerfStep/findWebPerfStep",param);
         if(res.code === 0){
             this.webPerfStepInfo = res.data;
             return res.data;
@@ -79,18 +67,18 @@ export class WebPerfStepStore {
     }
 
     @action
-    createWebPerfStep = async (values) => await createWebPerfStep(values)
+    createWebPerfStep = async (values) => await Axios.post("/webPerfStep/createWebPerfStep",values)
 
 
     @action
-    updateWebPerfStep = async (values) => await updateWebPerfStep(values)
+    updateWebPerfStep = async (values) => await Axios.post("/webPerfStep/updateWebPerfStep",values)
 
     @action
     deleteWebPerfStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        await deleteWebPerfStep(param);
+        await Axios.post("/webPerfStep/deleteWebPerfStep",param);
 
     }
 }

@@ -1,6 +1,9 @@
 
 import React, {Component} from "react";
 
+/**
+ * 懒加载
+ */
 export default function AsyncComponent (importComponent) {
     class LazyComponent extends Component{
         constructor(props) {

@@ -1,12 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    findTestCaseList,
-    createTestCase,
-    findTestCase,
-    updateTestCase,
-    deleteTestCase,
-    findTestCasePage
-} from '../api/testcaseApi'
+import {Axios} from "tiklab-core-ui";
+
 
 export class TestCaseStore {
     @observable testcaseList = [];
@@ -19,7 +13,7 @@ export class TestCaseStore {
     @action
     findTestCaseList = async (values) => {
 
-        const res = await findTestCasePage(values);
+        const res = await Axios.post("/testCase/findTestCasePage",values);
 
         if(res.code === 0) {
             this.testcaseList = res.data.dataList;
@@ -32,7 +26,7 @@ export class TestCaseStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findTestCase(param);
+        const res = await Axios.post("/testCase/findTestCase",param);
         if( res.code === 0){
             return res.data;
         }
@@ -40,17 +34,17 @@ export class TestCaseStore {
 
 
     @action
-    createTestCase = async (values) =>  await createTestCase(values)
+    createTestCase = async (values) =>  await Axios.post("/testCase/createTestCase",values)
 
     @action
-    updateTestCase = async (values) =>  await updateTestCase(values)
+    updateTestCase = async (values) =>  await Axios.post("/testCase/updateTestCase",values)
 
     @action
     deleteTestCase = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteTestCase(param)
+        await Axios.post("/testCase/deleteTestCase",param)
     }
 
 

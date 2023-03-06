@@ -1,12 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    createWebScene,
-    findWebScene,
-    updateWebScene,
-    deleteWebScene,
-    findWebSceneCaseListByTestCase,
-    webSceneTestDispatch
-} from '../api/webSceneApi'
+import {Axios} from "tiklab-core-ui";
+
 
 export class WebSceneStore {
 
@@ -16,7 +10,7 @@ export class WebSceneStore {
     @action
     findWebSceneList = async (value) => {
 
-        const res = await findWebSceneCaseListByTestCase(value);
+        const res = await Axios.post("/webSceneCase/findWebSceneCaseList",value);
 
         if(res.code === 0) {
             this.webSceneList = res.data;
@@ -29,7 +23,7 @@ export class WebSceneStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findWebScene(param);
+        const res = await Axios.post("/webSceneCase/findWebSceneCase",param);
         if( res.code === 0){
             this.webSceneInfo = res.data;
             return res.data;
@@ -37,22 +31,22 @@ export class WebSceneStore {
     }
 
     @action
-    createWebScene = async (values) =>  await createWebScene(values)
+    createWebScene = async (values) =>  await Axios.post("/webSceneCase/createWebSceneCase",values)
 
     @action
-    updateWebScene = async (values) => await updateWebScene(values)
+    updateWebScene = async (values) => await Axios.post("/webSceneCase/updateWebSceneCase",values)
 
     @action
     deleteWebScene = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-         await deleteWebScene(param)
+         await Axios.post("/webSceneCase/deleteWebSceneCase",param)
 
     }
 
     @action
-    webSceneTestDispatch = async (data)=> await webSceneTestDispatch(data)
+    webSceneTestDispatch = async (data)=> await Axios.post("/webSceneCase/findWebSceneCaseListByTestCase",data)
 
 
 

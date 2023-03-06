@@ -1,10 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    findWebPerfInstancePage,
-    findWebPerfInstance,
-    deleteWebPerfInstance,
-    findWebPerfInstanceList
-} from '../api/webPerfInstanceApi'
+import {Axios} from "tiklab-core-ui";
 
 export class WebPerfInstanceStore {
     @observable webPerfInstanceList = [];
@@ -16,7 +11,7 @@ export class WebPerfInstanceStore {
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await findWebPerfInstancePage(params);
+        const res = await Axios.post("/webPerfInstance/findWebPerfInstancePage",params);
         if(res.code === 0) {
             this.webPerfInstanceList = res.data.dataList;
         }
@@ -30,7 +25,7 @@ export class WebPerfInstanceStore {
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await findWebPerfInstanceList(param);
+        const res = await Axios.post("/webPerfInstance/findWebPerfInstanceList",param);
         if(res.code===0){
             this.webPerfInstanceList = res.data;
             return res.data;
@@ -43,7 +38,7 @@ export class WebPerfInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findWebPerfInstance(param)
+        const res = await Axios.post("/webPerfInstance/findWebPerfInstance",param)
         if(res.code === 0){
               return res.data;
         }
@@ -54,7 +49,7 @@ export class WebPerfInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteWebPerfInstance(param)
+        await Axios.post("/webPerfInstance/deleteWebPerfInstance",param)
 
     }
 

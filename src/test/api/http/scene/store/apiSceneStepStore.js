@@ -1,11 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    findApiSceneStepList,
-    bindApiUnit,
-    findApiSceneStep,
-    updateApiSceneStep,
-    deleteApiSceneStep
-} from '../api/apiSceneStepApi'
+import {Axios} from "tiklab-core-ui";
+
 
 export class ApiSceneStepStore {
 
@@ -19,7 +14,7 @@ export class ApiSceneStepStore {
         this.apiSceneId = id;
         const params = { apiSceneId: id }
 
-        const res = await findApiSceneStepList(params);
+        const res = await Axios.post("/apiSceneStep/findApiSceneStepList",params);
 
         if(res.code === 0) {
             this.apiSceneStepList = res.data;
@@ -32,7 +27,7 @@ export class ApiSceneStepStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findApiSceneStep(param);
+        const res = await Axios.post("/apiSceneStep/findApiSceneStep",param);
         if( res.code === 0){
             this.apiSceneStepInfo = res.data;
             this.apiSceneName=res.data.name;
@@ -51,7 +46,7 @@ export class ApiSceneStepStore {
             });
         }
 
-        const res = await bindApiUnit(bindList)
+        const res = await Axios.post("/apiSceneStep/bindApiUnit",bindList)
         if( res.code === 0){
             this.findApiSceneStepPage(this.apiSceneId);
         }
@@ -59,7 +54,7 @@ export class ApiSceneStepStore {
 
     @action
     updateApiSceneStep = async (values) => {
-        const res = await updateApiSceneStep(values)
+        const res = await Axios.post("/apiSceneStep/updateApiSceneStep",values)
         if( res.code === 0){
             this.findApiSceneStepPage(this.apiSceneId);
         }
@@ -70,7 +65,7 @@ export class ApiSceneStepStore {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteApiSceneStep(param)
+        await Axios.post("/apiSceneStep/deleteApiSceneStep",param)
     }
 
 }

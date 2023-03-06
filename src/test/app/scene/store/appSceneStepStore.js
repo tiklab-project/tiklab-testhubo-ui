@@ -1,16 +1,5 @@
-/**
- * @description：
- * @date: 2021-09-03 13:32
- */
 import {observable,action} from "mobx";
-import {
-    findAppSceneStepList,
-    findAppSceneStep,
-    createAppSceneStep,
-    deleteAppSceneStep,
-    updateAppSceneStep,
-    bindAppUnit
-} from '../api/appSceneStepApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class AppSceneStepStore {
@@ -28,7 +17,7 @@ export class AppSceneStepStore {
             });
         }
 
-        await bindAppUnit(bindList)
+        await Axios.post("/appSceneStep/bindAppUnit",bindList)
 
     }
 
@@ -40,7 +29,7 @@ export class AppSceneStepStore {
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 
-        const res = await findAppSceneStepList(params)
+        const res = await Axios.post("/appSceneStep/findAppSceneStepList",params)
         if(res.code === 0) {
 
             this.appSceneStepList=res.data
@@ -54,7 +43,7 @@ export class AppSceneStepStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findAppSceneStep(param);
+        const res = await Axios.post("/appSceneStep/findAppSceneStep",param);
         if(res.code === 0){
             this.appSceneStepInfo = res.data;
             return res.data;
@@ -62,18 +51,18 @@ export class AppSceneStepStore {
     }
 
     @action
-    createAppSceneStep = async (values) => await createAppSceneStep(values)
+    createAppSceneStep = async (values) => await Axios.post("/appSceneStep/createAppSceneStep",values)
 
 
     @action
-    updateAppSceneStep = async (values) =>  await updateAppSceneStep(values)
+    updateAppSceneStep = async (values) =>  await Axios.post("/appSceneStep/updateAppSceneStep",values)
 
     @action
     deleteAppSceneStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        await deleteAppSceneStep(param);
+        await Axios.post("/appSceneStep/deleteAppSceneStep",param);
 
     }
 

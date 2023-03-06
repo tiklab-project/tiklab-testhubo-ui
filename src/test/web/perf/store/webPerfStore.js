@@ -1,12 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    findWebPerfPage,
-    createWebPerf,
-    findWebPerf,
-    updateWebPerf,
-    deleteWebPerf,
-    findWebPerfListByTestCase
-} from '../api/webPerfApi'
+import {Axios} from "tiklab-core-ui";
 
 export class WebPerfStore {
     @observable webPerfList = [];
@@ -15,7 +8,7 @@ export class WebPerfStore {
     @action
     findWebPerfList = async (value) => {
 
-        const res = await findWebPerfListByTestCase(value);
+        const res = await Axios.post("/webPerfCase/findWebPerfCaseListByTestCase",value);
 
         if(res.code === 0) {
             this.webPerfList = res.data;
@@ -28,7 +21,7 @@ export class WebPerfStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findWebPerf(param);
+        const res = await Axios.post("/webPerfCase/findWebPerfCase",param);
         if( res.code === 0){
             this.webPerfInfo = res.data;
             return res.data;
@@ -37,18 +30,18 @@ export class WebPerfStore {
 
 
     @action
-    createWebPerf = async (values) =>  await createWebPerf(values)
+    createWebPerf = async (values) =>  await Axios.post("/webPerfCase/createWebPerfCase",values)
     
 
     @action
-    updateWebPerf = async (values) =>  await updateWebPerf(values)
+    updateWebPerf = async (values) =>  await Axios.post("/webPerfCase/updateWebPerfCase",values)
 
     @action
     deleteWebPerf = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteWebPerf(param)
+        await Axios.post("/webPerfCase/deleteWebPerfCase",param)
     }
 
 }

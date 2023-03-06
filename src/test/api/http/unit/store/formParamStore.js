@@ -1,11 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    findFormParamList,
-    createFormParam,
-    findFormParam,
-    updateFormParam,
-    deleteFormParam
-} from '../api/formParamApi'
+import {Axios} from "tiklab-core-ui";
 
 export class FormParamStore {
 
@@ -42,7 +36,7 @@ export class FormParamStore {
             orderParams:[{name:'paramName', orderType:'asc'}],
         }
 
-        const res = await findFormParamList(params);
+        const res = await Axios.post("/formParam/findFormParamList",params);
         if(res.code === 0) {
             this.dataLength = res.data.length;
             this.processFormList(res.data);
@@ -55,7 +49,7 @@ export class FormParamStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findFormParam(param)
+        const res = await Axios.post("/formParam/findFormParam",param)
         if( res.code === 0){
             this.formParamInfo = res.data;
             return  res.data;
@@ -67,7 +61,7 @@ export class FormParamStore {
     createFormParam = async (values) => {
         values.apiUnit = {id: this.apiUnitId}
 
-        const res = await createFormParam(values);
+        const res = await Axios.post("/formParam/createFormParam",values);
         if( res.code === 0){
             return  this.findFormParamList(this.apiUnitId);
         }
@@ -75,7 +69,7 @@ export class FormParamStore {
 
     @action
     updateFormParam = async (values) => {
-        const res = await updateFormParam(values)
+        const res = await Axios.post("/formParam/updateFormParam",values)
         if( res.code === 0){
             return this.findFormParamList(this.apiUnitId);
         }
@@ -86,7 +80,7 @@ export class FormParamStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await deleteFormParam(param)
+        const res = await Axios.post("/formParam/deleteFormParam",param)
         if( res.code === 0){
             this.findFormParamList(this.apiUnitId);
         }

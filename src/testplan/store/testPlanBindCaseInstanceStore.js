@@ -1,12 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    findTestPlanBindCaseInstancePage,
-    createTestPlanBindCaseInstance,
-    findTestPlanBindCaseInstance,
-    updateTestPlanBindCaseInstance,
-    deleteTestPlanBindCaseInstance,
-    findTestPlanBindCaseInstanceList
-} from '../api/testPlanBindCaseInstanceApi'
+import {Axios} from "tiklab-core-ui";
+
 
 export class TestPlanBindCaseInstanceStore {
 
@@ -22,7 +16,7 @@ export class TestPlanBindCaseInstanceStore {
             orderParams:[{name:'id', orderType:'desc' }]
         }
 
-        const res = await findTestPlanBindCaseInstancePage(this.params );
+        const res = await Axios.post("/testPlanCaseInstanceBind/findTestPlanCaseInstanceBindPage",this.params );
         if(res.code === 0) {
             this.testPlanBindCaseInstanceList = res.data.dataList;
             this.totalRecord = res.data.totalRecord;
@@ -37,7 +31,7 @@ export class TestPlanBindCaseInstanceStore {
             orderParams:[{name:'id', orderType:'desc' }]
         }
 
-        const res = await findTestPlanBindCaseInstanceList(param);
+        const res = await Axios.post("/testPlanCaseInstanceBind/findTestPlanCaseInstanceBindList",param);
         if(res.code===0){
             this.testPlanBindCaseInstanceList = res.data;
             return res.data;
@@ -49,7 +43,7 @@ export class TestPlanBindCaseInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findTestPlanBindCaseInstance(param)
+        const res = await Axios.post("/testPlanCaseInstanceBind/findTestPlanCaseInstanceBind",param)
         if(res.code === 0){
 
             return res.data;
@@ -62,7 +56,7 @@ export class TestPlanBindCaseInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteTestPlanBindCaseInstance(param)
+        await Axios.post("/testPlanCaseInstanceBind/deleteTestPlanCaseInstanceBind",param)
     }
 
 

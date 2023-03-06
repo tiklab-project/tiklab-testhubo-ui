@@ -18,12 +18,13 @@ echarts.use([
     LabelLayout
 ]);
 
-
+/**
+ * 性能测试数据展示
+ */
 const PerformInstanceCommon = (props) =>{
     const {option,data} = props;
 
     const echartsRef = useRef(null);
-
 
 
     useEffect(() => {

@@ -36,7 +36,9 @@ const RepositoryOverView = (props) => {
         }
     ]
 
-    //展示概要
+    /**
+     *   展示概要
+     */
     const showDetailView = (data) =>{
         return data.map((item,index)=>{
             return(

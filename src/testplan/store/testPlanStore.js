@@ -1,11 +1,6 @@
 import {observable,action} from "mobx";
-import {
-    findTestPlanPage,
-    findTestPlan,
-    createTestPlan,
-    deleteTestPlan,
-    updateTestPlan
-}from '../api/testPlanApi';
+import {Axios} from "tiklab-core-ui";
+
 
 export class TestPlanStore {
     @observable testPlanList = [];
@@ -19,7 +14,7 @@ export class TestPlanStore {
             ...param,
             orderParams: [{name:'name', orderType:'asc'}],
         };
-        const res = await findTestPlanPage(params)
+        const res = await Axios.post("/testPlan/findTestPlanPag",params)
         if(res.code === 0) {
             this.totalRecord = res.data.totalRecord;
             this.testPlanList = res.data.dataList;
@@ -32,7 +27,7 @@ export class TestPlanStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findTestPlan(param)
+        const res = await Axios.post("/testPlan/findTestPlan",param)
         if(res.code === 0){
             this.testPlanInfo = res.data;
             return res.data;
@@ -40,17 +35,17 @@ export class TestPlanStore {
     }
 
     @action
-    createTestPlan = async (values) => await createTestPlan(values)
+    createTestPlan = async (values) => await Axios.post("/testPlan/createTestPlan",values)
 
     @action
-    updateTestPlan = async (values) => await updateTestPlan(values)
+    updateTestPlan = async (values) => await Axios.post("/testPlan/updateTestPlan",values)
 
     @action
     deleteTestPlan = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-         await deleteTestPlan(param)
+         await Axios.post("/testPlan/deleteTestPlan",param)
     }
 
 }

@@ -1,14 +1,5 @@
-
 import {observable,action} from "mobx";
-import {
-    findApiPerfStepList,
-    findApiPerfStepPage,
-    findApiPerfStep,
-    createApiPerfStep,
-    deleteApiPerfStep,
-    updateApiPerfStep,
-    bindApiScene
-} from '../api/apiPerfStepApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class ApiPerfStepStore {
@@ -26,7 +17,7 @@ export class ApiPerfStepStore {
             });
         }
 
-        await bindApiScene(bindList)
+        await Axios.post("/apiPerfStep/bindApiScene",bindList)
     }
 
     @action
@@ -37,7 +28,7 @@ export class ApiPerfStepStore {
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 
-        const res = await findApiPerfStepPage(params)
+        const res = await Axios.post("/apiPerfStep/findApiPerfStepPage",params)
         if(res.code === 0) {
 
             this.apiPerfStepList=res.data.dataList
@@ -53,7 +44,7 @@ export class ApiPerfStepStore {
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 
-        const res = await findApiPerfStepList(params)
+        const res = await Axios.post("/apiPerfStep/findApiPerfStepList",params)
         if(res.code === 0) {
 
             this.apiPerfStepList=res.data;
@@ -67,7 +58,7 @@ export class ApiPerfStepStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findApiPerfStep(param);
+        const res = await Axios.post("/apiPerfStep/findApiPerfStep",param);
         if(res.code === 0){
             this.apiPerfStepInfo = res.data;
             return res.data;
@@ -75,18 +66,18 @@ export class ApiPerfStepStore {
     }
 
     @action
-    createApiPerfStep = async (values) => await createApiPerfStep(values)
+    createApiPerfStep = async (values) => await Axios.post("/apiPerfStep/createApiPerfStep",values)
 
 
     @action
-    updateApiPerfStep = async (values) => await updateApiPerfStep(values)
+    updateApiPerfStep = async (values) => await Axios.post("/apiPerfStep/updateApiPerfStep",values)
 
     @action
     deleteApiPerfStep = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        await deleteApiPerfStep(param);
+        await Axios.post("/apiPerfStep/deleteApiPerfStep",param);
 
     }
 }

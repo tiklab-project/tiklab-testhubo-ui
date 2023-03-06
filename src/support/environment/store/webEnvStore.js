@@ -1,12 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-	findWebEnvPage,
-	createWebEnv,
-	findWebEnv,
-	updateWebEnv,
-	deleteWebEnv,
-	findWebEnvList
-} from '../api/webEnvApi'
+
+import {Axios} from "tiklab-core-ui";
 
 export class WebEnvStore {
 
@@ -24,7 +18,7 @@ export class WebEnvStore {
 		const params = {
 			orderParams:[{name:'name', orderType:'asc'}],
 		}
-		const res = await findWebEnvPage(params);
+		const res = await Axios.post("/webEnv/findWebEnvPage",params);
 
 		if(res.code === 0) {
 			this.webEnvList = res.data.dataList;
@@ -37,7 +31,7 @@ export class WebEnvStore {
 		const params = {
 			orderParams:[{name:'name', orderType:'asc'}],
 		}
-		const res = await findWebEnvList(params);
+		const res = await Axios.post("/webEnv/findWebEnvList",params);
 
 		if(res.code === 0) {
 			this.webEnvList = res.data;
@@ -50,7 +44,7 @@ export class WebEnvStore {
 		const param = new FormData();
 		param.append('id', id);
 
-		const res = await findWebEnv(param);
+		const res = await Axios.post("/webEnv/findWebEnv",param);
 		if( res.code === 0){
 			return  this.webEnvInfo = res.data;
 		}
@@ -61,7 +55,7 @@ export class WebEnvStore {
 	createWebEnv = async (values) => {
 		values.http = {id: this.categoryId}
 
-		const res = await createWebEnv(values)
+		const res = await Axios.post("/webEnv/createWebEnv",values)
 		if( res.code === 0){
 			return this.findWebEnvPage(t);
 		}
@@ -69,7 +63,7 @@ export class WebEnvStore {
 
 	@action
 	updateWebEnv = async (values) => {
-		const res = await updateWebEnv(values)
+		const res = await Axios.post("/webEnv/updateWebEnv",values)
 
 		if( res.code === 0){
 			return this.findWebEnvPage();
@@ -81,7 +75,7 @@ export class WebEnvStore {
 		const param = new FormData();
 		param.append('id', id);
 
-		const res = await deleteWebEnv(param)
+		const res = await Axios.post("/webEnv/deleteWebEnv",param)
 		if( res.code === 0){
 			this.findWebEnvPage();
 		}

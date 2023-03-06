@@ -3,8 +3,7 @@ import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Select} from 'antd';
 import IconCommon from "../../../../common/IconCommon";
-import {findActionTypeList, findAllLocation} from "../../../web/scene/api/webSceneStepApi";
-
+import {Axios} from "tiklab-core-ui";
 
 const {Option} = Select
 
@@ -28,12 +27,12 @@ const AppSceneStepEdit = (props) => {
 
     // 弹框展示
     const showModal = async () => {
-        let locationRes= await findAllLocation();
+        let locationRes= await Axios.post("/location/findAllLocation");
         if(locationRes.code===0){
             setLocationList(locationRes.data)
         }
 
-        let actionTypeRes= await findActionTypeList({"type": "WEB"});
+        let actionTypeRes= await Axios.post("/actionType/findActionTypeList",{"type": "WEB"});
         if(actionTypeRes.code===0){
             setActionTypeList(actionTypeRes.data)
         }

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import { renderRoutes } from "react-router-config";
 import './repository.scss';
 import RepositoryEdit from "./RepositoryEdit";
 import {Input, Space} from "antd";
@@ -9,6 +8,9 @@ import RepositoryRecentHome from "./RepositoryRecentHome";
 import {SearchOutlined} from "@ant-design/icons";
 import RepositoryList from "./RepositoryList";
 
+/**
+ * 仓库页
+ */
 const Repository = (props)=> {
     const {repositoryStore} = props;
     const {findRepositoryList,findRepositoryJoinList,findRepositoryFollowList} = repositoryStore;
@@ -32,7 +34,9 @@ const Repository = (props)=> {
         }
     ];
 
-    //渲染筛选项
+    /**
+     *  渲染筛选项
+     */
     const showMenu = (data) =>{
         return data&&data.map(item=>{
             return(
@@ -52,21 +56,27 @@ const Repository = (props)=> {
         findList()
     },[])
 
-    //点击筛选项查找
+    /**
+     * 点击筛选项查找
+     */
     const selectKeyFun = (item)=>{
         setSelectItem(item.key)
 
         findList({},item.key)
     }
 
-    //搜索空间
+    /**
+     * 搜索
+     */
     const onSearch = (e) =>{
         let name = {name:e.target.value}
 
         findList(name)
     }
 
-    //根据不同的筛选项查找
+    /**
+     * 根据不同的筛选项查找
+     */
     const findList = (name,selectIndex)=>{
         let uId = {userId:userId}
 
@@ -90,7 +100,6 @@ const Repository = (props)=> {
                 break;
         }
     }
-
 
 
     return(

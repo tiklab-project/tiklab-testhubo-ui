@@ -4,6 +4,9 @@ import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png";
 
+/**
+ * 最近访问的仓库
+ */
 const RepositoryRecentHome = (props) =>{
     const {repositoryRecentStore} = props;
 
@@ -25,7 +28,9 @@ const RepositoryRecentHome = (props) =>{
         setDataList(newList)
     },[userId])
 
-    // 去往详情页
+    /**
+     * 去往详情页
+     */
     const toDetail = (repositoryId) => {
         sessionStorage.setItem("repositoryId",repositoryId)
 
@@ -41,7 +46,9 @@ const RepositoryRecentHome = (props) =>{
         props.history.push('/repository');
     }
 
-
+    /**
+     * 渲染最近访问项
+     */
     const showRecent=(list)=>{
         return list&&list.map(item=>{
             return(

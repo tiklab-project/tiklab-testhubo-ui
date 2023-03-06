@@ -6,8 +6,9 @@ import DynamicWidget from "./DynamicWidget";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
 
-
-// 首页
+/**
+ * 首页
+ */
 const Home =(props)=> {
     const {repositoryStore} = props;
     const {findRepositoryJoinList} = repositoryStore;
@@ -16,12 +17,16 @@ const Home =(props)=> {
         findRepositoryJoinList({userId: getUser().userId})
     },[])
 
-    //去往动态详情页
+    /**
+     * 去往动态详情页
+     */
     const changeDynamic =() =>{
         props.history.push("/dynamic")
     }
 
-    //去往空间页
+    /**
+     * 去往空间页
+     */
     const toRepository =() =>{
         props.history.push("/repository")
     }

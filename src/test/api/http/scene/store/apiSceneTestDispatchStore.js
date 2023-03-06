@@ -1,5 +1,5 @@
 import {observable,action} from "mobx";
-import {apiSceneExecute} from '../api/apiSceneTestDispatchApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class ApiSceneTestDispatchStore {
@@ -15,7 +15,7 @@ export class ApiSceneTestDispatchStore {
             apiEnv:url
         }
 
-        const res = await  apiSceneExecute(param);
+        const res = await Axios.post("/apiSceneTestDispatch/execute",param);
         if(res.code === 0) {
             this.apiSceneTestResult = res.data;
             return res.data

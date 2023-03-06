@@ -1,11 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    findApiUnitInstancePage,
-    createApiUnitInstance,
-    findApiUnitInstance,
-    deleteApiUnitInstance,
-    findApiUnitInstanceList
-} from '../api/apiUnitInstanceApi'
+import {Axios} from "tiklab-core-ui";
 
 export class ApiUnitInstanceStore {
 
@@ -17,7 +11,7 @@ export class ApiUnitInstanceStore {
     @action
     findApiUnitInstancePage = async (value) => {
 
-        const res = await findApiUnitInstancePage(value);
+        const res = await Axios.post("/apiUnitInstanceBind/findApiUnitInstanceBindPage",value);
         if(res.code === 0) {
             this.apiUnitInstanceList = res.data.dataList;
         }
@@ -31,7 +25,7 @@ export class ApiUnitInstanceStore {
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await findApiUnitInstanceList(param);
+        const res = await Axios.post("/apiUnitInstanceBind/findApiUnitInstanceBindList",param);
         if(res.code===0){
             this.apiUnitInstanceList = res.data;
             return res.data;
@@ -45,22 +39,18 @@ export class ApiUnitInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findApiUnitInstance(param)
+        const res = await Axios.post("/apiUnitInstance/findApiUnitInstance",param)
         if(res.code === 0){
             return res.data;
         }
     }
 
     @action
-    createApiUnitInstance = async (values) =>  await createApiUnitInstance(values)
-    
-
-    @action
     deleteApiUnitInstance = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteApiUnitInstance(param)
+        await Axios.post("/apiUnitInstanceBind/deleteApiUnitInstanceBind",param)
     }
 
 

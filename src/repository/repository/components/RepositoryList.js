@@ -1,8 +1,3 @@
-/*
- * @Description: 空间列表页
- * @Author: sunxiancheng
- * @LastEditTime: 2021-05-08 17:20:46
- */
 
 import React from 'react';
 import { observer, inject } from "mobx-react";
@@ -12,7 +7,9 @@ import {getUser} from "tiklab-core-ui";
 import emptyImg  from "../../../assets/img/empty.png"
 import {Profile} from "tiklab-eam-ui";
 
-
+/**
+ * 仓库列表
+ */
 const RepositoryList = (props) => {
     const { repositoryStore ,repositoryRecentStore,repositoryFollowStore,findList,selectItem } = props;
     const { repositoryList,deleteRepository } = repositoryStore;
@@ -90,7 +87,9 @@ const RepositoryList = (props) => {
         },
     ]
 
-    //收藏空间
+    /**
+     * 收藏空间
+     */
     const follow = (record)=>{
 
         if(record.isFollow===1){
@@ -107,7 +106,10 @@ const RepositoryList = (props) => {
     }
 
 
-    // 保存id到缓存,跳往详情页
+    /**
+     * 保存id到缓存,跳往详情页
+     */
+
     const toRepositoryDetail = (id) => {
         sessionStorage.setItem("repositoryId",id);
 

@@ -1,9 +1,3 @@
-/*
- * @Description: 空间列表页
- * @Author: sunxiancheng
- * @LastEditTime: 2021-05-08 17:20:46
- */
-
 import React, { useEffect, useState } from 'react';
 import { observer, inject } from "mobx-react";
 import {Table, Space, Popconfirm, Empty} from 'antd';
@@ -12,6 +6,9 @@ import  { useTranslation } from 'react-i18next'
 import emptyImg from "../../assets/img/empty.png";
 import IconCommon from "../../common/IconCommon";
 
+/**
+ * 模块管理页
+ */
 const CategoryList = (props) => {
     const { categoryStore } = props;
     const {
@@ -78,6 +75,9 @@ const CategoryList = (props) => {
         })
     },[repositoryId])
 
+    /**
+     * 查询模块列表
+     */
     const findList = async () =>{
          await findCategoryListTreeTable(repositoryId);
     }

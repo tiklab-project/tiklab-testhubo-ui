@@ -1,14 +1,5 @@
 import {observable,action} from "mobx";
-import {
-    findRepositoryPage,
-    findRepositoryList,
-    findRepository,
-    createRepository,
-    deleteRepository,
-    updateRepository,
-    findRepositoryJoinList, findRepositoryTotal
-} from '../api/repositoryApi';
-import {findRepositoryFollowList} from "../api/repositoryFollowApi";
+import {Axios} from "tiklab-core-ui";
 
 
 export class RepositoryStore {
@@ -25,7 +16,7 @@ export class RepositoryStore {
             orderParams: [{name:'name', orderType:'asc'}],
         }
 
-        const res = await findRepositoryPage(params)
+        const res = await Axios.post("/repository/findRepositoryPage",params)
         if(res.code === 0) {
             this.totalRecord = res.data.totalRecord;
             this.repositoryList = res.data.dataList;
@@ -39,7 +30,7 @@ export class RepositoryStore {
             ...params,
             orderParams:[{name:'name', orderType:'asc'}],
         }
-        const res = await findRepositoryJoinList(this.params)
+        const res = await Axios.post("/repository/findRepositoryJoinList",this.params)
         if(res.code === 0 ) {
             this.repositoryList = res.data
             return res.data;
@@ -52,7 +43,7 @@ export class RepositoryStore {
             ...params,
             orderParams:[{name:'name', orderType:'asc'}],
         }
-        const res = await findRepositoryList(this.params)
+        const res = await Axios.post("/repository/findRepositoryList",this.params)
         if(res.code === 0 ) {
             this.repositoryList = res.data;
             return res.data;
@@ -65,7 +56,7 @@ export class RepositoryStore {
             ...value,
             orderParams:[{name:'createTime', orderType:'desc'}],
         }
-        const res = await findRepositoryFollowList(this.params)
+        const res = await Axios.post("/repositoryFollow/findRepositoryFollowList",this.params)
         if(res.code === 0 ) {
 
             this.repositoryList = res.data
@@ -75,17 +66,13 @@ export class RepositoryStore {
     }
 
 
-
-
     @action
     findRepository = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findRepository(param)
+        const res = await Axios.post("/repository/findRepository",param)
         if(res.code === 0){
-
-            this.repositoryName = res.data.name
             this.repositoryInfo = res.data;
             return res.data;
         }
@@ -96,7 +83,7 @@ export class RepositoryStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findRepositoryTotal(param);
+        const res = await Axios.post("/repository/findRepositoryTotal",param);
         if(res.code === 0){
             return res.data;
         }
@@ -104,18 +91,18 @@ export class RepositoryStore {
 
 
     @action
-    createRepository = async (values) =>  await createRepository(values)
+    createRepository = async (values) =>  await Axios.post("/repository/createRepository",values)
 
 
     @action
-    updateRepository = async (values) =>  await  updateRepository(values)
+    updateRepository = async (values) =>  await Axios.post("/repository/updateRepository",values)
 
     @action
     deleteRepository = async (id) => {
         const param = new FormData();
         param.append('id', id)
 
-        await deleteRepository(param)
+        await Axios.post("/repository/deleteRepository",param)
     }
 
     @action

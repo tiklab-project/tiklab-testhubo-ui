@@ -1,12 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    findApiPerfPage,
-    createApiPerf,
-    findApiPerf,
-    updateApiPerf,
-    deleteApiPerf,
-    findApiPerfCaseListByTestCase
-} from '../api/apiPerfApi'
+import {Axios} from "tiklab-core-ui";
 
 export class ApiPerfStore {
 
@@ -16,7 +9,7 @@ export class ApiPerfStore {
     @action
     findApiPerfList = async (value) => {
 
-        const res = await findApiPerfCaseListByTestCase(value);
+        const res = await Axios.post("/apiPerfCase/findApiPerfCaseListByTestCase",value);
 
         if(res.code === 0) {
             this.apiPerfList = res.data;
@@ -29,7 +22,7 @@ export class ApiPerfStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findApiPerf(param);
+        const res = await Axios.post("/apiPerfCase/findApiPerfCase",param);
         if( res.code === 0){
             this.apiPerfInfo = res.data;
             return res.data;
@@ -38,10 +31,10 @@ export class ApiPerfStore {
 
 
     @action
-    createApiPerf = async (values) => await createApiPerf(values)
+    createApiPerf = async (values) => await Axios.post("/apiPerfCase/createApiPerfCase",values)
 
     @action
-    updateApiPerf = async (values) => await updateApiPerf(values)
+    updateApiPerf = async (values) => await Axios.post("/apiPerfCase/updateApiPerfCase",values)
 
 
     @action
@@ -49,7 +42,7 @@ export class ApiPerfStore {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteApiPerf(param)
+        await Axios.post("/apiPerfCase/deleteApiPerfCase",param)
 
     }
 

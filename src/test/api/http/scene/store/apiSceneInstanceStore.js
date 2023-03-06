@@ -1,10 +1,6 @@
 import { observable,  action } from "mobx";
-import {
-    findApiSceneInstanceList,
-    findApiSceneInstance,
-    deleteApiSceneInstance,
-    findApiSceneInstancePage
-} from '../api/apiSceneInstanceApi'
+import {Axios} from "tiklab-core-ui";
+
 
 export class ApiSceneInstanceStore {
 
@@ -18,7 +14,7 @@ export class ApiSceneInstanceStore {
             ...value,
             orderParams:[{name:'createTime', orderType:'desc'}],
         }
-        const res = await findApiSceneInstancePage(params);
+        const res = await Axios.post("/apiSceneInstance/findApiSceneInstancePage",params);
         if(res.code === 0) {
             this.apiSceneInstanceList = res.data.dataList;
         }
@@ -34,7 +30,7 @@ export class ApiSceneInstanceStore {
             apiSceneId: id,
             orderParams:[{name:'createTime', orderType:'desc'}],
         }
-        const res = await findApiSceneInstanceList(params);
+        const res = await Axios.post("/apiSceneInstance/findApiSceneInstanceList",params);
 
         if(res.code === 0) {
             this.apiSceneInstanceList = res.data;
@@ -47,7 +43,7 @@ export class ApiSceneInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await findApiSceneInstance(param);
+        const res = await Axios.post("/apiSceneInstance/findApiSceneInstance",param);
         if( res.code === 0){
             this.apiSceneInstanceInfo = res.data;
             return   res.data;
@@ -60,7 +56,7 @@ export class ApiSceneInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await deleteApiSceneInstance(param)
+        await Axios.post("/apiSceneInstance/deleteApiSceneInstance",param)
 
     }
 

@@ -1,9 +1,5 @@
 import { observable,  action } from "mobx";
-import {
-    findRequestBody,
-    createRequestBody,
-    updateRequestBody
-} from '../api/requestBodyApi';
+import {Axios} from "tiklab-core-ui";
 
 export class RequestBodyStore {
     @observable bodyType ;
@@ -18,7 +14,7 @@ export class RequestBodyStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res  = await findRequestBody(param);
+        const res  = await Axios.post("/requestBody/findRequestBody",param);
         if( res.code === 0){
             this.bodyType = res.data?.bodyType;
             return res.data;
@@ -30,7 +26,7 @@ export class RequestBodyStore {
         values.apiUnit = {id: this.apiUnitId}
         values.id = this.requestBodyId;
 
-        await createRequestBody(values);
+        await Axios.post("/requestBody/createRequestBody",values);
     }
 
     @action
@@ -38,7 +34,7 @@ export class RequestBodyStore {
         values.apiUnit = {id: this.apiUnitId,}
         values.id= this.requestBodyId;
 
-        await updateRequestBody(values);
+        await Axios.post("/requestBody/updateRequestBody",values);
     }
 
 }

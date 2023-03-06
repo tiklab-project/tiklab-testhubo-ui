@@ -1,5 +1,5 @@
 import {observable,action} from "mobx";
-import {appPerfExecute,exeResult} from '../api/appPerfTestDispatchApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class AppPerfTestDispatchStore {
@@ -11,7 +11,7 @@ export class AppPerfTestDispatchStore {
 
         let param = { appPerfId:id}
 
-        let res = await  appPerfExecute(param);
+        let res = await Axios.post("/appPerfTestDispatch/execute",param);
         if(res.code === 0) {
             this.appPerfTestResult = res.data;
             return res.data
@@ -22,7 +22,7 @@ export class AppPerfTestDispatchStore {
     exeResult = async (id)=>{
         let param ={ appPerfId:id}
 
-        let res  =  await exeResult(param);
+        let res  =  await Axios.post("/appPerfTestDispatch/exeResult",param);
         if(res.code === 0 ){
             return res.data;
         }

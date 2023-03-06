@@ -1,5 +1,5 @@
 import {observable,action} from "mobx";
-import {apiUnitExecute} from '../api/apiUnitTestDispatchApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class ApiUnitTestDispatchStore {
@@ -11,12 +11,11 @@ export class ApiUnitTestDispatchStore {
     apiUnitExecute = async (id,url) => {
 
         const param = {
-
             apiUnitCase:{id:id},
             apiEnv:url
         }
 
-        const res = await  apiUnitExecute(param);
+        const res = await Axios.post("/apiUnitTestDispatch/execute",param);
         if(res.code === 0) {
             this.apiUnitTestResult = res.data;
             this.responseResult = res.data?.responseInstance;

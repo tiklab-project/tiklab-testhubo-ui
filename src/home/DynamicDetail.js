@@ -7,6 +7,9 @@ import {Axios, getUser} from "tiklab-core-ui";
 
 const {Option} = Select;
 
+/**
+ * 动态详情页面
+ */
 const DynamicDetail = (props) =>{
     const {repositoryStore} = props;
     const {findRepositoryJoinList,} = repositoryStore;
@@ -45,7 +48,9 @@ const DynamicDetail = (props) =>{
         })
     },[])
 
-    //查询操作筛选下拉框
+    /**
+     * 查询操作筛选下拉框
+     */
     useEffect( async () =>{
         let res = await Axios.post("/oplog/type/findlogtypepage",{"bgroup":"teston"})
         if(res.code===0&&res.data.dataList){
@@ -53,7 +58,9 @@ const DynamicDetail = (props) =>{
         }
     },[])
 
-
+    /**
+     * 查询日志列表
+     */
     const findList = async (value) => {
         const params = {
             ...value,
@@ -67,14 +74,17 @@ const DynamicDetail = (props) =>{
     };
 
 
-
-    //返回首页
+    /**
+     * 返回首页
+     */
     const backToHome = () => props.history.push("/home")
 
     const [typeSelect, setTypeSelect] = useState();
     const [actionSelect, setActionSelect] = useState();
 
-    //类型筛选
+    /**
+     * 类型筛选
+     */
     const typeSelectFn =(type) =>{
         let  param = {
             content:{repositoryId:repositoryIdList},
@@ -93,7 +103,9 @@ const DynamicDetail = (props) =>{
         setTypeSelect(type);
     }
 
-    //操作筛选
+    /**
+     * 操作筛选
+     */
     const actionSelectFn = (action) =>{
         let  param = {
             content:{repositoryId:repositoryIdList},
@@ -112,7 +124,9 @@ const DynamicDetail = (props) =>{
         setActionSelect(action)
     }
 
-    //分页改变
+    /**
+     * 分页改变
+     */
     const changePage = (current) =>{
         let  param = {
             content:{repositoryId:repositoryIdList},

@@ -1,12 +1,6 @@
 
 import {observable,action} from "mobx";
-import {
-    findFuncUnitStepList,
-    findFuncUnitStep,
-    createFuncUnitStep,
-    deleteFuncUnitStep,
-    updateFuncUnitStep,
-} from '../api/funcUnitStepApi';
+import {Axios} from "tiklab-core-ui";
 
 
 export class FuncUnitStepStore {
@@ -22,7 +16,7 @@ export class FuncUnitStepStore {
             funcUnitId: id,
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
-        const res = await findFuncUnitStepList(params)
+        const res = await Axios.post("/funcUnitStep/findFuncUnitStepList",params)
         if(res.code === 0) {
             this.funcUnitStepList=res.data;
         }
@@ -35,7 +29,7 @@ export class FuncUnitStepStore {
         const param = new FormData();
         param.append('id', id);
 
-        let res =  await  findFuncUnitStep(param)
+        let res =  await Axios.post("/funcUnitStep/findFuncUnitStep",param)
         if(res.code === 0){
             this.funcUnitStepInfo = res.data;
             return res.data;
@@ -43,11 +37,11 @@ export class FuncUnitStepStore {
     }
 
     @action
-    createFuncUnitStep =async (values) => await createFuncUnitStep(values)
+    createFuncUnitStep =async (values) => await Axios.post("/funcUnitStep/createFuncUnitStep",values)
 
 
     @action
-    updateFuncUnitStep = async (values) => await updateFuncUnitStep(values)
+    updateFuncUnitStep = async (values) => await Axios.post("/funcUnitStep/updateFuncUnitStep",values)
 
 
     @action
@@ -55,7 +49,7 @@ export class FuncUnitStepStore {
         const param = new FormData();
         param.append('id', id)
 
-        return await deleteFuncUnitStep(param)
+        return await Axios.post("/funcUnitStep/deleteFuncUnitStep",param)
     }
 
 }
