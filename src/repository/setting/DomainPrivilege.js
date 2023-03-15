@@ -1,14 +1,17 @@
 import React from "react";
-import { DomainRoleList } from 'tiklab-privilege-ui';
+import { DomainRole } from 'tiklab-user-ui';
 
+/**
+ * 包装权限
+ */
 const DomainPrivilege = props => {
     const repositoryId = sessionStorage.getItem('repositoryId')
 
     return (
-            <DomainRoleList
+            <DomainRole
                 {...props} 
                 domainId = {repositoryId}
-                bgroup={"postin"}
+                bgroup={"teston"}
             />
     )
 }

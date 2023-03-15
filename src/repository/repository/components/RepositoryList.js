@@ -5,7 +5,7 @@ import {Empty, Space, Table, Tooltip} from 'antd';
 import  { useTranslation } from 'react-i18next'
 import {getUser} from "tiklab-core-ui";
 import emptyImg  from "../../../assets/img/empty.png"
-import {Profile} from "tiklab-eam-ui";
+
 
 /**
  * 仓库列表
@@ -41,7 +41,7 @@ const RepositoryList = (props) => {
             render: (text, record) => (
                 <div className={"ws-user-item"}>
                     <Space>
-                        <Profile userInfo={record.user}/>
+                        {/*<Profile userInfo={record.user}/>*/}
                         <span>{record.user.nickname} </span>
                     </Space>
                 </div>

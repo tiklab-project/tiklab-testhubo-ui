@@ -1,11 +1,15 @@
 import { observable,  action } from "mobx";
 import {Axios} from "tiklab-core-ui";
 
-
+/**
+ * 最近访问的仓库 store
+ */
 export class RepositoryRecentStore {
 	@observable recentList = [];
 
-
+	/**
+	 * 设置最近访问的仓库
+	 */
 	@action
 	repositoryRecent = async (values) => {
 		let params = {
@@ -18,7 +22,9 @@ export class RepositoryRecentStore {
 		}
 	}
 
-
+	/**
+	 * 查询最近访问的仓库列表
+	 */
 	@action
 	findRepositoryRecentList = async (userId) => {
 		let params = {

@@ -1,6 +1,15 @@
 import React from 'react'
 
 import {
+    Directory, Orga, UserGroup, User,
+    ProjectFeature, ProjectRole, SystemFeature, SystemRole
+} from "tiklab-user-ui";
+import {ProductAuth} from "tiklab-licence-ui"
+import {LogTemplate, LogType, MyLog} from "tiklab-security-ui";
+import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
+import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
+
+import {
     Home,
     Repository,
     RepositoryDetailPage,
@@ -10,7 +19,6 @@ import {
 
 } from './container';
 
-import {Directory, OrgaList, UserGroup} from 'tiklab-user-ui';
 import {Redirect} from "react-router";
 import PortalHeader from "./common/header/PortalContent";
 import RepositoryDetailLayout from "./repository/common/RepositoryDetailLayout";
@@ -30,12 +38,6 @@ import DomainRole from "./repository/setting/DomainRole";
 import DomainPrivilege from "./repository/setting/DomainPrivilege";
 import SystemContent from "./setting/system/SystemContent";
 import LoginContent from "./login/LoginContent";
-import UserList from "tiklab-user-ui/lib/user-list";
-import {MyTodoTask, TaskList, TodoTempList} from "tiklab-todotask-ui";
-import {PluginDetail, PluginList} from "tiklab-plugin-ui";
-import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
-import {ProjectFeatureList, ProjectRoleList, SystemFeatureList, SystemRoleList} from "tiklab-privilege-ui";
-import {MyLogList, LogTemplateList, LogTypeList} from "tiklab-oplog-ui";
 import Version from "./setting/version/Version";
 import RepositorySettingMenu from "./repository/setting/RepositorySettingMenu";
 import DynamicDetail from "./home/DynamicDetail";
@@ -343,13 +345,13 @@ const routers =  [
                         path: "/systemManagement/org",
                         key:'org',
                         exact: true,
-                        render:(props)=> <OrgaList {...props} bgroup={'teston'}/>
+                        render:(props)=> <Orga {...props} bgroup={'teston'}/>
                     },{
                         path: "/systemManagement/user",
                         key:'user',
                         exact: true,
                         render:(props)=>{
-                            return <UserList {...props} bgroup={'teston'}/>
+                            return <User {...props} bgroup={'teston'}/>
                         }
                     },{
                         path: "/systemManagement/authConfig",
@@ -366,34 +368,34 @@ const routers =  [
                     {
                         path: "/systemManagement/systemRole",
                         key:'SystemRole',
-                        render: () => <SystemRoleList group={'system'} bgroup={"teston"}/>,
+                        render: () => <SystemRole group={'system'} bgroup={"teston"}/>,
                     },
                     //消息
                     {
                         path: "/systemManagement/messageSendType",
                         key:'MessageSendType',
                         exact: true,
-                        render:()=> <MessageNotice bgroup={"teston"}/>
+                        render:()=> <MessageSendType bgroup={"teston"}/>
 
                     },
                     {
                         path: "/systemManagement/message-notice",
                         key:'MessageType',
                         exact: true,
-                        render:()=> <MessageSendType bgroup={"teston"} />
+                        render:()=> <MessageNotice bgroup={"teston"} />
                     },
                     //代办
-                    {
-                        path: "/systemManagement/myTodo",
-                        key:'myTodo',
-                        exact: true,
-                        render:(props)=> <MyTodoTask {...props} bgroup={"teston"}/>
-                    },
+                    // {
+                    //     path: "/systemManagement/myTodo",
+                    //     key:'myTodo',
+                    //     exact: true,
+                    //     render:(props)=> <MyTodoTask {...props} bgroup={"teston"}/>
+                    // },
                     //插件
                     {
                         path: "/systemManagement/plugin",
                         key:'plugin',
-                        render:(props)=> <PluginList {...props}  detailRouter={"/systemManagement/plugindetail"}/>,
+                        render:(props)=> <Plugin {...props}  detailRouter={"/systemManagement/plugindetail"}/>,
                     },
                     {
                         path: "/systemManagement/plugindetail",
@@ -406,7 +408,7 @@ const routers =  [
                         path: "/systemManagement/log",
                         key:'log',
                         exact: true,
-                        render:(props)=>  <MyLogList {...props} bgroup={"teston"}/>,
+                        render:(props)=>  <MyLog {...props} bgroup={"teston"}/>,
                     },
                     //版本
                     {
@@ -416,28 +418,37 @@ const routers =  [
                         component:Version
 
                     },
+                    //产品授权
+                    {
+                        path: "/systemManagement/product",
+                        key:'version',
+                        exact: true,
+                        render:(props)=><ProductAuth />
+                    },
+
+
                     {
                         path: "/systemManagement/baseSystemRole",
                         exact: true,
-                        render: () => <SystemRoleList isBase={true} group={'system'} bgroup={"postin"}/>,
+                        render: () => <SystemRole isBase={true} group={'system'} bgroup={"postin"}/>,
                     },
                     {
                         path: "/systemManagement/systemFeature",
                         key:'SystemFeature',
                         exact: true,
-                        render: () => <SystemFeatureList bgroup={"teston"}/>,
+                        render: () => <SystemFeature isBase={true} bgroup={"teston"}/>,
                     },
                     {
                         path: "/systemManagement/privilege",
                         key:'ProjectFeature',
                         exact: true,
-                        render: (props) => <ProjectFeatureList {...props} bgroup={"teston"}/>,
+                        render: (props) => <ProjectFeature isBase={true} {...props} bgroup={"teston"}/>,
                     },
                     {
                         path: "/systemManagement/role",
                         key:'ProjectRole',
                         exact: true,
-                        render: (props) => <ProjectRoleList isBase={true} {...props} bgroup={"teston"}/>,
+                        render: (props) => <ProjectRole isBase={true} {...props} bgroup={"teston"}/>,
                     },
                     {
                         path: "/systemManagement/messageSendTypeBase",
@@ -445,12 +456,12 @@ const routers =  [
                         exact: true,
                         render:()=> <MessageSendType bgroup={"teston"} isBase={true}/>
                     },
-                    // {
-                    //     path: "/systemManagement/messageManagement",
-                    //     key:'MessageManagement',
-                    //     exact: true,
-                    //     render:()=> <MessageManagement bgroup={"teston"}/>
-                    // },
+                    {
+                        path: "/systemManagement/message-notice-base",
+                        key:'MessageType',
+                        exact: true,
+                        render:()=> <MessageNotice bgroup={"teston"} isBase={true}/>
+                    },
                     {
                         path: "/systemManagement/messageType",
                         key:'MessageType',
@@ -462,22 +473,12 @@ const routers =  [
                         path: "/systemManagement/logTemplate",
                         key:'logTemplate',
                         exact: true,
-                        render:(props)=>  <LogTemplateList {...props} bgroup={"teston"}/>,
+                        render:(props)=>  <LogTemplate {...props} bgroup={"teston"}/>,
                     },{
                         path: "/systemManagement/logType",
                         key:'logTemplate',
                         exact: true,
-                        render:()=>  <LogTypeList bgroup={"teston"}/>,
-                    },{
-                        path: "/systemManagement/taskList",
-                        key:'todo',
-                        exact: true,
-                        render:(props)=> <TaskList {...props} bgroup={"teston"}/>,
-                    },{
-                        path: "/systemManagement/todoTemp",
-                        key:'todoTemp',
-                        exact: true,
-                        render:(props)=> <TodoTempList {...props} bgroup={"teston"}/>,
+                        render:()=>  <LogType bgroup={"teston"}/>,
                     },
                     {
                         path:"/systemManagement",

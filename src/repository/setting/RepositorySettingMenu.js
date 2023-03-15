@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import {renderRoutes} from "react-router-config";
 import "./repositorySetting.scss"
+
+/**
+ * 仓库设置页中的左侧导航
+ */
 const RepositorySettingMenu = (props) =>{
-
     const routes = props.route.routes;
-
     const [selected, setSelected] = useState("/repository/setting/detail");
 
     /**

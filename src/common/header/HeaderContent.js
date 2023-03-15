@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {useTranslation} from "react-i18next";
-import {Col, Row, Menu, Dropdown} from "antd";
-import {Profile, WorkAppConfig} from "tiklab-eam-ui"
+import {Menu, Dropdown, Avatar} from "antd";
+import {AppLink} from "tiklab-integration-ui"
 import {getUser} from "tiklab-core-ui"
 import {inject, observer} from "mobx-react";
 import HeaderMenu from "./HeaderMenu";
 import logo from "../../assets/img/teston-log.png";
-import {QuestionCircleOutlined, RightOutlined, SettingOutlined} from "@ant-design/icons";
+import {QuestionCircleOutlined, RightOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 import MessageDrawer from "../../setting/message/MessageDrawer";
 
 
@@ -90,7 +90,7 @@ const HeaderContent = props => {
     return(
         <div className="frame-header">
             <div className={"pi-header-left"}>
-                <WorkAppConfig isSSO={false}/>
+                <AppLink isSSO={false}/>
                 {/*<div className={"pi-header-right-item"}><WorkAppConfig isSSO={false}/></div>*/}
                 <div className={'frame-header-logo'}>
                     {logo && <img src={logo} alt='logo' />}
@@ -102,18 +102,12 @@ const HeaderContent = props => {
 
                 <div className={"frame-header-right-detail"}>
                     <div className={"header-right-item"} >
-                        {/*<svg className="icon-l user-header-icon-hover" aria-hidden="true"  onClick={toSystem}>*/}
-                        {/*    <use xlinkHref= {`#icon-setting`} />*/}
-                        {/*</svg>*/}
                         <SettingOutlined className={"header-icon-item"} onClick={toSystem}/>
                     </div>
                     <div className={"header-right-item"}>
                         <MessageDrawer />
                     </div>
                     <Dropdown overlay={helpMenu}  placement="bottomRight" >
-                        {/*<svg className="icon-l user-header-icon-hover" aria-hidden="true" >*/}
-                        {/*    <use xlinkHref= {`#icon-bangzhu`} />*/}
-                        {/*</svg>*/}
                         <div className={"header-right-item"} >
                             <QuestionCircleOutlined  className={"header-icon-item"} />
                         </div>
@@ -121,13 +115,13 @@ const HeaderContent = props => {
                     <div className={"header-right-item"}>
                         <div className={"toggle-hover"}>
                             <div className="user-header-icon-hover">
-                                <Profile userInfo={getUser()}/>
+                                <Avatar size="small" icon={<UserOutlined />} />
                             </div>
                             <div className={"toggle-hidden-box header-user-box"}>
                                 <div className={"user-detail-box"}>
                                     <div className={"user-detail-item  user-detail-item-icon"}>
                                         <div className="header-user-icon">
-                                            <Profile userInfo={getUser()}/>
+                                            <Avatar icon={<UserOutlined />} />
                                         </div>
                                     </div>
                                     <div className={"user-detail-item"}>

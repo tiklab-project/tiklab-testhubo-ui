@@ -14,7 +14,7 @@ export class TestPlanStore {
             ...param,
             orderParams: [{name:'name', orderType:'asc'}],
         };
-        const res = await Axios.post("/testPlan/findTestPlanPag",params)
+        const res = await Axios.post("/testPlan/findTestPlanPage",params)
         if(res.code === 0) {
             this.totalRecord = res.data.totalRecord;
             this.testPlanList = res.data.dataList;

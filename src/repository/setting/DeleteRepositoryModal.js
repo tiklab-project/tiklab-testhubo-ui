@@ -1,7 +1,9 @@
 import React, {useState} from "react";
-import {Button, Form, Input, Modal} from "antd";
-import {PrivilegeProjectButton} from "tiklab-privilege-ui";
+import {Button,  Input, Modal} from "antd";
 
+/**
+ * 仓库设置中的删除仓库
+ */
 const DeleteRepositoryModal = (props) =>{
     const {repositoryStore,repositoryName} = props;
     const {deleteRepository} = repositoryStore;
@@ -11,7 +13,6 @@ const DeleteRepositoryModal = (props) =>{
     let repositoryId = sessionStorage.getItem("repositoryId");
 
     const onFinish = (e) => {
-
         if(e.target.value!==repositoryName) {
             setDisable(true)
             return
@@ -23,7 +24,11 @@ const DeleteRepositoryModal = (props) =>{
 
     const showModal = () =>{ setVisible(true); }
     const onCancel = () => { setVisible(false) };
-
+    
+    
+    /**
+     * 删除仓库跳到仓库页
+     */
     const deleteFn = () =>{
         deleteRepository(repositoryId).then(()=>{
             props.history.push("/repository-page")
@@ -33,11 +38,11 @@ const DeleteRepositoryModal = (props) =>{
     return(
         <>
             {/*<PrivilegeProjectButton code={"repositoryDelete"} domainId={repositoryId}>*/}
-                <Button type="primary" danger onClick={showModal}>删除空间</Button>
+                <Button type="primary" danger onClick={showModal}>删除仓库</Button>
             {/*</PrivilegeProjectButton>*/}
             <Modal
                 destroyOnClose={true}
-                title="你确定删除空间吗？"
+                title="你确定删除仓库吗？"
                 visible={visible}
                 onCancel={onCancel}
                 footer={false}
@@ -60,7 +65,7 @@ const DeleteRepositoryModal = (props) =>{
                         className={"ws-delete-modal-btn"}
 
                     >
-                        我了解后果，删除此空间
+                        我了解后果，删除此仓库
                     </Button>
                 </div>
 

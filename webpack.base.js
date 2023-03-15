@@ -123,6 +123,7 @@ module.exports = {
         new webpack.DefinePlugin( envData),
 
         new MonacoWebpackPlugin({
+            filename :"js/[name].work.js",
             languages: ["json", "xml","javascript", "html"],
             features: ["coreCommands", "find", "format", "folding", 'smartSelect', 'snippets', 'suggest', 'hover']
         })

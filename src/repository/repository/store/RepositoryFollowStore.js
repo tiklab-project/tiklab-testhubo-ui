@@ -1,11 +1,16 @@
 import { observable,  action } from "mobx";
 import {Axios} from "tiklab-core-ui";
 
-
+/**
+ * 仓库关注 store
+ */
 export class RepositoryFollowStore {
 	@observable followList = [];
 	@observable totalRecord;
-	
+
+	/**
+	 * 查询关注的仓库列表
+	 */
 	@action
 	findRepositoryFollowPage = async (value) => {
 		this.pageParams = {
@@ -20,6 +25,9 @@ export class RepositoryFollowStore {
 		}
 	}
 
+	/**
+	 * 查询关注的仓库列表
+	 */
 	@action
 	findRepositoryFollowList = async (value) => {
 		this.params = {
@@ -34,8 +42,9 @@ export class RepositoryFollowStore {
 		}
 	}
 
-
-	// 删除
+	/**
+	 * 删除仓库关注
+	 */
 	@action
 	deleteRepositoryFollow = async (id) => {
 		const param = new FormData();
@@ -48,11 +57,15 @@ export class RepositoryFollowStore {
 
 	}
 
-	// 新建
+	/**
+	 * 创建仓库关注
+	 */
 	@action
 	createRepositoryFollow = async (values) => await Axios.post("/repositoryFollow/createRepositoryFollow",values);
 
-	//更新
+	/**
+	 * 更新仓库关注
+	 */
 	@action
 	updateRepositoryFollow = async (values) => await Axios.post("/repositoryFollow/updateRepositoryFollow",values);
 

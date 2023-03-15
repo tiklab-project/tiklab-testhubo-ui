@@ -3,18 +3,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
-
 import App from './app';
 
 import { orgStores } from 'tiklab-user-ui/es/store';
-import { privilegeStores } from 'tiklab-privilege-ui/es/store';
-import { messageModuleStores } from 'tiklab-message-ui/es/store'
+import { privilegeStores } from 'tiklab-user-ui/es/store';
+import { messageModuleStores } from 'tiklab-message-ui/es/store';
+import {enableAxiosCE} from "tiklab-core-ui"
+
 import { stores } from './stores';
 import routes from './routers';
-import  enableAxiosCE from "tiklab-enable-axios-ce";
 
 enableAxiosCE();
-
 const Entry =()=> {
 
     let allStore = {

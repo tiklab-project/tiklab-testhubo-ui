@@ -7,10 +7,11 @@ import './common/language/i18n';
 import "./assets/iconfont/iconfont";
 import "./assets/iconfont/iconfont.css";
 import {useTranslation} from "react-i18next";
-import { PluginProvider} from 'tiklab-plugin-ui';
-import { initFetch} from 'tiklab-plugin-ui/es/_utils';
-import resources from './common/language/resource';
+
 import {getUser} from "tiklab-core-ui";
+import { PluginProvider,pluginLoader} from 'tiklab-plugin-core-ui';
+
+import resources from './common/language/resource';
 import {Spin} from "antd";
 import "./assets/index"
 
@@ -28,10 +29,10 @@ import "./assets/index"
      });
 
      useEffect(() => {
-         initFetch('post', routers, resources,i18n).then(res => {
+         pluginLoader( routers, resources,i18n).then(res => {
              setPluginData(res)
-             setViable(true)
          })
+         setViable(true)
      }, []);
 
 

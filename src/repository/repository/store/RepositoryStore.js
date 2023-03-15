@@ -1,7 +1,9 @@
 import {observable,action} from "mobx";
 import {Axios} from "tiklab-core-ui";
 
-
+/**
+ * 仓库 store
+ */
 export class RepositoryStore {
     @observable repositoryList = [];
     @observable repositoryInfo = {};
@@ -9,6 +11,9 @@ export class RepositoryStore {
     @observable envUrlId;
     @observable selectedItem="all";
 
+    /**
+     * 按分页查询仓库列表
+     */
     @action
     findRepositoryPage = async (param) => {
         const params = {
@@ -24,6 +29,9 @@ export class RepositoryStore {
         }
     }
 
+    /**
+     * 查询我参数的仓库列表
+     */
     @action
     findRepositoryJoinList = async (params) => {
         this.params = {
@@ -36,7 +44,10 @@ export class RepositoryStore {
             return res.data;
         }
     }
-
+    
+    /**
+     * 获取仓库列表
+     */
     @action
     findRepositoryList = async (params) => {
         this.params = {
@@ -50,6 +61,9 @@ export class RepositoryStore {
         }
     }
 
+    /**
+     * 查询我关注的仓库列表
+     */
     @action
     findRepositoryFollowList = async (value) => {
         this.params = {
@@ -65,7 +79,9 @@ export class RepositoryStore {
         }
     }
 
-
+    /**
+     * 通过id查询单个仓库
+     */
     @action
     findRepository = async (id) => {
         const param = new FormData();
@@ -78,6 +94,9 @@ export class RepositoryStore {
         }
     }
 
+    /**
+     * 仓库概况
+     */
     @action
     findRepositoryTotal = async (id) =>{
         const param = new FormData();
@@ -89,14 +108,21 @@ export class RepositoryStore {
         }
     }
 
-
+    /**
+     * 创建仓库
+     */
     @action
     createRepository = async (values) =>  await Axios.post("/repository/createRepository",values)
 
-
+    /**
+     * 更新仓库
+     */
     @action
     updateRepository = async (values) =>  await Axios.post("/repository/updateRepository",values)
 
+    /**
+     * 删除仓库
+     */
     @action
     deleteRepository = async (id) => {
         const param = new FormData();
@@ -105,6 +131,9 @@ export class RepositoryStore {
         await Axios.post("/repository/deleteRepository",param)
     }
 
+    /**
+     * 仓库设置中的导航的选中项
+     */
     @action
     menuSelected = (selected)=>{
         this.selectedItem = selected;

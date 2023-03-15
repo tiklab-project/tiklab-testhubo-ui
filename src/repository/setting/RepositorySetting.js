@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Button, Collapse, Form, Input} from "antd";
-import EdiText from "react-editext";
 import {inject, observer} from "mobx-react";
 import DeleteRepositoryModal from "./DeleteRepositoryModal";
 
@@ -13,6 +12,9 @@ const formItemLayout = {
     wrapperCol: { span: 1 },
 };
 
+/**
+ * 仓库设置页
+ */
 const RepositorySetting = (props) =>{
     const {repositoryStore} = props;
     const {updateRepository,findRepository,deleteRepository} = repositoryStore;

@@ -3,6 +3,9 @@ import React, { useEffect, useState} from "react";
 import { observer, inject } from "mobx-react";
 import DynamicWidget from "../../home/DynamicWidget";
 
+/**
+ * 仓库 概况
+ */
 const RepositoryOverView = (props) => {
     const {repositoryStore} = props;
     const {findRepositoryTotal} = repositoryStore;
