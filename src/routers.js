@@ -85,6 +85,7 @@ const routers =  [
     },
     {
         component: PortalHeader,
+        path: '/',
         routes:[
             {
                 path: "/home",

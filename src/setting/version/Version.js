@@ -16,14 +16,14 @@ const Version = (props) =>{
             dataIndex: 'ce',
             key: 'ce',
             width:"33.33%",
-            render:(text,recode)=> text?"√":""
+            render:(text)=> text?"√":""
         },
         {
             title: '企业版',
             dataIndex: 'ee',
             key: 'ee',
             width:"33.33%",
-            render:(text,recode)=> text?"√":""
+            render:(text)=> text?"√":""
         }
 
     ];
@@ -78,7 +78,7 @@ const Version = (props) =>{
         },
     ];
     return(
-        <VersionCom  bgroup={'postin'}>
+        <VersionCom  bgroup={'teston'}>
 
             <div className={"version-function-box"}>
                 <Table

@@ -58,7 +58,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|jpeg|gif)/,
-                // exclude: /node_modules/,
+                exclude: /\.(png|jpg|jpeg|gif).js/,
                 use: {
                     loader: 'url-loader',
                     options: {
@@ -84,7 +84,7 @@ module.exports = {
             },
             {
                 test: /\.svg/,
-                // exclude: /node_modules/,
+                exclude:  /\.svg.js/,
                 use: {
                     loader: 'file-loader',
                     options: {
