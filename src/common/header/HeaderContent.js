@@ -164,4 +164,4 @@ const HeaderContent = props => {
 }
 
 
-export default inject("userMessageStore")(observer(HeaderContent));
+export default HeaderContent;

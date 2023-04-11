@@ -14,13 +14,13 @@ const FuncUnitDetail = (props) => {
 
     const [detailInfo,setDetailInfo]=useState();
 
-    const funcUnitId = sessionStorage.getItem('funcUnitId');
+    const functionId = sessionStorage.getItem('functionId');
 
     useEffect(()=> {
-        findFuncUnit(funcUnitId).then(res=>{
+        findFuncUnit(functionId).then(res=>{
             setDetailInfo(res);
         })
-    },[funcUnitId])
+    },[functionId])
 
     const updateTitle = (value) =>{
         const param = {
@@ -31,7 +31,7 @@ const FuncUnitDetail = (props) => {
             }
         }
         updateFuncUnit(param).then(()=>{
-            findFuncUnit(funcUnitId).then(res=>{
+            findFuncUnit(functionId).then(res=>{
                 setDetailInfo(res);
             })
         })

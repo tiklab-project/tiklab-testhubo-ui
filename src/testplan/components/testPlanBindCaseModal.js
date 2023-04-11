@@ -11,7 +11,7 @@ import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCo
 // 添加与编辑
 const TestPlanBindCaseModal = (props) => {
     const { testPlanDetailStore,testPlanId,testcaseStore} = props;
-    const {findBindTestCaseList,createTestPlanDetailList} = testPlanDetailStore;
+    const {findBindTestCaseList,planBindCase} = testPlanDetailStore;
     const {findTestCaseList,testcaseList} = testcaseStore;
 
 
@@ -84,7 +84,7 @@ const TestPlanBindCaseModal = (props) => {
             }
             newData.push(obj)
         })
-        createTestPlanDetailList(newData).then(()=>findBindTestCaseList(testPlanId))
+        planBindCase(newData).then(()=>findBindTestCaseList(testPlanId))
         setVisible(false)
     }
 

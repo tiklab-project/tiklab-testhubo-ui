@@ -46,7 +46,7 @@ export class WebSceneStepStore {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await Axios.post("/webSceneStep/findWebSceneStepPage",param);
+        const res = await Axios.post("/webSceneStep/findWebSceneStep",param);
         if(res.code === 0){
             this.webSceneStepInfo = res.data;
             return res.data;
@@ -65,7 +65,7 @@ export class WebSceneStepStore {
         const param = new FormData();
         param.append('id', id)
 
-        await Axios.post("/category/findCategory",param);
+        await Axios.post("/webSceneStep/deleteWebSceneStep",param);
 
     }
 }

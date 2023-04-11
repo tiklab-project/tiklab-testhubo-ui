@@ -25,7 +25,7 @@ export class WebPerfStepStore {
     findWebPerfStepPage = async (id) => {
         this.webPerfId = id;
         const params = {
-            webPerformId: id,
+            webPerfId: id,
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 
@@ -41,7 +41,7 @@ export class WebPerfStepStore {
     findWebPerfStepList = async (id) => {
         this.webPerfId = id;
         const params = {
-            webPerformId: id,
+            webPerfId: id,
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 

@@ -6,6 +6,7 @@ import IconBtn from "../../../../../common/iconBtn/IconBtn";
 const ApiSceneBindUnit =(props) =>{
     const {apiUnitStore,apiSceneStepStore} = props;
     const {findApiUnitList,apiUnitList} = apiUnitStore;
+    const {findApiSceneStepList} = apiSceneStepStore
 
     const {bindApiUnit} = apiSceneStepStore;
 
@@ -35,10 +36,12 @@ const ApiSceneBindUnit =(props) =>{
 
     const [visible, setVisible] = React.useState(false);
     const [selectItem, getSelectItem] = React.useState([]);
+    let repositoryId = sessionStorage.getItem("repositoryId");
+    let apiSceneId = sessionStorage.getItem("apiSceneId")
 
     // 弹框展示
     const showModal = () => {
-        findApiUnitList({caseType: "api-unit", testType: "auto"});
+        findApiUnitList({repositoryId:repositoryId,caseType: "api-unit", testType: "auto"});
 
         setVisible(true);
     };
@@ -46,7 +49,9 @@ const ApiSceneBindUnit =(props) =>{
 
     // 提交
     const onFinish = async () => {
-        bindApiUnit(selectItem)
+        await bindApiUnit(selectItem)
+
+        await findApiSceneStepList(apiSceneId)
 
         setVisible(false);
     };
@@ -90,4 +95,4 @@ const ApiSceneBindUnit =(props) =>{
     )
 }
 
-export default inject("apiUnitStore")(observer(ApiSceneBindUnit));
+export default inject("apiUnitStore","apiSceneStepStore")(observer(ApiSceneBindUnit));

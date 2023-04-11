@@ -78,7 +78,7 @@ const FormUrlencoded = (props) =>{
 
     // 表格里的操作
     const operation = (record,data) => {
-        if(record.id === 'InitNewRowId'){
+        if(record.id === 'InitNewRowId'&&Object.keys(record).length>1){
             return <div className={`${newRowAction?"newRow-action-show":"newRow-action-hidden"}`}>
                 <Space>
                     <a onClick={() =>onCreated(record)}> 保存</a>
@@ -86,13 +86,17 @@ const FormUrlencoded = (props) =>{
                 </Space>
             </div>
         }else{
+            if(record.id === 'InitNewRowId') return null
+
             return <Space key={record.id}>
                 {
                     updateView(record,data)
                 }
                 <Popconfirm
                     title="确定删除？"
-                    onConfirm={() => deleteFormUrlencoded(record.id)}
+                    onConfirm={() => deleteFormUrlencoded(record.id).then(()=>{
+                        findFormUrlencodedList(apiUnitId).then(res => setDataSource(res));
+                    })}
                     okText='确定'
                     cancelText='取消'
                 >
@@ -125,7 +129,9 @@ const FormUrlencoded = (props) =>{
 
     //更新
     const upData = (value) => {
-        updateFormUrlencoded(value).then(res=>setDataSource(res));
+        updateFormUrlencoded(value).then(()=>{
+            findFormUrlencodedList(apiUnitId).then(res => setDataSource(res));
+        });
     }
 
     // 添加
@@ -134,7 +140,10 @@ const FormUrlencoded = (props) =>{
             return null
         }else {
             delete values.id;
-            createFormUrlencoded(values)
+            values.apiUnit= {id:apiUnitId},
+            createFormUrlencoded(values).then(()=>{
+                findFormUrlencodedList(apiUnitId).then(res => setDataSource(res));
+            })
         }
 
         setNewRowAction(false)
@@ -143,9 +152,13 @@ const FormUrlencoded = (props) =>{
 
     // 保存数据
     const handleSave = (row) => {
-        const newData = [...formUrlencodedList];
-        const index = newData.findIndex((item) => row.id === item.id);
-        newData.splice(index, 1, { ...newData[index], ...row });
+        const newData = formUrlencodedList.map((item) => {
+            if (item.id === row.id) {
+                return { ...item, ...row };
+            } else {
+                return item;
+            }
+        });
         setList(newData)
 
         //如果是新行 操作 显示操作按钮

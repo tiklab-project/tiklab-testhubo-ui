@@ -4,9 +4,8 @@ import {Axios} from "tiklab-core-ui";
 
 export  class RequestHeaderStore {
     @observable headerList = [];
-    @observable requestHeaderInfo = [];
     @observable headerSourceList = [];
-    @observable apiUnitId;
+
     @observable dataLength;
 
     @action
@@ -16,7 +15,6 @@ export  class RequestHeaderStore {
 
     @action
     findRequestHeaderList = async (id) => {
-        this.apiUnitId = id;
         const params = {
             apiUnitId: id,
             orderParams:[{ name:'headerName', orderType:'asc'}],
@@ -44,38 +42,25 @@ export  class RequestHeaderStore {
     findRequestHeader = async (id) => {
         const param = new FormData();
         param.append('id', id);
+
         const res = await Axios.post("/requestHeader/findRequestHeader",param)
         if( res.code === 0){
-            this.requestHeaderInfo = res.data;
             return res.data;
         }
     }
 
     @action
-    createRequestHeader = async (values) => {
-        values.apiUnit = {id:this.apiUnitId}
-        const res = await Axios.post("/requestHeader/createRequestHeader",values)
-        if( res.code === 0){
-            return this.findRequestHeaderList(this.apiUnitId);
-        }
-    }
+    createRequestHeader = async (values) =>  await Axios.post("/requestHeader/createRequestHeader",values)
 
     @action
-    updateRequestHeader = async (values) => {
-        const res = await Axios.post("/requestHeader/updateRequestHeader",values)
-        if( res.code === 0){
-            return this.findRequestHeaderList(this.apiUnitId);
-        }
-    }
+    updateRequestHeader = async (values) => await Axios.post("/requestHeader/updateRequestHeader",values)
 
     @action
     deleteRequestHeader = async (id) => {
         const param = new FormData();
         param.append('id', id)
-        const res = await Axios.post("/requestHeader/deleteRequestHeader",values)
-        if(res.code === 0){
-            this.findRequestHeaderList(this.apiUnitId);
-        }
+
+        return await Axios.post("/requestHeader/deleteRequestHeader",param)
     }
 
 

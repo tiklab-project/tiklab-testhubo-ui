@@ -1,13 +1,15 @@
 import React, {useState} from "react";
 import {renderRoutes} from "react-router-config";
 import "./repositorySetting.scss"
-
+import {ProjectNav} from "tiklab-user-ui"
 /**
  * 仓库设置页中的左侧导航
  */
 const RepositorySettingMenu = (props) =>{
     const routes = props.route.routes;
     const [selected, setSelected] = useState("/repository/setting/detail");
+
+    let repositoryId = sessionStorage.getItem("repositoryId");
 
     /**
      * 点击左侧菜单，设置路由地址
@@ -17,6 +19,7 @@ const RepositorySettingMenu = (props) =>{
         setSelected(key)
         props.history.push(key);
     }
+
 
     const items=[
         {
@@ -75,26 +78,32 @@ const RepositorySettingMenu = (props) =>{
 
 
     return(
-        <div className={"repository-setting-box"}>
-            <ul className="ws-menu-ul" style={{background: "#f5f5f5"}}>
-                <li style={{
-                    borderBottom:"1px solid #cecece",
-                    padding:"10px 20px"
-                }}
-                >仓库设置</li>
-                {
-                    renderList(items)
-                }
-            </ul>
+        <ProjectNav
+            {...props}
+            domainId={repositoryId} // 项目id
+            projectRouters={items} // 菜单
+            outerPath={`/repository/setting`} // 项目设置Layout路径
+        >
+            <div className={"repository-setting-box"}>
+                <ul className="ws-menu-ul" style={{background: "#f5f5f5"}}>
+                    <li style={{
+                        borderBottom:"1px solid #cecece",
+                        padding:"10px 20px"
+                    }}
+                    >仓库设置</li>
+                    {
+                        renderList(items)
+                    }
+                </ul>
 
+                <div className={"repository-setting-right"}>
+                    {
+                        renderRoutes(routes)
+                    }
+                </div>
 
-            <div className={"repository-setting-right"}>
-                {
-                    renderRoutes(routes)
-                }
             </div>
-
-        </div>
+        </ProjectNav>
     )
 }
 

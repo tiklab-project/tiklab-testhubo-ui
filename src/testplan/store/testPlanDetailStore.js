@@ -39,7 +39,7 @@ export class TestPlanDetailStore {
     }
 
     @action
-    createTestPlanDetailList = async (values) => await Axios.post("/testPlanCase/createTestPlanCase",values)
+    planBindCase = async (values) => await Axios.post("/testPlanCase/planBindCase",values)
 
     @action
     updateTestPlanDetail = async (values) => await Axios.post("/testPlanCase/updateTestPlanCase",values)

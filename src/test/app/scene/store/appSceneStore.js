@@ -10,7 +10,7 @@ export class AppSceneStore {
     @action
     findAppSceneList = async (value) => {
 
-        const res = await Axios.post("/appSceneCase/findAppSceneCaseList",value);
+        const res = await Axios.post("/appSceneCase/findAppSceneCaseListByTestCase",value);
 
         if(res.code === 0) {
             this.appSceneList = res.data;

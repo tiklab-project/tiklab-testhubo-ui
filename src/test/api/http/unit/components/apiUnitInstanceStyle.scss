@@ -52,3 +52,32 @@
         font-size: 15px;
     }
 }
+
+
+.api-script-box{
+
+    .ant-form-item{
+        margin: 0;
+    }
+
+    .api-script-pre-header{
+        height: 30px;
+        background: #f7f7f7;
+
+
+        .ant-select{
+            width: 100px;
+            color: #0078d4;
+
+            .ant-select-selector{
+                border: none;
+                background: #f7f7f7;
+            }
+        }
+
+    }
+}
+
+.action-btn-box{
+    margin: 10px 0;
+}

@@ -33,10 +33,11 @@ const ApiPerformBindScene = (props) =>{
 
     const [visible, setVisible] = React.useState(false);
     const [selectItem, getSelectItem] = React.useState([]);
+    let repositoryId = sessionStorage.getItem("repositoryId");
 
     // 弹框展示
     const showModal = () => {
-        findApiSceneList({caseType:"api-scene",testType:"auto"});
+        findApiSceneList({repositoryId:repositoryId,caseType:"api-scene",testType:"auto"});
 
         setVisible(true);
     };

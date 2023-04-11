@@ -82,7 +82,7 @@ const QueryParam = (props) =>{
 
     // colums 里的操作
     const operation = (record,data) => {
-        if(record.id === 'InitNewRowId'){
+        if(record.id === 'InitNewRowId'&&Object.keys(record).length>1){
             return <div className={`${newRowAction?"newRow-action-show":"newRow-action-hidden"}`}>
                 <Space>
                     <a onClick={() =>onCreated(record)}> 保存</a>
@@ -90,13 +90,17 @@ const QueryParam = (props) =>{
                 </Space>
             </div>
         }else{
+            if(record.id === 'InitNewRowId') return null
+
             return <Space key={record.id}>
                 {
                     updateView(record,data)
                 }
                 <Popconfirm
                     title="确定删除？"
-                    onConfirm={() => deleteQueryParam(record.id)}
+                    onConfirm={() => deleteQueryParam(record.id).then(()=>{
+                        findQueryParamList(apiUnitId).then(res=>setDataSource(res))
+                    })}
                     okText='确定'
                     cancelText='取消'
                 >
@@ -132,7 +136,9 @@ const QueryParam = (props) =>{
 
     //更新
     const upData = (value) => {
-        updateQueryParam(value).then(res => setDataSource(res))
+        updateQueryParam(value).then(()=>{
+            findQueryParamList(apiUnitId).then(res=>setDataSource(res))
+        })
     }
 
     // 添加
@@ -142,7 +148,10 @@ const QueryParam = (props) =>{
         }else {
             // 创建新行的时候自带一个id，所以删了，后台会自行创建id
             delete values.id;
-            createQueryParam(values);
+            values.apiUnit= {id:apiUnitId},
+            createQueryParam(values).then(()=>{
+                findQueryParamList(apiUnitId).then(res=>setDataSource(res))
+            });
         }
 
         setNewRowAction(false)
@@ -150,9 +159,14 @@ const QueryParam = (props) =>{
 
     // 保存数据
     const handleSave = (row) => {
-        const newData = queryParamList;
-        const index = newData.findIndex((item) => row.id === item.id);
-        newData.splice(index, 1, { ...newData[index], ...row });
+        const newData = queryParamList.map((item) => {
+            if (item.id === row.id) {
+                return { ...item, ...row };
+            } else {
+                return item;
+            }
+        });
+
         setList(newData)
 
         //如果是新行 操作 显示操作按钮

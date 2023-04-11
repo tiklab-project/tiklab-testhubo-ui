@@ -5,7 +5,6 @@ import {Axios} from "tiklab-core-ui";
 export class WebEnvStore {
 
 	@observable webEnvList = [];
-	@observable webEnvInfo;
 	@observable webEnv;
 
 	@action
@@ -16,6 +15,7 @@ export class WebEnvStore {
 	@action
 	findWebEnvPage = async (id) => {
 		const params = {
+			repositoryId:id,
 			orderParams:[{name:'name', orderType:'asc'}],
 		}
 		const res = await Axios.post("/webEnv/findWebEnvPage",params);
@@ -29,6 +29,7 @@ export class WebEnvStore {
 	@action
 	findWebEnvList = async (id) => {
 		const params = {
+			repositoryId:id,
 			orderParams:[{name:'name', orderType:'asc'}],
 		}
 		const res = await Axios.post("/webEnv/findWebEnvList",params);
@@ -46,39 +47,26 @@ export class WebEnvStore {
 
 		const res = await Axios.post("/webEnv/findWebEnv",param);
 		if( res.code === 0){
-			return  this.webEnvInfo = res.data;
+			return  res.data;
 		}
 	}
 
 
 	@action
-	createWebEnv = async (values) => {
-		values.http = {id: this.categoryId}
+	createWebEnv = async (values) =>  await Axios.post("/webEnv/createWebEnv",values)
 
-		const res = await Axios.post("/webEnv/createWebEnv",values)
-		if( res.code === 0){
-			return this.findWebEnvPage(t);
-		}
-	}
 
 	@action
-	updateWebEnv = async (values) => {
-		const res = await Axios.post("/webEnv/updateWebEnv",values)
+	updateWebEnv = async (values) =>  await Axios.post("/webEnv/updateWebEnv",values)
 
-		if( res.code === 0){
-			return this.findWebEnvPage();
-		}
-	}
+
 
 	@action
 	deleteWebEnv = async (id) => {
 		const param = new FormData();
 		param.append('id', id);
 
-		const res = await Axios.post("/webEnv/deleteWebEnv",param)
-		if( res.code === 0){
-			this.findWebEnvPage();
-		}
+		await Axios.post("/webEnv/deleteWebEnv",param)
 	}
 
 }

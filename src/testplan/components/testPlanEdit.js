@@ -28,7 +28,7 @@ const TestPlanEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
-        if(props.name === "编辑"){
+        if(props.type === "edit"){
             findTestPlan(testPlanId).then((res)=>{
                 setStartTime(res.startTime);
                 setEndTime(res.endTime);
@@ -37,23 +37,13 @@ const TestPlanEdit = (props) => {
                     name: res.name,
                     startTime:moment(res.startTime,'YYYY-MM-DD'),
                     endTime:moment(res.endTime,'YYYY-MM-DD'),
-                    state:stateView(res.state),
+                    state:res.state,
                 })
             })
         }
         setVisible(true);
     };
 
-    const stateView = (type)=>{
-        switch (type){
-            case 0 :
-                return '未开始'
-            case 1 :
-                return '进行中'
-            case 2 :
-                return '结束'
-        }
-    }
 
     // 提交
     const onFinish =async () => {
@@ -63,7 +53,7 @@ const TestPlanEdit = (props) => {
         values.endTime=endTime;
         values.repository= {id:repositoryId};
         // values.principal = {id:userSelectId?userSelectId:principal};
-        if(props.name === "添加计划" ){
+        if(props.type === "add" ){
             createTestPlan(values).then(()=>{
                 findPage()
             });
@@ -144,9 +134,9 @@ const TestPlanEdit = (props) => {
                         name="state"
                     >
                         <Select>
-                            <Option value='0'>未开始</Option>
-                            <Option value='1'>进行中</Option>
-                            <Option value='2'>结束</Option>
+                            <Option value={0}>未开始</Option>
+                            <Option value={1}>进行中</Option>
+                            <Option value={2}>结束</Option>
                         </Select>
                     </Form.Item>
                     {/*<Form.Item*/}

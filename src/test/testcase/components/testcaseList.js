@@ -98,7 +98,7 @@ const TestCaseList = (props) => {
     ]
 
     const [selectItem, setSelectItem] = useState(testType?testType:null);
-
+    const [selectCategory, setSelectCategory] = useState(null);
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
@@ -176,7 +176,7 @@ const TestCaseList = (props) => {
                 switchCaseType(record);
                 break;
             case "function":
-                sessionStorage.setItem(`funcUnitId`,record.id);
+                sessionStorage.setItem(`functionId`,record.id);
                 props.history.push(`/repository/function-detail`)
                 break;
         }
@@ -219,8 +219,10 @@ const TestCaseList = (props) => {
 
 
     //模块赛选
-    const changeCategory=(value)=> {
-        findPage(testType,caseType,value)
+    const changeCategory=(categoryId)=> {
+        setSelectCategory(categoryId)
+
+        findPage(testType,caseType,categoryId)
     }
 
 
@@ -244,7 +246,7 @@ const TestCaseList = (props) => {
     const caseSelectFn = (type) =>{
         setCaseType(type)
 
-        findPage(testType,type)
+        findPage(testType,type,selectCategory)
     }
 
 
@@ -252,7 +254,7 @@ const TestCaseList = (props) => {
     const selectKeyFun = (item)=>{
         if(!item.key){
             setSelectItem(null)
-            findPage(null,caseType)
+            findPage(null,caseType,selectCategory)
             return
         }
 
@@ -260,7 +262,7 @@ const TestCaseList = (props) => {
         setSelectItem(key)
         setTestType(key)
 
-        findPage(key,caseType)
+        findPage(key,caseType,selectCategory)
 
     }
 

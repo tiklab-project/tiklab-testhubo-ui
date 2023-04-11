@@ -16,7 +16,8 @@ const ApiEnvEdit = (props) => {
     const { 
         findApiEnv,
         createApiEnv,
-        updateApiEnv
+        updateApiEnv,
+        findApiEnvList
      } = apiEnvStore;
 
     const [form] = Form.useForm();
@@ -44,9 +45,14 @@ const ApiEnvEdit = (props) => {
 
         if(props.type === "add" ){
             values.repositoryId=repositoryId;
-            createApiEnv(values);
+            createApiEnv(values).then(()=>{
+                findApiEnvList(repositoryId);
+            });
         }else{
-            updateApiEnv(values);
+            values.id=apiEnvId;
+            updateApiEnv(values).then(()=>{
+                findApiEnvList(repositoryId);
+            });
         }
         setVisible(false);
     };

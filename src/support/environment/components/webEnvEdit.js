@@ -3,7 +3,7 @@
  * @Author: sunxiancheng
  * @LastEditTime: 2021-10-13 17:05:48
  */
-import React, {useState} from 'react';
+import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Select} from 'antd';
 import IconCommon from "../../../common/IconCommon";
@@ -21,13 +21,14 @@ const WebEnvEdit = (props) => {
     const { 
         findWebEnv,
         createWebEnv,
-        updateWebEnv
+        updateWebEnv,
+        findWebEnvList
      } = webEnvStore;
 
     const [form] = Form.useForm();
     
     const [visible, setVisible] = React.useState(false);
-    const [allData, setAllData] = useState();
+    let repositoryId = sessionStorage.getItem("repositoryId");
 
     // 弹框展示
     const showModal = () => {
@@ -37,8 +38,6 @@ const WebEnvEdit = (props) => {
                     name: res.name,
                     webDriver:res.webDriver
                 })
-
-                setAllData(res)
             })
         }
         setVisible(true);
@@ -49,10 +48,11 @@ const WebEnvEdit = (props) => {
         const values = await form.validateFields();
 
         if(props.type === "add" ){
-            createWebEnv(values);
+            values.repositoryId=repositoryId
+            createWebEnv(values).then(()=>findWebEnvList(repositoryId));
         }else{
-            values.id=allData?.id
-            updateWebEnv(values);
+            values.id=webEnvId
+            updateWebEnv(values).then(()=>findWebEnvList(repositoryId));
         }
         setVisible(false);
     };

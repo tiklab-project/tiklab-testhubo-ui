@@ -38,7 +38,7 @@ const ApiEnvList = (props) => {
                 <ApiEnvEdit name="编辑" type='edit' apiEnvId={record.id} />
                 <Popconfirm
                     title="确定删除？"
-                    onConfirm={() =>deleteApiEnv(record.id)}
+                    onConfirm={() =>deleteApiEnv(record.id).then(()=>findApiEnvList(repositoryId))}
                     okText='确定'
                     cancelText='取消'
                 >
@@ -56,7 +56,6 @@ const ApiEnvList = (props) => {
     let repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(()=> {
-        
         findApiEnvList(repositoryId);
     },[repositoryId])
 

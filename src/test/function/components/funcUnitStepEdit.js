@@ -37,18 +37,18 @@ const FuncUnitStepEdit = (props) => {
         setVisible(true);
     };
 
-    const funcUnitId = sessionStorage.getItem('funcUnitId')
+    const functionId = sessionStorage.getItem('functionId')
 
     // 提交
     const onFinish =async () => {
         let values =  await form.validateFields();
-        values.funcUnitId=funcUnitId
+        values.funcUnitId=functionId
 
         if(props.name === "添加步骤" ){
-            createFuncUnitStep(values).then(()=>findPage(funcUnitId))
+            createFuncUnitStep(values).then(()=>findPage(functionId))
         }else{
             values.id=funcUnitStepId;
-            updateFuncUnitStep(values).then(()=>findPage(funcUnitId))
+            updateFuncUnitStep(values).then(()=>findPage(functionId))
         }
         setVisible(false);
     };

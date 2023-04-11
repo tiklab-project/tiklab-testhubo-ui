@@ -15,21 +15,26 @@ const AfterScript = (props) => {
     const { 
         createAfterScript, 
         updateAfterScript, 
-        findAfterScript, 
-        afterScriptInfo 
+        findAfterScript
     } = afterParamStore;
 
-    const [focus, setFocus] = useState(false);
-    
+
+    const [showBtn, setShowBtn] = useState(false);
+    const [dataSource, setDataSource] = useState();
     const [form] = Form.useForm();
 
     const  apiUnitId = sessionStorage.getItem('apiUnitId');
 
     useEffect(()=>{
-        findAfterScript(apiUnitId).then((res)=>{
-            form.setFieldsValue({
-                scriptex: data.scriptex,
-            })
+        findAfterScript(apiUnitId).then((data)=>{
+            if(data){
+                form.setFieldsValue({
+                    scriptex: data.scriptex,
+                })
+
+                setDataSource(data)
+            }
+
         })
     },[apiUnitId])
 
@@ -37,35 +42,40 @@ const AfterScript = (props) => {
      * 提交数据
      * @param {*} values 
      */
-    const onFinish = (values) => {
-        if(afterScriptInfo){
-            updateAfterScript(values)
+    const onFinish = async () => {
+        let values = await form.validateFields();
+
+        if(dataSource){
+            let param = {
+                ...dataSource,
+                ...values
+            }
+
+            updateAfterScript(param)
         }else{
+            values.apiUnit=apiUnitId;
+            values.id =apiUnitId;
             createAfterScript(values)
         }
 
-        setFocus(false)
+        setShowBtn(false)
     }
 
     return (
-        <Form
-            form={form}
-            onFinish={onFinish}
-        >
-            <div className={` ${focus === true ? 'textArea-focus' : 'textArea-blur'}`}>
-                <div className='mock-textarea'>
-                    <Form.Item>
-                        <Button>格式化</Button>
-                        <Button  htmlType="submit" >保存</Button> 
+        <div className={"api-script-box"}>
+            <div className={"api-script-pre-header"}> </div>
+            <Form form={form} >
+                <div style={{border:"1px solid #f0f0f0"}}>
+                    <Form.Item name='scriptex'>
+                        <TextArea autoSize={{minRows: 4, maxRows: 10 }} onFocus={()=>setShowBtn(true)}/>
                     </Form.Item>
                 </div>
-            </div>
-            <Form.Item
-                name='scriptex'
-            >
-                <TextArea autoSize={{minRows: 4, maxRows: 10 }} onFocus={()=>setFocus(true)}/>
-            </Form.Item>
-        </Form>
+                <div className={`action-btn-box ${showBtn?"textArea-focus":"textArea-blur"}`}>
+                    <Button onClick={()=>setShowBtn(false)} style={{marginRight:"10px"}}> 取消</Button>
+                    <Button onClick={onFinish} className={"important-btn"}> 保存</Button>
+                </div>
+            </Form>
+        </div>
     )
 }
 

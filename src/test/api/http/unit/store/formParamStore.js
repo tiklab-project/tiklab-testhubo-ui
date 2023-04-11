@@ -4,29 +4,13 @@ import {Axios} from "tiklab-core-ui";
 export class FormParamStore {
 
     @observable formParamList = [];
-    @observable formParamInfo ;
     @observable formParamDataSource = [];
-    @observable apiUnitId = '';
     @observable dataLength ;
 
     @action
     setList = (values) => {
         this.formParamList = [...values]
     }
-
-    //处理list
-    @action
-    processFormList = (data)=>{
-        if(!data){
-            return;
-        }
-
-        const newRow =[ { id: 'InitNewRowId'}];
-
-        this.formParamDataSource = data;
-        this.formParamList=[...data,...newRow];
-    }
-
 
     @action
     findFormParamList = async (id) => {
@@ -36,10 +20,19 @@ export class FormParamStore {
             orderParams:[{name:'paramName', orderType:'asc'}],
         }
 
+        const newRow =[ { id: 'InitNewRowId'}];
+
         const res = await Axios.post("/formParam/findFormParamList",params);
         if(res.code === 0) {
             this.dataLength = res.data.length;
-            this.processFormList(res.data);
+            this.formParamDataSource = res.data;
+
+            if( res.data.length === 0){
+                this.formParamList=newRow;
+            }else {
+                this.formParamList = [...res.data,...newRow];
+            }
+
             return res.data;
         }
     }
@@ -51,39 +44,23 @@ export class FormParamStore {
 
         const res = await Axios.post("/formParam/findFormParam",param)
         if( res.code === 0){
-            this.formParamInfo = res.data;
             return  res.data;
         }
     }
 
+    @action
+    createFormParam = async (values) =>  await Axios.post("/formParam/createFormParam",values);
 
     @action
-    createFormParam = async (values) => {
-        values.apiUnit = {id: this.apiUnitId}
+    updateFormParam = async (values) =>  await Axios.post("/formParam/updateFormParam",values)
 
-        const res = await Axios.post("/formParam/createFormParam",values);
-        if( res.code === 0){
-            return  this.findFormParamList(this.apiUnitId);
-        }
-    }
-
-    @action
-    updateFormParam = async (values) => {
-        const res = await Axios.post("/formParam/updateFormParam",values)
-        if( res.code === 0){
-            return this.findFormParamList(this.apiUnitId);
-        }
-    }
 
     @action
     deleteFormParam = async (id) => {
         const param = new FormData();
         param.append('id', id);
 
-        const res = await Axios.post("/formParam/deleteFormParam",param)
-        if( res.code === 0){
-            this.findFormParamList(this.apiUnitId);
-        }
+        return  await Axios.post("/formParam/deleteFormParam",param)
     }
 
 }

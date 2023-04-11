@@ -10,7 +10,7 @@ export class WebSceneStore {
     @action
     findWebSceneList = async (value) => {
 
-        const res = await Axios.post("/webSceneCase/findWebSceneCaseList",value);
+        const res = await Axios.post("/webSceneCase/findWebSceneCaseListByTestCase",value);
 
         if(res.code === 0) {
             this.webSceneList = res.data;
@@ -46,7 +46,7 @@ export class WebSceneStore {
     }
 
     @action
-    webSceneTestDispatch = async (data)=> await Axios.post("/webSceneCase/findWebSceneCaseListByTestCase",data)
+    webSceneTestDispatch = async (data)=> await Axios.post("/webSceneTestDispatch/execute",data)
 
 
 

@@ -6,12 +6,12 @@ import {Axios} from "tiklab-core-ui";
 export class FuncUnitStepStore {
     @observable funcUnitStepList = [];
     @observable funcUnitStepInfo = {};
-    @observable funcUnitId;
+
 
 
     @action
     findFuncUnitStepList = async (id) => {
-        this.funcUnitId=id;
+
         const params = {
             funcUnitId: id,
             orderParams:[{name:'createTime', orderType:'asc'}],

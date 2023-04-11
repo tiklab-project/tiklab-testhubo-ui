@@ -71,13 +71,13 @@ const TestPlan = (props) => {
             width:150,
             render: (text, record) => (
                 <Space size="middle">
-                    <div>
-                        <TestPlanEdit
-                            name={`${t('tcedit')}`}
-                            testPlanId={record.id}
-                            type={"edit"}
-                        />
-                    </div>
+                    <TestPlanEdit
+                        name={`${t('tcedit')}`}
+                        testPlanId={record.id}
+                        type={"edit"}
+                        findPage={findPage}
+                    />
+
                     <Popconfirm
                         title="确定删除？"
                         onConfirm={() =>deleteTestPlan(record.id).then(()=>findPage())}
@@ -180,6 +180,7 @@ const TestPlan = (props) => {
                 <TestPlanEdit
                     name={`添加计划`}
                     findPage={findPage}
+                    type={"add"}
                 />
             </div>
             <div className='search-btn'>

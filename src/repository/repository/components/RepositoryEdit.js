@@ -56,14 +56,14 @@ const RepositoryEdit = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
         values.visibility=visibility
-        values.memberList = memberSelectList;
+        values.userList = memberSelectList;
         values.iconUrl=iconRandom();
 
         createRepository(values).then(()=>  findList({},selectItem) );
 
-        props.history.push("/repositoryPage");
-
         setVisible(false);
+
+        props.history.push("/repository");
     };
 
     /**
@@ -97,8 +97,14 @@ const RepositoryEdit = (props) => {
     }
 
     //成员选择
-    const selectChange = (memberId) =>{
-        setMemberSelectList(memberId)
+    const selectChange = (memberList) =>{
+        if(memberList&&memberList.length>0){
+            let newList=memberList.map(item=>({
+                id:item,
+                adminRole:item === "111111"     //如果是等于true 管理员，false 普通成员
+            }))
+            setMemberSelectList(newList)
+        }
     }
 
     //关闭
@@ -111,7 +117,7 @@ const RepositoryEdit = (props) => {
                     ? <IconBtn
                         className="important-btn"
                         onClick={showModal}
-                        name={"添加空间"}
+                        name={"添加仓库"}
                     />
                     : <a style={{'cursor':'pointer'}} onClick={showModal}>{props.name}</a>
             }
@@ -137,7 +143,7 @@ const RepositoryEdit = (props) => {
                     >
                         <div className={"ws-edit-box"}>
                             <div className={"ws-edit-box-header"}>
-                                <div className={"ws-edit-box-header-title"}>添加空间</div>
+                                <div className={"ws-edit-box-header-title"}>添加仓库</div>
                                 <div>
                                     <IconCommon
                                         icon={"shanchu2"}
@@ -157,11 +163,11 @@ const RepositoryEdit = (props) => {
                             >
                                 <div className={"ws-edit-form-input"}>
                                     <Form.Item
-                                        label="空间名称"
+                                        label="仓库名称"
                                         rules={[{ required: true, message: '添加目录名称!' }]}
                                         name="name"
                                     >
-                                        <Input  placeholder="空间名称"/>
+                                        <Input  placeholder="仓库名称"/>
                                     </Form.Item>
                                 </div>
 
@@ -213,7 +219,7 @@ const RepositoryEdit = (props) => {
                                     label="描述"
                                     name="desc"
                                 >
-                                    <TextArea  rows={4}  placeholder="空间的描述"/>
+                                    <TextArea  rows={4}  placeholder="仓库的描述"/>
                                 </Form.Item>
                             </Form>
                             <div className={"ws-edit-box-footer"}>

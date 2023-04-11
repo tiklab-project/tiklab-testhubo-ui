@@ -71,7 +71,7 @@ const Repository = (props)=> {
     const onSearch = (e) =>{
         let name = {name:e.target.value}
 
-        findList(name)
+        findList(name,"all")
     }
 
     /**

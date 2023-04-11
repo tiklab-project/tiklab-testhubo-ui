@@ -85,16 +85,18 @@ const ApiSceneInstanceDrawer = (props) =>{
             let apiUnitInstance = item.apiUnitInstance;
             return(
                 <div
+                    style={{display:"flex",alignItems:"center"}}
                     className={`history-step-item ${stepSelect===item.id?"history-item-selected":""}`}
                     key={item.id}
                     onClick={()=>clickFindStep(apiUnitInstance.id)}
                 >
                     {
                         apiUnitInstance.result===1
-                            ?<div className='history-item-result isSucceed'>通过</div>
-                            :<div className='history-item-result isFailed'>未通过</div>
+                            ?<div style={{background: "green",width: "8px",height: "8px",borderRadius: "50%"}} />
+                            :<div style={{background: "red",width: "8px",height: "8px",borderRadius: "50%"}}  />
                     }
-                    <div>{item.name}</div>
+                    <TextMethodType type={apiUnitInstance.apiUnit?.methodType} />
+                    <div style={{overflow: "hidden",textOverflow: "ellipsis"}}>{apiUnitInstance.apiUnit?.path}</div>
                 </div>
             )
         })

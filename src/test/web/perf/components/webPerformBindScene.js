@@ -30,10 +30,11 @@ const WebPerformBindScene = (props) =>{
 
     const [visible, setVisible] = React.useState(false);
     const [selectItem, getSelectItem] = React.useState([]);
+    let repositoryId = sessionStorage.getItem("repositoryId");
 
     // 弹框展示
     const showModal = () => {
-        findWebSceneList({caseType: "web-scene", testType: "auto"});
+        findWebSceneList({repositoryId:repositoryId,caseType: "web-scene", testType: "auto"});
 
         setVisible(true);
     };

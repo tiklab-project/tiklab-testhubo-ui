@@ -55,7 +55,7 @@ const AgentConfigList = (props) => {
                     />
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() => deleteAgentConfig(record.id).then(()=>findAgentConfigList(repositoryId))}
+                        onConfirm={() => deleteAgentConfig(record.id).then(()=>findAgentConfigList())}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -69,11 +69,10 @@ const AgentConfigList = (props) => {
         }
     ]
 
-    const repositoryId= sessionStorage.getItem('repositoryId')
 
     useEffect(()=> {
-        findAgentConfigList(repositoryId);
-    },[repositoryId])
+        findAgentConfigList();
+    },[])
 
  
 

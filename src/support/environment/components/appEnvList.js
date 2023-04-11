@@ -10,7 +10,7 @@ import emptyImg from "../../../assets/img/empty.png";
 const AppEnvList = (props) => {
     const { appEnvStore } = props;
     const {
-        findAppEnvPage,
+        findAppEnvList,
         appEnvList,
         deleteAppEnv,
     } = appEnvStore;
@@ -59,7 +59,7 @@ const AppEnvList = (props) => {
                 <AppEnvEdit name="编辑" type='edit' appEnvId={record.id} />
                 <Popconfirm
                     title="确定删除？"
-                    onConfirm={() =>deleteAppEnv(record.id)}
+                    onConfirm={() =>deleteAppEnv(record.id).then(()=> findAppEnvList(repositoryId))}
                     okText='确定'
                     cancelText='取消'
                 >
@@ -76,7 +76,7 @@ const AppEnvList = (props) => {
     let repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(()=> {
-        findAppEnvPage(repositoryId);
+        findAppEnvList(repositoryId);
     },[repositoryId])
 
 

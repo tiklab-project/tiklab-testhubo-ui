@@ -3,7 +3,6 @@ import {Axios} from "tiklab-core-ui";
 
 export class ApiEnvStore {
 	@observable apiEnvList = [];
-	@observable apiEnvId ='';
 	@observable	totalRecord = "";
 	@observable envUrl;
 
@@ -46,45 +45,29 @@ export class ApiEnvStore {
 	deleteApiEnv = async (id) => {
 		const param = new FormData();
 		param.append('id', id);
-		const res = await Axios.post("/apiEnv/deleteApiEnv",param)
-		if(res.code === 0) {
-			this.findApiEnvPage();
-		}
-		
+
+		await Axios.post("/apiEnv/deleteApiEnv",param)
 	}
 
     @action
-	createApiEnv = async (values) => {
-		const res = await Axios.post("/apiEnv/createApiEnv",values)
-		if(res.code === 0) {
-			this.findApiEnvPage()
-		}
-        
-	}
+	createApiEnv = async (values) => await Axios.post("/apiEnv/createApiEnv",values)
+
 
 	@action
-	updateApiEnv = async (values) => {
-		values.id = this.apiEnvId;
-		const res = await Axios.post("/apiEnv/updateApiEnv",values)
-		if(res.code === 0) {
-			this.findApiEnvPage()
-		}
-     
-	}
+	updateApiEnv = async (values) =>  await Axios.post("/apiEnv/updateApiEnv",values)
+
 	
 	@action
 	findApiEnv = async (id) => {
-		this.apiEnvId = id;
+
 		const param = new FormData();
 		param.append('id', id);
 		
-		const res = await Axios.post("/category/findCategory",param)
+		const res = await Axios.post("/apiEnv/findApiEnv",param)
 		if( res.code === 0){
 			return res.data;
 		}
-		
 	}
-	
 
 
 }

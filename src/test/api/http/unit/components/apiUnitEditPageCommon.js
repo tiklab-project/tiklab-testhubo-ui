@@ -101,7 +101,7 @@ const ApiUnitEditPageCommon = (props) => {
             methodType:methodType
         }
 
-
+        setMethodType(methodType)
         updateApiUnit(param).then(() => {
             findApiUnit(apiUnitId).then(res=>setResData(res))
         })

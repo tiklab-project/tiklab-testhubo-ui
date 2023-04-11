@@ -54,7 +54,7 @@ const AppPerformTestDrawer = (props) =>{
         if (start) {
             ref.current =  setInterval(()=>{
                 exeResult(appPerfId).then(res=>{
-                    if (res.resultType === "end") {
+                    if (res.status === 2) {
                         clearInterval(ref.current)
                         setStart(false)
                         setLoading(false)

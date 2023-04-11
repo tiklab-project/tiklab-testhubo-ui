@@ -36,10 +36,11 @@ const AppPerformBindScene = (props) =>{
 
     const [visible, setVisible] = React.useState(false);
     const [selectItem, getSelectItem] = React.useState([]);
+    let repositoryId = sessionStorage.getItem("repositoryId");
 
     // 弹框展示
     const showModal = () => {
-        findAppSceneList({caseType: "app-scene", testType: "auto"});
+        findAppSceneList({repositoryId:repositoryId,caseType: "app-scene", testType: "auto"});
         setVisible(true);
     };
 

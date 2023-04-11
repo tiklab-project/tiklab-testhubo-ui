@@ -1,15 +1,14 @@
-
 import React, { useEffect } from 'react';
 import { observer, inject } from "mobx-react";
 import {Empty, Popconfirm, Space, Table,} from 'antd';
 import WebEnvEdit from './webEnvEdit';
 import IconCommon from "../../../common/IconCommon";
 import emptyImg from "../../../assets/img/empty.png";
-//
+
 const WebEnvList = (props) => {
     const { webEnvStore } = props;
     const {
-        findWebEnvPage,
+        findWebEnvList,
         webEnvList,
         deleteWebEnv,
     } = webEnvStore;
@@ -33,7 +32,7 @@ const WebEnvList = (props) => {
                     <WebEnvEdit name="编辑" type='edit' webEnvId={record.id} />
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteWebEnv(record.id)}
+                        onConfirm={() =>deleteWebEnv(record.id).then(()=>findWebEnvList(repositoryId))}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -47,11 +46,10 @@ const WebEnvList = (props) => {
         },
     ]
 
-
     let repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(()=> {
-        findWebEnvPage(repositoryId);
+        findWebEnvList(repositoryId);
     },[repositoryId])
 
 

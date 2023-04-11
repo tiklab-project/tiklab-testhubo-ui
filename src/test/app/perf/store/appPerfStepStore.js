@@ -25,7 +25,7 @@ export class AppPerfStepStore {
     findAppPerfStepPage = async (id) => {
         this.appPerfId = id;
         const params = {
-            appPerformId: id,
+            appPerfId: id,
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 
@@ -41,7 +41,7 @@ export class AppPerfStepStore {
     findAppPerfStepList = async (id) => {
         this.appPerfId = id;
         const params = {
-            appPerformId: id,
+            appPerfId: id,
             orderParams:[{name:'createTime', orderType:'asc'}],
         }
 

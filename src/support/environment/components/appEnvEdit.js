@@ -18,7 +18,7 @@ const AppEnvEdit = (props) => {
         findAppEnv,
         createAppEnv,
         updateAppEnv,
-        findAppEnvPage
+        findAppEnvList
      } = appEnvStore;
 
     const [form] = Form.useForm();
@@ -51,10 +51,10 @@ const AppEnvEdit = (props) => {
 
         if(props.type === "add" ){
             values.repositoryId=repositoryId
-            createAppEnv(values).then(()=> findAppEnvPage(repositoryId));
+            createAppEnv(values).then(()=> findAppEnvList(repositoryId));
         }else{
             values.id=appEnvId;
-            updateAppEnv(values).then(()=> findAppEnvPage(repositoryId));
+            updateAppEnv(values).then(()=> findAppEnvList(repositoryId));
         }
         setVisible(false);
     };

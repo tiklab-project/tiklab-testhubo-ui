@@ -46,19 +46,12 @@ export class ApiSceneStepStore {
             });
         }
 
-        const res = await Axios.post("/apiSceneStep/bindApiUnit",bindList)
-        if( res.code === 0){
-            this.findApiSceneStepPage(this.apiSceneId);
-        }
+        await Axios.post("/apiSceneStep/bindApiUnit",bindList)
     }
 
     @action
-    updateApiSceneStep = async (values) => {
-        const res = await Axios.post("/apiSceneStep/updateApiSceneStep",values)
-        if( res.code === 0){
-            this.findApiSceneStepPage(this.apiSceneId);
-        }
-    }
+    updateApiSceneStep = async (values) => await Axios.post("/apiSceneStep/updateApiSceneStep",values)
+
 
     @action
     deleteApiSceneStep = async (id) => {

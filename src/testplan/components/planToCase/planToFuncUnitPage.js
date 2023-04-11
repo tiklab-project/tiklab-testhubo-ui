@@ -11,7 +11,7 @@ const PlanToFuncUnitPage = (props) =>{
 
     const [funcUnit, setFuncUnit] = useState();
     const [testPlanName, setTestPlanName] = useState();
-    const funcUnitId = sessionStorage.getItem('funcUnitId');
+    const funcUnitId = sessionStorage.getItem('functionId');
     const testPlanId = sessionStorage.getItem('testPlanId');
 
 

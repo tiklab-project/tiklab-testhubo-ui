@@ -5,12 +5,11 @@ export class AgentConfigStore {
 	@observable agentConfigList = [];
 
 	@action
-	findAgentConfigList = async (id) => {
+	findAgentConfigList = async () => {
 		const params = {
-			repositoryId:id,
 			orderParams: [{
-				name:'id',
-				orderType:'asc'
+				name:'createTime',
+				orderType:'desc'
 			}],
 		}
 

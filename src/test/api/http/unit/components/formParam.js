@@ -85,7 +85,7 @@ const FormParam = (props) =>{
 
     // colums 里的操作
     const operation = (record,data) => {
-        if(record.id === 'InitNewRowId'){
+        if(record.id === 'InitNewRowId'&&Object.keys(record).length>1){
             return <div className={`${newRowAction?"newRow-action-show":"newRow-action-hidden"}`}>
                 <Space>
                     <a onClick={() =>onCreated(record)}> 保存</a>
@@ -93,13 +93,17 @@ const FormParam = (props) =>{
                 </Space>
             </div>
         }else{
+            if(record.id === 'InitNewRowId') return null
+
             return <Space key={record.id}>
                 {
                     updateView(record,data)
                 }
                 <Popconfirm
                     title="确定删除？"
-                    onConfirm={() => deleteFormParam(record.id)}
+                    onConfirm={() => deleteFormParam(record.id).then(()=>{
+                        findFormParamList(apiUnitId).then(res => setDataSource(res));
+                    })}
                     okText='确定'
                     cancelText='取消'
                 >
@@ -137,7 +141,9 @@ const FormParam = (props) =>{
 
     //更新
     const upData = (value) => {
-        updateFormParam(value).then(res => setDataSource(res))
+        updateFormParam(value).then(()=>{
+            findFormParamList(apiUnitId).then(res => setDataSource(res));
+        })
     }
 
     // 添加
@@ -147,7 +153,10 @@ const FormParam = (props) =>{
         }else {
             // 创建新行的时候自带一个id，所以删了，后台会自行创建id
             delete values.id;
-            createFormParam(values)
+            values.apiUnit= {id:apiUnitId},
+            createFormParam(values).then(()=>{
+                findFormParamList(apiUnitId).then(res => setDataSource(res));
+            })
         }
 
         setNewRowAction(false)
@@ -156,9 +165,13 @@ const FormParam = (props) =>{
 
     // 保存数据
     const handleSave = (row) => {
-        const newData = formParamList;
-        const index = newData.findIndex((item) => row.id === item.id);
-        newData.splice(index, 1, { ...newData[index], ...row });
+        const newData = formParamList.map((item) => {
+            if (item.id === row.id) {
+                return { ...item, ...row };
+            } else {
+                return item;
+            }
+        });
         setList(newData)
 
         //如果是新行 操作 显示操作按钮

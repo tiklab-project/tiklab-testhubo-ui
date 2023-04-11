@@ -64,7 +64,7 @@ const FuncUnitStepList = (props) => {
         }
     ]
 
-    const funcUnitId = sessionStorage.getItem('funcUnitId')
+    const funcUnitId = sessionStorage.getItem('functionId')
 
 
     useEffect(()=> {
