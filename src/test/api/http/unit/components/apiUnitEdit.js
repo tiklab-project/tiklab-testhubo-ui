@@ -34,7 +34,7 @@ const ApiUnitEdit = (props) => {
                 category:{id:categoryId},
                 repositoryId:repositoryId,
                 name:values.name,
-                testType:"auto",
+                testType:"api",
                 caseType:"api-unit",
                 desc:values.desc
             }

@@ -6,7 +6,7 @@ import { Provider } from 'mobx-react';
 import App from './app';
 
 import { orgStores } from 'tiklab-user-ui/es/store';
-import { privilegeStores } from 'tiklab-user-ui/es/store';
+import { privilegeStores } from "tiklab-privilege-ui/es/store";
 import { messageModuleStores } from 'tiklab-message-ui/es/store';
 import {enableAxiosCE} from "tiklab-core-ui"
 

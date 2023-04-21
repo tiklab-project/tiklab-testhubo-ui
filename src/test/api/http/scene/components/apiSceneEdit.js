@@ -34,7 +34,7 @@ const ApiSceneEdit = (props) => {
                 category:{id:categoryId},
                 repositoryId:repositoryId,
                 name:values.name,
-                testType:"auto",
+                testType:"api",
                 caseType:"api-scene",
                 desc:values.desc
             }

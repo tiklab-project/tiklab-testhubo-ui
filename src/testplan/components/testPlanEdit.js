@@ -1,15 +1,11 @@
 import React,{useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, DatePicker, Select} from 'antd';
-import UserSelect from "../../common/userSelect/components/UserSelect";
 import moment from "moment";
 import IconCommon from "../../common/IconCommon";
 
-const {Option} = Select;
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
+const { RangePicker } = DatePicker;
+
 
 // 添加与编辑
 const TestPlanEdit = (props) => {
@@ -21,7 +17,7 @@ const TestPlanEdit = (props) => {
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
-    const [startTime, setStartTime] = useState();
+    const [rangeTime, setRangeTime] = useState();
     const [endTime, setEndTime] = useState();
     const [principal,setPrincipal] = useState('')
     const repositoryId = sessionStorage.getItem('repositoryId')
@@ -30,14 +26,12 @@ const TestPlanEdit = (props) => {
     const showModal = () => {
         if(props.type === "edit"){
             findTestPlan(testPlanId).then((res)=>{
-                setStartTime(res.startTime);
+                setRangeTime(res.startTime);
                 setEndTime(res.endTime);
-                setPrincipal(res.principal)
+                // setPrincipal(res.principal)
                 form.setFieldsValue({
                     name: res.name,
-                    startTime:moment(res.startTime,'YYYY-MM-DD'),
-                    endTime:moment(res.endTime,'YYYY-MM-DD'),
-                    state:res.state,
+                    rangeTime:[moment(res.startTime,'YYYY-MM-DD'),moment(res.endTime,'YYYY-MM-DD')],
                 })
             })
         }
@@ -49,8 +43,8 @@ const TestPlanEdit = (props) => {
     const onFinish =async () => {
         let values =  await form.validateFields()
 
-        values.startTime=startTime;
-        values.endTime=endTime;
+        values.startTime=rangeTime[0];
+        values.endTime=rangeTime[1];
         values.repository= {id:repositoryId};
         // values.principal = {id:userSelectId?userSelectId:principal};
         if(props.type === "add" ){
@@ -69,13 +63,10 @@ const TestPlanEdit = (props) => {
     const onCancel = () => { setVisible(false) };
 
 
-    const changeStartTime = (data,dataString) =>{
-        setStartTime(dataString)
+    const changeRangeTime = (data,dataString) =>{
+        setRangeTime(dataString)
     }
 
-    const changeEndTime = (data,dataString) =>{
-        setEndTime(dataString)
-    }
 
     return (
         <>
@@ -98,6 +89,7 @@ const TestPlanEdit = (props) => {
                 okText="提交"
                 cancelText="取消"
                 centered
+                width={500}
             >
                 <Form
                     form={form}
@@ -112,39 +104,18 @@ const TestPlanEdit = (props) => {
                         <Input />
                     </Form.Item>
                     <Form.Item
-                        label="起始时间"
-                        name="startTime"
+                        label="日期范围"
+                        name="rangeTime"
+                        wrapperCol={{
+                            offset: 0,
+                            span: 24,
+                        }}
                     >
-                        <DatePicker
+                        <RangePicker
                             format={'YYYY-MM-DD'}
-                            onChange={changeStartTime}
+                            onChange={changeRangeTime}
                         />
                     </Form.Item>
-                    <Form.Item
-                        label="结束时间"
-                        name="endTime"
-                    >
-                        <DatePicker
-                            format={'YYYY-MM-DD'}
-                            onChange={changeEndTime}
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        label="进度"
-                        name="state"
-                    >
-                        <Select>
-                            <Option value={0}>未开始</Option>
-                            <Option value={1}>进行中</Option>
-                            <Option value={2}>结束</Option>
-                        </Select>
-                    </Form.Item>
-                    {/*<Form.Item*/}
-                    {/*    label="负责人"*/}
-                    {/*    name="user"*/}
-                    {/*>*/}
-                    {/*    <UserSelect/>*/}
-                    {/*</Form.Item>*/}
                 </Form>
             </Modal>
         </>

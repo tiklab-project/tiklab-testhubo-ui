@@ -1,8 +1,8 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { renderRoutes } from "react-router-config";
 import { Layout } from 'antd';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
-import { PrivilegeButton,SystemNav } from "tiklab-user-ui";
+import { PrivilegeButton,SystemNav } from "tiklab-privilege-ui";
 import {useSelector} from 'tiklab-plugin-core-ui'
 
 import './sysMana.scss'
@@ -32,7 +32,7 @@ const SystemManagement = (props) => {
                     return {
                         title: routerItem.menuTitle,
                         icon: 'laptop',
-                        key: '/'+routerItem.mount + routerItem.router
+                        id: '/'+routerItem.mount + routerItem.router
                     }
                 })
             })
@@ -66,13 +66,13 @@ const SystemManagement = (props) => {
 
     // 无子级菜单处理
     const renderMenu = (data,deep,isFirst)=> {
-        if(data.encoded){
+        if(data.purviewCode){
             return (
-                <PrivilegeButton code={data.encoded}  key={data.key}>
+                <PrivilegeButton code={data.purviewCode}  key={data.id}>
                     <li
-                        key={data.key}
-                        className={` orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : null}`}
-                        onClick={()=>select(data.key)}
+                        key={data.id}
+                        className={` orga-aside-li ${data.id=== selectKey ? "orga-aside-select" : null}`}
+                        onClick={()=>select(data.id)}
                         style={{paddingLeft:`${deep*20}px`}}
                     >
                         <div className={'aside-li'} >
@@ -92,9 +92,9 @@ const SystemManagement = (props) => {
             )
         }else {
             return <li
-                key={data.key}
-                className={` orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : null}`}
-                onClick={()=>select(data.key)}
+                key={data.id}
+                className={` orga-aside-li ${data.id=== selectKey ? "orga-aside-select" : null}`}
+                onClick={()=>select(data.id)}
                 style={{paddingLeft:`${deep*20}px`}}
             >
                 <div className={'aside-li'} >
@@ -114,25 +114,25 @@ const SystemManagement = (props) => {
     }
 
     // 子级菜单处理
-    const renderSubMenu = ({title,key,children,encoded,icon},deep)=> {
-        if(encoded){
+    const renderSubMenu = ({title,id,children,purviewCode,icon},deep)=> {
+        if(purviewCode){
             return (
-                <PrivilegeButton code={encoded} key={key}>
-                    <li key={key} title={title} >
+                <PrivilegeButton code={purviewCode} key={id}>
+                    <li key={id} title={title} >
                         <div className="orga-aside-item aside-li"
-                             onClick={() => setOpenOrClose(key)}
+                             onClick={() => setOpenOrClose(id)}
                              style={{paddingLeft:`${deep*20}px`}}
                         >
                             <div className={"menu-name-icon"}>
                                 <svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
                                     <use xlinkHref= {`#icon-${icon}`} />
                                 </svg>
-                                <span key={key}> {title}</span>
+                                <span key={id}> {title}</span>
                             </div>
                             <div className="orga-aside-item-icon">
                                 {
                                     children ?
-                                        (isExpandedTree(key)
+                                        (isExpandedTree(id)
                                                 ? <DownOutlined  style={{fontSize: "12px"}}/>
                                                 : <UpOutlined  style={{fontSize: "12px"}}/>
                                         ): ""
@@ -140,7 +140,7 @@ const SystemManagement = (props) => {
                             </div>
                         </div>
 
-                        <ul key={key} title={title} className={`orga-aside-ul ${isExpandedTree(key) ? null: 'orga-aside-hidden'}`}>
+                        <ul key={id} title={title} className={`orga-aside-ul ${isExpandedTree(id) ? null: 'orga-aside-hidden'}`}>
                             {
                                 children && children.map(item =>{
                                     let deep = 1;
@@ -155,21 +155,21 @@ const SystemManagement = (props) => {
             )
         }else {
             return (
-                <li key={key} title={title} >
+                <li key={id} title={title} >
                     <div className="orga-aside-item aside-li"
-                         onClick={() => setOpenOrClose(key)}
+                         onClick={() => setOpenOrClose(id)}
                          style={{paddingLeft:`${deep*20}px`}}
                     >
                         <div className={"menu-name-icon"}>
                             <svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
                                 <use xlinkHref= {`#icon-${icon}`} />
                             </svg>
-                            <span key={key}>{title}</span>
+                            <span key={id}>{title}</span>
                         </div>
                         <div className="orga-aside-item-icon">
                             {
                                 children ?
-                                    (isExpandedTree(key)
+                                    (isExpandedTree(id)
                                             ? <DownOutlined  style={{fontSize: "12px"}}/>
                                             : <UpOutlined  style={{fontSize: "12px"}}/>
                                     ): ""
@@ -177,7 +177,7 @@ const SystemManagement = (props) => {
                         </div>
                     </div>
 
-                    <ul key={key} title={title} className={`orga-aside-ul ${isExpandedTree(key) ? null: 'orga-aside-hidden'}`}>
+                    <ul key={id} title={title} className={`orga-aside-ul ${isExpandedTree(id) ? null: 'orga-aside-hidden'}`}>
                         {
                             children && children.map(item =>{
                                 let deep = 1;
@@ -225,7 +225,7 @@ const SystemManagement = (props) => {
                         </ul>
                     </div>
                 </Sider>
-                <Content className = 'sysmana-content'>
+                <Content className='sysmana-content'>
                     {renderRoutes(routers)}
                 </Content>
             </Layout>

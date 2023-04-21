@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {renderRoutes} from "react-router-config";
 import "./repositorySetting.scss"
-import {ProjectNav} from "tiklab-user-ui"
+import {ProjectNav} from "tiklab-privilege-ui"
 /**
  * 仓库设置页中的左侧导航
  */

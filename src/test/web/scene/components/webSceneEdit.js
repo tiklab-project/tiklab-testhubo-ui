@@ -34,7 +34,7 @@ const WebSceneEdit = (props) => {
                 category:{id:categoryId},
                 repositoryId:repositoryId,
                 name:values.name,
-                testType:"auto",
+                testType:"ui",
                 caseType:"web-scene",
                 desc:values.desc
             }

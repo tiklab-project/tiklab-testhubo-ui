@@ -1,9 +1,8 @@
 import React from 'react'
 
-import {
-    Directory, Orga, UserGroup, User, NotFound,
-    ProjectFeature, ProjectRole, SystemFeature, SystemRole
-} from "tiklab-user-ui";
+import {Directory, Orga, UserGroup, User,} from "tiklab-user-ui";
+import { NotFound, ProjectFeature, ProjectRole, SystemFeature, SystemRole} from "tiklab-privilege-ui"
+
 import {ExcludeProductUser} from "tiklab-eam-ui";
 import {ProductAuth} from "tiklab-licence-ui"
 import {LogTemplate, LogType, MyLog} from "tiklab-security-ui";

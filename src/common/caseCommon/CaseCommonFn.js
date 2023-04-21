@@ -1,6 +1,5 @@
 import React from "react";
 import {Tag} from "antd";
-import IconCommon from "../IconCommon";
 import {ApiOutlined, LaptopOutlined, TabletOutlined} from "@ant-design/icons";
 
 
@@ -9,8 +8,10 @@ import {ApiOutlined, LaptopOutlined, TabletOutlined} from "@ant-design/icons";
  */
 export const showTestTypeView = (type)=>{
     switch (type) {
-        case "auto":
-            return "自动化"
+        case "api":
+            return "接口"
+        case "ui":
+            return "UI"
         case "perform":
             return "性能"
         case "function":

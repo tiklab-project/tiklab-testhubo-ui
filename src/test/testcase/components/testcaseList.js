@@ -22,6 +22,8 @@ import AppSceneInstanceDrawer from "../../app/scene/components/appSceneInstanceD
 import ApiPerformInstanceDrawer from "../../api/http/perf/components/apiPerformInstanceDrawer";
 import WebPerformInstanceDrawer from "../../web/perf/components/webPerformInstanceDrawer";
 import AppPerformInstanceDrawer from "../../app/perf/components/appPerformInstanceDrawer";
+import TestTypeSelect from "./TestTypeSelect";
+import CaseTypeSelect from "./CaseTypeSelect";
 
 const TestCaseList = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -147,16 +149,14 @@ const TestCaseList = (props) => {
             case "web-scene":
                 return recent.result===2?<div>--</div>:<WebSceneInstanceDrawer name={showRecent(recent)} webSceneInstanceId={recent.instanceId} />
             case "web-perform":
-
                 return recent.result===2?<div>--</div>:<WebPerformInstanceDrawer name={showRecent(recent)} webPerfInstanceId={recent.instanceId} />
             case "app-scene":
                 return recent.result===2?<div>--</div>:<AppSceneInstanceDrawer name={showRecent(recent)} appSceneInstanceId={recent.instanceId}/>
-
             case "app-perform":
                 return recent.result===2?<div>--</div>:<AppPerformInstanceDrawer name={showRecent(recent)} appPerfInstanceId={recent.instanceId} />
-                break;
         }
     }
+
     const showRecent=(recentInstance)=>{
         switch (recentInstance.result) {
             case 0:
@@ -171,7 +171,8 @@ const TestCaseList = (props) => {
     const toPage =(record)=>{
 
         switch (record.testType) {
-            case "auto":
+            case "api":
+            case "ui":
             case "perform":
                 switchCaseType(record);
                 break;
@@ -194,18 +195,15 @@ const TestCaseList = (props) => {
             case "api-perform":
                 toDetailAddRouterCommon("apiPerfId",record)
                 break;
-
             case "web-scene":
                 toDetailAddRouterCommon("webSceneId",record)
                 break;
             case "web-perform":
                 toDetailAddRouterCommon("webPerfId",record)
                 break;
-
             case "app-scene":
                 toDetailAddRouterCommon("appSceneId",record)
                 break;
-
             case "app-perform":
                 toDetailAddRouterCommon("appPerfId",record)
                 break;
@@ -222,37 +220,22 @@ const TestCaseList = (props) => {
     const changeCategory=(categoryId)=> {
         setSelectCategory(categoryId)
 
-        findPage(testType,caseType,categoryId)
+        findPage(selectItem,caseType,categoryId)
     }
 
-
-    //渲染筛选项
-    const showMenu = (data) =>{
-        return data&&data.map(item=>{
-            return(
-                <div
-                    key={item.key}
-                    className={`ws-header-menu-item  ${item.key === selectItem ? "ws-header-menu-item-selected" : ""}`}
-                    onClick={()=>selectKeyFun(item)}
-                >
-                    <span> {item.title} </span>
-
-                </div>
-            )
-        })
-    }
 
     //用例筛选
     const caseSelectFn = (type) =>{
         setCaseType(type)
 
-        findPage(testType,type,selectCategory)
+        findPage(selectItem,type,selectCategory)
     }
 
 
-    //点击筛选项查找
+    //点击测试类型筛选项查找
     const selectKeyFun = (item)=>{
         if(!item.key){
+            setTestType(null)
             setSelectItem(null)
             findPage(null,caseType,selectCategory)
             return
@@ -263,32 +246,7 @@ const TestCaseList = (props) => {
         setTestType(key)
 
         findPage(key,caseType,selectCategory)
-
     }
-
-    //测试类型筛选项
-    const items=[
-        {
-            key: null,
-            title: '所有',
-        },{
-            key: 'auto',
-            title: '自动化',
-        },
-        {
-            key: 'perform',
-            title: '性能',
-        },{
-            key: 'function',
-            title: '功能',
-        },
-        // {
-        //     key: 'func',
-        //     title: '功能',
-        // },
-    ]
-
-
 
     // 分页
     const onTableChange = (pagination) => {
@@ -329,7 +287,14 @@ const TestCaseList = (props) => {
     //添加不同用例
     const addMenu =(
         <Menu>
-            <Menu.SubMenu title="自动化测试" key={"auto-add"}>
+            <Menu.Item key={"function-add"}>
+                <FuncUnitEdit
+                    name={"添加功能用例"}
+                    type={"add"}
+                    {...props}
+                />
+            </Menu.Item>
+            <Menu.SubMenu title="接口测试" key={"api-add"}>
                 <Menu.Item key={"api-unit-add"}>
                     <ApiUnitEdit
                         name={"添加接口测试"}
@@ -344,6 +309,8 @@ const TestCaseList = (props) => {
                         {...props}
                     />
                 </Menu.Item>
+            </Menu.SubMenu>
+            <Menu.SubMenu title="UI测试" key={"ui-add"}>
                 <Menu.Item key={"web-scene-add"}>
                     <WebSceneEdit
                         name={"添加Web用例"}
@@ -368,29 +335,23 @@ const TestCaseList = (props) => {
                     />
                 </Menu.Item>
 
-                <Menu.Item key={"web-perf-add"}>
-                    <WebPerfEdit
-                        name={"添加Web性能"}
-                        type={"add"}
-                        {...props}
-                    />
-                </Menu.Item>
-                <Menu.Item key={"app-perf-add"}>
-                    <AppPerfEdit
-                        name={"添加App性能"}
-                        type={"add"}
-                        {...props}
-                    />
-                </Menu.Item>
+                {/*<Menu.Item key={"web-perf-add"}>*/}
+                {/*    <WebPerfEdit*/}
+                {/*        name={"添加Web性能"}*/}
+                {/*        type={"add"}*/}
+                {/*        {...props}*/}
+                {/*    />*/}
+                {/*</Menu.Item>*/}
+                {/*<Menu.Item key={"app-perf-add"}>*/}
+                {/*    <AppPerfEdit*/}
+                {/*        name={"添加App性能"}*/}
+                {/*        type={"add"}*/}
+                {/*        {...props}*/}
+                {/*    />*/}
+                {/*</Menu.Item>*/}
             </Menu.SubMenu>
 
-            <Menu.Item key={"function-add"}>
-                <FuncUnitEdit
-                    name={"添加功能用例"}
-                    type={"add"}
-                    {...props}
-                />
-            </Menu.Item>
+
         </Menu>
     )
 
@@ -404,9 +365,10 @@ const TestCaseList = (props) => {
             </div>
 
             <div className={"dynamic-select-box"}>
-                <div className={"ws-header-menu-left"}>
-                    {showMenu(items)}
-                </div>
+                <TestTypeSelect
+                    selectItem={selectItem}
+                    selectKeyFun={selectKeyFun}
+                />
 
                 <Space>
 
@@ -425,39 +387,9 @@ const TestCaseList = (props) => {
                         treeData={categoryTableList}
                     />
 
-                    <Select
-                        // defaultValue={null}
-                        placeholder={"用例类型"}
-                        className={"dynamic-select-box-item"}
-                        onChange={caseSelectFn}
-                        options={[
-                            {
-                                value: null,
-                                label: '所有',
-                            },{
-                                value: 'api-unit',
-                                label: '接口单元',
-                            },
-                            {
-                                value: 'api-scene',
-                                label: '接口场景',
-                            },{
-                                value: 'api-perform',
-                                label: '接口性能',
-                            },{
-                                value: 'web-scene',
-                                label: 'web场景',
-                            },{
-                                value: 'web-perform',
-                                label: 'web性能',
-                            },{
-                                value: 'app-scene',
-                                label: 'APP场景',
-                            },{
-                                value: 'app-perform',
-                                label: 'APP性能',
-                            },
-                        ]}
+                    <CaseTypeSelect
+                        caseSelectFn={caseSelectFn}
+                        testType={selectItem}
                     />
 
                     <Input

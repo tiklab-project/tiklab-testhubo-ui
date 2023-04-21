@@ -29,14 +29,14 @@ const ReactMonacoEditor = (props) =>{
 
     const editorDidMount = (editor, monaco) => {
         console.log('Editor did mount', editor);
-        monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
-            validate: true, // 启用 JSON Schema 校验
+        // monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+        //     validate: true, // 启用 JSON Schema 校验
             // schemas: [{
             //     uri: 'mySchema', // 指定 JSON Schema 的唯一标识符
             //     fileMatch: ['*'], // 指定文件匹配规则，表示所有文件都需要使用此 JSON Schema
             //     schema, // 指定 JSON Schema
             // }],
-        });
+        // });
 
 
         editor.getAction('editor.action.formatDocument').run();

@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import {useTranslation} from "react-i18next";
 import {Menu, Dropdown, Avatar} from "antd";
 import {AppLink} from "tiklab-integration-ui"
-import {getUser} from "tiklab-core-ui"
-import {inject, observer} from "mobx-react";
+import {getUser} from "tiklab-core-ui";
 import HeaderMenu from "./HeaderMenu";
 import logo from "../../assets/img/teston-log.png";
 import {QuestionCircleOutlined, RightOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
@@ -83,7 +82,7 @@ const HeaderContent = props => {
 
     //去往系统设置页
     const toSystem = () =>{
-        props.history.push("/systemManagement")
+        props.history.push("/systemManagement/systemRole")
     }
 
 
