@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { observer, inject } from "mobx-react";
-import {Modal, Form, Input, Button} from 'antd';
+import {Modal, Form, Input, Button, Tooltip} from 'antd';
 import IconCommon from "../../common/IconCommon";
 
 /**
@@ -71,11 +71,15 @@ const CategoryEdit =(props)=>{
 
         if(props.children){
             return(
-                <IconCommon
-                    icon={"xinzeng"}
-                    className={"icon-s edit-icon"}
-                    onClick={showModal}
-                />
+                <Tooltip title="添加子模块">
+                    <div>
+                        <IconCommon
+                            icon={"xinzeng"}
+                            className={"icon-s edit-icon"}
+                            onClick={showModal}
+                        />
+                    </div>
+                </Tooltip>
             )
         }
 

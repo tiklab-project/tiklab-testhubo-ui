@@ -45,8 +45,25 @@ export class AppSceneStore {
 
     }
 
+    /**
+     * 执行app场景测试
+     */
     @action
     appSceneTestDispatch = async (data)=> await Axios.post("/appSceneTestDispatch/execute",data)
+
+    /**
+     * 返回当前执行的状态 0：未开始，1：进行中
+     */
+    @action
+    appSceneTestStatus = async () => await Axios.post("/appSceneTestDispatch/status")
+
+    /**
+     * app测试的结果
+     */
+    @action
+    appSceneTestResult = async () => await Axios.post("/appSceneTestDispatch/result")
+
+
 }
 
 

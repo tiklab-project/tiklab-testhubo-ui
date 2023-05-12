@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import './repository.scss';
 import RepositoryEdit from "./RepositoryEdit";
-import {Input, Space} from "antd";
+import {Input} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
 import RepositoryRecentHome from "./RepositoryRecentHome";
 import {SearchOutlined} from "@ant-design/icons";
 import RepositoryList from "./RepositoryList";
+import IconBtn from "../../../common/iconBtn/IconBtn";
 
 /**
  * 仓库页
@@ -71,6 +72,7 @@ const Repository = (props)=> {
     const onSearch = (e) =>{
         let name = {name:e.target.value}
 
+        setSelectItem("all")
         findList(name,"all")
     }
 
@@ -78,27 +80,30 @@ const Repository = (props)=> {
      * 根据不同的筛选项查找
      */
     const findList = (name,selectIndex)=>{
-        let uId = {userId:userId}
+
 
         switch (selectIndex?selectIndex:selectItem) {
             case "all":
                 let params= {
-                    ...uId,
+
                     ...name
                 }
                 findRepositoryJoinList(params)
                 break;
             case "create":
                 let param = {
-                    ...uId,
                     ...name
                 }
                 findRepositoryList(param)
                 break;
             case "follow":
-                findRepositoryFollowList(uId)
+                findRepositoryFollowList()
                 break;
         }
+    }
+
+    const toRepositoryPage = () =>{
+        props.history.push("/repository-edit")
     }
 
 
@@ -131,13 +136,10 @@ const Repository = (props)=> {
                     </span>
                     </div>
                     <div>
-                        <RepositoryEdit
-                            name={"添加空间"}
-                            btn={"btn"}
-                            userId={userId}
-                            findList={findList}
-                            selectItem={selectItem}
-                            {...props}
+                        <IconBtn
+                            className="important-btn"
+                            onClick={toRepositoryPage}
+                            name={"添加仓库"}
                         />
                     </div>
                 </div>
@@ -150,11 +152,10 @@ const Repository = (props)=> {
                 <div className={"ws-header-menu"}>
                     <div className={"ws-header-menu-left"}>
                         {showMenu(items)}
-
                     </div>
                     <Input
                         prefix={<SearchOutlined />}
-                        placeholder={`搜索空间`}
+                        placeholder={`搜索仓库`}
                         onPressEnter={onSearch}
                         className={"search-input-common"}
                     />

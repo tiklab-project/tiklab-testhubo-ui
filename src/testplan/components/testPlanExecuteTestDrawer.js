@@ -60,7 +60,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
             ref.current =  setInterval(()=>{
                 Axios.post("/testPlanTestDispatch/exeResult").then(res=>{
                     if(res.code===0){
-                        if (res.data.status === 2) {
+                        if (res.data.status === 0) {
                             messageFn("success","执行完毕")
 
                             clearInterval(ref.current)
@@ -92,7 +92,6 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 repositoryId:repositoryId,
                 appEnv:appEnv,
                 webEnv:webEnv,
-
             }
 
             Axios.post("/testPlanTestDispatch/execute",params)

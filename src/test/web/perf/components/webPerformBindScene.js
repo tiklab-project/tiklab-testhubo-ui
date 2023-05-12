@@ -34,7 +34,7 @@ const WebPerformBindScene = (props) =>{
 
     // 弹框展示
     const showModal = () => {
-        findWebSceneList({repositoryId:repositoryId,caseType: "web-scene", testType: "auto"});
+        findWebSceneList({repositoryId:repositoryId,caseType: "web-scene", testType: "ui"});
 
         setVisible(true);
     };

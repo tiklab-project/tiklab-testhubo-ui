@@ -9,7 +9,6 @@ export class RepositoryStore {
     @observable repositoryInfo = {};
     @observable totalRecord ;
     @observable envUrlId;
-    @observable selectedItem="all";
 
     /**
      * 按分页查询仓库列表
@@ -131,14 +130,7 @@ export class RepositoryStore {
         await Axios.post("/repository/deleteRepository",param)
     }
 
-    /**
-     * 仓库设置中的导航的选中项
-     */
-    @action
-    menuSelected = (selected)=>{
-        this.selectedItem = selected;
-    }
-    
+
     
 
 }

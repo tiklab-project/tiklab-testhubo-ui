@@ -159,8 +159,11 @@ const TestPlanBindCaseModal = (props) => {
                                 value: null,
                                 label: '所有',
                             },{
-                                value: 'auto',
-                                label: '自动化',
+                                value: 'api',
+                                label: '接口',
+                            },{
+                                value: 'ui',
+                                label: 'UI',
                             },
                             {
                                 value: 'perform',

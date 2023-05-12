@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button,Drawer, Form, Input, Spin, Table} from "antd";
 
 
@@ -10,7 +10,7 @@ const layout = {
 
 const WebExecuteTestDrawer =(props)=>{
     const {webSceneStore,webSceneId} = props;
-    const {webSceneTestDispatch} = webSceneStore;
+    const {webSceneTestDispatch,webSceneTestStatus,webSceneTestResult} = webSceneStore;
 
     const [visible, setVisible] = useState(false);
     const [spinning, setSpinning] = useState(true);
@@ -51,28 +51,60 @@ const WebExecuteTestDrawer =(props)=>{
         },
     ]
 
+    let ref = useRef(null)
+    const [start, setStart] = useState();
 
-    const showDrawer = () => {
-        webSceneTestDispatch({webSceneId:webSceneId,webDriver:"chrome"}).then(res=>{
+    useEffect(async ()=>{
+        if(start === 1){
+            ref.current =  setInterval(async ()=>{
+                //获取执行结果
+                let res = await webSceneTestResult({webSceneId:webSceneId,webDriver:"chrome"})
+                if(res.code===0){
+                    if(res.code !==0) return;
 
-            if(res.code !==0) return;
+                    let data = res.data;
+                    setWebStepList(data.webUnitResultList);
 
-            let data = res.data;
-            setWebStepList(data.webUnitResultList);
+                    let instance = data.webSceneInstance;
+                    form.setFieldsValue({
+                        result:instance?.result,
+                        stepNum:instance?.stepNum,
+                        passNum:instance?.passNum,
+                        failNum:instance?.failNum,
+                        passRate:instance?.passRate,
+                        totalDuration:instance?.totalDuration
+                    })
 
-            let instance = data.webSceneInstance;
-             form.setFieldsValue({
-                 result:instance?.result,
-                 stepNum:instance?.stepNum,
-                 passNum:instance?.passNum,
-                 failNum:instance?.failNum,
-                 passRate:instance?.passRate,
-                 totalDuration:instance?.totalDuration
-             })
+                    setSpinning(false)
 
-            setSpinning(false)
-        })
+                    //获取执行状态，是否结束
+                    webSceneTestStatus().then(res =>{
+                        if(res.code===0&&res.data===0){
+                            setStart(res.data)
+                            clearInterval(ref.current)
+                        }
+                    })
+                }
+            },3000);
+        }
+        return () => ref.current = null
+    },[start])
 
+
+    const showDrawer = async () => {
+        //打开先获取执行状态
+        let res = await webSceneTestStatus()
+        setStart(res.data);
+        //如果执行状态为0:未开始
+        if(res.code===0&&res.data===0){
+            //开始执行
+            webSceneTestDispatch({webSceneId:webSceneId,webDriver:"chrome"}).then(res=>{
+                if (res.code === 0) {
+                    //执行会返回1:进行中
+                    setStart(res.data)
+                }
+            })
+        }
 
         setVisible(true);
     };

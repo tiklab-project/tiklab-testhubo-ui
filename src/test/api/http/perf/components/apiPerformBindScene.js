@@ -37,7 +37,7 @@ const ApiPerformBindScene = (props) =>{
 
     // 弹框展示
     const showModal = () => {
-        findApiSceneList({repositoryId:repositoryId,caseType:"api-scene",testType:"auto"});
+        findApiSceneList({repositoryId:repositoryId,caseType:"api-scene",testType:"api"});
 
         setVisible(true);
     };

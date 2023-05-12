@@ -15,7 +15,7 @@ const layout = {
     wrapperCol: {span: 19},
 };
 
-// 添加与编辑空间
+// 添加与编辑仓库
 const WebEnvEdit = (props) => {
     const { webEnvStore, webEnvId } = props;
     const { 

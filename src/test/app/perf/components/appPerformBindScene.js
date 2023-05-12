@@ -40,7 +40,7 @@ const AppPerformBindScene = (props) =>{
 
     // 弹框展示
     const showModal = () => {
-        findAppSceneList({repositoryId:repositoryId,caseType: "app-scene", testType: "auto"});
+        findAppSceneList({repositoryId:repositoryId,caseType: "app-scene", testType: "ui"});
         setVisible(true);
     };
 

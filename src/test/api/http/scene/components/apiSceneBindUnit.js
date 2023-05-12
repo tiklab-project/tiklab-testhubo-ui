@@ -41,7 +41,7 @@ const ApiSceneBindUnit =(props) =>{
 
     // 弹框展示
     const showModal = () => {
-        findApiUnitList({repositoryId:repositoryId,caseType: "api-unit", testType: "auto"});
+        findApiUnitList({repositoryId:repositoryId,caseType: "api-unit", testType: "api"});
 
         setVisible(true);
     };

@@ -2,12 +2,15 @@ import React, {useState} from "react";
 import {renderRoutes} from "react-router-config";
 import "./repositorySetting.scss"
 import {ProjectNav} from "tiklab-privilege-ui"
+import {useLocation} from "react-router";
 /**
  * 仓库设置页中的左侧导航
  */
 const RepositorySettingMenu = (props) =>{
     const routes = props.route.routes;
-    const [selected, setSelected] = useState("/repository/setting/detail");
+
+    const location = useLocation();
+    const [selected, setSelected] = useState(location.pathname);
 
     let repositoryId = sessionStorage.getItem("repositoryId");
 

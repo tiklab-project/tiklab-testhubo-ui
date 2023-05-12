@@ -12,7 +12,7 @@ import emptyImg  from "../../../assets/img/empty.png"
  */
 const RepositoryList = (props) => {
     const { repositoryStore ,repositoryRecentStore,repositoryFollowStore,findList,selectItem } = props;
-    const { repositoryList,deleteRepository } = repositoryStore;
+    const { repositoryList,settingMenuSelected } = repositoryStore;
     
     const {repositoryRecent} = repositoryRecentStore;
     const {createRepositoryFollow,deleteRepositoryFollow} = repositoryFollowStore;
@@ -69,26 +69,22 @@ const RepositoryList = (props) => {
             width:"10%",
             // align:"center",
             render: (text, record) => (
-                <div style={{display:"flex","justifyContent":"space-between",width:60}}>
-                    {/*<Tooltip title="成员">*/}
-                        {/*<svg style={{width:16,height:16,"cursor":"pointer"}} aria-hidden="true" onClick={()=>toRepositoryUser(record.id)}>*/}
-                        {/*    <use xlinkHref= {`#icon-chengyuan`} />*/}
-                        {/*</svg>*/}
-
-                    {/*</Tooltip>*/}
+                <div style={{display:"flex","justifyContent":"space-between",width:50}}>
+                    <Tooltip title="成员">
+                        <svg style={{width:16,height:16,"cursor":"pointer"}} aria-hidden="true" onClick={()=>toRepositoryRole(record.id)}>
+                            <use xlinkHref= {`#icon-chengyuan`} />
+                        </svg>
+                    </Tooltip>
                     <svg style={{width:16,height:16,"cursor":"pointer"}} aria-hidden="true" onClick={()=>follow(record)}>
                         <use xlinkHref= {`#icon-${  record.isFollow===0 ? "shoucang":"shoucang1" }`}  />
                     </svg>
-                    <svg style={{width:16,height:16,"cursor":"pointer"}} aria-hidden="true" onClick={()=>deleteRepository(record.id)}>
-                        <use xlinkHref= {`#icon-shanchu1`}  />
-                    </svg>
-                </div>
+               </div>
             ),
         },
     ]
 
     /**
-     * 收藏空间
+     * 收藏仓库
      */
     const follow = (record)=>{
 
@@ -105,27 +101,49 @@ const RepositoryList = (props) => {
 
     }
 
+    /**
+     * 跳往成员页面
+     */
+    const toRepositoryRole = (id) => {
+
+        toRepositoryConfig(id);
+
+        //给左侧导航设置一个选择项
+        localStorage.setItem("leftRouter","/repository/setting");
+
+
+        props.history.push('/repository/setting/role');
+    }
+
 
     /**
      * 保存id到缓存,跳往详情页
      */
 
     const toRepositoryDetail = (id) => {
-        sessionStorage.setItem("repositoryId",id);
+
+        toRepositoryConfig(id);
 
         //给左侧导航设置一个选择项
         localStorage.setItem("leftRouter","/repository/detail")
 
-        //最近空间
+        props.history.push('/repository');
+    }
+
+    /**
+     * 去往仓库公共配置
+     */
+    const toRepositoryConfig= (id) =>{
+        sessionStorage.setItem("repositoryId",id);
+
+        //最近仓库
         let params = {
             repository: {id:id},
             userId:userId
         }
         repositoryRecent(params)
-
-
-        props.history.push('/repository');
     }
+
 
     //可见范围的展示
     const showVisibility = (name,icon) =>{

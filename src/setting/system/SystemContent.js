@@ -79,11 +79,12 @@ const SystemContent = (props) =>{
             title: '版本与许可证',
             icon: 'modular',
             id: '/systemManagement/version'
-        },{
-            title: '产品授权',
-            icon: 'modular',
-            id: '/systemManagement/product'
         },
+        // {
+        //     title: '产品授权',
+        //     icon: 'modular',
+        //     id: '/systemManagement/product'
+        // },
     ]
 
     const devMenu = [

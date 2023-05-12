@@ -67,6 +67,7 @@ import planToWebPerformPage from "./testplan/components/planToCase/planToWebPerf
 import PlanToFuncUnitPage from "./testplan/components/planToCase/planToFuncUnitPage";
 import PlanToAppPerformPage from "./testplan/components/planToCase/planToAppPerformPage";
 import PlanToAppScenePage from "./testplan/components/planToCase/planToAppScenePage";
+import RepositoryEdit from "./repository/repository/components/RepositoryEdit";
 
 
 
@@ -117,7 +118,11 @@ const routers =  [
                 component: Repository,
                 key:'repository'
             },
-
+            {
+                path: "/repository-edit",
+                component: RepositoryEdit,
+                key:'RepositoryEdit'
+            },
             {
                 path:'/repository',
                 component:RepositoryDetailLayout,
@@ -433,12 +438,12 @@ const routers =  [
 
                     },
                     //产品授权
-                    {
-                        path: "/systemManagement/product",
-                        key:'version',
-                        exact: true,
-                        render:(props)=><ProductAuth />
-                    },
+                    // {
+                    //     path: "/systemManagement/product",
+                    //     key:'version',
+                    //     exact: true,
+                    //     render:(props)=><ProductAuth />
+                    // },
 
 
                     {

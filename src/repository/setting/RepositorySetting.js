@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Collapse, Form, Input} from "antd";
 import {inject, observer} from "mobx-react";
 import DeleteRepositoryModal from "./DeleteRepositoryModal";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 
 const { Panel } = Collapse;
 const {TextArea} = Input;
@@ -53,12 +54,12 @@ const RepositorySetting = (props) =>{
     return(
         <div className={"ws-setting-flex"}>
             <div className={"ws-setting-box"}>
-                <div  className={"header-box-space-between"} >
+                <div  className={"header-box-space-between"}>
                     <div className={'header-box-title'}>仓库信息</div>
                 </div>
 
-                <Collapse  defaultActiveKey={['1']} >
-                    <Panel header="编辑仓库" key="1">
+                <Collapse  defaultActiveKey={['1']} expandIconPosition={"end"} >
+                    <Panel header={<><EditOutlined/> <span style={{padding:"0 5px"}}>编辑仓库</span></>} key="1">
                         <div>
                             <Form
                                 className='ws-edit-modal-form'
@@ -118,11 +119,11 @@ const RepositorySetting = (props) =>{
                         </div>
 
                     </Panel>
-                    <Panel header="删除仓库" key="2">
-                        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                            <div>
+                    <Panel header={<><DeleteOutlined />  <span style={{padding:"0 5px"}}>删除仓库</span> </>} key="2">
+                        <div>
+                            <div style={{display:"flex",alignItems:"center",margin:"0 0 10px 0"}}>
                                 <div  style={{fontWeight:"bold"}}>删除此仓库</div>
-                                <div className={"ws-setting-delete"}>删除存储库后，将无法返回。请确定</div>
+                                <div className={"ws-setting-delete"}>(删除存储库后,将无法返回)</div>
                             </div>
 
                             <DeleteRepositoryModal

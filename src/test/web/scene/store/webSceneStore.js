@@ -45,10 +45,23 @@ export class WebSceneStore {
 
     }
 
+    /**
+     * 执行web场景测试
+     */
     @action
     webSceneTestDispatch = async (data)=> await Axios.post("/webSceneTestDispatch/execute",data)
 
+    /**
+     * 返回当前执行的状态 0：未开始，1：进行中
+     */
+    @action
+    webSceneTestStatus = async () => await Axios.post("/webSceneTestDispatch/status")
 
+    /**
+     * web测试的结果
+     */
+    @action
+    webSceneTestResult = async () => await Axios.post("/webSceneTestDispatch/result")
 
 }
 

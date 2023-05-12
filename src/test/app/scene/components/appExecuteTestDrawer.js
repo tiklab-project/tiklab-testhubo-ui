@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button, Drawer, Form, Input, Spin, Table} from "antd";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
@@ -11,7 +11,7 @@ const layout = {
 
 const AppExecuteTestDrawer =(props)=>{
     const {appSceneStore,appSceneId} = props;
-    const {appSceneTestDispatch} = appSceneStore;
+    const {appSceneTestDispatch,appSceneTestStatus,appSceneTestResult} = appSceneStore;
 
     const [visible, setVisible] = useState(false);
     const [spinning, setSpinning] = useState(true);
@@ -52,42 +52,78 @@ const AppExecuteTestDrawer =(props)=>{
         },
     ]
 
+    let ref = useRef(null)
+    const [start, setStart] = useState();
 
-    const showDrawer = () => {
-        let param = {
-            appSceneId:appSceneId,
-            appTestConfig: {
-                appiumSever:"127.0.0.1:4723",
-                deviceName:"127.0.0.1:62001",
-                platformName:"Android",
-                appPackage:"com.tencent.mobileqq",
-                appActivity:"com.tencent.mobileqq.activity.SplashActivity"
-            }
+    useEffect(async ()=>{
+        if(start === 1){
+            ref.current =  setInterval(async ()=>{
+                //获取执行结果
+                let res = await appSceneTestResult(param)
+                let data = res.data;
+                if(res.code===0&& !data.errMsg){
+                    setAppStepList(data.appSceneInstanceStepList);
+
+                    let instance = data.appSceneInstance;
+                    form.setFieldsValue({
+                        result:instance?.result===1?"成功":"失败",
+                        stepNum:instance?.stepNum,
+                        passNum:instance?.passNum,
+                        failNum:instance?.failNum,
+                        passRate:instance?.passRate,
+                    })
+
+                    setSpinning(false)
+
+                    //获取执行状态，是否结束
+                    appSceneTestStatus().then(res =>{
+                        if(res.code===0&&res.data===0){
+                            setStart(res.data)
+                            clearInterval(ref.current)
+                        }
+                    })
+                }
+
+                if(res.data.errMsg){
+                    messageFn("error",data.errMsg)
+
+                    clearInterval(ref.current)
+                }
+
+            },3000);
         }
-        appSceneTestDispatch(param).then(res=>{
-            let data = res.data;
-            if(res.code ===0&& !data.errMsg){
-                setAppStepList(data.appSceneInstanceStepList);
-
-                let instance = data.appSceneInstance;
-                form.setFieldsValue({
-                    result:instance?.result===1?"成功":"失败",
-                    stepNum:instance?.stepNum,
-                    passNum:instance?.passNum,
-                    failNum:instance?.failNum,
-                    passRate:instance?.passRate,
-                })
-
-                setSpinning(false)
-            }
-
-            if(res.data.errMsg){
-                messageFn("error",data.errMsg)
-            }
+        return () => ref.current = null
+    },[start])
 
 
-        })
+    //请求参数
+    let param = {
+        appSceneId:appSceneId,
+        appTestConfig: {
+            appiumSever:"127.0.0.1:4723",
+            deviceName:"127.0.0.1:62001",
+            platformName:"Android",
+            appPackage:"com.tencent.mobileqq",
+            appActivity:"com.tencent.mobileqq.activity.SplashActivity"
+        }
+    }
 
+
+    const showDrawer = async () => {
+        //打开先获取执行状态
+        let res = await appSceneTestStatus()
+        setStart(res.data);
+        //如果执行状态为0:未开始
+        if(res.code===0&&res.data===0){
+
+            //开始执行
+            appSceneTestDispatch(param).then(res=>{
+                if (res.code === 0) {
+                    //执行会返回1:进行中
+                    setStart(res.data)
+                }
+            })
+        }
 
         setVisible(true);
     };
