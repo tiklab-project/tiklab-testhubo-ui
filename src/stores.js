@@ -34,6 +34,7 @@ import {CATEGORY_STORE,CategoryStore} from "./category/store/CategoryStore";
 
 import {TESTCASE_STORE,TestCaseStore} from "./test/testcase/store/testcaseStore";
 
+import {TESTCASE_RECENT_STORE,TestCaseRecentStore} from "./test/testcase/store/TestCaseRecentStore";
 import {TESTPLAN_STORE, TestPlanStore} from './testplan/store/testPlanStore';
 import {TESTPLANDETAIL_STORE, TestPlanDetailStore} from './testplan/store/testPlanDetailStore';
 import {TEST_PLAN_INSTANCE_STORE,TestPlanInstanceStore} from "./testplan/store/testPlanInstanceStore";
@@ -74,6 +75,8 @@ import {API_ENV_STORE,ApiEnvStore} from "./support/environment/store/apiEnvStore
 import {WEB_ENV_STORE,WebEnvStore} from "./support/environment/store/webEnvStore";
 import {APP_ENV_STORE,AppEnvStore} from "./support/environment/store/appEnvStore";
 
+import {POSTIN_URL_STORE,PostinUrlStore} from "./integratedpostin/postinUrl/store/PostinUrlStore";
+import {WORKSPACE_BIND_STORE,WorkspaceBindStore} from "./integratedpostin/workspaceBind/store/WorkspaceBindStore";
 
 function createStores() {
     return {
@@ -99,6 +102,7 @@ function createStores() {
         [RESPONSERESULT_STORE]: new ResponseResultStore(),
 
         [TESTCASE_STORE]: new TestCaseStore(),
+        [TESTCASE_RECENT_STORE]:new TestCaseRecentStore(),
 
         [API_UNIT_STORE]: new ApiUnitStore(),
         [APIUNIT_INSTANCE_STORE]:new ApiUnitInstanceStore(),
@@ -141,6 +145,9 @@ function createStores() {
         [TESTPLANDETAIL_STORE]: new TestPlanDetailStore(),
         [TEST_PLAN_INSTANCE_STORE]: new TestPlanInstanceStore(),
         [TEST_PLAN_BIND_CASE_INSTANCE_STORE]: new TestPlanBindCaseInstanceStore(),
+
+        [POSTIN_URL_STORE]: new PostinUrlStore(),
+        [WORKSPACE_BIND_STORE]: new WorkspaceBindStore(),
 
         [USERSELECT_STORE]: new UserSelectStore(),
         [EAM_STORE]: new EamStore(),

@@ -59,11 +59,12 @@ const ApiPerformTestDrawer = (props) =>{
     const [loading, setLoading] = useState(false);
     const [start, setStart] = useState(false);
 
-
     useEffect(()=>{
         if (start) {
             ref.current =  setInterval(()=>{
+                //获取结果
                 exeResult(apiPerfId,envUrl).then(res=>{
+                    //状态为2:结束
                     if (res.status === 2) {
                         clearInterval(ref.current)
                         setStart(false)
@@ -77,27 +78,25 @@ const ApiPerformTestDrawer = (props) =>{
         return () => ref.current = null
     },[start])
 
-
+    /**
+     * 展示弹框
+     */
     const showDrawer = async () =>{
         if(envUrl){
-            setVisible(true);
-
+            //执行api性能测试
             apiPerfExecute(apiPerfId,envUrl);
-            setStart(true)
-            // if(res.code===0){
-            //
-                setLoading(true)
-            // }else {
-            //     messageFn("error","Agent执行错误！")
-            // }
 
+            setStart(true);
+            setLoading(true);
+            setVisible(true);
         }else {
             messageFn("error","请选择环境地址")
         }
-
     }
 
-
+    /**
+     * 关闭弹框
+     */
     const onClose = () => {
         setVisible(false);
         setLoading(true)

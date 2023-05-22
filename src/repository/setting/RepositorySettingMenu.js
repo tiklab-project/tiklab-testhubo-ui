@@ -40,6 +40,16 @@ const RepositorySettingMenu = (props) =>{
             key: '/repository/setting/envMana',
         },
         {
+            title: '绑定的空间',
+            // icon: 'icon-modular',
+            key: '/repository/setting/workspace',
+        },
+        {
+            title: 'Postin配置',
+            // icon: 'icon-modular',
+            key: '/repository/setting/postinUrl',
+        },
+        {
             title: 'Agent配置',
             key: '/repository/setting/agent',
             // icon: 'icon-modular',

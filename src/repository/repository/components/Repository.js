@@ -80,24 +80,25 @@ const Repository = (props)=> {
      * 根据不同的筛选项查找
      */
     const findList = (name,selectIndex)=>{
-
+        let uId = {userId:userId}
 
         switch (selectIndex?selectIndex:selectItem) {
             case "all":
                 let params= {
-
+                    ...uId,
                     ...name
                 }
                 findRepositoryJoinList(params)
                 break;
             case "create":
                 let param = {
+                    ...uId,
                     ...name
                 }
                 findRepositoryList(param)
                 break;
             case "follow":
-                findRepositoryFollowList()
+                findRepositoryFollowList(uId)
                 break;
         }
     }

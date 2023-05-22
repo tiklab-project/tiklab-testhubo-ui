@@ -24,9 +24,10 @@ import WebPerformInstanceDrawer from "../../web/perf/components/webPerformInstan
 import AppPerformInstanceDrawer from "../../app/perf/components/appPerformInstanceDrawer";
 import TestTypeSelect from "./TestTypeSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
+import {getUser} from "tiklab-core-ui";
 
 const TestCaseList = (props) => {
-    const {testcaseStore,categoryStore} = props;
+    const {testcaseStore,categoryStore,testCaseRecentStore} = props;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const {
@@ -38,6 +39,8 @@ const TestCaseList = (props) => {
         caseType,
         setCaseType
     }=testcaseStore;
+
+    const {testCaseRecent}=testCaseRecentStore;
 
     const column = [
         {
@@ -169,6 +172,16 @@ const TestCaseList = (props) => {
 
     //点击名称 先通过测试类型分类
     const toPage =(record)=>{
+
+        //设置最近打开的接口
+        let params = {
+            repository:{id:repositoryId},
+            user:{id:getUser().userId},
+            testCase:{id:record.id},
+            // protocolType:item.testCasex.protocolType
+        }
+        testCaseRecent(params)
+
 
         switch (record.testType) {
             case "api":
@@ -430,4 +443,4 @@ const TestCaseList = (props) => {
 
 }
 
-export default inject("testcaseStore","categoryStore")(observer(TestCaseList))
+export default inject("testcaseStore","categoryStore",'testCaseRecentStore')(observer(TestCaseList))

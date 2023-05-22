@@ -4,7 +4,6 @@ import {Directory, Orga, UserGroup, User,} from "tiklab-user-ui";
 import { NotFound, ProjectFeature, ProjectRole, SystemFeature, SystemRole} from "tiklab-privilege-ui"
 
 import {ExcludeProductUser} from "tiklab-eam-ui";
-import {ProductAuth} from "tiklab-licence-ui"
 import {LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
@@ -68,6 +67,8 @@ import PlanToFuncUnitPage from "./testplan/components/planToCase/planToFuncUnitP
 import PlanToAppPerformPage from "./testplan/components/planToCase/planToAppPerformPage";
 import PlanToAppScenePage from "./testplan/components/planToCase/planToAppScenePage";
 import RepositoryEdit from "./repository/repository/components/RepositoryEdit";
+import PostinUrlConfig from "./integratedpostin/postinUrl/components/PostinUrlConfig";
+import WorkspaceBindList from "./integratedpostin/workspaceBind/components/WorkspaceBindList";
 
 
 
@@ -188,7 +189,6 @@ const routers =  [
                         component: WebPerfInstanceList,
                     },
 
-
                     {
                         path: "/repository/app-scene-detail",
                         component: AppSceneDetail,
@@ -240,10 +240,22 @@ const routers =  [
                                 component: EnvContent,
                             },
                             {
+                                path: "/repository/setting/workspace",
+                                key:'agent',
+                                exact: true,
+                                component: WorkspaceBindList
+                            },
+                            {
                                 path: "/repository/setting/agent",
                                 key:'agent',
                                 exact: true,
                                 component: AgentConfigList
+                            },
+                            {
+                                path: "/repository/setting/postinUrl",
+                                key:'agent',
+                                exact: true,
+                                component: PostinUrlConfig
                             },
                             {
                                 path: "/repository/setting/role",
@@ -333,8 +345,6 @@ const routers =  [
                         exact: true,
                         component: PlanToFuncUnitPage,
                     },
-
-
 
                     {
                         path: "/repository/report",
