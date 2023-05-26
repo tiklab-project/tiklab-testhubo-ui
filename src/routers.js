@@ -252,12 +252,6 @@ const routers =  [
                                 component: AgentConfigList
                             },
                             {
-                                path: "/repository/setting/postinUrl",
-                                key:'agent',
-                                exact: true,
-                                component: PostinUrlConfig
-                            },
-                            {
                                 path: "/repository/setting/role",
                                 key:'domainRole',
                                 exact: true,

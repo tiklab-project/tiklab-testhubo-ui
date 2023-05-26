@@ -3,7 +3,24 @@ import {Axios} from "tiklab-core-ui";
 
 export class WorkspaceBindStore {
 	@observable workspaceBindList = [];
+	@observable workspaceName = "未设置";
 
+	/**
+	 * 查看postin空间列表
+	 * @param values
+	 * @returns {Promise<*>}
+	 */
+	@action
+	findWorkspaceList = async (values) => {
+		const res = await Axios.post("/workspaceBind/findWorkspaceList",values);
+		if(res.code === 0) {
+			return res.data;
+		}
+	}
+
+	/**
+	 * 查询绑定的空间
+	 */
 	@action
 	findWorkspaceBindList = async (values) => {
 		const params = {
@@ -17,6 +34,7 @@ export class WorkspaceBindStore {
 		const res = await Axios.post("/workspaceBind/findWorkspaceBindList",params);
 		if(res.code === 0) {
 			this.workspaceBindList = res.data;
+			this.workspaceName = res.data.length > 0? res.data[0].workspace?.workspaceName : "未设置";
 			return res.data;
 		}
 	}
@@ -30,7 +48,7 @@ export class WorkspaceBindStore {
 	}
 
     @action
-	createWorkspaceBind =async (values) => await Axios.post("/workspaceBind/createWorkspaceBind",values);
+	bindWorkspace =async (values) => await Axios.post("/workspaceBind/bindWorkspace",values);
 
 	@action
 	updateWorkspaceBind = async (values) => await Axios.post("/workspaceBind/updateWorkspaceBind",values)
@@ -45,6 +63,7 @@ export class WorkspaceBindStore {
 			return res.data;
 		}
 	}
+
 
 
 }

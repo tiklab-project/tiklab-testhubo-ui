@@ -33,7 +33,7 @@ const RawParam = (props) => {
             }else{
                 form.setFieldsValue({
                     raw: null,
-                    type:"json"
+                    type:"application/json"
                 })
             }
             
@@ -60,6 +60,8 @@ const RawParam = (props) => {
         setFocus(false)
     }
 
+
+
     return (
         <div className={"api-script-box"}>
 
@@ -72,8 +74,8 @@ const RawParam = (props) => {
                              background: "#f7f7f7",
                              color: "#0078d4",
                          }} >
-                            <Option value="json">Json</Option>
-                            <Option value="text">Text</Option>
+                            <Option value="application/json">Json</Option>
+                            <Option value="text/plain">Text</Option>
                         </Select>
                     </Form.Item>
                 </div>

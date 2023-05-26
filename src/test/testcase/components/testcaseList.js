@@ -25,6 +25,7 @@ import AppPerformInstanceDrawer from "../../app/perf/components/appPerformInstan
 import TestTypeSelect from "./TestTypeSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
 import {getUser} from "tiklab-core-ui";
+import PostInApiToCase from "../../../integratedpostin/postinApiCopy/components/PostInApiToCase";
 
 const TestCaseList = (props) => {
     const {testcaseStore,categoryStore,testCaseRecentStore} = props;
@@ -321,6 +322,9 @@ const TestCaseList = (props) => {
                         type={"add"}
                         {...props}
                     />
+                </Menu.Item>
+                <Menu.Item key={"postIn-api"}>
+                    <PostInApiToCase />
                 </Menu.Item>
             </Menu.SubMenu>
             <Menu.SubMenu title="UI测试" key={"ui-add"}>

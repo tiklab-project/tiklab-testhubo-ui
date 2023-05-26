@@ -6,22 +6,41 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import FuncUnitStepList from "./funcUnitStepList";
 import DetailCommon from "../../../common/DetailCommon";
-import {Breadcrumb} from "antd";
+import {Breadcrumb, Tabs} from "antd";
+import WorkItemSelect from "../../../integrated/teamwire/workItem/components/WorkItemSelect";
+import ConnectionCommon from "../../common/connenctionCommon/ConnectionCommon";
 
 const FuncUnitDetail = (props) => {
-    const {funcUnitStore} = props;
+    const {funcUnitStore,workItemStore} = props;
     const {findFuncUnit,updateFuncUnit} = funcUnitStore;
+    const {findWorkItem,getDemandInfo,demandInfo} =workItemStore
 
     const [detailInfo,setDetailInfo]=useState();
+    const [workItemId, setWorkItemId] = useState();
 
     const functionId = sessionStorage.getItem('functionId');
 
     useEffect(()=> {
         findFuncUnit(functionId).then(res=>{
             setDetailInfo(res);
+            setWorkItemId(res?.testCase?.workItemId)
         })
     },[functionId])
 
+    useEffect(()=>{
+        if(workItemId){
+            findWorkItem(workItemId).then(res=>{
+                getDemandInfo(res)
+            })
+        }else {
+            getDemandInfo(null)
+        }
+    },[workItemId])
+
+    /**
+     * 更新名称
+     * @param value
+     */
     const updateTitle = (value) =>{
         const param = {
             id:detailInfo.id,
@@ -37,7 +56,9 @@ const FuncUnitDetail = (props) => {
         })
     }
 
-
+    /**
+     * 返回到用例列表
+     */
     const goBack = () =>{
         props.history.push("/repository/testcase")
     }
@@ -56,8 +77,26 @@ const FuncUnitDetail = (props) => {
                 updateTitle={updateTitle}
             />
             <FuncUnitStepList />
+            <div className='title-space-between'>
+                <div className={'test-title'}>
+                    <div>关联</div>
+                </div>
+            </div>
+
+            <ConnectionCommon
+                workItemInfo={demandInfo}
+                caseId={functionId}
+                workItemSelect={
+                    <WorkItemSelect
+                        caseInfo={detailInfo}
+                        updateCase={updateFuncUnit}
+
+                    />
+                }
+            />
+
         </div>
     )
 }
 
-export default inject('funcUnitStore')(observer(FuncUnitDetail));
+export default inject('funcUnitStore',"workItemStore")(observer(FuncUnitDetail));

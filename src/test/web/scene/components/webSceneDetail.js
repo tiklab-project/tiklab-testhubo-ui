@@ -6,20 +6,38 @@ import WebExecuteTestDrawer from "./webExecuteTestDrawer";
 import DetailCommon from "../../../../common/DetailCommon";
 import "./webStyle.scss"
 import {Breadcrumb} from "antd";
+import ConnectionCommon from "../../../common/connenctionCommon/ConnectionCommon";
+import WorkItemSelect from "../../../../integrated/teamwire/workItem/components/WorkItemSelect";
 
 const WebSceneDetail = (props) => {
-    const {webSceneStore} = props;
+    const {webSceneStore,workItemStore} = props;
     const {findWebScene,updateWebScene} = webSceneStore;
+    const {findWorkItem,getDemandInfo,demandInfo} =workItemStore
 
     const [detailInfo,setDetailInfo]=useState();
+    const [workItemId, setWorkItemId] = useState();
 
     const webSceneId = sessionStorage.getItem('webSceneId');
 
     useEffect(()=> {
         findWebScene(webSceneId).then(res=>{
             setDetailInfo(res);
+
+            setWorkItemId(res?.testCase?.workItemId)
         })
     },[webSceneId])
+
+
+    useEffect(()=>{
+        if(workItemId){
+            findWorkItem(workItemId).then(res=>{
+                getDemandInfo(res)
+            })
+        }else {
+            getDemandInfo(null)
+        }
+    },[workItemId])
+
 
     //更新名称
     const updateTitle = (value) =>{
@@ -66,9 +84,26 @@ const WebSceneDetail = (props) => {
                 }
             />
             <WebSceneStepList />
+
+            <div className='title-space-between'>
+                <div className={'test-title'}>
+                    <div>关联</div>
+                </div>
+            </div>
+            <ConnectionCommon
+                workItemInfo={demandInfo}
+                caseId={webSceneId}
+                workItemSelect={
+                    <WorkItemSelect
+                        caseInfo={detailInfo}
+                        updateCase={updateWebScene}
+                    />
+                }
+            />
+
         </div>
 
     )
 }
 
-export default inject('webSceneStore')(observer(WebSceneDetail));
+export default inject('webSceneStore',"workItemStore")(observer(WebSceneDetail));

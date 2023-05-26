@@ -77,6 +77,12 @@ import {APP_ENV_STORE,AppEnvStore} from "./support/environment/store/appEnvStore
 
 import {POSTIN_URL_STORE,PostinUrlStore} from "./integratedpostin/postinUrl/store/PostinUrlStore";
 import {WORKSPACE_BIND_STORE,WorkspaceBindStore} from "./integratedpostin/workspaceBind/store/WorkspaceBindStore";
+import {
+    POSTIN_API_TO_CASE_STORE,
+    PostInApiToCaseStore
+} from "./integratedpostin/postinApiCopy/store/PostinApiToCaseStore";
+import {WORK_ITEM_STORE, WorkItemStore} from "./integrated/teamwire/workItem/store/WorkItemStore";
+import {WORKITEM_BIND_STORE, WorkItemBindStore} from "./integrated/teamwire/defect/store/WorkItemBindStore";
 
 function createStores() {
     return {
@@ -148,6 +154,10 @@ function createStores() {
 
         [POSTIN_URL_STORE]: new PostinUrlStore(),
         [WORKSPACE_BIND_STORE]: new WorkspaceBindStore(),
+        [POSTIN_API_TO_CASE_STORE]: new PostInApiToCaseStore(),
+
+        [WORK_ITEM_STORE]: new WorkItemStore(),
+        [WORKITEM_BIND_STORE]: new WorkItemBindStore(),
 
         [USERSELECT_STORE]: new UserSelectStore(),
         [EAM_STORE]: new EamStore(),

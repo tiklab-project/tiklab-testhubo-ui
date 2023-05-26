@@ -8,76 +8,133 @@ const PostinUrlConfig = (props) =>{
     const {findPostinUrlList,createPostinUrl,updatePostinUrl} = postinUrlStore;
 
     const [form] = Form.useForm();
-    const [urlList, setUrlList] = useState([]);
-    const [curUrlData, setCurUrlData] = useState();
+    const [postInCurUrlData, setPostInCurData] = useState();
+
+
+    const [teamWireCurData, setTeamWireCurData] = useState();
 
     useEffect(()=>{
-        findPostinUrlList({userId:getUser().userId}).then(list=>{
+        let param = {
+            userId:getUser().userId,
+            projectName: "postin"
+        }
+        findPostinUrlList(param).then(list=>{
             if(list!==null&&list.length>0){
-                setUrlList(list)
-                setCurUrlData(list[0])
+
+                let postInInfo = {
+                    list:list,
+                    curData:list[0],
+                }
+                setPostInCurData(postInInfo)
 
                 let postinUrl = list[0].url;
                 form.setFieldsValue({
-                    url:postinUrl
+                    postInUrl:postinUrl
                 })
+            }else {
+                setPostInCurData({list:[]})
+            }
+        })
+    },[])
+    
+    useEffect(()=>{
+        let param = {
+            userId:getUser().userId,
+            projectName: "teamwire"
+        }
+        findPostinUrlList(param).then(list=>{
+            if(list!==null&&list.length>0){
+                let teamWireInfo = {
+                    list:list,
+                    curData:list[0],
+                }
+                setTeamWireCurData(teamWireInfo)
+
+                form.setFieldsValue({
+                    teamWireUrl:list[0].url
+                })
+            }else {
+                setTeamWireCurData({list:[]})
             }
         })
     },[])
 
+    /**
+     * 公共方法
+     * 设置地址
+     */
+    const setUrl = async (e,projectName,curUrlData) =>{
+        let url = {url:e.target.value};
 
-    const setPostinUrl = async () =>{
-        let fieldsValue = await form.getFieldsValue();
-        if(urlList.length>0){
+        if(curUrlData.list.length>0){
             let param = {
-                ...curUrlData,
-                ...fieldsValue,
+                ...curUrlData.curData,
+                ...url,
             }
             updatePostinUrl(param)
         }else {
             let param ={
+                projectName:projectName,
                 userId:getUser().userId,
-                ...fieldsValue
+                ...url,
             }
 
-            createPostinUrl(param).then(()=>{
-                findPostinUrlList({userId:getUser().userId}).then(list=>{
-                    setUrlList(list)
-                })
-            })
+            createPostinUrl(param)
         }
     }
 
+
+
     return(
-        <div className={"content-box-center"}>
-            <div  className={"header-box-space-between"} >
-                <div className={'header-box-title'}>Postin配置</div>
-            </div>
+        // <div className={"content-box-center"}>
+        <>
+            {/*<div  className={"header-box-space-between"} >*/}
+            {/*    <div className={'header-box-title'}>集成地址配置</div>*/}
+            {/*</div>*/}
             <div className={"url-config-content"}>
-                <div className={"url-config-detail"}>
+                <div className={"url-config-detail"} style={{margin:"0 10px 0 0"}}>
                     <div className={"url-config-title"}>Postin配置</div>
                     <div className={"url-config-form"}>
                         <div className={"url-config-box"}>
                             <Form
-                                name="basic"
                                 form={form}
                                 layout="vertical"
                                 preserve={false}
                             >
                                 <Form.Item
                                     label="服务端地址"
-                                    name="url"
+                                    name="postInUrl"
                                     rules={[{ required: true, message: 'Please input your LOGIN_URL!' }]}
                                 >
-                                    <Input onBlur={setPostinUrl}/>
+                                    <Input onBlur={(e)=>setUrl(e,"postin",postInCurUrlData)}/>
+                                </Form.Item>
+                            </Form>
+                        </div>
+                    </div>
+                </div>
+                <div className={"url-config-detail"}>
+                    <div className={"url-config-title"}>TeamWire配置</div>
+                    <div className={"url-config-form"}>
+                        <div className={"url-config-box"}>
+                            <Form
+                                form={form}
+                                layout="vertical"
+                                preserve={false}
+                            >
+                                <Form.Item
+                                    label="服务端地址"
+                                    name="teamWireUrl"
+                                    rules={[{ required: true, message: 'Please input your LOGIN_URL!' }]}
+                                >
+                                    <Input onBlur={(e)=>setUrl(e,"teston",teamWireCurData)}/>
                                 </Form.Item>
                             </Form>
                         </div>
                     </div>
                 </div>
             </div>
+        </>
 
-        </div>
     )
 }
 
