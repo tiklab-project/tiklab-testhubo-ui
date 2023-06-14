@@ -4,16 +4,21 @@ import {Breadcrumb} from 'antd';
 import './unitcase.scss'
 import ApiEnvSelect from "../../../../../support/environment/components/apiEnvSelect";
 import ApiUnitEditPageCommon from "./apiUnitEditPageCommon";
+import {useParams} from "react-router";
 
 const ApiUnitEditPage = (props) => {
     const { apiUnitStore } = props;
     const { findApiUnit } = apiUnitStore;
 
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
+    let {id} = useParams()
+    const apiUnitId = sessionStorage.getItem('apiUnitId') || id;
 
     const [name,setName]=useState();
 
     useEffect(async ()=>{
+        //获取路由id存入
+        sessionStorage.setItem('apiUnitId',id);
+
         let res = await findApiUnit(apiUnitId)
         setName(res.testCase.name);
     },[apiUnitId])

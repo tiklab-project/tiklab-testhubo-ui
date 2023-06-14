@@ -43,7 +43,7 @@ const RepositoryRecentHome = (props) =>{
         }
         repositoryRecent(params);
 
-        props.history.push('/repository');
+        props.history.push(`/repository/detail/${repositoryId}`);
     }
 
     /**

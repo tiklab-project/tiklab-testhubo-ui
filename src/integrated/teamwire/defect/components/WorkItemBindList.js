@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import WorkItemFindList from "./WorkItemFindList";
 import IconCommon from "../../../../common/IconCommon";
 import WorkItemAdd from "./WorkItemAdd";
+import {applyJump} from "tiklab-core-ui"
 import "./workItemStyle.scss"
 /**
  * 绑定的缺陷列表
@@ -18,6 +19,24 @@ const WorkItemBindList = (props) =>{
             title:`缺陷名称`,
             dataIndex: ["workItem","name"],
             key: "name",
+            render:(text,record)=>(
+                <a onClick={()=>toWorkItem(record)}>{text}</a>
+            )
+        },
+        {
+            title: `项目`,
+            dataIndex:["workItem","projectName"],
+            key: "projectName",
+        },
+        {
+            title: `状态`,
+            dataIndex: ["workItem","status"],
+            key: "status",
+        },
+        {
+            title: `优先级`,
+            dataIndex: ["workItem","priority"],
+            key: "priority",
         },
         {
             title: `创建时间`,
@@ -50,6 +69,17 @@ const WorkItemBindList = (props) =>{
         findWorkItemBindList({caseId:caseId})
     },[])
 
+    const toWorkItem = (record)=>{
+        try{
+            if(IS_DEV){
+                applyJump(`${teamwireUrl}/#/index/projectDetail/${record.workItem.projectId}/workDetail/${record.workItem.id}`,'_blank')
+            }else {
+                applyJump(`${record.projectUrl}/#/index/projectDetail/${record.workItem.projectId}/workDetail/${record.workItem.id}`,'_blank')
+            }
+        }catch {
+            applyJump(`${record.projectUrl}/#/index/projectDetail/${record.workItem.projectId}/workDetail/${record.workItem.id}`,'_blank')
+        }
+    }
 
     return(
         <>

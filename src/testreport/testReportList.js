@@ -100,7 +100,7 @@ const TestReportList = (props) =>{
     //跳往用例历史列表页
     const toCaseInstanceList = (testPlanInstanceId) =>{
         sessionStorage.setItem("testPlanInstanceId",testPlanInstanceId)
-        props.history.push("/repository/report-detail")
+        props.history.push(`/repository/report/${testPlanInstanceId}`)
     }
 
     // 分页

@@ -11,6 +11,7 @@ import {Breadcrumb} from "antd";
 import "./appStyle.scss"
 import ConnectionCommon from "../../../common/connenctionCommon/ConnectionCommon";
 import WorkItemSelect from "../../../../integrated/teamwire/workItem/components/WorkItemSelect";
+import {useParams} from "react-router";
 
 const AppSceneDetail = (props) => {
     const {appSceneStore,workItemStore} = props;
@@ -20,9 +21,13 @@ const AppSceneDetail = (props) => {
     const [detailInfo,setDetailInfo]=useState();
     const [workItemId, setWorkItemId] = useState();
 
-    const appSceneId = sessionStorage.getItem('appSceneId');
+    let {id} = useParams()
+    const appSceneId = sessionStorage.getItem('appSceneId') || id
 
     useEffect(()=> {
+        //获取路由id存入
+        sessionStorage.setItem('appSceneId',id);
+
         findAppScene(appSceneId).then(res=>{
             setDetailInfo(res);
             setWorkItemId(res?.testCase?.workItemId)

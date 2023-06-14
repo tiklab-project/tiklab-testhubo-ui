@@ -5,7 +5,7 @@ import PostinUrlConfig from "../../postinUrl/components/PostinUrlConfig";
 import "./intergatedStyle.scss"
 
 
-const WorkspaceBindList = (props) =>{
+const IntegratedPage = (props) =>{
     const {workspaceBindStore} = props;
     const {findWorkspaceBindList,workspaceName} = workspaceBindStore
 
@@ -25,7 +25,7 @@ const WorkspaceBindList = (props) =>{
             </div>
             <div className={"integrated_content-box"}>
                 <div className='title-space-between'>
-                    <div className={'test-title'}>
+                    <div className={'test-title'} style={{padding:0}}>
                         <div>关联空间</div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@ const WorkspaceBindList = (props) =>{
                 </div>
 
                 <div className='title-space-between'>
-                    <div className={'test-title'}>
+                    <div className={'test-title'} style={{padding:0}}>
                         <div>地址配置</div>
                     </div>
                 </div>
@@ -46,4 +46,4 @@ const WorkspaceBindList = (props) =>{
     )
 }
 
-export default inject("workspaceBindStore")(observer(WorkspaceBindList));
+export default inject("workspaceBindStore")(observer(IntegratedPage));

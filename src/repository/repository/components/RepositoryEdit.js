@@ -59,6 +59,8 @@ const RepositoryEdit = (props) => {
             userId:getUser().userId
         }
         repositoryRecent(params)
+
+        props.history.push(`/repository/detail/${id}`);
     }
 
     /**
@@ -75,7 +77,6 @@ const RepositoryEdit = (props) => {
             findList({}, selectItem)
         });
 
-        props.history.push("/repository");
     };
 
 

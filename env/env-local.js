@@ -19,6 +19,9 @@ const client = JSON.stringify('web');
 
 const IS_DEV = true;
 
+//用于跳转到teamwire，开发模式时需要，线上直接读页面配置的地址
+const teamwireUrl =  JSON.stringify('http://192.168.10.4:3000');
+
 module.exports = {
     base_url,
     plugin_base_url,
@@ -30,5 +33,6 @@ module.exports = {
     appSecret,
     version,
     client,
-    IS_DEV
+    IS_DEV,
+    teamwireUrl
 }

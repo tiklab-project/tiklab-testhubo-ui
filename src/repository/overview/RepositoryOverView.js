@@ -2,6 +2,7 @@
 import React, { useEffect, useState} from "react";
 import { observer, inject } from "mobx-react";
 import DynamicWidget from "../../home/DynamicWidget";
+import {useParams} from "react-router";
 
 /**
  * 仓库 概况
@@ -10,10 +11,14 @@ const RepositoryOverView = (props) => {
     const {repositoryStore} = props;
     const {findRepositoryTotal} = repositoryStore;
 
-    const repositoryId =  sessionStorage.getItem("repositoryId");
+    let {id} = useParams()
+    const repositoryId =  sessionStorage.getItem("repositoryId") || id;
     const [total, setTotal] = useState();
 
     useEffect(async ()=>{
+        //获取路由id存入
+        sessionStorage.setItem('repositoryId',id);
+
         let res = await findRepositoryTotal(repositoryId)
 
         setTotal(res)

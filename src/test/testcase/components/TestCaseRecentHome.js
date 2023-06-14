@@ -5,6 +5,7 @@ import {Empty, List, Skeleton, Tag} from "antd";
 import emptyImg from "../../../assets/img/empty.png";
 import {ApiOutlined, LaptopOutlined, TabletOutlined, TestCaseOutlined} from "@ant-design/icons";
 import IconCommon from "../../../common/IconCommon";
+import {CASE_TYPE} from "../../common/DefineVariables";
 
 /**
  * 最近访问的仓库
@@ -40,56 +41,44 @@ const TestCaseRecentHome = (props) =>{
         testCaseRecent(params)
 
         sessionStorage.setItem("repositoryId",repositoryId)
-        toTestCasePage(item.testCase)
+
+        switchCaseType(item.testCase)
     }
 
-
-    //点击名称 先通过测试类型分类
-    const toTestCasePage =(record)=>{
-
-        switch (record.testType) {
-            case "api":
-            case "ui":
-            case "perform":
-                switchCaseType(record);
-                break;
-            case "function":
-                sessionStorage.setItem(`functionId`,record.id);
-                props.history.push(`/repository/function-detail`)
-                break;
-        }
-    }
-    //再根据不同的用例类型跳到不同的页面
+    //根据不同的用例类型跳到不同的页面
     const switchCaseType = (record)=>{
 
         switch (record.caseType) {
-            case "api-unit":
-                toDetailAddRouterCommon("apiUnitId",record)
+            case CASE_TYPE.API_UNIT:
+                toCaseDetail("apiUnitId",record)
                 break;
-            case "api-scene":
-                toDetailAddRouterCommon("apiSceneId",record)
+            case CASE_TYPE.API_SCENE:
+                toCaseDetail("apiSceneId",record)
                 break;
-            case "api-perform":
-                toDetailAddRouterCommon("apiPerfId",record)
+            case CASE_TYPE.API_PERFORM:
+                toCaseDetail("apiPerfId",record)
                 break;
-            case "web-scene":
-                toDetailAddRouterCommon("webSceneId",record)
+            case CASE_TYPE.WEB_SCENE:
+                toCaseDetail("webSceneId",record)
                 break;
-            case "web-perform":
-                toDetailAddRouterCommon("webPerfId",record)
+            case CASE_TYPE.WEB_PERFORM:
+                toCaseDetail("webPerfId",record)
                 break;
-            case "app-scene":
-                toDetailAddRouterCommon("appSceneId",record)
+            case CASE_TYPE.APP_SCENE:
+                toCaseDetail("appSceneId",record)
                 break;
-            case "app-perform":
-                toDetailAddRouterCommon("appPerfId",record)
+            case CASE_TYPE.APP_PERFORM:
+                toCaseDetail("appPerfId",record)
+                break;
+            case CASE_TYPE.FUNCTION:
+                toCaseDetail("functionId",record)
                 break;
         }
     }
     //跳转路由
-    const toDetailAddRouterCommon = (setId,record)=>{
+    const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        props.history.push(`/repository/${record.caseType}-detail`)
+        props.history.push(`/repository/${record.caseType}/${record.id}`)
     }
 
     /**

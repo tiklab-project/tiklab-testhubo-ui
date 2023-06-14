@@ -18,7 +18,20 @@ const WorkItemSelect = (props) =>{
             title:`需求名`,
             dataIndex: "name",
             key: "name",
-            width:"90%",
+        },
+        {
+            title:`负责人`,
+            dataIndex: "director",
+            key: "director",
+        },
+        {
+            title:`状态`,
+            dataIndex: "status",
+            key: "status",
+        }, {
+            title:`优先级`,
+            dataIndex: "priority",
+            key: "priority",
         },
     ]
 
@@ -100,7 +113,7 @@ const WorkItemSelect = (props) =>{
                 okText="提交"
                 cancelText="取消"
                 centered
-                width={400}
+                width={600}
             >
                 <div style={{display:"flex","alignItems":"center",padding:"0 0 15px"}}>
                     <div>项目: </div>

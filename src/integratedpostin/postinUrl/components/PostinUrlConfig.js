@@ -88,49 +88,39 @@ const PostinUrlConfig = (props) =>{
     return(
         // <div className={"content-box-center"}>
         <>
-            {/*<div  className={"header-box-space-between"} >*/}
-            {/*    <div className={'header-box-title'}>集成地址配置</div>*/}
-            {/*</div>*/}
             <div className={"url-config-content"}>
-                <div className={"url-config-detail"} style={{margin:"0 10px 0 0"}}>
-                    <div className={"url-config-title"}>Postin配置</div>
-                    <div className={"url-config-form"}>
-                        <div className={"url-config-box"}>
-                            <Form
-                                form={form}
-                                layout="vertical"
-                                preserve={false}
-                            >
-                                <Form.Item
-                                    label="服务端地址"
-                                    name="postInUrl"
-                                    rules={[{ required: true, message: 'Please input your LOGIN_URL!' }]}
-                                >
-                                    <Input onBlur={(e)=>setUrl(e,"postin",postInCurUrlData)}/>
-                                </Form.Item>
-                            </Form>
-                        </div>
-                    </div>
+
+                <div className={"url-config-box"}>
+                    <Form
+                        form={form}
+                        layout="vertical"
+                        preserve={false}
+                    >
+                        <Form.Item
+                            label="PostIn服务端地址"
+                            name="postInUrl"
+                            // rules={[{ required: true, message: 'Please input your LOGIN_URL!' }]}
+                        >
+                            <Input onBlur={(e)=>setUrl(e,"postin",postInCurUrlData)}/>
+                        </Form.Item>
+                    </Form>
                 </div>
-                <div className={"url-config-detail"}>
-                    <div className={"url-config-title"}>TeamWire配置</div>
-                    <div className={"url-config-form"}>
-                        <div className={"url-config-box"}>
-                            <Form
-                                form={form}
-                                layout="vertical"
-                                preserve={false}
-                            >
-                                <Form.Item
-                                    label="服务端地址"
-                                    name="teamWireUrl"
-                                    rules={[{ required: true, message: 'Please input your LOGIN_URL!' }]}
-                                >
-                                    <Input onBlur={(e)=>setUrl(e,"teston",teamWireCurData)}/>
-                                </Form.Item>
-                            </Form>
-                        </div>
-                    </div>
+
+
+                <div className={"url-config-box"}>
+                    <Form
+                        form={form}
+                        layout="vertical"
+                        preserve={false}
+                    >
+                        <Form.Item
+                            label="TeamWire服务端地址"
+                            name="teamWireUrl"
+                            // rules={[{ required: true, message: 'Please input your LOGIN_URL!' }]}
+                        >
+                            <Input onBlur={(e)=>setUrl(e,"teamwire",teamWireCurData)}/>
+                        </Form.Item>
+                    </Form>
                 </div>
             </div>
         </>

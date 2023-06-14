@@ -47,7 +47,7 @@ const AppSceneEdit = (props) => {
             createAppScene(values).then((res)=> {
                 if(res.code===0){
                     sessionStorage.setItem(`appSceneId`,res.data);
-                    props.history.push(`/repository/app-scene-detail`)
+                    props.history.push(`/repository/app-scene/${res.data}`)
                 }
             })
         }

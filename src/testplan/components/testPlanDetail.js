@@ -8,6 +8,7 @@ import {CaretDownOutlined} from "@ant-design/icons";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import TestPlanENVModal from "./testPlanENVModal";
 import IconBtn from "../../common/iconBtn/IconBtn";
+import {useParams} from "react-router";
 
 const {Option} = Select;
 
@@ -18,9 +19,15 @@ const TestPlanDetail = (props) =>{
     const [executeDate,setExecuteData] = useState()
 
     const [showValidateStatus, setShowValidateStatus ] = useState()
-    const testPlanId = sessionStorage.getItem('testPlanId')
+
+    let {id} = useParams()
+    const testPlanId = sessionStorage.getItem('testPlanId') || id
+
 
     useEffect(()=>{
+        //获取路由id存入
+        sessionStorage.setItem('testPlanId',id);
+
         findTestPlan(testPlanId).then((res)=>{
             setExecuteData(res)
             form.setFieldsValue({

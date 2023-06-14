@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../../common/DetailCommon";
 import WebPerformTestDrawer from "./webPerformTestDrawer";
 import WebPerformDetailCommon from "./webPerformDetailCommon";
+import {useParams} from "react-router";
 
 
 const WebPerformDetail = (props) =>{
@@ -13,9 +14,13 @@ const WebPerformDetail = (props) =>{
 
     const [detailInfo,setDetailInfo]=useState();
 
-    let webPerfId = sessionStorage.getItem("webPerfId")
+    let {id} = useParams()
+    let webPerfId = sessionStorage.getItem("webPerfId") || id;
 
     useEffect(()=>{
+        //获取路由id存入
+        sessionStorage.setItem('webPerfId',id);
+
         findWebPerf(webPerfId).then(res=>{
             setDetailInfo(res);
         })

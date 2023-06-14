@@ -43,7 +43,7 @@ const AppPerfEdit = (props) => {
             createAppPerf(values).then((res)=> {
                 if(res.code===0){
                     sessionStorage.setItem(`appPerfId`,res.data);
-                    props.history.push(`/repository/app-perform-detail`)
+                    props.history.push(`/repository/app-perform/${res.data}`)
                 }
             })
         }

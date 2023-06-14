@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Modal, Space, Table} from "antd";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 import {inject, observer} from "mobx-react";
+import {messageFn} from "../../../common/messageCommon/MessageCommon";
 
 const WorkspaceFindList = (props) =>{
     const {workspaceBindStore} = props;
@@ -29,6 +30,19 @@ const WorkspaceFindList = (props) =>{
         //     key: "visibility",
         //     width:"20%",
         // },
+        // {
+        //     title: `可见范围`,
+        //     dataIndex: "visibility",
+        //     key: "visibility",
+        //     width:"20%",
+        // },
+        // {
+        //     title: `可见范围`,
+        //     dataIndex: "visibility",
+        //     key: "visibility",
+        //     width:"20%",
+        // },
+
     ]
 
     let repositoryId = sessionStorage.getItem("repositoryId")
@@ -51,8 +65,13 @@ const WorkspaceFindList = (props) =>{
             repositoryId:repositoryId,
             workspace:{id:selectItem[0]}
         }
-        bindWorkspace(param).then(()=>{
-            findWorkspaceBindList({repositoryId:repositoryId})
+        bindWorkspace(param).then((res)=>{
+            if(res.code===0){
+                findWorkspaceBindList({repositoryId:repositoryId})
+            }else {
+                messageFn("error","连接失败，请查看地址配置")
+            }
+
         })
 
         setVisible(false);

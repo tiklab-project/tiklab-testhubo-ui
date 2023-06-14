@@ -8,6 +8,7 @@ import "./webStyle.scss"
 import {Breadcrumb} from "antd";
 import ConnectionCommon from "../../../common/connenctionCommon/ConnectionCommon";
 import WorkItemSelect from "../../../../integrated/teamwire/workItem/components/WorkItemSelect";
+import {useParams} from "react-router";
 
 const WebSceneDetail = (props) => {
     const {webSceneStore,workItemStore} = props;
@@ -17,9 +18,13 @@ const WebSceneDetail = (props) => {
     const [detailInfo,setDetailInfo]=useState();
     const [workItemId, setWorkItemId] = useState();
 
-    const webSceneId = sessionStorage.getItem('webSceneId');
+    let {id} = useParams()
+    const webSceneId = sessionStorage.getItem('webSceneId') || id;
 
     useEffect(()=> {
+        //获取路由id存入
+        sessionStorage.setItem('webSceneId',id);
+
         findWebScene(webSceneId).then(res=>{
             setDetailInfo(res);
 

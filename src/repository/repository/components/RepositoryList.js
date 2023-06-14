@@ -127,7 +127,7 @@ const RepositoryList = (props) => {
         //给左侧导航设置一个选择项
         localStorage.setItem("leftRouter","/repository/detail")
 
-        props.history.push('/repository');
+        props.history.push(`/repository/detail/${id}`);
     }
 
     /**

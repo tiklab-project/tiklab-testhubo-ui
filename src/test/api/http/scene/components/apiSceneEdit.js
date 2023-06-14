@@ -46,7 +46,7 @@ const ApiSceneEdit = (props) => {
             createApiScene(values).then((res)=> {
                 if(res.code===0){
                     sessionStorage.setItem(`apiSceneId`,res.data);
-                    props.history.push(`/repository/api-scene-detail`)
+                    props.history.push(`/repository/api-scene/${res.data}`)
                 }
             })
         }

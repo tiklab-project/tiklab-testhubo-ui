@@ -68,7 +68,7 @@ import PlanToAppPerformPage from "./testplan/components/planToCase/planToAppPerf
 import PlanToAppScenePage from "./testplan/components/planToCase/planToAppScenePage";
 import RepositoryEdit from "./repository/repository/components/RepositoryEdit";
 import PostinUrlConfig from "./integratedpostin/postinUrl/components/PostinUrlConfig";
-import WorkspaceBindList from "./integratedpostin/workspaceBind/components/WorkspaceBindList";
+import WorkspaceBindList from "./integratedpostin/workspaceBind/components/integratedPage";
 
 
 
@@ -129,7 +129,7 @@ const routers =  [
                 component:RepositoryDetailLayout,
                 routes:[
                     {
-                        path: "/repository/detail",
+                        path: "/repository/detail/:id",
                         exact: true,
                         component: RepositoryDetailPage,
                     }, {
@@ -137,7 +137,7 @@ const routers =  [
                         component: TestCaseList,
                     },
                     {
-                        path: "/repository/api-unit-detail",
+                        path: "/repository/api-unit/:id",
                         component: ApiUnitcaseDetail,
                     },
                     {
@@ -145,7 +145,7 @@ const routers =  [
                         component: ApiUnitInstanceList,
                     },
                     {
-                        path: "/repository/api-scene-detail",
+                        path: "/repository/api-scene/:id",
                         component: ApiScenecaseDetail,
                     },
                     {
@@ -157,7 +157,7 @@ const routers =  [
                         component: ApiSceneInstanceList,
                     },
                     {
-                        path: "/repository/api-perform-detail",
+                        path: "/repository/api-perform/:id",
                         component: ApiPerformDetail,
                     },
                     {
@@ -170,14 +170,14 @@ const routers =  [
                     },
 
                     {
-                        path: "/repository/web-scene-detail",
+                        path: "/repository/web-scene/:id",
                         component: WebSceneDetail,
                     },{
                         path: "/repository/web-scene-instance",
                         component: WebSceneInstanceList,
                     },
                     {
-                        path: "/repository/web-perform-detail",
+                        path: "/repository/web-perform/:id",
                         component:WebPerformDetail,
                     },
                     {
@@ -190,7 +190,7 @@ const routers =  [
                     },
 
                     {
-                        path: "/repository/app-scene-detail",
+                        path: "/repository/app-scene/:id",
                         component: AppSceneDetail,
                     },
                     {
@@ -198,7 +198,7 @@ const routers =  [
                         component: AppSceneInstanceList,
                     },
                     {
-                        path: "/repository/app-perform-detail",
+                        path: "/repository/app-perform/:id",
                         component:AppPerformDetail,
                     },
                     {
@@ -211,7 +211,7 @@ const routers =  [
                     },
 
                     {
-                        path: "/repository/function-detail",
+                        path: "/repository/function/:id",
                         component: FuncUnitDetail,
                     },
 
@@ -285,7 +285,7 @@ const routers =  [
                         component: TestPlan,
                     },
                     {
-                        path: "/repository/plan-detail",
+                        path: "/repository/plan/:id",
                         exact: true,
                         component: TestPlanDetail,
                     },
@@ -345,7 +345,7 @@ const routers =  [
                         exact: true,
                         component: TestReportList,
                     },{
-                        path: "/repository/report-detail",
+                        path: "/repository/report/:id",
                         exact: true,
                         component: TestReportDetail,
                     },

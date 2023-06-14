@@ -6,6 +6,7 @@ import ApiPerformTest from "./apiPerformTestDrawer";
 import ApiPerformDetailCommon from "./apiPerformDetailCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
+import {useParams} from "react-router";
 
 
 const ApiPerformDetail = (props) =>{
@@ -14,10 +15,14 @@ const ApiPerformDetail = (props) =>{
 
     const [detailInfo,setDetailInfo]=useState();
 
-    const apiPerfId = sessionStorage.getItem("apiPerfId");
+    let {id} = useParams()
+    const apiPerfId = sessionStorage.getItem("apiPerfId") || id;
 
 
     useEffect(()=>{
+        //获取路由id存入
+        sessionStorage.setItem('apiPerfId',id);
+
         findApiPerf(apiPerfId).then(res=>{
             setDetailInfo(res);
         })

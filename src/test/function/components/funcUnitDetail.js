@@ -9,6 +9,7 @@ import DetailCommon from "../../../common/DetailCommon";
 import {Breadcrumb, Tabs} from "antd";
 import WorkItemSelect from "../../../integrated/teamwire/workItem/components/WorkItemSelect";
 import ConnectionCommon from "../../common/connenctionCommon/ConnectionCommon";
+import {useParams} from "react-router";
 
 const FuncUnitDetail = (props) => {
     const {funcUnitStore,workItemStore} = props;
@@ -18,9 +19,13 @@ const FuncUnitDetail = (props) => {
     const [detailInfo,setDetailInfo]=useState();
     const [workItemId, setWorkItemId] = useState();
 
-    const functionId = sessionStorage.getItem('functionId');
+    let {id} = useParams()
+    const functionId = sessionStorage.getItem('functionId') || id;
 
     useEffect(()=> {
+        //获取路由id存入
+        sessionStorage.setItem('functionId',id);
+
         findFuncUnit(functionId).then(res=>{
             setDetailInfo(res);
             setWorkItemId(res?.testCase?.workItemId)

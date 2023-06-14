@@ -49,7 +49,7 @@ const FuncUnitEdit = (props) => {
             createFuncUnit(values).then((res)=> {
                 if(res.code===0){
                     sessionStorage.setItem(`functionId`,res.data);
-                    props.history.push(`/repository/function-detail`)
+                    props.history.push(`/repository/function/${res.data}`)
                 }
             })
         }

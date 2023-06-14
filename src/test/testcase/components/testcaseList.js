@@ -26,6 +26,7 @@ import TestTypeSelect from "./TestTypeSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
 import {getUser} from "tiklab-core-ui";
 import PostInApiToCase from "../../../integratedpostin/postinApiCopy/components/PostInApiToCase";
+import {CASE_TYPE, TEST_TYPE} from "../../common/DefineVariables";
 
 const TestCaseList = (props) => {
     const {testcaseStore,categoryStore,testCaseRecentStore} = props;
@@ -183,50 +184,45 @@ const TestCaseList = (props) => {
         }
         testCaseRecent(params)
 
-
-        switch (record.testType) {
-            case "api":
-            case "ui":
-            case "perform":
-                switchCaseType(record);
-                break;
-            case "function":
-                sessionStorage.setItem(`functionId`,record.id);
-                props.history.push(`/repository/function-detail`)
-                break;
-        }
+        switchCaseType(record)
     }
+
     //再根据不同的用例类型跳到不同的页面
     const switchCaseType = (record)=>{
 
         switch (record.caseType) {
-            case "api-unit":
-                toDetailAddRouterCommon("apiUnitId",record)
+            case CASE_TYPE.API_UNIT:
+                toCaseDetail("apiUnitId",record)
                 break;
-            case "api-scene":
-                toDetailAddRouterCommon("apiSceneId",record)
+            case CASE_TYPE.API_SCENE:
+                toCaseDetail("apiSceneId",record)
                 break;
-            case "api-perform":
-                toDetailAddRouterCommon("apiPerfId",record)
+            case CASE_TYPE.API_PERFORM:
+                toCaseDetail("apiPerfId",record)
                 break;
-            case "web-scene":
-                toDetailAddRouterCommon("webSceneId",record)
+            case CASE_TYPE.WEB_SCENE:
+                toCaseDetail("webSceneId",record)
                 break;
-            case "web-perform":
-                toDetailAddRouterCommon("webPerfId",record)
+            case CASE_TYPE.WEB_PERFORM:
+                toCaseDetail("webPerfId",record)
                 break;
-            case "app-scene":
-                toDetailAddRouterCommon("appSceneId",record)
+            case CASE_TYPE.APP_SCENE:
+                toCaseDetail("appSceneId",record)
                 break;
-            case "app-perform":
-                toDetailAddRouterCommon("appPerfId",record)
+            case CASE_TYPE.APP_PERFORM:
+                toCaseDetail("appPerfId",record)
                 break;
+            case CASE_TYPE.FUNCTION:
+                toCaseDetail("functionId",record)
+                break;
+
         }
     }
+
     //跳转路由
-    const toDetailAddRouterCommon = (setId,record)=>{
+    const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        props.history.push(`/repository/${record.caseType}-detail`)
+        props.history.push(`/repository/${record.caseType}/${record.id}`)
     }
 
 

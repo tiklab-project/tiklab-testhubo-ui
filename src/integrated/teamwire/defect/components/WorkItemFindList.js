@@ -20,10 +20,24 @@ const WorkItemFindList = (props) =>{
             title:`缺陷名`,
             dataIndex: "name",
             key: "name",
-            width:"90%",
+            // width:"90%",
             // align:"center",
         },
-
+        {
+            title: `项目`,
+            dataIndex:"projectName",
+            key: "projectName",
+        },
+        {
+            title: `状态`,
+            dataIndex: "status",
+            key: "status",
+        },
+        {
+            title: `优先级`,
+            dataIndex: "priority",
+            key: "priority",
+        },
     ]
 
     const [visible, setVisible] = React.useState(false);
@@ -104,7 +118,7 @@ const WorkItemFindList = (props) =>{
                 okText="提交"
                 cancelText="取消"
                 centered
-                width={400}
+                width={600}
             >
                 <div style={{display:"flex","alignItems":"center",padding:"0 0 15px"}}>
                     <div>项目: </div>

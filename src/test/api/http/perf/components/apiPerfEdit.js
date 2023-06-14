@@ -45,7 +45,7 @@ const ApiPerfEdit = (props) => {
             createApiPerf(values).then(res=>{
                 if(res.code===0){
                     sessionStorage.setItem(`apiPerfId`,res.data);
-                    props.history.push(`/repository/api-perform-detail`)
+                    props.history.push(`/repository/api-perform/${res.data}`)
                 }
             })
         }

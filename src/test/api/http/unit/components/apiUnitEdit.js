@@ -46,7 +46,7 @@ const ApiUnitEdit = (props) => {
             createApiUnit(values).then(res=>{
                 if(res.code===0){
                     sessionStorage.setItem(`apiUnitId`,res.data);
-                    props.history.push(`/repository/api-unit-detail`)
+                    props.history.push(`/repository/api-unit/${res.data}`)
                 }else {
                     messageFn("error",'创建失败');
                 }

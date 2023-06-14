@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../../common/DetailCommon";
 import AppPerformTestDrawer from "./appPerformTestDrawer";
 import AppPerformDetailCommon from "./appPerformDetailCommon";
+import {useParams} from "react-router";
 
 const AppPerformDetail = (props) =>{
     const {appPerfStore} = props;
@@ -11,9 +12,13 @@ const AppPerformDetail = (props) =>{
 
     const [detailInfo,setDetailInfo]=useState();
 
-    let appPerfId = sessionStorage.getItem("appPerfId")
+    let {id} = useParams()
+    let appPerfId = sessionStorage.getItem("appPerfId") || id;
 
     useEffect(()=>{
+        //获取路由id存入
+        sessionStorage.setItem('appPerfId',id);
+
         findAppPerf(appPerfId).then(res=>{
             setDetailInfo(res);
         })

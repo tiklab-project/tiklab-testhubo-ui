@@ -7,14 +7,21 @@ import {Breadcrumb} from "antd";
 import ApiEnvSelect from "../../../../../support/environment/components/apiEnvSelect";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
+import {useParams} from "react-router";
 
 const ApiScenePage = (props) => {
     const {apiSceneStore} = props;
     const {findApiScene,updateApiScene} = apiSceneStore;
 
     const [detailInfo,setDetailInfo]=useState();
-    const apiSceneId = sessionStorage.getItem('apiSceneId');
+
+    let {id} = useParams()
+    const apiSceneId = sessionStorage.getItem('apiSceneId') || id;
+
     useEffect(()=>{
+        //获取路由id存入
+        sessionStorage.setItem('apiSceneId',id);
+
         findApiScene(apiSceneId).then(res=>{
             setDetailInfo(res);
         })
