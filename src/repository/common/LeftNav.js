@@ -17,12 +17,12 @@ const LeftNav = (props) =>{
         {
             "icon":"layers",
             "name":"概况",
-            "key":"detail",
-            "router":"/repository/detail"
+            "key":"overview",
+            "router":"/repository/detail/:id"
         }, {
             "icon":"layers",
             "name":"测试用例",
-            "key":"detail",
+            "key":"testcase",
             "router":"/repository/testcase"
         },
         {
@@ -63,14 +63,18 @@ const LeftNav = (props) =>{
         //点击左侧导航，设置选择项,用于刷新后还能选择。
         localStorage.setItem("leftRouter",item.router);
 
-        props.history.push(item.router)
+        if(item.key==="overview"){
+            props.history.push(`/repository/detail/${repositoryId}`)
+        }else {
+            props.history.push(item.router)
+        }
     }
 
     const showMenuItem = (data) =>{
         return data&&data.map(item=>{
             return(
                 <li
-                    key={item.router}
+                    key={item.key}
                     className={`ws-detail-left-nav-item `}
                     onClick={()=>clickAddRouter(item)}
                 >

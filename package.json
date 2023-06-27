@@ -7,8 +7,8 @@
     "es"
   ],
   "scripts": {
-    "start": "cross-env NODE_ENV=local API_ENV=local  webpack-dev-server --progress --config ./webpack.dev.js ",
-    "start-acc": "cross-env NODE_ENV=local API_ENV=local-acc  webpack-dev-server --progress --config ./webpack.dev.js ",
+    "start": "cross-env NODE_ENV=development API_ENV=local  webpack-dev-server --progress --config ./webpack.dev.js ",
+    "start-acc": "cross-env NODE_ENV=production API_ENV=local-acc  webpack-dev-server --progress --config ./webpack.dev.js ",
     "prod": "cross-env NODE_ENV=prod API_ENV=prod webpack --config ./webpack.test.js",
     "build": "rimraf es/* && ./node_modules/.bin/babel src --copy-files  --extensions .js --out-dir es/components && ncp pack/index.js es/index.js && ncp README.md es/README.md",
     "build:dk": " webpack --config ./webpack.dk.js"
@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://172.12.1.11:8081/repository/npm-hosted"
+    "registry": "http://172.13.1.11:8081/repository/npm-hosted"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

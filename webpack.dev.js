@@ -58,9 +58,6 @@ module.exports = merge(baseWebpackConfig, {
             "/local-proxy":{
                 target:"http://127.0.0.1:3009"
             },
-            "/cloud-proxy":{
-                target:"http://172.11.1.15:3009"
-            }
         }
     },
     plugins: [

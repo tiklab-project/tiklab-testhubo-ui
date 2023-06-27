@@ -1,75 +1,69 @@
-import React from 'react'
+import React, {lazy} from 'react'
+import {Redirect} from "react-router";
 
+//---平台
 import {Directory, Orga, UserGroup, User,} from "tiklab-user-ui";
 import { NotFound, ProjectFeature, ProjectRole, SystemFeature, SystemRole} from "tiklab-privilege-ui"
-
 import {ExcludeProductUser} from "tiklab-eam-ui";
 import {LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
 
-import {
-    Home,
-    Repository,
-    RepositoryDetailPage,
+//---内部
+let Home = lazy(() => import("./home/Home"));
+let Repository = lazy(() => import("./repository/repository/components/Repository"));
+let RepositoryDetailPage = lazy(() => import("./repository/overview/RepositoryOverView"));
+let CategoryList = lazy(() => import("./category/components/CategoryList"));
+let TestPlan = lazy(() => import("./testplan/components/testPlan"));
+let PortalHeader = lazy(() => import("./common/header/PortalContent"));
+let RepositoryDetailLayout = lazy(() => import("./repository/common/RepositoryDetailLayout"));
+let ApiUnitcaseDetail = lazy(() => import("./test/api/http/unit/components/apiUnitEditPage"));
+let ApiScenecaseDetail = lazy(() => import("./test/api/http/scene/components/apiScenePage"));
+let FuncUnitDetail = lazy(() => import("./test/function/components/funcUnitDetail"));
+let EnvContent = lazy(() => import("./support/environment/components/envContent"));
+let ApiPerformDetail = lazy(() => import("./test/api/http/perf/components/apiPerformDetail"));
+let LoginOut = lazy(() => import("./common/header/LoginOut"));
+let WebPerformDetail = lazy(() => import("./test/web/perf/components/webPerformDetail"));
+let AppPerformDetail = lazy(() => import("./test/app/perf/components/appPerformDetail"));
 
-    CategoryList,
-    TestPlan,
-
-} from './container';
-
-import {Redirect} from "react-router";
-import PortalHeader from "./common/header/PortalContent";
-import RepositoryDetailLayout from "./repository/common/RepositoryDetailLayout";
-import ApiUnitcaseDetail from "./test/api/http/unit/components/apiUnitEditPage";
-import ApiScenecaseDetail from "./test/api/http/scene/components/apiScenePage";
-import FuncUnitDetail from "./test/function/components/funcUnitDetail";
-import EnvContent from "./support/environment/components/envContent";
-import ApiPerformDetail from "./test/api/http/perf/components/apiPerformDetail";
-import LoginOut from "./common/header/LoginOut";
-import WebPerformDetail from "./test/web/perf/components/webPerformDetail";
-import AppPerformDetail from "./test/app/perf/components/appPerformDetail";
-
-import WebSceneDetail from "./test/web/scene/components/webSceneDetail";
-import TestPlanDetail from "./testplan/components/testPlanDetail";
-import AgentConfigList from "./support/agent/components/AgentConfigList";
-import DomainRole from "./repository/setting/DomainRole";
-import DomainPrivilege from "./repository/setting/DomainPrivilege";
-import SystemContent from "./setting/system/SystemContent";
-import LoginContent from "./login/LoginContent";
-import Version from "./setting/version/Version";
-import RepositorySettingMenu from "./repository/setting/RepositorySettingMenu";
-import DynamicDetail from "./home/DynamicDetail";
-import TestCaseList from "./test/testcase/components/testcaseList";
-import RepositorySetting from "./repository/setting/RepositorySetting";
-import ApiUnitInstanceList from "./test/api/http/unit/components/apiUnitInstanceList";
-import ApiSceneInstanceList from "./test/api/http/scene/components/apiSceneInstanceList";
-import ApiPerfInstanceList from "./test/api/http/perf/components/apiPerfInstanceList";
-import WebSceneInstanceList from "./test/web/scene/components/webSceneInstanceList";
-import WebPerfInstanceList from "./test/web/perf/components/webPerfInstanceList";
-import AppSceneInstanceList from "./test/app/scene/components/appSceneInstanceList";
-import AppPerfInstanceList from "./test/app/perf/components/appPerfInstanceList";
-import TestPlanInstanceList from "./testplan/components/testPlanInstanceList";
-import AppSceneDetail from "./test/app/scene/components/appSceneDetail";
-import TestPlanBindCaseInstanceList from "./testplan/components/testPlanBindCaseInstanceList";
-import TestReportList from "./testreport/testReportList";
-import TestReportDetail from "./testreport/testReportDetail";
-import ApiSceneToUnitPage from "./test/api/http/scene/components/apiSceneToUnitPage";
-import ApiPerformToScenePage from "./test/api/http/perf/components/apiPerformToScenePage";
-import WebPerformToScenePage from "./test/web/perf/components/webPerformToScenePage";
-import AppPerformToScenePage from "./test/app/perf/components/appPerformToScenePage";
-import PlanToApiUnitPage from "./testplan/components/planToCase/planToApiUnitPage";
-import PlanToApiScenePage from "./testplan/components/planToCase/planToApiScenePage";
-import PlanToApiPerformPage from "./testplan/components/planToCase/planToApiPerformPage";
-import PlanToWebScenePage from "./testplan/components/planToCase/planToWebScenePage";
-import planToWebPerformPage from "./testplan/components/planToCase/planToWebPerformPage";
-import PlanToFuncUnitPage from "./testplan/components/planToCase/planToFuncUnitPage";
-import PlanToAppPerformPage from "./testplan/components/planToCase/planToAppPerformPage";
-import PlanToAppScenePage from "./testplan/components/planToCase/planToAppScenePage";
-import RepositoryEdit from "./repository/repository/components/RepositoryEdit";
-import PostinUrlConfig from "./integratedpostin/postinUrl/components/PostinUrlConfig";
-import WorkspaceBindList from "./integratedpostin/workspaceBind/components/integratedPage";
-
+let WebSceneDetail = lazy(() => import("./test/web/scene/components/webSceneDetail"));
+let TestPlanDetail = lazy(() => import("./testplan/components/testPlanDetail"));
+let AgentConfigList = lazy(() => import("./support/agent/components/AgentConfigList"));
+let DomainRole = lazy(() => import("./repository/setting/DomainRole"));
+let DomainPrivilege = lazy(() => import("./repository/setting/DomainPrivilege"));
+let SystemContent = lazy(() => import("./setting/system/SystemContent"));
+let LoginContent = lazy(() => import("./login/LoginContent"));
+let Version = lazy(() => import("./setting/version/Version"));
+let RepositorySettingMenu = lazy(() => import("./repository/setting/RepositorySettingMenu"));
+let DynamicDetail = lazy(() => import("./home/DynamicDetail"));
+let TestCaseList = lazy(() => import("./test/testcase/components/testcaseList"));
+let RepositorySetting = lazy(() => import("./repository/setting/RepositorySetting"));
+let ApiUnitInstanceList = lazy(() => import("./test/api/http/unit/components/apiUnitInstanceList"));
+let ApiSceneInstanceList = lazy(() => import("./test/api/http/scene/components/apiSceneInstanceList"));
+let ApiPerfInstanceList = lazy(() => import("./test/api/http/perf/components/apiPerfInstanceList"));
+let WebSceneInstanceList = lazy(() => import("./test/web/scene/components/webSceneInstanceList"));
+let WebPerfInstanceList = lazy(() => import("./test/web/perf/components/webPerfInstanceList"));
+let AppSceneInstanceList = lazy(() => import("./test/app/scene/components/appSceneInstanceList"));
+let AppPerfInstanceList = lazy(() => import("./test/app/perf/components/appPerfInstanceList"));
+let TestPlanInstanceList = lazy(() => import("./testplan/components/testPlanInstanceList"));
+let AppSceneDetail = lazy(() => import("./test/app/scene/components/appSceneDetail"));
+let TestPlanBindCaseInstanceList = lazy(() => import("./testplan/components/testPlanBindCaseInstanceList"));
+let TestReportList = lazy(() => import("./testreport/testReportList"));
+let TestReportDetail = lazy(() => import("./testreport/testReportDetail"));
+let ApiSceneToUnitPage = lazy(() => import("./test/api/http/scene/components/apiSceneToUnitPage"));
+let ApiPerformToScenePage = lazy(() => import("./test/api/http/perf/components/apiPerformToScenePage"));
+let WebPerformToScenePage = lazy(() => import("./test/web/perf/components/webPerformToScenePage"));
+let AppPerformToScenePage = lazy(() => import("./test/app/perf/components/appPerformToScenePage"));
+let PlanToApiUnitPage = lazy(() => import("./testplan/components/planToCase/planToApiUnitPage"));
+let PlanToApiScenePage = lazy(() => import("./testplan/components/planToCase/planToApiScenePage"));
+let PlanToApiPerformPage = lazy(() => import("./testplan/components/planToCase/planToApiPerformPage"));
+let PlanToWebScenePage = lazy(() => import("./testplan/components/planToCase/planToWebScenePage"));
+let planToWebPerformPage = lazy(() => import("./testplan/components/planToCase/planToWebPerformPage"));
+let PlanToFuncUnitPage = lazy(() => import("./testplan/components/planToCase/planToFuncUnitPage"));
+let PlanToAppPerformPage = lazy(() => import("./testplan/components/planToCase/planToAppPerformPage"));
+let PlanToAppScenePage = lazy(() => import("./testplan/components/planToCase/planToAppScenePage"));
+let RepositoryEdit = lazy(() => import("./repository/repository/components/RepositoryEdit"));
+let WorkspaceBindList = lazy(() => import("./integratedpostin/workspaceBind/components/integratedPage"));
 
 
 const routers =  [

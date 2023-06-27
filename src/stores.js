@@ -1,4 +1,4 @@
-import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store'
+
 // import {PluginStore, PLUGIN_STORE} from "tiklab-plugin-ui"
 
 
@@ -160,7 +160,7 @@ function createStores() {
         [WORKITEM_BIND_STORE]: new WorkItemBindStore(),
 
         [USERSELECT_STORE]: new UserSelectStore(),
-        [EAM_STORE]: new EamStore(),
+
     };
 }
 

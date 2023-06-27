@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './repository.scss';
-import RepositoryEdit from "./RepositoryEdit";
 import {Input} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";

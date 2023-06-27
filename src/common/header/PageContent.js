@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import HeaderContent from "./HeaderContent";
 import {renderRoutes} from "react-router-config";
 import {inject, observer} from "mobx-react";
-import {EAM_STORE} from "tiklab-eam-ui/es/store";
 import {getUser} from "tiklab-core-ui";
 import { SYSTEM_ROLE_STORE } from 'tiklab-privilege-ui/es/store';
 import './portalStyle.scss'
@@ -48,4 +47,4 @@ import './portalStyle.scss'
     )
 }
 
-export default inject(EAM_STORE,SYSTEM_ROLE_STORE)(observer(PageContent))
+export default inject(SYSTEM_ROLE_STORE)(observer(PageContent))

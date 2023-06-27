@@ -75,10 +75,6 @@ const SystemContent = (props) =>{
                     purviewCode: "log",
                 },
             ],
-        },{
-            title: '版本与许可证',
-            icon: 'modular',
-            id: '/systemManagement/version'
         },
         // {
         //     title: '产品授权',
