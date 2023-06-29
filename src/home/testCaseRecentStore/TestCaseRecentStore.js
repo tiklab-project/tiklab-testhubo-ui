@@ -42,5 +42,6 @@ export class TestCaseRecentStore {
 
 }
 
-export const TESTCASE_RECENT_STORE = 'testCaseRecentStore';
+let testCaseRecentStore = new TestCaseRecentStore();
+export default testCaseRecentStore;
 

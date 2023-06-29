@@ -48,4 +48,4 @@ export class ApiPerfStore {
 
 }
 
-export const API_PERF_STORE = 'apiPerfStore';
+export default new ApiPerfStore();

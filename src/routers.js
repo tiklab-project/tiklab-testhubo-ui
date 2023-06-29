@@ -15,14 +15,14 @@ let Repository = lazy(() => import("./repository/repository/components/Repositor
 let RepositoryDetailPage = lazy(() => import("./repository/overview/RepositoryOverView"));
 let CategoryList = lazy(() => import("./category/components/CategoryList"));
 let TestPlan = lazy(() => import("./testplan/components/testPlan"));
-let PortalHeader = lazy(() => import("./common/header/PortalContent"));
+let PortalHeader = lazy(() => import("./home/header/PortalContent"));
 let RepositoryDetailLayout = lazy(() => import("./repository/common/RepositoryDetailLayout"));
 let ApiUnitcaseDetail = lazy(() => import("./test/api/http/unit/components/apiUnitEditPage"));
 let ApiScenecaseDetail = lazy(() => import("./test/api/http/scene/components/apiScenePage"));
 let FuncUnitDetail = lazy(() => import("./test/function/components/funcUnitDetail"));
 let EnvContent = lazy(() => import("./support/environment/components/envContent"));
 let ApiPerformDetail = lazy(() => import("./test/api/http/perf/components/apiPerformDetail"));
-let LoginOut = lazy(() => import("./common/header/LoginOut"));
+let LoginOut = lazy(() => import("./home/header/LoginOut"));
 let WebPerformDetail = lazy(() => import("./test/web/perf/components/webPerformDetail"));
 let AppPerformDetail = lazy(() => import("./test/app/perf/components/appPerformDetail"));
 
@@ -35,7 +35,6 @@ let SystemContent = lazy(() => import("./setting/system/SystemContent"));
 let LoginContent = lazy(() => import("./login/LoginContent"));
 let Version = lazy(() => import("./setting/version/Version"));
 let RepositorySettingMenu = lazy(() => import("./repository/setting/RepositorySettingMenu"));
-let DynamicDetail = lazy(() => import("./home/DynamicDetail"));
 let TestCaseList = lazy(() => import("./test/testcase/components/testcaseList"));
 let RepositorySetting = lazy(() => import("./repository/setting/RepositorySetting"));
 let ApiUnitInstanceList = lazy(() => import("./test/api/http/unit/components/apiUnitInstanceList"));
@@ -63,7 +62,7 @@ let PlanToFuncUnitPage = lazy(() => import("./testplan/components/planToCase/pla
 let PlanToAppPerformPage = lazy(() => import("./testplan/components/planToCase/planToAppPerformPage"));
 let PlanToAppScenePage = lazy(() => import("./testplan/components/planToCase/planToAppScenePage"));
 let RepositoryEdit = lazy(() => import("./repository/repository/components/RepositoryEdit"));
-let WorkspaceBindList = lazy(() => import("./integratedpostin/workspaceBind/components/integratedPage"));
+let WorkspaceBindList = lazy(() => import("./integrated/postin/workspaceBind/components/integratedPage"));
 
 
 const routers =  [
@@ -101,12 +100,6 @@ const routers =  [
                 component: Home,
                 exact: true,
                 key:'Home',
-            },
-            {
-                path: "/dynamic",
-                component: DynamicDetail,
-                exact: true,
-                key:'DynamicDetail',
             },
             {
                 path: "/repository-page",
@@ -433,7 +426,6 @@ const routers =  [
                         key:'version',
                         exact: true,
                         component:Version
-
                     },
                     //产品授权
                     // {

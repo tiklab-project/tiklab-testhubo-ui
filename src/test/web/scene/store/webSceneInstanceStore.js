@@ -66,4 +66,5 @@ export class WebSceneInstanceStore {
 }
 
 
-export const WEB_SCENEINSTANCE_STORE = 'webSceneInstanceStore';
+let webSceneInstanceStore = new WebSceneInstanceStore();
+export default webSceneInstanceStore;

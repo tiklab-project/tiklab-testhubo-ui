@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Popconfirm, Space, Table, Tag} from "antd";
+import {Empty, Popconfirm, Table, Tag} from "antd";
 import IconCommon from "../common/IconCommon";
 import emptyImg from "../assets/img/empty.png";
-import {inject, observer} from "mobx-react";
+import {observer} from "mobx-react";
+import testPlanInstanceStore from "../testplan/store/testPlanInstanceStore";
 
 const TestReportList = (props) =>{
-    const {testPlanInstanceStore} = props;
     const {
         findTestPlanInstancePage,
         deleteTestPlanInstance,
@@ -148,4 +148,4 @@ const TestReportList = (props) =>{
     )
 }
 
-export default  inject("testPlanInstanceStore")(observer(TestReportList));
+export default observer(TestReportList);

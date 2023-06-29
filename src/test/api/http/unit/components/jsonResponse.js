@@ -10,10 +10,11 @@ import { toJS } from 'mobx';
 import ExSelect from "../../../../../common/ExSelect";
 import {ExTable}from '../../../../../common/EditTable';
 import {dataTypeDictionary, mockValueDictionary} from '../../../../../common/dictionary/dictionary';
+import jsonResponseStore from "../store/jsonResponseStore";
 
 
 const JsonResponse = (props) => {
-    const { jsonResponseStore, radioValue } = props;
+    const { radioValue } = props;
     const {
         findJsonResponseListTree,
         deleteJsonResponse,
@@ -201,4 +202,4 @@ const JsonResponse = (props) => {
     );
 }
 
-export default inject('jsonResponseStore')(observer(JsonResponse));
+export default observer(JsonResponse);

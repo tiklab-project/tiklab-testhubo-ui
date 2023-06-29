@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from "react";
-import ExSelect from "../../../../../common/ExSelect";
-import {Checkbox, Popconfirm, Space} from "antd";
+import { Popconfirm, Space} from "antd";
 import {ExTable} from "../../../../../common/EditTable";
 import {inject, observer} from "mobx-react";
-import {mockValueDictionary} from "../../../../../common/dictionary/dictionary";
 import DataTypeSelect from "../../../../../common/DataTypeSelect";
+import formUrlencodedStore from "../store/formUrlencodedStore";
 
 
 const FormUrlencoded = (props) =>{
 
-    const { formUrlencodedStore } = props;
     const {
         findFormUrlencodedList,
         deleteFormUrlencoded,
@@ -183,4 +181,4 @@ const FormUrlencoded = (props) =>{
 }
 
 
-export default inject('formUrlencodedStore')(observer(FormUrlencoded));
+export default observer(FormUrlencoded);

@@ -82,4 +82,5 @@ export class ApiPerfStepStore {
     }
 }
 
-export const API_PERF_STEP_STORE = 'apiPerfStepStore';
+let apiPerfStepStore = new ApiPerfStepStore();
+export default apiPerfStepStore;

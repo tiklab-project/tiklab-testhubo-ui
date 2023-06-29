@@ -10,11 +10,13 @@ import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import MethodType from "../../common/methodType";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
+import apiUnitTestDispatchStore from "../store/apiUnitTestDispatchStore";
+import assertParamStore from "../store/assertParamStore";
 
 const {Option} = Select;
 
 const ApiUnitEditPageCommon = (props) => {
-    const { apiUnitStore,apiEnvStore,apiUnitTestDispatchStore,assertParamStore } = props;
+    const { apiUnitStore,apiEnvStore } = props;
     const { findApiUnit,updateApiUnit } = apiUnitStore;
     const { apiUnitExecute } = apiUnitTestDispatchStore;
     const { envUrl } = apiEnvStore;
@@ -234,4 +236,4 @@ const ApiUnitEditPageCommon = (props) => {
     )
 }
 
-export default inject('apiUnitStore',"apiEnvStore","apiUnitTestDispatchStore",'assertParamStore')(observer(ApiUnitEditPageCommon));
+export default inject('apiUnitStore',"apiEnvStore",)(observer(ApiUnitEditPageCommon));

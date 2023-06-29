@@ -10,9 +10,10 @@ import AppSceneInstanceDrawer from "../../test/app/scene/components/appSceneInst
 import ApiPerformInstanceDrawer from "../../test/api/http/perf/components/apiPerformInstanceDrawer";
 import WebPerformInstanceDrawer from "../../test/web/perf/components/webPerformInstanceDrawer";
 import AppPerformInstanceDrawer from "../../test/app/perf/components/appPerformInstanceDrawer";
+import testPlanInstanceStore from "../store/testPlanInstanceStore";
+import testPlanBindCaseInstanceStore from "../store/testPlanBindCaseInstanceStore";
 
 const TestPlanBindCaseInstanceTable = (props) =>{
-    const {testPlanInstanceStore,testPlanBindCaseInstanceStore} = props;
     const {
         findTestPlanBindCaseInstancePage,
         testPlanBindCaseInstanceList,
@@ -188,4 +189,4 @@ const TestPlanBindCaseInstanceTable = (props) =>{
     )
 }
 
-export default inject("testPlanInstanceStore","testPlanBindCaseInstanceStore")(observer(TestPlanBindCaseInstanceTable));
+export default observer(TestPlanBindCaseInstanceTable);

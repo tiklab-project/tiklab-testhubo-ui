@@ -2,9 +2,10 @@ import React, { useState} from "react";
 import { Drawer, Spin} from "antd";
 import {inject, observer} from "mobx-react";
 import PerformInstanceCommon from "../../../../common/caseCommon/PerformInstanceCommon";
+import webPerfInstanceStore from "../store/webPerfInstanceStore";
 
 const WebPerformInstanceDrawer = (props) =>{
-    const {webPerfInstanceStore,webPerfInstanceId} = props;
+    const {webPerfInstanceId} = props;
     const {findWebPerfInstance} = webPerfInstanceStore;
 
 
@@ -110,4 +111,4 @@ const WebPerformInstanceDrawer = (props) =>{
     )
 }
 
-export default inject("webPerfInstanceStore")(observer(WebPerformInstanceDrawer));
+export default observer(WebPerformInstanceDrawer);

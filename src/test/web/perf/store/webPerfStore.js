@@ -46,4 +46,4 @@ export class WebPerfStore {
 
 }
 
-export const WEB_PERF_STORE = 'webPerfStore';
+export default new WebPerfStore();

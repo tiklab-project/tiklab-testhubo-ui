@@ -131,7 +131,31 @@ export class RepositoryStore {
     }
 
 
-    
+    /**
+     * 设置最近访问的仓库
+     */
+    @action
+    repositoryRecent = async (values) => {
+        const res = await Axios.post("/repositoryRecent/repositoryRecent",values);
+        if(res.code === 0 ) {
+            return res.data;
+        }
+    }
+
+    /**
+     * 查询最近访问的仓库列表
+     */
+    @action
+    findRepositoryRecentList = async (userId) => {
+        let params = {
+            userId:userId,
+            orderParams:[{name:'updateTime', orderType:'desc'}],
+        }
+        const res = await Axios.post("/repositoryRecent/findRepositoryRecentList",params)
+        if(res.code === 0 ) {
+            return res.data;
+        }
+    }
 
 }
 

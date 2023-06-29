@@ -68,9 +68,8 @@ export class ApiEnvStore {
 			return res.data;
 		}
 	}
-
-
 }
 
-export const API_ENV_STORE = 'apiEnvStore';
+export default new ApiEnvStore()
+
 

@@ -82,4 +82,5 @@ export class AppPerfStepStore {
     }
 }
 
-export const APP_PERF_STEP_STORE = 'appPerfStepStore';
+let appPerfStepStore = new AppPerfStepStore();
+export default appPerfStepStore;

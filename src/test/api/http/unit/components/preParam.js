@@ -7,10 +7,10 @@
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Input, Button, Form } from 'antd';
+import preParamStore from "../store/preParamStore";
 const { TextArea } = Input;
 
 const PreParam = (props) => {
-    const { preParamStore }  = props;
 
     const { 
         createPreScript, 
@@ -75,4 +75,4 @@ const PreParam = (props) => {
     )
 }
 
-export default inject("preParamStore")(observer(PreParam));
+export default observer(PreParam);

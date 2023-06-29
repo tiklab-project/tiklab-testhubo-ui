@@ -2,9 +2,9 @@ import React, {useEffect, useRef, useState} from "react";
 import {Button, Drawer, Spin, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import "./appPerfStyle.scss"
+import appPerfTestDispatchStore from "../store/appPerfTestDispatchStore";
 
 const AppPerformTestDrawer = (props) =>{
-    const {appPerfTestDispatchStore} = props;
     const {appPerfExecute,exeResult} = appPerfTestDispatchStore;
 
     const [result, setResult] = useState();
@@ -143,4 +143,4 @@ const AppPerformTestDrawer = (props) =>{
     )
 }
 
-export default inject("appPerfTestDispatchStore")(observer(AppPerformTestDrawer));
+export default observer(AppPerformTestDrawer);

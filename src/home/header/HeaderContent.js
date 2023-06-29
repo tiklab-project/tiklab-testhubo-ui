@@ -90,7 +90,6 @@ const HeaderContent = props => {
         <div className="frame-header">
             <div className={"pi-header-left"}>
                 <AppLink isSSO={false}/>
-                {/*<div className={"pi-header-right-item"}><WorkAppConfig isSSO={false}/></div>*/}
                 <div className={'frame-header-logo'}>
                     {logo && <img src={logo} alt='logo' />}
                 </div>

@@ -63,9 +63,7 @@ export class QueryParamStore {
 
         return  await Axios.post("/queryParam/deleteQueryParam",param);
     }
-
-
-
 }
 
-export const QUERYPARAM_STORE = 'queryParamStore';
+let queryParamStore = new QueryParamStore();
+export default queryParamStore;

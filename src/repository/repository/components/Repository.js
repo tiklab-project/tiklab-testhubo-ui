@@ -3,7 +3,7 @@ import './repository.scss';
 import {Input} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
-import RepositoryRecentHome from "./RepositoryRecentHome";
+import RepositoryRecentHome from "../../../home/RepositoryRecentHome";
 import {SearchOutlined} from "@ant-design/icons";
 import RepositoryList from "./RepositoryList";
 import IconBtn from "../../../common/iconBtn/IconBtn";
@@ -175,4 +175,4 @@ const Repository = (props)=> {
 }
 
 
-export default inject('repositoryStore',"repositoryFollowStore","repositoryRecentStore")(observer(Repository));
+export default inject('repositoryStore')(observer(Repository));

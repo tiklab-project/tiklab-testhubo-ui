@@ -2,9 +2,10 @@ import React from "react";
 import { Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
+import appPerfStepStore from "../store/appPerfStepStore";
 
 const AppPerformBindScene = (props) =>{
-    const {appSceneStore,appPerfStepStore,appPerfId} = props;
+    const {appSceneStore,appPerfId} = props;
     const {findAppSceneList,appSceneList} = appSceneStore;
 
     const {bindAppScene, findAppPerfStepList} = appPerfStepStore;

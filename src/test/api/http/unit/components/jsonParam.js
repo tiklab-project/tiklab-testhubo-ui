@@ -6,15 +6,15 @@
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from "mobx-react";
 import { toJS } from 'mobx';
-import { Tooltip, Space, Checkbox, Popconfirm} from 'antd';
-import { PlusCircleTwoTone, MinusCircleTwoTone } from "@ant-design/icons";
-import {dataTypeDictionary, mockValueDictionary} from '../../../../../common/dictionary/dictionary';
+import { Tooltip, Space, Checkbox} from 'antd';
+import { mockValueDictionary} from '../../../../../common/dictionary/dictionary';
 import ExSelect from "../../../../../common/ExSelect";
 import {ExTable}from '../../../../../common/EditTable';
 import DataTypeSelect from "../../../../../common/DataTypeSelect";
+import jsonParamStore from "../store/jsonParamStore";
 
 const JsonParam = (props) => {
-    const { jsonParamStore, radioValue} = props;
+    const { radioValue} = props;
     const {
         findJsonParamListTree,
         deleteJsonParam,
@@ -197,4 +197,4 @@ const JsonParam = (props) => {
     );
 }
 
-export default inject('jsonParamStore')(observer(JsonParam));
+export default observer(JsonParam);

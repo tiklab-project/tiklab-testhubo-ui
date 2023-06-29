@@ -8,9 +8,9 @@ import IconCommon from "../../common/IconCommon";
  * 左侧导航展示
  */
 const LeftNav = (props) =>{
-    const {repositoryStore,systemRoleStore,repositoryRecentStore,testcaseStore} = props;
-    const {findRepository,findRepositoryList,repositoryList} = repositoryStore;
-    const {repositoryRecent} = repositoryRecentStore;
+    const {repositoryStore,systemRoleStore,testcaseStore} = props;
+    const {findRepository,findRepositoryList,repositoryList,repositoryRecent} = repositoryStore;
+
     const {setTestType} = testcaseStore;
 
     const menuData = [
@@ -187,4 +187,4 @@ const LeftNav = (props) =>{
     )
 }
 
-export default inject("repositoryStore","systemRoleStore","repositoryRecentStore","testcaseStore")(observer(LeftNav));
+export default inject("repositoryStore","systemRoleStore","testcaseStore")(observer(LeftNav));

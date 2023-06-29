@@ -7,12 +7,12 @@ import { observer, inject } from "mobx-react";
 import { Space,  Select, Popconfirm } from 'antd';
 import {ExTable}from '../../../../../common/EditTable';
 import IconCommon from "../../../../../common/IconCommon";
+import assertParamStore from "../store/assertParamStore";
 const { Option } = Select;
 
 
 // 请求参数的可编辑表格
 const AssertParam = (props) =>{
-    const { assertParamStore } = props;
     const {
         findAssertParamList,
         deleteAssertParam,
@@ -208,4 +208,4 @@ const AssertParam = (props) =>{
     );
 }
 
-export default inject('assertParamStore')(observer(AssertParam));
+export default observer(AssertParam);

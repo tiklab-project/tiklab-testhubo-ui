@@ -2,9 +2,10 @@ import React, { useState} from "react";
 import {Button, Drawer, Empty, Spin, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import PerformInstanceCommon from "../../../../common/caseCommon/PerformInstanceCommon";
+import appPerfInstanceStore from "../store/appPerfInstanceStore";
 
 const AppPerformInstanceDrawer = (props) =>{
-    const {appPerfInstanceStore,appPerfInstanceId} = props;
+    const {appPerfInstanceId} = props;
     const {findAppPerfInstance} = appPerfInstanceStore;
 
 
@@ -110,4 +111,4 @@ const AppPerformInstanceDrawer = (props) =>{
     )
 }
 
-export default inject("appPerfInstanceStore")(observer(AppPerformInstanceDrawer));
+export default observer(AppPerformInstanceDrawer);

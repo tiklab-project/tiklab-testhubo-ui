@@ -3,9 +3,9 @@ import {Popconfirm, Table} from "antd";
 import AppPerformBindScene from "./appPerformBindScene";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
+import appPerfStepStore from "../store/appPerfStepStore";
 
 const AppPerfStepList = (props) =>{
-    const {appPerfStepStore} = props;
     const {findAppPerfStepList,appPerfStepList,deleteAppPerfStep} =appPerfStepStore;
 
 
@@ -76,4 +76,4 @@ const AppPerfStepList = (props) =>{
     )
 }
 
-export default inject("appPerfStepStore")(observer(AppPerfStepList));
+export default observer(AppPerfStepList);

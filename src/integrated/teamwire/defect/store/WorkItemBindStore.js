@@ -54,5 +54,6 @@ export class WorkItemBindStore {
 
 }
 
-export const WORKITEM_BIND_STORE = 'workItemBindStore';
+let workItemBindStore = new WorkItemBindStore();
+export default workItemBindStore;
 

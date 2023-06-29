@@ -70,4 +70,5 @@ export class WebSceneStepStore {
     }
 }
 
-export const WEB_SCENESTEP_STORE = 'webSceneStepStore';
+let webSceneStepStore = new WebSceneStepStore();
+export default webSceneStepStore;

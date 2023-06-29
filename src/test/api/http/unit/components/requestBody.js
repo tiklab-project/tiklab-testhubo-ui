@@ -5,13 +5,13 @@ import FormParam from "./formParam";
 import FormUrlencoded from "./formUrlencoded";
 import JsonParam from "./jsonParam";
 import RawParam from "./rawParam";
+import requestBodyStore from "../store/requestBodyStore";
 
 
 /**
  *接口定义中的请求体
  */
 const RequestBody  = (props) =>{
-    const { requestBodyStore } = props;
     const {
         findRequestBody,
         updateRequestBody,
@@ -43,4 +43,4 @@ const RequestBody  = (props) =>{
     )
 }
 
-export default inject('requestBodyStore')(observer(RequestBody));
+export default observer(RequestBody);

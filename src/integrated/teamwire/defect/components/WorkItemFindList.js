@@ -3,15 +3,12 @@ import {Modal, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import ProjectSelect from "../../workItem/components/ProjectSelect";
+import workItemBindStore from "../store/WorkItemBindStore";
 
 const WorkItemFindList = (props) =>{
-    const {workItemBindStore,workItemStore,caseId} = props;
+    const {workItemStore,caseId} = props;
     const {createWorkItemBind,findWorkItemBindList} = workItemBindStore;
-    const {
-        findProjectList,
-        findWorkItemList,
-     
-    } = workItemStore;
+    const {findProjectList,findWorkItemList} = workItemStore;
 
 
     //缺陷列表头
@@ -142,4 +139,4 @@ const WorkItemFindList = (props) =>{
     )
 }
 
-export default inject("workItemStore","workItemBindStore")(observer(WorkItemFindList));
+export default inject("workItemStore")(observer(WorkItemFindList));

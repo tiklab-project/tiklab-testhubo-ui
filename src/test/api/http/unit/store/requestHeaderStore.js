@@ -67,4 +67,5 @@ export  class RequestHeaderStore {
 
 }
 
-export const REQUESTHEADER_STORE = 'requestHeaderStore';
+let requestHeaderStore = new RequestHeaderStore();
+export default requestHeaderStore;

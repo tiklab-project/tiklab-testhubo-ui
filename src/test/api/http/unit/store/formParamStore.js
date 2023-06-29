@@ -65,4 +65,5 @@ export class FormParamStore {
 
 }
 
-export const FORMPARAM_STORE = 'formParamStore';
+let formParamStore = new FormParamStore();
+export default formParamStore;

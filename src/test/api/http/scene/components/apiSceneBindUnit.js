@@ -2,13 +2,12 @@ import React from "react";
 import {Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
+import apiSceneStepStore from "../store/apiSceneStepStore";
 
 const ApiSceneBindUnit =(props) =>{
-    const {apiUnitStore,apiSceneStepStore} = props;
+    const {apiUnitStore} = props;
     const {findApiUnitList,apiUnitList} = apiUnitStore;
-    const {findApiSceneStepList} = apiSceneStepStore
-
-    const {bindApiUnit} = apiSceneStepStore;
+    const {findApiSceneStepList,bindApiUnit} = apiSceneStepStore
 
     const column =[
         {
@@ -95,4 +94,4 @@ const ApiSceneBindUnit =(props) =>{
     )
 }
 
-export default inject("apiUnitStore","apiSceneStepStore")(observer(ApiSceneBindUnit));
+export default inject("apiUnitStore")(observer(ApiSceneBindUnit));

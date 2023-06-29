@@ -118,4 +118,5 @@ export class JsonResponseStore {
 
 }
 
-export const JSONRESPONSE_STORE = 'jsonResponseStore';
+let jsonResponseStore = new JsonResponseStore();
+export default jsonResponseStore;

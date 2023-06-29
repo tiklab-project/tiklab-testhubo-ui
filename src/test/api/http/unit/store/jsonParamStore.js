@@ -116,4 +116,5 @@ export class JsonParamStore {
 
 
 
-export const JSONPARAM_STORE = 'jsonParamStore';
+let jsonParamStore =new JsonParamStore();
+export default jsonParamStore;

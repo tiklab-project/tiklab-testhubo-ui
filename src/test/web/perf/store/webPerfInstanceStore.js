@@ -57,4 +57,5 @@ export class WebPerfInstanceStore {
 }
 
 
-export const WEB_PERF_INSTANCE_STORE = 'webPerfInstanceStore';
+let webPerfInstanceStore = new WebPerfInstanceStore();
+export default webPerfInstanceStore;

@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Table} from "antd";
+import {Empty} from "antd";
 import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
-import emptyImg from "../../../assets/img/empty.png";
+import emptyImg from "../assets/img/empty.png";
 
 /**
  * 最近访问的仓库
  */
 const RepositoryRecentHome = (props) =>{
-    const {repositoryRecentStore} = props;
+    const {repositoryStore} = props;
+    const {findRepositoryRecentList,repositoryRecent}=repositoryStore;
 
-    const {findRepositoryRecentList,recentList,repositoryRecent}=repositoryRecentStore;
     const [dataList, setDataList] = useState([]);
 
     const userId = getUser().userId;
@@ -89,4 +89,4 @@ const RepositoryRecentHome = (props) =>{
     )
 }
 
-export default inject("repositoryRecentStore")(observer(RepositoryRecentHome));
+export default inject("repositoryStore")(observer(RepositoryRecentHome));

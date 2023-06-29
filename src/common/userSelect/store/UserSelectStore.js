@@ -34,5 +34,6 @@ export class UserSelectStore {
 
 }
 
-export const USERSELECT_STORE = 'userSelectStore';
+let userSelectStore = new UserSelectStore();
+export default userSelectStore;
 

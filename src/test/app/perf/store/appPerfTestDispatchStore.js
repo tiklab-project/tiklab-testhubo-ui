@@ -31,4 +31,5 @@ export class AppPerfTestDispatchStore {
 
 }
 
-export const APP_PERF_DISPATCH_STORE = 'appPerfTestDispatchStore';
+let appPerfTestDispatchStore = new AppPerfTestDispatchStore();
+export default appPerfTestDispatchStore;

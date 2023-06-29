@@ -1,8 +1,7 @@
 import { observable,  action } from "mobx";
 import {Axios} from "tiklab-core-ui";
 
-
-export class ResponseResultStore {
+class ResponseResultStore {
     @observable responseResultInfo = [];
     @observable apiUnitId = '';
     @observable responseResultId = '';
@@ -39,4 +38,5 @@ export class ResponseResultStore {
 
 }
 
-export const RESPONSERESULT_STORE = 'responseResultStore';
+let responseResultStore = new ResponseResultStore();
+export default responseResultStore;

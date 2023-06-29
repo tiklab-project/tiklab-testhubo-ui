@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {Form, Input} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
+import postinUrlStore from "../store/PostinUrlStore";
 
 const PostinUrlConfig = (props) =>{
-    const {postinUrlStore} = props;
     const {findPostinUrlList,createPostinUrl,updatePostinUrl} = postinUrlStore;
 
     const [form] = Form.useForm();
@@ -128,4 +128,4 @@ const PostinUrlConfig = (props) =>{
     )
 }
 
-export default inject("postinUrlStore")(observer(PostinUrlConfig));
+export default observer(PostinUrlConfig);

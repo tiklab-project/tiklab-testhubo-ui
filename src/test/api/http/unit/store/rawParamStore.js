@@ -29,4 +29,5 @@ export class RawParamStore {
 
 }
 
-export const RAWPARAM_STORE = 'rawParamStore';
+let rawParamStore = new RawParamStore();
+export default rawParamStore;

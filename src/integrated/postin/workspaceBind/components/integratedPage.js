@@ -3,10 +3,10 @@ import {inject, observer} from "mobx-react";
 import WorkspaceFindList from "./WorkspaceFindList";
 import PostinUrlConfig from "../../postinUrl/components/PostinUrlConfig";
 import "./intergatedStyle.scss"
+import workspaceBindStore from "../store/WorkspaceBindStore";
 
 
 const IntegratedPage = (props) =>{
-    const {workspaceBindStore} = props;
     const {findWorkspaceBindList,workspaceName} = workspaceBindStore
 
 
@@ -46,4 +46,4 @@ const IntegratedPage = (props) =>{
     )
 }
 
-export default inject("workspaceBindStore")(observer(IntegratedPage));
+export default observer(IntegratedPage);

@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {Modal, Space, Table} from "antd";
-import IconBtn from "../../../common/iconBtn/IconBtn";
+import IconBtn from "../../../../common/iconBtn/IconBtn";
 import {inject, observer} from "mobx-react";
-import {messageFn} from "../../../common/messageCommon/MessageCommon";
+import {messageFn} from "../../../../common/messageCommon/MessageCommon";
+import workspaceBindStore from "../store/WorkspaceBindStore";
 
 const WorkspaceFindList = (props) =>{
-    const {workspaceBindStore} = props;
     const {findWorkspaceList,bindWorkspace,findWorkspaceBindList} = workspaceBindStore;
 
 
@@ -119,4 +119,4 @@ const WorkspaceFindList = (props) =>{
     )
 }
 
-export default inject("workspaceBindStore")(observer(WorkspaceFindList));
+export default observer(WorkspaceFindList);

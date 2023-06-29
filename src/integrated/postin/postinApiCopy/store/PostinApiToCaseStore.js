@@ -25,5 +25,6 @@ export class PostInApiToCaseStore {
 
 }
 
-export const POSTIN_API_TO_CASE_STORE = 'postInApiToCaseStore';
+let postInApiToCaseStore = new PostInApiToCaseStore();
+export default postInApiToCaseStore;
 

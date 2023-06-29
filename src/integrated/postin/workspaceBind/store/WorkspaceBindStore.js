@@ -68,5 +68,6 @@ export class WorkspaceBindStore {
 
 }
 
-export const WORKSPACE_BIND_STORE = 'workspaceBindStore';
+let workspaceBindStore = new WorkspaceBindStore();
+export default workspaceBindStore;
 

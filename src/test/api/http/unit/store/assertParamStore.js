@@ -91,4 +91,5 @@ export class AssertParamStore {
     }
 }
 
-export const ASSERTPARAM_STORE = 'assertParamStore';
+let assertParamStore = new AssertParamStore();
+export default assertParamStore;

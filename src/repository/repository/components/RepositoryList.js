@@ -2,21 +2,20 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Empty, Space, Table, Tooltip} from 'antd';
-import  { useTranslation } from 'react-i18next'
 import {getUser} from "tiklab-core-ui";
 import emptyImg  from "../../../assets/img/empty.png"
+import repositoryFollowStore from "../store/RepositoryFollowStore";
 
 
 /**
  * 仓库列表
  */
 const RepositoryList = (props) => {
-    const { repositoryStore ,repositoryRecentStore,repositoryFollowStore,findList,selectItem } = props;
-    const { repositoryList,settingMenuSelected } = repositoryStore;
-    
-    const {repositoryRecent} = repositoryRecentStore;
+    const { repositoryStore ,findList,selectItem } = props;
+    const { repositoryList,repositoryRecent } = repositoryStore;
+
     const {createRepositoryFollow,deleteRepositoryFollow} = repositoryFollowStore;
-    const { t } = useTranslation();
+
     let userId=getUser().userId
 
     const columns = [
@@ -179,4 +178,4 @@ const RepositoryList = (props) => {
     )
 }
 
-export default inject('repositoryStore',"repositoryFollowStore","repositoryRecentStore")(observer(RepositoryList));
+export default inject('repositoryStore')(observer(RepositoryList));

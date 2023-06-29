@@ -2,7 +2,7 @@ import {observable,action} from "mobx";
 import {Axios} from "tiklab-core-ui";
 
 
-export class ApiUnitTestDispatchStore {
+class ApiUnitTestDispatchStore {
     @observable apiUnitTestResult = {};
     @observable responseResult = {};
     @observable totalRecord ;
@@ -26,4 +26,5 @@ export class ApiUnitTestDispatchStore {
 
 }
 
-export const API_UNIT_DISPATCH_STORE = 'apiUnitTestDispatchStore';
+let apiUnitTestDispatchStore = new ApiUnitTestDispatchStore();
+export default apiUnitTestDispatchStore;

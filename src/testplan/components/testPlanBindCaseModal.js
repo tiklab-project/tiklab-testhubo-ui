@@ -7,10 +7,11 @@ import { observer, inject } from "mobx-react";
 import {Modal, Table, Space, Select,} from 'antd';
 import IconBtn from "../../common/iconBtn/IconBtn";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import testPlanDetailStore from "../store/testPlanDetailStore";
 
 // 添加与编辑
 const TestPlanBindCaseModal = (props) => {
-    const { testPlanDetailStore,testPlanId,testcaseStore} = props;
+    const {testPlanId,testcaseStore} = props;
     const {findBindTestCaseList,planBindCase} = testPlanDetailStore;
     const {findTestCaseList,testcaseList} = testcaseStore;
 
@@ -197,4 +198,4 @@ const TestPlanBindCaseModal = (props) => {
     );
 };
 
-export default inject('testPlanDetailStore',"testcaseStore")(observer(TestPlanBindCaseModal));
+export default inject("testcaseStore")(observer(TestPlanBindCaseModal));

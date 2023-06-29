@@ -48,5 +48,6 @@ export class AgentConfigStore {
 
 }
 
-export const AGENT_CONFIG_STORE = 'agentConfigStore';
+export default new AgentConfigStore();
+
 

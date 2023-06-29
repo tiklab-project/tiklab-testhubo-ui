@@ -1,14 +1,15 @@
 import React, {useState} from "react";
-import {Button, Drawer, Tabs} from "antd";
+import {Drawer} from "antd";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
 import {TextMethodType} from "../../common/methodType";
 import ResponseCommon from "../../common/response/responseCommon";
-import {inject, observer} from "mobx-react";
-import IconCommon from "../../../../../common/IconCommon";
+import {observer} from "mobx-react";
+import apiUnitInstanceStore from "../../unit/store/apiUnitInstanceStore";
+import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
 
 const ApiSceneInstanceDrawer = (props) =>{
-    const {apiSceneInstanceStore,apiUnitInstanceStore,apiSceneInstanceId} = props
+    const {apiSceneInstanceId} = props
     const { findApiSceneInstance } = apiSceneInstanceStore;
     const {findApiUnitInstance} = apiUnitInstanceStore;
     
@@ -178,4 +179,4 @@ const ApiSceneInstanceDrawer = (props) =>{
         </>
     )
 }
-export default inject("apiSceneInstanceStore","apiUnitInstanceStore")(observer(ApiSceneInstanceDrawer));
+export default observer(ApiSceneInstanceDrawer);

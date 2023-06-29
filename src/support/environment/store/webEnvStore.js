@@ -71,4 +71,4 @@ export class WebEnvStore {
 
 }
 
-export const WEB_ENV_STORE = 'webEnvStore';
+export default new WebEnvStore();

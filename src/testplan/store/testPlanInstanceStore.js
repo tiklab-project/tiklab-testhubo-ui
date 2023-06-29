@@ -62,4 +62,5 @@ export class TestPlanInstanceStore {
 }
 
 
-export const TEST_PLAN_INSTANCE_STORE = 'testPlanInstanceStore';
+let testPlanInstanceStore = new TestPlanInstanceStore();
+export default testPlanInstanceStore;

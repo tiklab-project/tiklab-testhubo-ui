@@ -62,4 +62,5 @@ export class ApiPerfInstanceStore {
 
 }
 
-export const API_PERF_INSTANCE_STORE = 'apiPerfInstanceStore';
+let apiPerfInstanceStore = new ApiPerfInstanceStore();
+export default apiPerfInstanceStore;

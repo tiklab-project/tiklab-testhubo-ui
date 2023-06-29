@@ -4,6 +4,7 @@ import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Select} from 'antd';
 import IconCommon from "../../../../common/IconCommon";
 import {Axios} from "tiklab-core-ui";
+import webSceneStepStore from "../store/webSceneStepStore";
 
 
 const layout = {
@@ -15,7 +16,7 @@ const {Option} = Select
 
 // 添加与编辑
 const WebSceneStepEdit = (props) => {
-    const { webSceneStepStore,webSceneStepId,findList } = props;
+    const { webSceneStepId,findList } = props;
     const {
         createWebSceneStep,
         updateWebSceneStep,
@@ -217,4 +218,4 @@ const WebSceneStepEdit = (props) => {
     );
 };
 
-export default inject("webSceneStepStore")(observer(WebSceneStepEdit));
+export default observer(WebSceneStepEdit);

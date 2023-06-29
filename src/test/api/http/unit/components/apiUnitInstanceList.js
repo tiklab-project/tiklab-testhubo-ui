@@ -4,9 +4,9 @@ import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import ApiUnitInstanceDrawer from "./apiUnitInstanceDrawer";
+import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 
 const ApiUnitInstanceList = (props) =>{
-    const {apiUnitInstanceStore} = props;
     const {
         findApiUnitInstancePage,
         apiUnitInstanceList,
@@ -166,4 +166,4 @@ const ApiUnitInstanceList = (props) =>{
     )
 }
 
-export default inject("apiUnitInstanceStore")(observer(ApiUnitInstanceList));
+export default observer(ApiUnitInstanceList);

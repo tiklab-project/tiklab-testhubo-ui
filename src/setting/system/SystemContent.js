@@ -76,11 +76,12 @@ const SystemContent = (props) =>{
                 },
             ],
         },
-        // {
-        //     title: '产品授权',
-        //     icon: 'modular',
-        //     id: '/systemManagement/product'
-        // },
+        {
+            title: '版本与许可证',
+            icon: 'modular',
+            id: '/systemManagement/version'
+
+        },
     ]
 
     const devMenu = [

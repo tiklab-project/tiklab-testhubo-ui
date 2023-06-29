@@ -9,9 +9,9 @@ const { RangePicker } = DatePicker;
 
 // 添加与编辑
 const TestPlanEdit = (props) => {
-    const { testPlanStore, userSelectStore, testPlanId,findPage } = props;
+    const { testPlanStore, testPlanId,findPage } = props;
     const {findTestPlan, createTestPlan, updateTestPlan} = testPlanStore;
-    const {userSelectId} = userSelectStore;
+
 
 
     const [form] = Form.useForm();
@@ -122,4 +122,4 @@ const TestPlanEdit = (props) => {
     );
 };
 
-export default inject('testPlanStore',"userSelectStore")(observer(TestPlanEdit));
+export default inject('testPlanStore')(observer(TestPlanEdit));

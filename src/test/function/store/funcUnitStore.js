@@ -46,4 +46,5 @@ export class FuncUnitStore {
     }
 
 }
-export const FUNC_UNIT_STORE = 'funcUnitStore';
+
+export default new FuncUnitStore();

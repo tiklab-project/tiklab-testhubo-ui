@@ -1,12 +1,12 @@
 import React, { useState} from "react";
-import {Button, Drawer, Empty, Spin, Table} from "antd";
+import { Drawer,  Spin} from "antd";
 import {inject, observer} from "mobx-react";
 import "./performanceStyle.scss"
-import emptyImg from "../../../../../assets/img/empty.png";
 import PerformInstanceCommon from "../../../../../common/caseCommon/PerformInstanceCommon";
+import apiPerfInstanceStore from "../store/apiPerfInstanceStore";
 
 const ApiPerformInstanceDrawer = (props) =>{
-    const {apiPerfInstanceStore,apiPerfInstanceId} = props;
+    const {apiPerfInstanceId} = props;
     const {findApiPerfInstance} = apiPerfInstanceStore;
 
 
@@ -112,4 +112,4 @@ const ApiPerformInstanceDrawer = (props) =>{
     )
 }
 
-export default inject("apiPerfInstanceStore")(observer(ApiPerformInstanceDrawer));
+export default observer(ApiPerformInstanceDrawer);

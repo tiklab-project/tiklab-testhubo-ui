@@ -8,9 +8,7 @@ import ApiUnitEdit from "../../api/http/unit/components/apiUnitEdit";
 import ApiSceneEdit from "../../api/http/scene/components/apiSceneEdit";
 import ApiPerfEdit from "../../api/http/perf/components/apiPerfEdit";
 import WebSceneEdit from "../../web/scene/components/webSceneEdit";
-import WebPerfEdit from "../../web/perf/components/webPerfEdit";
 import AppSceneEdit from "../../app/scene/components/appSceneEdit";
-import AppPerfEdit from "../../app/perf/components/appPerfEdit";
 import IconCommon from "../../../common/IconCommon";
 import {showCaseTypeView, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import FuncUnitEdit from "../../function/components/funcUnitEdit";
@@ -25,11 +23,11 @@ import AppPerformInstanceDrawer from "../../app/perf/components/appPerformInstan
 import TestTypeSelect from "./TestTypeSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
 import {getUser} from "tiklab-core-ui";
-import PostInApiToCase from "../../../integratedpostin/postinApiCopy/components/PostInApiToCase";
-import {CASE_TYPE, TEST_TYPE} from "../../common/DefineVariables";
+import PostInApiToCase from "../../../integrated/postin/postinApiCopy/components/PostInApiToCase";
+import {CASE_TYPE, TEST_TYPE} from "../../../common/DefineVariables";
 
 const TestCaseList = (props) => {
-    const {testcaseStore,categoryStore,testCaseRecentStore} = props;
+    const {testcaseStore,categoryStore} = props;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const {
@@ -39,10 +37,10 @@ const TestCaseList = (props) => {
         testType,
         setTestType,
         caseType,
-        setCaseType
+        setCaseType,
+        testCaseRecent
     }=testcaseStore;
 
-    const {testCaseRecent}=testCaseRecentStore;
 
     const column = [
         {
@@ -443,4 +441,4 @@ const TestCaseList = (props) => {
 
 }
 
-export default inject("testcaseStore","categoryStore",'testCaseRecentStore')(observer(TestCaseList))
+export default inject("testcaseStore","categoryStore")(observer(TestCaseList))

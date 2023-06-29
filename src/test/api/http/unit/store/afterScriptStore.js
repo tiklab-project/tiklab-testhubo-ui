@@ -1,8 +1,8 @@
 
-import { observable,  action } from "mobx";
+import { action } from "mobx";
 import {Axios} from "tiklab-core-ui";
 
-export class AfterParamStore {
+class AfterScriptStore {
     @action
     findAfterScript = async (id) => {
         const param = new FormData();
@@ -22,5 +22,5 @@ export class AfterParamStore {
     updateAfterScript = async (values) =>  await Axios.post("/afterScript/updateAfterScript",values);
 
 }
-
-export const AFTERPARAM_STORE = 'afterParamStore';
+let afterScriptStore = new AfterScriptStore();
+export default afterScriptStore;

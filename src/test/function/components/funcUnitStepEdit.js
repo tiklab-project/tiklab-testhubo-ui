@@ -2,6 +2,7 @@ import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input} from 'antd';
 import IconCommon from "../../../common/IconCommon";
+import funcUnitStepStore from "../store/funcUnitStepStore";
 
 const layout = {
     labelCol: {span: 4},
@@ -10,7 +11,7 @@ const layout = {
 
 // 添加与编辑
 const FuncUnitStepEdit = (props) => {
-    const { funcUnitStepStore, funcUnitStepId,findPage } = props;
+    const { funcUnitStepId,findPage } = props;
     const {
         findFuncUnitStep,
         createFuncUnitStep,
@@ -108,4 +109,4 @@ const FuncUnitStepEdit = (props) => {
     );
 };
 
-export default inject('funcUnitStepStore')(observer(FuncUnitStepEdit));
+export default observer(FuncUnitStepEdit);

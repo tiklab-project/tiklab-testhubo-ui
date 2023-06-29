@@ -7,16 +7,16 @@
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Input, Button, Form } from 'antd';
+import afterScriptStore from "../store/afterScriptStore";
 const { TextArea } = Input;
 
 const AfterScript = (props) => {
-    const {afterParamStore  }  = props;
 
     const { 
         createAfterScript, 
         updateAfterScript, 
         findAfterScript
-    } = afterParamStore;
+    } = afterScriptStore;
 
 
     const [showBtn, setShowBtn] = useState(false);
@@ -51,11 +51,11 @@ const AfterScript = (props) => {
                 ...values
             }
 
-            updateAfterScript(param)
+            await updateAfterScript(param)
         }else{
             values.apiUnit=apiUnitId;
             values.id =apiUnitId;
-            createAfterScript(values)
+            await createAfterScript(values)
         }
 
         setShowBtn(false)
@@ -79,4 +79,4 @@ const AfterScript = (props) => {
     )
 }
 
-export default inject("afterParamStore")(observer(AfterScript));
+export default observer(AfterScript);

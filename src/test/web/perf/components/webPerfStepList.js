@@ -3,9 +3,9 @@ import {Popconfirm, Table} from "antd";
 import WebPerformBindScene from "./webPerformBindScene";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
+import webPerfStepStore from "../store/webPerfStepStore";
 
 const WebPerfStep = (props) =>{
-    const {webPerfStepStore} = props;
     const {findWebPerfStepList,webPerfStepList,deleteWebPerfStep} =webPerfStepStore;
 
 
@@ -75,4 +75,4 @@ const WebPerfStep = (props) =>{
     )
 }
 
-export default inject("webPerfStepStore")(observer(WebPerfStep));
+export default observer(WebPerfStep);

@@ -4,12 +4,13 @@ import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, Select} from 'antd';
 import IconCommon from "../../../../common/IconCommon";
 import {Axios} from "tiklab-core-ui";
+import appSceneStepStore from "../store/appSceneStepStore";
 
 const {Option} = Select
 
 // 添加与编辑
 const AppSceneStepEdit = (props) => {
-    const { appSceneStepStore,appSceneStepId,findList } = props;
+    const { appSceneStepId,findList } = props;
     const {
         createAppSceneStep,
         updateAppSceneStep,
@@ -211,4 +212,4 @@ const AppSceneStepEdit = (props) => {
     );
 };
 
-export default inject("appSceneStepStore")(observer(AppSceneStepEdit));
+export default observer(AppSceneStepEdit);

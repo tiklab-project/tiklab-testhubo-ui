@@ -3,10 +3,10 @@ import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
+import webPerfInstanceStore from "../store/webPerfInstanceStore";
 // import WebPerfInstanceDrawer from "./webPerfInstanceDrawer";
 
 const WebPerfInstanceList = (props) =>{
-    const {webPerfInstanceStore} = props;
     const {
         findWebPerfInstancePage,
         webPerfInstanceList,
@@ -163,4 +163,4 @@ const WebPerfInstanceList = (props) =>{
     )
 }
 
-export default inject("webPerfInstanceStore")(observer(WebPerfInstanceList));
+export default observer(WebPerfInstanceList);

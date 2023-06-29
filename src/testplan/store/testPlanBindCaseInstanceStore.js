@@ -63,4 +63,5 @@ export class TestPlanBindCaseInstanceStore {
 }
 
 
-export const TEST_PLAN_BIND_CASE_INSTANCE_STORE = 'testPlanBindCaseInstanceStore';
+let testPlanBindCaseInstanceStore = new TestPlanBindCaseInstanceStore();
+export default testPlanBindCaseInstanceStore;

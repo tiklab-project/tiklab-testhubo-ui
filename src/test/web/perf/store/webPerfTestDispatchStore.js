@@ -40,4 +40,5 @@ export class WebPerfTestDispatchStore {
 
 }
 
-export const WEB_PERF_DISPATCH_STORE = 'webPerfTestDispatchStore';
+let webPerfTestDispatchStore = new WebPerfTestDispatchStore();
+export default webPerfTestDispatchStore;

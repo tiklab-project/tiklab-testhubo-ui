@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, InputNumber, Radio, Checkbox, Form, Input, Popconfirm} from "antd";
 import {inject, observer} from "mobx-react";
+import webPerfTestDispatchStore from "../store/webPerfTestDispatchStore";
 
 const layout = {
     labelCol: {span: 2},
@@ -9,7 +10,7 @@ const layout = {
 
 
 const WebPerfConfig = (props) =>{
-    const {webPerfStore,agentConfigStore,webPerfTestDispatchStore} = props;
+    const {webPerfStore,agentConfigStore} = props;
     const {findWebPerf,updateWebPerf} = webPerfStore;
     const {findAgentConfigList} = agentConfigStore;
     const {getAgent} = webPerfTestDispatchStore;
@@ -177,4 +178,4 @@ const WebPerfConfig = (props) =>{
     )
 }
 
-export default inject("webPerfStore","agentConfigStore","webPerfTestDispatchStore")(observer(WebPerfConfig));
+export default inject("webPerfStore","agentConfigStore",)(observer(WebPerfConfig));

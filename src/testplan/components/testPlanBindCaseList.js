@@ -5,9 +5,9 @@ import TestPlanTestcaseAdd from "./testPlanBindCaseModal";
 import IconCommon from "../../common/IconCommon";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
 import emptyImg from "../../assets/img/empty.png";
+import testPlanDetailStore from "../store/testPlanDetailStore";
 
 const TestPlanBindCaseList = (props) =>{
-    const {testPlanDetailStore} = props;
     const {findBindTestCaseList,testPlanDetailList,deleteTestPlanDetail} = testPlanDetailStore;
     //列表头
     const columns = [
@@ -178,4 +178,4 @@ const TestPlanBindCaseList = (props) =>{
     )
 }
 
-export default inject('testPlanDetailStore')(observer(TestPlanBindCaseList));
+export default observer(TestPlanBindCaseList);

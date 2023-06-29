@@ -24,4 +24,5 @@ export class PreParamStore {
 
 }
 
-export const PREPARAM_STORE = 'preParamStore';
+let preParamStore=new PreParamStore();
+export default preParamStore;

@@ -3,9 +3,9 @@ import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
+import appPerfInstanceStore from "../store/appPerfInstanceStore";
 
 const AppPerfInstanceList = (props) =>{
-    const {appPerfInstanceStore} = props;
     const {
         findAppPerfInstancePage,
         appPerfInstanceList,
@@ -156,4 +156,4 @@ const AppPerfInstanceList = (props) =>{
     )
 }
 
-export default inject("appPerfInstanceStore")(observer(AppPerfInstanceList));
+export default observer(AppPerfInstanceList);

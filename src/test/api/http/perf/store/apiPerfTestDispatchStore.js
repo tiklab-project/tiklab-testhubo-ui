@@ -38,4 +38,5 @@ export class ApiPerfTestDispatchStore {
 
 }
 
-export const API_PERF_DISPATCH_STORE = 'apiPerfTestDispatchStore';
+let apiPerfTestDispatchStore = new ApiPerfTestDispatchStore();
+export default apiPerfTestDispatchStore;

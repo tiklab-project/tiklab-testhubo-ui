@@ -64,84 +64,75 @@ module.exports = merge(baseWebpackConfig, {
         nodeEnv: process.env.NODE_ENV,
         splitChunks: {
             chunks: "all",
-            minSize: 300,
+            minSize: 30000,
             minChunks: 1,
             maxAsyncRequests: 5,
             maxInitialRequests: 3,
             automaticNameDelimiter: '--',
             name:false,
             cacheGroups: {
-
-                // tiklabPrivilegeUI: {
-                //     name: 'chunk-tiklab-privilege-ui',
-                //     chunks: 'all',
-                //     test: /[\\/]node_modules[\\/]tiklab-privilege-ui[\\/]/,
-                //     priority: 9,
-                //     reuseExistingChunk: true
-                // },
+                tiklabPrivilegeUI: {
+                    name: 'chunk-tiklab-Privilege-ui',
+                    chunks: 'all',
+                    test: /[\\/]node_modules[\\/]tiklab-privilege-ui[\\/]/,
+                    priority: 13,
+                    reuseExistingChunk: true
+                },
+                tiklabSecurityUI: {
+                    name: 'chunk-tiklab-Security-ui',
+                    chunks: 'all',
+                    test: /[\\/]node_modules[\\/]tiklab-security-ui[\\/]/,
+                    priority: 13,
+                    reuseExistingChunk: true
+                },
                 tiklabPluginUI: {
                     name: 'chunk-tiklab-plugin-ui',
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]tiklab-plugin-ui[\\/]/,
-                    priority: 10,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
                 tiklabCoreUI: {
                     name: 'chunk-tiklab-core-ui',
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]tiklab-core-ui[\\/]/,
-                    priority: 10,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
                 tiklabMessageUI: {
                     name: 'tiklab-message-ui',
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]tiklab-message-ui[\\/]/,
-                    priority: 10,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
                 tiklabEamUI: {
                     name: 'chunk-tiklab-eam-cloud-ui',
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]tiklab-eam-cloud-ui[\\/]/,
-                    priority: 10,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
                 tiklabIntegrationUI: {
                     name: "chunk-tiklab-integration-ui",
                     chunks: "all",
                     test: /[\\/]node_modules[\\/]tiklab-integration-ui[\\/]/,
-                    priority: 10,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
                 tiklabLicenceUI: {
                     name: "chunk-tiklab-licence-ui",
                     chunks: "all",
                     test: /[\\/]node_modules[\\/]tiklab-licence-ui[\\/]/,
-                    priority: 10,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
 
-
-                mobx: {
-                    name: 'chunk-mobx',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]mobx[\\/]/,
-                    priority: 10,
-                    reuseExistingChunk: true
-                },
-                mobxReact: {
-                    name: 'chunk-mobx-react',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]mobx-react[\\/]/,
-                    priority: 10,
-                    reuseExistingChunk: true
-                },
                 rcomponent: {
                     name: "rcomponent",
                     chunks: "all",
                     test: /rc-[a-zA-Z]/,
-                    priority: 12,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
                 // antIcon: {
@@ -155,21 +146,21 @@ module.exports = merge(baseWebpackConfig, {
                     name: 'antd-ui',
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]antd[\\/]/,
-                    priority: 12,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
                 moment: {
                     name: 'chunk-moment',
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]moment[\\/]/,
-                    priority: 10,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
                 zrender:{
                     name: "chunk-zrender",
                     chunks: "all",
                     test: /[\\/]node_modules[\\/]zrender[\\/]/,
-                    priority: 10,
+                    priority: 13,
                     reuseExistingChunk: true
                 },
 
@@ -185,7 +176,7 @@ module.exports = merge(baseWebpackConfig, {
                     name: "chunk-mockjs",
                     chunks: "all",
                     test: /[\\/]node_modules[\\/]mockjs[\\/]/,
-                    priority: 10,
+                    priority: 9,
                     reuseExistingChunk: true
                 },
 
@@ -193,14 +184,14 @@ module.exports = merge(baseWebpackConfig, {
                     name: 'chunk-codemirror-ui',
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]codemirror[\\/]/,
-                    priority: 10,
+                    priority: 9,
                     reuseExistingChunk: true
                 },
                 jsBeautify: {
                     name: "chunk-js-beautify",
                     chunks: "all",
                     test: /[\\/]node_modules[\\/]js-beautify[\\/]/,
-                    priority: 10,
+                    priority: 9,
                     reuseExistingChunk: true
                 },
             }

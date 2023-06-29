@@ -1,7 +1,7 @@
 import { observable,  action } from "mobx";
 import {Axios} from "tiklab-core-ui";
 
-export class RawResponseStore {
+class RawResponseStore {
 
     @observable rawResponseInfo = [];
     @observable apiUnitId = '';
@@ -47,4 +47,5 @@ export class RawResponseStore {
 
 }
 
-export const RAWRESPONSE_STORE = 'rawResponseStore';
+let rawResponseStore = new RawResponseStore();
+export default rawResponseStore;

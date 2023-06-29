@@ -5,9 +5,9 @@ import {Popconfirm, Space, Table} from 'antd';
 import  { useTranslation } from 'react-i18next';
 import FuncUnitStepEdit from "./funcUnitStepEdit";
 import IconCommon from "../../../common/IconCommon";
+import funcUnitStepStore from "../store/funcUnitStepStore";
 
 const FuncUnitStepList = (props) => {
-    const { funcUnitStepStore } = props;
     const {
         findFuncUnitStepList,
         deleteFuncUnitStep,
@@ -97,4 +97,4 @@ const FuncUnitStepList = (props) => {
     )
 }
 
-export default inject('funcUnitStepStore')(observer(FuncUnitStepList));
+export default observer(FuncUnitStepList);

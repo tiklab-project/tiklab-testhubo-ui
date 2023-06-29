@@ -3,10 +3,10 @@ import {Empty, Popconfirm, Space, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
-import ApiPerformInstanceDrawer from "./apiPerformInstanceDrawer";
+import apiPerfInstanceStore from "../store/apiPerfInstanceStore";
 
 const ApiPerfInstanceTable = (props) =>{
-    const {apiPerfInstanceStore,apiPerfId} = props;
+    const {apiPerfId} = props;
     const {
         findApiPerfInstancePage,
         apiPerfInstanceList,
@@ -150,4 +150,4 @@ const ApiPerfInstanceTable = (props) =>{
     )
 }
 
-export default inject("apiPerfInstanceStore")(observer(ApiPerfInstanceTable));
+export default observer(ApiPerfInstanceTable);

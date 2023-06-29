@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import {Input, Button, Form, Select} from 'antd';
+import rawParamStore from "../store/rawParamStore";
 
 const { TextArea } = Input;
 const { Option } = Select;
 
 const RawParam = (props) => {
-    const { rawParamStore }  = props;
     const { 
         createRawParam, 
         updateRawParam, 
@@ -93,4 +93,4 @@ const RawParam = (props) => {
     )
 }
 
-export default inject('rawParamStore')(observer(RawParam));
+export default observer(RawParam);

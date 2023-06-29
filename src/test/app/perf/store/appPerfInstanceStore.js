@@ -2,7 +2,7 @@ import { observable,  action } from "mobx";
 import {Axios} from "tiklab-core-ui";
 
 
-export class AppPerfInstanceStore {
+class AppPerfInstanceStore {
 
     @observable appPerfInstanceList = [];
 
@@ -59,4 +59,5 @@ export class AppPerfInstanceStore {
 }
 
 
-export const APP_PERF_INSTANCE_STORE = 'appPerfInstanceStore';
+let appPerfInstanceStore = new AppPerfInstanceStore();
+export default appPerfInstanceStore;

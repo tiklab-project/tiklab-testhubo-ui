@@ -4,9 +4,10 @@ import {inject, observer} from "mobx-react";
 import "./performanceStyle.scss"
 import emptyImg from "../../../../../assets/img/empty.png";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
+import apiPerfTestDispatchStore from "../store/apiPerfTestDispatchStore";
 
 const ApiPerformTestDrawer = (props) =>{
-    const {apiPerfTestDispatchStore,apiEnvStore} = props;
+    const {apiEnvStore} = props;
     const {apiPerfExecute,exeResult} = apiPerfTestDispatchStore;
     const {envUrl} = apiEnvStore;
 
@@ -172,4 +173,4 @@ const ApiPerformTestDrawer = (props) =>{
     )
 }
 
-export default inject("apiPerfTestDispatchStore","apiEnvStore")(observer(ApiPerformTestDrawer));
+export default inject("apiEnvStore")(observer(ApiPerformTestDrawer));

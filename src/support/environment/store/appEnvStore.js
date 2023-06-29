@@ -70,4 +70,4 @@ export class AppEnvStore {
 
 }
 
-export const APP_ENV_STORE = 'appEnvStore';
+export default new AppEnvStore()

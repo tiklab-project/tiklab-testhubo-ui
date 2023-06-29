@@ -6,11 +6,12 @@ import IconCommon from "../../../../common/IconCommon";
 import WorkItemAdd from "./WorkItemAdd";
 import {applyJump} from "tiklab-core-ui"
 import "./workItemStyle.scss"
+import workItemBindStore from "../store/WorkItemBindStore";
 /**
  * 绑定的缺陷列表
  */
 const WorkItemBindList = (props) =>{
-    const {workItemBindStore,caseId} = props;
+    const {caseId} = props;
     const {findWorkItemBindList,workItemBindList,deleteWorkItemBind} = workItemBindStore
 
     //列表头
@@ -101,4 +102,4 @@ const WorkItemBindList = (props) =>{
     )
 }
 
-export default inject("workItemBindStore")(observer(WorkItemBindList));
+export default observer(WorkItemBindList);

@@ -3,7 +3,7 @@ import {observable,action} from "mobx";
 import {Axios} from "tiklab-core-ui";
 
 
-export class FuncUnitStepStore {
+class FuncUnitStepStore {
     @observable funcUnitStepList = [];
     @observable funcUnitStepInfo = {};
 
@@ -54,4 +54,5 @@ export class FuncUnitStepStore {
 
 }
 
-export const FUNC_UNITSTEP_STORE = 'funcUnitStepStore';
+let funcUnitStepStore = new FuncUnitStepStore();
+export default funcUnitStepStore;

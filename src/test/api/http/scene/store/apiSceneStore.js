@@ -47,4 +47,4 @@ export class ApiSceneStore {
 
 }
 
-export const APISCENE_STORE = 'apiSceneStore';
+export default new ApiSceneStore()

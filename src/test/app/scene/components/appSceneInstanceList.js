@@ -4,9 +4,9 @@ import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import AppSceneInstanceDrawer from "./appSceneInstanceDrawer";
+import appSceneInstanceStore from "../store/appSceneInstanceStore";
 
 const AppSceneInstanceList = (props) =>{
-    const {appSceneInstanceStore} = props;
     const {
         findAppSceneInstancePage,
         appSceneInstanceList,
@@ -159,4 +159,4 @@ const AppSceneInstanceList = (props) =>{
     )
 }
 
-export default inject("appSceneInstanceStore")(observer(AppSceneInstanceList));
+export default observer(AppSceneInstanceList);

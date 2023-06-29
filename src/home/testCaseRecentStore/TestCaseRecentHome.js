@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
-import {Empty, List, Skeleton, Tag} from "antd";
-import emptyImg from "../../../assets/img/empty.png";
-import {ApiOutlined, LaptopOutlined, TabletOutlined, TestCaseOutlined} from "@ant-design/icons";
-import IconCommon from "../../../common/IconCommon";
+import {Empty, List, Skeleton} from "antd";
+import emptyImg from "../../assets/img/empty.png";
+import IconCommon from "../../common/IconCommon";
 import {CASE_TYPE} from "../../common/DefineVariables";
+import testCaseRecentStore from "./TestCaseRecentStore";
 
 /**
  * 最近访问的仓库
  */
 const TestCaseRecentHome = (props) =>{
-    const {testCaseRecentStore} = props;
     const {findTestCaseRecentList,testCaseRecent}=testCaseRecentStore;
 
     const userId = getUser().userId;
@@ -168,18 +167,7 @@ const TestCaseRecentHome = (props) =>{
                 </List.Item>
             )}
         />
-        // <div className={"home-recent-box"}>
-        //     {
-        //         dataList&&dataList.length>0
-        //             ?showRecent(dataList)
-        //             : <Empty
-        //                 description={<span>暂无访问</span>}
-        //                 image={emptyImg}
-        //             />
-        //     }
-        //
-        // </div>
     )
 }
 
-export default inject("testCaseRecentStore")(observer(TestCaseRecentHome));
+export default observer(TestCaseRecentHome);

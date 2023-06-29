@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import {Input, Button, Form, Select} from 'antd';
+import rawResponseStore from "../store/rawResponseStore";
 
 const { TextArea } = Input;
 const { Option } = Select;
 
 const RawResponse = (props) => {
-    const { rawResponseStore, radioValue }  = props;
+    const {  radioValue }  = props;
 
     const { 
         createRawResponse, 
@@ -77,4 +78,4 @@ const RawResponse = (props) => {
     )
 }
 
-export default inject('rawResponseStore')(observer(RawResponse));
+export default observer(RawResponse);

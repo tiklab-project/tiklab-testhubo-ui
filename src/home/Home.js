@@ -1,14 +1,12 @@
 import React from 'react';
 import './homestyle.scss';
-import RepositoryRecentHome from "../repository/repository/components/RepositoryRecentHome";
-
-import TestCaseRecentHome from "../test/testcase/components/TestCaseRecentHome";
+import RepositoryRecentHome from "./RepositoryRecentHome";
+import TestCaseRecentHome from "./testCaseRecentStore/TestCaseRecentHome";
 
 /**
  * 首页
  */
 const Home =(props)=> {
-
     return(
         <div className={"home-content"}>
             <div className={"home-content-box"}>

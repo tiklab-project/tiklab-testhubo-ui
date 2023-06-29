@@ -2,13 +2,13 @@ import React, { useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Drawer} from "antd";
 import "./apiUnitInstanceStyle.scss"
-import IconCommon from "../../../../../common/IconCommon";
 import {TextMethodType} from "../../common/methodType";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import ResponseCommon from "../../common/response/responseCommon";
+import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 
 const ApiUnitInstanceDrawer = (props) =>{
-    const {apiUnitInstanceStore,apiUnitInstanceId} = props;
+    const {apiUnitInstanceId} = props;
     const {findApiUnitInstance} = apiUnitInstanceStore;
 
 
@@ -99,4 +99,4 @@ const ApiUnitInstanceDrawer = (props) =>{
 
 }
 
-export default inject("apiUnitInstanceStore")(observer(ApiUnitInstanceDrawer));
+export default observer(ApiUnitInstanceDrawer);

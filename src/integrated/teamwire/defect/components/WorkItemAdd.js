@@ -3,10 +3,11 @@ import {DatePicker, Form, Input, Modal} from "antd";
 import {inject, observer} from "mobx-react";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import ProjectSelect from "../../workItem/components/ProjectSelect";
+import workItemBindStore from "../store/WorkItemBindStore";
 const { RangePicker } = DatePicker;
 
 const WorkItemAdd = (props) =>{
-    const {workItemBindStore,workItemStore,caseId} = props;
+    const {workItemStore,caseId} = props;
     const {findWorkItemBindList} = workItemBindStore;
     const {createWorkItem} = workItemStore;
 
@@ -117,4 +118,4 @@ const WorkItemAdd = (props) =>{
     )
 }
 
-export default inject("workItemStore","workItemBindStore")(observer(WorkItemAdd));
+export default inject("workItemStore")(observer(WorkItemAdd));

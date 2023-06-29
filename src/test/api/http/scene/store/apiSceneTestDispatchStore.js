@@ -25,4 +25,5 @@ export class ApiSceneTestDispatchStore {
 
 }
 
-export const API_SCENE_DISPATCH_STORE = 'apiSceneTestDispatchStore';
+let apiSceneTestDispatchStore = new ApiSceneTestDispatchStore();
+export default apiSceneTestDispatchStore;

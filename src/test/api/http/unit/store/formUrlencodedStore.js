@@ -69,4 +69,5 @@ export class FormUrlencodedStore {
 
 }
 
-export const FORM_URLENCODED_STORE = 'formUrlencodedStore';
+let formUrlencodedStore = new FormUrlencodedStore();
+export default formUrlencodedStore;

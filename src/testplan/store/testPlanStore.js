@@ -50,4 +50,4 @@ export class TestPlanStore {
 
 }
 
-export const TESTPLAN_STORE = 'testPlanStore';
+export default new TestPlanStore();

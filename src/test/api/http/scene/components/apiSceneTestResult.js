@@ -7,13 +7,14 @@ import ResHeaderCommon from "../../common/response/resHeaderCommon";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
+import apiSceneTestDispatchStore from "../store/apiSceneTestDispatchStore";
 
 const {TextArea} = Input;
 const { Panel } = Collapse;
 const {TabPane} = Tabs
 
 const ApiSceneTestResult =(props)=>{
-    const { apiSceneTestDispatchStore,apiEnvStore } = props;
+    const { apiEnvStore } = props;
     const { apiSceneExecute } = apiSceneTestDispatchStore;
     const { envUrl } =apiEnvStore;
 
@@ -219,4 +220,4 @@ const ApiSceneTestResult =(props)=>{
         </>
     )
 }
-export default inject("apiSceneTestDispatchStore","apiEnvStore")(observer(ApiSceneTestResult));
+export default inject("apiEnvStore")(observer(ApiSceneTestResult));

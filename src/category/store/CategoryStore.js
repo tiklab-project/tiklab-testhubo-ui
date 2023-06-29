@@ -4,7 +4,7 @@ import {Axios} from "tiklab-core-ui";
 /**
  * 模块
  */
-export class CategoryStore{
+class CategoryStore{
     @observable categoryList = [];
     @observable categoryTableList=[]
 
@@ -85,4 +85,4 @@ export class CategoryStore{
 }
 
 
-export const CATEGORY_STORE = 'categoryStore';
+export default  new CategoryStore();

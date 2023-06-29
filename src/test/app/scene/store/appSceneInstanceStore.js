@@ -2,7 +2,7 @@ import { observable,  action } from "mobx";
 import {Axios} from "tiklab-core-ui";
 
 
-export class AppSceneInstanceStore {
+class AppSceneInstanceStore {
 
     @observable appSceneInstanceList = [];
     @observable params
@@ -59,4 +59,5 @@ export class AppSceneInstanceStore {
 }
 
 
-export const APP_SCENEINSTANCE_STORE = 'appSceneInstanceStore';
+let appSceneInstanceStore = new AppSceneInstanceStore();
+export default appSceneInstanceStore;

@@ -83,4 +83,5 @@ export class WebPerfStepStore {
     }
 }
 
-export const WEB_PERF_STEP_STORE = 'webPerfStepStore';
+let webPerfStepStore = new WebPerfStepStore();
+export default webPerfStepStore;

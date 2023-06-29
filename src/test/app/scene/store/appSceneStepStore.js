@@ -2,7 +2,7 @@ import {observable,action} from "mobx";
 import {Axios} from "tiklab-core-ui";
 
 
-export class AppSceneStepStore {
+class AppSceneStepStore {
     @observable appSceneStepList = [];
     @observable appSceneStepInfo = {};
     @observable categoryId;
@@ -69,4 +69,5 @@ export class AppSceneStepStore {
   
 }
 
-export const APP_SCENESTEP_STORE = 'appSceneStepStore';
+let appSceneStepStore = new AppSceneStepStore();
+export default appSceneStepStore;

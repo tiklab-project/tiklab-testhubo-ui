@@ -2,9 +2,9 @@ import React, {useEffect, useRef, useState} from "react";
 import {Button, Drawer, message, Spin, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import "./webPerfStyle.scss"
+import webPerfTestDispatchStore from "../store/webPerfTestDispatchStore";
 
 const WebPerformTestDrawer = (props) =>{
-    const {webPerfTestDispatchStore} = props;
     const {webPerfExecute,exeResult,agentId} = webPerfTestDispatchStore;
 
     const [result, setResult] = useState();
@@ -153,4 +153,4 @@ const WebPerformTestDrawer = (props) =>{
     )
 }
 
-export default inject("webPerfTestDispatchStore")(observer(WebPerformTestDrawer));
+export default observer(WebPerformTestDrawer);

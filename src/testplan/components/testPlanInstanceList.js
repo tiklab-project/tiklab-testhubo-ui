@@ -3,9 +3,9 @@ import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../common/IconCommon";
 import emptyImg from "../../assets/img/empty.png";
+import testPlanInstanceStore from "../store/testPlanInstanceStore";
 
 const TestPlanInstanceList = (props) =>{
-    const {testPlanInstanceStore} = props;
     const {
         findTestPlanInstancePage,
         testPlanInstanceList,
@@ -156,4 +156,4 @@ const TestPlanInstanceList = (props) =>{
     )
 }
 
-export default inject("testPlanInstanceStore")(observer(TestPlanInstanceList));
+export default observer(TestPlanInstanceList);

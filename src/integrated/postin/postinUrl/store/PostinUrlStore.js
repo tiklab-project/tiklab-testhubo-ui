@@ -49,5 +49,6 @@ export class PostinUrlStore {
 
 }
 
-export const POSTIN_URL_STORE = 'postinUrlStore';
+let postinUrlStore = new PostinUrlStore();
+export default postinUrlStore;
 

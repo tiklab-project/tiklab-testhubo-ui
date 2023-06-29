@@ -65,4 +65,4 @@ export class WebSceneStore {
 
 }
 
-export const WEB_SCENE_STORE = 'webSceneStore';
+export default new WebSceneStore();

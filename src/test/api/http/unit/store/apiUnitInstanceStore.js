@@ -1,7 +1,7 @@
 import { observable,  action } from "mobx";
 import {Axios} from "tiklab-core-ui";
 
-export class ApiUnitInstanceStore {
+class ApiUnitInstanceStore {
 
     @observable apiUnitInstanceList = [];
     @observable apiUnitInstanceId = '';
@@ -56,5 +56,5 @@ export class ApiUnitInstanceStore {
 
 }
 
-
-export const APIUNIT_INSTANCE_STORE = 'apiUnitInstanceStore';
+let apiUnitInstanceStore = new ApiUnitInstanceStore()
+export default apiUnitInstanceStore;

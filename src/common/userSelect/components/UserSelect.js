@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {inject, observer} from "mobx-react";
-import {Button, Input, Modal, Select, Table} from "antd";
+import {observer} from "mobx-react";
+import {Input, Modal, Table} from "antd";
+import userSelectStore from "../store/UserSelectStore";
 
 const columns = [
     {
@@ -31,7 +32,6 @@ const columns = [
  * 用户选择下拉框
  */
 const UserSelect =(props) =>{
-    const {userSelectStore} = props;
     const {findUserSelectPage,userSelectList,totalRecord,getUserId} = userSelectStore;
 
     const [tableLoading,setTableLoading] = useState(true);
@@ -143,4 +143,4 @@ const UserSelect =(props) =>{
     )
 }
 
-export default inject('userSelectStore')(observer(UserSelect));
+export default observer(UserSelect);

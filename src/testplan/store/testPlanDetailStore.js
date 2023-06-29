@@ -54,4 +54,5 @@ export class TestPlanDetailStore {
 
 }
 
-export const TESTPLANDETAIL_STORE = 'testPlanDetailStore';
+let testPlanDetailStore = new TestPlanDetailStore();
+export default testPlanDetailStore;

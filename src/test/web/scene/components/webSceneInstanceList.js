@@ -4,9 +4,9 @@ import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import WebSceneInstanceDrawer from "./webSceneInstanceDrawer";
+import webSceneInstanceStore from "../store/webSceneInstanceStore";
 
 const WebSceneInstanceList = (props) =>{
-    const {webSceneInstanceStore} = props;
     const {
         findWebSceneInstancePage,
         webSceneInstanceList,
@@ -166,4 +166,4 @@ const WebSceneInstanceList = (props) =>{
     )
 }
 
-export default inject("webSceneInstanceStore")(observer(WebSceneInstanceList));
+export default observer(WebSceneInstanceList);

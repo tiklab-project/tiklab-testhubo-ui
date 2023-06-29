@@ -3,9 +3,9 @@ import { Popconfirm, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import AppSceneStepEdit from "./appSceneStepEdit";
+import appSceneStepStore from "../store/appSceneStepStore";
 
 const AppSceneStepList = (props) => {
-    const {appSceneStepStore} =props;
     const {findAppSceneStepList,appSceneStepList,deleteAppSceneStep} = appSceneStepStore;
 
     const column = [
@@ -108,4 +108,4 @@ const AppSceneStepList = (props) => {
 
 }
 
-export default inject("appSceneStepStore")(observer(AppSceneStepList))
+export default observer(AppSceneStepList)

@@ -59,5 +59,5 @@ export class WorkItemStore {
 
 }
 
-export const WORK_ITEM_STORE = 'workItemStore';
+export default new WorkItemStore();
 

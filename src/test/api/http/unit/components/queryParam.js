@@ -10,9 +10,9 @@ import {mockValueDictionary} from '../../../../../common/dictionary/dictionary';
 import ExSelect from "../../../../../common/ExSelect";
 import {ExTable}from '../../../../../common/EditTable';
 import IconCommon from "../../../../../common/IconCommon";
+import queryParamStore from "../store/queryParamStore";
 
 const QueryParam = (props) =>{
-    const { queryParamStore } = props;
     const {
         findQueryParamList,
         deleteQueryParam,
@@ -21,7 +21,6 @@ const QueryParam = (props) =>{
         setList,
         queryParamList,
         dataLength,
-        queryParamDataSource
     } = queryParamStore;
 
 
@@ -194,4 +193,4 @@ const QueryParam = (props) =>{
 }
 
 
-export default inject('queryParamStore')(observer(QueryParam));
+export default observer(QueryParam);

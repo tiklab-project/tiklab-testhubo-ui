@@ -12,10 +12,10 @@ import ExSelect from "../../../../../common/ExSelect";
 import {ExTable}from '../../../../../common/EditTable';
 import FileTextSelect from "../../../../../common/FileTextSelect";
 import IconCommon from "../../../../../common/IconCommon";
+import formParamStore from "../store/formParamStore";
 
 const FormParam = (props) =>{
 
-    const { formParamStore } = props;
     const {
         findFormParamList,
         deleteFormParam,
@@ -195,4 +195,4 @@ const FormParam = (props) =>{
 
 
 
-export default inject('formParamStore')(observer(FormParam));
+export default observer(FormParam);

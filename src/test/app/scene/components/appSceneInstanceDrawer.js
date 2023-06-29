@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Drawer, Form, Input, Spin, Table} from "antd";
 import IconCommon from "../../../../common/IconCommon";
 import {inject, observer} from "mobx-react";
+import appSceneInstanceStore from "../store/appSceneInstanceStore";
 
 
 const layout = {
@@ -11,7 +12,7 @@ const layout = {
 
 
 const AppSceneInstanceDrawer =(props)=>{
-    const {appSceneInstanceStore,appSceneInstanceId} = props;
+    const {appSceneInstanceId} = props;
     const { findAppSceneInstance } = appSceneInstanceStore;
 
     const [visible, setVisible] = useState(false);
@@ -140,4 +141,4 @@ const AppSceneInstanceDrawer =(props)=>{
     );
 }
 
-export default inject("appSceneInstanceStore")(observer(AppSceneInstanceDrawer));
+export default observer(AppSceneInstanceDrawer);

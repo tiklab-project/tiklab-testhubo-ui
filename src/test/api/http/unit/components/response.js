@@ -4,11 +4,11 @@ import ResponseHeader from "./responseHeader";
 import JsonResponse  from "./jsonResponse";
 import RawResponse from './rawResponse';
 import { Tabs, Radio } from 'antd';
+import responseResultStore from "../store/responseResultStore";
 const { TabPane } = Tabs;
 
 // 输出参数 返回头部与返回结果的切换
 const Response = (props) =>{
-    const { responseResultStore } = props;
     const {
         findResponseResult,
         createResponseResult,
@@ -76,4 +76,4 @@ const Response = (props) =>{
 
 }
 
-export default inject('responseResultStore')(observer(Response));
+export default observer(Response);

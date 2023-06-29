@@ -39,4 +39,5 @@ export class RequestBodyStore {
 
 }
 
-export const REQUESTBODY_STORE = 'requestBodyStore';
+let requestBodyStore = new RequestBodyStore();
+export default requestBodyStore;

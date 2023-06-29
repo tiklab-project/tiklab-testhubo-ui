@@ -1,10 +1,8 @@
 
 import React, {useEffect, useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Radio, Row, Col, Select} from 'antd';
-import IconCommon from "../../../common/IconCommon";
+import {Form,  Button, Input,  Row, Col, Select} from 'antd';
 import {Axios, getUser} from "tiklab-core-ui";
-import IconBtn from "../../../common/iconBtn/IconBtn";
 
 const {TextArea} = Input
 const {Option} = Select;
@@ -22,11 +20,11 @@ const tailLayout = {
  * 仓库 新增
  */
 const RepositoryEdit = (props) => {
-    const { repositoryStore,repositoryRecentStore, repositoryId,findList,selectItem } = props;
+    const { repositoryStore, repositoryId,findList,selectItem } = props;
     const {
+        repositoryRecent,
         createRepository,
     } = repositoryStore;
-    const {repositoryRecent} = repositoryRecentStore;
     const [form] = Form.useForm();
 
     const [visibility, setVisibility] = useState(1);
@@ -225,4 +223,4 @@ const RepositoryEdit = (props) => {
     );
 };
 
-export default inject("repositoryRecentStore",'repositoryStore')(observer(RepositoryEdit));
+export default inject('repositoryStore')(observer(RepositoryEdit));

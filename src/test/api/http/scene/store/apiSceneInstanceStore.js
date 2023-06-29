@@ -62,4 +62,5 @@ export class ApiSceneInstanceStore {
 
 }
 
-export const API_SCENEINSTANCE_STORE = 'apiSceneInstanceStore';
+let apiSceneInstanceStore = new ApiSceneInstanceStore();
+export default apiSceneInstanceStore;

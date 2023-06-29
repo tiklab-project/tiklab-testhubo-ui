@@ -81,4 +81,5 @@ export class ResponseHeaderStore {
 
 }
 
-export const RESPONSEHEADER_STORE = 'responseHeaderStore';
+let responseHeaderStore = new ResponseHeaderStore();
+export default responseHeaderStore;

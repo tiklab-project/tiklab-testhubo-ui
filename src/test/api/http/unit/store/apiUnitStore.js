@@ -2,7 +2,7 @@ import {observable,action} from "mobx";
 import {Axios} from "tiklab-core-ui";
 
 
-export class ApiUnitStore {
+class ApiUnitStore {
     @observable apiUnitList = [];
     @observable apiUnitInfo = {};
     @observable totalRecord ;
@@ -46,4 +46,4 @@ export class ApiUnitStore {
     
 }
 
-export const API_UNIT_STORE = 'apiUnitStore';
+export default new ApiUnitStore();

@@ -5,10 +5,10 @@ import { headerParamDictionary } from '../../../../../common/dictionary/dictiona
 import ExSelect from "../../../../../common/ExSelect";
 import {ExTable}from '../../../../../common/EditTable';
 import IconCommon from "../../../../../common/IconCommon";
+import requestHeaderStore from "../store/requestHeaderStore";
 
 // 请求头的可编辑表格
 const RequestHeader = (props) =>{
-    const { requestHeaderStore } = props;
     const {
         findRequestHeaderList,
         deleteRequestHeader,
@@ -198,4 +198,4 @@ const RequestHeader = (props) =>{
     );
 }
 
-export default inject('requestHeaderStore')(observer(RequestHeader));
+export default observer(RequestHeader);

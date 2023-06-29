@@ -1,11 +1,13 @@
 import React, { useState} from "react";
 import {Modal, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
-import MethodType from "../../../test/api/http/common/methodType";
+import MethodType from "../../../../test/api/http/common/methodType";
+import postInApiToCaseStore from "../store/PostinApiToCaseStore";
+import workspaceBindStore from "../../workspaceBind/store/WorkspaceBindStore";
 
 
 const PostInApiToCase = (props) => {
-    const {postInApiToCaseStore,testcaseStore,workspaceBindStore} = props;
+    const {testcaseStore} = props;
     const {findPostInApiList,createPostInApiToCase} = postInApiToCaseStore;
     const {findTestCaseList}= testcaseStore;
     const {workspaceName,findWorkspaceBindList} = workspaceBindStore
@@ -114,4 +116,4 @@ const PostInApiToCase = (props) => {
     )
 }
 
-export default inject("postInApiToCaseStore","testcaseStore","workspaceBindStore")(observer(PostInApiToCase));
+export default inject("testcaseStore")(observer(PostInApiToCase));
