@@ -3,6 +3,7 @@ import {Empty} from "antd";
 import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../assets/img/empty.png";
+import "./homestyle.scss"
 
 /**
  * 最近访问的仓库

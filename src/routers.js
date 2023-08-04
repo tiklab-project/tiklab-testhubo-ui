@@ -62,7 +62,7 @@ let PlanToFuncUnitPage = lazy(() => import("./testplan/components/planToCase/pla
 let PlanToAppPerformPage = lazy(() => import("./testplan/components/planToCase/planToAppPerformPage"));
 let PlanToAppScenePage = lazy(() => import("./testplan/components/planToCase/planToAppScenePage"));
 let RepositoryEdit = lazy(() => import("./repository/repository/components/RepositoryEdit"));
-let WorkspaceBindList = lazy(() => import("./integrated/postin/workspaceBind/components/integratedPage"));
+let WorkspaceBindList = lazy(() => import("./integrated/postin/common/integratedPage"));
 
 
 const routers =  [

@@ -18,7 +18,7 @@ const LeftNav = (props) =>{
             "icon":"layers",
             "name":"概况",
             "key":"overview",
-            "router":"/repository/detail/:id"
+            "router":"/repository/detail"
         }, {
             "icon":"layers",
             "name":"测试用例",
