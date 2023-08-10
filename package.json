@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://172.13.1.11:8081/repository/npm-hosted"
+    "registry": "http://172.13.1.24:8080/repository/npm-hosted/"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -102,7 +102,6 @@
     "sass": "^1.32.2",
     "tiklab-core-ui": "^1.0.1",
     "tiklab-eam-ui": "^1.0.1",
-    "tiklab-integration-ui": "^1.0.1",
     "tiklab-licence-ui": "^1.0.1",
     "tiklab-message-ui": "^1.0.1",
     "tiklab-plugin-core-ui": "^1.0.1",
