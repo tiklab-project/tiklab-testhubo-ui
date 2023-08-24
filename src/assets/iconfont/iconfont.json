@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5759518",
+      "name": "切换",
+      "font_class": "qiehuan1",
+      "unicode": "e789",
+      "unicode_decimal": 59273
+    },
+    {
+      "icon_id": "5831309",
+      "name": "添加",
+      "font_class": "tianjia",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
       "icon_id": "1166207",
       "name": "手机",
       "font_class": "shouji",

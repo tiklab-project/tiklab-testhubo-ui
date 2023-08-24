@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal,  Input, Select, TreeSelect} from 'antd';
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
+import {useHistory} from "react-router";
 
 const {Option} = Select;
 
 // 添加与编辑
 const ApiUnitEdit = (props) => {
-    const { apiUnitStore, categoryStore } = props;
+    const { apiUnitStore, categoryStore,findPage} = props;
     const {createApiUnit} = apiUnitStore;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
@@ -45,8 +46,9 @@ const ApiUnitEdit = (props) => {
 
             createApiUnit(values).then(res=>{
                 if(res.code===0){
+                    findPage&&findPage()
                     sessionStorage.setItem(`apiUnitId`,res.data);
-                    props.history.push(`/repository/api-unit/${res.data}`)
+                    props.history.push(`/repository/testcaseapi-unit/${res.data}`)
                 }else {
                     messageFn("error",'创建失败');
                 }

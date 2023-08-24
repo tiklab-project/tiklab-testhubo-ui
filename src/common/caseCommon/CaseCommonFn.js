@@ -1,6 +1,6 @@
 import React from "react";
 import {Tag} from "antd";
-import {ApiOutlined, LaptopOutlined, TabletOutlined} from "@ant-design/icons";
+import {ApiOutlined, AppstoreOutlined, LaptopOutlined, TabletOutlined} from "@ant-design/icons";
 
 
 /**
@@ -44,3 +44,51 @@ export const showCaseTypeView = (type)=>{
     }
 }
 
+/**
+ * 左列表右详情中用例类型展示
+ */
+export const showCaseTypeIconInList = (type)=>{
+    switch (type) {
+        case "api-unit":
+        case "api-scene":
+        case "api-perform":
+            return  <ApiOutlined />
+
+        case "web-scene":
+        case "web-perform":
+            return <LaptopOutlined />
+
+        case "app-scene":
+        case "app-perform":
+            return <TabletOutlined />
+        default :
+            return <AppstoreOutlined />
+    }
+}
+/**
+ * 左列表右详情中用例类型展示
+ */
+export const showCaseTypeInList = (type)=>{
+    switch (type) {
+        case "api-unit":
+            return <Tag color="green">单元</Tag>
+        case "api-scene":
+            return <Tag color="blue">场景</Tag>
+        case "api-perform":
+            return <Tag color="orange">性能</Tag>
+
+        case "web-scene":
+            return <Tag color="blue">场景</Tag>
+        case "web-perform":
+            return <Tag color="orange">性能</Tag>
+
+        case "app-scene":
+            return <Tag color="blue">场景</Tag>
+        case "app-perform":
+            return <Tag color="orange">性能</Tag>
+        case "function":
+            return <Tag color="blue">功能</Tag>
+        default :
+            return <Tag color="green">单元</Tag>
+    }
+}

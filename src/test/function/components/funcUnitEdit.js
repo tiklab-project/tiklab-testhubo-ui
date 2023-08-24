@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Input, TreeSelect} from 'antd';
+import {useHistory} from "react-router";
 
 const layout = {
     labelCol: {span: 4},
@@ -10,10 +11,11 @@ const layout = {
 
 // 添加与编辑
 const FuncUnitEdit = (props) => {
-    const { funcUnitStore,categoryStore} = props;
+    const { funcUnitStore,categoryStore,findPage} = props;
     const {createFuncUnit} = funcUnitStore
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
+    let history = useHistory()
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
@@ -48,8 +50,9 @@ const FuncUnitEdit = (props) => {
 
             createFuncUnit(values).then((res)=> {
                 if(res.code===0){
+                    findPage&&findPage()
                     sessionStorage.setItem(`functionId`,res.data);
-                    props.history.push(`/repository/function/${res.data}`)
+                    history.push(`/repository/testcase/function/${res.data}`)
                 }
             })
         }

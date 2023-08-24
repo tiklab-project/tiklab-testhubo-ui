@@ -11,7 +11,7 @@ const ApiPerfInstanceList = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repository/api-perform-detail")
+        props.history.push(`/repository/testcase/api-perform/${apiPerfId}`)
     }
 
     return(

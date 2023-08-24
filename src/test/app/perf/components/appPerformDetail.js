@@ -45,7 +45,7 @@ const AppPerformDetail = (props) =>{
 
     //去往历史页
     const toHistory = () =>{
-        props.history.push("/repository/app-perform-instance")
+        props.history.push("/repository/testcase/app-perform-instance")
     }
 
 

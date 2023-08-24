@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, Dropdown, Empty, Input, Menu, Popconfirm, Select, Space, Table, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
-import "./testcaseStyle.scss"
-import "./caseContantStyle.scss"
+
 import emptyImg from "../../../assets/img/empty.png"
 import ApiUnitEdit from "../../api/http/unit/components/apiUnitEdit";
 import ApiSceneEdit from "../../api/http/scene/components/apiSceneEdit";
@@ -25,9 +24,11 @@ import CaseTypeSelect from "./CaseTypeSelect";
 import {getUser} from "tiklab-core-ui";
 import PostInApiToCase from "../../../integrated/postin/postinApiCopy/components/PostInApiToCase";
 import {CASE_TYPE, TEST_TYPE} from "../../../common/DefineVariables";
+import {renderRoutes} from "react-router-config";
+import {useHistory, useLocation} from "react-router";
 
-const TestCaseList = (props) => {
-    const {testcaseStore,categoryStore} = props;
+const TestCaseTable = (props) => {
+    const {testcaseStore,categoryStore,togglePage} = props;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const {
@@ -102,6 +103,7 @@ const TestCaseList = (props) => {
         },
     ]
 
+    const [tablePageToDetail, setTablePageToDetail] = useState(false);
     const [selectItem, setSelectItem] = useState(testType?testType:null);
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalRecord, setTotalRecord] = useState();
@@ -116,14 +118,22 @@ const TestCaseList = (props) => {
 
     const repositoryId = sessionStorage.getItem("repositoryId")
 
-
+    let history = useHistory();
+    let location = useLocation().pathname;
     useEffect(()=>{
         findPage(testType,caseType)
+        history.push("/repository/testcase")
     },[pageParam])
 
     useEffect(()=>{
         findCategoryListTreeTable(repositoryId)
     },[])
+
+    useEffect(()=>{
+        if(location==="/repository/testcase"){
+            setTablePageToDetail(false)
+        }
+    },[location])
 
     const findPage = (testType,caseType,categoryId) =>{
         const param = {
@@ -220,9 +230,9 @@ const TestCaseList = (props) => {
     //跳转路由
     const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        props.history.push(`/repository/${record.caseType}/${record.id}`)
+        props.history.push(`/repository/testcase/${record.caseType}/${record.id}`)
+        setTablePageToDetail(true)
     }
-
 
     //模块赛选
     const changeCategory=(categoryId)=> {
@@ -366,79 +376,105 @@ const TestCaseList = (props) => {
         </Menu>
     )
 
+
+
     return(
-        <div className={"testcase-box"} >
-            <div  className={"header-box-space-between"} >
-                <div className={'header-box-title'}>测试用例</div>
-                <Dropdown overlay={addMenu} placement="bottom">
-                    <Button className={"important-btn"}>添加用例</Button>
-                </Dropdown>
-            </div>
+        <>
+            {
+                tablePageToDetail
+                    ?null
+                    :<div className={"testcase-box"} >
+                        <div  className={"header-box-space-between"} >
+                            <div className={'header-box-title'}>测试用例</div>
+                            <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
 
-            <div className={"dynamic-select-box"}>
-                <TestTypeSelect
-                    selectItem={selectItem}
-                    selectKeyFun={selectKeyFun}
-                />
+                                <IconCommon
+                                    className={"icon-l "}
+                                    icon={"qiehuan1"}
+                                    onClick={()=>togglePage("list")}
+                                    style={{cursor:"pointer"}}
+                                />
 
-                <Space>
+                                <Dropdown overlay={addMenu} placement="bottom">
+                                    <Button className={"important-btn"}>添加用例</Button>
+                                </Dropdown>
 
-                    <TreeSelect
-                        fieldNames={{ label: 'name', value: 'id', children: 'children' }}
-                        style={{  width: '150px'}}
-                        dropdownStyle={{
-                            maxHeight: 400,
-                            overflow: 'auto',
-                        }}
-                        className={"dynamic-select-box-item"}
-                        placeholder="模块"
-                        allowClear
-                        treeDefaultExpandAll
-                        onChange={changeCategory}
-                        treeData={categoryTableList}
-                    />
+                            </div>
 
-                    <CaseTypeSelect
-                        caseSelectFn={caseSelectFn}
-                        testType={selectItem}
-                    />
+                        </div>
 
-                    <Input
-                        placeholder={`搜索用例`}
-                        onPressEnter={onSearch}
-                        className='search-input-common'
-                        prefix={<SearchOutlined />}
-                    />
-                </Space>
+                        <div className={"dynamic-select-box"}>
+                            <TestTypeSelect
+                                selectItem={selectItem}
+                                selectKeyFun={selectKeyFun}
+                                style={{width: "360px"}}
+                            />
 
-            </div>
+                            <Space>
 
-            <div className={"table-list-box"}>
-                <Table
-                    columns={column}
-                    dataSource={testcaseList}
-                    rowKey = {record => record.id}
-                    pagination={{
-                        current:currentPage,
-                        pageSize:pageSize,
-                        total:totalRecord,
-                    }}
-                    onChange = {(pagination) => onTableChange(pagination)}
-                    locale={{
-                        emptyText: <Empty
-                            imageStyle={{height: 120}}
-                            description={<span>暂无用例</span>}
-                            image={emptyImg}
-                        />,
-                    }}
-                />
-            </div>
+                                <TreeSelect
+                                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                                    style={{  width: '150px'}}
+                                    dropdownStyle={{
+                                        maxHeight: 400,
+                                        overflow: 'auto',
+                                    }}
+                                    className={"dynamic-select-box-item"}
+                                    placeholder="模块"
+                                    allowClear
+                                    treeDefaultExpandAll
+                                    onChange={changeCategory}
+                                    treeData={categoryTableList}
+                                />
 
-        </div>
+                                <CaseTypeSelect
+                                    caseSelectFn={caseSelectFn}
+                                    testType={selectItem}
+                                />
+
+                                <Input
+                                    placeholder={`搜索用例`}
+                                    onPressEnter={onSearch}
+                                    className='search-input-common'
+                                    prefix={<SearchOutlined />}
+                                />
+                            </Space>
+
+                        </div>
+
+                        <div className={"table-list-box"}>
+                            <Table
+                                columns={column}
+                                dataSource={testcaseList}
+                                rowKey = {record => record.id}
+                                pagination={{
+                                    current:currentPage,
+                                    pageSize:pageSize,
+                                    total:totalRecord,
+                                }}
+                                onChange = {(pagination) => onTableChange(pagination)}
+                                locale={{
+                                    emptyText: <Empty
+                                        imageStyle={{height: 120}}
+                                        description={<span>暂无用例</span>}
+                                        image={emptyImg}
+                                    />,
+                                }}
+                            />
+                        </div>
+
+                    </div>
+            }
+
+            {
+                renderRoutes(props.route.routes)
+            }
+        </>
+
 
     )
 
 
 }
 
-export default inject("testcaseStore","categoryStore")(observer(TestCaseList))
+export default inject("testcaseStore","categoryStore")(observer(TestCaseTable))

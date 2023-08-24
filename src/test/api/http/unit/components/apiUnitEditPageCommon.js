@@ -74,7 +74,7 @@ const ApiUnitEditPageCommon = (props) => {
     }
 
     const toHistory = () =>{
-        addRouter("/repository/api-unit-instance")
+        addRouter("/repository/testcase/api-unit-instance")
     }
 
     //编辑名称

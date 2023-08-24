@@ -1,7 +1,7 @@
 import React from "react";
 
 const TestTypeSelect = (props) =>{
-    const {selectItem,selectKeyFun} = props;
+    const {selectItem,selectKeyFun,style} = props;
 
 
     //测试类型筛选项
@@ -50,7 +50,7 @@ const TestTypeSelect = (props) =>{
     }
 
     return(
-        <div className={"ws-header-menu-left"}>
+        <div className={"ws-header-menu-left"} style={style}>
             {showMenu(testTypeItems)}
         </div>
     )

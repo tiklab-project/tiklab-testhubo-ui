@@ -43,7 +43,7 @@ const WebPerformDetail = (props) =>{
 
     //去往历史页
     const toHistory = () =>{
-        props.history.push("/repository/web-perform-instance")
+        props.history.push("/repository/testcase/web-perform-instance")
     }
 
     const goBack = () =>{

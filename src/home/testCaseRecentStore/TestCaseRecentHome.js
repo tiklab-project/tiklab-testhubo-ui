@@ -77,7 +77,7 @@ const TestCaseRecentHome = (props) =>{
     //跳转路由
     const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        props.history.push(`/repository/${record.caseType}/${record.id}`)
+        props.history.push(`/repository/testcase/${record.caseType}/${record.id}`)
     }
 
     /**

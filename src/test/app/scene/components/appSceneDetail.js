@@ -62,7 +62,7 @@ const AppSceneDetail = (props) => {
 
 
     const toHistory = () =>{
-        props.history.push("/repository/app-scene-instance")
+        props.history.push("/repository/testcase/app-scene-instance")
     }
 
     const goBack = () =>{

@@ -45,7 +45,7 @@ const ApiScenePage = (props) => {
     }
 
     const toHistory = () =>{
-        props.history.push("/repository/api-scene-instance")
+        props.history.push("/repository/testcase/api-scene-instance")
     }
 
     const goBack = () =>{

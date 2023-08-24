@@ -120,7 +120,7 @@ const ApiSceneInstanceList = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repository/api-scene-detail")
+        props.history.push(`/repository/testcase/api-scene/${apiSceneId}`)
     }
 
     return(

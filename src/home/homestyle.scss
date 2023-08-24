@@ -285,38 +285,3 @@
 }
 
 
-.dynamic-detail {
-    height: calc(100% - 48px);
-    overflow: auto;
-    background: var(--pi-bg-grey-100);
-    padding: 10px;
-
-    .dynamic-detail-box {
-        background-color: white;
-        padding: 10px;
-        border-radius: var(--pi-border-radius);
-        margin: 0 auto;
-        max-width: 1260px;
-        min-width: 860px;
-
-        .dynamic-select-box{
-            margin: 15px;
-
-            .dynamic-select-box-item{
-                width: 150px;
-                margin: 0 15px 0 0;
-
-                .ant-select-selector{
-                    border-radius: var(--pi-border-radius)!important;
-                    border: none!important;
-                    background-color: #f4f5f7!important;
-                }
-            }
-        }
-
-        .dynamic-detail-box-list{
-            padding:0 15px;
-        }
-    }
-}
-

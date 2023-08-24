@@ -50,7 +50,7 @@ const ApiPerformToScenePage = (props) =>{
 
 
     const toApiScene = () =>{
-        props.history.push("/repository/api-scene-detail")
+        props.history.push(`/repository/testcase/api-scene/${apiSceneId}`)
     }
 
 

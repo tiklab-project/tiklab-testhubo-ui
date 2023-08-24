@@ -52,7 +52,7 @@ const WebPerfStep = (props) =>{
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("webSceneId",id);
-        props.history.push("/repository/web-perform-to-scene")
+        props.history.push("/repository/testcase/web-perform-to-scene")
     }
 
     return(

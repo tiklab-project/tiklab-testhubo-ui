@@ -62,7 +62,7 @@ const WebSceneDetail = (props) => {
 
 
     const toHistory = () =>{
-        props.history.push("/repository/web-scene-instance")
+        props.history.push("/repository/testcase/web-scene-instance")
     }
 
     const goBack = () =>{

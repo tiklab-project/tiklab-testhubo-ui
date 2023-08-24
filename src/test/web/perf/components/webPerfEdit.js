@@ -6,7 +6,7 @@ import {Form, Modal, Input, TreeSelect} from 'antd';
 
 // 添加与编辑
 const WebPerfEdit = (props) => {
-    const {webPerfStore, categoryStore} = props;
+    const {webPerfStore, categoryStore,findPage} = props;
     const {createWebPerf}=webPerfStore;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
@@ -46,8 +46,9 @@ const WebPerfEdit = (props) => {
 
             createWebPerf(values).then((res)=> {
                 if(res.code===0){
+                    findPage&&findPage()
                     sessionStorage.setItem(`webPerfId`,res.data);
-                    props.history.push(`/repository/web-perform/${res.data}`)
+                    props.history.push(`/repository/testcase/web-perform/${res.data}`)
                 }
 
             })

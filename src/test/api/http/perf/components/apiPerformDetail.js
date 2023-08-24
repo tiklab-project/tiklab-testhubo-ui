@@ -46,7 +46,7 @@ const ApiPerformDetail = (props) =>{
 
     //去往历史页
     const toHistory = () =>{
-        props.history.push("/repository/api-perform-instance")
+        props.history.push("/repository/testcase/api-perform-instance")
     }
 
     //返回列表

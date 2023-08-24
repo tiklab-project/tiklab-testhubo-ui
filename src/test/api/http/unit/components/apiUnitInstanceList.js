@@ -130,7 +130,7 @@ const ApiUnitInstanceList = (props) =>{
 
 
     const goBack = () =>{
-        props.history.push("/repository/api-unit-detail")
+        props.history.push(`/repository/testcase/api-unit/${apiUnitId}`)
     }
 
     return(

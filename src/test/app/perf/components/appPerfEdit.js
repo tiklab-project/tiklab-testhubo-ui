@@ -5,7 +5,7 @@ import {Form, Modal, Input, TreeSelect} from 'antd';
 
 // 添加与编辑
 const AppPerfEdit = (props) => {
-    const {appPerfStore,categoryStore  } = props;
+    const {appPerfStore,categoryStore,findPage} = props;
     const {createAppPerf}=appPerfStore;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
@@ -42,8 +42,9 @@ const AppPerfEdit = (props) => {
 
             createAppPerf(values).then((res)=> {
                 if(res.code===0){
+                    findPage&&findPage()
                     sessionStorage.setItem(`appPerfId`,res.data);
-                    props.history.push(`/repository/app-perform/${res.data}`)
+                    props.history.push(`/repository/testcase/app-perform/${res.data}`)
                 }
             })
         }

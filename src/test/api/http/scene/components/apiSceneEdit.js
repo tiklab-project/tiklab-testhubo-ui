@@ -5,7 +5,7 @@ import {Form, Modal, Input, TreeSelect} from 'antd';
 
 // 添加与编辑
 const ApiSceneEdit = (props) => {
-    const { apiSceneStore,categoryStore} = props;
+    const { apiSceneStore,categoryStore,findPage} = props;
     const {createApiScene} = apiSceneStore
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
@@ -45,8 +45,9 @@ const ApiSceneEdit = (props) => {
 
             createApiScene(values).then((res)=> {
                 if(res.code===0){
+                    findPage&&findPage()
                     sessionStorage.setItem(`apiSceneId`,res.data);
-                    props.history.push(`/repository/api-scene/${res.data}`)
+                    props.history.push(`/repository/testcaseapi-scene/${res.data}`)
                 }
             })
         }

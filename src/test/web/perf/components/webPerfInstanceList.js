@@ -127,7 +127,7 @@ const WebPerfInstanceList = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repository/web-perform-detail")
+        props.history.push(`/repository/testcase/web-perform/${webPerfId}`)
     }
 
     return(

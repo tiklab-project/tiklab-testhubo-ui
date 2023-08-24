@@ -130,7 +130,7 @@ const WebSceneInstanceList = (props) =>{
     }
 
     const goBack = () =>{
-        props.history.push("/repository/web-scene-detail")
+        props.history.push(`/repository/testcase/web-scene/${webSceneId}`)
     }
 
     return(
