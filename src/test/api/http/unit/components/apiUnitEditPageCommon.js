@@ -12,6 +12,7 @@ import MethodType from "../../common/methodType";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
 import apiUnitTestDispatchStore from "../store/apiUnitTestDispatchStore";
 import assertParamStore from "../store/assertParamStore";
+import Response from "./response";
 
 const {Option} = Select;
 
@@ -225,12 +226,7 @@ const ApiUnitEditPageCommon = (props) => {
             </div>
 
             <div className='header-title ex-title'> 响应</div>
-
-            <ApiUnitTestResult
-                testResponse={testResult}
-                showResponse={isTest}
-                assertList={assertList}
-            />
+                <Response />
 
         </>
     )

@@ -84,7 +84,7 @@ const WorkItemBindList = (props) =>{
 
     return(
         <>
-            <div style={{display:"flex",gap:"10px",margin:'5px 0'}}>
+            <div style={{display:"flex",gap:"10px",margin:'10px 0'}}>
                 <WorkItemFindList caseId={caseId} />
                 <WorkItemAdd caseId={caseId} />
             </div>

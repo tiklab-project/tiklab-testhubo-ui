@@ -94,7 +94,8 @@ const EditableCell = ({
 };
 
 const ExTable = (props) => {
-    const {dataSource,columns,handleSave} = props;
+    const {dataSource,columns,handleSave,rowSelection,expandedRowKeys,onExpand} = props;
+
     // 覆盖默认的 table 元素
     const components = {
         body: {
@@ -111,7 +112,7 @@ const ExTable = (props) => {
             ...col,
             onCell: (record) => ({
                 record,
-                editable: col.editable,
+                editable: record.id==="root"?false:col.editable,
                 dataIndex: col.dataIndex,
                 title: col.title,
                 handleSave: handleSave,
@@ -128,6 +129,13 @@ const ExTable = (props) => {
             rowKey = {record => record.id}
             dataSource={dataSource}
             columns={column}
+            expandable={{
+                indentSize: 5,
+                expandedRowKeys:expandedRowKeys,
+                // defaultExpandAllRows: true, // 设置默认展开所有
+                onExpand:onExpand
+            }}
+            rowSelection={rowSelection}
         />
     )
 }

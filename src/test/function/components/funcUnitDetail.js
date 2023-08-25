@@ -8,8 +8,9 @@ import FuncUnitStepList from "./funcUnitStepList";
 import DetailCommon from "../../../common/DetailCommon";
 import {Breadcrumb, Tabs} from "antd";
 import WorkItemSelect from "../../../integrated/teamwire/workItem/components/WorkItemSelect";
-import ConnectionCommon from "../../common/connenctionCommon/ConnectionCommon";
+import Demand from "../../../integrated/teamwire/workItem/components/Demand";
 import {useParams} from "react-router";
+import WorkItemBindList from "../../../integrated/teamwire/defect/components/WorkItemBindList";
 
 const FuncUnitDetail = (props) => {
     const {funcUnitStore,workItemStore} = props;
@@ -81,23 +82,35 @@ const FuncUnitDetail = (props) => {
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
             />
-            <FuncUnitStepList />
-            <div className='title-space-between'>
-                <div className={'test-title'}>
-                    <div>关联</div>
-                </div>
-            </div>
-
-            <ConnectionCommon
-                workItemInfo={demandInfo}
-                caseId={functionId}
-                workItemSelect={
-                    <WorkItemSelect
-                        caseInfo={detailInfo}
-                        updateCase={updateFuncUnit}
-
-                    />
-                }
+            <Tabs
+                defaultActiveKey="1"
+                // onChange={onChange}
+                items={[
+                    {
+                        label: `场景步骤`,
+                        key: '1',
+                        children:  <FuncUnitStepList />,
+                    },
+                    {
+                        label: `关联需求`,
+                        key: '2',
+                        children: <Demand
+                                    workItemInfo={demandInfo}
+                                    caseId={functionId}
+                                    workItemSelect={
+                                        <WorkItemSelect
+                                            caseInfo={detailInfo}
+                                            updateCase={updateFuncUnit}
+                                        />
+                                    }
+                                />
+                    },
+                    {
+                        label: `关联缺陷`,
+                        key: '3',
+                        children:   <WorkItemBindList caseId={functionId} />,
+                    },
+                ]}
             />
 
         </div>

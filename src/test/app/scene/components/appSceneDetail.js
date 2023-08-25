@@ -9,17 +9,13 @@ import AppExecuteTestDrawer from "./appExecuteTestDrawer";
 import DetailCommon from "../../../../common/DetailCommon";
 import {Breadcrumb} from "antd";
 import "./appStyle.scss"
-import ConnectionCommon from "../../../common/connenctionCommon/ConnectionCommon";
-import WorkItemSelect from "../../../../integrated/teamwire/workItem/components/WorkItemSelect";
 import {useParams} from "react-router";
 
 const AppSceneDetail = (props) => {
-    const {appSceneStore,workItemStore} = props;
+    const {appSceneStore} = props;
     const {findAppScene,updateAppScene} = appSceneStore;
-    const {findWorkItem,getDemandInfo,demandInfo} =workItemStore
 
     const [detailInfo,setDetailInfo]=useState();
-    const [workItemId, setWorkItemId] = useState();
 
     let {id} = useParams()
     const appSceneId = sessionStorage.getItem('appSceneId') || id
@@ -30,19 +26,9 @@ const AppSceneDetail = (props) => {
 
         findAppScene(appSceneId).then(res=>{
             setDetailInfo(res);
-            setWorkItemId(res?.testCase?.workItemId)
         })
     },[appSceneId])
 
-    useEffect(()=>{
-        if(workItemId){
-            findWorkItem(workItemId).then(res=>{
-                getDemandInfo(res)
-            })
-        }else {
-            getDemandInfo(null)
-        }
-    },[workItemId])
 
     //更新名称
     const updateTitle = (value) =>{
@@ -90,24 +76,6 @@ const AppSceneDetail = (props) => {
                 }
             />
             <AppSceneStepList />
-
-            <div className='title-space-between'>
-                <div className={'test-title'}>
-                    <div>关联</div>
-                </div>
-            </div>
-
-            <ConnectionCommon
-                workItemInfo={demandInfo}
-                caseId={appSceneId}
-                workItemSelect={
-                    <WorkItemSelect
-                        caseInfo={detailInfo}
-                        updateCase={updateAppScene}
-
-                    />
-                }
-            />
 
         </div>
 

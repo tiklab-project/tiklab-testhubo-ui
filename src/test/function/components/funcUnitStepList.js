@@ -76,9 +76,6 @@ const FuncUnitStepList = (props) => {
     return(
         <>
             <div className='title-space-between'>
-                <div className={'test-title'}>
-                    <div>场景步骤</div>
-                </div>
                 <FuncUnitStepEdit
                     name={'添加步骤'}
                     btn={'btn'}

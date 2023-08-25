@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { Divider, Modal, Table} from "antd";
+import { Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import ProjectSelect from "./ProjectSelect";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
@@ -9,8 +9,7 @@ const WorkItemSelect = (props) =>{
     const {
         findWorkItemList,
         findWorkItem,
-        getDemandInfo,
-        demandInfo
+        getDemandInfo
     } = workItemStore;
 
     const columns = [

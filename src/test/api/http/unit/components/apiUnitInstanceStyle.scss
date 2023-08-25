@@ -81,3 +81,42 @@
 .action-btn-box{
     margin: 10px 0;
 }
+
+
+.api-res-result{
+    padding: 0 0 10px 0;
+    min-height: 365px;
+
+    &-top-box{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        border-bottom: 1px solid var(--pi-border-color);
+
+        .ant-form-item-label > label{
+            color: rgb(151 151 151 / 85%);
+            font-size: 13px;
+        }
+
+        .ant-form-item-control-input .ant-select .ant-select-selector{
+            border: 1px solid #f0f0f0;
+        }
+
+        .ant-input{
+            border: 1px solid #f0f0f0;
+        }
+
+        .ant-form{
+            margin: 0!important;
+        }
+
+    }
+
+    &-top{
+        display: flex;
+        gap: 20px;
+    }
+
+
+}
