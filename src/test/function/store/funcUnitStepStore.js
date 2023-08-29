@@ -19,8 +19,8 @@ class FuncUnitStepStore {
         const res = await Axios.post("/funcUnitStep/findFuncUnitStepList",params)
         if(res.code === 0) {
             this.funcUnitStepList=res.data;
+            return res.data
         }
-        return res.data
     }
 
 

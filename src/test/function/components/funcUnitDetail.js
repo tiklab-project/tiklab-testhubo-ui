@@ -4,7 +4,6 @@
  */
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import FuncUnitStepList from "./funcUnitStepList";
 import DetailCommon from "../../../common/DetailCommon";
 import {Breadcrumb, Tabs} from "antd";
 import WorkItemSelect from "../../../integrated/teamwire/workItem/components/WorkItemSelect";
@@ -12,6 +11,8 @@ import Demand from "../../../integrated/teamwire/workItem/components/Demand";
 import {useParams} from "react-router";
 import WorkItemBindList from "../../../integrated/teamwire/defect/components/WorkItemBindList";
 import {DrawerCloseIcon} from "../../common/BreadcrumbCommon";
+import FuncUnitStepTable from "./FuncUnitStepTable";
+import "./functionStyle.scss"
 
 const FuncUnitDetail = (props) => {
     const {funcUnitStore,workItemStore} = props;
@@ -83,7 +84,7 @@ const FuncUnitDetail = (props) => {
                     {
                         label: `场景步骤`,
                         key: '1',
-                        children:  <FuncUnitStepList />,
+                        children:  <FuncUnitStepTable />,
                     },
                     {
                         label: `关联需求`,

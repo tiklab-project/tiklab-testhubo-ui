@@ -6,15 +6,13 @@ import  { useTranslation } from 'react-i18next';
 import FuncUnitStepEdit from "./funcUnitStepEdit";
 import IconCommon from "../../../common/IconCommon";
 import funcUnitStepStore from "../store/funcUnitStepStore";
+const {
+    findFuncUnitStepList,
+    deleteFuncUnitStep,
+    funcUnitStepList,
+} = funcUnitStepStore;
 
 const FuncUnitStepList = (props) => {
-    const {
-        findFuncUnitStepList,
-        deleteFuncUnitStep,
-        funcUnitStepList,
-    } = funcUnitStepStore;
-
-    const { t } = useTranslation();
 
     //列表头
     const columns = [
@@ -67,8 +65,8 @@ const FuncUnitStepList = (props) => {
     const funcUnitId = sessionStorage.getItem('functionId')
 
 
-    useEffect(()=> {
-        findFuncUnitStepList(funcUnitId)
+    useEffect(async ()=> {
+        await findFuncUnitStepList(funcUnitId)
     },[funcUnitId])
 
 

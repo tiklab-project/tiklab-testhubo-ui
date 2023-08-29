@@ -1,21 +1,18 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input} from 'antd';
-import IconCommon from "../../../common/IconCommon";
+import {Form, Modal, Button, Input, Space} from 'antd';
 import funcUnitStepStore from "../store/funcUnitStepStore";
 
 const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
+    labelCol: {span: 8},
+    wrapperCol: {span: 16},
 };
 
 // 添加与编辑
-const FuncUnitStepEdit = (props) => {
-    const { funcUnitStepId,findPage } = props;
+const FuncUnitStepEdit = ({setData}) => {
     const {
-        findFuncUnitStep,
         createFuncUnitStep,
-        updateFuncUnitStep
+        findFuncUnitStepList
     } = funcUnitStepStore;
 
     const [form] = Form.useForm();
@@ -24,18 +21,7 @@ const FuncUnitStepEdit = (props) => {
 
     // 弹框展示
     const showModal = () => {
-        
-        if(props.type === "edit"){
-            findFuncUnitStep(funcUnitStepId).then((res)=>{
-                form.setFieldsValue({
-                    described: res.described,
-                    expect:res.expect,
-                    actual:res.actual,
-                })
-            })
-        }
-
-        setVisible(true);
+        setVisible(true)
     };
 
     const functionId = sessionStorage.getItem('functionId')
@@ -44,68 +30,70 @@ const FuncUnitStepEdit = (props) => {
     const onFinish =async () => {
         let values =  await form.validateFields();
         values.funcUnitId=functionId
-
-        if(props.name === "添加步骤" ){
-            createFuncUnitStep(values).then(()=>findPage(functionId))
-        }else{
-            values.id=funcUnitStepId;
-            updateFuncUnitStep(values).then(()=>findPage(functionId))
-        }
-        setVisible(false);
+        createFuncUnitStep(values).then(()=> {
+            findFuncUnitStepList(functionId).then(list=>{
+                setData(list)
+            })
+        })
+        setVisible(false)
+        form.resetFields();
     };
 
-    const onCancel = () => { setVisible(false) };
 
     return (
-        <>
-            {
-                props.name === "添加步骤"
-                    ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
-                    : <IconCommon
-                        icon={"bianji11"}
-                        className={"icon-s edit-icon"}
-                        onClick={showModal}
-                    />
-            }
-
-            <Modal
-                destroyOnClose={true}
-                title={props.name}
-                visible={visible}
-                onCancel={onCancel}
-                onOk={onFinish}
-                okText="提交"
-                cancelText="取消"
-                centered
+        <div className={"function-edit_content"}>
+            <Button
+                className={`important-btn  ${visible?"function-edit_hide":"function-edit_show"}`}
+                onClick={showModal}
             >
+                添加步骤
+            </Button>
+            <div  className={`function-edit_form ${visible?"function-edit_show":"function-edit_hide"}`} >
                 <Form
                     form={form}
                     onFinish={onFinish}
-                    preserve={false}
-                    {...layout}
+                    preserve={true}
+                    layout="inline"
                 >
                     <Form.Item
                         label="描述"
                         rules={[{ required: true, message:'名称未添加'}]}
                         name="described"
+
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         label="预期结果"
                         name="expect"
+
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         label="实际结果"
                         name="actual"
+
                     >
                         <Input />
                     </Form.Item>
+                    <Form.Item className={"function-edit_submit"}>
+                        <Space>
+                            <Button type="primary" htmlType="submit">
+                                提交
+                            </Button>
+                            <Button  onClick={()=>setVisible(false)}>
+                                取消
+                            </Button>
+                        </Space>
+                    </Form.Item>
                 </Form>
-            </Modal>
-        </>
+
+            </div>
+
+
+
+        </div>
     );
 };
 
