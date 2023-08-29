@@ -4,12 +4,15 @@ import {inject, observer} from "mobx-react";
 
 import AppSceneStepList from "../../scene/components/appSceneStepList";
 import DetailCommon from "../../../../common/DetailCommon";
+import {useHistory} from "react-router";
+import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 
 const AppPerformToScenePage = (props) =>{
     const {appPerfStore,appSceneStore} = props;
     const {findAppScene,updateAppScene} = appSceneStore;
     const {findAppPerf} = appPerfStore;
 
+    const history = useHistory();
     const [appScene, setAppScene] = useState();
     const [appPerfName, setAppPerfName] = useState();
     const appSceneId = sessionStorage.getItem('appSceneId');
@@ -45,25 +48,19 @@ const AppPerformToScenePage = (props) =>{
         })
     }
 
-    const toTestCase = () =>{
-        props.history.push("/repository/testcase")
-    }
-
-
     const toAppScene = () =>{
         props.history.push(`/repository/testcase/app-perform/${appSceneId}`)
     }
 
 
-
     return(
         <div className={"content-box-center"}>
-            <div style={{"display":"flex","justifyContent":"space-between","margin":"5px  0 0 0"}}>
-                <Breadcrumb className={"breadcrumb-box"} style={{padding: "10px 0"}}>
-                    <Breadcrumb.Item onClick={toTestCase} className={"first-item"}>测试用例</Breadcrumb.Item>
-                    <Breadcrumb.Item onClick={toAppScene} className={"first-item"}>{appPerfName}</Breadcrumb.Item>
-                    <Breadcrumb.Item>{appScene?.testCase.name}</Breadcrumb.Item>
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item onClick={toAppScene} className={"first-item"}>用例详情</Breadcrumb.Item>
+                    <Breadcrumb.Item >步骤详情</Breadcrumb.Item>
                 </Breadcrumb>
+                <DrawerCloseIcon />
             </div>
             <DetailCommon
                 detailInfo={appScene}

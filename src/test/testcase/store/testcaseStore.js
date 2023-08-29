@@ -9,7 +9,6 @@ export class TestCaseStore {
     @observable tabList = [];
     @observable testType;
     @observable caseType;
-    @observable tableToDetail = false
 
     @action
     findTestCaseList = async (values) => {
@@ -65,16 +64,6 @@ export class TestCaseStore {
     setActiveKey = (key) => {
         this.activeKey = key;
     }
-    //tab页item
-    @action
-    setTabList = (item) => {
-        this.tabList = item;
-    }
-
-    @action
-    setTableToDetail = (boolean)=>{
-        this.tableToDetail = boolean;
-    }
 
     /**
      * 设置最近访问的用例
@@ -86,7 +75,6 @@ export class TestCaseStore {
             return res.data;
         }
     }
-
 
 
 }

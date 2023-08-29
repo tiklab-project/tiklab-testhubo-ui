@@ -1,11 +1,9 @@
 import React, { useEffect, useState} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Form, Input, Select, Space, Tooltip} from 'antd';
+import { Form, Input, Select, Space} from 'antd';
 import Request from './request';
-import EdiText from "react-editext";
 import './unitcase.scss'
 import {dictionary} from "../../../../../common/dictionary/dictionary";
-import ApiUnitTestResult from "./apiUnitTestResult";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import MethodType from "../../common/methodType";
@@ -13,6 +11,7 @@ import ApiEnvDropDownSelect from "../../../../../support/environment/components/
 import apiUnitTestDispatchStore from "../store/apiUnitTestDispatchStore";
 import assertParamStore from "../store/assertParamStore";
 import Response from "./response";
+import {useHistory} from "react-router";
 
 const {Option} = Select;
 
@@ -23,7 +22,7 @@ const ApiUnitEditPageCommon = (props) => {
     const { envUrl } = apiEnvStore;
     const {findAssertParamList} = assertParamStore
 
-    const addRouter = props.history.push;
+    const history = useHistory()
 
     const [form] = Form.useForm();
     const apiUnitId = sessionStorage.getItem('apiUnitId');
@@ -75,7 +74,7 @@ const ApiUnitEditPageCommon = (props) => {
     }
 
     const toHistory = () =>{
-        addRouter("/repository/testcase/api-unit-instance")
+        history.push("/repository/testcase/api-unit-instance")
     }
 
     //编辑名称
@@ -212,8 +211,8 @@ const ApiUnitEditPageCommon = (props) => {
 
                 <div className={"method"}>
                     <div className={"method-people-info"}>
-                        <span className={"people-item "}>分组: {resData?.testCase?.category?.name}</span>
-                        <span className={"people-item "}>更新人: {resData?.testCase?.updateUser?.name}</span>
+                        <span className={"people-item "}>分组: {resData?.testCase?.category?.name||"未设置"}</span>
+                        <span className={"people-item "}>更新人: {resData?.testCase?.updateUser?.name||"未更新"}</span>
                         <span className={"people-item "}>更新时间: {resData?.testCase?.updateTime}</span>
                     </div>
                 </div>

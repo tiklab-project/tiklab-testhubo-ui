@@ -5,6 +5,8 @@ import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import ApiSceneInstanceDrawer from "./apiSceneInstanceDrawer";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
+import {useHistory} from "react-router";
+import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 
 const ApiSceneInstanceList = (props) =>{
     const {
@@ -13,6 +15,8 @@ const ApiSceneInstanceList = (props) =>{
         findApiSceneInstance,
         deleteApiSceneInstance
     } = apiSceneInstanceStore;
+
+    const history = useHistory();
 
     const column = [
         {
@@ -115,21 +119,19 @@ const ApiSceneInstanceList = (props) =>{
     }
 
 
-    const toTestCase = () =>{
-        props.history.push("/repository/testcase")
-    }
-
     const goBack = () =>{
-        props.history.push(`/repository/testcase/api-scene/${apiSceneId}`)
+        history.push(`/repository/testcase/api-scene/${apiSceneId}`)
     }
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={toTestCase} className={"first-item"}>测试用例</Breadcrumb.Item>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>场景详情</Breadcrumb.Item>
-                <Breadcrumb.Item>场景历史</Breadcrumb.Item>
-            </Breadcrumb>
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item onClick={goBack}>用例详情</Breadcrumb.Item>
+                    <Breadcrumb.Item >测试历史</Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
 
             <div className={"table-list-box"}>
                 <Table

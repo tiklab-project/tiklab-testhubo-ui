@@ -1,6 +1,7 @@
 import React from "react";
 import EdiText from "react-editext";
 import {Space} from "antd";
+import IconBtn from "./iconBtn/IconBtn";
 
 /**
  * 用于详情
@@ -42,7 +43,15 @@ const DetailCommon = (props) =>{
                 {
                    props.type
                         ? <Space>
-                               {toHistory?<a onClick={toHistory}>测试历史</a>:null}
+                               {
+                                   toHistory
+                                       ? <IconBtn
+                                           className="pi-icon-btn-grey"
+                                           icon={"lishi"}
+                                           onClick={toHistory}
+                                           name={"历史"}
+                                       />
+                                       :null}
                                {props.test}
                            </Space>
                        :null
@@ -51,9 +60,9 @@ const DetailCommon = (props) =>{
 
             </div>
             <div className={"detail-bottom"}>
-                <span className={"detail-bottom-item "}>分组:{detailInfo?.testCase?.category?.name} </span>
+                <span className={"detail-bottom-item "}>分组:{detailInfo?.testCase?.category?.name||"未设置"} </span>
                 {/*<span className={"detail-bottom-item "}>创建人:{detailInfo?.testCase?.createUser?.name} </span>*/}
-                <span className={"detail-bottom-item "}>更新者:{detailInfo?.testCase?.updateUser?.nickname}</span>
+                <span className={"detail-bottom-item "}>更新者:{detailInfo?.testCase?.updateUser?.nickname||"未更新"}</span>
                 {/*<span className={"detail-bottom-item "}>创建时间:{detailInfo?.testCase?.createTime}</span>*/}
                 <span className={"detail-bottom-item "}>更新时间:{detailInfo?.testCase?.updateTime}</span>
             </div>

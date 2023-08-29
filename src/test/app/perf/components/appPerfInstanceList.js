@@ -4,6 +4,8 @@ import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import appPerfInstanceStore from "../store/appPerfInstanceStore";
+import {useHistory} from "react-router";
+import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 
 const AppPerfInstanceList = (props) =>{
     const {
@@ -72,6 +74,7 @@ const AppPerfInstanceList = (props) =>{
         },
     ]
 
+    const history = useHistory();
     const appPerfId = sessionStorage.getItem("appPerfId")
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
@@ -115,22 +118,20 @@ const AppPerfInstanceList = (props) =>{
         setPageParam(newParams)
     }
 
-    const toTestCase = () =>{
-        props.history.push("/repository/testcase")
-    }
 
     const goBack = () =>{
-        props.history.push(`/repository/testcase/app-perform/${appPerfId}`)
+        history.push(`/repository/testcase/app-perform/${appPerfId}`)
     }
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={toTestCase} className={"first-item"}>测试用例</Breadcrumb.Item>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>性能详情</Breadcrumb.Item>
-                <Breadcrumb.Item>性能历史</Breadcrumb.Item>
-            </Breadcrumb>
-
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例详情</Breadcrumb.Item>
+                    <Breadcrumb.Item >测试历史</Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

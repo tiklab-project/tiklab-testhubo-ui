@@ -21,11 +21,9 @@ import WebPerformInstanceDrawer from "../../web/perf/components/webPerformInstan
 import AppPerformInstanceDrawer from "../../app/perf/components/appPerformInstanceDrawer";
 import TestTypeSelect from "./TestTypeSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
-import {getUser} from "tiklab-core-ui";
 import PostInApiToCase from "../../../integrated/postin/postinApiCopy/components/PostInApiToCase";
-import {CASE_TYPE, TEST_TYPE} from "../../../common/DefineVariables";
-import {renderRoutes} from "react-router-config";
 import {useHistory, useLocation} from "react-router";
+import TestCaseDrawer from "../../common/TestCaseDrawer";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore,togglePage} = props;
@@ -48,14 +46,11 @@ const TestCaseTable = (props) => {
             title:`名称`,
             dataIndex: 'name',
             key: "name",
-            render: (text,record) =>(
-                <a onClick = {()=>toPage(record)}>{text}</a>
-            )
+            render: (text,record) =>(<TestCaseDrawer caseData={record} {...props}/> )
         },{
             title: `模块`,
             dataIndex: ["category","name"],
             key: "category",
-            // render: (text) =>(text?"-":text)
         },{
             title: `测试类型`,
             dataIndex: "testType",
@@ -103,7 +98,6 @@ const TestCaseTable = (props) => {
         },
     ]
 
-    const [tablePageToDetail, setTablePageToDetail] = useState(false);
     const [selectItem, setSelectItem] = useState(testType?testType:null);
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalRecord, setTotalRecord] = useState();
@@ -119,7 +113,7 @@ const TestCaseTable = (props) => {
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     let history = useHistory();
-    let location = useLocation().pathname;
+
     useEffect(()=>{
         findPage(testType,caseType)
         history.push("/repository/testcase")
@@ -128,12 +122,6 @@ const TestCaseTable = (props) => {
     useEffect(()=>{
         findCategoryListTreeTable(repositoryId)
     },[])
-
-    useEffect(()=>{
-        if(location==="/repository/testcase"){
-            setTablePageToDetail(false)
-        }
-    },[location])
 
     const findPage = (testType,caseType,categoryId) =>{
         const param = {
@@ -169,7 +157,6 @@ const TestCaseTable = (props) => {
                 return recent.result===2?<div>--</div>:<AppPerformInstanceDrawer name={showRecent(recent)} appPerfInstanceId={recent.instanceId} />
         }
     }
-
     const showRecent=(recentInstance)=>{
         switch (recentInstance.result) {
             case 0:
@@ -180,59 +167,7 @@ const TestCaseTable = (props) => {
     }
 
 
-    //点击名称 先通过测试类型分类
-    const toPage =(record)=>{
 
-        //设置最近打开的接口
-        let params = {
-            repository:{id:repositoryId},
-            user:{id:getUser().userId},
-            testCase:{id:record.id},
-            // protocolType:item.testCasex.protocolType
-        }
-        testCaseRecent(params)
-
-        switchCaseType(record)
-    }
-
-    //再根据不同的用例类型跳到不同的页面
-    const switchCaseType = (record)=>{
-
-        switch (record.caseType) {
-            case CASE_TYPE.API_UNIT:
-                toCaseDetail("apiUnitId",record)
-                break;
-            case CASE_TYPE.API_SCENE:
-                toCaseDetail("apiSceneId",record)
-                break;
-            case CASE_TYPE.API_PERFORM:
-                toCaseDetail("apiPerfId",record)
-                break;
-            case CASE_TYPE.WEB_SCENE:
-                toCaseDetail("webSceneId",record)
-                break;
-            case CASE_TYPE.WEB_PERFORM:
-                toCaseDetail("webPerfId",record)
-                break;
-            case CASE_TYPE.APP_SCENE:
-                toCaseDetail("appSceneId",record)
-                break;
-            case CASE_TYPE.APP_PERFORM:
-                toCaseDetail("appPerfId",record)
-                break;
-            case CASE_TYPE.FUNCTION:
-                toCaseDetail("functionId",record)
-                break;
-
-        }
-    }
-
-    //跳转路由
-    const toCaseDetail = (setId,record)=>{
-        sessionStorage.setItem(`${setId}`,record.id);
-        props.history.push(`/repository/testcase/${record.caseType}/${record.id}`)
-        setTablePageToDetail(true)
-    }
 
     //模块赛选
     const changeCategory=(categoryId)=> {
@@ -380,101 +315,87 @@ const TestCaseTable = (props) => {
 
     return(
         <>
-            {
-                tablePageToDetail
-                    ?null
-                    :<div className={"testcase-box"} >
-                        <div  className={"header-box-space-between"} >
-                            <div className={'header-box-title'}>测试用例</div>
-                            <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
 
-                                <IconCommon
-                                    className={"icon-l "}
-                                    icon={"qiehuan1"}
-                                    onClick={()=>togglePage("list")}
-                                    style={{cursor:"pointer"}}
-                                />
 
-                                <Dropdown overlay={addMenu} placement="bottom">
-                                    <Button className={"important-btn"}>添加用例</Button>
-                                </Dropdown>
-
-                            </div>
-
-                        </div>
-
-                        <div className={"dynamic-select-box"}>
-                            <TestTypeSelect
-                                selectItem={selectItem}
-                                selectKeyFun={selectKeyFun}
-                                style={{width: "360px"}}
-                            />
-
-                            <Space>
-
-                                <TreeSelect
-                                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
-                                    style={{  width: '150px'}}
-                                    dropdownStyle={{
-                                        maxHeight: 400,
-                                        overflow: 'auto',
-                                    }}
-                                    className={"dynamic-select-box-item"}
-                                    placeholder="模块"
-                                    allowClear
-                                    treeDefaultExpandAll
-                                    onChange={changeCategory}
-                                    treeData={categoryTableList}
-                                />
-
-                                <CaseTypeSelect
-                                    caseSelectFn={caseSelectFn}
-                                    testType={selectItem}
-                                />
-
-                                <Input
-                                    placeholder={`搜索用例`}
-                                    onPressEnter={onSearch}
-                                    className='search-input-common'
-                                    prefix={<SearchOutlined />}
-                                />
-                            </Space>
-
-                        </div>
-
-                        <div className={"table-list-box"}>
-                            <Table
-                                columns={column}
-                                dataSource={testcaseList}
-                                rowKey = {record => record.id}
-                                pagination={{
-                                    current:currentPage,
-                                    pageSize:pageSize,
-                                    total:totalRecord,
-                                }}
-                                onChange = {(pagination) => onTableChange(pagination)}
-                                locale={{
-                                    emptyText: <Empty
-                                        imageStyle={{height: 120}}
-                                        description={<span>暂无用例</span>}
-                                        image={emptyImg}
-                                    />,
-                                }}
-                            />
-                        </div>
-
+            <div className={"testcase-box"} >
+                <div  className={"header-box-space-between"} >
+                    <div className={'header-box-title'}>测试用例</div>
+                    <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
+                        <Dropdown overlay={addMenu} placement="bottom">
+                            <Button className={"important-btn"}>添加用例</Button>
+                        </Dropdown>
+                        <IconCommon
+                            className={"icon-l "}
+                            icon={"qiehuan1"}
+                            onClick={()=>togglePage("list")}
+                            style={{cursor:"pointer"}}
+                        />
                     </div>
-            }
 
-            {
-                renderRoutes(props.route.routes)
-            }
+                </div>
+
+                <div className={"dynamic-select-box"}>
+                    <TestTypeSelect
+                        selectItem={selectItem}
+                        selectKeyFun={selectKeyFun}
+                        style={{width: "360px"}}
+                    />
+
+                    <Space>
+
+                        <TreeSelect
+                            fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                            style={{  width: '150px'}}
+                            dropdownStyle={{
+                                maxHeight: 400,
+                                overflow: 'auto',
+                            }}
+                            className={"dynamic-select-box-item"}
+                            placeholder="模块"
+                            allowClear
+                            treeDefaultExpandAll
+                            onChange={changeCategory}
+                            treeData={categoryTableList}
+                        />
+
+                        <CaseTypeSelect
+                            caseSelectFn={caseSelectFn}
+                            testType={selectItem}
+                        />
+
+                        <Input
+                            placeholder={`搜索用例`}
+                            onPressEnter={onSearch}
+                            className='search-input-common'
+                            prefix={<SearchOutlined />}
+                        />
+                    </Space>
+
+                </div>
+
+                <div className={"table-list-box"}>
+                    <Table
+                        columns={column}
+                        dataSource={testcaseList}
+                        rowKey = {record => record.id}
+                        pagination={{
+                            current:currentPage,
+                            pageSize:pageSize,
+                            total:totalRecord,
+                        }}
+                        onChange = {(pagination) => onTableChange(pagination)}
+                        locale={{
+                            emptyText: <Empty
+                                imageStyle={{height: 120}}
+                                description={<span>暂无用例</span>}
+                                image={emptyImg}
+                            />,
+                        }}
+                    />
+                </div>
+            </div>
         </>
-
-
     )
-
-
 }
 
 export default inject("testcaseStore","categoryStore")(observer(TestCaseTable))

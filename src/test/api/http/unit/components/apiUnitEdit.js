@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal,  Input, Select, TreeSelect} from 'antd';
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
-import {useHistory} from "react-router";
 
 const {Option} = Select;
 
@@ -48,7 +47,7 @@ const ApiUnitEdit = (props) => {
                 if(res.code===0){
                     findPage&&findPage()
                     sessionStorage.setItem(`apiUnitId`,res.data);
-                    props.history.push(`/repository/testcaseapi-unit/${res.data}`)
+                    props.history.push(`/repository/testcase/api-unit/${res.data}`)
                 }else {
                     messageFn("error",'创建失败');
                 }

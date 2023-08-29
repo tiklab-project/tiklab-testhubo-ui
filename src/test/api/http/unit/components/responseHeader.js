@@ -21,13 +21,13 @@ const ResponseHeader = (props) =>{
         {
             title: '标签',
             dataIndex: 'headerName',
-            width: '15%',
+            width: '25%',
             editable: true,
         },
         {
             title: '必须',
             dataIndex: 'required',
-            width: '5%',
+            width: '10%',
             // align:'center',
             render:(text,record) =>  (
                 <Checkbox
@@ -38,13 +38,13 @@ const ResponseHeader = (props) =>{
         },
         {
             title: '说明',
-            width: '20%',
+            width: '22%',
             dataIndex: 'desc',
             editable: true,
         },
         {
             title: '示例',
-            width: '20%',
+            width: '22%',
             dataIndex: 'eg',
             editable: true,
         },
@@ -55,11 +55,6 @@ const ResponseHeader = (props) =>{
             dataIndex: 'operation',
             render: (text, record) =>(operation(record,dataSource))
         },
-        {
-            title: '',
-            width: '20%',
-            dataIndex: 'none',
-        }
     ]
 
 

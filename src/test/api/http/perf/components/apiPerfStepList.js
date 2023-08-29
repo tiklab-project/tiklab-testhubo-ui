@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Popconfirm, Space, Switch, Table} from "antd";
+import {Popconfirm, Table} from "antd";
 import ApiPerformBindScene from "./apiPerformBindScene";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
@@ -63,7 +63,7 @@ const ApiPerfStepList = (props) =>{
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiSceneId",id);
-        props.history.push("/repository/testcaseapi-perform-to-scene")
+        props.history.push("/repository/testcase/api-perform-to-scene")
     }
 
     return(

@@ -133,14 +133,13 @@
 
 
 .detail-box{
-    padding: 10px;
-    margin: 0 0 20px 0;
+    padding: 5px;
 
     .detail-header{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 0 0 20px 0;
+        margin: 0 0 10px 0;
         height: 41px;
     }
 
@@ -156,6 +155,7 @@
             vertical-align: middle;
             white-space: nowrap;
             text-indent: 0;
+            font-size: 13px;
         }
     }
 }
@@ -186,7 +186,6 @@
 
 //面包屑
 .breadcrumb-box{
-    padding: 10px 6px 0;
     font-weight: bold;
 
     .first-item:hover{

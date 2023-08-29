@@ -3,16 +3,17 @@ import { inject,observer } from 'mobx-react';
 import ApiSceneStepList from "./apiSceneStepList";
 import ApiSceneTestResult from "./apiSceneTestResult";
 import DetailCommon from "../../../../../common/DetailCommon";
-import {Breadcrumb} from "antd";
-import ApiEnvSelect from "../../../../../support/environment/components/apiEnvSelect";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
-import {useParams} from "react-router";
+import {useHistory, useParams} from "react-router";
+import {Breadcrumb} from "antd";
+import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 
 const ApiScenePage = (props) => {
     const {apiSceneStore} = props;
     const {findApiScene,updateApiScene} = apiSceneStore;
 
+    const history = useHistory();
     const [detailInfo,setDetailInfo]=useState();
 
     let {id} = useParams()
@@ -44,25 +45,14 @@ const ApiScenePage = (props) => {
         })
     }
 
-    const toHistory = () =>{
-        props.history.push("/repository/testcase/api-scene-instance")
-    }
-
-    const goBack = () =>{
-        props.history.push("/repository/testcase")
-    }
-
-
     return(
         <div className={"content-box-center"}>
-            <div style={{"display":"flex","justifyContent":"space-between","margin":"5px  0 0 0"}}>
+            <div className={"breadcrumb-title_between"}>
                 <Breadcrumb className={"breadcrumb-box"}>
-                    <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
-                    <Breadcrumb.Item>{detailInfo?.testCase.name}</Breadcrumb.Item>
+                    <Breadcrumb.Item>用例详情</Breadcrumb.Item>
                 </Breadcrumb>
-
+                <DrawerCloseIcon />
             </div>
-
             <DetailCommon
                 type={true}  //用于显示里面操作按钮的。如性能页绑定的场景用，点击进入不用加type
                 detailInfo={detailInfo}
@@ -73,7 +63,7 @@ const ApiScenePage = (props) => {
                         <IconBtn
                             className="pi-icon-btn-grey"
                             icon={"lishi"}
-                            onClick={toHistory}
+                            onClick={()=>history.push("/repository/testcase/api-scene-instance")}
                             name={"历史"}
                         />
                         <ApiEnvDropDownSelect />

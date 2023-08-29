@@ -5,6 +5,8 @@ import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import ApiUnitInstanceDrawer from "./apiUnitInstanceDrawer";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
+import {useHistory} from "react-router";
+import BreadcrumbCommon, {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 
 const ApiUnitInstanceList = (props) =>{
     const {
@@ -13,6 +15,8 @@ const ApiUnitInstanceList = (props) =>{
         findApiUnitInstance,
         deleteApiUnitInstance
     } = apiUnitInstanceStore;
+
+    const history = useHistory()
 
     const column = [
         {
@@ -106,7 +110,6 @@ const ApiUnitInstanceList = (props) =>{
         if(res.code===0){
             setTotalRecord(res.data.totalRecord)
         }
-
     }
 
 
@@ -124,22 +127,19 @@ const ApiUnitInstanceList = (props) =>{
         setPageParam(newParams)
     }
 
-    const toTestCase = () =>{
-        props.history.push("/repository/testcase")
-    }
-
-
     const goBack = () =>{
-        props.history.push(`/repository/testcase/api-unit/${apiUnitId}`)
+        history.push(`/repository/testcase/api-unit/${apiUnitId}`)
     }
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={toTestCase} className={"first-item"}>测试用例</Breadcrumb.Item>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>接口单元</Breadcrumb.Item>
-                <Breadcrumb.Item>测试历史</Breadcrumb.Item>
-            </Breadcrumb>
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item onClick={goBack}>用例详情</Breadcrumb.Item>
+                    <Breadcrumb.Item >测试历史</Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
 
             <div className={"table-list-box"}>
                 <Table

@@ -1,44 +1,31 @@
-import React, { useEffect, useState} from 'react';
-import { observer, inject } from 'mobx-react';
-import {Breadcrumb} from 'antd';
+import React, {useEffect} from 'react';
 import './unitcase.scss'
 import ApiUnitEditPageCommon from "./apiUnitEditPageCommon";
 import {useParams} from "react-router";
-
+import {inject, observer} from "mobx-react";
+import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
+import {Breadcrumb} from "antd";
 const ApiUnitEditPage = (props) => {
-    const { apiUnitStore } = props;
-    const { findApiUnit } = apiUnitStore;
 
     let {id} = useParams()
     const apiUnitId = sessionStorage.getItem('apiUnitId') || id;
 
-    const [name,setName]=useState();
-
     useEffect(async ()=>{
         //获取路由id存入
         sessionStorage.setItem('apiUnitId',id);
-
-        let res = await findApiUnit(apiUnitId)
-        setName(res.testCase.name);
     },[apiUnitId])
-
-    
-    const goBack = () =>{
-        props.history.push("/repository/testcase")
-    }
 
     return(
         <div className={"content-box-center"}>
-            <div style={{"display":"flex","justifyContent":"space-between","margin":"5px  0 0 0"}}>
-                <Breadcrumb className={"breadcrumb-box"} style={{padding: "10px 0"}}>
-                    <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
-                    <Breadcrumb.Item>{name}</Breadcrumb.Item>
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item>用例详情</Breadcrumb.Item>
                 </Breadcrumb>
-                {/*<ApiEnvSelect {...props}/>*/}
+                <DrawerCloseIcon />
             </div>
             <ApiUnitEditPageCommon type={true} {...props} />
         </div>
     )
 }
 
-export default inject('apiUnitStore')(observer(ApiUnitEditPage));
+export default inject("testcaseStore")(observer(ApiUnitEditPage));

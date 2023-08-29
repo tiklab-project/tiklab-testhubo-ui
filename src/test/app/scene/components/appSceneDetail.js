@@ -7,16 +7,17 @@ import {inject, observer} from "mobx-react";
 import AppSceneStepList from "./appSceneStepList";
 import AppExecuteTestDrawer from "./appExecuteTestDrawer";
 import DetailCommon from "../../../../common/DetailCommon";
-import {Breadcrumb} from "antd";
 import "./appStyle.scss"
-import {useParams} from "react-router";
+import {useHistory, useParams} from "react-router";
+import {Breadcrumb} from "antd";
+import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 
 const AppSceneDetail = (props) => {
     const {appSceneStore} = props;
     const {findAppScene,updateAppScene} = appSceneStore;
 
     const [detailInfo,setDetailInfo]=useState();
-
+    const history = useHistory();
     let {id} = useParams()
     const appSceneId = sessionStorage.getItem('appSceneId') || id
 
@@ -48,21 +49,19 @@ const AppSceneDetail = (props) => {
 
 
     const toHistory = () =>{
-        props.history.push("/repository/testcase/app-scene-instance")
+        history.push("/repository/testcase/app-scene-instance")
     }
 
-    const goBack = () =>{
-        props.history.push("/repository/testcase")
-    }
 
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
-                <Breadcrumb.Item>{detailInfo?.testCase.name}</Breadcrumb.Item>
-            </Breadcrumb>
-
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item>用例详情</Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
             <DetailCommon
                 type={true}
                 detailInfo={detailInfo}

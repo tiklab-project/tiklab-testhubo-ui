@@ -3,6 +3,7 @@ import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../../../common/DetailCommon";
 import ApiSceneStepList from "../../scene/components/apiSceneStepList";
+import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 
 const ApiPerformToScenePage = (props) =>{
     const {apiPerfStore,apiSceneStore} = props;
@@ -44,9 +45,7 @@ const ApiPerformToScenePage = (props) =>{
         })
     }
 
-    const toTestCase = () =>{
-        props.history.push("/repository/testcase")
-    }
+
 
 
     const toApiScene = () =>{
@@ -57,13 +56,14 @@ const ApiPerformToScenePage = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <div style={{"display":"flex","justifyContent":"space-between","margin":"5px  0 0 0"}}>
-                <Breadcrumb className={"breadcrumb-box"} style={{padding: "10px 0"}}>
-                    <Breadcrumb.Item onClick={toTestCase} className={"first-item"}>测试用例</Breadcrumb.Item>
-                    <Breadcrumb.Item onClick={toApiScene} className={"first-item"}>{apiPerfName}</Breadcrumb.Item>
-                    <Breadcrumb.Item>{apiScene?.testCase.name}</Breadcrumb.Item>
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item onClick={toApiScene} className={"first-item"}>用例详情</Breadcrumb.Item>
+                    <Breadcrumb.Item >步骤详情</Breadcrumb.Item>
                 </Breadcrumb>
+                <DrawerCloseIcon />
             </div>
+
             <DetailCommon
                 detailInfo={apiScene}
                 updateTitle={updateTitle}

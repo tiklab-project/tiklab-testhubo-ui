@@ -154,3 +154,10 @@
     justify-content: center;
     font-size: 13px;
 }
+
+.breadcrumb-title_between{
+    display: flex;
+    justify-content: space-between;
+    border-bottom:1px solid #e4e4e4;
+    padding: 5px ;
+}

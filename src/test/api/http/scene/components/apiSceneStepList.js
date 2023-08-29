@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import ApiSceneBindUnit from "./apiSceneBindUnit";
 import IconCommon from "../../../../../common/IconCommon";
 import apiSceneStepStore from "../store/apiSceneStepStore";
+import {useHistory} from "react-router";
 
 const ApiSceneStepList =(props) =>{
     const {findApiSceneStepList,apiSceneStepList,deleteApiSceneStep} = apiSceneStepStore;
@@ -55,22 +56,17 @@ const ApiSceneStepList =(props) =>{
         },
     ]
 
+    const history = useHistory();
     const apiSceneId = sessionStorage.getItem("apiSceneId");
 
-    useEffect(()=>{
-        findApiSceneStepList(apiSceneId)
+    useEffect(async ()=>{
+        await findApiSceneStepList(apiSceneId)
     },[apiSceneId])
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiUnitId",id)
-        props.history.push("/repository/testcase/api-scene-to-unit")
+        history.push("/repository/testcase/api-scene-to-unit")
     }
-
-    const rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-            // getSelectItem(selectedRows)
-        },
-    };
 
 
     return(
@@ -86,7 +82,6 @@ const ApiSceneStepList =(props) =>{
                     columns={column}
                     dataSource={apiSceneStepList}
                     rowKey = {record => record.id}
-                    // rowSelection={{...rowSelection}}
                     pagination={false}
                 />
             </div>

@@ -209,13 +209,11 @@
 
 .header-title{
     font-weight: bold;
-    border-left: 3px solid #1890ff;
-    padding-left: 3px;
 }
 
 
 .ex-title{
-    margin: 15px 0;
+    margin: 5px 0;
 }
 
 .baseInfo{
@@ -250,10 +248,6 @@ $backgroud-color: #fff;
 .tabPane-item-box{
     min-height: 120px;
     overflow: auto;
-}
-
-.tabPane-item-box .ant-table-wrapper {
-    min-width: 960px;
 }
 
 .request-body-none{

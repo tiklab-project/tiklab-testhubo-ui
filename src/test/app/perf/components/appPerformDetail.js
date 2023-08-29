@@ -4,14 +4,15 @@ import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../../common/DetailCommon";
 import AppPerformTestDrawer from "./appPerformTestDrawer";
 import AppPerformDetailCommon from "./appPerformDetailCommon";
-import {useParams} from "react-router";
+import {useHistory, useParams} from "react-router";
+import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 
 const AppPerformDetail = (props) =>{
     const {appPerfStore} = props;
     const {findAppPerf,updateAppPerf} = appPerfStore;
 
     const [detailInfo,setDetailInfo]=useState();
-
+    const history = useHistory();
     let {id} = useParams()
     let appPerfId = sessionStorage.getItem("appPerfId") || id;
 
@@ -39,22 +40,22 @@ const AppPerformDetail = (props) =>{
         })
     }
 
-    const goBack = () =>{
-        props.history.push("/repository/testcase")
-    }
+
 
     //去往历史页
     const toHistory = () =>{
-        props.history.push("/repository/testcase/app-perform-instance")
+        history.push("/repository/testcase/app-perform-instance")
     }
 
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
-                <Breadcrumb.Item>{detailInfo?.testCase.name}</Breadcrumb.Item>
-            </Breadcrumb>
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item>用例详情</Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
             <DetailCommon
                 type={true}
                 detailInfo={detailInfo}

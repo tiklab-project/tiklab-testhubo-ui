@@ -4,12 +4,15 @@ import {inject, observer} from "mobx-react";
 
 import WebSceneStepList from "../../scene/components/webSceneStepList";
 import DetailCommon from "../../../../common/DetailCommon";
+import {useHistory} from "react-router";
+import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 
 const WebPerformToScenePage = (props) =>{
     const {webPerfStore,webSceneStore} = props;
     const {findWebScene,updateWebScene} = webSceneStore;
     const {findWebPerf} = webPerfStore;
 
+    const history = useHistory();
     const [webScene, setWebScene] = useState();
     const [webPerfName, setWebPerfName] = useState();
     const webSceneId = sessionStorage.getItem('webSceneId');
@@ -45,25 +48,19 @@ const WebPerformToScenePage = (props) =>{
         })
     }
 
-    const toTestCase = () =>{
-        props.history.push("/repository/testcase")
-    }
-
-
     const toWebScene = () =>{
-        props.history.push(`/repository/testcase/web-scene/${webSceneId}`)
+        history.push(`/repository/testcase/web-scene/${webSceneId}`)
     }
-
 
 
     return(
         <div className={"content-box-center"}>
-            <div style={{"display":"flex","justifyContent":"space-between","margin":"5px  0 0 0"}}>
-                <Breadcrumb className={"breadcrumb-box"} style={{padding: "10px 0"}}>
-                    <Breadcrumb.Item onClick={toTestCase} className={"first-item"}>测试用例</Breadcrumb.Item>
-                    <Breadcrumb.Item onClick={toWebScene} className={"first-item"}>{webPerfName}</Breadcrumb.Item>
-                    <Breadcrumb.Item>{webScene?.testCase.name}</Breadcrumb.Item>
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item onClick={toWebScene} className={"first-item"}>用例详情</Breadcrumb.Item>
+                    <Breadcrumb.Item >步骤详情</Breadcrumb.Item>
                 </Breadcrumb>
+                <DrawerCloseIcon />
             </div>
             <DetailCommon
                 detailInfo={webScene}

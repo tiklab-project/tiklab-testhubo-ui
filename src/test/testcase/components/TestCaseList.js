@@ -7,7 +7,7 @@ import "./caseContantStyle.scss"
 import DropdownAdd from "./DropdownAdd";
 import IconCommon from "../../../common/IconCommon";
 import {getUser} from "tiklab-core-ui";
-import {CASE_TYPE} from "../../../common/DefineVariables";
+import {CASE_TYPE} from "../../common/DefineVariables";
 import {inject, observer} from "mobx-react";
 import {
     showCaseTypeIconInList,
@@ -268,6 +268,7 @@ const TestCaseList = (props) =>{
                            gap:"15px",
                            alignItems:"center"
                        }}>
+
                            <DropdownAdd
                                findPage={findPage}
                                icon={true}
@@ -309,7 +310,6 @@ const TestCaseList = (props) =>{
                            selectItem={selectItem}
                        />
                    </Space>
-
                </div>
                <div style={{height: "100%"}}>
                    <ul className={"case-list_ul"} ref={listRef} onScroll={handleScroll}>

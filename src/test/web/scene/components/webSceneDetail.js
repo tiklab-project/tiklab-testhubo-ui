@@ -5,8 +5,9 @@ import WebSceneStepList from "./webSceneStepList";
 import WebExecuteTestDrawer from "./webExecuteTestDrawer";
 import DetailCommon from "../../../../common/DetailCommon";
 import "./webStyle.scss"
-import {Breadcrumb} from "antd";
 import {useParams} from "react-router";
+import {Breadcrumb} from "antd";
+import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;
@@ -48,17 +49,14 @@ const WebSceneDetail = (props) => {
         props.history.push("/repository/testcase/web-scene-instance")
     }
 
-    const goBack = () =>{
-        props.history.push("/repository/testcase")
-    }
-
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
-                <Breadcrumb.Item>{detailInfo?.testCase.name}</Breadcrumb.Item>
-            </Breadcrumb>
-
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item>用例详情</Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
             <DetailCommon
                 type={true}
                 detailInfo={detailInfo}

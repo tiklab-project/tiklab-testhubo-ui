@@ -11,6 +11,7 @@ import WorkItemSelect from "../../../integrated/teamwire/workItem/components/Wor
 import Demand from "../../../integrated/teamwire/workItem/components/Demand";
 import {useParams} from "react-router";
 import WorkItemBindList from "../../../integrated/teamwire/defect/components/WorkItemBindList";
+import {DrawerCloseIcon} from "../../common/BreadcrumbCommon";
 
 const FuncUnitDetail = (props) => {
     const {funcUnitStore,workItemStore} = props;
@@ -62,22 +63,15 @@ const FuncUnitDetail = (props) => {
         })
     }
 
-    /**
-     * 返回到用例列表
-     */
-    const goBack = () =>{
-        props.history.push("/repository/testcase")
-    }
-
-
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试用例</Breadcrumb.Item>
-                <Breadcrumb.Item>{detailInfo?.testCase.name}</Breadcrumb.Item>
-            </Breadcrumb>
-
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <Breadcrumb.Item>用例详情</Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
             <DetailCommon
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
