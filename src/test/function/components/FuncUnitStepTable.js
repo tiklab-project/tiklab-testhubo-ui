@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Input, InputNumber, Popconfirm, Space, Table, Typography} from 'antd';
+import {Form, Input, Popconfirm, Space, Table} from 'antd';
 import funcUnitStepStore from "../store/funcUnitStepStore";
 import IconCommon from "../../../common/IconCommon";
 import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
 import {messageFn} from "../../../common/messageCommon/MessageCommon";
-import FuncUnitStepEdit from "./funcUnitStepEdit";
 import {observer} from "mobx-react";
 
 const {
     findFuncUnitStepList,
     deleteFuncUnitStep,
-    updateFuncUnitStep
+    updateFuncUnitStep,
+    createFuncUnitStep
 } = funcUnitStepStore;
 
 const {TextArea} = Input
@@ -34,9 +34,9 @@ const FuncUnitStepTable = () => {
      */
     const edit = (record) => {
         form.setFieldsValue({
-            name: '',
-            age: '',
-            address: '',
+            described: '',
+            expect: '',
+            actual: '',
             ...record,
         });
         setEditingKey(record.id);
@@ -46,6 +46,13 @@ const FuncUnitStepTable = () => {
      * 取消编辑
      */
     const cancel = () => {
+
+        const existingNewRow = data.find(item => item.id === 'NEW_ROW');
+        if(existingNewRow) {
+            // 过滤掉新行数据
+            setData(data.filter(item => item.id !== 'NEW_ROW'));
+        }
+
         setEditingKey('');
     };
 
@@ -68,8 +75,21 @@ const FuncUnitStepTable = () => {
                 setData(newData);
                 setEditingKey('');
 
-                //保存到数据库
-                await updateFuncUnitStep(updateRowData)
+                if(updateRowData.id==="NEW_ROW"){
+                    delete updateRowData.id
+
+                    updateRowData.funcUnitId=funcUnitId
+                     createFuncUnitStep(updateRowData).then(()=>{
+                         findFuncUnitStepList(funcUnitId).then(list=>{
+                             setData(list)
+                         })
+                    })
+                }else {
+                    //保存到数据库
+                    await updateFuncUnitStep(updateRowData)
+                }
+
+                form.resetFields();
             } else {
                 newData.push(row);
                 setData(newData);
@@ -163,16 +183,31 @@ const FuncUnitStepTable = () => {
             }),
         };
     });
+
+    const addNewRow = () =>{
+
+        const existingNewRow = data.find(item => item.id === 'NEW_ROW');
+
+        if(!existingNewRow){
+            let newRow = {
+                described: '',
+                expect: '',
+                actual: '',
+                id:"NEW_ROW"
+            }
+            setData( [...data,newRow])
+            setEditingKey("NEW_ROW");
+        }
+
+    }
+
     return (
         <>
-            <FuncUnitStepEdit setData={setData}/>
             <div className={"table-list-box"}>
-                <Form form={form} component={false}>
+                <Form form={form} component={false} preserve={true}>
                     <Table
                         components={{
-                            body: {
-                                cell: EditableCell,
-                            },
+                            body: {cell: EditableCell},
                         }}
                         dataSource={data}
                         columns={mergedColumns}
@@ -181,9 +216,11 @@ const FuncUnitStepTable = () => {
                         pagination={false}
                     />
                 </Form>
+                <div className={"function-step_add"} onClick={addNewRow}>
+                    <div >  添加步骤  </div>
+                </div>
             </div>
         </>
-
     );
 };
 
@@ -210,8 +247,8 @@ const EditableCell = ({
                         },
                     ]}
                 >
-                    {/*<TextArea autoSize={{ minRows: 1, maxRows: 3 }}/>*/}
-                    <Input />
+                    <TextArea autoSize={{ minRows: 2, maxRows: 2 }}/>
+                    {/*<Input />*/}
                 </Form.Item>
             ) : (
                 children

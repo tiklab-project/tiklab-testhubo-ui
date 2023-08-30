@@ -35,15 +35,6 @@ const FuncUnitDetail = (props) => {
         })
     },[functionId])
 
-    useEffect(()=>{
-        if(workItemId){
-            findWorkItem(workItemId).then(res=>{
-                getDemandInfo(res)
-            })
-        }else {
-            getDemandInfo(null)
-        }
-    },[workItemId])
 
     /**
      * 更新名称
@@ -92,12 +83,7 @@ const FuncUnitDetail = (props) => {
                         children: <Demand
                                     workItemInfo={demandInfo}
                                     caseId={functionId}
-                                    workItemSelect={
-                                        <WorkItemSelect
-                                            caseInfo={detailInfo}
-                                            updateCase={updateFuncUnit}
-                                        />
-                                    }
+                                    workItemId={workItemId}
                                 />
                     },
                     {

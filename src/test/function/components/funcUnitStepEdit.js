@@ -1,14 +1,12 @@
 import React from 'react';
-import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, Space} from 'antd';
+import { observer } from "mobx-react";
+import {Form,  Button, Input, Space} from 'antd';
 import funcUnitStepStore from "../store/funcUnitStepStore";
 
-const layout = {
-    labelCol: {span: 8},
-    wrapperCol: {span: 16},
-};
 
-// 添加与编辑
+/**
+ * 添加
+ */
 const FuncUnitStepEdit = ({setData}) => {
     const {
         createFuncUnitStep,
@@ -16,17 +14,20 @@ const FuncUnitStepEdit = ({setData}) => {
     } = funcUnitStepStore;
 
     const [form] = Form.useForm();
-
     const [visible, setVisible] = React.useState(false);
 
-    // 弹框展示
+    /**
+     * 展示添加项
+     */
     const showModal = () => {
         setVisible(true)
     };
 
     const functionId = sessionStorage.getItem('functionId')
 
-    // 提交
+    /**
+     * 提交
+     */
     const onFinish =async () => {
         let values =  await form.validateFields();
         values.funcUnitId=functionId
@@ -38,7 +39,6 @@ const FuncUnitStepEdit = ({setData}) => {
         setVisible(false)
         form.resetFields();
     };
-
 
     return (
         <div className={"function-edit_content"}>
@@ -59,21 +59,18 @@ const FuncUnitStepEdit = ({setData}) => {
                         label="描述"
                         rules={[{ required: true, message:'名称未添加'}]}
                         name="described"
-
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         label="预期结果"
                         name="expect"
-
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         label="实际结果"
                         name="actual"
-
                     >
                         <Input />
                     </Form.Item>
@@ -88,11 +85,7 @@ const FuncUnitStepEdit = ({setData}) => {
                         </Space>
                     </Form.Item>
                 </Form>
-
             </div>
-
-
-
         </div>
     );
 };
