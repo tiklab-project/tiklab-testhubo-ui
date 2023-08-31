@@ -5,3 +5,39 @@
 .demand_hide{
     display: none;
 }
+
+.demand-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+
+
+}
+
+.demand-content_empty{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    .demand-content_add {
+        color: #48a8d9;
+
+        &:hover{
+            cursor: pointer;
+            color: #009fff;
+        }
+    }
+}
+
+.demand_project_select .ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    background: #f4f4f4;
+    border-radius: 5px;
+    border: none;
+}
+
+.demand_project_search{
+    border-radius: var(--pi-border-radius) !important;
+    border: var(--pi-input-border) !important;
+}

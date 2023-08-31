@@ -8,11 +8,7 @@ const ProjectSelect = (props)=>{
     const {findProjectList} = workItemStore;
 
     const [projectList, setProjectList] = useState([]);
-    useEffect(()=>{
-        findProjectList({}).then(list=>{
-            setProjectList(list)
-        })
-    },[])
+
 
     const showOption = (list) =>{
         return list&&list.map((item,index)=>(
@@ -25,12 +21,25 @@ const ProjectSelect = (props)=>{
         ))
     }
 
+    const onSearch =()=>{
+        findProjectList({}).then(list=>{
+            setProjectList(list)
+        })
+    }
+
     return(
         <Select
-            style={{flex: 1,}}
-            placeholder="选择项目"
+            placeholder="请选择TeamWire项目"
             onSelect={clickProject}
+            onFocus={onSearch}
+            style={{width:"100%"}}
         >
+            <Option
+                key={"null"}
+                value={null}
+            >
+                所有
+            </Option>
             {
                 showOption(projectList)
             }

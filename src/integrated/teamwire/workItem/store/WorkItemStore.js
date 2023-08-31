@@ -45,6 +45,8 @@ export class WorkItemStore {
 		const res = await Axios.post("/teamWire/findWorkItem",param);
 		if(res.code === 0) {
 			return res.data;
+		}else {
+			return null
 		}
 	}
 

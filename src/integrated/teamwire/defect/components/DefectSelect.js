@@ -1,44 +1,49 @@
 import React, {useEffect, useState} from "react";
-import ProjectSelect from "./ProjectSelect";
 import {Table, Input, Col,Row} from "antd";
 import {inject, observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
+import workItemBindStore from "../store/WorkItemBindStore";
+import ProjectSelect from "../../workItem/components/ProjectSelect";
+const {createWorkItemBind,findWorkItemBindList} = workItemBindStore;
 
-const DemandSelect = (props) =>{
-    const {workItemStore,setShowSelect,caseInfo,updateFn,setBinded,setDemandInfo} = props;
-    const {
-        findWorkItemList,
-        findWorkItem,
-    } = workItemStore;
+const DefectSelect = (props) =>{
+    const {workItemStore,setShowSelect,caseId} = props;
+    const {findWorkItemList} = workItemStore;
 
     const [selectProjectId, setSelectProjectId] = useState();
     const [workItemList, setWorkItemList] = useState([]);
 
     const columns = [
         {
-            title:`需求名`,
+            title:`缺陷名`,
             dataIndex: "name",
             key: "name",
+            width:"40%",
         },
         {
-            title:`负责人`,
-            dataIndex: "director",
-            key: "director",
+            title: `项目`,
+            dataIndex:"projectName",
+            key: "projectName",
+            width:"20%",
         },
         {
-            title:`状态`,
+            title: `状态`,
             dataIndex: "status",
             key: "status",
-        }, {
-            title:`优先级`,
+            width:"15%",
+        },
+        {
+            title: `优先级`,
             dataIndex: "priority",
             key: "priority",
+            width:"15%",
         },
         {
             title:`操作`,
             dataIndex: "operation",
             key: "operation",
+            width:150,
             render: (text, record) =>(
                 <a onClick={()=>onFinish(record.id)}>关联</a>
             )
@@ -50,15 +55,15 @@ const DemandSelect = (props) =>{
     },[])
 
     const onFinish = (id) => {
-        setSelectProjectId(id)
-        caseInfo.testCase.workItemId = id;
-        updateFn(caseInfo).then(()=>{
-            findWorkItem(id).then(res=>{
-                setDemandInfo(res)
-                setBinded(true)
+        let param = {
+            caseId:caseId,
+            workItem:{id:id}
+        }
+        createWorkItemBind(param).then(()=>{
+            findWorkItemBindList({caseId:caseId}).then(()=>{
+                setShowSelect(false)
             })
         })
-
     };
 
     /**
@@ -83,7 +88,7 @@ const DemandSelect = (props) =>{
      */
     const findDemandList = (param)=>{
         let params = {
-            workTypeCode:"demand",
+            workTypeCode:"defect",
             ...param
         }
         findWorkItemList(params).then(list=>{
@@ -97,7 +102,7 @@ const DemandSelect = (props) =>{
                 <Row gutter={16}>
                     <Col className="gutter-row" span={15}>
                         <Input
-                            placeholder={`搜索需求名称`}
+                            placeholder={`搜索缺陷名称`}
                             onPressEnter={onSearch}
                             className='demand_project_search'
                             prefix={<SearchOutlined />}
@@ -132,4 +137,4 @@ const DemandSelect = (props) =>{
     )
 }
 
-export default inject("workItemStore")(observer(DemandSelect));
+export default inject("workItemStore")(observer(DefectSelect));
