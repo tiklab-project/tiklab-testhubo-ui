@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Space} from "antd";
+import {Dropdown, Space} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
 import IconCommon from "../../common/IconCommon";
+import {FilterOutlined} from "@ant-design/icons";
+import {useHistory} from "react-router";
 
 /**
  * 左侧导航展示
@@ -42,6 +44,7 @@ const LeftNav = (props) =>{
     let userId = getUser().userId
     const leftRouter = localStorage.getItem("leftRouter")
     const repositoryId = sessionStorage.getItem("repositoryId")
+    const history = useHistory()
 
     useEffect(()=>{
         findRepository(repositoryId).then(res=>{
@@ -64,9 +67,9 @@ const LeftNav = (props) =>{
         localStorage.setItem("leftRouter",item.router);
 
         if(item.key==="overview"){
-            props.history.push(`/repository/detail/${repositoryId}`)
+            history.push(`/repository/detail/${repositoryId}`)
         }else {
-            props.history.push(item.router)
+            history.push(item.router)
         }
     }
 
@@ -97,18 +100,30 @@ const LeftNav = (props) =>{
     /**
      * 展示切换的仓库
      */
-    const showRepositoryList = (list) =>{
-        return list&&list.map(item=>{
-            return (
-                <div className={"ws-hover-item"} key={item.id} onClick={()=>toggleRepository(item.id)}>
-                    <Space>
-                        <img src={item.iconUrl} alt={"icon"} className={"repository-icon"}/>
-                        {item.name}
-                    </Space>
+    const toggleRepositorys = (
+        <div className={"ws-hover-box"}>
+            <div style={{ padding: "10px"}}>
+                <div className={"ws-hover-box-title"}>切换仓库</div>
+                <div style={{height:"169px"}}>
+                    {
+                        repositoryList&&repositoryList.map((item,index)=> {
+                            if(index>3) return
+                                return <div className={"ws-hover-item"} key={item.id} onClick={() => toggleRepository(item.id)}>
+                                    <Space>
+                                        <img src={item.iconUrl} alt={"icon"} className={"repository-icon"} width={20}/>
+                                        {item.name}
+                                    </Space>
+                                </div>
+                            }
+                        )
+                    }
                 </div>
-            )
-        })
-    }
+            </div>
+
+
+            <a className={"ws-toggle-repository_more"} onClick={()=>history.push("/repository-page")}>查看更多</a>
+        </div>
+    )
 
     /**
      * 切换仓库
@@ -145,23 +160,19 @@ const LeftNav = (props) =>{
         <ul className={"ws-detail-left-nav left-nav-box"}>
             <div>
                 <li className={`ws-detail-left-nav-item-repository `} >
-                    <div className={"ws-icon-box"}>
+                    <Dropdown overlay={toggleRepositorys} trigger={['click']}>
+                        <div className={"ws-icon-box"}>
                         <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
                              <img src={repositoryIcon} alt={"icon"} className={"repository-icon"}/>
                         </span>
-                        <IconCommon
-                            style={{"cursor":"pointer"}}
-                            className={"icon-s"}
-                            icon={"xiala"}
-                        />
-
-                        <div className={"ws-hover-box"}>
-                            <div className={"ws-hover-box-title"}>切换仓库</div>
-                            {
-                                showRepositoryList(repositoryList)
-                            }
+                            <IconCommon
+                                style={{"cursor":"pointer"}}
+                                className={"icon-s"}
+                                icon={"xiala"}
+                            />
                         </div>
-                    </div>
+                    </Dropdown>
+
 
                 </li>
                 {

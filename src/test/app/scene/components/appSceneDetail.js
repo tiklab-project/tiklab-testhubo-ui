@@ -9,8 +9,9 @@ import AppExecuteTestDrawer from "./appExecuteTestDrawer";
 import DetailCommon from "../../../../common/DetailCommon";
 import "./appStyle.scss"
 import {useHistory, useParams} from "react-router";
-import {Breadcrumb} from "antd";
+import {Breadcrumb, Button} from "antd";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
+import WebExecuteTestDrawer from "../../../web/scene/components/webExecuteTestDrawer";
 
 const AppSceneDetail = (props) => {
     const {appSceneStore} = props;
@@ -20,6 +21,7 @@ const AppSceneDetail = (props) => {
     const history = useHistory();
     let {id} = useParams()
     const appSceneId = sessionStorage.getItem('appSceneId') || id
+    let curPage = localStorage.getItem("TOGGLE_TABLE_RO_LIST_PAGE")
 
     useEffect(()=> {
         //获取路由id存入
@@ -52,6 +54,22 @@ const AppSceneDetail = (props) => {
         history.push("/repository/testcase/app-scene-instance")
     }
 
+    const testShow = () =>{
+        if(curPage==="table"){
+            return <Button className={"important-btn"} onClick={toExePage}>
+                测试
+            </Button>
+        }else {
+            return <AppExecuteTestDrawer
+                appSceneId={appSceneId}
+                appSceneStore={appSceneStore}
+            />
+        }
+    }
+
+    const toExePage = () =>{
+        history.push("/repository/testcase/app-scene-execute")
+    }
 
 
     return(
@@ -67,17 +85,10 @@ const AppSceneDetail = (props) => {
                 detailInfo={detailInfo}
                 updateTitle={updateTitle}
                 toHistory={toHistory}
-                test={
-                    <AppExecuteTestDrawer
-                        appSceneId={appSceneId}
-                        appSceneStore={appSceneStore}
-                    />
-                }
+                test={<>{testShow()}</>}
             />
             <AppSceneStepList />
-
         </div>
-
     )
 }
 

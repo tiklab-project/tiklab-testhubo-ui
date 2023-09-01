@@ -24,6 +24,7 @@ import CaseTypeSelect from "./CaseTypeSelect";
 import PostInApiToCase from "../../../integrated/postin/postinApiCopy/components/PostInApiToCase";
 import {useHistory, useLocation} from "react-router";
 import TestCaseDrawer from "../../common/TestCaseDrawer";
+import DropdownAdd from "./DropdownAdd";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore,togglePage} = props;
@@ -167,8 +168,6 @@ const TestCaseTable = (props) => {
     }
 
 
-
-
     //模块赛选
     const changeCategory=(categoryId)=> {
         setSelectCategory(categoryId)
@@ -237,93 +236,16 @@ const TestCaseTable = (props) => {
     }
 
 
-    //添加不同用例
-    const addMenu =(
-        <Menu>
-            <Menu.Item key={"function-add"}>
-                <FuncUnitEdit
-                    name={"添加功能用例"}
-                    type={"add"}
-                    {...props}
-                />
-            </Menu.Item>
-            <Menu.SubMenu title="接口测试" key={"api-add"}>
-                <Menu.Item key={"api-unit-add"}>
-                    <ApiUnitEdit
-                        name={"添加接口测试"}
-                        type={"add"}
-                        {...props}
-                    />
-                </Menu.Item>
-                <Menu.Item key={"api-scene-add"}>
-                    <ApiSceneEdit
-                        name={"添加接口场景"}
-                        type={"add"}
-                        {...props}
-                    />
-                </Menu.Item>
-                <Menu.Item key={"postIn-api"}>
-                    <PostInApiToCase />
-                </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu title="UI测试" key={"ui-add"}>
-                <Menu.Item key={"web-scene-add"}>
-                    <WebSceneEdit
-                        name={"添加Web用例"}
-                        type={"add"}
-                        {...props}
-                    />
-                </Menu.Item>
-                <Menu.Item key={"app-scene-add"}>
-                    <AppSceneEdit
-                        name={"添加App用例"}
-                        type={"add"}
-                        {...props}
-                    />
-                </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu title="性能测试" key={"perform-add"}>
-                <Menu.Item key={"api-perf-add"}>
-                    <ApiPerfEdit
-                        name={"添加接口性能"}
-                        type={"add"}
-                        {...props}
-                    />
-                </Menu.Item>
-
-                {/*<Menu.Item key={"web-perf-add"}>*/}
-                {/*    <WebPerfEdit*/}
-                {/*        name={"添加Web性能"}*/}
-                {/*        type={"add"}*/}
-                {/*        {...props}*/}
-                {/*    />*/}
-                {/*</Menu.Item>*/}
-                {/*<Menu.Item key={"app-perf-add"}>*/}
-                {/*    <AppPerfEdit*/}
-                {/*        name={"添加App性能"}*/}
-                {/*        type={"add"}*/}
-                {/*        {...props}*/}
-                {/*    />*/}
-                {/*</Menu.Item>*/}
-            </Menu.SubMenu>
-
-
-        </Menu>
-    )
-
-
-
     return(
         <>
-
-
             <div className={"testcase-box"} >
                 <div  className={"header-box-space-between"} >
                     <div className={'header-box-title'}>测试用例</div>
                     <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
-                        <Dropdown overlay={addMenu} placement="bottom">
-                            <Button className={"important-btn"}>添加用例</Button>
-                        </Dropdown>
+                        <DropdownAdd
+                            findPage={findPage}
+                            {...props}
+                        />
                         <IconCommon
                             className={"icon-l "}
                             icon={"qiehuan1"}

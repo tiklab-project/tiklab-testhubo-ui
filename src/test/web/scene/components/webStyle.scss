@@ -1,88 +1,119 @@
-.testcase-webUI-form{
-    margin:10px 0 0 0;
-}
 
-.web-form-header{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    .teststep-title{
-        font-size: 25px;
-        color: #000;
-        font-weight: 500;
-        border: 1px solid #fff;
+.web-step_main{
+    padding: 10px;
+    overflow: auto;
+    height: calc(100% - 165px);
+
+    .web-step_content{
+
+        .web-step_li_box{
+
+
+            .web-step_li{
+                padding: 3px 0;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(228, 228, 228, 0.89);
+                display: flex;
+                align-items: center;
+                margin: 5px 0;
+                gap: 10px;
+                overflow: auto;
+                position: relative;
+
+                .web-step_number{
+                    padding: 10px;
+                    width: 40px;
+                    text-align: center;
+                    border-right: 1px solid #e4e4e4;
+                }
+
+                .web-step_li_title{
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+
+                .web-step_li_param{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    .web-step_li_param_title{
+                        font-size: 12px;
+                        color: #9b9b9b;
+                    }
+                    .web-step_li_param_value{
+                        font-size: 12px;
+                        display: inline-block;
+                        padding: 0 3px;
+                        background: #e4e4e4ad;
+                        border-radius: 4px;
+                    }
+                }
+
+                .web-step_li_operation{
+                    position: absolute;
+                    top: 25%;
+                    right: 20px;
+                    display: none;
+                }
+
+                &:hover .web-step_li_operation{
+                    display: block;
+                }
+            }
+        }
+
+
+
+    }
+
+    .web-step_add{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        border: 1px dashed #ccc;
         cursor: pointer;
-        outline:0;
-        margin: 0 0 10px 10px;
-        padding: 0 10px 0 0;
-    }
-    .teststep-title:hover{
-        box-shadow: 0 0 0 2px #1890ff33;
-    }
-}
+        margin: 8px 0 0;
 
-.web-form2{
-    margin: 0 0 0 10px;
-    .ant-form-item-label>label{
-        color: #8e8e8e;
-    }
-    .ant-input[disabled]{
-        color: #8e8e8e;
-    }
-}
-
-
-.test-detail-contant{
-    display: flex;
-    height: 100%;
-
-
-
-    .test-report-detail{
-        margin: 0 0 0 30px;
-        width: 100%;
+        &:hover{
+            background: #f4f4f4cf;
+        }
     }
 
-
-
-    .test-detail-step-title{
-        background: #f5f5f5;
-        padding: 8px;
-        border-left: 4px solid #0095ff;
+    .web-step_add_show{
+        display: block;
+    }
+    .web-step_add_hide{
+        display: none;
     }
 
-    .test-detail-step-list{
-        margin: 20px 0;
+    .form-input{
+        height: 35px;
+        border: 0.5px solid #ececec;
+        border-radius: 0 5px 5px 0;
     }
-}
 
-.test-detail-from{
-    display: flex;
-    margin: 20px 0;
-    justify-content: space-between;
-    padding: 0 15px;
-
-    .test-detail-form-item{
-        width: 130px;
-        background: #efefef;
-        padding: 15px;
+    .form-input-first{
         border-radius: 5px;
     }
 
-    .test-detail-form-label{
-        font-size: 13px;
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector{
+        height: 35px;
+        border-radius: 5px 0 0 5px;
+        border: 0.5px solid #ececec;
     }
 
-    .ant-form-item{
-        margin: 0;
+    .web-step_add_form{
+        box-shadow: 0 0 10px #e4e4e4;
+        padding: 10px;
+        border-radius: 5px;
 
-        .ant-input{
-            width: 110px;
-            border:0;
-            background-color: #efefef;
-            padding: 0;
-            font-size: 22px;
-            color: #000;
+        .ant-form-item{
+            margin: 0;
         }
     }
+
+
+
 }

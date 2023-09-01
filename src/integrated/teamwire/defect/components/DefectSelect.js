@@ -104,6 +104,7 @@ const DefectSelect = (props) =>{
                         <Input
                             placeholder={`搜索缺陷名称`}
                             onPressEnter={onSearch}
+                            onChange={onSearch}
                             className='demand_project_search'
                             prefix={<SearchOutlined />}
                         />
@@ -118,20 +119,25 @@ const DefectSelect = (props) =>{
                         <IconBtn
                             className="pi-icon-btn-grey"
                             onClick={()=>setShowSelect(false)}
-                            name={"取消关联"}
+                            name={"取消"}
                         />
                     </Col>
 
                 </Row>
             </div>
-            <div className={"table-list-box"}>
-                <Table
-                    columns={columns}
-                    dataSource={workItemList}
-                    rowKey = {record => record.id}
-                    pagination={false}
-                />
+
+            <div style={{"overflow": "auto","height": "calc(100% - 38px)"}}>
+                <div className={"table-list-box"} >
+                    <Table
+                        columns={columns}
+                        dataSource={workItemList}
+                        rowKey = {record => record.id}
+                        pagination={false}
+                    />
+                </div>
+
             </div>
+
 
         </>
     )

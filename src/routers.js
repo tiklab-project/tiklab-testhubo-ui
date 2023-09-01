@@ -34,6 +34,8 @@ import {ExcludeProductUser} from "tiklab-eam-ui";
 import {LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
+import WebExecuteTestPage from "./test/web/scene/components/WebExecuteTestPage";
+import AppExecuteTestPage from "./test/app/scene/components/AppExecuteTestPage";
 
 //---内部
 let Home = LazyComponent(() => import("./home/Home"));
@@ -190,6 +192,11 @@ const routers =  [
                                 path: "/repository/testcase/web-scene-instance",
                                 component: WebSceneInstanceList,
                             },
+                            //WebExecuteTestPage表格视图使用
+                            {
+                                path: "/repository/testcase/web-scene-execute",
+                                component: WebExecuteTestPage,
+                            },
                             {
                                 path: "/repository/testcase/web-perform/:id",
                                 component:WebPerformDetail,
@@ -210,6 +217,11 @@ const routers =  [
                             {
                                 path: "/repository/testcase/app-scene-instance",
                                 component: AppSceneInstanceList,
+                            },
+                            //WebExecuteTestPage表格视图使用
+                            {
+                                path: "/repository/testcase/app-scene-execute",
+                                component: AppExecuteTestPage,
                             },
                             {
                                 path: "/repository/testcase/app-perform/:id",

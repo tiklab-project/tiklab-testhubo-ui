@@ -6,6 +6,7 @@ import emptyImg from "../../../../assets/img/empty.png";
 import WebSceneInstanceDrawer from "./webSceneInstanceDrawer";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
+import {ArrowLeftOutlined} from "@ant-design/icons";
 
 const WebSceneInstanceList = (props) =>{
     const {
@@ -138,6 +139,7 @@ const WebSceneInstanceList = (props) =>{
                     <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例详情</Breadcrumb.Item>
                     <Breadcrumb.Item >测试历史</Breadcrumb.Item>
                 </Breadcrumb>
+                {/*<ArrowLeftOutlined onClick={goBack}/>*/}
                 <DrawerCloseIcon />
             </div>
 

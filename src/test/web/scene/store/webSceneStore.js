@@ -55,13 +55,31 @@ export class WebSceneStore {
      * 返回当前执行的状态 0：未开始，1：进行中
      */
     @action
-    webSceneTestStatus = async () => await Axios.post("/webSceneTestDispatch/status")
+    webSceneTestStatus = async (webSceneId) => {
+        let res  = await Axios.post("/webSceneTestDispatch/status")
+
+        //如果执行状态为0:未开始
+        if(res.code===0&&res.data===0){
+            //开始执行
+            this.webSceneTestDispatch({webSceneId:webSceneId,webDriver:"chrome"}).then(res=>{
+                if (res.code === 0) {
+                    //执行会返回1:进行中
+                    return res.data
+                }
+            })
+        }
+
+        return 0
+    }
 
     /**
      * web测试的结果
      */
     @action
-    webSceneTestResult = async () => await Axios.post("/webSceneTestDispatch/result")
+    webSceneTestResult = async (params) => await Axios.post("/webSceneTestDispatch/result",params)
+
+
+
 
 }
 

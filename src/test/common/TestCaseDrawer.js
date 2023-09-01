@@ -5,23 +5,28 @@ import {renderRoutes} from "react-router-config";
 import {CASE_TYPE} from "./DefineVariables";
 import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
-import BreadcrumbCommon from "./BreadcrumbCommon";
+
 
 const TestCaseDrawer = (props) =>{
     const {caseData,testcaseStore} = props
     const {testCaseRecent}=testcaseStore;
 
-
     const history = useHistory();
     const [open, setOpen] = useState(false);
     const repositoryId = sessionStorage.getItem("repositoryId")
-    let location = useLocation().pathname;
+    let pathname = useLocation().pathname;
 
     useEffect(()=>{
-        if(location==="/repository/testcase"){
+        if(open&&pathname==="/repository/testcase"){
             setOpen(false)
         }
-    },[location])
+        // else {
+        //     let locationArr = pathname.split("/")
+        //     if(locationArr.length>3){
+        //         setOpen(true)
+        //     }
+        // }
+    },[pathname,open])
 
     const showDrawer = () => {
         switchCaseType(caseData)

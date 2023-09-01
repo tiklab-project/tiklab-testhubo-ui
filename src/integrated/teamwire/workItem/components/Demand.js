@@ -56,7 +56,7 @@ const Demand = (props)=>{
     const isBind = () =>{
         if(binded){
             return(
-                <div >
+                <div style={{padding:"10px 0"}}>
                     <Descriptions
                         title={
                             <div
@@ -111,8 +111,8 @@ const Demand = (props)=>{
     }
 
     return(
-        <div style={{padding:"10px 0"}} className={"detail-box "}>
-            <div>
+        <div style={{height: "100%"}} className={"detail-box "}>
+            <div style={{height:"100%",padding: "0 0 20px"}}>
                 {isBind()}
 
             </div>

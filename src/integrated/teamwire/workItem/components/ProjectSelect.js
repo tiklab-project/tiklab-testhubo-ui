@@ -29,7 +29,7 @@ const ProjectSelect = (props)=>{
 
     return(
         <Select
-            placeholder="请选择TeamWire项目"
+            placeholder="项目"
             onSelect={clickProject}
             onFocus={onSearch}
             style={{width:"100%"}}

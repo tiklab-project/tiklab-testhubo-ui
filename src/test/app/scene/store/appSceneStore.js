@@ -49,13 +49,41 @@ class AppSceneStore {
      * 执行app场景测试
      */
     @action
-    appSceneTestDispatch = async (data)=> await Axios.post("/appSceneTestDispatch/execute",data)
+    appSceneTestDispatch = async (appSceneId)=> {
+        //请求参数
+        let param = {
+            appSceneId:appSceneId,
+            appTestConfig: {
+                appiumSever:"127.0.0.1:4723",
+                deviceName:"127.0.0.1:62001",
+                platformName:"Android",
+                appPackage:"com.tencent.mobileqq",
+                appActivity:"com.tencent.mobileqq.activity.SplashActivity"
+            }
+        }
+
+        return await Axios.post("/appSceneTestDispatch/execute", param)
+    }
 
     /**
      * 返回当前执行的状态 0：未开始，1：进行中
      */
     @action
-    appSceneTestStatus = async () => await Axios.post("/appSceneTestDispatch/status")
+    appSceneTestStatus = async (appSceneId) => {
+        let res = await Axios.post("/appSceneTestDispatch/status")
+        //如果执行状态为0:未开始
+        if(res.code===0&&res.data===0){
+            //开始执行
+            this.appSceneTestDispatch(appSceneId).then(res=>{
+                if (res.code === 0) {
+                    //执行会返回1:进行中
+                    return res.data
+                }
+            })
+        }
+
+        return 0
+    }
 
     /**
      * app测试的结果

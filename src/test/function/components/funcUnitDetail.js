@@ -55,42 +55,48 @@ const FuncUnitDetail = (props) => {
 
 
     return(
-        <div className={"content-box-center"}>
-            <div className={"breadcrumb-title_between"}>
-                <Breadcrumb className={"breadcrumb-box"}>
-                    <Breadcrumb.Item>用例详情</Breadcrumb.Item>
-                </Breadcrumb>
-                <DrawerCloseIcon />
+        <div className={"content-box-center"} style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+            <div style={{flex: 'none'}}>
+                <div className={"breadcrumb-title_between"}>
+                    <Breadcrumb className={"breadcrumb-box"}>
+                        <Breadcrumb.Item>用例详情</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <DrawerCloseIcon />
+                </div>
+                <DetailCommon
+                    detailInfo={caseInfo}
+                    updateTitle={updateTitle}
+                />
             </div>
-            <DetailCommon
-                detailInfo={caseInfo}
-                updateTitle={updateTitle}
-            />
-            <Tabs
-                defaultActiveKey="1"
-                // onChange={onChange}
-                items={[
-                    {
-                        label: `场景步骤`,
-                        key: '1',
-                        children:  <FuncUnitStepTable />,
-                    },
-                    {
-                        label: `关联需求`,
-                        key: '2',
-                        children: <Demand
-                                    workItemId={workItemId}
-                                    caseInfo={caseInfo}
-                                    updateFn={updateFuncUnit}
-                                />
-                    },
-                    {
-                        label: `关联缺陷`,
-                        key: '3',
-                        children:   <WorkItemBindList caseId={functionId} />,
-                    },
-                ]}
-            />
+            <div style={{flex: 'auto', overflow: 'hidden'}}>
+                <Tabs
+                    defaultActiveKey="1"
+                    // onChange={onChange}
+
+                    items={[
+                        {
+                            label: `场景步骤`,
+                            key: '1',
+                            children:  <FuncUnitStepTable />,
+                        },
+                        {
+                            label: `关联需求`,
+                            key: '2',
+                            children: <Demand
+                                workItemId={workItemId}
+                                caseInfo={caseInfo}
+                                updateFn={updateFuncUnit}
+                            />
+                        },
+                        {
+                            label: `关联缺陷`,
+                            key: '3',
+                            children:   <WorkItemBindList caseId={functionId} />,
+                        },
+                    ]}
+                />
+
+            </div>
 
         </div>
     )

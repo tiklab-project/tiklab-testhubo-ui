@@ -5,8 +5,8 @@ import WebSceneStepList from "./webSceneStepList";
 import WebExecuteTestDrawer from "./webExecuteTestDrawer";
 import DetailCommon from "../../../../common/DetailCommon";
 import "./webStyle.scss"
-import {useParams} from "react-router";
-import {Breadcrumb} from "antd";
+import {useHistory, useParams} from "react-router";
+import {Breadcrumb, Button} from "antd";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 
 const WebSceneDetail = (props) => {
@@ -14,8 +14,10 @@ const WebSceneDetail = (props) => {
     const {findWebScene,updateWebScene} = webSceneStore;
     const [detailInfo,setDetailInfo]=useState();
 
+    let history = useHistory()
     let {id} = useParams()
     const webSceneId = sessionStorage.getItem('webSceneId') || id;
+    let curPage = localStorage.getItem("TOGGLE_TABLE_RO_LIST_PAGE")
 
     useEffect(()=> {
         //获取路由id存入
@@ -46,11 +48,28 @@ const WebSceneDetail = (props) => {
 
 
     const toHistory = () =>{
-        props.history.push("/repository/testcase/web-scene-instance")
+        history.push("/repository/testcase/web-scene-instance")
+    }
+
+    const testShow = () =>{
+        if(curPage==="table"){
+           return <Button className={"important-btn"} onClick={toExePage}>
+               测试
+           </Button>
+        }else {
+            return  <WebExecuteTestDrawer
+                webSceneId={webSceneId}
+                webSceneStore={webSceneStore}
+            />
+        }
+    }
+
+    const toExePage = () =>{
+        history.push("/repository/testcase/web-scene-execute")
     }
 
     return(
-        <div className={"content-box-center"}>
+        <div className={"content-box-center"} >
             <div className={"breadcrumb-title_between"}>
                 <Breadcrumb className={"breadcrumb-box"}>
                     <Breadcrumb.Item>用例详情</Breadcrumb.Item>
@@ -63,10 +82,7 @@ const WebSceneDetail = (props) => {
                 updateTitle={updateTitle}
                 toHistory={toHistory}
                 test={
-                    <WebExecuteTestDrawer
-                        webSceneId={webSceneId}
-                        webSceneStore={webSceneStore}
-                    />
+                    <>{testShow()}</>
                 }
             />
             <WebSceneStepList />
