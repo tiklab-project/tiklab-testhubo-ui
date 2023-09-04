@@ -5,6 +5,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import workItemBindStore from "../store/WorkItemBindStore";
 import ProjectSelect from "../../workItem/components/ProjectSelect";
+import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 const {createWorkItemBind,findWorkItemBindList} = workItemBindStore;
 
 const DefectSelect = (props) =>{
@@ -39,15 +40,15 @@ const DefectSelect = (props) =>{
             key: "priority",
             width:"15%",
         },
-        {
-            title:`操作`,
-            dataIndex: "operation",
-            key: "operation",
-            width:150,
-            render: (text, record) =>(
-                <a onClick={()=>onFinish(record.id)}>关联</a>
-            )
-        }
+        // {
+        //     title:`操作`,
+        //     dataIndex: "operation",
+        //     key: "operation",
+        //     width:150,
+        //     render: (text, record) =>(
+        //         <a onClick={()=>onFinish(record.id)}>关联</a>
+        //     )
+        // }
     ]
 
     useEffect(()=>{
@@ -91,8 +92,10 @@ const DefectSelect = (props) =>{
             workTypeCode:"defect",
             ...param
         }
-        findWorkItemList(params).then(list=>{
-            setWorkItemList(list);
+        findWorkItemList(params).then(res=>{
+            if(res.code===0){
+                setWorkItemList(res.data);
+            }
         })
     }
 
@@ -132,6 +135,12 @@ const DefectSelect = (props) =>{
                         columns={columns}
                         dataSource={workItemList}
                         rowKey = {record => record.id}
+                        onRow={(record) => {
+                            return {
+                                onClick: () => {onFinish(record.id)},
+                                style: {cursor: 'pointer'}
+                            };
+                        }}
                         pagination={false}
                     />
                 </div>

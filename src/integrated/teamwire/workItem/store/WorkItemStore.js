@@ -31,23 +31,13 @@ export class WorkItemStore {
 	 * @returns {Promise<*>}
 	 */
 	@action
-	findWorkItemList = async (values) => {
-		const res = await Axios.post("/teamWire/findWorkItemList",values);
-		if(res.code === 0) {
-			return res.data;
-		}
-	}
+	findWorkItemList = async (values) =>  await Axios.post("/teamWire/findWorkItemList",values);
 
 	@action
 	findWorkItem = async (id) => {
 		const param = new FormData();
 		param.append("id",id)
-		const res = await Axios.post("/teamWire/findWorkItem",param);
-		if(res.code === 0) {
-			return res.data;
-		}else {
-			return null
-		}
+		return  await Axios.post("/teamWire/findWorkItem",param);
 	}
 
 	/**

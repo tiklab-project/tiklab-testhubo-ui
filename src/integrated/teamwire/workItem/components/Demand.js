@@ -6,6 +6,7 @@ import {inject, observer} from "mobx-react";
 import emptyImg from "../../../../assets/img/empty.png"
 import {Descriptions} from "antd";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
+import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 /**
  * 关联需求
@@ -21,8 +22,13 @@ const Demand = (props)=>{
     useEffect(()=>{
         if(workItemId){
             findWorkItem(workItemId).then(res=>{
-                setDemandInfo(res)
-                setBinded(true)
+                if(res.code === 0) {
+                    setDemandInfo(res.data)
+                    setBinded(true)
+                }else {
+                    messageFn("error","TeamWire连接失败!")
+                }
+
             })
         }
     },[workItemId])

@@ -80,7 +80,8 @@ const TestPlanBindCaseList = (props) =>{
 
     const toDiffCase = (record) =>{
         switch (record.testType) {
-            case "auto":
+            case "api":
+            case "ui":
             case "perform":
                 switchCaseType(record);
                 break;

@@ -4,6 +4,7 @@ import {Table, Input, Col,Row} from "antd";
 import {inject, observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
+import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 const DemandSelect = (props) =>{
     const {workItemStore,setShowSelect,caseInfo,updateFn,setBinded,setDemandInfo} = props;
@@ -34,14 +35,6 @@ const DemandSelect = (props) =>{
             title:`优先级`,
             dataIndex: "priority",
             key: "priority",
-        },
-        {
-            title:`操作`,
-            dataIndex: "operation",
-            key: "operation",
-            render: (text, record) =>(
-                <a onClick={()=>onFinish(record.id)}>关联</a>
-            )
         }
     ]
 
@@ -54,11 +47,12 @@ const DemandSelect = (props) =>{
         caseInfo.testCase.workItemId = id;
         updateFn(caseInfo).then(()=>{
             findWorkItem(id).then(res=>{
-                setDemandInfo(res)
-                setBinded(true)
+                if(res.code === 0) {
+                    setDemandInfo(res.data)
+                    setBinded(true)
+                }
             })
         })
-
     };
 
     /**
@@ -86,8 +80,12 @@ const DemandSelect = (props) =>{
             workTypeCode:"demand",
             ...param
         }
-        findWorkItemList(params).then(list=>{
-            setWorkItemList(list);
+        findWorkItemList(params).then(res=>{
+            if(res.code===0){
+                setWorkItemList(res.data);
+            }else {
+                messageFn("error","TeamWire连接失败!")
+            }
         })
     }
 
@@ -126,6 +124,12 @@ const DemandSelect = (props) =>{
                         columns={columns}
                         dataSource={workItemList}
                         rowKey = {record => record.id}
+                        onRow={(record) => {
+                            return {
+                                onClick: () => {onFinish(record.id)},
+                                style: {cursor: 'pointer'}
+                            };
+                        }}
                         pagination={false}
                     />
                 </div>

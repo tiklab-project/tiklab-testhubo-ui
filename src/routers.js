@@ -34,8 +34,6 @@ import {ExcludeProductUser} from "tiklab-eam-ui";
 import {LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
-import WebExecuteTestPage from "./test/web/scene/components/WebExecuteTestPage";
-import AppExecuteTestPage from "./test/app/scene/components/AppExecuteTestPage";
 
 //---内部
 let Home = LazyComponent(() => import("./home/Home"));
@@ -53,7 +51,8 @@ let ApiPerformDetail = LazyComponent(() => import("./test/api/http/perf/componen
 let LoginOut = LazyComponent(() => import("./home/header/LoginOut"));
 let WebPerformDetail = LazyComponent(() => import("./test/web/perf/components/webPerformDetail"));
 let AppPerformDetail = LazyComponent(() => import("./test/app/perf/components/appPerformDetail"));
-
+let WebExecuteTestPage = LazyComponent(() =>import( "./test/web/scene/components/WebExecuteTestPage"));
+let AppExecuteTestPage = LazyComponent(() =>import("./test/app/scene/components/AppExecuteTestPage"));
 let WebSceneDetail = LazyComponent(() => import("./test/web/scene/components/webSceneDetail"));
 let TestPlanDetail = LazyComponent(() => import("./testplan/components/testPlanDetail"));
 let AgentConfigList = LazyComponent(() => import("./support/agent/components/AgentConfigList"));

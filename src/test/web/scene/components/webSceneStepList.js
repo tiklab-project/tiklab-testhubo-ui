@@ -48,10 +48,10 @@ const WebSceneStepList = (props) => {
                        </div>
                        <div className={"web-step_li_operation"}>
                            <Space>
-                               <IconCommon
-                                   className={"icon-s edit-icon"}
-                                   icon={"shanchu3"}
-                               />
+                               {/*<IconCommon*/}
+                               {/*    className={"icon-s edit-icon"}*/}
+                               {/*    icon={"shanchu3"}*/}
+                               {/*/>*/}
 
                                <Popconfirm
                                    title="确定删除？"

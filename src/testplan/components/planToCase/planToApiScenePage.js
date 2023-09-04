@@ -50,7 +50,7 @@ const PlanToApiScenePage = (props) =>{
 
 
     const toTestPlanDetail = () =>{
-        props.history.push("/repository/plan-detail")
+          props.history.push(`/repository/plan/${testPlanId}`)
     }
 
 
