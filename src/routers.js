@@ -53,7 +53,7 @@ let WebPerformDetail = LazyComponent(() => import("./test/web/perf/components/we
 let AppPerformDetail = LazyComponent(() => import("./test/app/perf/components/appPerformDetail"));
 let WebExecuteTestPage = LazyComponent(() =>import( "./test/web/scene/components/WebExecuteTestPage"));
 let AppExecuteTestPage = LazyComponent(() =>import("./test/app/scene/components/AppExecuteTestPage"));
-let WebSceneDetail = LazyComponent(() => import("./test/web/scene/components/webSceneDetail"));
+let WebSceneContent = LazyComponent(() => import("./test/web/scene/components/WebSceneContent"));
 let TestPlanDetail = LazyComponent(() => import("./testplan/components/testPlanDetail"));
 let AgentConfigList = LazyComponent(() => import("./support/agent/components/AgentConfigList"));
 let DomainRole = LazyComponent(() => import("./repository/setting/DomainRole"));
@@ -186,7 +186,7 @@ const routers =  [
 
                             {
                                 path: "/repository/testcase/web-scene/:id",
-                                component: WebSceneDetail,
+                                component: WebSceneContent,
                             },{
                                 path: "/repository/testcase/web-scene-instance",
                                 component: WebSceneInstanceList,

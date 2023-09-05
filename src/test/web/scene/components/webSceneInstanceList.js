@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
-import {inject, observer} from "mobx-react";
+import { Empty, Popconfirm, Table, Tag} from "antd";
+import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import WebSceneInstanceDrawer from "./webSceneInstanceDrawer";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
-import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
-import {ArrowLeftOutlined} from "@ant-design/icons";
 
 const WebSceneInstanceList = (props) =>{
     const {
@@ -108,9 +106,7 @@ const WebSceneInstanceList = (props) =>{
         if(res.code===0){
             setTotalRecord(res.data.totalRecord)
         }
-
     }
-
 
     // 分页
     const onTableChange = (pagination) => {
@@ -127,22 +123,8 @@ const WebSceneInstanceList = (props) =>{
     }
 
 
-
-    const goBack = () =>{
-        props.history.push(`/repository/testcase/web-scene/${webSceneId}`)
-    }
-
     return(
-        <div className={"content-box-center"}>
-            <div className={"breadcrumb-title_between"}>
-                <Breadcrumb className={"breadcrumb-box"}>
-                    <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例详情</Breadcrumb.Item>
-                    <Breadcrumb.Item >测试历史</Breadcrumb.Item>
-                </Breadcrumb>
-                {/*<ArrowLeftOutlined onClick={goBack}/>*/}
-                <DrawerCloseIcon />
-            </div>
-
+        < >
             <div className={"table-list-box"}>
                 <Table
                     columns={column}
@@ -164,7 +146,7 @@ const WebSceneInstanceList = (props) =>{
                     }}
                 />
             </div>
-        </div>
+        </>
     )
 }
 

@@ -6,6 +6,7 @@ import FunctionStepList from "./FunctionStepList";
 import {useParams} from "react-router";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../common/IconCommon";
+import CaseContentCommon from "../../common/CaseContentCommon";
 
 const FunctionContent = (props) =>{
     const {funcUnitStore} = props;
@@ -46,44 +47,44 @@ const FunctionContent = (props) =>{
     }
 
 
+    const tabItem = [
+        {
+            label: `基本信息`,
+            key: '1',
+            children:<FunctionDetail />
+        },{
+            label: `用例步骤`,
+            key: '2',
+            children:<FunctionStepList />
+        }
+    ]
+
     return(
         <>
-            <div className={"breadcrumb-title_between"}>
-                <Breadcrumb className={"breadcrumb-box"}>
-                    <IconCommon
-                        icon={"gongneng"}
-                        className="icon-s "
-                        style={{margin: "3px 5px 0"}}
-                    />
-                    <Breadcrumb.Item>详情</Breadcrumb.Item>
-                    <Breadcrumb.Item>
-                        <Input
-                            value={caseName}
-                            className={"case-header_title"}
-                            onChange={updateName}
-                        />
+            <CaseContentCommon
+                breadcrumb={
+                    <>
+                        <Breadcrumb className={"breadcrumb-box"}>
+                            <IconCommon
+                                icon={"gongneng"}
+                                className="icon-s "
+                                style={{margin: "3px 5px 0"}}
+                            />
+                            {/*<Breadcrumb.Item>详情</Breadcrumb.Item>*/}
+                            <Breadcrumb.Item>
+                                <Input
+                                    value={caseName}
+                                    className={"case-header_title"}
+                                    onChange={updateName}
+                                />
+                            </Breadcrumb.Item>
+                        </Breadcrumb>
+                        <DrawerCloseIcon />
+                    </>
 
-                    </Breadcrumb.Item>
-                </Breadcrumb>
-                <DrawerCloseIcon />
-            </div>
-            <div className={"content-box-center case-tabs-box"} >
-                <Tabs
-                    defaultActiveKey="1"
-                    items={[
-                        {
-                            label: `基本信息`,
-                            key: '1',
-                            children:  <FunctionDetail />,
-                        },
-                        {
-                            label: `用例步骤`,
-                            key: '2',
-                            children:  <FunctionStepList />,
-                        },
-                    ]}
-                />
-            </div>
+                }
+                tabItem={tabItem}
+            />
         </>
 
 

@@ -23,7 +23,7 @@ const FunctionDetail = (props) =>{
 
     return(
         <>
-            <div className={"detail-box"} style={{margin:"20px 0 "}}>
+            <div className={"detail-box"} style={{padding:"20px 0 "}}>
                 <div className={"detail-bottom"}>
                     <span className={"detail-bottom-item "}>分组:{caseInfo?.testCase?.category?.name||"未设置"} </span>
                     {/*<span className={"detail-bottom-item "}>创建人:{detailInfo?.testCase?.createUser?.name} </span>*/}

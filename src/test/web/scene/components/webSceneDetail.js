@@ -2,94 +2,50 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import WebSceneStepList from "./webSceneStepList";
-import WebExecuteTestDrawer from "./webExecuteTestDrawer";
-import DetailCommon from "../../../../common/DetailCommon";
 import "./webStyle.scss"
 import {useHistory, useParams} from "react-router";
-import {Breadcrumb, Button} from "antd";
-import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
+import { Button} from "antd";
 
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;
-    const {findWebScene,updateWebScene} = webSceneStore;
-    const [detailInfo,setDetailInfo]=useState();
+    const {findWebScene} = webSceneStore;
+    const [caseInfo,setCaseInfo]=useState();
 
     let history = useHistory()
-    let {id} = useParams()
-    const webSceneId = sessionStorage.getItem('webSceneId') || id;
-    let curPage = localStorage.getItem("TOGGLE_TABLE_RO_LIST_PAGE")
-
+    const webSceneId = sessionStorage.getItem('webSceneId');
     useEffect(()=> {
-        //获取路由id存入
-        sessionStorage.setItem('webSceneId',id);
-
         findWebScene(webSceneId).then(res=>{
-            setDetailInfo(res);
-
+            setCaseInfo(res);
         })
     },[webSceneId])
 
-
-    //更新名称
-    const updateTitle = (value) =>{
-        const param = {
-            id:detailInfo.id,
-            testCase: {
-                ...detailInfo.testCase,
-                name:value,
-            }
-        }
-        updateWebScene(param).then(()=>{
-            findWebScene(webSceneId).then(res=>{
-                setDetailInfo(res);
-            })
-        })
-    }
-
-
-    const toHistory = () =>{
-        history.push("/repository/testcase/web-scene-instance")
-    }
-
-    const testShow = () =>{
-        if(curPage==="table"){
-           return <Button className={"important-btn"} onClick={toExePage}>
-               测试
-           </Button>
-        }else {
-            return  <WebExecuteTestDrawer
-                webSceneId={webSceneId}
-                webSceneStore={webSceneStore}
-            />
-        }
-    }
 
     const toExePage = () =>{
         history.push("/repository/testcase/web-scene-execute")
     }
 
     return(
-        <div className={"content-box-center"} >
-            <div className={"breadcrumb-title_between"}>
-                <Breadcrumb className={"breadcrumb-box"}>
-                    <Breadcrumb.Item>用例详情</Breadcrumb.Item>
-                </Breadcrumb>
-                <DrawerCloseIcon />
+        < >
+            <div className={"detail-box"} style={{padding:"20px 0 "}}>
+                <div className={"detail-bottom"}>
+                    <span className={"detail-bottom-item "}>分组:{caseInfo?.testCase?.category?.name||"未设置"} </span>
+                    {/*<span className={"detail-bottom-item "}>创建人:{detailInfo?.testCase?.createUser?.name} </span>*/}
+                    <span className={"detail-bottom-item "}>更新者:{caseInfo?.testCase?.updateUser?.nickname||"未更新"}</span>
+                    {/*<span className={"detail-bottom-item "}>创建时间:{detailInfo?.testCase?.createTime}</span>*/}
+                    <span className={"detail-bottom-item "}>更新时间:{caseInfo?.testCase?.updateTime}</span>
+                </div>
             </div>
-            <DetailCommon
-                type={true}
-                detailInfo={detailInfo}
-                updateTitle={updateTitle}
-                toHistory={toHistory}
-                test={
-                    <>{testShow()}</>
-                }
-            />
+            <div className={"title-space-between"}>
+                <div className={'test-title'}>
+                   <div>场景步骤</div>
+                </div>
+                <Button className={"important-btn"} onClick={toExePage}>
+                    测试
+                </Button>
+            </div>
             <WebSceneStepList />
-
-        </div>
-
+        </>
     )
 }
 
-export default inject('webSceneStore',"workItemStore")(observer(WebSceneDetail));
+export default inject('webSceneStore')(observer(WebSceneDetail));

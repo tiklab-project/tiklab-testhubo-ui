@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 import DetailCommon from "../../../common/DetailCommon";
-import FuncUnitStepTable from "../../../test/function/components/FuncUnitStepTable";
+import FunctionContent from "../../../test/function/components/FunctionContent";
 
 const PlanToFuncUnitPage = (props) =>{
     const {testPlanStore,funcUnitStore} = props;
@@ -68,7 +68,7 @@ const PlanToFuncUnitPage = (props) =>{
                 updateTitle={updateTitle}
             />
 
-            <FuncUnitStepTable />
+            {/*<FunctionContent />*/}
         </div>
     )
 }

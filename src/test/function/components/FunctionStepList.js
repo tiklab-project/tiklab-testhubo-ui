@@ -55,7 +55,6 @@ const FunctionStepList = () =>{
             } else {
                 form.resetFields()
                 setStepSelect(null);
-
             }
         })
     }

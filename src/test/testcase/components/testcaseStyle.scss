@@ -246,6 +246,46 @@
             }
         }
     }
+
+    .ui-case-list_right{
+        border: 1px solid #e4e4e4;
+        border-left: none;
+        padding: 10px;
+        height: calc(100% - -1px);
+        overflow: auto;
+
+        .ant-input{
+            height: 36px;
+            border-radius: 5px;
+            border: 1px solid #e4e4e4;
+        }
+
+        .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+            height: 36px;
+            border-radius: 5px;
+            border: 1px solid #e4e4e4;
+        }
+
+        .ant-form-item{
+            margin-bottom: 15px;
+        }
+    }
+
+
+
+}
+
+
+.ant-tabs{
+    height: 100%;
+
+    .ant-tabs-content{
+        height: 100%;
+
+        .ant-tabs-tabpane{
+            height: 100%;
+        }
+    }
 }
 
 
