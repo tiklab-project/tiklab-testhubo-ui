@@ -69,14 +69,15 @@ const CaseTypeSelect = (props) =>{
     }
 
     return(
-        <Select
-            // defaultValue={null}
-            placeholder={"用例类型"}
-            className={"dynamic-select-box-item"}
-            onChange={caseSelectFn}
-            options={caseItem(testType)}
-        />
-
+        <>
+            <Select
+                // defaultValue={null}
+                placeholder={"用例类型"}
+                className={"dynamic-select-box-item"}
+                onChange={caseSelectFn}
+                options={caseItem(testType)}
+            />
+        </>
     )
 }
 

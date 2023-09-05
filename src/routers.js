@@ -45,7 +45,7 @@ let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
 let RepositoryDetailLayout = LazyComponent(() => import("./repository/common/RepositoryDetailLayout"));
 let ApiUnitcaseDetail = LazyComponent(() => import("./test/api/http/unit/components/apiUnitEditPage"));
 let ApiScenecaseDetail = LazyComponent(() => import("./test/api/http/scene/components/apiScenePage"));
-let FuncUnitDetail = LazyComponent(() => import("./test/function/components/funcUnitDetail"));
+let FuncUnitDetail = LazyComponent(() => import("./test/function/components/FunctionContent"));
 let EnvContent = LazyComponent(() => import("./support/environment/components/envContent"));
 let ApiPerformDetail = LazyComponent(() => import("./test/api/http/perf/components/apiPerformDetail"));
 let LoginOut = LazyComponent(() => import("./home/header/LoginOut"));
@@ -62,7 +62,7 @@ let SystemContent = LazyComponent(() => import("./setting/system/SystemContent")
 let LoginContent = LazyComponent(() => import("./login/LoginContent"));
 let Version = LazyComponent(() => import("./setting/version/Version"));
 let RepositorySettingMenu = LazyComponent(() => import("./repository/setting/RepositorySettingMenu"));
-let TestCaseContent = LazyComponent(() => import("./test/testcase/components/TestCaseContent"));
+let TestCaseTable = LazyComponent(() => import("./test/testcase/components/TestCaseTable"));
 let RepositorySetting = LazyComponent(() => import("./repository/setting/RepositorySetting"));
 let ApiUnitInstanceList = LazyComponent(() => import("./test/api/http/unit/components/apiUnitInstanceList"));
 let ApiSceneInstanceList = LazyComponent(() => import("./test/api/http/scene/components/apiSceneInstanceList"));
@@ -149,7 +149,7 @@ const routers =  [
                     },
                     {
                         path: "/repository/testcase",
-                        component: TestCaseContent,
+                        component: TestCaseTable,
                         routes:[
                             {
                                 path: "/repository/testcase/api-unit/:id",

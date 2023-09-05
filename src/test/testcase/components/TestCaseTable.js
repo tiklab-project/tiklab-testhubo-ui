@@ -1,16 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Button, Dropdown, Empty, Input, Menu, Popconfirm, Select, Space, Table, TreeSelect} from "antd";
+import { Empty, Input, Popconfirm, Space, Table, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
-
 import emptyImg from "../../../assets/img/empty.png"
-import ApiUnitEdit from "../../api/http/unit/components/apiUnitEdit";
-import ApiSceneEdit from "../../api/http/scene/components/apiSceneEdit";
-import ApiPerfEdit from "../../api/http/perf/components/apiPerfEdit";
-import WebSceneEdit from "../../web/scene/components/webSceneEdit";
-import AppSceneEdit from "../../app/scene/components/appSceneEdit";
 import IconCommon from "../../../common/IconCommon";
 import {showCaseTypeView, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
-import FuncUnitEdit from "../../function/components/funcUnitEdit";
 import {SearchOutlined} from "@ant-design/icons";
 import ApiUnitInstanceDrawer from "../../api/http/unit/components/apiUnitInstanceDrawer";
 import ApiSceneInstanceDrawer from "../../api/http/scene/components/apiSceneInstanceDrawer";
@@ -21,13 +14,16 @@ import WebPerformInstanceDrawer from "../../web/perf/components/webPerformInstan
 import AppPerformInstanceDrawer from "../../app/perf/components/appPerformInstanceDrawer";
 import TestTypeSelect from "./TestTypeSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
-import PostInApiToCase from "../../../integrated/postin/postinApiCopy/components/PostInApiToCase";
-import {useHistory, useLocation} from "react-router";
+import {useHistory} from "react-router";
 import TestCaseDrawer from "../../common/TestCaseDrawer";
 import DropdownAdd from "./DropdownAdd";
+import "./testcaseStyle.scss"
+import "./caseContantStyle.scss"
+import TestCaseMenu from "./TestCaseMenu";
+import {getUser} from "tiklab-core-ui";
 
 const TestCaseTable = (props) => {
-    const {testcaseStore,categoryStore,togglePage} = props;
+    const {testcaseStore,categoryStore} = props;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
     const {
@@ -35,10 +31,7 @@ const TestCaseTable = (props) => {
         testcaseList,
         deleteTestCase,
         testType,
-        setTestType,
-        caseType,
-        setCaseType,
-        testCaseRecent
+        setTestType
     }=testcaseStore;
 
 
@@ -85,7 +78,7 @@ const TestCaseTable = (props) => {
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteTestCase(record.id).then(()=>findPage(testType,caseType))}
+                        onConfirm={() =>deleteTestCase(record.id).then(()=>findPage())}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -99,41 +92,39 @@ const TestCaseTable = (props) => {
         },
     ]
 
-    const [selectItem, setSelectItem] = useState(testType?testType:null);
+
+    const [selectItem, setSelectItem] = useState(null);
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageParam, setPageParam] = useState({
-        pageParam: {
-            pageSize: pageSize,
-            currentPage: currentPage
-        }
-    })
-
+    let userId = getUser().userId
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     let history = useHistory();
 
     useEffect(()=>{
-        findPage(testType,caseType)
+        findPage()
         history.push("/repository/testcase")
-    },[pageParam])
+    },[])
 
     useEffect(()=>{
         findCategoryListTreeTable(repositoryId)
     },[])
 
-    const findPage = (testType,caseType,categoryId) =>{
-        const param = {
-            repositoryId:repositoryId,
-            categoryId:categoryId,
+    const findPage = (params) =>{
+        let param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:1
+            },
             testType:testType,
-            caseType:caseType,
-            ...pageParam
+            repositoryId:repositoryId,
+            categoryId:selectCategory,
+            ...params
         }
         findTestCaseList(param).then((res)=>{
-            setTotalRecord(res.totalRecord)
+            setTotalRecord(res.totalRecord);
         })
     }
 
@@ -172,69 +163,74 @@ const TestCaseTable = (props) => {
     const changeCategory=(categoryId)=> {
         setSelectCategory(categoryId)
 
-        findPage(selectItem,caseType,categoryId)
+        let param = {categoryId:categoryId}
+        findPage(param)
+    }
+
+    //点击测试类型筛选项查找
+    const testCaseSelectFn = (testType)=>{
+        if(!testType){
+            setTestType(null)
+
+            let param = {testType:null}
+            findPage(param)
+            return
+        }
+
+        setTestType(testType)
+
+        let param = {testType:testType}
+        findPage(param)
     }
 
 
     //用例筛选
-    const caseSelectFn = (type) =>{
-        setCaseType(type)
+    const caseSelectFn = (caseType) =>{
+        setCurrentPage(1)
 
-        findPage(selectItem,type,selectCategory)
+        let param = {caseType:caseType}
+        findPage(param);
     }
 
 
     //点击测试类型筛选项查找
     const selectKeyFun = (item)=>{
-        if(!item.key){
-            setTestType(null)
-            setSelectItem(null)
-            findPage(null,caseType,selectCategory)
-            return
+        let key = item.key
+
+        setSelectItem(key)
+
+        let param
+        switch (key) {
+            case "createUser":
+                param = {"createUser":userId};
+                break;
         }
 
-        let key = item.key
-        setSelectItem(key)
-        setTestType(key)
 
-        findPage(key,caseType,selectCategory)
+        findPage(param)
     }
 
     // 分页
     const onTableChange = (pagination) => {
         setCurrentPage(pagination.current)
-        const newParams = {
-            ...pageParam,
+
+        let param = {
             pageParam: {
                 pageSize: pageSize,
-                currentPage: pagination.current
+                currentPage:pagination.current
             },
         }
 
-        setPageParam(newParams)
+        findPage(param)
     }
 
     //搜索
     const onSearch = (e) =>{
         setCurrentPage(1)
-        let newParams = {
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: 1
-            },
-        }
-        if (e.target.value) {
-            newParams = {
-                pageParam: {
-                    pageSize: pageSize,
-                    currentPage: 1
-                },
-                name:e.target.value,
-            }
-        }
-        setPageParam(newParams)
-    }
+        let param = {name: e.target.value}
 
+        findPage(param)
+    }
 
     return(
         <>
@@ -246,24 +242,23 @@ const TestCaseTable = (props) => {
                             findPage={findPage}
                             {...props}
                         />
-                        <IconCommon
-                            className={"icon-l "}
-                            icon={"qiehuan1"}
-                            onClick={()=>togglePage("list")}
-                            style={{cursor:"pointer"}}
-                        />
                     </div>
 
                 </div>
 
                 <div className={"dynamic-select-box"}>
-                    <TestTypeSelect
+                    <TestCaseMenu
                         selectItem={selectItem}
                         selectKeyFun={selectKeyFun}
-                        style={{width: "360px"}}
                     />
 
                     <Space>
+                        <TestTypeSelect setTestType={testCaseSelectFn}/>
+
+                        <CaseTypeSelect
+                            caseSelectFn={caseSelectFn}
+                            testType={testType}
+                        />
 
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
@@ -278,11 +273,6 @@ const TestCaseTable = (props) => {
                             treeDefaultExpandAll
                             onChange={changeCategory}
                             treeData={categoryTableList}
-                        />
-
-                        <CaseTypeSelect
-                            caseSelectFn={caseSelectFn}
-                            testType={selectItem}
                         />
 
                         <Input

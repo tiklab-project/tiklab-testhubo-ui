@@ -87,7 +87,7 @@ const WorkItemBindList = (props) =>{
 
 
     return(
-        <div style={{height:"100%",padding: "0 0 20px"}}>
+        <div style={{padding: "0 0 20px"}}>
             <div className={`${showSelect?"demand_hide":"demand_show"}`}>
                 <div style={{margin:'10px 0'}}>
                     <div style={{display:"flex",gap:"10px"}}>
@@ -108,7 +108,7 @@ const WorkItemBindList = (props) =>{
                     />
                 </div>
             </div>
-            <div style={{height:"100%"}} className={`defect_project_select ${showSelect?"demand_show":"demand_hide"}` }>
+            <div style={{height:"400px"}} className={`defect_project_select ${showSelect?"demand_show":"demand_hide"}` }>
                 <DefectSelect setShowSelect={setShowSelect} caseId={caseId}/>
             </div>
 

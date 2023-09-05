@@ -70,7 +70,7 @@ const AppPerformInstanceModal=(props) => {
 
     return (
         <>
-            <a style={{marginRight:10}}  onClick={showDrawer}>{props.name}</a>
+            <a style={{marginRight:"10px"}}  onClick={showDrawer}>{props.name}</a>
             <Drawer
                 title={props.name}
                 placement="right"

@@ -1,30 +1,31 @@
 import React from "react";
+import {Select} from "antd";
 
 const TestTypeSelect = (props) =>{
-    const {selectItem,selectKeyFun,style} = props;
+    const {setTestType} = props;
 
 
     //测试类型筛选项
     const testTypeItems=[
         {
-            key: null,
-            title: '所有',
+            value: null,
+            label: '所有',
         },
         {
-            key: 'function',
-            title: '功能',
+            value: 'function',
+            label: '功能',
         },
         {
-            key: 'api',
-            title: '接口',
+            value: 'api',
+            label: '接口',
         },
         {
-            key: 'ui',
-            title: 'UI',
+            value: 'ui',
+            label: 'UI',
         },
         {
-            key: 'perform',
-            title: '性能',
+            value: 'perform',
+            label: '性能',
         },
         // {
         //     key: 'func',
@@ -33,26 +34,16 @@ const TestTypeSelect = (props) =>{
     ]
 
 
-    //渲染筛选项
-    const showMenu = (data) =>{
-        return data&&data.map(item=>{
-            return(
-                <div
-                    key={item.key}
-                    className={`ws-header-menu-item  ${item.key === selectItem ? "ws-header-menu-item-selected" : ""}`}
-                    onClick={()=>selectKeyFun(item)}
-                >
-                    <span> {item.title} </span>
 
-                </div>
-            )
-        })
-    }
 
     return(
-        <div className={"ws-header-menu-left"} style={style}>
-            {showMenu(testTypeItems)}
-        </div>
+        <Select
+            // defaultValue={null}
+            placeholder={"测试类型"}
+            className={"dynamic-select-box-item"}
+            onChange={setTestType}
+            options={testTypeItems}
+        />
     )
 }
 

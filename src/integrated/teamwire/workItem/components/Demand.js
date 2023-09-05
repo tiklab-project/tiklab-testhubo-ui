@@ -102,7 +102,7 @@ const Demand = (props)=>{
                             <span className={"demand-content_add"} onClick={()=>setShowSelect(true)}>请关联</span></span>
                         </div>
                     </div>
-                    <div className={`demand_project_select ${showSelect?"demand_show":"demand_hide"}` }>
+                    <div style={{height:"400px"}} className={`demand_project_select ${showSelect?"demand_show":"demand_hide"}` }>
                         <DemandSelect
                             setShowSelect={setShowSelect}
                             caseInfo={caseInfo}
@@ -117,7 +117,7 @@ const Demand = (props)=>{
     }
 
     return(
-        <div style={{height: "100%"}} className={"detail-box "}>
+        <div className={"detail-box "}>
             <div style={{height:"100%",padding: "0 0 20px"}}>
                 {isBind()}
 

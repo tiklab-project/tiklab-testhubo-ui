@@ -63,16 +63,11 @@ const FuncUnitDetail = (props) => {
                     </Breadcrumb>
                     <DrawerCloseIcon />
                 </div>
-                <DetailCommon
-                    detailInfo={caseInfo}
-                    updateTitle={updateTitle}
-                />
+
             </div>
             <div style={{flex: 'auto', overflow: 'hidden'}}>
                 <Tabs
                     defaultActiveKey="1"
-                    // onChange={onChange}
-
                     items={[
                         {
                             label: `场景步骤`,
@@ -82,7 +77,7 @@ const FuncUnitDetail = (props) => {
                         {
                             label: `关联需求`,
                             key: '2',
-                            children: <Demand
+                            children:  <Demand
                                 workItemId={workItemId}
                                 caseInfo={caseInfo}
                                 updateFn={updateFuncUnit}
@@ -91,7 +86,7 @@ const FuncUnitDetail = (props) => {
                         {
                             label: `关联缺陷`,
                             key: '3',
-                            children:   <WorkItemBindList caseId={functionId} />,
+                            children:        <WorkItemBindList caseId={functionId} /> ,
                         },
                     ]}
                 />
