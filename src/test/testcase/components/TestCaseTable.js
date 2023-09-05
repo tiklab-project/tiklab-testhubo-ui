@@ -40,7 +40,12 @@ const TestCaseTable = (props) => {
             title:`名称`,
             dataIndex: 'name',
             key: "name",
-            render: (text,record) =>(<TestCaseDrawer caseData={record} {...props}/> )
+            render: (text,record) =>(
+                <div className={"case-table-name"}>
+                    <>{showCaseTypeView(record.caseType)}</>
+                    <TestCaseDrawer caseData={record} {...props}/>
+                </div>
+            )
         },{
             title: `模块`,
             dataIndex: ["category","name"],
@@ -50,11 +55,6 @@ const TestCaseTable = (props) => {
             dataIndex: "testType",
             key: "testType",
             render: (text) =>(showTestTypeView(text))
-        },{
-            title: `用例类型`,
-            dataIndex: "caseType",
-            key: "caseType",
-            render: (text) =>(showCaseTypeView(text))
         },
         {
             title: `最近执行`,

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Form, Input, Popconfirm, Row, Space, Table} from "antd";
-import {inject, observer} from "mobx-react";
+import {Popconfirm, Table} from "antd";
+import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import {applyJump} from "tiklab-core-ui"
 import "./workItemStyle.scss"

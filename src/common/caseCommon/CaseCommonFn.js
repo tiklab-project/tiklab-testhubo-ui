@@ -1,6 +1,7 @@
 import React from "react";
 import {Tag} from "antd";
 import {ApiOutlined, AppstoreOutlined, LaptopOutlined, TabletOutlined} from "@ant-design/icons";
+import IconCommon from "../IconCommon";
 
 
 /**
@@ -25,22 +26,48 @@ export const showTestTypeView = (type)=>{
 export const showCaseTypeView = (type)=>{
     switch (type) {
         case "api-unit":
-            return  <Tag icon={ <ApiOutlined /> } > 接口用例</Tag>
+            return  <IconCommon
+                icon={"jiekou1"}
+                className="icon-l"
+            />
 
         case "api-scene":
-            return  <Tag icon={ <ApiOutlined /> } > 接口场景 </Tag>
+            return  <IconCommon
+                icon={"jiekou1"}
+                className="icon-l"
+            />
         case "api-perform":
-            return  <Tag icon={ <ApiOutlined /> } > 接口性能</Tag>
+            return  <IconCommon
+                icon={"jiekou1"}
+                className="icon-l"
+            />
 
         case "web-scene":
-            return <Tag icon={ <LaptopOutlined /> }> WEB用例 </Tag>
+            return <IconCommon
+                icon={"diannao"}
+                className="icon-l"
+            />
         case "web-perform":
-            return <Tag icon={ <LaptopOutlined /> }> WEB性能 </Tag>
+            return <IconCommon
+                icon={"diannao"}
+                className="icon-l"
+            />
 
         case "app-scene":
-            return <Tag icon={<TabletOutlined />} > APP用例 </Tag>
+            return <IconCommon
+                icon={"shouji"}
+                className="icon-l"
+            />
         case "app-perform":
-            return <Tag icon={<TabletOutlined />} > APP性能 </Tag>
+            return <IconCommon
+                icon={"shouji"}
+                className="icon-l"
+            />
+        default :
+            return <IconCommon
+                icon={"gongneng"}
+                className="icon-l"
+            />
     }
 }
 

@@ -134,8 +134,28 @@ const ApiUnitEditPageCommon = (props) => {
 
             <div className={"api-unit-base"}>
                 <div className='header-box-space-between'>
-                    <div style={{height:32,"display":"flex","gap":"10px","alignItems":"center"}}>
+                    {/*<div style={{height:32,"display":"flex","gap":"10px","alignItems":"center"}}>*/}
 
+
+
+                    {/*    <div className={"api-base-info-box-name"}>*/}
+                    {/*        <Input*/}
+                    {/*            defaultValue={name}*/}
+                    {/*            onPressEnter={editName}*/}
+                    {/*            onBlur={editName}*/}
+                    {/*            value={name}*/}
+                    {/*            onChange={(e)=>setName(e.target.value)}*/}
+                    {/*            onFocus={()=>setShowValidateStatus("editName")}*/}
+                    {/*            suffix={*/}
+                    {/*                showValidateStatus === "editName"*/}
+                    {/*                    ? <span/>*/}
+                    {/*                    :null*/}
+                    {/*            }*/}
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
+                    <Space className={'api-base-edit-url-box'} style={{width: "480px"}}>
                         <Select
                             style={{width:75,height:32}}
                             value={methodType}
@@ -152,33 +172,26 @@ const ApiUnitEditPageCommon = (props) => {
                                 })
                             }
                         </Select>
+                        <Input
+                            defaultValue={path}
+                            onPressEnter={editPath}
+                            onBlur={editPath}
+                            onFocus={()=>setShowValidateStatus("editPath")}
+                            value={path}
+                            onChange={(e)=>setPath(e.target.value)}
+                            suffix={
+                                showValidateStatus === "editPath"
+                                    ? <span/>
+                                    :null
+                            }
+                        />
+                    </Space>
 
-                        <div className={"api-base-info-box-name"}>
-                            <Input
-                                defaultValue={name}
-                                onPressEnter={editName}
-                                onBlur={editName}
-                                value={name}
-                                onChange={(e)=>setName(e.target.value)}
-                                onFocus={()=>setShowValidateStatus("editName")}
-                                suffix={
-                                    showValidateStatus === "editName"
-                                        ? <span/>
-                                        :null
-                                }
-                            />
-                        </div>
-                    </div>
 
                     {
                         props.type
-                            ?<Space>
-                                <IconBtn
-                                    className="pi-icon-btn-grey"
-                                    icon={"lishi"}
-                                    onClick={toHistory}
-                                    name={"历史"}
-                                />
+                            ? null
+                            :<Space>
                                 <ApiEnvDropDownSelect />
                                 <IconBtn
                                     className="important-btn"
@@ -187,27 +200,12 @@ const ApiUnitEditPageCommon = (props) => {
                                     name={"测试"}
                                 />
                             </Space>
-                            :null
                     }
 
                 </div>
 
 
-                <div className={'api-base-edit-url-box'} style={{width: "480px"}}>
-                    <Input
-                        defaultValue={path}
-                        onPressEnter={editPath}
-                        onBlur={editPath}
-                        onFocus={()=>setShowValidateStatus("editPath")}
-                        value={path}
-                        onChange={(e)=>setPath(e.target.value)}
-                        suffix={
-                            showValidateStatus === "editPath"
-                                ? <span/>
-                                :null
-                        }
-                    />
-                </div>
+
 
                 <div className={"method"}>
                     <div className={"method-people-info"}>

@@ -119,41 +119,27 @@ const ApiSceneInstanceList = (props) =>{
     }
 
 
-    const goBack = () =>{
-        history.push(`/repository/testcase/api-scene/${apiSceneId}`)
-    }
-
     return(
-        <div className={"content-box-center"}>
-            <div className={"breadcrumb-title_between"}>
-                <Breadcrumb className={"breadcrumb-box"}>
-                    <Breadcrumb.Item onClick={goBack}>用例详情</Breadcrumb.Item>
-                    <Breadcrumb.Item >测试历史</Breadcrumb.Item>
-                </Breadcrumb>
-                <DrawerCloseIcon />
-            </div>
+        <div className={"table-list-box"}>
+            <Table
+                columns={column}
+                dataSource={apiSceneInstanceList}
+                rowKey = {record => record.id}
+                pagination={{
+                    current:currentPage,
+                    pageSize:pageSize,
+                    total:totalRecord,
+                }}
+                onChange = {(pagination) => onTableChange(pagination)}
 
-            <div className={"table-list-box"}>
-                <Table
-                    columns={column}
-                    dataSource={apiSceneInstanceList}
-                    rowKey = {record => record.id}
-                    pagination={{
-                        current:currentPage,
-                        pageSize:pageSize,
-                        total:totalRecord,
-                    }}
-                    onChange = {(pagination) => onTableChange(pagination)}
-
-                    locale={{
-                        emptyText: <Empty
-                            imageStyle={{height: 120 }}
-                            description={<span>暂无历史</span>}
-                            image={emptyImg}
-                        />,
-                    }}
-                />
-            </div>
+                locale={{
+                    emptyText: <Empty
+                        imageStyle={{height: 120 }}
+                        description={<span>暂无历史</span>}
+                        image={emptyImg}
+                    />,
+                }}
+            />
         </div>
     )
 }

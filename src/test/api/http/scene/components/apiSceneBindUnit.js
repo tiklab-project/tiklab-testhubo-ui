@@ -1,11 +1,10 @@
 import React from "react";
-import {Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
-import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import apiSceneStepStore from "../store/apiSceneStepStore";
+import ConnectSelectCommon from "../../../../common/ConnectSelectCommon";
 
 const ApiSceneBindUnit =(props) =>{
-    const {apiUnitStore} = props;
+    const {apiUnitStore,setVisible} = props;
     const {findApiUnitList,apiUnitList} = apiUnitStore;
     const {findApiSceneStepList,bindApiUnit} = apiSceneStepStore
 
@@ -33,63 +32,35 @@ const ApiSceneBindUnit =(props) =>{
         }
     ]
 
-    const [visible, setVisible] = React.useState(false);
-    const [selectItem, getSelectItem] = React.useState([]);
     let repositoryId = sessionStorage.getItem("repositoryId");
     let apiSceneId = sessionStorage.getItem("apiSceneId")
 
-    // 弹框展示
-    const showModal = () => {
-        findApiUnitList({repositoryId:repositoryId,caseType: "api-unit", testType: "api"});
-
-        setVisible(true);
-    };
-
-
     // 提交
-    const onFinish = async () => {
-        await bindApiUnit(selectItem)
-
+    const onFinish = async (id) => {
+        await bindApiUnit([id])
         await findApiSceneStepList(apiSceneId)
-
         setVisible(false);
     };
 
-    const onCancel = () => { setVisible(false) };
+    const onSearch = (e) =>{
+        findApiUnitList({
+            repositoryId:repositoryId,
+            caseType: "api-unit",
+            testType: "api",
+            name:e.target.value
+        })
+    }
 
-    const rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-            getSelectItem(selectedRowKeys)
-        },
-    };
 
     return(
         <>
-            <IconBtn
-                className="pi-icon-btn-grey"
-                name={"关联用例"}
-                onClick={showModal}
+            <ConnectSelectCommon
+                setVisible={setVisible}
+                dataList={apiUnitList}
+                columns={column}
+                onSearch={onSearch}
+                onFinish={onFinish}
             />
-            <Modal
-                destroyOnClose={true}
-                title="关联用例"
-                visible={visible}
-                onCancel={onCancel}
-                onOk={onFinish}
-                okText="提交"
-                cancelText="取消"
-                centered
-                width={800}
-            >
-
-                <Table
-                    columns={column}
-                    dataSource={apiUnitList}
-                    rowKey = {record => record.id}
-                    rowSelection={{...rowSelection}}
-                />
-
-            </Modal>
         </>
     )
 }

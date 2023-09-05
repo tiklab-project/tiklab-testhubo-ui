@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import {inject, observer} from "mobx-react";
+import {observer} from "mobx-react";
 import {Drawer} from "antd";
 import "./apiUnitInstanceStyle.scss"
 import {TextMethodType} from "../../common/methodType";

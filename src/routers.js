@@ -43,8 +43,8 @@ let CategoryList = LazyComponent(() => import("./category/components/CategoryLis
 let TestPlan = LazyComponent(() => import("./testplan/components/testPlan"));
 let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
 let RepositoryDetailLayout = LazyComponent(() => import("./repository/common/RepositoryDetailLayout"));
-let ApiUnitcaseDetail = LazyComponent(() => import("./test/api/http/unit/components/apiUnitEditPage"));
-let ApiScenecaseDetail = LazyComponent(() => import("./test/api/http/scene/components/apiScenePage"));
+let ApiUnitContent = LazyComponent(() => import("./test/api/http/unit/components/apiUnitContent"));
+let ApiScenecaseDetail = LazyComponent(() => import("./test/api/http/scene/components/apiSceneContent"));
 let FuncUnitDetail = LazyComponent(() => import("./test/function/components/FunctionContent"));
 let EnvContent = LazyComponent(() => import("./support/environment/components/envContent"));
 let ApiPerformDetail = LazyComponent(() => import("./test/api/http/perf/components/apiPerformDetail"));
@@ -153,7 +153,7 @@ const routers =  [
                         routes:[
                             {
                                 path: "/repository/testcase/api-unit/:id",
-                                component: ApiUnitcaseDetail,
+                                component: ApiUnitContent,
                             },
                             {
                                 path: "/repository/testcase/api-unit-instance",

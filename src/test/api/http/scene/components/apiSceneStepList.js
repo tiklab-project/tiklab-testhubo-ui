@@ -1,13 +1,20 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Popconfirm, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import ApiSceneBindUnit from "./apiSceneBindUnit";
 import IconCommon from "../../../../../common/IconCommon";
 import apiSceneStepStore from "../store/apiSceneStepStore";
 import {useHistory} from "react-router";
+import IconBtn from "../../../../../common/iconBtn/IconBtn";
 
 const ApiSceneStepList =(props) =>{
-    const {findApiSceneStepList,apiSceneStepList,deleteApiSceneStep} = apiSceneStepStore;
+    const {apiUnitStore} = props
+    const {
+        findApiSceneStepList,
+        apiSceneStepList,
+        deleteApiSceneStep,
+    } = apiSceneStepStore;
+    const {findApiUnitList} = apiUnitStore;
 
     const column = [
         {
@@ -57,7 +64,9 @@ const ApiSceneStepList =(props) =>{
     ]
 
     const history = useHistory();
+    let repositoryId = sessionStorage.getItem("repositoryId");
     const apiSceneId = sessionStorage.getItem("apiSceneId");
+    const [visible, setVisible] = useState(false);
 
     useEffect(async ()=>{
         await findApiSceneStepList(apiSceneId)
@@ -68,6 +77,10 @@ const ApiSceneStepList =(props) =>{
         history.push("/repository/testcase/api-scene-to-unit")
     }
 
+    const showConnect =()=>{
+        findApiUnitList({repositoryId:repositoryId,caseType: "api-unit", testType: "api"});
+        setVisible(true);
+    }
 
     return(
         <>
@@ -75,18 +88,32 @@ const ApiSceneStepList =(props) =>{
                 <div className={'test-title'}>
                     <div>测试步骤</div>
                 </div>
-                <ApiSceneBindUnit apiSceneStepStore={apiSceneStepStore}/>
+
             </div>
-            <div className={"table-list-box"}>
-                <Table
-                    columns={column}
-                    dataSource={apiSceneStepList}
-                    rowKey = {record => record.id}
-                    pagination={false}
+            <div className={`${visible?"teston-hide":"teston-show"}`}>
+                <IconBtn
+                    className="pi-icon-btn-grey"
+                    name={"关联用例"}
+                    onClick={showConnect}
+                />
+                <div className={"table-list-box"}>
+                    <Table
+                        columns={column}
+                        dataSource={apiSceneStepList}
+                        rowKey = {record => record.id}
+                        pagination={false}
+                    />
+                </div>
+            </div>
+            <div className={`${visible?"teston-show":"teston-hide"}`} style={{height: "calc(100% - 133px)"}}>
+                <ApiSceneBindUnit
+                    visible={visible}
+                    setVisible={setVisible}
                 />
             </div>
+
         </>
     )
 }
 
-export default observer(ApiSceneStepList);
+export default inject("apiUnitStore")(observer(ApiSceneStepList));

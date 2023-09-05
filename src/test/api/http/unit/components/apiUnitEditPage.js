@@ -5,6 +5,7 @@ import {useParams} from "react-router";
 import {inject, observer} from "mobx-react";
 import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 import {Breadcrumb} from "antd";
+import IconCommon from "../../../../../common/IconCommon";
 const ApiUnitEditPage = (props) => {
 
     let {id} = useParams()
@@ -19,10 +20,16 @@ const ApiUnitEditPage = (props) => {
         <div className={"content-box-center"}>
             <div className={"breadcrumb-title_between"}>
                 <Breadcrumb className={"breadcrumb-box"}>
-                    <Breadcrumb.Item>用例详情</Breadcrumb.Item>
+                    <IconCommon
+                        icon={"jiekou1"}
+                        className="icon-s "
+                        style={{margin: "3px 5px 0"}}
+                    />
+                    <Breadcrumb.Item>详情</Breadcrumb.Item>
                 </Breadcrumb>
                 <DrawerCloseIcon />
             </div>
+
             <ApiUnitEditPageCommon type={true} {...props} />
         </div>
     )
