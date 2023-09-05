@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import { Drawer, Form, Input, Spin, Table} from "antd";
-import IconCommon from "../../../../common/IconCommon";
 import {inject, observer} from "mobx-react";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
 

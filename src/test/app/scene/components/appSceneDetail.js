@@ -11,7 +11,6 @@ import "./appStyle.scss"
 import {useHistory, useParams} from "react-router";
 import {Breadcrumb, Button} from "antd";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
-import WebExecuteTestDrawer from "../../../web/scene/components/webExecuteTestDrawer";
 
 const AppSceneDetail = (props) => {
     const {appSceneStore} = props;

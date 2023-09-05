@@ -10,8 +10,6 @@ import Input from "antd/es/input/Input";
 import {Option} from "antd/es/mentions";
 import {Axios} from "tiklab-core-ui";
 
-const {TextArea} = Input
-
 const {
     findWebSceneStepList,
     deleteWebSceneStep,

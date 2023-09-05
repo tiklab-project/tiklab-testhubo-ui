@@ -3,7 +3,6 @@ import {inject, observer} from "mobx-react";
 import WebExecuteTestCommon from "./WebExecuteTestCommon";
 import {Breadcrumb} from "antd";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
-import {ArrowLeftOutlined} from "@ant-design/icons";
 
 const WebExecuteTestPage = (props) =>{
     const {webSceneStore} = props;
