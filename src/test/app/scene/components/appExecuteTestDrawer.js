@@ -37,7 +37,7 @@ const AppExecuteTestDrawer =(props)=>{
                 contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
                 closable={false}
             >
-                <div className={"breadcrumb-title_between"}>
+                <div className={"breadcrumb-title_between"} style={{padding:"0 0 5px 0"}}>
                     <Breadcrumb className={"breadcrumb-box"}>
                         <Breadcrumb.Item>测试</Breadcrumb.Item>
                     </Breadcrumb>

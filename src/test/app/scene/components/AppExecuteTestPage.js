@@ -23,12 +23,16 @@ const AppExecuteTestPage = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <div className={"breadcrumb-title_between"}>
-                <Breadcrumb className={"breadcrumb-box"}>
-                    <Breadcrumb.Item onClick={goBack} className={"first-item"}>用例详情</Breadcrumb.Item>
-                    <Breadcrumb.Item >测试</Breadcrumb.Item>
-                </Breadcrumb>
-                {/*<ArrowLeftOutlined onClick={goBack}/>*/}
+            <div
+                className={"breadcrumb-title_between"}
+                style={{
+                    padding:"0 0 5px",
+                    borderBottom: "1px solid #e4e4e4",
+                    margin: "0 0 10px",
+                }}
+            >
+                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
+
                 <DrawerCloseIcon />
             </div>
             <AppExecuteTestCommon

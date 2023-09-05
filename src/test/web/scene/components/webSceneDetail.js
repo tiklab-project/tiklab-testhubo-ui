@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import WebSceneStepList from "./webSceneStepList";
 import "./webStyle.scss"
-import {useHistory, useParams} from "react-router";
+import {useHistory} from "react-router";
 import { Button} from "antd";
 
 const WebSceneDetail = (props) => {
