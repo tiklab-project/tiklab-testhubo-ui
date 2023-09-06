@@ -4,6 +4,7 @@ import ApiPerformBindScene from "./apiPerformBindScene";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import apiPerfStepStore from "../store/apiPerfStepStore";
+import {useHistory} from "react-router";
 
 const ApiPerfStepList = (props) =>{
     const {findApiPerfStepList,apiPerfStepList,deleteApiPerfStep} =apiPerfStepStore;
@@ -46,24 +47,16 @@ const ApiPerfStepList = (props) =>{
     ]
 
     const apiPerfId = sessionStorage.getItem("apiPerfId")
+    let history = useHistory()
 
     useEffect(()=>{
         findApiPerfStepList(apiPerfId)
     },[])
 
 
-    // const changeEnable = (e,record) => {
-        // if(e===true){
-        //     record.enable=1;
-        // }else {
-        //     record.enable=0;
-        // }
-        // updateMock(record)
-    // }
-
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiSceneId",id);
-        props.history.push("/repository/testcase/api-perform-to-scene")
+        history.push("/repository/testcase/api-perform-to-scene")
     }
 
     return(

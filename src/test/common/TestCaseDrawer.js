@@ -20,12 +20,6 @@ const TestCaseDrawer = (props) =>{
         if(open&&pathname==="/repository/testcase"){
             setOpen(false)
         }
-        // else {
-        //     let locationArr = pathname.split("/")
-        //     if(locationArr.length>3){
-        //         setOpen(true)
-        //     }
-        // }
     },[pathname,open])
 
     const showDrawer = () => {

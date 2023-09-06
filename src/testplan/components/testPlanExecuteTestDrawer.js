@@ -113,7 +113,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
         <>
             <IconBtn
                 className="important-btn"
-                name={"执行测试"}
+                name={"测试"}
                 onClick={showModal}
             />
             <Drawer

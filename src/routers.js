@@ -35,6 +35,7 @@ import {LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
 
+
 //---内部
 let Home = LazyComponent(() => import("./home/Home"));
 let Repository = LazyComponent(() => import("./repository/repository/components/Repository"));
@@ -45,9 +46,12 @@ let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
 let RepositoryDetailLayout = LazyComponent(() => import("./repository/common/RepositoryDetailLayout"));
 let ApiUnitContent = LazyComponent(() => import("./test/api/http/unit/components/apiUnitContent"));
 let ApiScenecaseDetail = LazyComponent(() => import("./test/api/http/scene/components/apiSceneContent"));
+let ApiExecuteTestPage = LazyComponent(() => import("./test/api/http/scene/components/ApiExecuteTestPage"));
+let ApiSceneInstanceSinglePage = LazyComponent(() => import( "./test/api/http/scene/components/apiSceneInstanceSinglePage"));
+let ApiPerfContent = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfContent"));
+let ApiPerfExecuteTestPage = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfExecuteTestPage"));
 let FuncUnitDetail = LazyComponent(() => import("./test/function/components/FunctionContent"));
 let EnvContent = LazyComponent(() => import("./support/environment/components/envContent"));
-let ApiPerformDetail = LazyComponent(() => import("./test/api/http/perf/components/apiPerformDetail"));
 let LoginOut = LazyComponent(() => import("./home/header/LoginOut"));
 let WebPerformDetail = LazyComponent(() => import("./test/web/perf/components/webPerformDetail"));
 let AppPerformDetail = LazyComponent(() => import("./test/app/perf/components/appPerformDetail"));
@@ -168,16 +172,28 @@ const routers =  [
                                 component: ApiSceneToUnitPage,
                             },
                             {
+                                path: "/repository/testcase/api-scene-execute",
+                                component: ApiExecuteTestPage,
+                            },
+                            {
                                 path: "/repository/testcase/api-scene-instance",
                                 component: ApiSceneInstanceList,
                             },
                             {
+                                path: "/repository/testcase/api-scene-instance-single",
+                                component: ApiSceneInstanceSinglePage,
+                            },
+                            {
                                 path: "/repository/testcase/api-perform/:id",
-                                component: ApiPerformDetail,
+                                component: ApiPerfContent,
                             },
                             {
                                 path: "/repository/testcase/api-perform-to-scene",
                                 component: ApiPerformToScenePage ,
+                            },
+                            {
+                                path: "/repository/testcase/api-perform-execute",
+                                component: ApiPerfExecuteTestPage,
                             },
                             {
                                 path: "/repository/testcase/api-perform-instance",
@@ -191,7 +207,6 @@ const routers =  [
                                 path: "/repository/testcase/web-scene-instance",
                                 component: WebSceneInstanceList,
                             },
-                            //WebExecuteTestPage表格视图使用
                             {
                                 path: "/repository/testcase/web-scene-execute",
                                 component: WebExecuteTestPage,
@@ -247,10 +262,70 @@ const routers =  [
                             // },
                         ]
                     },
-
-
-
-
+                    {
+                        path: "/repository/plan",
+                        component: TestPlan,
+                        routes:[
+                            {
+                                path: "/repository/plan/detail/:id",
+                                component: TestPlanDetail,
+                            },
+                            {
+                                path: "/repository/plan/instance",
+                                component: TestPlanInstanceList,
+                            },
+                            {
+                                path: "/repository/plan/instance-case",
+                                component: TestPlanBindCaseInstanceList,
+                            },
+                            {
+                                path: "/repository/plan/api-unit",
+                                component: PlanToApiUnitPage,
+                            },
+                            {
+                                path: "/repository/plan/api-scene",
+                                component: PlanToApiScenePage,
+                            },
+                            {
+                                path: "/repository/plan/api-perform",
+                                component: PlanToApiPerformPage,
+                            },
+                            {
+                                path: "/repository/plan/web-scene",
+                                exact: true,
+                                component: PlanToWebScenePage,
+                            },
+                            {
+                                path: "/repository/plan/web-perform",
+                                exact: true,
+                                component: planToWebPerformPage,
+                            },
+                            {
+                                path: "/repository/plan/app-scene",
+                                exact: true,
+                                component: PlanToAppScenePage,
+                            },
+                            {
+                                path: "/repository/plan/app-perform",
+                                exact: true,
+                                component: PlanToAppPerformPage,
+                            },
+                            {
+                                path: "/repository/plan/function",
+                                exact: true,
+                                component: PlanToFuncUnitPage,
+                            },
+                        ]
+                    },
+                    {
+                        path: "/repository/report",
+                        exact: true,
+                        component: TestReportList,
+                    },{
+                        path: "/repository/report/:id",
+                        exact: true,
+                        component: TestReportDetail,
+                    },
 
                     {
                         path: "/repository/setting",
@@ -312,77 +387,6 @@ const routers =  [
                         exact: true,
                         key:'category',
                         component: CategoryList,
-                    },
-                    {
-                        path: "/repository/plan",
-                        key:'TestPlan',
-                        exact: true,
-                        component: TestPlan,
-                    },
-                    {
-                        path: "/repository/plan/:id",
-                        exact: true,
-                        component: TestPlanDetail,
-                    },
-                    {
-                        path: "/repository/plan-instance",
-                        exact: true,
-                        component: TestPlanInstanceList,
-                    },
-                    {
-                        path: "/repository/plan-instance-case",
-                        exact: true,
-                        component: TestPlanBindCaseInstanceList,
-                    },
-                    {
-                        path: "/repository/plan-api-unit",
-                        exact: true,
-                        component: PlanToApiUnitPage,
-                    },
-                    {
-                        path: "/repository/plan-api-scene",
-                        exact: true,
-                        component: PlanToApiScenePage,
-                    },
-                    {
-                        path: "/repository/plan-api-perform",
-                        exact: true,
-                        component: PlanToApiPerformPage,
-                    },
-                    {
-                        path: "/repository/plan-web-scene",
-                        exact: true,
-                        component: PlanToWebScenePage,
-                    },
-                    {
-                        path: "/repository/plan-web-perform",
-                        exact: true,
-                        component: planToWebPerformPage,
-                    },
-                    {
-                        path: "/repository/plan-app-scene",
-                        exact: true,
-                        component: PlanToAppScenePage,
-                    },
-                    {
-                        path: "/repository/plan-app-perform",
-                        exact: true,
-                        component: PlanToAppPerformPage,
-                    },
-                    {
-                        path: "/repository/plan-function",
-                        exact: true,
-                        component: PlanToFuncUnitPage,
-                    },
-
-                    {
-                        path: "/repository/report",
-                        exact: true,
-                        component: TestReportList,
-                    },{
-                        path: "/repository/report/:id",
-                        exact: true,
-                        component: TestReportDetail,
                     },
 
                     {

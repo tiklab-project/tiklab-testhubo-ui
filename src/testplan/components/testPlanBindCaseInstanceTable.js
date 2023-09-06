@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import emptyImg from "../../assets/img/empty.png";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
 import ApiUnitInstanceDrawer from "../../test/api/http/unit/components/apiUnitInstanceDrawer";
-import ApiSceneInstanceDrawer from "../../test/api/http/scene/components/apiSceneInstanceDrawer";
+import ApiSceneInstanceDrawer from "../../test/api/http/scene/components/apiSceneInstanceSinglePage";
 import WebSceneInstanceDrawer from "../../test/web/scene/components/webSceneInstanceDrawer";
 import AppSceneInstanceDrawer from "../../test/app/scene/components/appSceneInstanceDrawer";
 import ApiPerformInstanceDrawer from "../../test/api/http/perf/components/apiPerformInstanceDrawer";

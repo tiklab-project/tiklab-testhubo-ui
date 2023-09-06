@@ -1,23 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import WebExecuteTestCommon from "./WebExecuteTestCommon";
-import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 import {ArrowLeftOutlined} from "@ant-design/icons";
+import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
+import ApiPerfExecuteTestCommon from "./ApiPerfExecuteTestCommon";
 
-const WebExecuteTestPage = (props) =>{
-    const {webSceneStore} = props;
-    const {webSceneTestStatus} = webSceneStore;
+const ApiPerfExecuteTestPage = (props) =>{
+    const {apiPerfStore} = props;
+    // const {apiPerfTestStatus} = apiPerfStore;
 
-    const webSceneId = sessionStorage.getItem('webSceneId')
+    const apiPerfId = sessionStorage.getItem('apiPerfId')
     const [start, setStart] = useState()
 
     useEffect(()=>{
-        let status = webSceneTestStatus(webSceneId);
-        setStart(status)
+        // let status = apiPerfTestStatus(apiPerfId);
+        setStart(1)
     },[])
 
     const goBack = () =>{
-        props.history.push(`/repository/testcase/web-scene/${webSceneId}`)
+        props.history.push(`/repository/testcase/api-perform/${apiPerfId}`)
     }
 
     return(
@@ -30,10 +30,10 @@ const WebExecuteTestPage = (props) =>{
 
                 <DrawerCloseIcon />
             </div>
-            <WebExecuteTestCommon
+            <ApiPerfExecuteTestCommon
                 start={start}
                 setStart={setStart}
-                webSceneId={webSceneId}
+                apiPerfId={apiPerfId}
                 {...props}
             />
         </div>
@@ -41,4 +41,4 @@ const WebExecuteTestPage = (props) =>{
     )
 }
 
-export default inject('webSceneStore')(observer(WebExecuteTestPage))
+export default inject('apiPerfStore')(observer(ApiPerfExecuteTestPage))

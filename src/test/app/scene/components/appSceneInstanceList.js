@@ -7,6 +7,7 @@ import AppSceneInstanceDrawer from "./appSceneInstanceDrawer";
 import appSceneInstanceStore from "../store/appSceneInstanceStore";
 import {useHistory} from "react-router";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
+import {ArrowLeftOutlined} from "@ant-design/icons";
 
 const AppSceneInstanceList = (props) =>{
     const {
@@ -77,6 +78,7 @@ const AppSceneInstanceList = (props) =>{
         },
     ]
 
+    const history = useHistory()
     const appSceneId = sessionStorage.getItem("appSceneId")
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
@@ -120,30 +122,42 @@ const AppSceneInstanceList = (props) =>{
         setPageParam(newParams)
     }
 
+    const goBack = () =>{
+        history.push(`/repository/testcase/app-scene/${appSceneId}`)
+    }
 
     return(
-        <div className={"table-list-box"}>
-            <Table
-                columns={column}
-                dataSource={appSceneInstanceList}
-                rowKey = {record => record.id}
-                pagination={{
-                    current:currentPage,
-                    pageSize:pageSize,
-                    total:totalRecord,
-                }}
-                onChange = {(pagination) => onTableChange(pagination)}
+        <div className={"content-box-center"}>
+            <div
+                className={"breadcrumb-title_between"}
+                style={{height:"36px"}}
+            >
+                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
 
-                locale={{
-                    emptyText: <Empty
-                        imageStyle={{height: 120 }}
-                        description={<span>暂无历史</span>}
-                        image={emptyImg}
-                    />,
-                }}
-            />
+                <DrawerCloseIcon />
+            </div>
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={appSceneInstanceList}
+                    rowKey = {record => record.id}
+                    pagination={{
+                        current:currentPage,
+                        pageSize:pageSize,
+                        total:totalRecord,
+                    }}
+                    onChange = {(pagination) => onTableChange(pagination)}
+
+                    locale={{
+                        emptyText: <Empty
+                            imageStyle={{height: 120 }}
+                            description={<span>暂无历史</span>}
+                            image={emptyImg}
+                        />,
+                    }}
+                />
+            </div>
         </div>
-
     )
 }
 

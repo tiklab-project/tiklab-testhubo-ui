@@ -2,9 +2,7 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Breadcrumb, Input} from "antd";
 import { useParams} from "react-router";
-import ApiUnitInstanceList from "./apiUnitInstanceList";
 import ApiUnitEditPageCommon from "./apiUnitEditPageCommon";
-import CaseContentCommon from "../../../../common/CaseContentCommon";
 import IconCommon from "../../../../../common/IconCommon";
 import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 
@@ -48,42 +46,28 @@ const ApiUnitContent = (props) =>{
         })
     }
 
-
-    const tabItem=[
-        {
-            label: `设计`,
-            key: '1',
-            children: <ApiUnitEditPageCommon/>
-        }, {
-            label: `测试历史`,
-            key: '2',
-            children:<ApiUnitInstanceList />
-        },
-    ]
-
     return(
-        <CaseContentCommon
-            breadcrumb={
-                <>
-                    <Breadcrumb className={"breadcrumb-box"}>
-                        <IconCommon
-                            icon={"jiekou1"}
-                            className="icon-s "
-                            style={{margin: "3px 5px 0"}}
+
+        <>
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <IconCommon
+                        icon={"jiekou1"}
+                        className="icon-s "
+                        style={{margin: "3px 5px 0"}}
+                    />
+                    <Breadcrumb.Item>
+                        <Input
+                            value={caseName}
+                            className={"case-header_title"}
+                            onChange={updateName}
                         />
-                        <Breadcrumb.Item>
-                            <Input
-                                value={caseName}
-                                className={"case-header_title"}
-                                onChange={updateName}
-                            />
-                        </Breadcrumb.Item>
-                    </Breadcrumb>
-                    <DrawerCloseIcon />
-                </>
-            }
-            tabItem={tabItem}
-        />
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
+            <ApiUnitEditPageCommon/>
+        </>
     )
 }
 

@@ -5,6 +5,9 @@ import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import WebSceneInstanceDrawer from "./webSceneInstanceDrawer";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
+import {ArrowLeftOutlined} from "@ant-design/icons";
+import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
+import {useHistory} from "react-router";
 
 const WebSceneInstanceList = (props) =>{
     const {
@@ -81,6 +84,7 @@ const WebSceneInstanceList = (props) =>{
         },
     ]
 
+    const history = useHistory()
     const webSceneId = sessionStorage.getItem("webSceneId")
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
@@ -122,9 +126,20 @@ const WebSceneInstanceList = (props) =>{
         setPageParam(newParams)
     }
 
+    const goBack = () =>{
+        history.push(`/repository/testcase/web-scene/${webSceneId}`)
+    }
 
     return(
-        < >
+        <div className={"content-box-center"}>
+            <div
+                className={"breadcrumb-title_between"}
+                style={{height:"36px"}}
+            >
+                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
+
+                <DrawerCloseIcon />
+            </div>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}
@@ -146,7 +161,7 @@ const WebSceneInstanceList = (props) =>{
                     }}
                 />
             </div>
-        </>
+        </div>
     )
 }
 

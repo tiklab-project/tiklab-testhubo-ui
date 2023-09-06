@@ -61,29 +61,26 @@ const ApiSceneContent = (props) => {
     ]
 
     return(
-        <CaseContentCommon
-            breadcrumb={
-                <>
-                    <Breadcrumb className={"breadcrumb-box"}>
-                        <IconCommon
-                            icon={"jiekou1"}
-                            className="icon-s "
-                            style={{margin: "3px 5px 0"}}
+        <>
+            <div className={"breadcrumb-title_between"}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <IconCommon
+                        icon={"jiekou1"}
+                        className="icon-s "
+                        style={{margin: "3px 5px 0"}}
+                    />
+                    <Breadcrumb.Item>
+                        <Input
+                            value={caseName}
+                            className={"case-header_title"}
+                            onChange={updateName}
                         />
-                        {/*<Breadcrumb.Item>详情</Breadcrumb.Item>*/}
-                        <Breadcrumb.Item>
-                            <Input
-                                value={caseName}
-                                className={"case-header_title"}
-                                onChange={updateName}
-                            />
-                        </Breadcrumb.Item>
-                    </Breadcrumb>
-                    <DrawerCloseIcon />
-                </>
-            }
-            tabItem={tabItem}
-        />
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
+            <ApiSceneDetail/>
+        </>
     )
 
 

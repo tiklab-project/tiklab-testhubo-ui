@@ -12,6 +12,7 @@ import "./testPlanStyle.scss"
 import emptyImg from "../../assets/img/empty.png";
 import IconCommon from "../../common/IconCommon";
 import {SearchOutlined} from "@ant-design/icons";
+import TestPlanDrawer from "./TestPlanDrawer";
 
 const TestPlan = (props) => {
     const { testPlanStore } = props;
@@ -31,7 +32,11 @@ const TestPlan = (props) => {
             dataIndex: "name",
             key: "name",
             render: (text,record) =>(
-                <a onClick = {()=>setLocalStorage(record.id)}>{text}</a>
+                <TestPlanDrawer
+                    planData={record}
+                    findPage={findPage}
+                    {...props}
+                />
             )
         },
         {
@@ -111,11 +116,6 @@ const TestPlan = (props) => {
         });
     },[pageParam])
 
-    // 保存id到缓存
-    const setLocalStorage = (id) => {
-        sessionStorage.setItem('testPlanId',id);
-        props.history.push(`/repository/plan/${id}`);
-    };
 
     const showState = (type)=>{
         switch (type){
@@ -174,7 +174,7 @@ const TestPlan = (props) => {
     }
 
     return(
-        <div className={"testcase-box"}>
+        <div className={"plan-box"}>
             <div className='header-box-space-between'>
                 <div className={'header-box-title'}>测试计划</div>
                 <TestPlanEdit

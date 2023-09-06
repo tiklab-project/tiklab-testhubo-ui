@@ -1,61 +1,42 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {Button, Collapse, Drawer, Input, message, Spin, Tabs} from "antd";
+import {ArrowLeftOutlined} from "@ant-design/icons";
+import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
+import apiSceneTestDispatchStore from "../store/apiSceneTestDispatchStore";
 import {TextMethodType} from "../../common/methodType";
+import {Spin, Tabs} from "antd";
 import ResponseBodyCommon from "../../common/response/responseBodyCommon";
 import ResHeaderCommon from "../../common/response/resHeaderCommon";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
-import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
-import apiSceneTestDispatchStore from "../store/apiSceneTestDispatchStore";
+import TabPane from "antd/es/tabs/TabPane";
 
-const {TextArea} = Input;
-const { Panel } = Collapse;
-const {TabPane} = Tabs
+const { apiSceneExecute } = apiSceneTestDispatchStore;
 
-const ApiSceneTestResult =(props)=>{
-    const { apiEnvStore } = props;
-    const { apiSceneExecute } = apiSceneTestDispatchStore;
+const ApiExecuteTestPage = (props) =>{
+    const { apiEnvStore} = props;
     const { envUrl } =apiEnvStore;
 
-
-    let apiSceneId = sessionStorage.getItem("apiSceneId");
-
-    const [visible, setVisible] = useState(false);
+    const apiSceneId = sessionStorage.getItem('apiSceneId')
     const [allData, setAllData] = useState();
     const [stepList, setStepList] = useState([]);
     const [selected, setSelected] = useState();
     const [selectedStepData, setSelectedStepData] = useState();
     const [loading, setLoading] = useState(true);
 
+    useEffect(()=>{
+        apiSceneExecute(apiSceneId, envUrl).then(res=>{
+            setAllData(res.apiSceneInstance);
+            setStepList(res.apiUnitInstanceList)
 
-    const showDrawer = () => {
-        if(envUrl){
-            apiSceneExecute(apiSceneId, envUrl).then(res=>{
-                setAllData(res.apiSceneInstance);
-                setStepList(res.apiUnitInstanceList)
-
-                setLoading(false);
-            })
-
-            setVisible(true);
-        }else {
-            messageFn("error","请选择环境")
-        }
-
-
-    };
-
-    const onClose = () => {
-        setVisible(false);
-        setLoading(true)
-    };
+            setLoading(false);
+        })
+    },[])
 
     const clickFindInstance = index =>{
         setSelected(index)
         setSelectedStepData(stepList.find((item,index)=>index=== index))
     }
-
 
     const showStepListView = (data) =>{
         return data&&data.map((item,index)=>{
@@ -84,7 +65,6 @@ const ApiSceneTestResult =(props)=>{
         })
     }
 
-
     const detail = [
         {
             title:"请求地址:",
@@ -109,7 +89,6 @@ const ApiSceneTestResult =(props)=>{
         },
     ]
 
-
     const showDetail = (data) =>{
         return data.map(item=>{
             return(
@@ -129,21 +108,22 @@ const ApiSceneTestResult =(props)=>{
         })
     }
 
+    const goBack = () =>{
+        props.history.push(`/repository/testcase/api-scene/${apiSceneId}`)
+    }
 
     return(
-        <>
-            <Button className={"important-btn"} onClick={showDrawer}>测试</Button>
-            <Drawer
-                title="测试结果"
-                placement={"right"}
-                onClose={onClose}
-                visible={visible}
-                width={1240}
-                destroyOnClose={true}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+        <div className={"content-box-center"}>
+            <div
+                className={"breadcrumb-title_between"}
+                style={{height:"36px"}}
             >
-                <div  className={"result-spin-box"}>
-                    <Spin spinning={loading}>
+                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
+
+                <DrawerCloseIcon />
+            </div>
+            <div  className={"result-spin-box"}>
+                <Spin spinning={loading}>
                     <div className={"history-detail history-detail-box"}>
                         <div className={"history-detail-all"}>
                             <div className={"history-detail-all-box"}>
@@ -209,15 +189,14 @@ const ApiSceneTestResult =(props)=>{
                                         </div>
                                         :<EmptyTip />
                                 }
-
                             </div>
                         </div>
                     </div>
                 </Spin>
-                </div>
-            </Drawer>
+            </div>
+        </div>
 
-        </>
     )
 }
-export default inject("apiEnvStore")(observer(ApiSceneTestResult));
+
+export default inject("apiEnvStore")(observer(ApiExecuteTestPage))

@@ -56,13 +56,7 @@ const PlanToWebScenePage = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <div style={{"display":"flex","justifyContent":"space-between","margin":"5px  0 0 0"}}>
-                <Breadcrumb className={"breadcrumb-box"} style={{padding: "10px 0"}}>
-                    <Breadcrumb.Item onClick={toTestPlan} className={"first-item"}>测试计划</Breadcrumb.Item>
-                    <Breadcrumb.Item onClick={toTestPlanDetail} className={"first-item"}>{testPlanName}</Breadcrumb.Item>
-                    <Breadcrumb.Item>{webScene?.testCase.name}</Breadcrumb.Item>
-                </Breadcrumb>
-            </div>
+
             <DetailCommon
                 detailInfo={webScene}
                 updateTitle={updateTitle}

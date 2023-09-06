@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import './unitcase.scss'
+import '../../../../testcase/components/unitcase.scss'
 import ApiUnitEditPageCommon from "./apiUnitEditPageCommon";
 import {useParams} from "react-router";
 import {inject, observer} from "mobx-react";

@@ -2,13 +2,12 @@ import React, { useEffect, useState} from "react";
 import {Breadcrumb,  DatePicker, Form, Select} from "antd";
 import {inject, observer} from "mobx-react";
 import TestPlanBindCaseList from "./testPlanBindCaseList";
-import EdiText from "react-editext";
 import moment from "moment";
 import {CaretDownOutlined} from "@ant-design/icons";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import TestPlanENVModal from "./testPlanENVModal";
 import IconBtn from "../../common/iconBtn/IconBtn";
-import {useParams} from "react-router";
+import {useHistory, useParams} from "react-router";
 
 const {Option} = Select;
 
@@ -20,6 +19,7 @@ const TestPlanDetail = (props) =>{
 
     const [showValidateStatus, setShowValidateStatus ] = useState()
 
+    let history = useHistory()
     let {id} = useParams()
     const testPlanId = sessionStorage.getItem('testPlanId') || id
 
@@ -41,25 +41,8 @@ const TestPlanDetail = (props) =>{
 
     //返回
     const goBack = () => {
-        props.history.push('/repository/plan');
+       history.push('/repository/plan');
     }
-
-    //去往历史页
-    const toHistory = () => {
-        props.history.push('/repository/plan-instance');
-    }
-
-
-    //编辑名字
-    const editName = (value) => {
-        let param = {
-            id:testPlanId,
-            name:value
-        }
-        updateTestPlan(param).then(()=>{
-            findTestPlan(testPlanId)
-        })
-    };
 
 
     const changeStartTime = (data,dataString) =>{
@@ -78,7 +61,6 @@ const TestPlanDetail = (props) =>{
         updateTestPlan(param)
     }
 
-
     const stateView = (type)=>{
         switch (type){
             case 0 :
@@ -91,7 +73,6 @@ const TestPlanDetail = (props) =>{
     }
 
     const changeState = (value) =>{
-
         const param={
             id:testPlanId,
             state:value
@@ -101,95 +82,70 @@ const TestPlanDetail = (props) =>{
 
 
     return(
-        <div className={"testcase-box"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>测试计划</Breadcrumb.Item>
-                <Breadcrumb.Item>{executeDate?.name}</Breadcrumb.Item>
-            </Breadcrumb>
-
+        <div className={"plan-box"}>
             <Form className="testplan-form-info" form={form} labelAlign={"left"} >
                 <div className="display-flex-between">
-                    <div style={{width:200,height: 32}}>
-                        <EdiText
-                            value={executeDate?.name}
-                            tabIndex={2}
-                            onSave={editName}
-                            startEditingOnFocus
-                            submitOnUnfocus
-                            showButtonsOnHover
-                            viewProps={{ className: 'edit-api-name' }}
-                            editButtonClassName="ediText-edit"
-                            saveButtonClassName="ediText-save"
-                            cancelButtonClassName="ediText-cancel"
-                            editButtonContent={
-                                <svg className="icon" aria-hidden="true">
-                                    <use xlinkHref= {`#icon-bianji1`} />
-                                </svg>
-                            }
-                            hideIcons
-                        />
+                    <div className={'form-edit-detail'}>
+                        <Form.Item
+                            label="起始时间"
+                            name="startTime"
+                        >
+                            <DatePicker
+                                format={'YYYY-MM-DD'}
+                                onChange={changeStartTime}
+                                bordered={false}
+                                // suffixIcon={showValidateStatus === "startTime"?<CaretDownOutlined />:null}
+                                onMouseEnter={()=>{setShowValidateStatus("startTime")}}
+                                onMouseLeave={()=>{setShowValidateStatus("")}}
+
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label="结束时间"
+                            name="endTime"
+                        >
+                            <DatePicker
+                                format={'YYYY-MM-DD'}
+                                onChange={changeEndTime}
+                                bordered={false}
+                                // suffixIcon={showValidateStatus === "endTime"?<CaretDownOutlined />:null}
+                                onMouseEnter={()=>{setShowValidateStatus("endTime")}}
+                                onMouseLeave={()=>{setShowValidateStatus("")}}
+                            />
+                        </Form.Item>
+                        <div className={"test-plan-select"}>
+                            <Form.Item
+                                label="进度"
+                                name="state"
+                            >
+                                {/*<Select onChange={changeState}>*/}
+                                <Select
+                                    style={{width:120,height:32}}
+                                    // value={executeDate?.data}
+                                    onChange={changeState}
+                                    showArrow={showValidateStatus === "state"}
+                                    suffixIcon={showValidateStatus === "state"?<CaretDownOutlined />:null}
+                                    onMouseEnter={()=>{setShowValidateStatus("state")}}
+                                    onMouseLeave={()=>{setShowValidateStatus("")}}
+                                >
+                                    <Option value={0}>未开始</Option>
+                                    <Option value={1}>进行中</Option>
+                                    <Option value={2}>结束</Option>
+                                </Select>
+                            </Form.Item>
+                        </div>
                     </div>
-                    <div className={"display-flex-between"} style={{width: 240}}>
+                    <div className={"display-flex-between"} style={{width: 200}}>
                         <IconBtn
                             className="pi-icon-btn-grey"
-                            name={"测试历史"}
-                            onClick={toHistory}
+                            name={"历史"}
+                            onClick={()=> history.push('/repository/plan/instance')}
                         />
                         <TestPlanENVModal {...props}/>
                         <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
                     </div>
-
                 </div>
-                <div className={'form-edit-detail'}>
-                    <Form.Item
-                        label="起始时间"
-                        name="startTime"
-                    >
-                        <DatePicker
-                            format={'YYYY-MM-DD'}
-                            onChange={changeStartTime}
-                            bordered={false}
-                            // suffixIcon={showValidateStatus === "startTime"?<CaretDownOutlined />:null}
-                            onMouseEnter={()=>{setShowValidateStatus("startTime")}}
-                            onMouseLeave={()=>{setShowValidateStatus("")}}
 
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        label="结束时间"
-                        name="endTime"
-                    >
-                        <DatePicker
-                            format={'YYYY-MM-DD'}
-                            onChange={changeEndTime}
-                            bordered={false}
-                            // suffixIcon={showValidateStatus === "endTime"?<CaretDownOutlined />:null}
-                            onMouseEnter={()=>{setShowValidateStatus("endTime")}}
-                            onMouseLeave={()=>{setShowValidateStatus("")}}
-                        />
-                    </Form.Item>
-                    <div className={"test-plan-select"}>
-                        <Form.Item
-                            label="进度"
-                            name="state"
-                        >
-                            {/*<Select onChange={changeState}>*/}
-                            <Select
-                                style={{width:120,height:32}}
-                                // value={executeDate?.data}
-                                onChange={changeState}
-                                showArrow={showValidateStatus === "state"}
-                                suffixIcon={showValidateStatus === "state"?<CaretDownOutlined />:null}
-                                onMouseEnter={()=>{setShowValidateStatus("state")}}
-                                onMouseLeave={()=>{setShowValidateStatus("")}}
-                            >
-                                <Option value={0}>未开始</Option>
-                                <Option value={1}>进行中</Option>
-                                <Option value={2}>结束</Option>
-                            </Select>
-                        </Form.Item>
-                    </div>
-                </div>
             </Form>
 
             <TestPlanBindCaseList {...props}/>

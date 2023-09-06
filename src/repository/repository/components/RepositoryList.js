@@ -1,10 +1,11 @@
 
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import {Empty, Space, Table, Tooltip} from 'antd';
+import {Empty, Space, Table, Tooltip,Avatar} from 'antd';
 import {getUser} from "tiklab-core-ui";
 import emptyImg  from "../../../assets/img/empty.png"
 import repositoryFollowStore from "../store/RepositoryFollowStore";
+import {UserOutlined} from "@ant-design/icons";
 
 
 /**
@@ -40,8 +41,8 @@ const RepositoryList = (props) => {
             render: (text, record) => (
                 <div className={"ws-user-item"}>
                     <Space>
-                        {/*<Profile userInfo={record.user}/>*/}
-                        <span>{record.user.nickname} </span>
+                        <Avatar size={"small"}>{record.user.nickname[0]}</Avatar>
+                        <span style={{fontSize:"13px"}}>{record.user.nickname} </span>
                     </Space>
                 </div>
 

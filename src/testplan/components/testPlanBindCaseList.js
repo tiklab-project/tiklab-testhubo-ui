@@ -87,7 +87,7 @@ const TestPlanBindCaseList = (props) =>{
                 break;
             case "function":
                 sessionStorage.setItem(`funcUnitId`,record.id);
-                props.history.push(`/repository/plan-function`)
+                props.history.push(`/repository/plan/function`)
                 break;
         }
     }
@@ -125,7 +125,7 @@ const TestPlanBindCaseList = (props) =>{
     //跳转路由
     const toDetailAddRouterCommon = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        props.history.push(`/repository/plan-${record.caseType}`)
+        props.history.push(`/repository/plan/${record.caseType}`)
     }
 
     // 分页

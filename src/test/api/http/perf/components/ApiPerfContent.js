@@ -1,30 +1,30 @@
-import React, {useEffect, useState} from "react";
-import {inject, observer} from "mobx-react";
+import React,{useEffect,useState} from 'react';
+import { inject,observer } from 'mobx-react';
+import {useHistory, useParams} from "react-router";
 import {Breadcrumb, Input} from "antd";
-import IconCommon from "../../../../common/IconCommon";
-import { useParams} from "react-router";
-import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
-import AppSceneDetail from "./appSceneDetail";
+import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
+import IconCommon from "../../../../../common/IconCommon";
+import ApiPerformDetail from "./apiPerformDetail";
 
-const AppSceneContent = (props) =>{
-    const {appSceneStore} = props;
-    const {findAppScene,updateAppScene} = appSceneStore;
+const ApiPerfContent = (props) => {
+    const {apiPerfStore} = props;
+    const {findApiPerf,updateApiPerf} = apiPerfStore;
 
     const [caseInfo,setCaseInfo]=useState();
     const [caseName, setCaseName] = useState();
 
     let {id} = useParams()
-    const appSceneId = sessionStorage.getItem('appSceneId') || id;
+    const apiPerfId = sessionStorage.getItem('apiPerfId') || id;
 
-    useEffect(()=> {
+    useEffect(()=>{
         //获取路由id存入
-        sessionStorage.setItem('appSceneId',id);
+        sessionStorage.setItem('apiPerfId',id);
 
-        findAppScene(appSceneId).then(res=>{
+        findApiPerf(apiPerfId).then(res=>{
             setCaseInfo(res);
             setCaseName(res?.testCase?.name)
         })
-    },[appSceneId])
+    },[apiPerfId])
 
 
     //更新名称
@@ -38,12 +38,13 @@ const AppSceneContent = (props) =>{
                 name:name,
             }
         }
-        updateAppScene(param).then(()=>{
-            findAppScene(appSceneId).then(res=>{
+        updateApiPerf(param).then(()=>{
+            findApiPerf(apiPerfId).then(res=>{
                 setCaseInfo(res);
             })
         })
     }
+
 
     return(
         <>
@@ -64,9 +65,9 @@ const AppSceneContent = (props) =>{
                 </Breadcrumb>
                 <DrawerCloseIcon />
             </div>
-            <AppSceneDetail/>
+            <ApiPerformDetail/>
         </>
     )
 }
 
-export default inject('appSceneStore')(observer(AppSceneContent));
+export default inject('apiPerfStore')(observer(ApiPerfContent));

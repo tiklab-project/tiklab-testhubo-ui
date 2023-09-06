@@ -3,10 +3,11 @@ import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
-import ApiSceneInstanceDrawer from "./apiSceneInstanceDrawer";
+import ApiSceneInstanceDrawer from "./apiSceneInstanceSinglePage";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
 import {useHistory} from "react-router";
 import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
+import {ArrowLeftOutlined} from "@ant-design/icons";
 
 const ApiSceneInstanceList = (props) =>{
     const {
@@ -23,7 +24,9 @@ const ApiSceneInstanceList = (props) =>{
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
-            render:(text,record)=>(<ApiSceneInstanceDrawer name={`#${text}`}  apiSceneInstanceId={record.id}/>)
+            render:(text,record)=>(
+                <a onClick={()=>toInstance(record.id)} style={{fontWeight:"bold"}}># {text} </a>
+            )
         },{
             title: '总结果',
             dataIndex: 'result',
@@ -86,10 +89,14 @@ const ApiSceneInstanceList = (props) =>{
         }
     })
 
-
     useEffect(()=>{
         findPage()
     },[pageParam])
+
+    const toInstance = (id) =>{
+        sessionStorage.setItem("apiSceneInstanceId",id)
+        history.push(`/repository/testcase/api-scene-instance-single`)
+    }
 
     const findPage = async () => {
         let param = {
@@ -102,7 +109,6 @@ const ApiSceneInstanceList = (props) =>{
         }
 
     }
-
 
     // 分页
     const onTableChange = (pagination) => {
@@ -118,29 +124,47 @@ const ApiSceneInstanceList = (props) =>{
         setPageParam(newParams)
     }
 
+    const goBack = () =>{
+        history.push(`/repository/testcase/api-scene/${apiSceneId}`)
+    }
 
     return(
-        <div className={"table-list-box"}>
-            <Table
-                columns={column}
-                dataSource={apiSceneInstanceList}
-                rowKey = {record => record.id}
-                pagination={{
-                    current:currentPage,
-                    pageSize:pageSize,
-                    total:totalRecord,
-                }}
-                onChange = {(pagination) => onTableChange(pagination)}
+        <>
 
-                locale={{
-                    emptyText: <Empty
-                        imageStyle={{height: 120 }}
-                        description={<span>暂无历史</span>}
-                        image={emptyImg}
-                    />,
-                }}
-            />
-        </div>
+            <div className={"content-box-center"}>
+                <div
+                    className={"breadcrumb-title_between"}
+                    style={{height:"36px"}}
+                >
+                    <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
+
+                    <DrawerCloseIcon />
+                </div>
+                <div className={"table-list-box"}>
+                    <Table
+                        columns={column}
+                        dataSource={apiSceneInstanceList}
+                        rowKey = {record => record.id}
+                        pagination={{
+                            current:currentPage,
+                            pageSize:pageSize,
+                            total:totalRecord,
+                        }}
+                        onChange = {(pagination) => onTableChange(pagination)}
+
+                        locale={{
+                            emptyText: <Empty
+                                imageStyle={{height: 120 }}
+                                description={<span>暂无历史</span>}
+                                image={emptyImg}
+                            />,
+                        }}
+                    />
+                </div>
+            </div>
+
+        </>
+
     )
 }
 

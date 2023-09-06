@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Form, Input, Select, Space} from 'antd';
 import Request from './request';
-import './unitcase.scss'
+import '../../../../testcase/components/unitcase.scss'
 import {dictionary} from "../../../../../common/dictionary/dictionary";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
@@ -29,7 +29,6 @@ const ApiUnitEditPageCommon = (props) => {
 
     const [showValidateStatus, setShowValidateStatus ] = useState()
     const [resData, setResData] = useState();
-    const [name,setName]=useState();
     const [methodType,setMethodType] =useState();
     const [path, setPath] = useState();
     const [assertList, setAssertList] = useState();
@@ -39,7 +38,6 @@ const ApiUnitEditPageCommon = (props) => {
     useEffect(async ()=>{
         let res = await findApiUnit(apiUnitId)
         setResData(res)
-        setName(res.testCase.name);
         setMethodType(res.methodType);
         setPath(res.path)
 
@@ -77,23 +75,6 @@ const ApiUnitEditPageCommon = (props) => {
         history.push("/repository/testcase/api-unit-instance")
     }
 
-    //编辑名称
-    const editName = () => {
-        if(name!==resData.testCase?.name) {
-            let param = {
-                id: apiUnitId,
-                testCase: {
-                    id: apiUnitId,
-                    name: name,
-                }
-            }
-            updateApiUnit(param).then(() => {
-                findApiUnit(apiUnitId).then(res=>setResData(res))
-            })
-        }
-
-        setShowValidateStatus(null)
-    };
 
     //编辑请求类型
     const selectMethodType = (methodType) =>{
@@ -130,31 +111,10 @@ const ApiUnitEditPageCommon = (props) => {
     };
 
     return(
-        <>
+        <div className={"content-box-center"}>
 
             <div className={"api-unit-base"}>
                 <div className='header-box-space-between'>
-                    {/*<div style={{height:32,"display":"flex","gap":"10px","alignItems":"center"}}>*/}
-
-
-
-                    {/*    <div className={"api-base-info-box-name"}>*/}
-                    {/*        <Input*/}
-                    {/*            defaultValue={name}*/}
-                    {/*            onPressEnter={editName}*/}
-                    {/*            onBlur={editName}*/}
-                    {/*            value={name}*/}
-                    {/*            onChange={(e)=>setName(e.target.value)}*/}
-                    {/*            onFocus={()=>setShowValidateStatus("editName")}*/}
-                    {/*            suffix={*/}
-                    {/*                showValidateStatus === "editName"*/}
-                    {/*                    ? <span/>*/}
-                    {/*                    :null*/}
-                    {/*            }*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
                     <Space className={'api-base-edit-url-box'} style={{width: "480px"}}>
                         <Select
                             style={{width:75,height:32}}
@@ -192,6 +152,12 @@ const ApiUnitEditPageCommon = (props) => {
                         props.type
                             ? null
                             :<Space>
+                                <IconBtn
+                                    className="pi-icon-btn-grey"
+                                    icon={"lishi"}
+                                    onClick={toHistory}
+                                    name={"历史"}
+                                />
                                 <ApiEnvDropDownSelect />
                                 <IconBtn
                                     className="important-btn"
@@ -203,8 +169,6 @@ const ApiUnitEditPageCommon = (props) => {
                     }
 
                 </div>
-
-
 
 
                 <div className={"method"}>
@@ -225,7 +189,7 @@ const ApiUnitEditPageCommon = (props) => {
             <div className='header-title ex-title'> 响应</div>
                 <Response />
 
-        </>
+        </div>
     )
 }
 

@@ -7,6 +7,7 @@ import ApiUnitInstanceDrawer from "./apiUnitInstanceDrawer";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 import {useHistory} from "react-router";
 import BreadcrumbCommon, {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
+import {ArrowLeftOutlined} from "@ant-design/icons";
 
 const ApiUnitInstanceList = (props) =>{
     const {
@@ -132,28 +133,39 @@ const ApiUnitInstanceList = (props) =>{
     }
 
     return(
+        <div className={"content-box-center"}>
+            <div
+                className={"breadcrumb-title_between"}
+                style={{height:"36px"}}
+            >
+                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
 
-        <div className={"table-list-box"}>
-            <Table
-                columns={column}
-                dataSource={apiUnitInstanceList}
-                rowKey = {record => record.id}
-                pagination={{
-                    current:currentPage,
-                    pageSize:pageSize,
-                    total:totalRecord,
-                }}
-                onChange = {(pagination) => onTableChange(pagination)}
+                <DrawerCloseIcon />
+            </div>
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={apiUnitInstanceList}
+                    rowKey = {record => record.id}
+                    pagination={{
+                        current:currentPage,
+                        pageSize:pageSize,
+                        total:totalRecord,
+                    }}
+                    onChange = {(pagination) => onTableChange(pagination)}
 
-                locale={{
-                    emptyText: <Empty
-                        imageStyle={{height: 120 }}
-                        description={<span>暂无历史</span>}
-                        image={emptyImg}
-                    />,
-                }}
-            />
+                    locale={{
+                        emptyText: <Empty
+                            imageStyle={{height: 120 }}
+                            description={<span>暂无历史</span>}
+                            image={emptyImg}
+                        />,
+                    }}
+                />
+            </div>
         </div>
+
+
     )
 }
 

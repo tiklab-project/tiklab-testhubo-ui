@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-import {Drawer} from "antd";
+import React, {useEffect, useState} from "react";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
 import {TextMethodType} from "../../common/methodType";
@@ -7,24 +6,24 @@ import ResponseCommon from "../../common/response/responseCommon";
 import {observer} from "mobx-react";
 import apiUnitInstanceStore from "../../unit/store/apiUnitInstanceStore";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
+import {ArrowLeftOutlined} from "@ant-design/icons";
+import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 
-const ApiSceneInstanceDrawer = (props) =>{
-    const {apiSceneInstanceId} = props
+const ApiSceneInstanceSinglePage = (props) =>{
     const { findApiSceneInstance } = apiSceneInstanceStore;
     const {findApiUnitInstance} = apiUnitInstanceStore;
-    
-    const [visible, setVisible] = useState(false);
+
     const [allData, setAllData] = useState();
     const [stepSelect, setStepSelect] = useState();
     const [stepData, setStepData] = useState();
-    
-    const showDrawer = async () =>{
+
+    let apiSceneInstanceId = sessionStorage.getItem("apiSceneInstanceId")
+
+     useEffect( async () =>{
         let res = await findApiSceneInstance(apiSceneInstanceId)
 
         setAllData(res)
-
-        setVisible(true);
-    }
+    },[])
 
     const detail = [
         {
@@ -103,24 +102,21 @@ const ApiSceneInstanceDrawer = (props) =>{
         })
     }
 
-    const onClose = () => {
-        setVisible(false);
-    };
-
+    const goBack = () =>{
+        props.history.push(`/repository/testcase/api-scene-instance`)
+    }
 
     return(
-        <>
-            <a onClick={showDrawer} style={{fontWeight:"bold"}}>{props.name}</a>
-            <Drawer
-                title="测试结果"
-                placement={"right"}
-                onClose={onClose}
-                visible={visible}
-                width={1240}
-                destroyOnClose={true}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+        <div className={"content-box-center"}>
+            <div
+                className={"breadcrumb-title_between"}
+                style={{height:"36px"}}
             >
-                <div className={"history-detail history-detail-box"}>
+                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
+
+                <DrawerCloseIcon />
+            </div>
+            <div className={"history-detail history-detail-box"}>
                     <div className={"history-detail-all"}>
                         <div className={"history-detail-all-box"}>
                             <div className={"history-detail-all-item"}>
@@ -175,8 +171,7 @@ const ApiSceneInstanceDrawer = (props) =>{
                         </div>
                     </div>
                 </div>
-            </Drawer>
-        </>
+        </div>
     )
 }
-export default observer(ApiSceneInstanceDrawer);
+export default observer(ApiSceneInstanceSinglePage);

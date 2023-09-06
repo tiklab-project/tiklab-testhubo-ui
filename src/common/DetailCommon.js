@@ -7,56 +7,14 @@ import IconBtn from "./iconBtn/IconBtn";
  * 用于详情
  */
 const DetailCommon = (props) =>{
-    const {updateTitle,detailInfo,toHistory } = props;
+    const {detailInfo } = props;
 
     return(
         <div className={"detail-box"}>
             <div className={"detail-header"}>
                 <div style={{"display":"flex","gap":"10px","alignItems":"center"}}>
-                    <EdiText
-                        value={detailInfo?.testCase?.name}
-                        // tabIndex={2}
-                        onSave={updateTitle}
-                        startEditingOnFocus
-                        submitOnUnfocus
-                        showButtonsOnHover
-                        viewProps={{ className: 'edit-api-name' }}
-                        editButtonClassName="ediText-edit"
-                        saveButtonClassName="ediText-save"
-                        cancelButtonClassName="ediText-cancel"
-                        editButtonContent={
-                            <svg className="icon" aria-hidden="true">
-                                <use xlinkHref= {`#icon-bianji1`} />
-                            </svg>
-                        }
-                        hideIcons
-                    />
-                    {/*<Input*/}
-                    {/*    defaultValue={detailInfo?.testCase?.name}*/}
-                    {/*    onPressEnter={updateTitle}*/}
-                    {/*    onBlur={updateTitle}*/}
-                    {/*    value={detailInfo?.testCase?.name}*/}
-                    {/*    // onChange={(e)=>setName(e.target.value)}*/}
-                    {/*/>*/}
+                    <div className={'edit-api-name'  }>{detailInfo?.testCase?.name}</div>
                 </div>
-
-                {
-                   props.type
-                        ? <Space>
-                               {
-                                   toHistory
-                                       ? <IconBtn
-                                           className="pi-icon-btn-grey"
-                                           icon={"lishi"}
-                                           onClick={toHistory}
-                                           name={"历史"}
-                                       />
-                                       :null}
-                               {props.test}
-                           </Space>
-                       :null
-                }
-
 
             </div>
             <div className={"detail-bottom"}>

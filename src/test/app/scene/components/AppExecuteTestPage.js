@@ -24,11 +24,7 @@ const AppExecuteTestPage = (props) =>{
         <div className={"content-box-center"}>
             <div
                 className={"breadcrumb-title_between"}
-                style={{
-                    padding:"0 0 5px",
-                    borderBottom: "1px solid #e4e4e4",
-                    margin: "0 0 10px",
-                }}
+                style={{height:"36px"}}
             >
                 <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
 

@@ -101,7 +101,7 @@ const TestPlanInstanceList = (props) =>{
     //跳往用例历史列表页
     const toCaseInstanceList = (testPlanInstanceId) =>{
         sessionStorage.setItem("testPlanInstanceId",testPlanInstanceId)
-        props.history.push("/repository/plan-instance-case")
+        props.history.push("/repository/plan/instance-case")
 
     }
 
@@ -121,15 +121,11 @@ const TestPlanInstanceList = (props) =>{
 
 
     const goBack = () =>{
-        props.history.push("/repository/plan-detail")
+        props.history.push("/repository/plan/detail")
     }
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb className={"breadcrumb-box"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>计划详情</Breadcrumb.Item>
-                <Breadcrumb.Item>计划历史</Breadcrumb.Item>
-            </Breadcrumb>
 
             <div className={"table-list-box"}>
                 <Table

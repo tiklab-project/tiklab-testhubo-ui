@@ -61,30 +61,30 @@ const FunctionContent = (props) =>{
 
     return(
         <>
-            <CaseContentCommon
-                breadcrumb={
-                    <>
-                        <Breadcrumb className={"breadcrumb-box"}>
-                            <IconCommon
-                                icon={"gongneng"}
-                                className="icon-s "
-                                style={{margin: "3px 5px 0"}}
-                            />
-                            {/*<Breadcrumb.Item>详情</Breadcrumb.Item>*/}
-                            <Breadcrumb.Item>
-                                <Input
-                                    value={caseName}
-                                    className={"case-header_title"}
-                                    onChange={updateName}
-                                />
-                            </Breadcrumb.Item>
-                        </Breadcrumb>
-                        <DrawerCloseIcon />
-                    </>
-
-                }
-                tabItem={tabItem}
-            />
+            <div className={"breadcrumb-title_between"} style={{border:"none"}}>
+                <Breadcrumb className={"breadcrumb-box"}>
+                    <IconCommon
+                        icon={"gongneng"}
+                        className="icon-s "
+                        style={{margin: "3px 5px 0"}}
+                    />
+                    {/*<Breadcrumb.Item>详情</Breadcrumb.Item>*/}
+                    <Breadcrumb.Item>
+                        <Input
+                            value={caseName}
+                            className={"case-header_title"}
+                            onChange={updateName}
+                        />
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+                <DrawerCloseIcon />
+            </div>
+            <div className={"content-box-center case-tabs-box"} >
+                <Tabs
+                    defaultActiveKey="1"
+                    items={tabItem}
+                />
+            </div>
         </>
 
 

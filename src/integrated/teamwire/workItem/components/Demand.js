@@ -62,34 +62,27 @@ const Demand = (props)=>{
     const isBind = () =>{
         if(binded){
             return(
-                <div style={{padding:"10px 0"}}>
-                    <Descriptions
-                        title={
-                            <div
-                                style={{
-                                    display: "flex",
-                                    gap: "10px",
-                                    alignItems: "center"
-                                }}
-                            >
-                                <a>{demandInfo?.name}</a>
-                                <IconBtn
-                                    className="pi-icon-btn-grey"
-                                    onClick={unBind}
-                                    name={"解绑"}
-                                />
-                            </div>
+                <Descriptions
+                    title={
+                        <div
+                            style={{
+                                display: "flex",
+                                gap: "10px",
+                                alignItems: "center"
+                            }}
+                        >
+                            <a>{demandInfo?.name}</a>
+                            <IconBtn
+                                className="pi-icon-btn-grey"
+                                onClick={unBind}
+                                name={"解绑"}
+                            />
+                        </div>
 
-                        }
-                        onClick={()=>toWorkItem(demandInfo)}
-                        column={4}
-                    >
-                        <Descriptions.Item label="项目名">{demandInfo?.projectName}</Descriptions.Item>
-                        <Descriptions.Item label="负责人">{demandInfo?.director || "未设置"}</Descriptions.Item>
-                        <Descriptions.Item label="状态">{demandInfo?.status || "未设置"}</Descriptions.Item>
-                        <Descriptions.Item label="优先级">{demandInfo?.priority || "未设置"}</Descriptions.Item>
-                    </Descriptions>
-                </div>
+                    }
+                    onClick={()=>toWorkItem(demandInfo)}
+                    column={4}
+               />
             )
         }else {
             return (

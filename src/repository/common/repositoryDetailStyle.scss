@@ -314,4 +314,34 @@
 
 }
 
+.breadcrumb-title_between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    border-bottom: 1px solid #e4e4e4;
+    padding: 0 0 5px;
 
+    .case-breadcrumb{
+        font-weight: bold;
+
+        .first-item:hover{
+            cursor: pointer;
+            color: #48a8d9;
+        }
+    }
+
+    ol{
+        display: flex;
+        align-items: center;
+
+        .case-header_title{
+            border: none;
+            font-weight: bold;
+
+            &:hover{
+                background: var(--pi-hover-color);
+            }
+        }
+    }
+}

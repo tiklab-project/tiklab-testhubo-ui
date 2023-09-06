@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
-import { Empty, Input, Popconfirm, Space, Table, TreeSelect} from "antd";
+import {Avatar, Empty, Input, Popconfirm, Space, Table, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
 import IconCommon from "../../../common/IconCommon";
 import {showCaseTypeView, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined} from "@ant-design/icons";
 import ApiUnitInstanceDrawer from "../../api/http/unit/components/apiUnitInstanceDrawer";
-import ApiSceneInstanceDrawer from "../../api/http/scene/components/apiSceneInstanceDrawer";
+import ApiSceneInstanceDrawer from "../../api/http/scene/components/apiSceneInstanceSinglePage";
 import WebSceneInstanceDrawer from "../../web/scene/components/webSceneInstanceDrawer";
 import AppSceneInstanceDrawer from "../../app/scene/components/appSceneInstanceDrawer";
 import ApiPerformInstanceDrawer from "../../api/http/perf/components/apiPerformInstanceDrawer";
@@ -19,6 +19,7 @@ import TestCaseDrawer from "../../common/TestCaseDrawer";
 import DropdownAdd from "./DropdownAdd";
 import "./testcaseStyle.scss"
 import "./caseContantStyle.scss"
+import "./unitcase.scss"
 import TestCaseMenu from "./TestCaseMenu";
 import {getUser} from "tiklab-core-ui";
 
@@ -40,34 +41,56 @@ const TestCaseTable = (props) => {
             title:`名称`,
             dataIndex: 'name',
             key: "name",
+            width:"30%",
             render: (text,record) =>(
                 <div className={"case-table-name"}>
                     <>{showCaseTypeView(record.caseType)}</>
                     <TestCaseDrawer caseData={record} {...props}/>
                 </div>
             )
-        },{
-            title: `模块`,
-            dataIndex: ["category","name"],
-            key: "category",
-        },{
+        },
+        {
             title: `测试类型`,
             dataIndex: "testType",
             key: "testType",
+            width:"10%",
             render: (text) =>(showTestTypeView(text))
         },
         {
             title: `最近执行`,
             dataIndex: "recentInstance",
             key: "recentInstance",
+            width:"10%",
             render:(text,record)=>(
                 showRecentInstance(record)
+            )
+        },
+        {
+            title: `模块`,
+            dataIndex: ["category","name"],
+            key: "category",
+            width:"10%",
+        },
+        {
+            title: `创建人`,
+            dataIndex:  ["createUser","name"],
+            key: "user",
+            width:"15%",
+            render: (text, record) => (
+                <div className={"ws-user-item"}>
+                    <Space>
+                        <Avatar size={"small"}>{record.createUser.nickname[0]}</Avatar>
+                        <span style={{fontSize:"13px"}}>{record.createUser.nickname} </span>
+                    </Space>
+                </div>
+
             )
         },
         {
             title: `创建时间`,
             dataIndex: 'createTime',
             key: "createTime",
+            width:"15%",
         },
         {
             title: '操作',

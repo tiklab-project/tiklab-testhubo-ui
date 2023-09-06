@@ -14,8 +14,6 @@
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 10px;
-
-
 }
 .dynamic-select-box{
     margin:0 0 15px 0;
@@ -292,38 +290,6 @@
     }
 }
 
-
-
-.breadcrumb-title_between{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5px;
-
-
-    .case-breadcrumb{
-        font-weight: bold;
-
-        .first-item:hover{
-            cursor: pointer;
-            color: #48a8d9;
-        }
-    }
-
-    ol{
-        display: flex;
-        align-items: center;
-
-        .case-header_title{
-            border: none;
-            font-weight: bold;
-
-            &:hover{
-                background: var(--pi-hover-color);
-            }
-        }
-    }
-}
 
 .case-tabs-box{
     height:calc(100% - 30px);
