@@ -5,7 +5,6 @@ import IconCommon from "../../../../../common/IconCommon";
 import apiPerfStepStore from "../store/apiPerfStepStore";
 import {useHistory} from "react-router";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
-import ApiSceneBindUnit from "../../scene/components/apiSceneBindUnit";
 import apiSceneStore from "../../scene/store/apiSceneStore";
 import ApiPerformBindScene from "./apiPerformBindScene";
 

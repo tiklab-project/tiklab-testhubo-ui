@@ -94,6 +94,8 @@ let PlanToAppPerformPage = LazyComponent(() => import("./testplan/components/pla
 let PlanToAppScenePage = LazyComponent(() => import("./testplan/components/planToCase/planToAppScenePage"));
 let RepositoryEdit = LazyComponent(() => import("./repository/repository/components/RepositoryEdit"));
 let WorkspaceBindList = LazyComponent(() => import("./integrated/postin/common/integratedPage"));
+let Backups = LazyComponent(() => import( "./setting/backupRecovery/component/Backups"));
+let Recovery = LazyComponent(() => import( "./setting/backupRecovery/component/Recovery"));
 
 
 const routers =  [
@@ -445,6 +447,16 @@ const routers =  [
                         key:'MessageType',
                         exact: true,
                         render:()=> <MessageNotice bgroup={"teston"} />
+                    },
+                    {
+                        path: "/systemManagement/backups",
+                        exact: true,
+                        component: Backups
+                    },
+                    {
+                        path: "/systemManagement/recovery",
+                        exact: true,
+                        component: Recovery
                     },
                     //代办
                     // {
