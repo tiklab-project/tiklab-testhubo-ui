@@ -6,6 +6,7 @@ export class WebSceneStore {
 
     @observable webSceneList = [];
     @observable webSceneInfo;
+    @observable caseName;
 
     @action
     findWebSceneList = async (value) => {
@@ -26,6 +27,7 @@ export class WebSceneStore {
         const res = await Axios.post("/webSceneCase/findWebSceneCase",param);
         if( res.code === 0){
             this.webSceneInfo = res.data;
+            this.caseName = res.data.testCase.name
             return res.data;
         }
     }

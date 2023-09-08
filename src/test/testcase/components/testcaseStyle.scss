@@ -292,7 +292,7 @@
 
 
 .case-tabs-box{
-    height:calc(100% - 30px);
+    height:calc(100% - 28px);
 
     .ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap, .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-wrap{
         height: 35px;
@@ -300,3 +300,9 @@
 }
 
 
+.case-bind_box{
+    padding: 10px 5px;
+    box-shadow: 0 0 10px #e4e4e4;
+    margin: 10px;
+    height: calc(100% - 5px);
+}

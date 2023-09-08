@@ -6,6 +6,7 @@ class AppSceneStore {
 
     @observable appSceneList = [];
     @observable appSceneInfo;
+    @observable caseName;
 
     @action
     findAppSceneList = async (value) => {
@@ -14,6 +15,7 @@ class AppSceneStore {
 
         if(res.code === 0) {
             this.appSceneList = res.data;
+
             return res.data
         }
     }
@@ -26,6 +28,7 @@ class AppSceneStore {
         const res = await Axios.post("/appSceneCase/findAppSceneCase",param);
         if( res.code === 0){
             this.appSceneInfo = res.data;
+            this.caseName = res.data.testCase.name
             return res.data;
         }
     }

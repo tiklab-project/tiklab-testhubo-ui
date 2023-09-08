@@ -9,10 +9,8 @@ import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 
 const ApiUnitContent = (props) =>{
     const {apiUnitStore} = props;
-    const {findApiUnit,updateApiUnit} = apiUnitStore;
+    const {caseName} = apiUnitStore;
 
-    const [caseInfo,setCaseInfo]=useState();
-    const [caseName, setCaseName] = useState();
 
     let {id} = useParams()
     const apiUnitId = sessionStorage.getItem('apiUnitId') || id;
@@ -21,30 +19,8 @@ const ApiUnitContent = (props) =>{
         //获取路由id存入
         sessionStorage.setItem('apiUnitId',id);
 
-        findApiUnit(apiUnitId).then(res=>{
-            setCaseInfo(res);
-            setCaseName(res?.testCase?.name)
-        })
     },[apiUnitId])
 
-
-    //更新名称
-    const updateName = (e) =>{
-        let name = e.target.value
-        setCaseName(name)
-        const param = {
-            id:caseInfo.id,
-            testCase: {
-                ...caseInfo.testCase,
-                name:name,
-            }
-        }
-        updateApiUnit(param).then(()=>{
-            findApiUnit(apiUnitId).then(res=>{
-                setCaseInfo(res);
-            })
-        })
-    }
 
     return(
 
@@ -57,11 +33,7 @@ const ApiUnitContent = (props) =>{
                         style={{margin: "3px 5px 0"}}
                     />
                     <Breadcrumb.Item>
-                        <Input
-                            value={caseName}
-                            className={"case-header_title"}
-                            onChange={updateName}
-                        />
+                        <div className={"case-header_title"}>{caseName}</div>
                     </Breadcrumb.Item>
                 </Breadcrumb>
                 <DrawerCloseIcon />

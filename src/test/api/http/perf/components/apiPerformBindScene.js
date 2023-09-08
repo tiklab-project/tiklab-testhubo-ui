@@ -1,11 +1,11 @@
 import React from "react";
-import { Modal, Table} from "antd";
 import {inject, observer} from "mobx-react";
-import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import apiPerfStepStore from "../store/apiPerfStepStore";
+import ConnectSelectCommon from "../../../../common/ConnectSelectCommon";
+import apiSceneStore from "../../scene/store/apiSceneStore";
 
 const ApiPerformBindScene = (props) =>{
-    const {apiSceneStore,apiPerfId} = props;
+    const {apiPerfId,setVisible} = props;
     const {findApiSceneList,apiSceneList} =apiSceneStore;
 
     const {bindApiScene,findApiPerfStepList} = apiPerfStepStore;
@@ -31,62 +31,36 @@ const ApiPerformBindScene = (props) =>{
     ]
 
 
-
-    const [visible, setVisible] = React.useState(false);
-    const [selectItem, getSelectItem] = React.useState([]);
     let repositoryId = sessionStorage.getItem("repositoryId");
 
     // 弹框展示
-    const showModal = () => {
-        findApiSceneList({repositoryId:repositoryId,caseType:"api-scene",testType:"api"});
-
-        setVisible(true);
+    const onSearch = (e) => {
+        findApiSceneList({
+            repositoryId:repositoryId,
+            caseType:"api-scene",
+            testType:"api",
+            name:e.target.value
+        });
     };
 
 
     // 提交
-    const onFinish = async () => {
-        bindApiScene(selectItem).then(()=>findApiPerfStepList(apiPerfId));
+    const onFinish = async (id) => {
+        bindApiScene([id]).then(()=>findApiPerfStepList(apiPerfId));
 
         setVisible(false);
     };
 
-    const onCancel = () => { setVisible(false) };
-
-    const rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-            getSelectItem(selectedRowKeys)
-        },
-    };
 
     return(
         <>
-            <IconBtn
-                className="pi-icon-btn-grey"
-                name={"关联场景"}
-                onClick={showModal}
+            <ConnectSelectCommon
+                setVisible={setVisible}
+                dataList={apiSceneList}
+                columns={column}
+                onSearch={onSearch}
+                onFinish={onFinish}
             />
-            <Modal
-                destroyOnClose={true}
-                title="关联场景"
-                visible={visible}
-                onCancel={onCancel}
-                onOk={onFinish}
-                okText="提交"
-                cancelText="取消"
-                centered
-                width={1000}
-            >
-
-                <Table
-                    columns={column}
-                    dataSource={apiSceneList}
-                    rowKey = {record => record.id}
-                    rowSelection={{...rowSelection}}
-                    pagination={false}
-                />
-
-            </Modal>
         </>
     )
 }

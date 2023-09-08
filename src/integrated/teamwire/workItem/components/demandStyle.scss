@@ -19,23 +19,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
-    .demand-content_add {
-        color: #48a8d9;
-
-        &:hover{
-            cursor: pointer;
-            color: #009fff;
-        }
-    }
 }
 
+.demand-content_add {
+    color: #a6a6a6;
+    cursor: pointer;
+
+    &:hover{
+        cursor: pointer;
+        color: #009fff;
+    }
+}
 .demand_project_select{
     padding: 10px 5px;
     box-shadow: 0 0 10px #e4e4e4;
     margin: 10px;
-    height: 100%
+    height: 100%;
+
+    .table-list-box .ant-table{
+        border: none;
+    }
 }
 
 .demand_project_select .ant-select:not(.ant-select-customize-input) .ant-select-selector{

@@ -23,7 +23,7 @@ const ApiSceneStepList =(props) =>{
             key: 'name',
             width: "25%",
             render: (text, record) => (
-                props.type ? <a onClick={() => setSessionStorage(record.apiUnit.id)}>{text}</a>:<span>{text}</span>
+                 <a onClick={() => setSessionStorage(record.apiUnit.id)}>{text}</a>
             )
         },{
             title: '请求类型',
@@ -83,14 +83,8 @@ const ApiSceneStepList =(props) =>{
     }
 
     return(
-        <>
-            <div className='title-space-between'>
-                <div className={'test-title'}>
-                    <div>测试步骤</div>
-                </div>
-
-            </div>
-            <div className={`${visible?"teston-hide":"teston-show"}`}>
+        <div style={{margin:"10px 0",height:"100%"}}>
+            <div className={`${visible?"teston-hide":"teston-show"}`} >
                 <IconBtn
                     className="pi-icon-btn-grey"
                     name={"关联用例"}
@@ -105,15 +99,16 @@ const ApiSceneStepList =(props) =>{
                     />
                 </div>
             </div>
-            <div className={`${visible?"teston-show":"teston-hide"}`} style={{height: "calc(100% - 133px)"}}>
+            <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
                 <ApiSceneBindUnit
                     visible={visible}
                     setVisible={setVisible}
                 />
             </div>
 
-        </>
+        </div>
     )
 }
+
 
 export default inject("apiUnitStore")(observer(ApiSceneStepList));

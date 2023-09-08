@@ -60,7 +60,7 @@ const PlanToWebPerformPage = (props) =>{
 
             <DetailCommon
                 detailInfo={webPerf}
-                updateTitle={updateTitle}
+                updateCase={updateCase}
             />
 
             <WebPerformDetailCommon {...props}/>

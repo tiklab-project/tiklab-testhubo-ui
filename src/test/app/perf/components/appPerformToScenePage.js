@@ -62,10 +62,7 @@ const AppPerformToScenePage = (props) =>{
                 </Breadcrumb>
                 <DrawerCloseIcon />
             </div>
-            <DetailCommon
-                detailInfo={appScene}
-                updateTitle={updateTitle}
-            />
+
 
             <AppSceneStepList {...props}/>
         </div>

@@ -61,7 +61,7 @@ const PlanToAppPerformPage = (props) =>{
 
             <DetailCommon
                 detailInfo={appPerf}
-                updateTitle={updateTitle}
+                updateCase={updateCase}
             />
 
             <AppPerformDetailCommon {...props}/>

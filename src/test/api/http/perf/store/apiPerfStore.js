@@ -5,6 +5,7 @@ export class ApiPerfStore {
 
     @observable apiPerfList = [];
     @observable apiPerfInfo;
+    @observable caseName;
 
     @action
     findApiPerfList = async (value) => {
@@ -25,6 +26,7 @@ export class ApiPerfStore {
         const res = await Axios.post("/apiPerfCase/findApiPerfCase",param);
         if( res.code === 0){
             this.apiPerfInfo = res.data;
+            this.caseName = res.data.testCase.name
             return res.data;
         }
     }

@@ -308,7 +308,7 @@ const AppSceneStepList = (props) => {
 
     return(
 
-        <div className={"case-step_box"} style={{height: "calc(100% - 112px)"}}>
+        <div className={"case-step_box"}>
             <div className={"case-step_left"}>
                 <div className={"case-step_add"} onClick={createStep}>
                     添加步骤

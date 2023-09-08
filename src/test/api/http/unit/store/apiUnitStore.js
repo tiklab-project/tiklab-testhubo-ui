@@ -6,6 +6,7 @@ class ApiUnitStore {
     @observable apiUnitList = [];
     @observable apiUnitInfo = {};
     @observable totalRecord ;
+    @observable caseName;
 
     @action
     findApiUnitList = async (value) => {
@@ -25,6 +26,7 @@ class ApiUnitStore {
         let res = await Axios.post("/apiUnitCase/findApiUnitCase",param)
         if(res.code === 0){
             this.apiUnitInfo = res.data;
+            this.caseName = res.data.testCase.name
             return res.data
         }
     }

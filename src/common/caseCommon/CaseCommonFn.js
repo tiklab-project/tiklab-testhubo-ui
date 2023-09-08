@@ -114,7 +114,7 @@ export const showCaseTypeInList = (type)=>{
         case "app-perform":
             return <Tag color="orange">性能</Tag>
         case "function":
-            return <Tag color="blue">功能</Tag>
+            return <Tag color="#2db7f5">功能</Tag>
         default :
             return <Tag color="green">单元</Tag>
     }

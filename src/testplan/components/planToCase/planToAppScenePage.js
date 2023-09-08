@@ -1,69 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {Breadcrumb} from "antd";
+import React from "react";
 import {inject, observer} from "mobx-react";
-import DetailCommon from "../../../common/DetailCommon";
-import AppSceneStepList from "../../../test/app/scene/components/appSceneStepList";
+import AppSceneDetail from "../../../test/app/scene/components/appSceneDetail";
 
 const PlanToAppScenePage = (props) =>{
-    const {testPlanStore,appSceneStore} = props;
-    const {findAppScene,updateAppScene} = appSceneStore;
-    const {findTestPlan} = testPlanStore;
-
-    const [appScene, setAppScene] = useState();
-    const [testPlanName, setTestPlanName] = useState();
-    const appSceneId = sessionStorage.getItem('appSceneId');
-    const testPlanId = sessionStorage.getItem('testPlanId');
-
-
-    useEffect(()=>{
-        findAppScene(appSceneId).then(res=>{
-            setAppScene(res);
-        })
-    },[appSceneId])
-
-    useEffect(async ()=>{
-        let res = await findTestPlan(testPlanId)
-        setTestPlanName(res.name);
-
-    },[testPlanId])
-
-
-    //更新名称
-    const updateTitle = (value) =>{
-        const param = {
-            id:setAppScene.id,
-            testCase: {
-                ...setAppScene.testCase,
-                name:value,
-            }
-        }
-        updateAppScene(param).then(()=>{
-            findAppScene(appSceneId).then(res=>{
-                setAppScene(res);
-            })
-        })
-    }
-
-    const toTestPlan = () =>{
-        props.history.push("/repository/plan")
-    }
-
-
-    const toTestPlanDetail = () =>{
-          props.history.push(`/repository/plan/${testPlanId}`)
-    }
 
 
     return(
-        <div className={"content-box-center"}>
-
-            <DetailCommon
-                detailInfo={appScene}
-                updateTitle={updateTitle}
-            />
-
-            <AppSceneStepList {...props}/>
-        </div>
+        <>
+            <AppSceneDetail />
+        </>
     )
 }
 

@@ -27,20 +27,8 @@ const PlanToApiUnitPage = (props) =>{
     },[apiUnitId])
 
 
-    const toTestPlan = () =>{
-        props.history.push("/repository/plan")
-    }
-
-
-    const toTestPlanDetail = () =>{
-          props.history.push(`/repository/plan/${testPlanId}`)
-    }
-
-
-
     return(
         <div className={"content-box-center"}>
-
 
             <ApiUnitEditPageCommon {...props} />
 

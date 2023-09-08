@@ -8,10 +8,7 @@ import AppSceneDetail from "./appSceneDetail";
 
 const AppSceneContent = (props) =>{
     const {appSceneStore} = props;
-    const {findAppScene,updateAppScene} = appSceneStore;
-
-    const [caseInfo,setCaseInfo]=useState();
-    const [caseName, setCaseName] = useState();
+    const {caseName} = appSceneStore;
 
     let {id} = useParams()
     const appSceneId = sessionStorage.getItem('appSceneId') || id;
@@ -20,34 +17,13 @@ const AppSceneContent = (props) =>{
         //获取路由id存入
         sessionStorage.setItem('appSceneId',id);
 
-        findAppScene(appSceneId).then(res=>{
-            setCaseInfo(res);
-            setCaseName(res?.testCase?.name)
-        })
     },[appSceneId])
 
 
-    //更新名称
-    const updateName = (e) =>{
-        let name = e.target.value
-        setCaseName(name)
-        const param = {
-            id:caseInfo.id,
-            testCase: {
-                ...caseInfo.testCase,
-                name:name,
-            }
-        }
-        updateAppScene(param).then(()=>{
-            findAppScene(appSceneId).then(res=>{
-                setCaseInfo(res);
-            })
-        })
-    }
 
     return(
         <>
-            <div className={"breadcrumb-title_between"}>
+            <div className={"breadcrumb-title_between"} style={{border:"none"}}>
                 <Breadcrumb className={"breadcrumb-box"}>
                     <IconCommon
                         icon={"jiekou1"}
@@ -55,11 +31,7 @@ const AppSceneContent = (props) =>{
                         style={{margin: "3px 5px 0"}}
                     />
                     <Breadcrumb.Item>
-                        <Input
-                            value={caseName}
-                            className={"case-header_title"}
-                            onChange={updateName}
-                        />
+                        <div className={"case-header_title"}>{caseName}</div>
                     </Breadcrumb.Item>
                 </Breadcrumb>
                 <DrawerCloseIcon />

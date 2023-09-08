@@ -13,8 +13,6 @@ const ConnectSelectCommon = (props) =>{
     } = props;
 
 
-
-
     return(
         <>
             <div style={{padding:"0 0 15px"}}>
@@ -55,7 +53,6 @@ const ConnectSelectCommon = (props) =>{
                     />
                 </div>
             </div>
-
         </>
     )
 }

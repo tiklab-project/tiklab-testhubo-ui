@@ -4,23 +4,36 @@ import ApiPerformDetailCommon from "./apiPerformDetailCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
 import {useHistory} from "react-router";
-import {Button, Space} from "antd";
+import {Button, Form, Space} from "antd";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
+import DetailCommon from "../../../../../common/DetailCommon";
 
 
 const ApiPerformDetail = (props) =>{
     const {apiPerfStore,apiEnvStore} = props;
-    const {findApiPerf} = apiPerfStore;
+    const {findApiPerf,updateApiPerf} = apiPerfStore;
     const { envUrl } =apiEnvStore;
 
+    const [form] = Form.useForm()
     const [caseInfo,setCaseInfo]=useState();
-
     const history = useHistory();
     const apiPerfId = sessionStorage.getItem("apiPerfId");
     useEffect(()=>{
         findApiPerf(apiPerfId).then(res=>{
             setCaseInfo(res);
+
+            let testCase = res.testCase
+            form.setFieldsValue({
+                name: testCase.name,
+                category:testCase.category?.id,
+                updateTime:testCase.updateTime,
+                createTime:testCase.createTime,
+                status:testCase.status,
+                priorityLevel:testCase.priorityLevel,
+                director:testCase.director?.id,
+            })
         })
+
     },[apiPerfId])
 
     const toExePage = () =>{
@@ -31,20 +44,33 @@ const ApiPerformDetail = (props) =>{
         }
     }
 
+
+    const updateCase = async () =>{
+        let newData = await form.getFieldsValue()
+        const params = {
+            id:caseInfo.id,
+            testCase: {
+                ...caseInfo.testCase,
+                name:newData.name,
+                category:{id:newData.category||"nullstring"},
+                status:newData.status,
+                priorityLevel:newData.priorityLevel,
+                director: {id:newData.director},
+            }
+        }
+        updateApiPerf(params).then(()=>{
+            findApiPerf(apiPerfId).then(res=>{
+                setCaseInfo(res);
+            })
+        })
+    }
+
+
     return(
         <div className={"content-box-center"}>
-            <div className={"detail-box"}
-                 style={{
-                     padding:"20px 0",
-                     display:"flex",
-                     alignItems:"center",
-                     justifyContent:"space-between"
-                 }}
-            >
-                <div className={"detail-bottom"} style={{flex:"1"}}>
-                    <span className={"detail-bottom-item "}>分组:{caseInfo?.testCase?.category?.name||"未设置"} </span>
-                    <span className={"detail-bottom-item "}>更新者:{caseInfo?.testCase?.updateUser?.nickname||"未更新"}</span>
-                    <span className={"detail-bottom-item "}>更新时间:{caseInfo?.testCase?.updateTime}</span>
+            <div className='title-space-between'>
+                <div className={"case-title_weight"}>
+                    <div>基本信息</div>
                 </div>
                 <Space>
                     <IconBtn
@@ -59,6 +85,12 @@ const ApiPerformDetail = (props) =>{
                     </Button>
                 </Space>
             </div>
+            <DetailCommon
+                type={true}
+                detailInfo={caseInfo}
+                updateCase={updateCase}
+                form={form}
+            />
 
             <ApiPerformDetailCommon type={true} {...props} />
         </div>

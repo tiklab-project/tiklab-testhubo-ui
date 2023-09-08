@@ -4,7 +4,7 @@ import DemandSelect from "./DemandSelect";
 import "./demandStyle.scss"
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../../assets/img/empty.png"
-import {Descriptions} from "antd";
+import {Descriptions, Space} from "antd";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
@@ -26,7 +26,7 @@ const Demand = (props)=>{
                     setDemandInfo(res.data)
                     setBinded(true)
                 }else {
-                    messageFn("error","TeamWire连接失败!")
+                    // messageFn("error","TeamWire连接失败!")
                 }
 
             })
@@ -62,38 +62,28 @@ const Demand = (props)=>{
     const isBind = () =>{
         if(binded){
             return(
-                <Descriptions
-                    title={
-                        <div
-                            style={{
-                                display: "flex",
-                                gap: "10px",
-                                alignItems: "center"
-                            }}
-                        >
-                            <a>{demandInfo?.name}</a>
-                            <IconBtn
-                                className="pi-icon-btn-grey"
-                                onClick={unBind}
-                                name={"解绑"}
-                            />
-                        </div>
+                <Space>
+                    <span style={{fontSize: "13px", color: "#9b9b9b", margin: "0 43px 0 0"}}>需求 :</span>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "10px",
+                            alignItems: "center",
+                            fontWeight:"500"
+                        }}
+                    >
+                        <span>{demandInfo?.name}</span>
+                        <a onClick={unBind} style={{fontSize:"12px"}}>解绑</a>
+                    </div>
+                </Space>
 
-                    }
-                    onClick={()=>toWorkItem(demandInfo)}
-                    column={4}
-               />
             )
         }else {
             return (
                 <>
                     <div className={` ${showSelect?"demand_hide":"demand_show"}`}>
-                        <div className={`demand-content_empty`}>
-                            <img src={emptyImg} alt={"empty"} width={100} height={100}/>
-                            <span style={{"color": "grey","fontSize":"13px"}}>
-                            <span>未关联需求 </span>
-                            <span className={"demand-content_add"} onClick={()=>setShowSelect(true)}>请关联</span></span>
-                        </div>
+                        <span style={{fontSize: "13px", color: "#9b9b9b", margin: "0 43px 0 0"}}>需求 :</span>
+                        <span className={"demand-content_add"} onClick={()=>setShowSelect(true)}>未关联</span>
                     </div>
                     <div style={{height:"400px"}} className={`demand_project_select ${showSelect?"demand_show":"demand_hide"}` }>
                         <DemandSelect
@@ -113,7 +103,6 @@ const Demand = (props)=>{
         <div className={"detail-box "}>
             <div style={{height:"100%",padding: "0 0 20px"}}>
                 {isBind()}
-
             </div>
         </div>
     )

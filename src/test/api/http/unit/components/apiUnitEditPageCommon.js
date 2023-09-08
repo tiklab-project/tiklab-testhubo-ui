@@ -2,7 +2,6 @@ import React, { useEffect, useState} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Form, Input, Select, Space} from 'antd';
 import Request from './request';
-import '../../../../testcase/components/unitcase.scss'
 import {dictionary} from "../../../../../common/dictionary/dictionary";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
@@ -29,6 +28,7 @@ const ApiUnitEditPageCommon = (props) => {
 
     const [showValidateStatus, setShowValidateStatus ] = useState()
     const [resData, setResData] = useState();
+    const [name,setName]=useState();
     const [methodType,setMethodType] =useState();
     const [path, setPath] = useState();
     const [assertList, setAssertList] = useState();
@@ -38,6 +38,7 @@ const ApiUnitEditPageCommon = (props) => {
     useEffect(async ()=>{
         let res = await findApiUnit(apiUnitId)
         setResData(res)
+        setName(res.testCase.name);
         setMethodType(res.methodType);
         setPath(res.path)
 
@@ -75,6 +76,23 @@ const ApiUnitEditPageCommon = (props) => {
         history.push("/repository/testcase/api-unit-instance")
     }
 
+    //编辑名称
+    const editName = () => {
+        if(name!==resData.testCase?.name) {
+            let param = {
+                id: apiUnitId,
+                testCase: {
+                    id: apiUnitId,
+                    name: name,
+                }
+            }
+            updateApiUnit(param).then(() => {
+                findApiUnit(apiUnitId).then(res=>setResData(res))
+            })
+        }
+
+        setShowValidateStatus(null)
+    };
 
     //编辑请求类型
     const selectMethodType = (methodType) =>{
@@ -112,10 +130,10 @@ const ApiUnitEditPageCommon = (props) => {
 
     return(
         <div className={"content-box-center"}>
-
             <div className={"api-unit-base"}>
                 <div className='header-box-space-between'>
-                    <Space className={'api-base-edit-url-box'} style={{width: "480px"}}>
+                    <div style={{height:32,"display":"flex","gap":"10px","alignItems":"center"}}>
+
                         <Select
                             style={{width:75,height:32}}
                             value={methodType}
@@ -132,21 +150,23 @@ const ApiUnitEditPageCommon = (props) => {
                                 })
                             }
                         </Select>
-                        <Input
-                            defaultValue={path}
-                            onPressEnter={editPath}
-                            onBlur={editPath}
-                            onFocus={()=>setShowValidateStatus("editPath")}
-                            value={path}
-                            onChange={(e)=>setPath(e.target.value)}
-                            suffix={
-                                showValidateStatus === "editPath"
-                                    ? <span/>
-                                    :null
-                            }
-                        />
-                    </Space>
 
+                        <div className={"api-base-info-box-name"}>
+                            <Input
+                                defaultValue={name}
+                                onPressEnter={editName}
+                                onBlur={editName}
+                                value={name}
+                                onChange={(e)=>setName(e.target.value)}
+                                onFocus={()=>setShowValidateStatus("editName")}
+                                suffix={
+                                    showValidateStatus === "editName"
+                                        ? <span/>
+                                        :null
+                                }
+                            />
+                        </div>
+                    </div>
 
                     {
                         props.type
@@ -171,6 +191,22 @@ const ApiUnitEditPageCommon = (props) => {
                 </div>
 
 
+                <div className={'api-base-edit-url-box'} style={{width: "480px"}}>
+                    <Input
+                        defaultValue={path}
+                        onPressEnter={editPath}
+                        onBlur={editPath}
+                        onFocus={()=>setShowValidateStatus("editPath")}
+                        value={path}
+                        onChange={(e)=>setPath(e.target.value)}
+                        suffix={
+                            showValidateStatus === "editPath"
+                                ? <span/>
+                                :null
+                        }
+                    />
+                </div>
+
                 <div className={"method"}>
                     <div className={"method-people-info"}>
                         <span className={"people-item "}>分组: {resData?.testCase?.category?.name||"未设置"}</span>
@@ -187,7 +223,7 @@ const ApiUnitEditPageCommon = (props) => {
             </div>
 
             <div className='header-title ex-title'> 响应</div>
-                <Response />
+            <Response />
 
         </div>
     )

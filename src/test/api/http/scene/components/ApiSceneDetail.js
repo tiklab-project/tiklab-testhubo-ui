@@ -1,24 +1,38 @@
 import React, {useEffect, useState} from "react";
-import {Button, Space} from "antd";
+import {Button, Space,Form} from "antd";
 import ApiSceneStepList from "./apiSceneStepList";
 import {inject, observer} from "mobx-react";
 import {useHistory} from "react-router";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
+import CaseContentCommon from "../../../../common/CaseContentCommon";
+import DetailCommon from "../../../../../common/DetailCommon";
 
 const ApiSceneDetail = (props) =>{
     const {apiSceneStore,apiEnvStore} = props;
-    const {findApiScene} = apiSceneStore;
+    const {findApiScene,updateApiScene} = apiSceneStore;
     const { envUrl } =apiEnvStore;
 
+    const [form] = Form.useForm()
     const [caseInfo,setCaseInfo]=useState();
-
     let history = useHistory()
     const apiSceneId = sessionStorage.getItem('apiSceneId');
     useEffect(()=> {
         findApiScene(apiSceneId).then(res=>{
             setCaseInfo(res);
+
+            let testCase = res.testCase
+            form.setFieldsValue({
+                name: testCase.name,
+                category:testCase.category?.id,
+                updateTime:testCase.updateTime,
+                createTime:testCase.createTime,
+                status:testCase.status,
+                priorityLevel:testCase.priorityLevel,
+                director:testCase.director?.id,
+            })
+
         })
     },[apiSceneId])
     
@@ -30,38 +44,65 @@ const ApiSceneDetail = (props) =>{
         }
     }
 
+
+    const updateCase = async () =>{
+        let newData = await form.getFieldsValue()
+        const params = {
+            id:caseInfo.id,
+            testCase: {
+                ...caseInfo.testCase,
+                name:newData.name,
+                category:{id:newData.category||"nullstring"},
+                status:newData.status,
+                priorityLevel:newData.priorityLevel,
+                director: {id:newData.director},
+            }
+        }
+        updateApiScene(params).then(()=>{
+            findApiScene(apiSceneId).then(res=>{
+                setCaseInfo(res);
+            })
+        })
+    }
+
+
+    const tabItem=[
+        {
+            label: `详细信息`,
+            key: '1',
+            children:<DetailCommon
+                type={true}
+                detailInfo={caseInfo}
+                updateCase={updateCase}
+                form={form}
+            />
+        },{
+            label: `测试步骤`,
+            key: '2',
+            children: <ApiSceneStepList />
+        }
+    ]
+
     return(
-        <div className={"content-box-center"}>
-            <div className={"detail-box"}
-                 style={{
-                     padding:"20px 0",
-                     display:"flex",
-                     alignItems:"center",
-                     justifyContent:"space-between"
-
-                 }}
-            >
-                <div className={"detail-bottom"} style={{flex:"1"}}>
-                    <span className={"detail-bottom-item "}>分组:{caseInfo?.testCase?.category?.name||"未设置"} </span>
-                    <span className={"detail-bottom-item "}>更新者:{caseInfo?.testCase?.updateUser?.nickname||"未更新"}</span>
-                    <span className={"detail-bottom-item "}>更新时间:{caseInfo?.testCase?.updateTime}</span>
-                </div>
-                <Space>
-                    <IconBtn
-                        className="pi-icon-btn-grey"
-                        icon={"lishi"}
-                        onClick={()=>history.push("/repository/testcase/api-scene-instance")}
-                        name={"历史"}
-                    />
-                    <ApiEnvDropDownSelect />
-                    <Button className={"important-btn"} onClick={toExePage}>
-                        测试
-                    </Button>
-                </Space>
-            </div>
-
-            <ApiSceneStepList />
-        </div>
+        <>
+            <CaseContentCommon
+                tabItem={tabItem}
+                tabBarExtraContent={
+                    <Space>
+                        <IconBtn
+                            className="pi-icon-btn-grey"
+                            icon={"lishi"}
+                            onClick={()=>history.push("/repository/testcase/api-scene-instance")}
+                            name={"历史"}
+                        />
+                        <ApiEnvDropDownSelect />
+                        <Button className={"important-btn"} onClick={toExePage}>
+                            测试
+                        </Button>
+                    </Space>
+                }
+            />
+        </>
     )
 }
 

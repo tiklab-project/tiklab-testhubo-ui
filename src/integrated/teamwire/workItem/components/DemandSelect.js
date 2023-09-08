@@ -84,7 +84,7 @@ const DemandSelect = (props) =>{
             if(res.code===0){
                 setWorkItemList(res.data);
             }else {
-                messageFn("error","TeamWire连接失败!")
+                // messageFn("error","TeamWire连接失败!")
             }
         })
     }

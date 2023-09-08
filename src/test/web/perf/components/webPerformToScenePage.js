@@ -64,7 +64,7 @@ const WebPerformToScenePage = (props) =>{
             </div>
             <DetailCommon
                 detailInfo={webScene}
-                updateTitle={updateTitle}
+                updateCase={updateCase}
             />
 
             <WebSceneStepList {...props}/>

@@ -6,6 +6,7 @@ export class FuncUnitStore {
 
     @observable funcUnitList = [];
     @observable funcUnitInfo;
+    @observable caseName;
 
     @action
     findFuncUnitList = async (value) => {
@@ -26,6 +27,7 @@ export class FuncUnitStore {
         const res = await Axios.post("/funcUnitCase/findFuncUnitCase",param);
         if( res.code === 0){
             this.funcUnitInfo = res.data;
+            this.caseName =res.data.testCase.name
             return  res.data;
         }
     }

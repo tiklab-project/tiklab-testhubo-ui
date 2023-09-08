@@ -3,7 +3,7 @@ import {Avatar, Empty, Input, Popconfirm, Space, Table, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
 import IconCommon from "../../../common/IconCommon";
-import {showCaseTypeView, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeInList, showCaseTypeView, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined} from "@ant-design/icons";
 import ApiUnitInstanceDrawer from "../../api/http/unit/components/apiUnitInstanceDrawer";
 import ApiSceneInstanceDrawer from "../../api/http/scene/components/apiSceneInstanceSinglePage";
@@ -50,11 +50,11 @@ const TestCaseTable = (props) => {
             )
         },
         {
-            title: `测试类型`,
-            dataIndex: "testType",
-            key: "testType",
+            title: `用例类型`,
+            dataIndex: "caseType",
+            key: "caseType",
             width:"10%",
-            render: (text) =>(showTestTypeView(text))
+            render: (text) =>(showCaseTypeInList(text))
         },
         {
             title: `最近执行`,

@@ -59,7 +59,7 @@ const AppPerformDetail = (props) =>{
             <DetailCommon
                 type={true}
                 detailInfo={detailInfo}
-                updateTitle={updateTitle}
+                updateCase={updateCase}
                 toHistory={toHistory}
                 test={ <AppPerformTestDrawer />}
             />

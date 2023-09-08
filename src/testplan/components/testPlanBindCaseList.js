@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Empty, Popconfirm, Space, Table} from "antd";
-import TestPlanTestcaseAdd from "./testPlanBindCaseModal";
+import TestPlanTestcaseAdd from "./testPlanBindCase";
 import IconCommon from "../../common/IconCommon";
-import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeInList, showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
 import emptyImg from "../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
+import IconBtn from "../../common/iconBtn/IconBtn";
+import TestPlanBindCase from "./testPlanBindCase";
 
 const TestPlanBindCaseList = (props) =>{
+    const {testcaseStore} = props
     const {findBindTestCaseList,testPlanDetailList,deleteTestPlanDetail} = testPlanDetailStore;
+    const {findTestCaseList} = testcaseStore;
     //列表头
     const columns = [
         {
@@ -27,7 +31,7 @@ const TestPlanBindCaseList = (props) =>{
             title:`用例类型`,
             dataIndex:["testCase","caseType"],
             key: "type",
-            render:(text,record)=>(showCaseTypeView(record.testCase?.caseType))
+            render:(text,record)=>(showCaseTypeInList(record.testCase?.caseType))
         },
         {
             title: `操作`,
@@ -51,6 +55,7 @@ const TestPlanBindCaseList = (props) =>{
         },
     ]
 
+    let repositoryId = sessionStorage.getItem("repositoryId")
     const testPlanId = sessionStorage.getItem('testPlanId')
 
     const [totalRecord, setTotalRecord] = useState();
@@ -142,41 +147,57 @@ const TestPlanBindCaseList = (props) =>{
         setPageParam(newParams)
     }
 
+    const [visible, setVisible] = useState(false);
+    const showConnect =()=>{
+        findTestCaseList({repositoryId:repositoryId})
+        setVisible(true);
+    }
+
+
     return(
-        <>
-
-            <div className='title-space-between'>
-                <div className={'test-title'}>
-                    <div>关联用例</div>
+        <div style={{margin:"10px 0",height:"100%"}}>
+            <div className={`${visible?"teston-hide":"teston-show"}`} >
+                <div className='title-space-between'>
+                    <div className={'test-title'}>
+                        <div>关联用例</div>
+                    </div>
+                    <IconBtn
+                        className="pi-icon-btn-grey"
+                        name={"关联用例"}
+                        onClick={showConnect}
+                    />
                 </div>
-                <TestPlanTestcaseAdd testPlanId={testPlanId}/>
-            </div>
 
-            <div className={"table-list-box"}>
-                <Table
-                    className="tablelist"
-                    columns={columns}
-                    dataSource={testPlanDetailList}
-                    rowKey={record => record.id}
-                    pagination={{
-                        current:currentPage,
-                        pageSize:pageSize,
-                        total:totalRecord,
-                    }}
-                    onChange = {(pagination) => onTableChange(pagination)}
-                    locale={{
-                        emptyText: <Empty
-                            imageStyle={{height: 120}}
-                            description={<span>暂无用例</span>}
-                            image={emptyImg}
-                        />,
-                    }}
+                <div className={"table-list-box"}>
+                    <Table
+                        className="tablelist"
+                        columns={columns}
+                        dataSource={testPlanDetailList}
+                        rowKey={record => record.id}
+                        pagination={{
+                            current:currentPage,
+                            pageSize:pageSize,
+                            total:totalRecord,
+                        }}
+                        onChange = {(pagination) => onTableChange(pagination)}
+                        locale={{
+                            emptyText: <Empty
+                                imageStyle={{height: 120}}
+                                description={<span>暂无用例</span>}
+                                image={emptyImg}
+                            />,
+                        }}
+                    />
+                </div>
+            </div>
+            <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
+                <TestPlanBindCase
+                    setVisible={setVisible}
                 />
             </div>
-
-        </>
+        </div>
 
     )
 }
 
-export default observer(TestPlanBindCaseList);
+export default inject("testcaseStore")(observer(TestPlanBindCaseList));
