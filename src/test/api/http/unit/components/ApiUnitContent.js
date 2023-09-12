@@ -1,43 +1,31 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {Breadcrumb, Input} from "antd";
 import { useParams} from "react-router";
 import ApiUnitEditPageCommon from "./apiUnitEditPageCommon";
-import IconCommon from "../../../../../common/IconCommon";
-import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
+import CaseBread from "../../../../../common/CaseBread";
 
 
 const ApiUnitContent = (props) =>{
     const {apiUnitStore} = props;
-    const {caseName} = apiUnitStore;
-
+    const {testCaseInfo} = apiUnitStore;
 
     let {id} = useParams()
     const apiUnitId = sessionStorage.getItem('apiUnitId') || id;
 
-    useEffect(()=> {
+    useEffect(async ()=>{
         //获取路由id存入
         sessionStorage.setItem('apiUnitId',id);
 
     },[apiUnitId])
 
-
     return(
-
         <>
-            <div className={"breadcrumb-title_between"}>
-                <Breadcrumb className={"breadcrumb-box"}>
-                    <IconCommon
-                        icon={"jiekou1"}
-                        className="icon-s "
-                        style={{margin: "3px 5px 0"}}
-                    />
-                    <Breadcrumb.Item>
-                        <div className={"case-header_title"}>{caseName}</div>
-                    </Breadcrumb.Item>
-                </Breadcrumb>
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread
+                icon={"jiekou1"}
+                title={testCaseInfo?.name}
+                caseType={testCaseInfo?.caseType}
+            />
+
             <ApiUnitEditPageCommon/>
         </>
     )

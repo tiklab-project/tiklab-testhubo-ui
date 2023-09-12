@@ -169,7 +169,7 @@ const ApiUnitEditPageCommon = (props) => {
                     </div>
 
                     {
-                        props.type
+                        props.planType
                             ? null
                             :<Space>
                                 <IconBtn

@@ -1,15 +1,12 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect} from 'react';
 import { inject,observer } from 'mobx-react';
-import {useHistory, useParams} from "react-router";
-import {Breadcrumb, Input} from "antd";
-import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
-import IconCommon from "../../../../../common/IconCommon";
+import {useParams} from "react-router";
 import ApiSceneDetail from "./ApiSceneDetail";
+import CaseBread from "../../../../../common/CaseBread";
 
 const ApiSceneContent = (props) => {
     const {apiSceneStore} = props;
-    const {caseName} = apiSceneStore;
-
+    const {testCaseInfo} = apiSceneStore
 
     let {id} = useParams()
     const apiSceneId = sessionStorage.getItem('apiSceneId') || id;
@@ -20,23 +17,16 @@ const ApiSceneContent = (props) => {
 
     },[apiSceneId])
 
-
-
     return(
         <>
-            <div className={"breadcrumb-title_between"} style={{border:"none"}}>
-                <Breadcrumb className={"breadcrumb-box"}>
-                    <IconCommon
-                        icon={"jiekou1"}
-                        className="icon-s "
-                        style={{margin: "3px 5px 0"}}
-                    />
-                    <Breadcrumb.Item>
-                        <div className={"case-header_title"}>{caseName}</div>
-                    </Breadcrumb.Item>
-                </Breadcrumb>
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread
+                icon={"jiekou1"}
+                style={{
+                    borderBottom:"none"
+                }}
+                title={testCaseInfo?.name}
+                caseType={testCaseInfo?.caseType}
+            />
             <ApiSceneDetail/>
         </>
     )

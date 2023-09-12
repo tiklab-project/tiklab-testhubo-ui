@@ -71,9 +71,6 @@ const RepositorySettingMenu = (props) =>{
                          key={Item.key}
                          onClick={()=>selectKeyFun(Item.key)}
                     >
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref= {`#${Item.icon}`} />
-                        </svg>
                         <span >
                             {Item.title}
                         </span>
@@ -96,7 +93,7 @@ const RepositorySettingMenu = (props) =>{
                 <ul className="ws-menu-ul" style={{background: "#f5f5f5"}}>
                     <li style={{
                         borderBottom:"1px solid #cecece",
-                        padding:"10px 20px"
+                        padding:"10px 25px"
                     }}
                     >仓库设置</li>
                     {

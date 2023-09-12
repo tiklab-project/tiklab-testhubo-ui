@@ -12,8 +12,6 @@ import "./testPlanStyle.scss"
 import emptyImg from "../../assets/img/empty.png";
 import IconCommon from "../../common/IconCommon";
 import {SearchOutlined} from "@ant-design/icons";
-import TestPlanDrawer from "./TestPlanDrawer";
-
 const TestPlan = (props) => {
     const { testPlanStore } = props;
     const {
@@ -31,13 +29,7 @@ const TestPlan = (props) => {
             title:`计划名称`,
             dataIndex: "name",
             key: "name",
-            render: (text,record) =>(
-                <TestPlanDrawer
-                    planData={record}
-                    findPage={findPage}
-                    {...props}
-                />
-            )
+            render: (text,record) =>(<a onClick={()=>toPlanDetail(record.id)}>{text}</a>)
         },
         {
             title:`起始时间`,
@@ -127,6 +119,12 @@ const TestPlan = (props) => {
                 return '结束'
         }
     }
+
+    // 去往详情页
+    const toPlanDetail = (id) => {
+        sessionStorage.setItem('testPlanId',id);
+        props.history.push(`/repository/plan-detail/${id}`);
+    };
 
     //分页
     const onTableChange = (pagination) => {

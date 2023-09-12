@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {Button, Space,Form} from "antd";
 import ApiSceneStepList from "./apiSceneStepList";
-import {inject, observer} from "mobx-react";
 import {useHistory} from "react-router";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
 import CaseContentCommon from "../../../../common/CaseContentCommon";
 import DetailCommon from "../../../../../common/DetailCommon";
+import {inject, observer} from "mobx-react";
 
 const ApiSceneDetail = (props) =>{
     const {apiSceneStore,apiEnvStore} = props;
@@ -88,18 +88,24 @@ const ApiSceneDetail = (props) =>{
             <CaseContentCommon
                 tabItem={tabItem}
                 tabBarExtraContent={
-                    <Space>
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            icon={"lishi"}
-                            onClick={()=>history.push("/repository/testcase/api-scene-instance")}
-                            name={"历史"}
-                        />
-                        <ApiEnvDropDownSelect />
-                        <Button className={"important-btn"} onClick={toExePage}>
-                            测试
-                        </Button>
-                    </Space>
+                    <>
+                        {
+                        props.planType
+                            ?null
+                            :<Space>
+                                <IconBtn
+                                    className="pi-icon-btn-grey"
+                                    icon={"lishi"}
+                                    onClick={()=>history.push("/repository/testcase/api-scene-instance")}
+                                    name={"历史"}
+                                />
+                                <ApiEnvDropDownSelect />
+                                <Button className={"important-btn"} onClick={toExePage}>
+                                    测试
+                                </Button>
+                            </Space>
+                        }
+                    </>
                 }
             />
         </>

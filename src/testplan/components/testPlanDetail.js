@@ -3,6 +3,7 @@ import {Breadcrumb,  DatePicker, Form, Select} from "antd";
 import {inject, observer} from "mobx-react";
 import TestPlanBindCaseList from "./testPlanBindCaseList";
 import moment from "moment";
+import EdiText from "react-editext";
 import {CaretDownOutlined} from "@ant-design/icons";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import TestPlanENVModal from "./testPlanENVModal";
@@ -80,12 +81,57 @@ const TestPlanDetail = (props) =>{
         updateTestPlan(param)
     }
 
+    //编辑名字
+    const editName = (value) => {
+        let param = {
+            id:testPlanId,
+            name:value
+        }
+        updateTestPlan(param).then(()=>{
+            findTestPlan(testPlanId)
+        })
+    };
+
 
     return(
         <div className={"plan-box"}>
+            <Breadcrumb className={"breadcrumb-box  header-bread"}>
+                <Breadcrumb.Item onClick={goBack} className={"first-item"}>计划</Breadcrumb.Item>
+                <Breadcrumb.Item>{executeDate?.name}</Breadcrumb.Item>
+            </Breadcrumb>
             <Form className="testplan-form-info" form={form} labelAlign={"left"} >
                 <div className="display-flex-between">
-                    <div className={'form-edit-detail'}>
+                    <div style={{width:200,height: 32}}>
+                        <EdiText
+                            value={executeDate?.name}
+                            tabIndex={2}
+                            onSave={editName}
+                            startEditingOnFocus
+                            submitOnUnfocus
+                            showButtonsOnHover
+                            viewProps={{ className: 'edit-api-name' }}
+                            editButtonClassName="ediText-edit"
+                            saveButtonClassName="ediText-save"
+                            cancelButtonClassName="ediText-cancel"
+                            editButtonContent={
+                                <svg className="icon" aria-hidden="true">
+                                    <use xlinkHref= {`#icon-bianji1`} />
+                                </svg>
+                            }
+                            hideIcons
+                        />
+                    </div>
+                    <div className={"display-flex-between"} style={{width: 200}}>
+                        <IconBtn
+                            className="pi-icon-btn-grey"
+                            name={"历史"}
+                            onClick={()=> history.push('/repository/plan-instance')}
+                        />
+                        <TestPlanENVModal {...props}/>
+                        <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
+                    </div>
+                </div>
+                <div className={'form-edit-detail'}>
                         <Form.Item
                             label="起始时间"
                             name="startTime"
@@ -135,17 +181,6 @@ const TestPlanDetail = (props) =>{
                             </Form.Item>
                         </div>
                     </div>
-                    <div className={"display-flex-between"} style={{width: 200}}>
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            name={"历史"}
-                            onClick={()=> history.push('/repository/plan/instance')}
-                        />
-                        <TestPlanENVModal {...props}/>
-                        <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
-                    </div>
-                </div>
-
             </Form>
 
             <TestPlanBindCaseList {...props}/>

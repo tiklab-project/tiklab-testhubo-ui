@@ -5,7 +5,7 @@ export class ApiSceneStore {
 
     @observable apiSceneList = [];
     @observable apiSceneInfo;
-    @observable caseName;
+    @observable testCaseInfo;
 
     @action
     findApiSceneList = async (value) => {
@@ -26,7 +26,7 @@ export class ApiSceneStore {
         const res = await Axios.post("/apiSceneCase/findApiSceneCase",param);
         if( res.code === 0){
             this.apiSceneInfo = res.data;
-            this.caseName = res.data.testCase.name
+            this.testCaseInfo = res.data.testCase
             return  res.data;
         }
     }

@@ -8,6 +8,7 @@ import emptyImg from "../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
 import IconBtn from "../../common/iconBtn/IconBtn";
 import TestPlanBindCase from "./testPlanBindCase";
+import TestPlanBindCaseDrawer from "./TestPlanBindCaseDrawer";
 
 const TestPlanBindCaseList = (props) =>{
     const {testcaseStore} = props
@@ -19,7 +20,13 @@ const TestPlanBindCaseList = (props) =>{
             title:`名称`,
             dataIndex: ["testCase","name"],
             key: "name",
-            render:(text,record)=>(<a onClick={()=>toDiffCase(record.testCase)}>{text}</a>)
+            render:(text,record)=>(
+                <TestPlanBindCaseDrawer
+                    caseData={record.testCase}
+                    testPlanId={testPlanId}
+                    {...props}
+                />
+            )
         },
         {
             title:`测试类型`,
@@ -83,55 +90,6 @@ const TestPlanBindCaseList = (props) =>{
     }
 
 
-    const toDiffCase = (record) =>{
-        switch (record.testType) {
-            case "api":
-            case "ui":
-            case "perform":
-                switchCaseType(record);
-                break;
-            case "function":
-                sessionStorage.setItem(`funcUnitId`,record.id);
-                props.history.push(`/repository/plan/function`)
-                break;
-        }
-    }
-
-    //再根据不同的用例类型跳到不同的页面
-    const switchCaseType = (record)=>{
-        switch (record.caseType) {
-            case "api-unit":
-                toDetailAddRouterCommon("apiUnitId",record)
-                break;
-            case "api-scene":
-                toDetailAddRouterCommon("apiSceneId",record)
-                break;
-            case "api-perform":
-                toDetailAddRouterCommon("apiPerfId",record)
-                break;
-
-            case "web-scene":
-                toDetailAddRouterCommon("webSceneId",record)
-                break;
-            case "web-perform":
-                toDetailAddRouterCommon("webPerfId",record)
-                break;
-
-            case "app-scene":
-                toDetailAddRouterCommon("appSceneId",record)
-                break;
-
-            case "app-perform":
-                toDetailAddRouterCommon("appPerfId",record)
-                break;
-        }
-    }
-
-    //跳转路由
-    const toDetailAddRouterCommon = (setId,record)=>{
-        sessionStorage.setItem(`${setId}`,record.id);
-        props.history.push(`/repository/plan/${record.caseType}`)
-    }
 
     // 分页
     const onTableChange = (pagination) => {

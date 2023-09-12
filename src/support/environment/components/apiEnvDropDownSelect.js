@@ -3,10 +3,11 @@ import {inject, observer} from "mobx-react";
 import "./envStyle.scss"
 import { Dropdown, Menu} from "antd";
 import IconBtn from "../../../common/iconBtn/IconBtn";
+import ApiEnvModel from "./apiEnvModel";
 
 const ApiEnvDropDownSelect = (props) =>{
     const {apiEnvStore} = props;
-    const {findApiEnvList,apiEnvList,getTestEnvUrl,envUrl} = apiEnvStore;
+    const {findApiEnvList,apiEnvSourceList,getTestEnvUrl,envUrl} = apiEnvStore;
 
     let repositoryId = sessionStorage.getItem("repositoryId")
 
@@ -18,10 +19,14 @@ const ApiEnvDropDownSelect = (props) =>{
         <Menu>
             <Menu.Item key={"default"}  onClick={()=>{getTestEnvUrl(null)}}>无</Menu.Item>
             {
-                apiEnvList&&apiEnvList.map(item=>{
+                apiEnvSourceList&&apiEnvSourceList.map(item=>{
                     return <Menu.Item key={item.id}  defaultValue={envUrl} onClick={()=>{getTestEnvUrl(item.preUrl)}}>{item.name}</Menu.Item>
                 })
             }
+            <Menu.Item>
+                <ApiEnvModel />
+            </Menu.Item>
+
         </Menu>
     );
 

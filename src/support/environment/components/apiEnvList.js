@@ -14,7 +14,7 @@ const ApiEnvList = (props) => {
     const { apiEnvStore } = props;
     const {
         findApiEnvList,
-        apiEnvList,
+        apiEnvSourceList,
         deleteApiEnv,
     } = apiEnvStore;
 
@@ -64,7 +64,7 @@ const ApiEnvList = (props) => {
             <Table
                 className="tablelist"
                 columns={columns}
-                dataSource={apiEnvList}
+                dataSource={apiEnvSourceList}
                 rowKey={record =>record.id}
                 pagination={false}
                 locale={{

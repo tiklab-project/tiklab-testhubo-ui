@@ -72,18 +72,23 @@ const ApiPerformDetail = (props) =>{
                 <div className={"case-title_weight"}>
                     <div>基本信息</div>
                 </div>
-                <Space>
-                    <IconBtn
-                        className="pi-icon-btn-grey"
-                        icon={"lishi"}
-                        onClick={()=>history.push("/repository/testcase/api-perform-instance")}
-                        name={"历史"}
-                    />
-                    <ApiEnvDropDownSelect />
-                    <Button className={"important-btn"} onClick={toExePage}>
-                        测试
-                    </Button>
-                </Space>
+                {
+                    props.planType
+                        ? null
+                        :<Space>
+                            <IconBtn
+                                className="pi-icon-btn-grey"
+                                icon={"lishi"}
+                                onClick={()=>history.push("/repository/testcase/api-perform-instance")}
+                                name={"历史"}
+                            />
+                            <ApiEnvDropDownSelect />
+                            <Button className={"important-btn"} onClick={toExePage}>
+                                测试
+                            </Button>
+                        </Space>
+                }
+
             </div>
             <DetailCommon
                 type={true}

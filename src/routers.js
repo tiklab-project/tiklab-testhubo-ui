@@ -37,53 +37,54 @@ import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
 
 
 //---内部
-let Home = LazyComponent(() => import("./home/Home"));
-let Repository = LazyComponent(() => import("./repository/repository/components/Repository"));
-let RepositoryDetailPage = LazyComponent(() => import("./repository/overview/RepositoryOverView"));
-let CategoryList = LazyComponent(() => import("./category/components/CategoryList"));
-let TestPlan = LazyComponent(() => import("./testplan/components/testPlan"));
 let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
+let LoginOut = LazyComponent(() => import("./home/header/LoginOut"));
+let LoginContent = LazyComponent(() => import("./login/LoginContent"));
+let Home = LazyComponent(() => import("./home/Home"));
+
+let Repository = LazyComponent(() => import("./repository/repository/components/Repository"));
+let RepositoryEdit = LazyComponent(() => import("./repository/repository/components/RepositoryEdit"));
+let RepositoryDetailPage = LazyComponent(() => import("./repository/overview/RepositoryOverView"));
 let RepositoryDetailLayout = LazyComponent(() => import("./repository/common/RepositoryDetailLayout"));
+let RepositorySettingMenu = LazyComponent(() => import("./repository/setting/RepositorySettingMenu"));
+let RepositorySetting = LazyComponent(() => import("./repository/setting/RepositorySetting"));
+
+let CategoryList = LazyComponent(() => import("./category/components/CategoryList"));
+
+let TestCaseTable = LazyComponent(() => import("./test/testcase/components/TestCaseTable"));
+
 let ApiUnitContent = LazyComponent(() => import("./test/api/http/unit/components/apiUnitContent"));
-let ApiScenecaseDetail = LazyComponent(() => import("./test/api/http/scene/components/apiSceneContent"));
+let ApiUnitInstanceList = LazyComponent(() => import("./test/api/http/unit/components/apiUnitInstanceList"));
+let ApiSceneContent = LazyComponent(() => import("./test/api/http/scene/components/apiSceneContent"));
 let ApiExecuteTestPage = LazyComponent(() => import("./test/api/http/scene/components/ApiExecuteTestPage"));
 let ApiSceneInstanceSinglePage = LazyComponent(() => import( "./test/api/http/scene/components/apiSceneInstanceSinglePage"));
+let ApiSceneInstanceList = LazyComponent(() => import("./test/api/http/scene/components/apiSceneInstanceList"));
+let ApiSceneToUnitPage = LazyComponent(() => import("./test/api/http/scene/components/apiSceneToUnitPage"));
 let ApiPerfContent = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfContent"));
 let ApiPerfExecuteTestPage = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfExecuteTestPage"));
-let FuncUnitDetail = LazyComponent(() => import("./test/function/components/FunctionContent"));
-let EnvContent = LazyComponent(() => import("./support/environment/components/envContent"));
-let LoginOut = LazyComponent(() => import("./home/header/LoginOut"));
-let WebPerformDetail = LazyComponent(() => import("./test/web/perf/components/webPerformDetail"));
-let AppPerformDetail = LazyComponent(() => import("./test/app/perf/components/appPerformDetail"));
-let WebExecuteTestPage = LazyComponent(() =>import( "./test/web/scene/components/WebExecuteTestPage"));
-let AppExecuteTestPage = LazyComponent(() =>import("./test/app/scene/components/AppExecuteTestPage"));
-let WebSceneContent = LazyComponent(() => import("./test/web/scene/components/WebSceneContent"));
-let TestPlanDetail = LazyComponent(() => import("./testplan/components/testPlanDetail"));
-let AgentConfigList = LazyComponent(() => import("./support/agent/components/AgentConfigList"));
-let DomainRole = LazyComponent(() => import("./repository/setting/DomainRole"));
-let DomainPrivilege = LazyComponent(() => import("./repository/setting/DomainPrivilege"));
-let SystemContent = LazyComponent(() => import("./setting/system/SystemContent"));
-let LoginContent = LazyComponent(() => import("./login/LoginContent"));
-let Version = LazyComponent(() => import("./setting/version/Version"));
-let RepositorySettingMenu = LazyComponent(() => import("./repository/setting/RepositorySettingMenu"));
-let TestCaseTable = LazyComponent(() => import("./test/testcase/components/TestCaseTable"));
-let RepositorySetting = LazyComponent(() => import("./repository/setting/RepositorySetting"));
-let ApiUnitInstanceList = LazyComponent(() => import("./test/api/http/unit/components/apiUnitInstanceList"));
-let ApiSceneInstanceList = LazyComponent(() => import("./test/api/http/scene/components/apiSceneInstanceList"));
 let ApiPerfInstanceList = LazyComponent(() => import("./test/api/http/perf/components/apiPerfInstanceList"));
-let WebSceneInstanceList = LazyComponent(() => import("./test/web/scene/components/webSceneInstanceList"));
-let WebPerfInstanceList = LazyComponent(() => import("./test/web/perf/components/webPerfInstanceList"));
-let AppSceneInstanceList = LazyComponent(() => import("./test/app/scene/components/appSceneInstanceList"));
-let AppPerfInstanceList = LazyComponent(() => import("./test/app/perf/components/appPerfInstanceList"));
-let TestPlanInstanceList = LazyComponent(() => import("./testplan/components/testPlanInstanceList"));
-let AppSceneContent = LazyComponent(() => import("./test/app/scene/components/AppSceneContent"));
-let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/components/testPlanBindCaseInstanceList"));
-let TestReportList = LazyComponent(() => import("./testreport/testReportList"));
-let TestReportDetail = LazyComponent(() => import("./testreport/testReportDetail"));
-let ApiSceneToUnitPage = LazyComponent(() => import("./test/api/http/scene/components/apiSceneToUnitPage"));
 let ApiPerformToScenePage = LazyComponent(() => import("./test/api/http/perf/components/apiPerformToScenePage"));
+
+let WebSceneContent = LazyComponent(() => import("./test/web/scene/components/WebSceneContent"));
+let WebExecuteTestPage = LazyComponent(() =>import( "./test/web/scene/components/WebExecuteTestPage"));
+let WebSceneInstanceList = LazyComponent(() => import("./test/web/scene/components/webSceneInstanceList"));
+let WebPerformDetail = LazyComponent(() => import("./test/web/perf/components/webPerformDetail"));
+let WebPerfInstanceList = LazyComponent(() => import("./test/web/perf/components/webPerfInstanceList"));
 let WebPerformToScenePage = LazyComponent(() => import("./test/web/perf/components/webPerformToScenePage"));
+
+let AppSceneContent = LazyComponent(() => import("./test/app/scene/components/AppSceneContent"));
+let AppExecuteTestPage = LazyComponent(() =>import("./test/app/scene/components/AppExecuteTestPage"));
+let AppSceneInstanceList = LazyComponent(() => import("./test/app/scene/components/appSceneInstanceList"));
+let AppPerformDetail = LazyComponent(() => import("./test/app/perf/components/appPerformDetail"));
+let AppPerfInstanceList = LazyComponent(() => import("./test/app/perf/components/appPerfInstanceList"));
 let AppPerformToScenePage = LazyComponent(() => import("./test/app/perf/components/appPerformToScenePage"));
+
+let FuncUnitDetail = LazyComponent(() => import("./test/function/components/FunctionContent"));
+
+let TestPlan = LazyComponent(() => import("./testplan/components/testPlan"));
+let TestPlanDetail = LazyComponent(() => import("./testplan/components/testPlanDetail"));
+let TestPlanInstanceList = LazyComponent(() => import("./testplan/components/testPlanInstanceList"));
+let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/components/testPlanBindCaseInstanceList"));
 let PlanToApiUnitPage = LazyComponent(() => import("./testplan/components/planToCase/planToApiUnitPage"));
 let PlanToApiScenePage = LazyComponent(() => import("./testplan/components/planToCase/planToApiScenePage"));
 let PlanToApiPerformPage = LazyComponent(() => import("./testplan/components/planToCase/planToApiPerformPage"));
@@ -92,11 +93,20 @@ let planToWebPerformPage = LazyComponent(() => import("./testplan/components/pla
 let PlanToFuncUnitPage = LazyComponent(() => import("./testplan/components/planToCase/planToFuncUnitPage"));
 let PlanToAppPerformPage = LazyComponent(() => import("./testplan/components/planToCase/planToAppPerformPage"));
 let PlanToAppScenePage = LazyComponent(() => import("./testplan/components/planToCase/planToAppScenePage"));
-let RepositoryEdit = LazyComponent(() => import("./repository/repository/components/RepositoryEdit"));
+
+let TestReportList = LazyComponent(() => import("./testreport/testReportList"));
+let TestReportDetail = LazyComponent(() => import("./testreport/testReportDetail"));
+
+let EnvContent = LazyComponent(() => import("./support/environment/components/envContent"));
+let AgentConfigList = LazyComponent(() => import("./support/agent/components/AgentConfigList"));
 let WorkspaceBindList = LazyComponent(() => import("./integrated/postin/common/integratedPage"));
+
+let SystemContent = LazyComponent(() => import("./setting/system/SystemContent"));
 let Backups = LazyComponent(() => import( "./setting/backupRecovery/component/Backups"));
 let Recovery = LazyComponent(() => import( "./setting/backupRecovery/component/Recovery"));
-
+let Version = LazyComponent(() => import("./setting/version/Version"));
+let DomainRole = LazyComponent(() => import("./repository/setting/DomainRole"));
+let DomainPrivilege = LazyComponent(() => import("./repository/setting/DomainPrivilege"));
 
 const routers =  [
     {
@@ -167,7 +177,7 @@ const routers =  [
                             },
                             {
                                 path: "/repository/testcase/api-scene/:id",
-                                component: ApiScenecaseDetail,
+                                component: ApiSceneContent,
                             },
                             {
                                 path: "/repository/testcase/api-scene-to-unit",
@@ -266,54 +276,54 @@ const routers =  [
                     },
                     {
                         path: "/repository/plan",
-                        component: TestPlan,
+                        component:TestPlan ,
+                    },
+                    {
+                        path: "/repository/plan-instance",
+                        component: TestPlanInstanceList,
+                    },
+                    {
+                        path: "/repository/plan-instance-case",
+                        component: TestPlanBindCaseInstanceList,
+                    },
+                    {
+                        path: "/repository/plan-detail/:id",
+                        component: TestPlanDetail,
                         routes:[
                             {
-                                path: "/repository/plan/detail/:id",
-                                component: TestPlanDetail,
-                            },
-                            {
-                                path: "/repository/plan/instance",
-                                component: TestPlanInstanceList,
-                            },
-                            {
-                                path: "/repository/plan/instance-case",
-                                component: TestPlanBindCaseInstanceList,
-                            },
-                            {
-                                path: "/repository/plan/api-unit",
+                                path: "/repository/plan-detail/api-unit",
                                 component: PlanToApiUnitPage,
                             },
                             {
-                                path: "/repository/plan/api-scene",
+                                path: "/repository/plan-detail/api-scene",
                                 component: PlanToApiScenePage,
                             },
                             {
-                                path: "/repository/plan/api-perform",
+                                path: "/repository/plan-detail/api-perform",
                                 component: PlanToApiPerformPage,
                             },
                             {
-                                path: "/repository/plan/web-scene",
+                                path: "/repository/plan-detail/web-scene",
                                 exact: true,
                                 component: PlanToWebScenePage,
                             },
                             {
-                                path: "/repository/plan/web-perform",
+                                path: "/repository/plan-detail/web-perform",
                                 exact: true,
                                 component: planToWebPerformPage,
                             },
                             {
-                                path: "/repository/plan/app-scene",
+                                path: "/repository/plan-detail/app-scene",
                                 exact: true,
                                 component: PlanToAppScenePage,
                             },
                             {
-                                path: "/repository/plan/app-perform",
+                                path: "/repository/plan-detail/app-perform",
                                 exact: true,
                                 component: PlanToAppPerformPage,
                             },
                             {
-                                path: "/repository/plan/function",
+                                path: "/repository/plan-detail/function",
                                 exact: true,
                                 component: PlanToFuncUnitPage,
                             },

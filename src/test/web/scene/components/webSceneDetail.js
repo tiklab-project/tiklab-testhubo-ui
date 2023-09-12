@@ -79,17 +79,24 @@ const WebSceneDetail = (props) => {
         <CaseContentCommon
             tabItem={tabItem}
             tabBarExtraContent={
-                <Space>
-                    <IconBtn
-                        className="pi-icon-btn-grey"
-                        icon={"lishi"}
-                        onClick={()=>history.push("/repository/testcase/web-scene-instance")}
-                        name={"历史"}
-                    />
-                    <Button className={"important-btn"} onClick={toExePage}>
-                        测试
-                    </Button>
-                </Space>
+                <>
+                    {
+                        props.planType
+                            ?null
+                            :<Space>
+                                <IconBtn
+                                    className="pi-icon-btn-grey"
+                                    icon={"lishi"}
+                                    onClick={()=>history.push("/repository/testcase/web-scene-instance")}
+                                    name={"历史"}
+                                />
+                                <Button className={"important-btn"} onClick={toExePage}>
+                                    测试
+                                </Button>
+                            </Space>
+                    }
+                </>
+
             }
         />
     )

@@ -22,6 +22,7 @@ import "./caseContantStyle.scss"
 import "./unitcase.scss"
 import TestCaseMenu from "./TestCaseMenu";
 import {getUser} from "tiklab-core-ui";
+import DropTest from "../../../repository/common/DropDown";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -76,15 +77,7 @@ const TestCaseTable = (props) => {
             dataIndex:  ["createUser","name"],
             key: "user",
             width:"15%",
-            render: (text, record) => (
-                <div className={"ws-user-item"}>
-                    <Space>
-                        <Avatar size={"small"}>{record.createUser.nickname[0]}</Avatar>
-                        <span style={{fontSize:"13px"}}>{record.createUser.nickname} </span>
-                    </Space>
-                </div>
-
-            )
+            render: (text, record) => (showCreateUser(record.createUser))
         },
         {
             title: `创建时间`,
@@ -151,6 +144,17 @@ const TestCaseTable = (props) => {
         })
     }
 
+    const showCreateUser = (createUser) =>{
+        if(createUser&&createUser.nickname){
+            return <div className={"ws-user-item"}>
+                <Space>
+                    <Avatar size={"small"}>{createUser?.nickname[0]}</Avatar>
+                    <span style={{fontSize:"13px"}}>{createUser?.nickname} </span>
+                </Space>
+            </div>
+        }
+    }
+
     //表格中最近执行展示
     const showRecentInstance = (record) =>{
         let recent = record.recentInstance
@@ -181,7 +185,6 @@ const TestCaseTable = (props) => {
         }
     }
 
-
     //模块赛选
     const changeCategory=(categoryId)=> {
         setSelectCategory(categoryId)
@@ -206,7 +209,6 @@ const TestCaseTable = (props) => {
         findPage(param)
     }
 
-
     //用例筛选
     const caseSelectFn = (caseType) =>{
         setCurrentPage(1)
@@ -214,7 +216,6 @@ const TestCaseTable = (props) => {
         let param = {caseType:caseType}
         findPage(param);
     }
-
 
     //点击测试类型筛选项查找
     const selectKeyFun = (item)=>{
@@ -307,7 +308,6 @@ const TestCaseTable = (props) => {
                     </Space>
 
                 </div>
-
                 <div className={"table-list-box"}>
                     <Table
                         columns={column}

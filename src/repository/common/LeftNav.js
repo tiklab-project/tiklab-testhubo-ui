@@ -3,7 +3,6 @@ import {Dropdown, Space} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
 import IconCommon from "../../common/IconCommon";
-import {FilterOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router";
 
 /**
@@ -125,6 +124,8 @@ const LeftNav = (props) =>{
         </div>
     )
 
+    const [visible, setVisible] = useState(false);
+
     /**
      * 切换仓库
      */
@@ -142,7 +143,9 @@ const LeftNav = (props) =>{
         }
         repositoryRecent(params)
 
-        props.history.push('/repository');
+        props.history.push(`/repository/detail/${repositoryId}`);
+
+        setVisible(false)
     }
 
     /**
@@ -160,7 +163,12 @@ const LeftNav = (props) =>{
         <ul className={"ws-detail-left-nav left-nav-box"}>
             <div>
                 <li className={`ws-detail-left-nav-item-repository `} >
-                    <Dropdown overlay={toggleRepositorys} trigger={['click']}>
+                    <Dropdown
+                        overlay={toggleRepositorys}
+                        trigger={['click']}
+                        visible={visible}
+                        onOpenChange={()=>setVisible(!visible)}
+                    >
                         <div className={"ws-icon-box"}>
                         <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
                              <img src={repositoryIcon} alt={"icon"} className={"repository-icon"}/>
@@ -172,8 +180,6 @@ const LeftNav = (props) =>{
                             />
                         </div>
                     </Dropdown>
-
-
                 </li>
                 {
                     showMenuItem(menuData)

@@ -1,3 +1,19 @@
+.api-status-add-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border: 1px dashed #eee;
+    cursor: pointer;
+    margin: -1px 0 0;
+}
+
+.api-status-add-box:hover{
+    background: var(--pi-bg-color);
+}
+
+
+
 .case-header{
     display: flex;
     justify-content: space-between;

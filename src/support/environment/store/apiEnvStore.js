@@ -3,12 +3,29 @@ import {Axios} from "tiklab-core-ui";
 
 export class ApiEnvStore {
 	@observable apiEnvList = [];
+	@observable  apiEnvSourceList = [];
 	@observable	totalRecord = "";
 	@observable envUrl;
-
+	@observable dataLength;
 	@action
 	getTestEnvUrl = (data) =>{
 		this.envUrl = data;
+	}
+
+	/**
+	 * 设置环境列表
+	 */
+	@action
+	setList = (values) => {
+		this.apiEnvList = [...values]
+	}
+
+	/**
+	 * 添加接口环境
+	 */
+	@action
+	addNewList = (list) => {
+		this.apiEnvList = [...list];
 	}
 
 	@action
@@ -17,7 +34,7 @@ export class ApiEnvStore {
 			name: name,
 			orderParams: [{name:'name',orderType:'asc'}],
 		}
-		
+
 		const res = await Axios.post("/apiEnv/findApiEnvPage",params)
 		if(res.code === 0) {
 			this.apiEnvList = res.data.dataList;
@@ -33,9 +50,17 @@ export class ApiEnvStore {
 			orderParams: [{name:'name',orderType:'asc'}],
 		}
 
+		let newRow = [{id:"apiEnvInitRow"}]
+
 		const res = await Axios.post("/apiEnv/findApiEnvList",params)
 		if(res.code === 0) {
-			this.apiEnvList = res.data;
+			this.dataLength = res.data.length
+			this.apiEnvSourceList=res.data
+			if(res.data.length===0){
+				this.apiEnvList=newRow
+			}else {
+				this.apiEnvList=res.data;
+			}
 
 			return res.data;
 		}
