@@ -8,6 +8,7 @@ import apiUnitInstanceStore from "../../unit/store/apiUnitInstanceStore";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
 import {ArrowLeftOutlined} from "@ant-design/icons";
 import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
+import CaseBread from "../../../../../common/CaseBread";
 
 const ApiSceneInstanceSinglePage = (props) =>{
     const { findApiSceneInstance } = apiSceneInstanceStore;
@@ -108,14 +109,7 @@ const ApiSceneInstanceSinglePage = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <div
-                className={"breadcrumb-title_between"}
-                style={{height:"36px"}}
-            >
-                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
-
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread title={"历史详情"}/>
             <div className={"history-detail history-detail-box"}>
                     <div className={"history-detail-all"}>
                         <div className={"history-detail-all-box"}>

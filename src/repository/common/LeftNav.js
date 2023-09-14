@@ -39,6 +39,7 @@ const LeftNav = (props) =>{
         }
     ]
 
+    const [visible, setVisible] = useState(false);
     const [repositoryIcon, setRepositoryIcon] = useState();
     let userId = getUser().userId
     const leftRouter = localStorage.getItem("leftRouter")
@@ -124,7 +125,7 @@ const LeftNav = (props) =>{
         </div>
     )
 
-    const [visible, setVisible] = useState(false);
+
 
     /**
      * 切换仓库

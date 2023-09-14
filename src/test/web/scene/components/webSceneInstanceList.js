@@ -5,9 +5,8 @@ import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import WebSceneInstanceDrawer from "./webSceneInstanceDrawer";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
-import {ArrowLeftOutlined} from "@ant-design/icons";
-import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 import {useHistory} from "react-router";
+import CaseBread from "../../../../common/CaseBread";
 
 const WebSceneInstanceList = (props) =>{
     const {
@@ -132,14 +131,7 @@ const WebSceneInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <div
-                className={"breadcrumb-title_between"}
-                style={{height:"36px"}}
-            >
-                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
-
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread title={"历史"}/>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

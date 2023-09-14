@@ -93,13 +93,13 @@ const ApiSceneDetail = (props) =>{
                         props.planType
                             ?null
                             :<Space>
+                                <ApiEnvDropDownSelect />
                                 <IconBtn
                                     className="pi-icon-btn-grey"
                                     icon={"lishi"}
                                     onClick={()=>history.push("/repository/testcase/api-scene-instance")}
                                     name={"历史"}
                                 />
-                                <ApiEnvDropDownSelect />
                                 <Button className={"important-btn"} onClick={toExePage}>
                                     测试
                                 </Button>

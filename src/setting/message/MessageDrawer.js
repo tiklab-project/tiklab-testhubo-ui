@@ -223,7 +223,7 @@ const MessageDrawer = (props) =>{
     return (
         <div>
             <Badge count={length}>
-                <BellOutlined className={"header-icon-item"} style={{fontSize: 21}} onClick={showDrawer}/>
+                <BellOutlined className={"header-icon-item"}  onClick={showDrawer}/>
             </Badge>
             <Drawer
                 title="消息"
@@ -231,7 +231,7 @@ const MessageDrawer = (props) =>{
                 onClose={onClose}
                 visible={open}
                 mask={false}
-                width={320}
+                width={360}
                 maskStyle={{background:"transparent"}}
                 contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
                 extra={

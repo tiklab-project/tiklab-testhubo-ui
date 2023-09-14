@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useTranslation} from "react-i18next";
-import {Menu, Dropdown, Avatar} from "antd";
+import {Menu, Dropdown, Avatar, Tooltip} from "antd";
 import {AppLink} from "tiklab-licence-ui"
 import {getUser} from "tiklab-core-ui";
 import HeaderMenu from "./HeaderMenu";
@@ -89,7 +89,9 @@ const HeaderContent = props => {
     return(
         <div className="frame-header">
             <div className={"pi-header-left"}>
-                <AppLink isSSO={false}/>
+                <div  className={"recovery-item"}>
+                    {props.AppLink}
+                </div>
                 <div className={'frame-header-logo'}>
                     {logo && <img src={logo} alt='logo' />}
                 </div>
@@ -97,65 +99,19 @@ const HeaderContent = props => {
             </div>
 
             <div className={'frame-header-right-box'}>
-
-                <div className={"frame-header-right-detail"}>
-                    <div className={"header-right-item"} >
-                        <SettingOutlined className={"header-icon-item"} onClick={toSystem}/>
-                    </div>
-                    <div className={"header-right-item"}>
-                        <MessageDrawer />
-                    </div>
-                    <Dropdown overlay={helpMenu}  placement="bottomRight" >
-                        <div className={"header-right-item"} >
-                            <QuestionCircleOutlined  className={"header-icon-item"} />
-                        </div>
-                    </Dropdown>
-                    <div className={"header-right-item"}>
-                        <div className={"toggle-hover"}>
-                            <div className="user-header-icon-hover">
-                                <Avatar size="small" icon={<UserOutlined />} />
-                            </div>
-                            <div className={"toggle-hidden-box header-user-box"}>
-                                <div className={"user-detail-box"}>
-                                    <div className={"user-detail-item  user-detail-item-icon"}>
-                                        <div className="header-user-icon">
-                                            <Avatar icon={<UserOutlined />} />
-                                        </div>
-                                    </div>
-                                    <div className={"user-detail-item"}>
-                                        <div className={"user-detail-item-name"}>{userInfo.name}</div>
-                                        <div>{userInfo.email}</div>
-                                    </div>
-                                </div>
-
-                                <div className={"user-hidden-item-lan"}>
-                                    <div  style={{"display": "flex", "alignItems": "center","justifyContent":"space-between"}}>
-                                        <div style={{"display": "flex", "alignItems": "center"}}>
-                                            <svg className="icon-s user-header-icon" aria-hidden="true">
-                                                <use xlinkHref= {`#icon-yuyan`} />
-                                            </svg>
-                                            <span>语言</span>
-                                        </div>
-                                        <RightOutlined />
-                                    </div>
-
-                                    <div className={"header-lan-box"}>
-                                        {
-                                            lanMenu(languageData)
-                                        }
-                                    </div>
-                                </div>
-
-                                <div className={"user-hidden-item"} onClick={logout}>
-                                    <svg className="icon-s user-header-icon" aria-hidden="true">
-                                        <use xlinkHref= {`#icon-tuichu`} />
-                                    </svg>
-                                    <span>退出登录</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className={"header-right-item"}  data-title-bottom={"设置"}>
+                    <SettingOutlined className={"header-icon-item"} onClick={toSystem}/>
                 </div>
+                <div className={"header-right-item"} data-title-bottom={"消息"}>
+                    <MessageDrawer />
+                </div>
+                <div className={"recovery-item"}>
+                    {props.HelpLink}
+                </div>
+                <div >
+                    {props.AvatarLink}
+                </div>
+
             </div>
         </div>
     )

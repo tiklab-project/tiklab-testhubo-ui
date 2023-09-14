@@ -1,6 +1,7 @@
 import React from "react";
 import {Breadcrumb} from "antd";
 import TestPlanBindCaseInstanceTable from "./testPlanBindCaseInstanceTable";
+import CaseBread from "../../common/CaseBread";
 
 const TestPlanBindCaseInstanceList = (props) =>{
 
@@ -15,14 +16,7 @@ const TestPlanBindCaseInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb
-                className={"breadcrumb-box header-bread"}
-
-            >
-                <Breadcrumb.Item onClick={goToPlanDetail} className={"first-item"}>详情</Breadcrumb.Item>
-                <Breadcrumb.Item onClick={goToPlanInstance} className={"first-item"}>历史</Breadcrumb.Item>
-                <Breadcrumb.Item>用例历史</Breadcrumb.Item>
-            </Breadcrumb>
+            <CaseBread title={"历史详情"}  hideClose={true}/>
             <TestPlanBindCaseInstanceTable />
         </div>
     )

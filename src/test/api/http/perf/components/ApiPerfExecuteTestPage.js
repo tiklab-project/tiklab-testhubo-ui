@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {ArrowLeftOutlined} from "@ant-design/icons";
-import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 import ApiPerfExecuteTestCommon from "./ApiPerfExecuteTestCommon";
+import CaseBread from "../../../../../common/CaseBread";
 
 const ApiPerfExecuteTestPage = (props) =>{
     const {apiPerfStore} = props;
@@ -16,20 +15,11 @@ const ApiPerfExecuteTestPage = (props) =>{
         setStart(1)
     },[])
 
-    const goBack = () =>{
-        props.history.push(`/repository/testcase/api-perform/${apiPerfId}`)
-    }
+
 
     return(
         <div className={"content-box-center"}>
-            <div
-                className={"breadcrumb-title_between"}
-                style={{height:"36px"}}
-            >
-                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
-
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread title={"历史详情"}/>
             <ApiPerfExecuteTestCommon
                 start={start}
                 setStart={setStart}

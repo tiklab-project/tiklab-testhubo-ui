@@ -31,7 +31,7 @@ const LazyComponent =  (importComponent) =>{
 import {Directory, Orga, UserGroup, User,} from "tiklab-user-ui";
 import { NotFound, ProjectFeature, ProjectRole, SystemFeature, SystemRole} from "tiklab-privilege-ui"
 import {ExcludeProductUser} from "tiklab-eam-ui";
-import {LogTemplate, LogType, MyLog} from "tiklab-security-ui";
+import {BackupRecovery, LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
 
@@ -461,12 +461,7 @@ const routers =  [
                     {
                         path: "/systemManagement/backups",
                         exact: true,
-                        component: Backups
-                    },
-                    {
-                        path: "/systemManagement/recovery",
-                        exact: true,
-                        component: Recovery
+                        render:()=> <BackupRecovery />
                     },
                     //代办
                     // {

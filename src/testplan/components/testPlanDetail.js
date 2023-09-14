@@ -9,6 +9,7 @@ import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import TestPlanENVModal from "./testPlanENVModal";
 import IconBtn from "../../common/iconBtn/IconBtn";
 import {useHistory, useParams} from "react-router";
+import CaseBread from "../../common/CaseBread";
 
 const {Option} = Select;
 
@@ -95,10 +96,7 @@ const TestPlanDetail = (props) =>{
 
     return(
         <div className={"plan-box"}>
-            <Breadcrumb className={"breadcrumb-box  header-bread"}>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>计划</Breadcrumb.Item>
-                <Breadcrumb.Item>{executeDate?.name}</Breadcrumb.Item>
-            </Breadcrumb>
+            <CaseBread title={"计划详情"} hideClose={true}/>
             <Form className="testplan-form-info" form={form} labelAlign={"left"} >
                 <div className="display-flex-between">
                     <div style={{width:200,height: 32}}>

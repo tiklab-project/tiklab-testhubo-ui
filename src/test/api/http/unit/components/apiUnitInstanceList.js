@@ -6,8 +6,7 @@ import emptyImg from "../../../../../assets/img/empty.png";
 import ApiUnitInstanceDrawer from "./apiUnitInstanceDrawer";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 import {useHistory} from "react-router";
-import BreadcrumbCommon, {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
-import {ArrowLeftOutlined} from "@ant-design/icons";
+import CaseBread from "../../../../../common/CaseBread";
 
 const ApiUnitInstanceList = (props) =>{
     const {
@@ -128,20 +127,10 @@ const ApiUnitInstanceList = (props) =>{
         setPageParam(newParams)
     }
 
-    const goBack = () =>{
-        history.goBack()
-    }
 
     return(
         <div className={"content-box-center"}>
-            <div
-                className={"breadcrumb-title_between"}
-                style={{height:"36px"}}
-            >
-                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
-
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread title={"历史"}/>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

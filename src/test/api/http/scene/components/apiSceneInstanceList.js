@@ -3,11 +3,11 @@ import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
-import ApiSceneInstanceDrawer from "./apiSceneInstanceSinglePage";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
 import {useHistory} from "react-router";
 import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 import {ArrowLeftOutlined} from "@ant-design/icons";
+import CaseBread from "../../../../../common/CaseBread";
 
 const ApiSceneInstanceList = (props) =>{
     const {
@@ -132,14 +132,7 @@ const ApiSceneInstanceList = (props) =>{
         <>
 
             <div className={"content-box-center"}>
-                <div
-                    className={"breadcrumb-title_between"}
-                    style={{height:"36px"}}
-                >
-                    <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
-
-                    <DrawerCloseIcon />
-                </div>
+                <CaseBread title={"历史"}/>
                 <div className={"table-list-box"}>
                     <Table
                         columns={column}

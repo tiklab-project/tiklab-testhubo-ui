@@ -133,7 +133,6 @@ const ApiUnitEditPageCommon = (props) => {
             <div className={"api-unit-base"}>
                 <div className='header-box-space-between'>
                     <div style={{height:32,"display":"flex","gap":"10px","alignItems":"center"}}>
-
                         <Select
                             style={{width:75,height:32}}
                             value={methodType}
@@ -171,27 +170,13 @@ const ApiUnitEditPageCommon = (props) => {
                     {
                         props.planType
                             ? null
-                            :<Space>
-                                <IconBtn
-                                    className="pi-icon-btn-grey"
-                                    icon={"lishi"}
-                                    onClick={toHistory}
-                                    name={"历史"}
-                                />
-                                <ApiEnvDropDownSelect />
-                                <IconBtn
-                                    className="important-btn"
-                                    icon={"fasong-copy"}
-                                    onClick={clickTest}
-                                    name={"测试"}
-                                />
-                            </Space>
+                            : <ApiEnvDropDownSelect />
                     }
 
                 </div>
 
-
-                <div className={'api-base-edit-url-box'} style={{width: "480px"}}>
+                <div className='header-box-space-between'>
+                    <div className={'api-base-edit-url-box'} style={{width: "480px"}}>
                     <Input
                         defaultValue={path}
                         onPressEnter={editPath}
@@ -207,6 +192,26 @@ const ApiUnitEditPageCommon = (props) => {
                     />
                 </div>
 
+                    {
+                        props.planType
+                            ? null
+                            :<Space>
+                                <IconBtn
+                                    className="pi-icon-btn-grey"
+                                    icon={"lishi"}
+                                    onClick={toHistory}
+                                    name={"历史"}
+                                />
+                                <IconBtn
+                                    className="important-btn"
+                                    icon={"fasong-copy"}
+                                    onClick={clickTest}
+                                    name={"测试"}
+                                />
+                            </Space>
+                    }
+
+                </div>
                 <div className={"method"}>
                     <div className={"method-people-info"}>
                         <span className={"people-item "}>分组: {resData?.testCase?.category?.name||"未设置"}</span>

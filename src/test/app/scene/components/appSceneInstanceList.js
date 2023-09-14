@@ -8,6 +8,7 @@ import appSceneInstanceStore from "../store/appSceneInstanceStore";
 import {useHistory} from "react-router";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 import {ArrowLeftOutlined} from "@ant-design/icons";
+import CaseBread from "../../../../common/CaseBread";
 
 const AppSceneInstanceList = (props) =>{
     const {
@@ -128,14 +129,7 @@ const AppSceneInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <div
-                className={"breadcrumb-title_between"}
-                style={{height:"36px"}}
-            >
-                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
-
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread title={"历史"}/>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

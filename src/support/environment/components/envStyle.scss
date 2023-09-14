@@ -27,7 +27,7 @@
     }
 
     .ant-tabs-bottom>.ant-tabs-nav:before, .ant-tabs-bottom>div>.ant-tabs-nav:before, .ant-tabs-top>.ant-tabs-nav:before, .ant-tabs-top>div>.ant-tabs-nav:before{
-        border-bottom: 0px solid #f0f0f0;
+        border-bottom: 0 solid #f0f0f0;
     }
 }
 
@@ -38,6 +38,6 @@
     border-radius: var(--pi-border-radius);
     border: var(--pi-input-border);
     background-color: white;
-    margin: 0 10px!important;
     font-size: 12px!important;
 }
+

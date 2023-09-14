@@ -3,7 +3,7 @@ import {Avatar, Empty, Input, Popconfirm, Space, Table, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
 import IconCommon from "../../../common/IconCommon";
-import {showCaseTypeInList, showCaseTypeView, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeInList, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined} from "@ant-design/icons";
 import ApiUnitInstanceDrawer from "../../api/http/unit/components/apiUnitInstanceDrawer";
 import ApiSceneInstanceDrawer from "../../api/http/scene/components/apiSceneInstanceSinglePage";
@@ -12,7 +12,6 @@ import AppSceneInstanceDrawer from "../../app/scene/components/appSceneInstanceD
 import ApiPerformInstanceDrawer from "../../api/http/perf/components/apiPerformInstanceDrawer";
 import WebPerformInstanceDrawer from "../../web/perf/components/webPerformInstanceDrawer";
 import AppPerformInstanceDrawer from "../../app/perf/components/appPerformInstanceDrawer";
-import TestTypeSelect from "./TestTypeSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
 import {useHistory} from "react-router";
 import TestCaseDrawer from "../../common/TestCaseDrawer";
@@ -22,7 +21,6 @@ import "./caseContantStyle.scss"
 import "./unitcase.scss"
 import TestCaseMenu from "./TestCaseMenu";
 import {getUser} from "tiklab-core-ui";
-import DropTest from "../../../repository/common/DropDown";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -62,9 +60,7 @@ const TestCaseTable = (props) => {
             dataIndex: "recentInstance",
             key: "recentInstance",
             width:"10%",
-            render:(text,record)=>(
-                showRecentInstance(record)
-            )
+            render:(text,record)=>(showRecentInstance(record))
         },
         {
             title: `模块`,
@@ -193,22 +189,6 @@ const TestCaseTable = (props) => {
         findPage(param)
     }
 
-    //点击测试类型筛选项查找
-    const testCaseSelectFn = (testType)=>{
-        if(!testType){
-            setTestType(null)
-
-            let param = {testType:null}
-            findPage(param)
-            return
-        }
-
-        setTestType(testType)
-
-        let param = {testType:testType}
-        findPage(param)
-    }
-
     //用例筛选
     const caseSelectFn = (caseType) =>{
         setCurrentPage(1)
@@ -267,7 +247,6 @@ const TestCaseTable = (props) => {
                             {...props}
                         />
                     </div>
-
                 </div>
 
                 <div className={"dynamic-select-box"}>
@@ -275,10 +254,7 @@ const TestCaseTable = (props) => {
                         selectItem={selectItem}
                         selectKeyFun={selectKeyFun}
                     />
-
                     <Space>
-                        <TestTypeSelect setTestType={testCaseSelectFn}/>
-
                         <CaseTypeSelect
                             caseSelectFn={caseSelectFn}
                             testType={testType}
@@ -306,7 +282,6 @@ const TestCaseTable = (props) => {
                             prefix={<SearchOutlined />}
                         />
                     </Space>
-
                 </div>
                 <div className={"table-list-box"}>
                     <Table

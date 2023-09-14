@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
+import { Empty, Popconfirm, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../common/IconCommon";
 import emptyImg from "../../assets/img/empty.png";
 import testPlanInstanceStore from "../store/testPlanInstanceStore";
+import CaseBread from "../../common/CaseBread";
 
 const TestPlanInstanceList = (props) =>{
     const {
@@ -130,14 +131,7 @@ const TestPlanInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <Breadcrumb
-                className={"breadcrumb-box header-bread"}
-
-            >
-                <Breadcrumb.Item onClick={toPlan} className={"first-item"}>计划</Breadcrumb.Item>
-                <Breadcrumb.Item onClick={goBack} className={"first-item"}>详情</Breadcrumb.Item>
-                <Breadcrumb.Item>历史</Breadcrumb.Item>
-            </Breadcrumb>
+            <CaseBread title={"历史"}  hideClose={true}/>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

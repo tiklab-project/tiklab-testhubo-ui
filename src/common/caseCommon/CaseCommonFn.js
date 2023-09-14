@@ -93,29 +93,29 @@ export const showCaseTypeIconInList = (type)=>{
     }
 }
 /**
- * 左列表右详情中用例类型展示
+ * 用例列表中用例类型展示
  */
 export const showCaseTypeInList = (type)=>{
     switch (type) {
         case "api-unit":
-            return <Tag color="green">单元</Tag>
+            return <Tag color="green">接口单元</Tag>
         case "api-scene":
-            return <Tag color="blue">场景</Tag>
+            return <Tag color="blue">接口场景</Tag>
         case "api-perform":
-            return <Tag color="orange">性能</Tag>
+            return <Tag color="orange">接口性能</Tag>
 
         case "web-scene":
-            return <Tag color="blue">场景</Tag>
+            return <Tag color="blue">WEB场景</Tag>
         case "web-perform":
-            return <Tag color="orange">性能</Tag>
+            return <Tag color="orange">WEB性能</Tag>
 
         case "app-scene":
-            return <Tag color="blue">场景</Tag>
+            return <Tag color="blue">APP场景</Tag>
         case "app-perform":
-            return <Tag color="orange">性能</Tag>
+            return <Tag color="orange">APP性能</Tag>
         case "function":
-            return <Tag color="#2db7f5">功能</Tag>
+            return <Tag color="#2db7f5">功能用例</Tag>
         default :
-            return <Tag color="green">单元</Tag>
+            return <Tag color="#2db7f5">功能用例</Tag>
     }
 }
