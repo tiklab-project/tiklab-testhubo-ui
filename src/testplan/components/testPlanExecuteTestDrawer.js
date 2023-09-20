@@ -6,6 +6,7 @@ import {messageFn} from "../../common/messageCommon/MessageCommon";
 import emptyImg from "../../assets/img/empty.png";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
 import {Axios} from "tiklab-core-ui";
+import CaseBread from "../../common/CaseBread";
 
 
 const TestPlanExecuteTestDrawer = (props) =>{
@@ -117,15 +118,16 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 onClick={showModal}
             />
             <Drawer
-                title="测试"
                 placement="right"
                 onClose={onClose}
                 visible={visible}
                 width={1240}
                 destroyOnClose={true}
                 contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
             >
                 <Spin spinning={spinning}>
+                    <CaseBread title={"测试"} icon={"ceshi"}/>
                     <div className={"unit-instance-detail"}>
                         <div className={"header-item"}>测试详情</div>
                         <div className={"history-detail-all-box"}>

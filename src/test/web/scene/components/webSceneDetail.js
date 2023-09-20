@@ -7,6 +7,7 @@ import {Button, Form, Space} from "antd";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import CaseContentCommon from "../../../common/CaseContentCommon";
 import DetailCommon from "../../../../common/DetailCommon";
+import VariableTable from "../../../common/Variable/components/VariableTable";
 
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;
@@ -72,6 +73,10 @@ const WebSceneDetail = (props) => {
             label: `测试步骤`,
             key: '2',
             children:  <WebSceneStepList />
+        },{
+            label: `环境变量`,
+            key: '3',
+            children: <VariableTable caseId={webSceneId}/>
         }
     ]
 

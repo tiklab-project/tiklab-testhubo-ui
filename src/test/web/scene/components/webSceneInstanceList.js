@@ -5,7 +5,6 @@ import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import WebSceneInstanceDrawer from "./webSceneInstanceDrawer";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
-import {useHistory} from "react-router";
 import CaseBread from "../../../../common/CaseBread";
 
 const WebSceneInstanceList = (props) =>{
@@ -83,7 +82,6 @@ const WebSceneInstanceList = (props) =>{
         },
     ]
 
-    const history = useHistory()
     const webSceneId = sessionStorage.getItem("webSceneId")
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
@@ -123,10 +121,6 @@ const WebSceneInstanceList = (props) =>{
         }
 
         setPageParam(newParams)
-    }
-
-    const goBack = () =>{
-        history.push(`/repository/testcase/web-scene/${webSceneId}`)
     }
 
     return(

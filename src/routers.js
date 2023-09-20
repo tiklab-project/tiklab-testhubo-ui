@@ -55,6 +55,9 @@ let TestCaseTable = LazyComponent(() => import("./test/testcase/components/TestC
 
 let ApiUnitContent = LazyComponent(() => import("./test/api/http/unit/components/apiUnitContent"));
 let ApiUnitInstanceList = LazyComponent(() => import("./test/api/http/unit/components/apiUnitInstanceList"));
+let ApiUnitExecuteTest = LazyComponent(() => import( "./test/api/http/unit/components/apiUnitExecuteTest"));
+let ApiUnitInstanceSinglePage = LazyComponent(() => import( "./test/api/http/unit/components/apiUnitInstanceSinglePage"));
+
 let ApiSceneContent = LazyComponent(() => import("./test/api/http/scene/components/apiSceneContent"));
 let ApiExecuteTestPage = LazyComponent(() => import("./test/api/http/scene/components/ApiExecuteTestPage"));
 let ApiSceneInstanceSinglePage = LazyComponent(() => import( "./test/api/http/scene/components/apiSceneInstanceSinglePage"));
@@ -102,8 +105,6 @@ let AgentConfigList = LazyComponent(() => import("./support/agent/components/Age
 let WorkspaceBindList = LazyComponent(() => import("./integrated/postin/common/integratedPage"));
 
 let SystemContent = LazyComponent(() => import("./setting/system/SystemContent"));
-let Backups = LazyComponent(() => import( "./setting/backupRecovery/component/Backups"));
-let Recovery = LazyComponent(() => import( "./setting/backupRecovery/component/Recovery"));
 let Version = LazyComponent(() => import("./setting/version/Version"));
 let DomainRole = LazyComponent(() => import("./repository/setting/DomainRole"));
 let DomainPrivilege = LazyComponent(() => import("./repository/setting/DomainPrivilege"));
@@ -175,6 +176,15 @@ const routers =  [
                                 path: "/repository/testcase/api-unit-instance",
                                 component: ApiUnitInstanceList,
                             },
+                            {
+                                path: "/repository/testcase/api-unit-execute",
+                                component: ApiUnitExecuteTest,
+                            },
+                            {
+                                path: "/repository/testcase/api-unit-instance-single",
+                                component: ApiUnitInstanceSinglePage,
+                            },
+
                             {
                                 path: "/repository/testcase/api-scene/:id",
                                 component: ApiSceneContent,

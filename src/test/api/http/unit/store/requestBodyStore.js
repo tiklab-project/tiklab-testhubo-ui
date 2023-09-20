@@ -30,12 +30,8 @@ export class RequestBodyStore {
     }
 
     @action
-    updateRequestBody = async (values) => {
-        values.apiUnit = {id: this.apiUnitId,}
-        values.id= this.requestBodyId;
+    updateRequestBody = async (values) => await Axios.post("/requestBody/updateRequestBody",values);
 
-        await Axios.post("/requestBody/updateRequestBody",values);
-    }
 
 }
 

@@ -5,7 +5,6 @@ import {Axios} from "tiklab-core-ui";
 class ApiUnitTestDispatchStore {
     @observable apiUnitTestResult = {};
     @observable responseResult = {};
-    @observable totalRecord ;
 
     @action
     apiUnitExecute = async (id,url) => {
@@ -19,6 +18,8 @@ class ApiUnitTestDispatchStore {
         if(res.code === 0) {
             this.apiUnitTestResult = res.data;
             this.responseResult = res.data?.responseInstance;
+
+
         }
         return res;
     }

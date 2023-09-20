@@ -32,7 +32,6 @@ const ApiUnitEditPageCommon = (props) => {
     const [methodType,setMethodType] =useState();
     const [path, setPath] = useState();
     const [assertList, setAssertList] = useState();
-    const [isTest, setIsTest] = useState(false);
     const [testResult, setTestResult] = useState();
 
     useEffect(async ()=>{
@@ -62,14 +61,12 @@ const ApiUnitEditPageCommon = (props) => {
         if(res.code===0){
             setTestResult(res.data)
 
-            setIsTest(true)
+            history.push("/repository/testcase/api-unit-execute")
         }
 
         if(res.code===60000){
             messageFn("error","Agent错误")
         }
-
-
     }
 
     const toHistory = () =>{
@@ -106,14 +103,10 @@ const ApiUnitEditPageCommon = (props) => {
         updateApiUnit(param).then(() => {
             findApiUnit(apiUnitId).then(res=>setResData(res))
         })
-
-
     }
 
     //编辑名称
     const editPath = (e) => {
-        console.log(e)
-
         if(path!==resData.path) {
             let param = {
                 id: apiUnitId,

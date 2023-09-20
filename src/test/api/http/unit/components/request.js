@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React from 'react';
 import RequestHeader from "./requestHeader";
 import QueryParam from './queryParam';
 import PreParam from './preParam';

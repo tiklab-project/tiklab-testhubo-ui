@@ -5,7 +5,7 @@ import emptyImg from "../../../assets/img/empty.png"
 import IconCommon from "../../../common/IconCommon";
 import {showCaseTypeInList, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined} from "@ant-design/icons";
-import ApiUnitInstanceDrawer from "../../api/http/unit/components/apiUnitInstanceDrawer";
+import ApiUnitInstanceDrawer from "../../api/http/unit/components/apiUnitInstanceSinglePage";
 import ApiSceneInstanceDrawer from "../../api/http/scene/components/apiSceneInstanceSinglePage";
 import WebSceneInstanceDrawer from "../../web/scene/components/webSceneInstanceDrawer";
 import AppSceneInstanceDrawer from "../../app/scene/components/appSceneInstanceDrawer";
@@ -85,7 +85,7 @@ const TestCaseTable = (props) => {
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            width: 150,
+            width: 100,
             render: (text, record) => (
                 <Space size="middle">
                     <Popconfirm

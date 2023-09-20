@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import AppExecuteTestCommon from "./AppExecuteTestCommon";
-import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
-import {ArrowLeftOutlined} from "@ant-design/icons";
+import CaseBread from "../../../../common/CaseBread";
 
 const AppExecuteTestPage = (props) =>{
     const {appSceneStore} = props;
@@ -16,20 +15,9 @@ const AppExecuteTestPage = (props) =>{
         setStart(status)
     },[])
 
-    const goBack = () =>{
-        props.history.push(`/repository/testcase/app-scene/${appSceneId}`)
-    }
-
     return(
         <div className={"content-box-center"}>
-            <div
-                className={"breadcrumb-title_between"}
-                style={{height:"36px"}}
-            >
-                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
-
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread title={"APP场景测试"}/>
             <AppExecuteTestCommon
                 start={start}
                 setStart={setStart}

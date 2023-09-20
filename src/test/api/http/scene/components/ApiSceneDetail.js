@@ -8,6 +8,7 @@ import ApiEnvDropDownSelect from "../../../../../support/environment/components/
 import CaseContentCommon from "../../../../common/CaseContentCommon";
 import DetailCommon from "../../../../../common/DetailCommon";
 import {inject, observer} from "mobx-react";
+import VariableTable from "../../../../common/Variable/components/VariableTable";
 
 const ApiSceneDetail = (props) =>{
     const {apiSceneStore,apiEnvStore} = props;
@@ -80,6 +81,10 @@ const ApiSceneDetail = (props) =>{
             label: `测试步骤`,
             key: '2',
             children: <ApiSceneStepList />
+        },{
+            label: `环境变量`,
+            key: '3',
+            children: <VariableTable caseId={apiSceneId}/>
         }
     ]
 

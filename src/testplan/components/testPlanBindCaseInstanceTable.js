@@ -3,7 +3,7 @@ import {Empty, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../assets/img/empty.png";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
-import ApiUnitInstanceDrawer from "../../test/api/http/unit/components/apiUnitInstanceDrawer";
+import ApiUnitInstanceDrawer from "../../test/api/http/unit/components/apiUnitInstanceSinglePage";
 import ApiSceneInstanceDrawer from "../../test/api/http/scene/components/apiSceneInstanceSinglePage";
 import WebSceneInstanceDrawer from "../../test/web/scene/components/webSceneInstanceDrawer";
 import AppSceneInstanceDrawer from "../../test/app/scene/components/appSceneInstanceDrawer";

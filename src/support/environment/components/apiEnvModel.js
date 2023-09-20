@@ -86,7 +86,7 @@ const ApiEnvModel = (props) => {
                     ?<>
                         {
                             item.name === record.name
-                            && item.url === record.url
+                            && item.preUrl === record.preUrl
                                 ? null
                                 : <a onClick={() => upData(record)}>更新</a>
                         }
@@ -101,7 +101,9 @@ const ApiEnvModel = (props) => {
      */
 
     const upData = (value) => {
-        updateApiEnv(value).then(res => setDataSource(res))
+        updateApiEnv(value).then(()=>{
+            findApiEnvList(repositoryId).then(res=>setDataSource(res));
+        })
     }
 
     /**

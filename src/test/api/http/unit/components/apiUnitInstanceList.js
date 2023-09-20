@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Empty, Popconfirm, Space, Table} from "antd";
-import {inject, observer} from "mobx-react";
+import {Empty, Popconfirm,Table} from "antd";
+import {observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
-import ApiUnitInstanceDrawer from "./apiUnitInstanceDrawer";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 import {useHistory} from "react-router";
 import CaseBread from "../../../../../common/CaseBread";
@@ -24,10 +23,9 @@ const ApiUnitInstanceList = (props) =>{
             dataIndex: ["apiUnitInstance",'executeNumber'],
             key: "executeNumber",
             render:(text,record)=>(
-                <ApiUnitInstanceDrawer
-                    name={`#${text}`}
-                    apiUnitInstanceId={record.id}
-                />
+                <a onClick={()=>toSingleInstance(record)}>
+                    {text}
+                </a>
             )
         },
         {
@@ -112,7 +110,6 @@ const ApiUnitInstanceList = (props) =>{
         }
     }
 
-
     // 分页
     const onTableChange = (pagination) => {
         setCurrentPage(pagination.current)
@@ -125,6 +122,11 @@ const ApiUnitInstanceList = (props) =>{
         }
 
         setPageParam(newParams)
+    }
+
+    const toSingleInstance = (record) =>{
+        sessionStorage.setItem("apiUnitInstanceId",record.id)
+        history.push("/repository/testcase/api-unit-instance-single")
     }
 
 

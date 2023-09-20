@@ -1,32 +1,25 @@
-import React, { useState} from "react";
+import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
-import {Drawer} from "antd";
 import "./apiUnitInstanceStyle.scss"
 import {TextMethodType} from "../../common/methodType";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import ResponseCommon from "../../common/response/responseCommon";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
+import CaseBread from "../../../../../common/CaseBread";
 
-const ApiUnitInstanceDrawer = (props) =>{
-    const {apiUnitInstanceId} = props;
+const ApiUnitInstanceSinglePage = (props) =>{
+
+
     const {findApiUnitInstance} = apiUnitInstanceStore;
 
-
-    const [visible, setVisible] = useState(false);
     const [allData, setAllData] = useState();
 
-    const showDrawer = () => {
+    let apiUnitInstanceId = sessionStorage.getItem("apiUnitInstanceId")
+    useEffect(()=>{
         findApiUnitInstance(apiUnitInstanceId).then(res=>{
             setAllData(res)
         })
-
-        setVisible(true);
-    };
-
-
-    const onClose = () => {
-        setVisible(false);
-    };
+    },[])
 
 
     //响应结果基础信息项
@@ -76,27 +69,17 @@ const ApiUnitInstanceDrawer = (props) =>{
 
 
     return(
-        <div className={"case-history-box"}>
-            <a onClick={showDrawer} style={{fontWeight:"bold"}}>{props.name}</a>
-            <Drawer
-                title="测试结果"
-                placement="right"
-                onClose={onClose}
-                visible={visible}
-                width={860}
-                destroyOnClose={true}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
-            >
-                <ResponseCommon
-                    detail={showDetail(detail)}
-                    resBody={allData?.responseInstance?.responseBody}
-                    resHeader={processResHeader(allData?.responseInstance?.responseHeader)}
-                    reqHeader={processResHeader(allData?.requestInstance?.requestHeader)}
-                />
-            </Drawer>
-        </div>
+        <>
+            <CaseBread title={"接口测试"}/>
+            <ResponseCommon
+                detail={showDetail(detail)}
+                resBody={allData?.responseInstance?.responseBody}
+                resHeader={processResHeader(allData?.responseInstance?.responseHeader)}
+                reqHeader={processResHeader(allData?.requestInstance?.requestHeader)}
+            />
+        </>
     )
 
 }
 
-export default observer(ApiUnitInstanceDrawer);
+export default observer(ApiUnitInstanceSinglePage);

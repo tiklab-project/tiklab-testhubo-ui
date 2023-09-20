@@ -20,8 +20,8 @@ const RequestBodyCom = (props) =>{
                 return props.form
             case "formUrlencoded":
                 return props.formUrlencoded
-            // case "json":
-            //     return props.json
+            case "json":
+                return props.json
             case "raw":
                 return props.raw
             // case 'binary':
@@ -33,7 +33,7 @@ const RequestBodyCom = (props) =>{
         none:"none",
         formdata:"form-data",
         formUrlencoded:"x-www-form-urlencoded",
-        // json:"json",
+        json:"json",
         raw:"raw",
         // binary:"binary"
     }

@@ -1,14 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Empty, Form, Popconfirm, Select, Space,} from "antd";
+import {Button, Empty, Form, Popconfirm, Select, Space, Input, Row, Col, Tabs} from "antd";
 import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import webSceneStepStore from "../store/webSceneStepStore";
 import "./webStyle.scss"
 import emptyImg from "../../../../assets/img/empty.png";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
-import Input from "antd/es/input/Input";
-import {Option} from "antd/es/mentions";
 import {Axios} from "tiklab-core-ui";
+import ReactMonacoEditor from "../../../../common/ReactMonacoEditor";
+
+let {Option}  =  Select;
 
 const {
     findWebSceneStepList,
@@ -174,86 +175,101 @@ const WebSceneStepList = (props) => {
         form.setFieldsValue({...data})
     }
 
-    /**
-     * 滚动加载分页
-     */
-    const handleScroll = async () => {
-        // if (listRef.current) {
-        //     const { scrollTop, clientHeight, scrollHeight } = listRef.current;
-        //
-        //     if (scrollTop + clientHeight >= scrollHeight-10) {
-        //
-        //         if(totalRecord<pageSize) return;
-        //         //如果当前分页大于总数/pageSize,设置当前currentPage为当前
-        //         if(currentPage>=Math.ceil(totalRecord/pageSize)){
-        //             setCurrentPage(Math.ceil(totalRecord/pageSize));
-        //             return;
-        //         }
-        //         // 调用加载分页数据的方法
-        //         setCurrentPage(currentPage+1)
-        //         let param = {
-        //             pageParam: {
-        //                 pageSize: pageSize,
-        //                 currentPage:currentPage+1
-        //             },
-        //         }
-        //
-        //         await findPage(param,"scroll")
-        //     }
-        // }
-    };
-
 
     const showStepView =  () =>{
         if(stepSelect||isCreate){
-
-            return <div className={"case-step_right_box"}>
-                <Form
-                    form={form}
-                    layout="vertical"
-                    onFinish={onFinish}
-                    {...tailLayout}
-                >
-                    <Form.Item label={"名称"}  name="name">
-                        <Input placeholder={"名称"} />
-                    </Form.Item>
-                    <Form.Item label={"操作方法"} name="actionType" >
+            return <>
+                <div className={"case-step-title"}>基本信息</div>
+                <div className={"case-step_right_box"}>
+                    <Form
+                        form={form}
+                        layout="vertical"
+                        onFinish={onFinish}
+                    >
+                        <Row gutter={[0]}>
+                            <Col span={12}>
+                                 <Form.Item  name="name">
+                            <Input placeholder={"名称"} />
+                        </Form.Item>
+                            </Col>
+                            <Col span={12}></Col>
+                            <Col span={6}>
+                                <Form.Item  name="actionType" >
+                                    {
+                                        functionView(actionTypeList)
+                                    }
+                                </Form.Item>
+                            </Col>
+                            <Col span={18}>
+                                <Form.Item  name="parameter" >
+                                    <Input
+                                        placeholder={"参数"}
+                                        className={"form-input"}
+                                    />
+                                </Form.Item>
+                            </Col>
+                            <Col  span={6}>
+                               <Form.Item  name="location">
+                                   {
+                                       locationView(locationList)
+                                   }
+                               </Form.Item>
+                            </Col>
+                            <Col  span={18}>
+                                <Form.Item  name="locationValue" >
+                                    <Input placeholder={"定位器的值"} className={"form-input"}/>
+                                </Form.Item>
+                            </Col>
+                            <Col span={18}>
+                               <Form.Item>
+                                   <Space>
+                                       <Button
+                                           className={"important-btn"}
+                                           type="primary"
+                                           htmlType="submit"
+                                       >
+                                           保存
+                                       </Button>
+                                       <IconBtn
+                                           className="pi-icon-btn-grey"
+                                           onClick={cancel}
+                                           name={"取消"}
+                                       />
+                                   </Space>
+                               </Form.Item>
+                            </Col>
+                        </Row>
+                    </Form>
+                </div>
+                <div className={"case-step-title"}>高级设置</div>
+                <Tabs
+                    defaultActiveKey="1"
+                    items={[
                         {
-                            functionView(actionTypeList)
-                        }
-                    </Form.Item>
-                    <Form.Item label={"参数"} name="parameter" >
-                        <Input
-                            placeholder={"参数"}
-                            className={"form-input"}
-                        />
-                    </Form.Item>
-                    <Form.Item label={"定位器"} name="location">
+                            label: `前置`,
+                            key: '1',
+                            children: <ReactMonacoEditor
+                                // editorChange={rawChange}
+                                value={""}
+                                language={"javascript"}
+                                height={"100%"}
+                                width={"100%"}
+                            />,
+                        },
                         {
-                            locationView(locationList)
-                        }
-                    </Form.Item>
-                    <Form.Item label={"定位器的值"} name="locationValue" >
-                        <Input placeholder={"定位器的值"} className={"form-input"}/>
-                    </Form.Item>
-                    <Form.Item>
-                        <Space>
-                            <Button
-                                className={"important-btn"}
-                                type="primary"
-                                htmlType="submit"
-                            >
-                                保存
-                            </Button>
-                            <IconBtn
-                                className="pi-icon-btn-grey"
-                                onClick={cancel}
-                                name={"取消"}
-                            />
-                        </Space>
-                    </Form.Item>
-                </Form>
-            </div>
+                            label: `后置`,
+                            key: '2',
+                            children: <ReactMonacoEditor
+                                // editorChange={rawChange}
+                                value={""}
+                                language={"javascript"}
+                                height={"100%"}
+                                width={"100%"}
+                            />,
+                        },
+                    ]}
+                />
+            </>
         }else {
             return   <Empty
                 imageStyle={{height: 120}}
@@ -313,7 +329,7 @@ const WebSceneStepList = (props) => {
                 <div className={"case-step_add"} onClick={createStep}>
                     添加步骤
                 </div>
-                <ul className={"case-list_ul"} ref={listRef} onScroll={handleScroll}>
+                <ul className={"case-list_ul"} ref={listRef}>
                     {
                         showListView(stepList)
                     }
@@ -329,6 +345,7 @@ const WebSceneStepList = (props) => {
                 {
                     showStepView()
                 }
+
             </div>
 
         </div>

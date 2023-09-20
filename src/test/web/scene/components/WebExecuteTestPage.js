@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import WebExecuteTestCommon from "./WebExecuteTestCommon";
-import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
-import {ArrowLeftOutlined} from "@ant-design/icons";
+import CaseBread from "../../../../common/CaseBread";
 
 const WebExecuteTestPage = (props) =>{
     const {webSceneStore} = props;
@@ -22,14 +21,7 @@ const WebExecuteTestPage = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <div
-                className={"breadcrumb-title_between"}
-                style={{height:"36px"}}
-            >
-                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
-
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread title={"WEB场景测试"}/>
             <WebExecuteTestCommon
                 start={start}
                 setStart={setStart}

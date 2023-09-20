@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {inject, observer} from "mobx-react";
+import { observer} from "mobx-react";
 import RequestBodyCom from "./requestBodyCom";
 import FormParam from "./formParam";
 import FormUrlencoded from "./formUrlencoded";
@@ -29,14 +29,20 @@ const RequestBody  = (props) =>{
     },[bodyType])
 
 
+    const updateBodyType = async (data)=>{
+        data.apiUnitId=apiUnitId
+        data.id=apiUnitId
+        await updateRequestBody(data)
+    }
+
     return(
         <RequestBodyCom
             radioValue={radioType}
-            updateFn={updateRequestBody}
+            updateFn={updateBodyType}
             setRadioType={setRadioType}
             form={<FormParam  />}
             formUrlencoded={<FormUrlencoded />}
-            // json={<JsonParam />}
+            json={<JsonParam />}
             raw={<RawParam />}
             binary={null}
         />

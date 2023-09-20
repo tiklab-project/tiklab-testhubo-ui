@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {ArrowLeftOutlined} from "@ant-design/icons";
-import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
 import apiSceneTestDispatchStore from "../store/apiSceneTestDispatchStore";
 import {TextMethodType} from "../../common/methodType";
 import {Spin, Tabs} from "antd";
@@ -10,6 +8,7 @@ import ResHeaderCommon from "../../common/response/resHeaderCommon";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
 import TabPane from "antd/es/tabs/TabPane";
+import CaseBread from "../../../../../common/CaseBread";
 
 const { apiSceneExecute } = apiSceneTestDispatchStore;
 
@@ -108,20 +107,9 @@ const ApiExecuteTestPage = (props) =>{
         })
     }
 
-    const goBack = () =>{
-        props.history.push(`/repository/testcase/api-scene/${apiSceneId}`)
-    }
-
     return(
         <div className={"content-box-center"}>
-            <div
-                className={"breadcrumb-title_between"}
-                style={{height:"36px"}}
-            >
-                <ArrowLeftOutlined onClick={goBack} style={{cursor:"pointer"}}/>
-
-                <DrawerCloseIcon />
-            </div>
+            <CaseBread title={"接口场景测试"}/>
             <div  className={"result-spin-box"}>
                 <Spin spinning={loading}>
                     <div className={"history-detail history-detail-box"}>

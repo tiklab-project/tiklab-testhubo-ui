@@ -29,7 +29,7 @@ const ApiEnvDropDownSelect = (props) =>{
 
         return data&&data.map(item=>{
             return (
-                <Option key={item.id} value={item.url}>
+                <Option key={item.id} value={item.preUrl}>
                     <Tooltip placement="leftTop" title={item.preUrl}> {item.name} </Tooltip>
                 </Option>
             )

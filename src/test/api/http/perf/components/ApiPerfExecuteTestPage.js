@@ -19,7 +19,7 @@ const ApiPerfExecuteTestPage = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread title={"历史详情"}/>
+            <CaseBread title={"接口性能测试"}/>
             <ApiPerfExecuteTestCommon
                 start={start}
                 setStart={setStart}
