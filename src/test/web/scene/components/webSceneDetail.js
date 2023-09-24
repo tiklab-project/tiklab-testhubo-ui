@@ -38,6 +38,7 @@ const WebSceneDetail = (props) => {
         history.push("/repository/testcase/web-scene-execute")
     }
 
+
     const updateCase = async () =>{
         let newData = await form.getFieldsValue()
         const params = {
