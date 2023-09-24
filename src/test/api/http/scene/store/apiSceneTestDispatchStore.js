@@ -8,13 +8,7 @@ export class ApiSceneTestDispatchStore {
     @observable totalRecord ;
 
     @action
-    apiSceneExecute = async (id,url) => {
-
-        const param = {
-            apiSceneCase:{id:id},
-            apiEnv:url
-        }
-
+    apiSceneExecute = async (param) => {
         const res = await Axios.post("/apiSceneTestDispatch/execute",param);
         if(res.code === 0) {
             this.apiSceneTestResult = res.data;

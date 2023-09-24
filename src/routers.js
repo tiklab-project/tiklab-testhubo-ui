@@ -36,6 +36,7 @@ import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
 
 
+
 //---内部
 let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
 let LoginOut = LazyComponent(() => import("./home/header/LoginOut"));
@@ -71,6 +72,8 @@ let ApiPerformToScenePage = LazyComponent(() => import("./test/api/http/perf/com
 let WebSceneContent = LazyComponent(() => import("./test/web/scene/components/WebSceneContent"));
 let WebExecuteTestPage = LazyComponent(() =>import( "./test/web/scene/components/WebExecuteTestPage"));
 let WebSceneInstanceList = LazyComponent(() => import("./test/web/scene/components/webSceneInstanceList"));
+let WebSceneInstanceSinglePage  = LazyComponent(() => import( "./test/web/scene/components/WebSceneInstanceSinglePage"));
+
 let WebPerformDetail = LazyComponent(() => import("./test/web/perf/components/webPerformDetail"));
 let WebPerfInstanceList = LazyComponent(() => import("./test/web/perf/components/webPerfInstanceList"));
 let WebPerformToScenePage = LazyComponent(() => import("./test/web/perf/components/webPerformToScenePage"));
@@ -78,6 +81,8 @@ let WebPerformToScenePage = LazyComponent(() => import("./test/web/perf/componen
 let AppSceneContent = LazyComponent(() => import("./test/app/scene/components/AppSceneContent"));
 let AppExecuteTestPage = LazyComponent(() =>import("./test/app/scene/components/AppExecuteTestPage"));
 let AppSceneInstanceList = LazyComponent(() => import("./test/app/scene/components/appSceneInstanceList"));
+let AppSceneInstanceSinglePage = LazyComponent(() => import( "./test/app/scene/components/AppSceneInstanceSinglePage"));
+
 let AppPerformDetail = LazyComponent(() => import("./test/app/perf/components/appPerformDetail"));
 let AppPerfInstanceList = LazyComponent(() => import("./test/app/perf/components/appPerfInstanceList"));
 let AppPerformToScenePage = LazyComponent(() => import("./test/app/perf/components/appPerformToScenePage"));
@@ -234,6 +239,11 @@ const routers =  [
                                 component: WebExecuteTestPage,
                             },
                             {
+                                path: "/repository/testcase/web-scene-instance-single",
+                                component: WebSceneInstanceSinglePage,
+                            },
+
+                            {
                                 path: "/repository/testcase/web-perform/:id",
                                 component:WebPerformDetail,
                             },
@@ -254,11 +264,15 @@ const routers =  [
                                 path: "/repository/testcase/app-scene-instance",
                                 component: AppSceneInstanceList,
                             },
-                            //WebExecuteTestPage表格视图使用
                             {
                                 path: "/repository/testcase/app-scene-execute",
                                 component: AppExecuteTestPage,
                             },
+                            {
+                                path: "/repository/testcase/app-scene-instance-single",
+                                component: AppSceneInstanceSinglePage,
+                            },
+
                             {
                                 path: "/repository/testcase/app-perform/:id",
                                 component:AppPerformDetail,

@@ -5,10 +5,11 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { observer, inject } from 'mobx-react';
-import { Input, Button, Form } from 'antd';
+import { observer } from 'mobx-react';
+import { Button } from 'antd';
 import preParamStore from "../store/preParamStore";
-const { TextArea } = Input;
+import ReactMonacoEditor from "../../../../../common/ReactMonacoEditor";
+
 
 const PreParam = (props) => {
 
@@ -20,17 +21,13 @@ const PreParam = (props) => {
 
     const [showBtn, setShowBtn] = useState(false);
     const [dataSource, setDataSource] = useState();
-    const [form] = Form.useForm();
+    const [editValue, setEditValue] = useState();
 
     const apiUnitId =sessionStorage.getItem('apiUnitId');
 
     useEffect(()=>{
         findPreScript(apiUnitId).then((data)=>{
             if(data){
-                form.setFieldsValue({
-                    scriptex: data.scriptex,
-                })
-
                 setDataSource(data)
             }
         })
@@ -41,36 +38,46 @@ const PreParam = (props) => {
      * @param {*} values 
      */
     const onFinish = async () => {
-        let values = await form.validateFields();
+        let values = {scriptex:editValue}
         if(dataSource){
             let param = {
                 ...dataSource,
                 ...values
             }
-            updatePreScript(param)
+            await updatePreScript(param)
         }else{
-            values.apiUnit=apiUnitId;
+            values.apiUnitId= apiUnitId;
             values.id =apiUnitId;
-            createPreScript(values)
+            await createPreScript(values)
         }
 
         setShowBtn(false)
+        setEditValue(null)
+    }
+
+    const editChange = (value) =>{
+        setEditValue(value)
+        setShowBtn(true)
     }
 
     return (
         <div className={"api-script-box"}>
             <div className={"api-script-pre-header"}> </div>
-            <Form form={form} >
+            <div >
                 <div style={{border:"1px solid #f0f0f0"}}>
-                    <Form.Item name='scriptex'>
-                        <TextArea autoSize={{minRows: 4, maxRows: 10 }} onFocus={()=>setShowBtn(true)}/>
-                    </Form.Item>
+                    <ReactMonacoEditor
+                        editorChange={editChange}
+                        value={dataSource?.scriptex}
+                        language={"javascript"}
+                        height={"200px"}
+                        width={"100%"}
+                    />
                 </div>
-                <div className={`action-btn-box ${showBtn?"textArea-focus":"textArea-blur"}`}>
+                <div className={`action-btn-box ${showBtn?"teston-show":"teston-hide"}`}>
                     <Button onClick={()=>setShowBtn(false)} style={{marginRight:"10px"}}> 取消</Button>
                     <Button onClick={onFinish} className={"important-btn"}> 保存</Button>
                 </div>
-            </Form>
+            </div>
         </div>
     )
 }

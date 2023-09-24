@@ -60,7 +60,6 @@ const TestCaseDrawer = (props) =>{
             case CASE_TYPE.FUNCTION:
                 toCaseDetail("functionId",record)
                 break;
-
         }
     }
 

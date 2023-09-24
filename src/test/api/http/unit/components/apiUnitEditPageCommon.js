@@ -32,7 +32,6 @@ const ApiUnitEditPageCommon = (props) => {
     const [methodType,setMethodType] =useState();
     const [path, setPath] = useState();
     const [assertList, setAssertList] = useState();
-    const [testResult, setTestResult] = useState();
 
     useEffect(async ()=>{
         let res = await findApiUnit(apiUnitId)
@@ -59,8 +58,6 @@ const ApiUnitEditPageCommon = (props) => {
         //执行测试
         let res = await apiUnitExecute(apiUnitId,envUrl?envUrl:values.host)
         if(res.code===0){
-            setTestResult(res.data)
-
             history.push("/repository/testcase/api-unit-execute")
         }
 

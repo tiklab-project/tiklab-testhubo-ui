@@ -1,7 +1,6 @@
 import React, { useState} from "react";
 import { Drawer,  Spin} from "antd";
 import {inject, observer} from "mobx-react";
-import "./performanceStyle.scss"
 import PerformInstanceCommon from "../../../../../common/caseCommon/PerformInstanceCommon";
 import apiPerfInstanceStore from "../store/apiPerfInstanceStore";
 

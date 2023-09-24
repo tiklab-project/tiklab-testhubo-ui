@@ -488,7 +488,8 @@ $backgroud-color: #fff;
     display: flex;
     border-bottom: 1px solid #e4e4e4;
     padding: 10px;
-
+    align-items: center;
+    gap: 10px;
 }
 .history-delete-icon{
     display: none;
@@ -535,19 +536,7 @@ $backgroud-color: #fff;
     background: #f04949;
 }
 
-.scene-instance-contant{
-    display: flex;
-    height:calc(100% - 42px);
 
-    .scene-step-contant{
-        width: 240px;
-        border-right: 1px solid #e4e4e4;
-    }
-
-    .scene-step-detail{
-        flex: 1;
-    }
-}
 
 .history-list{
     height:calc(100% - 38px);

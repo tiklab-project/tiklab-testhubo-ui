@@ -53,7 +53,7 @@ const RawResponse = (props) => {
             form={form}
             onFinish={onFinish}
         >
-            <div className={` ${focus === true ? 'textArea-focus' : 'textArea-blur'}`}>
+            <div className={` ${focus === true ? 'teston-show' : 'teston-hide'}`}>
                 <div className='mock-textarea'>
                     <Form.Item name='type'>
                         <Select style={{ width: 100 }} >

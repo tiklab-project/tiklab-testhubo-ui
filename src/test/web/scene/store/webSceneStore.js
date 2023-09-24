@@ -7,6 +7,7 @@ export class WebSceneStore {
     @observable webSceneList = [];
     @observable webSceneInfo;
     @observable testCaseInfo;
+    @observable startStatus
 
     @action
     findWebSceneList = async (value) => {
@@ -57,21 +58,10 @@ export class WebSceneStore {
      * 返回当前执行的状态 0：未开始，1：进行中
      */
     @action
-    webSceneTestStatus = async (webSceneId) => {
-        let res  = await Axios.post("/webSceneTestDispatch/status")
-
-        //如果执行状态为0:未开始
-        if(res.code===0&&res.data===0){
-            //开始执行
-            this.webSceneTestDispatch({webSceneId:webSceneId,webDriver:"chrome"}).then(res=>{
-                if (res.code === 0) {
-                    //执行会返回1:进行中
-                    return res.data
-                }
-            })
-        }
-
-        return 0
+    webSceneTestStatus = async () => {
+        let res = await Axios.post("/webSceneTestDispatch/status")
+        this.startStatus = res.data
+        return res
     }
 
     /**
@@ -79,6 +69,12 @@ export class WebSceneStore {
      */
     @action
     webSceneTestResult = async (params) => await Axios.post("/webSceneTestDispatch/result",params)
+
+
+    @action
+    setStartStatus = (status) =>{
+        this.startStatus = status
+    }
 
 
 

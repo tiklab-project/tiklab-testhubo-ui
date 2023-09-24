@@ -19,6 +19,7 @@ const ApiSceneDetail = (props) =>{
     const [caseInfo,setCaseInfo]=useState();
     let history = useHistory()
     const apiSceneId = sessionStorage.getItem('apiSceneId');
+    const repositoryId = sessionStorage.getItem('repositoryId');
     useEffect(()=> {
         findApiScene(apiSceneId).then(res=>{
             setCaseInfo(res);
@@ -84,7 +85,7 @@ const ApiSceneDetail = (props) =>{
         },{
             label: `环境变量`,
             key: '3',
-            children: <VariableTable caseId={apiSceneId}/>
+            children: <VariableTable belongId={repositoryId}/>
         }
     ]
 

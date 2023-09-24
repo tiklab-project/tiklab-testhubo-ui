@@ -76,7 +76,7 @@ const WebSceneDetail = (props) => {
         },{
             label: `环境变量`,
             key: '3',
-            children: <VariableTable caseId={webSceneId}/>
+            children: <VariableTable belongId={webSceneId}/>
         }
     ]
 
@@ -101,7 +101,6 @@ const WebSceneDetail = (props) => {
                             </Space>
                     }
                 </>
-
             }
         />
     )

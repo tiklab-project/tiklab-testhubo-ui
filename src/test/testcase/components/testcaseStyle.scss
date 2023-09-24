@@ -259,7 +259,7 @@
         border-left: none;
         padding: 10px;
         height: calc(100% - -1px);
-        overflow: auto;
+        overflow: hidden;
 
         .ant-input{
             height: 36px;
@@ -310,4 +310,48 @@
     box-shadow: 0 0 10px #e4e4e4;
     margin: 10px;
     height: calc(100% - 5px);
+}
+
+.history-detail-box{
+    display: flex;
+    flex-direction: column;
+
+
+    .history-item-box{
+        display: flex;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+}
+
+.history-detail-all-box{
+    height: 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.history-detail-all-item{
+    width: 180px;
+    height: 100px;
+    background: #efefef;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.history-detail-all-item-value{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+.history-detail{
+    flex: 1;
+    height: 100%;
+
+    .history-detail-all{
+        //height: 180px;
+    }
 }

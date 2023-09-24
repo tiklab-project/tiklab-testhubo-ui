@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Empty, Popconfirm, Table, Tag} from "antd";
+import { Empty, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
-import AppSceneInstanceDrawer from "./appSceneInstanceDrawer";
 import appSceneInstanceStore from "../store/appSceneInstanceStore";
 import {useHistory} from "react-router";
-import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
-import {ArrowLeftOutlined} from "@ant-design/icons";
 import CaseBread from "../../../../common/CaseBread";
 
 const AppSceneInstanceList = (props) =>{
@@ -23,7 +20,11 @@ const AppSceneInstanceList = (props) =>{
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
-            render:(text,record)=>(  <AppSceneInstanceDrawer name={`#${text}`} appSceneInstanceId={record.id}/>)
+            render:(text,record)=>(
+                <a onClick={()=>toSingleInstance(record)}>
+                    {text}
+                </a>
+            )
         },
         {
             title: '总结果',
@@ -53,6 +54,12 @@ const AppSceneInstanceList = (props) =>{
             dataIndex: "failNum",
             key: "failNum",
         },
+        // {
+        //     title: `总耗时/ms`,
+        //     dataIndex: "totalDuration",
+        //     key: "totalDuration",
+        //     // render:(text)=>(text/1000)
+        // },
         {
             title: `测试时间`,
             dataIndex: "createTime",
@@ -64,17 +71,11 @@ const AppSceneInstanceList = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <Popconfirm
-                    title="确定删除？"
-                    onConfirm={() => deleteAppSceneInstance(record.id).then(()=>findPage())}
-                    okText='确定'
-                    cancelText='取消'
-                >
-                    <IconCommon
-                        className={"icon-s edit-icon"}
-                        icon={"shanchu3"}
-                    />
-                </Popconfirm>
+                <IconCommon
+                    className={"icon-s edit-icon"}
+                    icon={"shanchu3"}
+                    onClick={() => deleteAppSceneInstance(record.id).then(()=>findPage())}
+                />
             )
         },
     ]
@@ -108,6 +109,10 @@ const AppSceneInstanceList = (props) =>{
 
     }
 
+    const toSingleInstance = (record) =>{
+        sessionStorage.setItem("appSceneInstanceId",record.id)
+        history.push("/repository/testcase/app-scene-instance-single")
+    }
 
     // 分页
     const onTableChange = (pagination) => {
@@ -123,9 +128,6 @@ const AppSceneInstanceList = (props) =>{
         setPageParam(newParams)
     }
 
-    const goBack = () =>{
-        history.push(`/repository/testcase/app-scene/${appSceneId}`)
-    }
 
     return(
         <div className={"content-box-center"}>

@@ -80,7 +80,7 @@ const AppSceneDetail = (props) => {
         },{
             label: `环境变量`,
             key: '3',
-            children: <VariableTable caseId={appSceneId}/>
+            children: <VariableTable belongId={appSceneId}/>
         }
     ]
     return(

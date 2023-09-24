@@ -68,17 +68,11 @@ const ApiUnitInstanceList = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <Popconfirm
-                    title="确定删除？"
-                    onConfirm={() => deleteApiUnitInstance(record.id).then(()=>findPage())}
-                    okText='确定'
-                    cancelText='取消'
-                >
-                    <IconCommon
-                        className={"icon-s edit-icon"}
-                        icon={"shanchu3"}
-                    />
-                </Popconfirm>
+                <IconCommon
+                    className={"icon-s edit-icon"}
+                    icon={"shanchu3"}
+                    onClick={() => deleteApiUnitInstance(record.id).then(()=>findPage())}
+                />
             )
         },
     ]

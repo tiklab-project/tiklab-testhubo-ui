@@ -3,9 +3,9 @@ import { Empty, Popconfirm, Table, Tag} from "antd";
 import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
-import WebSceneInstanceDrawer from "./webSceneInstanceDrawer";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
 import CaseBread from "../../../../common/CaseBread";
+import {useHistory} from "react-router";
 
 const WebSceneInstanceList = (props) =>{
     const {
@@ -20,7 +20,11 @@ const WebSceneInstanceList = (props) =>{
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
-            render:(text,record)=>(<WebSceneInstanceDrawer name={`#${text}`} webSceneInstanceId={record.id}/>)
+            render:(text,record)=>(
+                <a onClick={()=>toSingleInstance(record)}>
+                    {text}
+                </a>
+            )
         },
         {
             title: '总结果',
@@ -67,21 +71,17 @@ const WebSceneInstanceList = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <Popconfirm
-                    title="确定删除？"
-                    onConfirm={() => deleteWebSceneInstance(record.id).then(()=>findPage())}
-                    okText='确定'
-                    cancelText='取消'
-                >
-                    <IconCommon
-                        className={"icon-s edit-icon"}
-                        icon={"shanchu3"}
-                    />
-                </Popconfirm>
+
+                <IconCommon
+                    className={"icon-s edit-icon"}
+                    icon={"shanchu3"}
+                    onClick={() => deleteWebSceneInstance(record.id).then(()=>findPage())}
+                />
             )
         },
     ]
 
+    let history = useHistory()
     const webSceneId = sessionStorage.getItem("webSceneId")
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
@@ -108,6 +108,12 @@ const WebSceneInstanceList = (props) =>{
             setTotalRecord(res.data.totalRecord)
         }
     }
+
+    const toSingleInstance = (record) =>{
+        sessionStorage.setItem("webSceneInstanceId",record.id)
+        history.push("/repository/testcase/web-scene-instance-single")
+    }
+
 
     // 分页
     const onTableChange = (pagination) => {

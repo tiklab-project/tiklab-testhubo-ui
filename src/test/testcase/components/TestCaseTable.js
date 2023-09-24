@@ -5,13 +5,6 @@ import emptyImg from "../../../assets/img/empty.png"
 import IconCommon from "../../../common/IconCommon";
 import {showCaseTypeInList, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined} from "@ant-design/icons";
-import ApiUnitInstanceDrawer from "../../api/http/unit/components/apiUnitInstanceSinglePage";
-import ApiSceneInstanceDrawer from "../../api/http/scene/components/apiSceneInstanceSinglePage";
-import WebSceneInstanceDrawer from "../../web/scene/components/webSceneInstanceDrawer";
-import AppSceneInstanceDrawer from "../../app/scene/components/appSceneInstanceDrawer";
-import ApiPerformInstanceDrawer from "../../api/http/perf/components/apiPerformInstanceDrawer";
-import WebPerformInstanceDrawer from "../../web/perf/components/webPerformInstanceDrawer";
-import AppPerformInstanceDrawer from "../../app/perf/components/appPerformInstanceDrawer";
 import CaseTypeSelect from "./CaseTypeSelect";
 import {useHistory} from "react-router";
 import TestCaseDrawer from "../../common/TestCaseDrawer";
@@ -21,6 +14,7 @@ import "./caseContantStyle.scss"
 import "./unitcase.scss"
 import TestCaseMenu from "./TestCaseMenu";
 import {getUser} from "tiklab-core-ui";
+import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -60,7 +54,7 @@ const TestCaseTable = (props) => {
             dataIndex: "recentInstance",
             key: "recentInstance",
             width:"10%",
-            render:(text,record)=>(showRecentInstance(record))
+            render:(text,record)=>(<CaseInstanceSingleDrawer caseData={record} {...props}/>)
         },
         {
             title: `模块`,
@@ -151,35 +145,6 @@ const TestCaseTable = (props) => {
         }
     }
 
-    //表格中最近执行展示
-    const showRecentInstance = (record) =>{
-        let recent = record.recentInstance
-
-        switch (record.caseType) {
-            case "api-unit":
-                return recent.result===2?<div>--</div>:<ApiUnitInstanceDrawer name={showRecent(recent)} apiUnitInstanceId={recent.instanceId} />
-            case "api-scene":
-                return recent.result===2?<div>--</div>:<ApiSceneInstanceDrawer name={showRecent(recent)} apiSceneInstanceId={recent.instanceId}/>
-            case "api-perform":
-                return recent.result===2?<div>--</div>:<ApiPerformInstanceDrawer name={showRecent(recent)} apiPerfInstanceId={recent.instanceId} />
-            case "web-scene":
-                return recent.result===2?<div>--</div>:<WebSceneInstanceDrawer name={showRecent(recent)} webSceneInstanceId={recent.instanceId} />
-            case "web-perform":
-                return recent.result===2?<div>--</div>:<WebPerformInstanceDrawer name={showRecent(recent)} webPerfInstanceId={recent.instanceId} />
-            case "app-scene":
-                return recent.result===2?<div>--</div>:<AppSceneInstanceDrawer name={showRecent(recent)} appSceneInstanceId={recent.instanceId}/>
-            case "app-perform":
-                return recent.result===2?<div>--</div>:<AppPerformInstanceDrawer name={showRecent(recent)} appPerfInstanceId={recent.instanceId} />
-        }
-    }
-    const showRecent=(recentInstance)=>{
-        switch (recentInstance.result) {
-            case 0:
-                return <span>失败 #{recentInstance.executeNumber}</span>
-            case 1:
-                return <span>成功 #{recentInstance.executeNumber}</span>
-        }
-    }
 
     //模块赛选
     const changeCategory=(categoryId)=> {

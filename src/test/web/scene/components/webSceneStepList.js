@@ -7,7 +7,8 @@ import "./webStyle.scss"
 import emptyImg from "../../../../assets/img/empty.png";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import {Axios} from "tiklab-core-ui";
-import ReactMonacoEditor from "../../../../common/ReactMonacoEditor";
+import ScriptEdit from "../../../common/ScriptEdit";
+import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 let {Option}  =  Select;
 
@@ -19,12 +20,7 @@ const {
     createWebSceneStep
 } = webSceneStepStore;
 
-const tailLayout = {
-    wrapperCol: {
-        offset: 0,
-        span: 16,
-    },
-};
+
 const WebSceneStepList = (props) => {
 
     const [form] = Form.useForm();
@@ -34,6 +30,9 @@ const WebSceneStepList = (props) => {
     const [stepList, setStepList] = useState([]);
     const [locationList, setLocationList] = useState([]);
     const [actionTypeList, setActionTypeList] = useState([]);
+    const [preScript, setPreScript] = useState();
+    const [afterScript, setAfterScript] = useState();
+
 
     let webSceneId = sessionStorage.getItem("webSceneId");
     useEffect(async ()=>{
@@ -94,6 +93,9 @@ const WebSceneStepList = (props) => {
     const onFinish = async () =>{
         let values = await form.validateFields();
 
+        values.preScript=preScript;
+        values.afterScript=afterScript;
+
         if(stepSelect){
             let param={
                 ...stepSelect,
@@ -103,6 +105,7 @@ const WebSceneStepList = (props) => {
             if(res.code===0){
                 await findPage()
                 setStepSelect(param)
+                messageFn("success","保存成功")
             }
         }else {
             values.webSceneId=webSceneId
@@ -111,10 +114,28 @@ const WebSceneStepList = (props) => {
                 await findPage()
                 values.id=res.data
                 setStepSelect(values)
+                messageFn("success","保存成功")
             }
             setIsCreate(false)
         }
 
+    }
+
+    /**
+     * 点击列表右侧出详情
+     */
+    const selectListItem =async (item) =>{
+        let data = await findWebSceneStep(item.id)
+        form.setFieldsValue({...data})
+        setStepSelect(data)
+    }
+
+    const changePreScript = (value) =>{
+        setPreScript(value)
+    }
+
+    const changeAfterScript = (value) =>{
+        setAfterScript(value)
     }
 
     const cancel = () =>{
@@ -165,17 +186,6 @@ const WebSceneStepList = (props) => {
         }
     }
 
-    /**
-     * 点击列表右侧出详情
-     */
-    const selectListItem =async (item) =>{
-        setStepSelect(item)
-
-        let data = await findWebSceneStep(item.id)
-        form.setFieldsValue({...data})
-    }
-
-
     const showStepView =  () =>{
         if(stepSelect||isCreate){
             return <>
@@ -184,13 +194,12 @@ const WebSceneStepList = (props) => {
                     <Form
                         form={form}
                         layout="vertical"
-                        onFinish={onFinish}
                     >
                         <Row gutter={[0]}>
                             <Col span={12}>
                                  <Form.Item  name="name">
-                            <Input placeholder={"名称"} />
-                        </Form.Item>
+                                    <Input placeholder={"名称"} />
+                                </Form.Item>
                             </Col>
                             <Col span={12}></Col>
                             <Col span={6}>
@@ -220,24 +229,6 @@ const WebSceneStepList = (props) => {
                                     <Input placeholder={"定位器的值"} className={"form-input"}/>
                                 </Form.Item>
                             </Col>
-                            <Col span={18}>
-                               <Form.Item>
-                                   <Space>
-                                       <Button
-                                           className={"important-btn"}
-                                           type="primary"
-                                           htmlType="submit"
-                                       >
-                                           保存
-                                       </Button>
-                                       <IconBtn
-                                           className="pi-icon-btn-grey"
-                                           onClick={cancel}
-                                           name={"取消"}
-                                       />
-                                   </Space>
-                               </Form.Item>
-                            </Col>
                         </Row>
                     </Form>
                 </div>
@@ -248,27 +239,31 @@ const WebSceneStepList = (props) => {
                         {
                             label: `前置`,
                             key: '1',
-                            children: <ReactMonacoEditor
-                                // editorChange={rawChange}
-                                value={""}
-                                language={"javascript"}
-                                height={"100%"}
-                                width={"100%"}
-                            />,
+                            children: <ScriptEdit changeScript={changePreScript} script={stepSelect?.preScript} />
                         },
                         {
                             label: `后置`,
                             key: '2',
-                            children: <ReactMonacoEditor
-                                // editorChange={rawChange}
-                                value={""}
-                                language={"javascript"}
-                                height={"100%"}
-                                width={"100%"}
-                            />,
+                            children: <ScriptEdit changeScript={changeAfterScript} script={stepSelect?.afterScript} />
                         },
                     ]}
                 />
+                <div style={{position: "absolute", bottom: "10px"}}>
+                    <Space>
+                        <Button
+                            className={"important-btn"}
+                            onClick={onFinish}
+                        >
+                            保存
+                        </Button>
+                        <IconBtn
+                            className="pi-icon-btn-grey"
+                            onClick={cancel}
+                            name={"取消"}
+                        />
+                    </Space>
+                </div>
+
             </>
         }else {
             return   <Empty
@@ -297,7 +292,6 @@ const WebSceneStepList = (props) => {
         )
     }
 
-
     //操作方法下拉选择框渲染
     const functionView = (data) => {
         return(
@@ -320,7 +314,6 @@ const WebSceneStepList = (props) => {
             </Select>
         )
     }
-
 
     return(
 
@@ -345,9 +338,7 @@ const WebSceneStepList = (props) => {
                 {
                     showStepView()
                 }
-
             </div>
-
         </div>
     )
 }

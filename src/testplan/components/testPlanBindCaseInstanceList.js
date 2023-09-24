@@ -6,13 +6,6 @@ import CaseBread from "../../common/CaseBread";
 const TestPlanBindCaseInstanceList = (props) =>{
 
 
-    const goToPlanInstance = () =>{
-        props.history.push("/repository/plan-instance")
-    }
-
-    const goToPlanDetail = () =>{
-        props.history.push("/repository/plan/detail")
-    }
 
     return(
         <div className={"content-box-center"}>

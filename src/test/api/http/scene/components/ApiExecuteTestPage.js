@@ -16,6 +16,7 @@ const ApiExecuteTestPage = (props) =>{
     const { apiEnvStore} = props;
     const { envUrl } =apiEnvStore;
 
+    const repositoryId = sessionStorage.getItem("repositoryId")
     const apiSceneId = sessionStorage.getItem('apiSceneId')
     const [allData, setAllData] = useState();
     const [stepList, setStepList] = useState([]);
@@ -23,8 +24,14 @@ const ApiExecuteTestPage = (props) =>{
     const [selectedStepData, setSelectedStepData] = useState();
     const [loading, setLoading] = useState(true);
 
+
     useEffect(()=>{
-        apiSceneExecute(apiSceneId, envUrl).then(res=>{
+        const param = {
+            apiSceneCase:{id:apiSceneId},
+            apiEnv:envUrl,
+            repositoryId:repositoryId
+        }
+        apiSceneExecute(param).then(res=>{
             setAllData(res.apiSceneInstance);
             setStepList(res.apiUnitInstanceList)
 
@@ -34,24 +41,24 @@ const ApiExecuteTestPage = (props) =>{
 
     const clickFindInstance = index =>{
         setSelected(index)
-        setSelectedStepData(stepList.find((item,index)=>index=== index))
+        setSelectedStepData(stepList.find((item,listIndex)=>listIndex=== index))
     }
 
     const showStepListView = (data) =>{
         return data&&data.map((item,index)=>{
             return (
-                <div className={`history-item ${selected===index?"history-item-selected":""}`} key={index} onClick={()=>clickFindInstance(index)}>
+                <div
+                    className={`history-item ${selected===index?"history-item-selected":""}`}
+                    key={index}
+                    onClick={()=>clickFindInstance(index)}
+                >
                     {
                         item.result===1
-                            ?<div className='history-item-result '>
-                                <div className={"isSucceed"}>通过</div>
-                            </div>
-                            :<div className='history-item-result '>
-                                <div className={"isFailed"}>未通过</div>
-                            </div>
+                            ?<div style={{background: "green",width: "8px",height: "8px",borderRadius: "50%"}} />
+                            :<div style={{background: "red",width: "8px",height: "8px",borderRadius: "50%"}}  />
                     }
                     <div className='history-item-detail'>
-                        <div>{item.apiUnit.path}</div>
+                        <div  style={{overflow: "hidden",textOverflow: "ellipsis"}}>{item.apiUnit.path}</div>
                         <div>
                             <TextMethodType type={item?.requestInstance?.requestType} />
                             {/*<span style={{margin:" 0 10px 0 0"}}>{item?.requestInstance?.requestType}</span>*/}
@@ -108,7 +115,7 @@ const ApiExecuteTestPage = (props) =>{
     }
 
     return(
-        <div className={"content-box-center"}>
+        <div style={{height: "calc(100% - 35px)"}}>
             <CaseBread title={"接口场景测试"}/>
             <div  className={"result-spin-box"}>
                 <Spin spinning={loading}>

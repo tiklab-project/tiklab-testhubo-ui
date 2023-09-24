@@ -13,7 +13,7 @@ const {TextArea} = Input
 
 // 添加与编辑
 const VariableEdit = (props) => {
-    const { variableId,caseId,findPage ,type} = props;
+    const { variableId,belongId,findPage ,type} = props;
 
     const [form] = Form.useForm();
 
@@ -37,7 +37,7 @@ const VariableEdit = (props) => {
     // 提交
     const onFinish =async () => {
         let values =  await form.validateFields()
-        values.caseId=caseId;
+        values.belongId=belongId;
         values.type="string"
         if(props.type === "edit" ){
             values.id=variableId;

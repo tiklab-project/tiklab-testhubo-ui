@@ -9,7 +9,7 @@ import VariableEdit from "./AgentConfigEdit";
 const {findVariablePage,deleteVariable} = variableStore
 
 const VariableTable = (props) =>{
-    const {caseId} = props;
+    const {belongId} = props;
 
     const [dataList, setDataList] = useState([]);
     const [totalRecord, setTotalRecord] = useState();
@@ -52,7 +52,7 @@ const VariableTable = (props) =>{
             render: (text, record) => (
                 <Space size="middle">
                     <VariableEdit
-                        caseId={caseId}
+                        belongId={belongId}
                         findPage={findPage}
                         type={"edit"}
                         variableId={record.id}
@@ -78,7 +78,7 @@ const VariableTable = (props) =>{
 
     useEffect(async ()=>{
         await findPage()
-    },[caseId])
+    },[belongId])
 
     const findPage =async (param) =>{
         let params = {
@@ -86,7 +86,7 @@ const VariableTable = (props) =>{
                 pageSize: pageSize,
                 currentPage:1
             },
-            caseId:caseId,
+            belongId:belongId,
             ...param
         }
         let data = await findVariablePage(params)
@@ -112,7 +112,7 @@ const VariableTable = (props) =>{
     return(
         <div className={"table-list-box"} style={{margin:"10px 0 "}}>
             <VariableEdit
-                caseId={caseId}
+                belongId={belongId}
                 findPage={findPage}
             />
             <Table
@@ -137,4 +137,5 @@ const VariableTable = (props) =>{
         </div>
     )
 }
+
 export default VariableTable;

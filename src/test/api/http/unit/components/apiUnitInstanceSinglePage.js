@@ -8,8 +8,6 @@ import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 import CaseBread from "../../../../../common/CaseBread";
 
 const ApiUnitInstanceSinglePage = (props) =>{
-
-
     const {findApiUnitInstance} = apiUnitInstanceStore;
 
     const [allData, setAllData] = useState();
@@ -70,7 +68,7 @@ const ApiUnitInstanceSinglePage = (props) =>{
 
     return(
         <>
-            <CaseBread title={"接口测试"}/>
+            <CaseBread title={"历史详情"}/>
             <ResponseCommon
                 detail={showDetail(detail)}
                 resBody={allData?.responseInstance?.responseBody}

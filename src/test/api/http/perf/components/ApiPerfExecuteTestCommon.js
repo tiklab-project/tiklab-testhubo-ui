@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Empty, Spin, Table} from "antd";
 import {inject, observer} from "mobx-react";
-import "./performanceStyle.scss"
+
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiPerfTestDispatchStore from "../store/apiPerfTestDispatchStore";
 

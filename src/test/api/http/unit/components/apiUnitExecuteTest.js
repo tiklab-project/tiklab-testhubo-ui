@@ -1,34 +1,44 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import ResponseCommon from "../../common/response/responseCommon";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import {TextMethodType} from "../../common/methodType";
 import {observer} from "mobx-react";
-
-import apiUnitTestDispatchStore from "../store/apiUnitTestDispatchStore";
 import CaseBread from "../../../../../common/CaseBread";
+import apiUnitTestDispatchStore from "../store/apiUnitTestDispatchStore";
 
-const {apiUnitTestResult} = apiUnitTestDispatchStore;
+
+
 
 const ApiUnitExecuteTest = () =>{
+    const {apiUnitTestResult} = apiUnitTestDispatchStore;
+    const [data, setData] = useState();
+    useEffect(()=>{
+        setData(apiUnitTestResult)
 
+        return () => {
+            // 组件unmount时清空
+            setData(null);
+        }
+
+    },[apiUnitTestResult])
 
     //响应结果基础信息项
     const detail = [
         {
             title:"请求地址:",
-            value:apiUnitTestResult?.requestInstance?.requestUrl,
+            value:data?.requestInstance?.requestUrl,
             key:"url"
         },{
             title:"请求方式:",
-            value:apiUnitTestResult?.requestInstance?.requestType,
+            value:data?.requestInstance?.requestType,
             key:"methodType"
         },{
             title:"状态码:",
-            value:apiUnitTestResult?.statusCode,
+            value:data?.statusCode,
             key:"statusCode"
         },{
             title:"测试结果:",
-            value:apiUnitTestResult?.result ? '成功' : '失败',
+            value:data?.result ? '成功' : '失败',
             key:"result"
         },
     ]
@@ -42,11 +52,7 @@ const ApiUnitExecuteTest = () =>{
                         <span className={"history-detail-item-box-title"}>{item.title}</span>
                     </div>
 
-                    {
-                        item.key==="methodType"
-                            ? <TextMethodType type={apiUnitTestResult?.requestInstance?.requestType} />
-                            :<span className={"history-detail-item-box-value"}>{item.value}</span>
-                    }
+                    <span className={"history-detail-item-box-value"}>{item.value}</span>
 
                 </div>
             )
@@ -59,9 +65,9 @@ const ApiUnitExecuteTest = () =>{
             <CaseBread title={"接口测试"}/>
             <ResponseCommon
                 detail={showDetail(detail)}
-                resBody={apiUnitTestResult?.responseInstance?.responseBody}
-                resHeader={processResHeader(apiUnitTestResult?.responseInstance?.responseHeader)}
-                reqHeader={processResHeader(apiUnitTestResult?.requestInstance?.requestHeader)}
+                resBody={data?.responseInstance?.responseBody}
+                resHeader={processResHeader(data?.responseInstance?.responseHeader)}
+                reqHeader={processResHeader(data?.requestInstance?.requestHeader)}
             />
         </>
 
