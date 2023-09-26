@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Popconfirm, Space, Table, Tag} from "antd";
-import {inject, observer} from "mobx-react";
+import {Empty,  Table, Tag} from "antd";
+import { observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiPerfInstanceStore from "../store/apiPerfInstanceStore";
+import {useHistory} from "react-router";
 
 const ApiPerfInstanceTable = (props) =>{
     const {apiPerfId} = props;
@@ -14,14 +15,16 @@ const ApiPerfInstanceTable = (props) =>{
         deleteApiPerfInstance
     } = apiPerfInstanceStore;
 
+    const history = useHistory();
+
+
     const column = [
         {
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
             render:(text,record)=>(
-                <div style={{fontWeight:"bold"}}>#{text}</div>
-                // <ApiPerformInstanceDrawer name={`#${text}`} apiPerfInstanceId={record.id}/>
+                <a style={{fontWeight:"bold"}} onClick={()=>toInstanceSinglePage(record.id)}>#{text}</a>
             )
         },
         {
@@ -62,21 +65,11 @@ const ApiPerfInstanceTable = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <Space size="middle">
-                    <Popconfirm
-                        title="确定删除？"
-                        onConfirm={() => deleteApiPerfInstance(record.id).then(()=>findPage())}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <IconCommon
-                            className={"icon-s edit-icon"}
-                            icon={"shanchu3"}
-                        />
-                    </Popconfirm>
-
-                    {/*<ApiPerfInstanceDrawer icon={true}  apiPerfInstanceId={record.id}/>*/}
-                </Space>
+                <IconCommon
+                    className={"icon-s edit-icon"}
+                    icon={"shanchu3"}
+                    onClick={() => deleteApiPerfInstance(record.id).then(()=>findPage())}
+                />
             )
         },
     ]
@@ -105,7 +98,14 @@ const ApiPerfInstanceTable = (props) =>{
         if(res.code===0){
             setTotalRecord(res.data.totalRecord)
         }
+    }
 
+    /**
+     * 去往单个历史详情页
+     */
+    const toInstanceSinglePage = (id) => {
+        sessionStorage.setItem("apiPerfInstanceId",id)
+        history.push("/repository/testcase/api-perform-instance-single")
     }
 
 

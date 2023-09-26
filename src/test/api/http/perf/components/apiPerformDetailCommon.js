@@ -1,7 +1,8 @@
 import React from "react";
-import {Breadcrumb, Tabs} from "antd";
+import { Tabs} from "antd";
 import ApiPerfStepList from "./apiPerfStepList";
 import ApiPerformConfig from "./apiPerfConfig";
+import ApiPerfTestData from "./ApiPerfTestData";
 const { TabPane } = Tabs;
 
 const ApiPerformDetailCommon = (props) =>{
@@ -14,6 +15,9 @@ const ApiPerformDetailCommon = (props) =>{
             </TabPane>
             <TabPane tab="压力配置" key="2">
                 <ApiPerformConfig {...props}/>
+            </TabPane>
+            <TabPane tab="测试数据" key="3">
+                <ApiPerfTestData />
             </TabPane>
         </Tabs>
     )

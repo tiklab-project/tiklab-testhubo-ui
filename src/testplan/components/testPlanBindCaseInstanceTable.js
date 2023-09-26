@@ -7,7 +7,7 @@ import ApiUnitInstanceDrawer from "../../test/api/http/unit/components/apiUnitIn
 import ApiSceneInstanceDrawer from "../../test/api/http/scene/components/apiSceneInstanceSinglePage";
 import WebSceneInstanceDrawer from "../../test/web/scene/components/WebSceneInstanceSinglePage";
 import AppSceneInstanceDrawer from "../../test/app/scene/components/AppSceneInstanceSinglePage";
-import ApiPerformInstanceDrawer from "../../test/api/http/perf/components/apiPerformInstanceDrawer";
+import ApiPerformInstanceDrawer from "../../test/api/http/perf/components/ApiPerfInstanceSinglePage";
 import WebPerformInstanceDrawer from "../../test/web/perf/components/webPerformInstanceDrawer";
 import AppPerformInstanceDrawer from "../../test/app/perf/components/appPerformInstanceDrawer";
 import testPlanInstanceStore from "../store/testPlanInstanceStore";

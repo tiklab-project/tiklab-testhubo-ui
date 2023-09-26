@@ -36,7 +36,6 @@ import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
 
 
-
 //---内部
 let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
 let LoginOut = LazyComponent(() => import("./home/header/LoginOut"));
@@ -68,6 +67,7 @@ let ApiPerfContent = LazyComponent(() => import("./test/api/http/perf/components
 let ApiPerfExecuteTestPage = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfExecuteTestPage"));
 let ApiPerfInstanceList = LazyComponent(() => import("./test/api/http/perf/components/apiPerfInstanceList"));
 let ApiPerformToScenePage = LazyComponent(() => import("./test/api/http/perf/components/apiPerformToScenePage"));
+let ApiPerfInstanceSinglePage = LazyComponent(() => import( "./test/api/http/perf/components/ApiPerfInstanceSinglePage"));
 
 let WebSceneContent = LazyComponent(() => import("./test/web/scene/components/WebSceneContent"));
 let WebExecuteTestPage = LazyComponent(() =>import( "./test/web/scene/components/WebExecuteTestPage"));
@@ -225,6 +225,10 @@ const routers =  [
                             {
                                 path: "/repository/testcase/api-perform-instance",
                                 component: ApiPerfInstanceList,
+                            },
+                            {
+                                path: "/repository/testcase/api-perform-instance-single",
+                                component: ApiPerfInstanceSinglePage,
                             },
 
                             {

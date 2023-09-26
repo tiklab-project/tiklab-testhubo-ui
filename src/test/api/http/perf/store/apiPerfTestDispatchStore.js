@@ -29,11 +29,14 @@ export class ApiPerfTestDispatchStore {
             apiEnv:url
         }
 
-        const res  = await Axios.post("/apiPerfTestDispatch/exeResult",param);
+        const res  = await Axios.post("/apiPerfTestDispatch/result",param);
         if(res.code === 0 ){
             return res.data;
         }
     }
+
+    @action
+    apiPerfTestStatus = async ()=> await Axios.post("/apiPerfTestDispatch/status");
 
 
 }

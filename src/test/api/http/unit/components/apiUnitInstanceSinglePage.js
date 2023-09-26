@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
-import "./apiUnitInstanceStyle.scss"
 import {TextMethodType} from "../../common/methodType";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import ResponseCommon from "../../common/response/responseCommon";

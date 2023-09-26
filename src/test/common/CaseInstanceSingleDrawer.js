@@ -20,6 +20,10 @@ const CaseInstanceSingleDrawer = (props) =>{
 
 
     const showDrawer = async () => {
+        if(caseData?.recentInstance?.result===2){
+            return
+        }
+
         switchInstance(caseData)
         setOpen(true);
     };

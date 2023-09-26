@@ -338,3 +338,126 @@
 
     }
 }
+
+
+.history-list-item{
+    border-bottom: 1px solid var(--pi-border-color);
+    padding: 10px 0;
+    cursor: pointer;
+    position: relative;
+
+    &-url{
+        padding: 5px;
+        margin: 0 40px 0 0;
+        font-size: 15px;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+}
+.history-list-item:hover{
+    background: var(--pi-greyf9-color);
+}
+
+.history-list-item-icon{
+    display: none;
+    position: absolute;
+    top: 28px;
+    right: 10px;
+}
+
+.history-list-item:hover  .history-list-item-icon{
+
+    display: block;
+}
+
+
+
+.history-res-height{
+    height:400px;
+    overflow: auto;
+}
+
+.history-detail-item-box{
+    display: flex;
+    gap: 10px;
+    margin: 10px  0;
+
+    &-title{
+        color: #a1a1a1;
+        margin: 0 10px 0 0;
+    }
+
+    &-value{
+        font-size: 15px;
+    }
+}
+
+
+.api-script-box{
+
+    .ant-form-item{
+        margin: 0;
+    }
+
+    .api-script-pre-header{
+        height: 30px;
+        background: #f7f7f7;
+
+
+        .ant-select{
+            width: 100px;
+            color: #0078d4;
+
+            .ant-select-selector{
+                border: none;
+                background: #f7f7f7;
+            }
+        }
+
+    }
+}
+
+.action-btn-box{
+    margin: 10px 0;
+}
+
+
+.api-res-result{
+    padding: 0 0 10px 0;
+    min-height: 365px;
+
+    &-top-box{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        border-bottom: 1px solid var(--pi-border-color);
+
+        .ant-form-item-label > label{
+            color: rgb(151 151 151 / 85%);
+            font-size: 13px;
+        }
+
+        .ant-form-item-control-input .ant-select .ant-select-selector{
+            border: 1px solid #f0f0f0;
+        }
+
+        .ant-input{
+            border: 1px solid #f0f0f0;
+        }
+
+        .ant-form{
+            margin: 0!important;
+        }
+
+    }
+
+    &-top{
+        display: flex;
+        gap: 20px;
+    }
+
+
+}

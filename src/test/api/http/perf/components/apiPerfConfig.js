@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, InputNumber, Radio, Checkbox, Form, Input, Popconfirm} from "antd";
+import { InputNumber, Radio, Form, Popconfirm} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 

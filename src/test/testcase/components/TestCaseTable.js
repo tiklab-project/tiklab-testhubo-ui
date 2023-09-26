@@ -98,7 +98,6 @@ const TestCaseTable = (props) => {
         },
     ]
 
-
     const [selectItem, setSelectItem] = useState(null);
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalRecord, setTotalRecord] = useState();
