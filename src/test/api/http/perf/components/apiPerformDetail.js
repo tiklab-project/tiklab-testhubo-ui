@@ -67,7 +67,7 @@ const ApiPerformDetail = (props) =>{
 
 
     return(
-        <div className={"content-box-center"}>
+        <div className={"content-box-center"} style={{overflow:"hidden",height:"calc(100% - 35px)"}}>
             <div className='title-space-between'>
                 <div className={"case-title_weight"}>
                     <div>基本信息</div>

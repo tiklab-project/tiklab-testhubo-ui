@@ -355,3 +355,12 @@
         //height: 180px;
     }
 }
+
+.test-data-name{
+    border: none;
+    border-bottom: 1px solid #e4e4e4;
+
+    &:hover{
+        background: var(--pi-hover-color);
+    }
+}

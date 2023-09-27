@@ -2,7 +2,7 @@ import React from "react";
 import { Tabs} from "antd";
 import ApiPerfStepList from "./apiPerfStepList";
 import ApiPerformConfig from "./apiPerfConfig";
-import ApiPerfTestData from "./ApiPerfTestData";
+import ApiPerfTestDataPage from "./ApiPerfTestDataPage";
 const { TabPane } = Tabs;
 
 const ApiPerformDetailCommon = (props) =>{
@@ -17,7 +17,7 @@ const ApiPerformDetailCommon = (props) =>{
                 <ApiPerformConfig {...props}/>
             </TabPane>
             <TabPane tab="测试数据" key="3">
-                <ApiPerfTestData />
+                <ApiPerfTestDataPage />
             </TabPane>
         </Tabs>
     )
