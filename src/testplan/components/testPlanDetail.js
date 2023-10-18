@@ -96,7 +96,7 @@ const TestPlanDetail = (props) =>{
 
     return(
         <div className={"plan-box"}>
-            <CaseBread breadItem={["测试计划","计划详情"]}/>
+            <CaseBread breadItem={["计划详情"]}/>
             <Form className="testplan-form-info" form={form} labelAlign={"left"} >
                 <div className="display-flex-between">
                     <div style={{width:200,height: 32}}>

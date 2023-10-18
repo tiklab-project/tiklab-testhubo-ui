@@ -21,7 +21,7 @@ const ApiUnitContent = (props) =>{
         <div className={"content-box-center"}>
             <CaseBread
                 caseType={testCaseInfo?.caseType}
-                breadItem={["用例列表","用例详情"]}
+                breadItem={["用例详情"]}
             />
             <ApiUnitEditPageCommon/>
         </div>

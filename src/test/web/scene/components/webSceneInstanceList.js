@@ -123,7 +123,7 @@ const WebSceneInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread  breadItem={["用例列表","用例详情","用例历史"]}/>
+            <CaseBread  breadItem={["用例详情","用例历史"]}/>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

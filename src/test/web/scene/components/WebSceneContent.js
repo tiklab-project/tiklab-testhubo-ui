@@ -23,7 +23,7 @@ const WebSceneContent = (props) =>{
                title={testCaseInfo?.name}
                caseType={testCaseInfo?.caseType}
                style={{borderBottom:"none"}}
-               breadItem={["用例列表","用例详情"]}
+               breadItem={["用例详情"]}
            />
            <WebSceneDetail/>
         </div>

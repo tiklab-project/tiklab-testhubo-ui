@@ -23,7 +23,7 @@ const ApiPerfContent = (props) => {
                 style={{borderBottom:"none"}}
                 title={testCaseInfo?.name}
                 caseType={testCaseInfo?.caseType}
-                breadItem={["用例列表","用例详情"]}
+                breadItem={["用例详情"]}
             />
             <ApiPerformDetail/>
         </div>

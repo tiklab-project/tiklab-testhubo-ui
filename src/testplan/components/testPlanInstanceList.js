@@ -131,7 +131,7 @@ const TestPlanInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread breadItem={["测试计划","计划详情","历史详情"]}/>
+            <CaseBread breadItem={["计划详情","历史详情"]}/>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}
