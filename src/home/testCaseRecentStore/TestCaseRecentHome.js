@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {getUser} from "tiklab-core-ui";
-import {inject, observer} from "mobx-react";
+import {observer} from "mobx-react";
 import {Empty, List, Skeleton} from "antd";
 import emptyImg from "../../assets/img/empty.png";
 import IconCommon from "../../common/IconCommon";
@@ -77,7 +77,7 @@ const TestCaseRecentHome = (props) =>{
     //跳转路由
     const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        props.history.push(`/repository/testcase/${record.caseType}/${record.id}`)
+        props.history.push(`/repository/${record.caseType}/${record.id}`)
     }
 
     /**
@@ -149,14 +149,14 @@ const TestCaseRecentHome = (props) =>{
                 <List.Item className={"home-list-api"} onClick={()=>toDetail(item)}>
                     <Skeleton avatar title={false} loading={item.loading} active>
                         <div className={"home-list-item"}>
-                            {showIcon(item.testCase.caseType)}
+                            {showIcon(item?.testCase?.caseType)}
                             <div>
                                 <div className={"home-list-item-title"}>
                                     {item.testCase?.name}
                                 </div>
                                 <div className={"home-list-item-other"} >
                                     <div className={"home-list-item-other-text"} >仓库 :  </div>
-                                    <div  className={"home-list-item-other-text"}> {item.repository.name}</div>
+                                    <div  className={"home-list-item-other-text"}> {item?.repository?.name}</div>
                                 </div>
                             </div>
 

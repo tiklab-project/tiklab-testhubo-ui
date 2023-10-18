@@ -17,16 +17,17 @@ const PlanToApiUnitPage = (props) =>{
     },[apiUnitId])
 
     return(
-        <>
+        <div className={"content-box-center"}>
             <CaseBread
-                icon={"jiekou1"}
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
+                icon={"jiekou1"}
+                breadItem={["用例详情"]}
             />
             <div className={"content-box-center"}>
                 <ApiUnitEditPageCommon {...props} planType={true}/>
             </div>
-        </>
+        </div>
     )
 }
 

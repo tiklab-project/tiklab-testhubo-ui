@@ -66,7 +66,7 @@ const TestCaseDrawer = (props) =>{
     //跳转路由
     const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        history.push(`/repository/testcase/${record.caseType}/${record.id}`)
+        history.push(`/repository/${record.caseType}/${record.id}`)
     }
 
     //设置最近打开的接口

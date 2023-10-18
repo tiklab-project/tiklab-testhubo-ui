@@ -17,17 +17,16 @@ const PlanToApiScenePage = (props) =>{
     },[])
 
     return(
-        <>
+        <div className={"content-box-center"}>
             <CaseBread
-                icon={"jiekou1"}
-                style={{
-                    borderBottom:"none"
-                }}
+                style={{borderBottom:"none"}}
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
+                icon={"jiekou1"}
+                breadItem={["用例详情"]}
             />
             <ApiSceneDetail planType={true}/>
-        </>
+        </div>
     )
 }
 

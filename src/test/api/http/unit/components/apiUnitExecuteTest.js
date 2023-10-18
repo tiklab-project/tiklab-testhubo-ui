@@ -1,26 +1,46 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import ResponseCommon from "../../common/response/responseCommon";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
-import {TextMethodType} from "../../common/methodType";
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../../common/CaseBread";
 import apiUnitTestDispatchStore from "../store/apiUnitTestDispatchStore";
+import {Drawer, Form} from "antd";
+import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
+import IconBtn from "../../../../../common/iconBtn/IconBtn";
 
+const ApiUnitExecuteTest = (props) =>{
+    const {apiEnvStore,apiUnitId } = props;
+    const {apiUnitExecute} = apiUnitTestDispatchStore;
+    const { envUrl } = apiEnvStore;
 
-
-
-const ApiUnitExecuteTest = () =>{
-    const {apiUnitTestResult} = apiUnitTestDispatchStore;
     const [data, setData] = useState();
-    useEffect(()=>{
-        setData(apiUnitTestResult)
+    const [open, setOpen] = useState(false);
+    const [form] = Form.useForm();
 
-        return () => {
-            // 组件unmount时清空
-            setData(null);
+    const showDrawer = async () => {
+        let values = await form.validateFields()
+
+        //测试环境为空提示
+        if(!envUrl&&!values.host){
+            return messageFn("error","请填写测试地址")
         }
 
-    },[apiUnitTestResult])
+        //执行测试
+        let res = await apiUnitExecute(apiUnitId,envUrl?envUrl:values.host)
+        if(res.code===0){
+            setData(res.data)
+        }
+
+        if(res.code===60000){
+            messageFn("error","Agent错误")
+        }
+
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
 
     //响应结果基础信息项
     const detail = [
@@ -62,16 +82,38 @@ const ApiUnitExecuteTest = () =>{
 
     return(
         <>
-            <CaseBread title={"接口测试"}/>
-            <ResponseCommon
-                detail={showDetail(detail)}
-                resBody={data?.responseInstance?.responseBody}
-                resHeader={processResHeader(data?.responseInstance?.responseHeader)}
-                reqHeader={processResHeader(data?.requestInstance?.requestHeader)}
-            />
+            <a onClick={showDrawer}>
+                <IconBtn
+                    className="important-btn"
+                    icon={"fasong-copy"}
+                    name={"测试"}
+                />
+            </a>
+            <Drawer
+                placement="right"
+                onClose={onClose}
+                open={open}
+                width={"70%"}
+                destroyOnClose={true}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
+            >
+                <CaseBread
+                    icon={"jiekou1"}
+                    title={"接口测试"}
+                    setOpen={setOpen}
+                />
+                <ResponseCommon
+                    detail={showDetail(detail)}
+                    resBody={data?.responseInstance?.responseBody}
+                    resHeader={processResHeader(data?.responseInstance?.responseHeader)}
+                    reqHeader={processResHeader(data?.requestInstance?.requestHeader)}
+                />
+            </Drawer>
         </>
 
     )
 }
 
-export default observer(ApiUnitExecuteTest);
+export default inject("apiEnvStore",)(observer(ApiUnitExecuteTest));

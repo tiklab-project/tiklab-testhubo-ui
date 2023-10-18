@@ -2,13 +2,15 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import apiSceneTestDispatchStore from "../store/apiSceneTestDispatchStore";
 import {TextMethodType} from "../../common/methodType";
-import {Spin, Tabs} from "antd";
+import {Drawer, Spin, Tabs} from "antd";
 import ResponseBodyCommon from "../../common/response/responseBodyCommon";
 import ResHeaderCommon from "../../common/response/resHeaderCommon";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
 import TabPane from "antd/es/tabs/TabPane";
 import CaseBread from "../../../../../common/CaseBread";
+import IconBtn from "../../../../../common/iconBtn/IconBtn";
+import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 
 const { apiSceneExecute } = apiSceneTestDispatchStore;
 
@@ -23,21 +25,32 @@ const ApiExecuteTestPage = (props) =>{
     const [selected, setSelected] = useState();
     const [selectedStepData, setSelectedStepData] = useState();
     const [loading, setLoading] = useState(true);
+    const [open, setOpen] = useState(false);
 
+    const showDrawer = async () => {
+        if(envUrl){
+            const param = {
+                apiSceneCase:{id:apiSceneId},
+                apiEnv:envUrl,
+                repositoryId:repositoryId
+            }
+            apiSceneExecute(param).then(res=>{
+                setAllData(res.apiSceneInstance);
+                setStepList(res.apiUnitInstanceList)
 
-    useEffect(()=>{
-        const param = {
-            apiSceneCase:{id:apiSceneId},
-            apiEnv:envUrl,
-            repositoryId:repositoryId
+                setLoading(false);
+            })
+
+        }else {
+            messageFn("error","请选择环境")
         }
-        apiSceneExecute(param).then(res=>{
-            setAllData(res.apiSceneInstance);
-            setStepList(res.apiUnitInstanceList)
 
-            setLoading(false);
-        })
-    },[])
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
 
     const clickFindInstance = index =>{
         setSelected(index)
@@ -114,82 +127,107 @@ const ApiExecuteTestPage = (props) =>{
         })
     }
 
-    return(
-        <div style={{height: "calc(100% - 35px)"}}>
-            <CaseBread title={"接口场景测试"}/>
-            <div  className={"result-spin-box"}>
-                <Spin spinning={loading}>
-                    <div className={"history-detail history-detail-box"}>
-                        <div className={"history-detail-all"}>
-                            <div className={"history-detail-all-box"}>
-                                <div className={"history-detail-all-item"}>
-                                    <div>测试结果</div>
-                                    <div className={"history-detail-all-item-value"}>{allData?.result===1?"成功":"失败"}</div>
-                                </div>
-                                <div className={"history-detail-all-item"}>
-                                    <div>耗时</div>
-                                    <div className={"history-detail-all-item-value"}>{allData?.elapsedTime}ms</div>
-                                </div>
-                                <div className={"history-detail-all-item"}>
-                                    <div>步骤数</div>
-                                    <div className={"history-detail-all-item-value"}>{allData?.testNumber}</div>
-                                </div>
-                                <div className={"history-detail-all-item"}>
-                                    <div>测试通过率</div>
-                                    <div className={"history-detail-all-item-value"}>{allData?.passRate}</div>
-                                </div>
 
-                                <div className={"history-detail-all-item"}>
-                                    <div>通过步骤数</div>
-                                    <div className={"history-detail-all-item-value"}>{allData?.passNumber}</div>
-                                </div>
-                                <div className={"history-detail-all-item"}>
-                                    <div>未通过步骤数</div>
-                                    <div className={"history-detail-all-item-value"}>{allData?.failNumber}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={"history-item-box"}>
-                            <div className={"scene-step-contant"}>
-                                <div className={"header-item"}>步骤列表</div>
-                                <div>
-                                    {
-                                        showStepListView(stepList)
-                                    }
-                                </div>
-                            </div>
-                            <div className={"scene-step-detail"}>
-                                <div className={"header-item"}>步骤详情</div>
-                                {
-                                    selectedStepData
-                                        ?<div style={{margin:"0 10px",overflow: "auto",height: "calc( 100% - 48px )"}}>
-                                            <div >{showDetail(detail)}</div>
-                                            <Tabs defaultActiveKey="1"  >
-                                                <TabPane tab="响应体" key="1">
-                                                    <ResponseBodyCommon
-                                                        responseBodyData={selectedStepData?.responseInstance?.responseBody}
-                                                    />
-                                                </TabPane>
-                                                <TabPane tab="响应头" key="2">
-                                                    <ResHeaderCommon
-                                                        headers={processResHeader(selectedStepData?.responseInstance?.responseHeader)}
-                                                    />
-                                                </TabPane>
-                                                <TabPane tab="请求头" key="3">
-                                                    <ResHeaderCommon
-                                                        headers={processResHeader(selectedStepData?.requestInstance?.requestHeader)}
-                                                    />
-                                                </TabPane>
-                                            </Tabs>
+    return(
+        <>
+            <a onClick={showDrawer}>
+                <IconBtn
+                    className="important-btn"
+                    icon={"fasong-copy"}
+                    name={"测试"}
+                />
+            </a>
+            <Drawer
+                placement="right"
+                onClose={onClose}
+                open={open}
+                width={"70%"}
+                destroyOnClose={true}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
+            >
+                <div style={{height: "calc(100% - 35px)"}}>
+                    <CaseBread
+                        title={"接口场景测试"}
+                        icon={"jiekou1"}
+                        setOpen={setOpen}
+                    />
+                    <div  className={"result-spin-box"}>
+                        <Spin spinning={loading}>
+                            <div className={"history-detail history-detail-box"}>
+                                <div className={"history-detail-all"}>
+                                    <div className={"history-detail-all-box"}>
+                                        <div className={"history-detail-all-item"}>
+                                            <div>测试结果</div>
+                                            <div className={"history-detail-all-item-value"}>{allData?.result===1?"成功":"失败"}</div>
                                         </div>
-                                        :<EmptyTip />
-                                }
+                                        <div className={"history-detail-all-item"}>
+                                            <div>耗时</div>
+                                            <div className={"history-detail-all-item-value"}>{allData?.elapsedTime}ms</div>
+                                        </div>
+                                        <div className={"history-detail-all-item"}>
+                                            <div>步骤数</div>
+                                            <div className={"history-detail-all-item-value"}>{allData?.testNumber}</div>
+                                        </div>
+                                        <div className={"history-detail-all-item"}>
+                                            <div>测试通过率</div>
+                                            <div className={"history-detail-all-item-value"}>{allData?.passRate}</div>
+                                        </div>
+
+                                        <div className={"history-detail-all-item"}>
+                                            <div>通过步骤数</div>
+                                            <div className={"history-detail-all-item-value"}>{allData?.passNumber}</div>
+                                        </div>
+                                        <div className={"history-detail-all-item"}>
+                                            <div>未通过步骤数</div>
+                                            <div className={"history-detail-all-item-value"}>{allData?.failNumber}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={"history-item-box"}>
+                                    <div className={"scene-step-contant"}>
+                                        <div className={"header-item"}>步骤列表</div>
+                                        <div>
+                                            {
+                                                showStepListView(stepList)
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className={"scene-step-detail"}>
+                                        <div className={"header-item"}>步骤详情</div>
+                                        {
+                                            selectedStepData
+                                                ?<div style={{margin:"0 10px",overflow: "auto",height: "calc( 100% - 48px )"}}>
+                                                    <div >{showDetail(detail)}</div>
+                                                    <Tabs defaultActiveKey="1"  >
+                                                        <TabPane tab="响应体" key="1">
+                                                            <ResponseBodyCommon
+                                                                responseBodyData={selectedStepData?.responseInstance?.responseBody}
+                                                            />
+                                                        </TabPane>
+                                                        <TabPane tab="响应头" key="2">
+                                                            <ResHeaderCommon
+                                                                headers={processResHeader(selectedStepData?.responseInstance?.responseHeader)}
+                                                            />
+                                                        </TabPane>
+                                                        <TabPane tab="请求头" key="3">
+                                                            <ResHeaderCommon
+                                                                headers={processResHeader(selectedStepData?.requestInstance?.requestHeader)}
+                                                            />
+                                                        </TabPane>
+                                                    </Tabs>
+                                                </div>
+                                                :<EmptyTip />
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </Spin>
                     </div>
-                </Spin>
-            </div>
-        </div>
+                </div>
+            </Drawer>
+        </>
 
     )
 }

@@ -8,6 +8,7 @@ import IconBtn from "../../../../common/iconBtn/IconBtn";
 import CaseContentCommon from "../../../common/CaseContentCommon";
 import DetailCommon from "../../../../common/DetailCommon";
 import VariableTable from "../../../common/Variable/components/VariableTable";
+import WebExecuteTestPage from "./WebExecuteTestPage";
 
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;
@@ -33,10 +34,6 @@ const WebSceneDetail = (props) => {
             })
         })
     },[webSceneId])
-
-    const toExePage = () =>{
-        history.push("/repository/testcase/web-scene-execute")
-    }
 
     const updateCase = async () =>{
         let newData = await form.getFieldsValue()
@@ -92,12 +89,10 @@ const WebSceneDetail = (props) => {
                                 <IconBtn
                                     className="pi-icon-btn-grey"
                                     icon={"lishi"}
-                                    onClick={()=>history.push("/repository/testcase/web-scene-instance")}
+                                    onClick={()=>history.push("/repository/web-scene-instance")}
                                     name={"历史"}
                                 />
-                                <Button className={"important-btn"} onClick={toExePage}>
-                                    测试
-                                </Button>
+                                <WebExecuteTestPage webSceneId={webSceneId} />
                             </Space>
                     }
                 </>

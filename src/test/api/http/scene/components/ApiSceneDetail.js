@@ -9,6 +9,8 @@ import CaseContentCommon from "../../../../common/CaseContentCommon";
 import DetailCommon from "../../../../../common/DetailCommon";
 import {inject, observer} from "mobx-react";
 import VariableTable from "../../../../common/Variable/components/VariableTable";
+import ApiExecuteTestPage from "./ApiExecuteTestPage";
+
 
 const ApiSceneDetail = (props) =>{
     const {apiSceneStore,apiEnvStore} = props;
@@ -37,14 +39,6 @@ const ApiSceneDetail = (props) =>{
 
         })
     },[apiSceneId])
-    
-    const toExePage = () =>{
-        if(envUrl){
-            history.push("/repository/testcase/api-scene-execute")
-        }else {
-            messageFn("error","请选择环境")
-        }
-    }
 
 
     const updateCase = async () =>{
@@ -90,31 +84,28 @@ const ApiSceneDetail = (props) =>{
     ]
 
     return(
-        <>
-            <CaseContentCommon
-                tabItem={tabItem}
-                tabBarExtraContent={
-                    <>
-                        {
-                        props.planType
-                            ?null
-                            :<Space>
-                                <ApiEnvDropDownSelect />
-                                <IconBtn
-                                    className="pi-icon-btn-grey"
-                                    icon={"lishi"}
-                                    onClick={()=>history.push("/repository/testcase/api-scene-instance")}
-                                    name={"历史"}
-                                />
-                                <Button className={"important-btn"} onClick={toExePage}>
-                                    测试
-                                </Button>
-                            </Space>
-                        }
-                    </>
-                }
-            />
-        </>
+        <CaseContentCommon
+            tabItem={tabItem}
+            tabBarExtraContent={
+                <>
+                    {
+                    props.planType
+                        ?null
+                        :<Space>
+                            <ApiEnvDropDownSelect />
+                            <IconBtn
+                                className="pi-icon-btn-grey"
+                                icon={"lishi"}
+                                onClick={()=>history.push("/repository/api-scene-instance")}
+                                name={"历史"}
+                            />
+                            <ApiExecuteTestPage apiSceneId={apiSceneId}/>
+                        </Space>
+                    }
+                </>
+            }
+
+        />
     )
 }
 

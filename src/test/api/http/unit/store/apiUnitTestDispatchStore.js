@@ -19,6 +19,7 @@ class ApiUnitTestDispatchStore {
             this.apiUnitTestResult = res.data;
             this.responseResult = res.data?.responseInstance;
         }
+
         return res;
     }
 

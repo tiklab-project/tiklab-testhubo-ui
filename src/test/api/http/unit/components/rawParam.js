@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { observer, inject } from 'mobx-react';
-import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 import {Input, Button, Form, Select} from 'antd';
 import rawParamStore from "../store/rawParamStore";
 
@@ -50,16 +49,15 @@ const RawParam = (props) => {
                 ...values
             }
 
-            updateRawParam(param)
+            await updateRawParam(param)
         }else{
             values.apiUnit=apiUnitId;
             values.id =apiUnitId;
-            createRawParam(values)
+            await createRawParam(values)
         }
 
         setFocus(false)
     }
-
 
 
     return (

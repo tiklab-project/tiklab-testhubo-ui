@@ -18,17 +18,15 @@ const WebSceneContent = (props) =>{
     },[webSceneId])
 
     return(
-       <>
+        <div className={"content-box-center"}>
            <CaseBread
-               icon={"diannao"}
                title={testCaseInfo?.name}
                caseType={testCaseInfo?.caseType}
-               style={{
-                   borderBottom:"none"
-               }}
+               style={{borderBottom:"none"}}
+               breadItem={["用例列表","用例详情"]}
            />
            <WebSceneDetail/>
-       </>
+        </div>
     )
 }
 

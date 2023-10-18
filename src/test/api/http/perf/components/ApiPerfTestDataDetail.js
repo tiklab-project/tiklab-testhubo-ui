@@ -4,9 +4,8 @@ import {Row, Input, Col, Button, Space, Upload} from "antd";
 import {observer} from "mobx-react";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import UpLoadTestData from "./UpLoadTestData";
-import * as csvParser from "csv-parser";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
-
+import {csvParse} from 'd3-dsv';
 
 const ApiPerfTestDataDetail = (props) =>{
     const {cancel,testDataInfo,apiPerfId,findPage,setTestDataInfo} = props;
@@ -23,7 +22,7 @@ const ApiPerfTestDataDetail = (props) =>{
 
     useEffect(()=>{
         if(testDataInfo){
-            setTestDataTable(parseCsv(testDataInfo?.testData))
+            setTestDataTable(csvParse(testDataInfo?.testData))
         }else {
             setTestDataTable([])
         }
@@ -46,7 +45,7 @@ const ApiPerfTestDataDetail = (props) =>{
             const reader = new FileReader();
             reader.onload = async (event) => {
                 const text = event.target.result;
-                let list = parseCsv(text)
+                let list = csvParse(text)
 
                 setTestDataValue(text)
                 setTestDataTable(list)
@@ -56,27 +55,10 @@ const ApiPerfTestDataDetail = (props) =>{
         } catch (error) {
             messageFn("error",'文件必须为csv格式');
         }
+
+        return false;
     };
 
-    /**
-     * csv 解析 数组
-     * @param text
-     * @returns {*[]}
-     */
-    const parseCsv = (text) =>{
-        let results = []
-        // 使用csv-parser库进行解析
-        const parseStream = csvParser();
-
-        parseStream.on('data', (row) => {
-            results.push(row);
-        });
-
-        parseStream.write(text);
-        parseStream.end();
-
-        return results
-    }
 
     /**
      * 保存
@@ -105,8 +87,8 @@ const ApiPerfTestDataDetail = (props) =>{
 
 
     return(
-        <div style={{ height:" 100%"}}>
-            <Row>
+        <div style={{ height:" 100%",width: "calc(100% - 30px)"}}>
+            <Row gutter={10} >
                 <Col span={22}>
                     <Input
                         value={testDataInfo?.name}
@@ -115,7 +97,7 @@ const ApiPerfTestDataDetail = (props) =>{
                         className={"test-data-name"}
                     />
                 </Col>
-                <Col span={2}>
+                <Col span={2} >
                     <Upload beforeUpload={beforeUpload} showUploadList={false}>
                         <IconBtn
                             className="pi-icon-btn-grey"

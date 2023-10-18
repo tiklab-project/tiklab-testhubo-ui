@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import { Empty, Table, Tag} from "antd";
-import {inject, observer} from "mobx-react";
+import {observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import appSceneInstanceStore from "../store/appSceneInstanceStore";
 import {useHistory} from "react-router";
 import CaseBread from "../../../../common/CaseBread";
+import AppSceneInstanceSinglePage from "./AppSceneInstanceSinglePage";
 
 const AppSceneInstanceList = (props) =>{
     const {
@@ -21,9 +22,7 @@ const AppSceneInstanceList = (props) =>{
             dataIndex: 'executeNumber',
             key: "executeNumber",
             render:(text,record)=>(
-                <a onClick={()=>toSingleInstance(record)}>
-                    {text}
-                </a>
+                <AppSceneInstanceSinglePage appSceneInstanceId={record.id} name={text}/>
             )
         },
         {
@@ -80,7 +79,6 @@ const AppSceneInstanceList = (props) =>{
         },
     ]
 
-    const history = useHistory()
     const appSceneId = sessionStorage.getItem("appSceneId")
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
@@ -109,10 +107,6 @@ const AppSceneInstanceList = (props) =>{
 
     }
 
-    const toSingleInstance = (record) =>{
-        sessionStorage.setItem("appSceneInstanceId",record.id)
-        history.push("/repository/testcase/app-scene-instance-single")
-    }
 
     // 分页
     const onTableChange = (pagination) => {
@@ -131,7 +125,7 @@ const AppSceneInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread title={"历史"}/>
+            <CaseBread breadItem={["用例列表","用例详情","用例历史"]}/>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

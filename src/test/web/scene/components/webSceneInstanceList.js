@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { Empty, Popconfirm, Table, Tag} from "antd";
+import { Empty, Table, Tag} from "antd";
 import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
 import CaseBread from "../../../../common/CaseBread";
-import {useHistory} from "react-router";
+import WebSceneInstanceSinglePage from "./WebSceneInstanceSinglePage";
 
 const WebSceneInstanceList = (props) =>{
     const {
@@ -21,9 +21,7 @@ const WebSceneInstanceList = (props) =>{
             dataIndex: 'executeNumber',
             key: "executeNumber",
             render:(text,record)=>(
-                <a onClick={()=>toSingleInstance(record)}>
-                    {text}
-                </a>
+                <WebSceneInstanceSinglePage webSceneInstanceId={record.id} name={text} />
             )
         },
         {
@@ -81,7 +79,6 @@ const WebSceneInstanceList = (props) =>{
         },
     ]
 
-    let history = useHistory()
     const webSceneId = sessionStorage.getItem("webSceneId")
     const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(12);
@@ -109,11 +106,6 @@ const WebSceneInstanceList = (props) =>{
         }
     }
 
-    const toSingleInstance = (record) =>{
-        sessionStorage.setItem("webSceneInstanceId",record.id)
-        history.push("/repository/testcase/web-scene-instance-single")
-    }
-
 
     // 分页
     const onTableChange = (pagination) => {
@@ -131,7 +123,7 @@ const WebSceneInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread title={"历史"}/>
+            <CaseBread  breadItem={["用例列表","用例详情","用例历史"]}/>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

@@ -1,12 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../../common/CaseBread";
-import {Empty, Spin, Table} from "antd";
+import {Drawer, Empty, Spin, Table} from "antd";
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiPerfTestDispatchStore from "../store/apiPerfTestDispatchStore";
+import IconBtn from "../../../../../common/iconBtn/IconBtn";
+import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 
 const ApiPerfExecuteTestPage = (props) =>{
-    const {apiEnvStore} = props;
+    const {apiEnvStore,apiPerfId} = props;
 
     const {apiPerfExecute,exeResult,apiPerfTestStatus} = apiPerfTestDispatchStore;
     const {envUrl} = apiEnvStore;
@@ -16,7 +18,7 @@ const ApiPerfExecuteTestPage = (props) =>{
     const [result, setResult] = useState();
     const [stepList, setStepList] = useState([]);
     const [start, setStart] = useState(0)
-    const apiPerfId = sessionStorage.getItem('apiPerfId')
+    const [open, setOpen] = useState(false);
 
     let columns= [
         {
@@ -57,15 +59,6 @@ const ApiPerfExecuteTestPage = (props) =>{
     ]
 
     useEffect(()=>{
-        apiPerfTestStatus().then(res=>{
-            if(res.code===0&&res.data===0){
-                apiPerfExecute(apiPerfId,envUrl)
-                setStart(1)
-            }
-        })
-    },[])
-
-    useEffect(()=>{
         if (start=== 1) {
             ref.current =  setInterval(()=>{
                 //获取结果
@@ -91,61 +84,99 @@ const ApiPerfExecuteTestPage = (props) =>{
         return () => ref.current = null
     },[start])
 
+    const showDrawer = async () => {
+
+        apiPerfTestStatus().then(res=>{
+            if(res.code===0&&res.data===0){
+                apiPerfExecute(apiPerfId,envUrl)
+                setStart(1)
+            }
+        })
+
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread title={"接口性能测试"}/>
-            <div  className={"result-spin-box"}>
-                <Spin spinning={spinning}>
-                    <div className={"history-detail history-detail-box"}>
-                        <div className={"history-detail-all"}>
-                            <div className={"history-detail-all-box"}>
-                                <div className={"history-detail-all-item"}>
-                                    <div>通过率</div>
-                                    <div className={"history-detail-all-item-value"}>{result?.passRate}</div>
-                                </div>
-                                <div className={"history-detail-all-item"}>
-                                    <div>失败率</div>
-                                    <div className={"history-detail-all-item-value"}>{result?.errorRate}</div>
-                                </div>
-                                <div className={"history-detail-all-item"}>
-                                    <div>总数</div>
-                                    <div className={"history-detail-all-item-value"}>{result?.total}</div>
-                                </div>
-                                <div className={"history-detail-all-item"}>
-                                    <div>通过数</div>
-                                    <div className={"history-detail-all-item-value"}>{result?.passNum}</div>
-                                </div>
+        <>
+            <a onClick={showDrawer}>
+                <IconBtn
+                    className="important-btn"
+                    icon={"fasong-copy"}
+                    name={"测试"}
+                />
+            </a>
+            <Drawer
+                placement="right"
+                onClose={onClose}
+                open={open}
+                width={"70%"}
+                destroyOnClose={true}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
+            >
+                <div className={"content-box-center"}>
+                    <CaseBread
+                        title={"接口性能测试"}
+                        icon={"jiekou1"}
+                        setOpen={setOpen}
+                    />
+                    <div  className={"result-spin-box"}>
+                    <Spin spinning={spinning}>
+                        <div className={"history-detail history-detail-box"}>
+                            <div className={"history-detail-all"}>
+                                <div className={"history-detail-all-box"}>
+                                    <div className={"history-detail-all-item"}>
+                                        <div>通过率</div>
+                                        <div className={"history-detail-all-item-value"}>{result?.passRate}</div>
+                                    </div>
+                                    <div className={"history-detail-all-item"}>
+                                        <div>失败率</div>
+                                        <div className={"history-detail-all-item-value"}>{result?.errorRate}</div>
+                                    </div>
+                                    <div className={"history-detail-all-item"}>
+                                        <div>总数</div>
+                                        <div className={"history-detail-all-item-value"}>{result?.total}</div>
+                                    </div>
+                                    <div className={"history-detail-all-item"}>
+                                        <div>通过数</div>
+                                        <div className={"history-detail-all-item-value"}>{result?.passNum}</div>
+                                    </div>
 
-                                <div className={"history-detail-all-item"}>
-                                    <div>未通过数</div>
-                                    <div className={"history-detail-all-item-value"}>{result?.failNum}</div>
+                                    <div className={"history-detail-all-item"}>
+                                        <div>未通过数</div>
+                                        <div className={"history-detail-all-item-value"}>{result?.failNum}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={"history-detail-all"}>
+                                <div style={{fontWeight:"bold",padding:"6px"}}>场景列表</div>
+                                <div className='table-list-box' style={{margin: "10px"}}>
+                                    <Table
+                                        columns={columns}
+                                        dataSource={stepList}
+                                        rowKey={record => record.id}
+                                        pagination={false}
+                                        locale={{
+                                            emptyText: <Empty
+                                                imageStyle={{ height: 120}}
+                                                description={<span>暂无测试步骤</span>}
+                                                image={emptyImg}
+                                            />,
+                                        }}
+                                    />
                                 </div>
                             </div>
                         </div>
-                        <div className={"history-detail-all"}>
-                            <div style={{fontWeight:"bold",padding:"6px"}}>场景列表</div>
-                            <div className='table-list-box' style={{margin: "10px"}}>
-                                <Table
-                                    columns={columns}
-                                    dataSource={stepList}
-                                    rowKey={record => record.id}
-                                    pagination={false}
-                                    locale={{
-                                        emptyText: <Empty
-                                            imageStyle={{ height: 120}}
-                                            description={<span>暂无测试步骤</span>}
-                                            image={emptyImg}
-                                        />,
-                                    }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </Spin>
-            </div>
-        </div>
-
+                    </Spin>
+                </div>
+                </div>
+            </Drawer>
+        </>
     )
 }
 

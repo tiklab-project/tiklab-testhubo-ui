@@ -7,7 +7,6 @@ import {showCaseTypeInList, showCaseTypeView} from "../../../common/caseCommon/C
 import {SearchOutlined} from "@ant-design/icons";
 import CaseTypeSelect from "./CaseTypeSelect";
 import {useHistory} from "react-router";
-import TestCaseDrawer from "../../common/TestCaseDrawer";
 import DropdownAdd from "./DropdownAdd";
 import "./testcaseStyle.scss"
 import "./caseContantStyle.scss"
@@ -15,17 +14,18 @@ import "./unitcase.scss"
 import TestCaseMenu from "./TestCaseMenu";
 import {getUser} from "tiklab-core-ui";
 import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
+import {CASE_TYPE} from "../../common/DefineVariables";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
-
     const {
         findTestCaseList,
         testcaseList,
         deleteTestCase,
         testType,
-        setTestType
+        setTestType,
+        testCaseRecent
     }=testcaseStore;
 
 
@@ -36,10 +36,10 @@ const TestCaseTable = (props) => {
             key: "name",
             width:"30%",
             render: (text,record) =>(
-                <div className={"case-table-name"}>
+                <Space className={"case-table-name"}>
                     <>{showCaseTypeView(record.caseType)}</>
-                    <TestCaseDrawer caseData={record} {...props}/>
-                </div>
+                    <a onClick={()=>switchCaseType(record)}>{text}</a>
+                </Space>
             )
         },
         {
@@ -104,13 +104,12 @@ const TestCaseTable = (props) => {
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     let userId = getUser().userId
-    const repositoryId = sessionStorage.getItem("repositoryId")
+    let repositoryId = sessionStorage.getItem("repositoryId")
 
     let history = useHistory();
 
     useEffect(()=>{
         findPage()
-        history.push("/repository/testcase")
     },[])
 
     useEffect(()=>{
@@ -143,7 +142,6 @@ const TestCaseTable = (props) => {
             </div>
         }
     }
-
 
     //模块赛选
     const changeCategory=(categoryId)=> {
@@ -199,6 +197,51 @@ const TestCaseTable = (props) => {
 
         findPage(param)
     }
+
+    //再根据不同的用例类型跳到不同的页面
+    const switchCaseType = (record)=>{
+        switch (record.caseType) {
+            case CASE_TYPE.API_UNIT:
+                toCaseDetail("apiUnitId",record)
+                break;
+            case CASE_TYPE.API_SCENE:
+                toCaseDetail("apiSceneId",record)
+                break;
+            case CASE_TYPE.API_PERFORM:
+                toCaseDetail("apiPerfId",record)
+                break;
+            case CASE_TYPE.WEB_SCENE:
+                toCaseDetail("webSceneId",record)
+                break;
+            case CASE_TYPE.WEB_PERFORM:
+                toCaseDetail("webPerfId",record)
+                break;
+            case CASE_TYPE.APP_SCENE:
+                toCaseDetail("appSceneId",record)
+                break;
+            case CASE_TYPE.APP_PERFORM:
+                toCaseDetail("appPerfId",record)
+                break;
+            case CASE_TYPE.FUNCTION:
+                toCaseDetail("functionId",record)
+                break;
+        }
+    }
+
+    //跳转路由
+    const toCaseDetail = (setId,record)=>{
+        sessionStorage.setItem(`${setId}`,record.id);
+        history.push(`/repository/${record.caseType}/${record.id}`)
+
+        //最近访问
+        let params = {
+            repository:{id:repositoryId},
+            user:{id:getUser().userId},
+            testCase:{id:record.id},
+        }
+        testCaseRecent(params)
+    }
+
 
     return(
         <>

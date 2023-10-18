@@ -1,21 +1,20 @@
 import React, {useEffect, useState} from "react";
-import {Form} from "antd";
+import {Drawer, Form} from "antd";
 import {observer} from "mobx-react";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
 import UIResultCommon from "../../../common/UIResultCommon";
 import CaseBread from "../../../../common/CaseBread";
 
 
-const WebSceneInstanceSinglePage =(props)=>{
+const WebSceneInstanceSinglePage =({webSceneInstanceId,name})=>{
     const { findWebSceneInstance } = webSceneInstanceStore;
 
     const [spinning, setSpinning] = useState(true);
     const [webStepList, setWebStepList] = useState([]);
     const [form] = Form.useForm();
+    const [open, setOpen] = useState(false);
 
-    const webSceneInstanceId = sessionStorage.getItem("webSceneInstanceId")
-
-    useEffect(async ()=>{
+    const showDrawer = async () => {
         let res = await findWebSceneInstance(webSceneInstanceId)
 
         form.setFieldsValue({
@@ -29,23 +28,39 @@ const WebSceneInstanceSinglePage =(props)=>{
         setWebStepList(res.stepList)
 
         setSpinning(false);
+        setOpen(true);
+    }
 
-
-        return () => {
-            setSpinning(true);
-            setWebStepList([])
-        };
-    },[])
-
+    const onClose = () => {
+        setSpinning(true);
+        setWebStepList([])
+        setOpen(false);
+    };
 
     return (
         <>
-            <CaseBread title={"历史详情"}/>
-            <UIResultCommon
-                spinning={spinning}
-                form={form}
-                dataList={webStepList}
-            />
+            <a onClick={showDrawer} style={{fontWeight:"bold"}}>#{name}</a>
+            <Drawer
+                placement="right"
+                onClose={onClose}
+                open={open}
+                width={"70%"}
+                destroyOnClose={true}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
+            >
+                <CaseBread
+                    title={"历史详情"}
+                    icon={"jiekou1"}
+                    setOpen={setOpen}
+                />
+                <UIResultCommon
+                    spinning={spinning}
+                    form={form}
+                    dataList={webStepList}
+                />
+            </Drawer>
         </>
     );
 }

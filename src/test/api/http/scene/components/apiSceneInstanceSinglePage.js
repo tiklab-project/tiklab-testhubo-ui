@@ -7,22 +7,27 @@ import {observer} from "mobx-react";
 import apiUnitInstanceStore from "../../unit/store/apiUnitInstanceStore";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
 import CaseBread from "../../../../../common/CaseBread";
+import {Drawer} from "antd";
 
 const ApiSceneInstanceSinglePage = (props) =>{
+    const {apiSceneInstanceId,name} = props
     const { findApiSceneInstance } = apiSceneInstanceStore;
     const {findApiUnitInstance} = apiUnitInstanceStore;
 
     const [allData, setAllData] = useState();
     const [stepSelect, setStepSelect] = useState();
     const [stepData, setStepData] = useState();
+    const [open, setOpen] = useState(false);
 
-    let apiSceneInstanceId = sessionStorage.getItem("apiSceneInstanceId")
-
-     useEffect( async () =>{
+    const showDrawer = async () => {
         let res = await findApiSceneInstance(apiSceneInstanceId)
-
         setAllData(res)
-    },[])
+        setOpen(true);
+    }
+
+    const onClose = () => {
+        setOpen(false);
+    };
 
     const detail = [
         {
@@ -47,7 +52,6 @@ const ApiSceneInstanceSinglePage = (props) =>{
             key:"testTime"
         },
     ]
-
 
     const showDetail = (data) =>{
         return data.map(item=>{
@@ -103,64 +107,82 @@ const ApiSceneInstanceSinglePage = (props) =>{
 
 
     return(
-        <div className={"content-box-center"}  style={{height: "calc(100% - 35px)"}}>
-            <CaseBread title={"历史详情"}/>
-            <div className={"history-detail history-detail-box"}>
-                <div className={"history-detail-all"}>
-                    <div className={"history-detail-all-box"}>
-                        <div className={"history-detail-all-item"}>
-                            <div>测试结果</div>
-                            <div className={"history-detail-all-item-value"}>{allData?.result===1?"成功":"失败"}</div>
-                        </div>
-                        <div className={"history-detail-all-item"}>
-                            <div>耗时</div>
-                            <div className={"history-detail-all-item-value"}>{allData?.elapsedTime}ms</div>
-                        </div>
-                        <div className={"history-detail-all-item"}>
-                            <div>步骤数</div>
-                            <div className={"history-detail-all-item-value"}>{allData?.testNumber}</div>
-                        </div>
-                        <div className={"history-detail-all-item"}>
-                            <div>测试通过率</div>
-                            <div className={"history-detail-all-item-value"}>{allData?.passRate}</div>
-                        </div>
+        <>
+            <a onClick={showDrawer} style={{fontWeight:"bold"}}>#{name}</a>
+            <Drawer
+                placement="right"
+                onClose={onClose}
+                open={open}
+                width={"70%"}
+                destroyOnClose={true}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
+            >
+                <div className={"content-box-center"}  style={{height: "calc(100% - 35px)"}}>
+                    <CaseBread
+                        title={"历史详情"}
+                        icon={"jiekou1"}
+                        setOpen={setOpen}
+                    />
+                    <div className={"history-detail history-detail-box"}>
+                        <div className={"history-detail-all"}>
+                            <div className={"history-detail-all-box"}>
+                                <div className={"history-detail-all-item"}>
+                                    <div>测试结果</div>
+                                    <div className={"history-detail-all-item-value"}>{allData?.result===1?"成功":"失败"}</div>
+                                </div>
+                                <div className={"history-detail-all-item"}>
+                                    <div>耗时</div>
+                                    <div className={"history-detail-all-item-value"}>{allData?.elapsedTime}ms</div>
+                                </div>
+                                <div className={"history-detail-all-item"}>
+                                    <div>步骤数</div>
+                                    <div className={"history-detail-all-item-value"}>{allData?.testNumber}</div>
+                                </div>
+                                <div className={"history-detail-all-item"}>
+                                    <div>测试通过率</div>
+                                    <div className={"history-detail-all-item-value"}>{allData?.passRate}</div>
+                                </div>
 
-                        <div className={"history-detail-all-item"}>
-                            <div>通过步骤数</div>
-                            <div className={"history-detail-all-item-value"}>{allData?.passNumber}</div>
+                                <div className={"history-detail-all-item"}>
+                                    <div>通过步骤数</div>
+                                    <div className={"history-detail-all-item-value"}>{allData?.passNumber}</div>
+                                </div>
+                                <div className={"history-detail-all-item"}>
+                                    <div>未通过步骤数</div>
+                                    <div className={"history-detail-all-item-value"}>{allData?.failNumber}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div className={"history-detail-all-item"}>
-                            <div>未通过步骤数</div>
-                            <div className={"history-detail-all-item-value"}>{allData?.failNumber}</div>
+                        <div className={"history-item-box"}>
+                            <div className={"scene-step-contant"}>
+                                <div className={"header-item"}>步骤列表</div>
+                                <div>
+                                    {
+                                        showStepListView(allData?.stepList)
+                                    }
+                                </div>
+                            </div>
+                            <div className={"scene-step-detail"}>
+                                <div className={"header-item"}>步骤详情</div>
+                                {
+                                    stepData
+                                        ?<ResponseCommon
+                                            detail={showDetail(detail)}
+                                            resBody={stepData?.responseInstance?.responseBody}
+                                            resHeader={processResHeader(stepData?.responseInstance?.responseHeader)}
+                                            reqHeader={processResHeader(stepData?.requestInstance?.requestHeader)}
+                                        />
+                                        :<EmptyTip />
+                                }
+
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className={"history-item-box"}>
-                    <div className={"scene-step-contant"}>
-                        <div className={"header-item"}>步骤列表</div>
-                        <div>
-                            {
-                                showStepListView(allData?.stepList)
-                            }
-                        </div>
-                    </div>
-                    <div className={"scene-step-detail"}>
-                        <div className={"header-item"}>步骤详情</div>
-                        {
-                            stepData
-                                ?<ResponseCommon
-                                    detail={showDetail(detail)}
-                                    resBody={stepData?.responseInstance?.responseBody}
-                                    resHeader={processResHeader(stepData?.responseInstance?.responseHeader)}
-                                    reqHeader={processResHeader(stepData?.requestInstance?.requestHeader)}
-                                />
-                                :<EmptyTip />
-                        }
-
-                    </div>
-                </div>
-            </div>
-        </div>
+            </Drawer>
+        </>
     )
 }
 export default observer(ApiSceneInstanceSinglePage);

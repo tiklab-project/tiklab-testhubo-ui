@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import ApiPerformDetailCommon from "./apiPerformDetailCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
 import {useHistory} from "react-router";
 import {Button, Form, Space} from "antd";
-import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import DetailCommon from "../../../../../common/DetailCommon";
+import ApiPerfExecuteTestPage from "./ApiPerfExecuteTestPage";
+import CaseContentCommon from "../../../../common/CaseContentCommon";
+import ApiPerfStepList from "./apiPerfStepList";
+import ApiPerfTestDataPage from "./ApiPerfTestDataPage";
+import ApiPerformConfig from "./apiPerfConfig";
 
 
 const ApiPerformDetail = (props) =>{
@@ -36,13 +39,7 @@ const ApiPerformDetail = (props) =>{
 
     },[apiPerfId])
 
-    const toExePage = () =>{
-        if(envUrl){
-            history.push("/repository/testcase/api-perform-execute")
-        }else {
-            messageFn("error","请选择环境")
-        }
-    }
+
 
 
     const updateCase = async () =>{
@@ -66,39 +63,55 @@ const ApiPerformDetail = (props) =>{
     }
 
 
-    return(
-        <div className={"content-box-center"} style={{overflow:"hidden",height:"calc(100% - 35px)"}}>
-            <div className='title-space-between'>
-                <div className={"case-title_weight"}>
-                    <div>基本信息</div>
-                </div>
-                {
-                    props.planType
-                        ? null
-                        :<Space>
-                            <ApiEnvDropDownSelect />
-                            <IconBtn
-                                className="pi-icon-btn-grey"
-                                icon={"lishi"}
-                                onClick={()=>history.push("/repository/testcase/api-perform-instance")}
-                                name={"历史"}
-                            />
-                            <Button className={"important-btn"} onClick={toExePage}>
-                                测试
-                            </Button>
-                        </Space>
-                }
-
-            </div>
-            <DetailCommon
+    const tabItem = [
+        {
+            label:"详细信息",
+            key:"1",
+            children:<DetailCommon
                 type={true}
                 detailInfo={caseInfo}
                 updateCase={updateCase}
                 form={form}
             />
+        },{
+            label:"场景配置",
+            key:"2",
+            children:<ApiPerfStepList type={true} {...props} />
+        },{
+            label:"压力配置",
+            key:"3",
+            children: <ApiPerformConfig {...props}/>
+        },{
+            label:"测试数据",
+            key:"4",
+            children: <ApiPerfTestDataPage />
+        }
+    ]
 
-            <ApiPerformDetailCommon type={true} {...props} />
-        </div>
+    return(
+        < >
+            <CaseContentCommon
+                tabItem={tabItem}
+                tabBarExtraContent={
+                    <>
+                        {
+                            props.planType
+                                ? null
+                                :<Space>
+                                    <ApiEnvDropDownSelect />
+                                    <IconBtn
+                                        className="pi-icon-btn-grey"
+                                        icon={"lishi"}
+                                        onClick={()=>history.push("/repository/api-perform-instance")}
+                                        name={"历史"}
+                                    />
+                                    <ApiPerfExecuteTestPage apiPerfId={apiPerfId}/>
+                                </Space>
+                        }
+                    </>
+                }
+            />
+        </>
     )
 }
 

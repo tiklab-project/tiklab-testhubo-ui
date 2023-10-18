@@ -5,18 +5,25 @@ import {processResHeader} from "../../common/response/testResponseFnCommon";
 import ResponseCommon from "../../common/response/responseCommon";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 import CaseBread from "../../../../../common/CaseBread";
+import {Drawer} from "antd";
 
 const ApiUnitInstanceSinglePage = (props) =>{
+    const {apiUnitInstanceId,name} = props
     const {findApiUnitInstance} = apiUnitInstanceStore;
 
     const [allData, setAllData] = useState();
+    const [open, setOpen] = useState(false);
 
-    let apiUnitInstanceId = sessionStorage.getItem("apiUnitInstanceId")
-    useEffect(()=>{
+    const showDrawer = async () => {
         findApiUnitInstance(apiUnitInstanceId).then(res=>{
             setAllData(res)
         })
-    },[])
+        setOpen(true);
+    }
+
+    const onClose = () => {
+        setOpen(false);
+    };
 
 
     //响应结果基础信息项
@@ -67,13 +74,29 @@ const ApiUnitInstanceSinglePage = (props) =>{
 
     return(
         <>
-            <CaseBread title={"历史详情"}/>
-            <ResponseCommon
-                detail={showDetail(detail)}
-                resBody={allData?.responseInstance?.responseBody}
-                resHeader={processResHeader(allData?.responseInstance?.responseHeader)}
-                reqHeader={processResHeader(allData?.requestInstance?.requestHeader)}
-            />
+            <a onClick={showDrawer} style={{fontWeight:"bold"}}>#{name}</a>
+            <Drawer
+                placement="right"
+                onClose={onClose}
+                open={open}
+                width={"70%"}
+                destroyOnClose={true}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
+            >
+                <CaseBread
+                    title={"历史详情"}
+                    icon={"jiekou1"}
+                    setOpen={setOpen}
+                />
+                <ResponseCommon
+                    detail={showDetail(detail)}
+                    resBody={allData?.responseInstance?.responseBody}
+                    resHeader={processResHeader(allData?.responseInstance?.responseHeader)}
+                    reqHeader={processResHeader(allData?.requestInstance?.requestHeader)}
+                />
+            </Drawer>
         </>
     )
 

@@ -4,7 +4,6 @@ import { useParams} from "react-router";
 import ApiUnitEditPageCommon from "./apiUnitEditPageCommon";
 import CaseBread from "../../../../../common/CaseBread";
 
-
 const ApiUnitContent = (props) =>{
     const {apiUnitStore} = props;
     const {testCaseInfo} = apiUnitStore;
@@ -19,15 +18,13 @@ const ApiUnitContent = (props) =>{
     },[apiUnitId])
 
     return(
-        <>
+        <div className={"content-box-center"}>
             <CaseBread
-                icon={"jiekou1"}
-                title={testCaseInfo?.name}
                 caseType={testCaseInfo?.caseType}
+                breadItem={["用例列表","用例详情"]}
             />
-
             <ApiUnitEditPageCommon/>
-        </>
+        </div>
     )
 }
 

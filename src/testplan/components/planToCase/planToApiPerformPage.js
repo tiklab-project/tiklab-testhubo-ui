@@ -17,14 +17,16 @@ const PlanToApiPerformPage = (props) =>{
     },[])
 
     return(
-        <>
+        <div className={"content-box-center"}>
             <CaseBread
-                icon={"jiekou1"}
-                title={caseInfo?.name}
+                // title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
+                style={{borderBottom:"none"}}
+                icon={"jiekou1"}
+                breadItem={["用例详情"]}
             />
             <ApiPerformDetail planType={true}/>
-        </>
+        </div>
     )
 }
 

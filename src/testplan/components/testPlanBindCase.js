@@ -49,7 +49,7 @@ const TestPlanBindCase = (props) => {
             testPlan:{id: testPlanId},
             testCase: {id:id}
         }
-        planBindCase([obj]).then(()=>findBindTestCaseList(testPlanId))
+        planBindCase([obj]).then(()=>findBindTestCaseList({testPlanId:testPlanId}))
         setVisible(false)
     }
 

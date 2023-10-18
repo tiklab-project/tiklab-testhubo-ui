@@ -6,6 +6,7 @@ import emptyImg from "../../../../../assets/img/empty.png";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 import {useHistory} from "react-router";
 import CaseBread from "../../../../../common/CaseBread";
+import ApiUnitInstanceSinglePage from "./apiUnitInstanceSinglePage";
 
 const ApiUnitInstanceList = (props) =>{
     const {
@@ -15,17 +16,16 @@ const ApiUnitInstanceList = (props) =>{
         deleteApiUnitInstance
     } = apiUnitInstanceStore;
 
-    const history = useHistory()
-
     const column = [
         {
             title: '执行次数',
             dataIndex: ["apiUnitInstance",'executeNumber'],
             key: "executeNumber",
             render:(text,record)=>(
-                <a onClick={()=>toSingleInstance(record)}>
-                    {text}
-                </a>
+                <ApiUnitInstanceSinglePage
+                    apiUnitInstanceId={record.id}
+                    name={text}
+                />
             )
         },
         {
@@ -118,15 +118,9 @@ const ApiUnitInstanceList = (props) =>{
         setPageParam(newParams)
     }
 
-    const toSingleInstance = (record) =>{
-        sessionStorage.setItem("apiUnitInstanceId",record.id)
-        history.push("/repository/testcase/api-unit-instance-single")
-    }
-
-
     return(
         <div className={"content-box-center"}>
-            <CaseBread title={"历史"}/>
+            <CaseBread breadItem={["用例列表","用例详情","用例历史"]}/>
             <div className={"table-list-box"}>
                 <Table
                     columns={column}

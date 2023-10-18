@@ -18,17 +18,15 @@ const ApiSceneContent = (props) => {
     },[apiSceneId])
 
     return(
-        <>
+        <div className={"content-box-center"}>
             <CaseBread
-                icon={"jiekou1"}
-                style={{
-                    borderBottom:"none"
-                }}
-                title={testCaseInfo?.name}
+                style={{borderBottom:"none"}}
+                // title={testCaseInfo?.name}
                 caseType={testCaseInfo?.caseType}
+                breadItem={["用例列表","用例详情"]}
             />
             <ApiSceneDetail/>
-        </>
+        </div>
     )
 
 

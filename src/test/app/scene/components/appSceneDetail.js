@@ -4,11 +4,12 @@ import {inject, observer} from "mobx-react";
 import AppSceneStepList from "./appSceneStepList";
 import "./appStyle.scss"
 import {useHistory} from "react-router";
-import {Button, Form, Space} from "antd";
+import { Form, Space} from "antd";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import CaseContentCommon from "../../../common/CaseContentCommon";
 import DetailCommon from "../../../../common/DetailCommon";
 import VariableTable from "../../../common/Variable/components/VariableTable";
+import AppExecuteTestPage from "./AppExecuteTestPage";
 
 const AppSceneDetail = (props) => {
     const {appSceneStore} = props;
@@ -34,11 +35,6 @@ const AppSceneDetail = (props) => {
             })
         })
     },[appSceneId])
-
-
-    const toExePage = () =>{
-        history.push("/repository/testcase/app-scene-execute")
-    }
 
     //更新名称
     const updateCase = async (e) =>{
@@ -95,12 +91,10 @@ const AppSceneDetail = (props) => {
                                 <IconBtn
                                     className="pi-icon-btn-grey"
                                     icon={"lishi"}
-                                    onClick={()=>history.push("/repository/testcase/app-scene-instance")}
+                                    onClick={()=>history.push("/repository/app-scene-instance")}
                                     name={"历史"}
                                 />
-                                <Button className={"important-btn"} onClick={toExePage}>
-                                    测试
-                                </Button>
+                                <AppExecuteTestPage appSceneId={appSceneId}/>
                             </Space>
                     }
                 </>

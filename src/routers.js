@@ -172,136 +172,132 @@ const routers =  [
                     {
                         path: "/repository/testcase",
                         component: TestCaseTable,
-                        routes:[
-                            {
-                                path: "/repository/testcase/api-unit/:id",
-                                component: ApiUnitContent,
-                            },
-                            {
-                                path: "/repository/testcase/api-unit-instance",
-                                component: ApiUnitInstanceList,
-                            },
-                            {
-                                path: "/repository/testcase/api-unit-execute",
-                                component: ApiUnitExecuteTest,
-                            },
-                            {
-                                path: "/repository/testcase/api-unit-instance-single",
-                                component: ApiUnitInstanceSinglePage,
-                            },
-
-                            {
-                                path: "/repository/testcase/api-scene/:id",
-                                component: ApiSceneContent,
-                            },
-                            {
-                                path: "/repository/testcase/api-scene-to-unit",
-                                component: ApiSceneToUnitPage,
-                            },
-                            {
-                                path: "/repository/testcase/api-scene-execute",
-                                component: ApiExecuteTestPage,
-                            },
-                            {
-                                path: "/repository/testcase/api-scene-instance",
-                                component: ApiSceneInstanceList,
-                            },
-                            {
-                                path: "/repository/testcase/api-scene-instance-single",
-                                component: ApiSceneInstanceSinglePage,
-                            },
-                            {
-                                path: "/repository/testcase/api-perform/:id",
-                                component: ApiPerfContent,
-                            },
-                            {
-                                path: "/repository/testcase/api-perform-to-scene",
-                                component: ApiPerformToScenePage ,
-                            },
-                            {
-                                path: "/repository/testcase/api-perform-execute",
-                                component: ApiPerfExecuteTestPage,
-                            },
-                            {
-                                path: "/repository/testcase/api-perform-instance",
-                                component: ApiPerfInstanceList,
-                            },
-                            {
-                                path: "/repository/testcase/api-perform-instance-single",
-                                component: ApiPerfInstanceSinglePage,
-                            },
-
-                            {
-                                path: "/repository/testcase/web-scene/:id",
-                                component: WebSceneContent,
-                            },{
-                                path: "/repository/testcase/web-scene-instance",
-                                component: WebSceneInstanceList,
-                            },
-                            {
-                                path: "/repository/testcase/web-scene-execute",
-                                component: WebExecuteTestPage,
-                            },
-                            {
-                                path: "/repository/testcase/web-scene-instance-single",
-                                component: WebSceneInstanceSinglePage,
-                            },
-
-                            {
-                                path: "/repository/testcase/web-perform/:id",
-                                component:WebPerformDetail,
-                            },
-                            {
-                                path: "/repository/testcase/web-perform-to-scene",
-                                component: WebPerformToScenePage ,
-                            },
-                            {
-                                path: "/repository/testcase/web-perform-instance",
-                                component: WebPerfInstanceList,
-                            },
-
-                            {
-                                path: "/repository/testcase/app-scene/:id",
-                                component: AppSceneContent,
-                            },
-                            {
-                                path: "/repository/testcase/app-scene-instance",
-                                component: AppSceneInstanceList,
-                            },
-                            {
-                                path: "/repository/testcase/app-scene-execute",
-                                component: AppExecuteTestPage,
-                            },
-                            {
-                                path: "/repository/testcase/app-scene-instance-single",
-                                component: AppSceneInstanceSinglePage,
-                            },
-
-                            {
-                                path: "/repository/testcase/app-perform/:id",
-                                component:AppPerformDetail,
-                            },
-                            {
-                                path: "/repository/testcase/app-perform-to-scene",
-                                component: AppPerformToScenePage ,
-                            },
-                            {
-                                path: "/repository/testcase/app-perform-instance",
-                                component: AppPerfInstanceList,
-                            },
-
-                            {
-                                path: "/repository/testcase/function/:id",
-                                exact: true,
-                                component: FuncUnitDetail,
-                            },
-                            // {
-                            //     path:"/repository/testcase",
-                            //     exact: true,
-                            //     component: ()=><Redirect to='/repository/testcase/list'/>,
-                            // },
-                        ]
                     },
+                    {
+                        path: "/repository/api-unit/:id",
+                        component: ApiUnitContent,
+                    },
+                    {
+                        path: "/repository/api-unit-instance",
+                        component: ApiUnitInstanceList,
+                    },
+                    {
+                        path: "/repository/api-unit-execute",
+                        component: ApiUnitExecuteTest,
+                    },
+                    {
+                        path: "/repository/api-unit-instance-single",
+                        component: ApiUnitInstanceSinglePage,
+                    },
+
+                    {
+                        path: "/repository/api-scene/:id",
+                        component: ApiSceneContent,
+                    },
+                    {
+                        path: "/repository/api-scene-to-unit",
+                        component: ApiSceneToUnitPage,
+                    },
+                    {
+                        path: "/repository/api-scene-execute",
+                        component: ApiExecuteTestPage,
+                    },
+                    {
+                        path: "/repository/api-scene-instance",
+                        component: ApiSceneInstanceList,
+                    },
+                    {
+                        path: "/repository/api-scene-instance-single",
+                        component: ApiSceneInstanceSinglePage,
+                    },
+                    {
+                        path: "/repository/api-perform/:id",
+                        component: ApiPerfContent,
+                    },
+                    {
+                        path: "/repository/api-perform-to-scene",
+                        component: ApiPerformToScenePage ,
+                    },
+                    {
+                        path: "/repository/api-perform-execute",
+                        component: ApiPerfExecuteTestPage,
+                    },
+                    {
+                        path: "/repository/api-perform-instance",
+                        component: ApiPerfInstanceList,
+                    },
+                    {
+                        path: "/repository/api-perform-instance-single",
+                        component: ApiPerfInstanceSinglePage,
+                    },
+
+                    {
+                        path: "/repository/web-scene/:id",
+                        component: WebSceneContent,
+                    },{
+                        path: "/repository/web-scene-instance",
+                        component: WebSceneInstanceList,
+                    },
+                    {
+                        path: "/repository/web-scene-execute",
+                        component: WebExecuteTestPage,
+                    },
+                    {
+                        path: "/repository/web-scene-instance-single",
+                        component: WebSceneInstanceSinglePage,
+                    },
+
+                    {
+                        path: "/repository/web-perform/:id",
+                        component:WebPerformDetail,
+                    },
+                    {
+                        path: "/repository/web-perform-to-scene",
+                        component: WebPerformToScenePage ,
+                    },
+                    {
+                        path: "/repository/web-perform-instance",
+                        component: WebPerfInstanceList,
+                    },
+
+                    {
+                        path: "/repository/app-scene/:id",
+                        component: AppSceneContent,
+                    },
+                    {
+                        path: "/repository/app-scene-instance",
+                        component: AppSceneInstanceList,
+                    },
+                    {
+                        path: "/repository/app-scene-execute",
+                        component: AppExecuteTestPage,
+                    },
+                    {
+                        path: "/repository/app-scene-instance-single",
+                        component: AppSceneInstanceSinglePage,
+                    },
+
+                    {
+                        path: "/repository/app-perform/:id",
+                        component:AppPerformDetail,
+                    },
+                    {
+                        path: "/repository/app-perform-to-scene",
+                        component: AppPerformToScenePage ,
+                    },
+                    {
+                        path: "/repository/app-perform-instance",
+                        component: AppPerfInstanceList,
+                    },
+
+                    {
+                        path: "/repository/function/:id",
+                        exact: true,
+                        component: FuncUnitDetail,
+                    },
+
+
+
                     {
                         path: "/repository/plan",
                         component:TestPlan ,

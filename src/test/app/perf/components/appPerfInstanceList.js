@@ -120,7 +120,7 @@ const AppPerfInstanceList = (props) =>{
 
 
     const goBack = () =>{
-        history.push(`/repository/testcase/app-perform/${appPerfId}`)
+        history.push(`/repository/app-perform/${appPerfId}`)
     }
 
     return(

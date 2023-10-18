@@ -2,35 +2,19 @@ import React, {useEffect, useRef, useState} from "react";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../common/CaseBread";
 import UIResultCommon from "../../../common/UIResultCommon";
-import {Form} from "antd";
+import {Drawer, Form} from "antd";
+import IconBtn from "../../../../common/iconBtn/IconBtn";
 
 const WebExecuteTestPage = (props) =>{
-    const {webSceneStore} = props;
+    const {webSceneStore,webSceneId} = props;
     const {webSceneTestStatus,webSceneTestDispatch,webSceneTestResult,setStartStatus,startStatus} = webSceneStore;
 
-    const webSceneId = sessionStorage.getItem('webSceneId')
     const repositoryId = sessionStorage.getItem('repositoryId')
     const [spinning, setSpinning] = useState(true);
     const [webStepList, setWebStepList] = useState([]);
+    const [open, setOpen] = useState(false);
     const ref = useRef();
     const [form] = Form.useForm();
-
-    useEffect(()=>{
-         webSceneTestStatus().then(res =>{
-             //如果执行状态为0:未开始
-             if(res.code===0&&res.data===0){
-                 let param = {
-                     repositoryId:repositoryId,
-                     webSceneId:webSceneId,
-                     webDriver:"chrome"
-                 }
-                 //开始执行
-                 webSceneTestDispatch(param)
-                 setStartStatus(1)
-             }
-         });
-    },[])
-
 
     useEffect(async ()=>{
         if(startStatus === 1){
@@ -38,6 +22,28 @@ const WebExecuteTestPage = (props) =>{
         }
         return () => ref.current = null
     },[startStatus])
+
+    const showDrawer = async () => {
+        webSceneTestStatus().then(res =>{
+            //如果执行状态为0:未开始
+            if(res.code===0&&res.data===0){
+                let param = {
+                    repositoryId:repositoryId,
+                    webSceneId:webSceneId,
+                    webDriver:"chrome"
+                }
+                //开始执行
+                webSceneTestDispatch(param)
+                setStartStatus(1)
+            }
+        });
+
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
 
 
     const testResult = () =>{
@@ -81,14 +87,38 @@ const WebExecuteTestPage = (props) =>{
 
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread title={"WEB场景测试"}/>
-            <UIResultCommon
-                spinning={spinning}
-                form={form}
-                dataList={webStepList}
-            />
-        </div>
+        <>
+            <a onClick={showDrawer}>
+                <IconBtn
+                    className="important-btn"
+                    icon={"fasong-copy"}
+                    name={"测试"}
+                />
+            </a>
+            <Drawer
+                placement="right"
+                onClose={onClose}
+                open={open}
+                width={"70%"}
+                destroyOnClose={true}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
+            >
+                <div className={"content-box-center"}>
+                    <CaseBread
+                        title={"WEB场景测试"}
+                        icon={"jiekou1"}
+                        setOpen={setOpen}
+                    />
+                    <UIResultCommon
+                        spinning={spinning}
+                        form={form}
+                        dataList={webStepList}
+                    />
+                </div>
+            </Drawer>
+        </>
     )
 }
 

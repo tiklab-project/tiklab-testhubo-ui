@@ -5,6 +5,7 @@ import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiPerfInstanceStore from "../store/apiPerfInstanceStore";
 import {useHistory} from "react-router";
+import ApiPerfInstanceSinglePage from "./ApiPerfInstanceSinglePage";
 
 const ApiPerfInstanceTable = (props) =>{
     const {apiPerfId} = props;
@@ -23,9 +24,7 @@ const ApiPerfInstanceTable = (props) =>{
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
-            render:(text,record)=>(
-                <a style={{fontWeight:"bold"}} onClick={()=>toInstanceSinglePage(record.id)}>#{text}</a>
-            )
+            render:(text,record)=>(<ApiPerfInstanceSinglePage name={text} apiPerfInstanceId={record.id}/>)
         },
         {
             title: `总场景数`,
@@ -105,7 +104,7 @@ const ApiPerfInstanceTable = (props) =>{
      */
     const toInstanceSinglePage = (id) => {
         sessionStorage.setItem("apiPerfInstanceId",id)
-        history.push("/repository/testcase/api-perform-instance-single")
+        history.push("/repository/api-perform-instance-single")
     }
 
 

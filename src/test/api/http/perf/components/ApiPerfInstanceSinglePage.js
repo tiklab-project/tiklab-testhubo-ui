@@ -1,26 +1,27 @@
 import React, {useEffect, useState} from "react";
-import {Spin} from "antd";
+import {Drawer, Spin} from "antd";
 import { observer} from "mobx-react";
 import PerformInstanceCommon from "../../../../../common/caseCommon/PerformInstanceCommon";
 import apiPerfInstanceStore from "../store/apiPerfInstanceStore";
 import CaseBread from "../../../../../common/CaseBread";
 
-const ApiPerfInstanceSinglePage = (props) =>{
+const ApiPerfInstanceSinglePage = ({apiPerfInstanceId,name}) =>{
     const {findApiPerfInstance} = apiPerfInstanceStore;
-
 
     const [result, setResult] = useState();
     const [loading, setLoading] = useState(true);
+    const [open, setOpen] = useState(false);
 
-    let apiPerfInstanceId = sessionStorage.getItem("apiPerfInstanceId")
-
-    useEffect(async () =>{
+    const showDrawer = async () => {
         let res = await findApiPerfInstance(apiPerfInstanceId)
         setLoading(false)
         setResult(res)
+        setOpen(true);
+    };
 
-    },[])
-
+    const onClose = () => {
+        setOpen(false);
+    };
 
 
     let option = {
@@ -52,12 +53,25 @@ const ApiPerfInstanceSinglePage = (props) =>{
         ]
     };
 
-
-
     return(
         <>
-            <CaseBread title={"历史详情"}/>
-            <div  className={"result-spin-box"} style={{margin:"0 10px",overflow: "hidden",height: "calc( 100% - 48px )"}} >
+            <a onClick={showDrawer} style={{fontWeight:"bold"}}>#{name}</a>
+            <Drawer
+                placement="right"
+                onClose={onClose}
+                open={open}
+                width={"70%"}
+                destroyOnClose={true}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
+            >
+                <CaseBread
+                    title={"历史详情"}
+                    icon={"jiekou1"}
+                    setOpen={setOpen}
+                />
+                <div  className={"result-spin-box"} style={{margin:"0 10px",overflow: "hidden",height: "calc( 100% - 48px )"}} >
                 <Spin spinning={loading}>
                     <div className={"history-detail history-detail-box"}>
                         <div className={"history-detail-all"}>
@@ -92,6 +106,7 @@ const ApiPerfInstanceSinglePage = (props) =>{
                     </div>
                 </Spin>
             </div>
+            </Drawer>
         </>
 
     )

@@ -74,7 +74,7 @@ const ApiSceneStepList =(props) =>{
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("apiUnitId",id)
-        history.push("/repository/testcase/api-scene-to-unit")
+        history.push("/repository/api-scene-to-unit")
     }
 
     const showConnect =()=>{

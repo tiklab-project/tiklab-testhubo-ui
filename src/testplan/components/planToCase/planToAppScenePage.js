@@ -17,17 +17,16 @@ const PlanToAppScenePage = (props) =>{
     },[])
 
     return(
-        <>
+        <div className={"content-box-center"}>
             <CaseBread
-                icon={"shouji"}
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
-                style={{
-                    borderBottom:"none"
-                }}
+                style={{borderBottom:"none"}}
+                icon={"shouji"}
+                breadItem={["用例详情"]}
             />
             <AppSceneDetail planType={true} />
-        </>
+        </div>
     )
 }
 

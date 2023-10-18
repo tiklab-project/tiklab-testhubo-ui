@@ -1,22 +1,23 @@
 import React, {useEffect, useRef, useState} from "react";
 import CaseBread from "../../../../common/CaseBread";
 import UIResultCommon from "../../../common/UIResultCommon";
-import {Form} from "antd";
+import {Drawer, Form} from "antd";
 import appSceneStore from "../store/appSceneStore";
 import {observer} from "mobx-react";
+import IconBtn from "../../../../common/iconBtn/IconBtn";
 
 
-const AppExecuteTestPage =(props)=>{
+const AppExecuteTestPage =({appSceneId})=>{
+
     const {appSceneTestStatus,appSceneTestDispatch,appSceneTestResult,setStartStatus,startStatus} = appSceneStore;
 
-    const appSceneId = sessionStorage.getItem('appSceneId')
-    const repositoryId = sessionStorage.getItem('repositoryId')
     const [spinning, setSpinning] = useState(true);
     const [appStepList, setAppStepList] = useState([]);
+    const [open, setOpen] = useState(false);
     const ref = useRef();
     const [form] = Form.useForm();
 
-    useEffect(()=>{
+    const showDrawer = async () => {
         appSceneTestStatus().then(res =>{
             //如果执行状态为0:未开始
             if(res.code===0&&res.data===0){
@@ -26,8 +27,12 @@ const AppExecuteTestPage =(props)=>{
             }
         });
 
-    },[])
+        setOpen(true);
+    };
 
+    const onClose = () => {
+        setOpen(false);
+    };
 
     useEffect(async ()=>{
         if(startStatus === 1){
@@ -76,14 +81,34 @@ const AppExecuteTestPage =(props)=>{
     }
 
     return (
-        <div className={"content-box-center"}>
-            <CaseBread title={"APP场景测试"}/>
-            <UIResultCommon
-                spinning={spinning}
-                form={form}
-                dataList={appStepList}
-            />
-        </div>
+        <>
+            <a onClick={showDrawer}>
+                <IconBtn
+                    className="important-btn"
+                    icon={"fasong-copy"}
+                    name={"测试"}
+                />
+            </a>
+            <Drawer
+                placement="right"
+                onClose={onClose}
+                open={open}
+                width={"70%"}
+                destroyOnClose={true}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                closable={false}
+            >
+                <div className={"content-box-center"}>
+                    <CaseBread title={"APP场景测试"}/>
+                    <UIResultCommon
+                        spinning={spinning}
+                        form={form}
+                        dataList={appStepList}
+                    />
+                </div>
+            </Drawer>
+        </>
     );
 }
 

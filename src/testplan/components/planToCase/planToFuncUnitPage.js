@@ -17,18 +17,17 @@ const PlanToFuncUnitPage = (props) =>{
     },[])
 
     return(
-        <>
+        <div className={"content-box-center"}>
             <CaseBread
-                icon={"gongneng"}
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
-                style={{
-                    borderBottom:"none"
-                }}
+                style={{borderBottom:"none"}}
+                icon={"gongneng"}
+                breadItem={["用例详情"]}
             />
             <FunctionDetail />
 
-        </>
+        </div>
     )
 }
 

@@ -6,15 +6,15 @@ const CaseContentCommon = (props) =>{
 
     return(
         <>
-            {
+            <div className={" case-tabs-box"} >
+                {
                 breadcrumb
                     ?<div className={"breadcrumb-title_between"}>
                         {breadcrumb}
                     </div>
                     :null
-            }
+                }
 
-            <div className={"content-box-center case-tabs-box"} >
                 <Tabs
                     defaultActiveKey="1"
                     items={tabItem}

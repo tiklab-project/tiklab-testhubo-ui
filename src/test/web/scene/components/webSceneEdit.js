@@ -47,7 +47,7 @@ const WebSceneEdit = (props) => {
                 if(res.code===0){
                     findPage&&findPage()
                     sessionStorage.setItem(`webSceneId`,res.data);
-                    props.history.push(`/repository/testcase/web-Scene/${res.data}`)
+                    props.history.push(`/repository/web-Scene/${res.data}`)
                 }
             })
         }

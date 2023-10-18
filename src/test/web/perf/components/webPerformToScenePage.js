@@ -49,7 +49,7 @@ const WebPerformToScenePage = (props) =>{
     }
 
     const toWebScene = () =>{
-        history.push(`/repository/testcase/web-scene/${webSceneId}`)
+        history.push(`/repository/web-scene/${webSceneId}`)
     }
 
 

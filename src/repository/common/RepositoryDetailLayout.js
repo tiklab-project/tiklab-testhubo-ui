@@ -1,7 +1,11 @@
 import React from "react";
 import LeftNav from "./LeftNav";
 import "./repositoryDetailStyle.scss"
-import "../../common/commonStyle.scss"
+import "../../common/commonStyle.scss";
+import "../../test/testcase/components/testcaseStyle.scss";
+import "../../test/testcase/components/caseContantStyle.scss";
+import "../../test/testcase/components/unitcase.scss";
+import "../../testplan/components/testPlanStyle.scss"
 import {renderRoutes} from "react-router-config";
 import { Provider } from 'mobx-react';
 import CategoryStore from "../../category/store/CategoryStore";

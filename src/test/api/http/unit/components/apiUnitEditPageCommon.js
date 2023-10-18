@@ -3,27 +3,20 @@ import { observer, inject } from 'mobx-react';
 import { Form, Input, Select, Space} from 'antd';
 import Request from './request';
 import {dictionary} from "../../../../../common/dictionary/dictionary";
-import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import MethodType from "../../common/methodType";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
-import apiUnitTestDispatchStore from "../store/apiUnitTestDispatchStore";
-import assertParamStore from "../store/assertParamStore";
 import Response from "./response";
 import {useHistory} from "react-router";
+import ApiUnitExecuteTest from "./apiUnitExecuteTest";
 
 const {Option} = Select;
 
 const ApiUnitEditPageCommon = (props) => {
-    const { apiUnitStore,apiEnvStore } = props;
+    const { apiUnitStore } = props;
     const { findApiUnit,updateApiUnit } = apiUnitStore;
-    const { apiUnitExecute } = apiUnitTestDispatchStore;
-    const { envUrl } = apiEnvStore;
-    const {findAssertParamList} = assertParamStore
 
     const history = useHistory()
-
-    const [form] = Form.useForm();
     const apiUnitId = sessionStorage.getItem('apiUnitId');
 
     const [showValidateStatus, setShowValidateStatus ] = useState()
@@ -31,7 +24,7 @@ const ApiUnitEditPageCommon = (props) => {
     const [name,setName]=useState();
     const [methodType,setMethodType] =useState();
     const [path, setPath] = useState();
-    const [assertList, setAssertList] = useState();
+
 
     useEffect(async ()=>{
         let res = await findApiUnit(apiUnitId)
@@ -42,32 +35,10 @@ const ApiUnitEditPageCommon = (props) => {
 
     },[apiUnitId])
 
-    //测试
-    const clickTest = async ()=>{
-        findAssertParamList(apiUnitId).then(res=>{
-            setAssertList(res)
-        })
 
-        let values = await form.validateFields()
-
-        //测试环境为空提示
-        if(!envUrl&&!values.host){
-            return messageFn("error","请填写测试地址")
-        }
-
-        //执行测试
-        let res = await apiUnitExecute(apiUnitId,envUrl?envUrl:values.host)
-        if(res.code===0){
-            history.push("/repository/testcase/api-unit-execute")
-        }
-
-        if(res.code===60000){
-            messageFn("error","Agent错误")
-        }
-    }
 
     const toHistory = () =>{
-        history.push("/repository/testcase/api-unit-instance")
+        history.push("/repository/api-unit-instance")
     }
 
     //编辑名称
@@ -119,7 +90,7 @@ const ApiUnitEditPageCommon = (props) => {
     };
 
     return(
-        <div className={"content-box-center"}>
+        <div >
             <div className={"api-unit-base"}>
                 <div className='header-box-space-between'>
                     <div style={{height:32,"display":"flex","gap":"10px","alignItems":"center"}}>
@@ -192,12 +163,7 @@ const ApiUnitEditPageCommon = (props) => {
                                     onClick={toHistory}
                                     name={"历史"}
                                 />
-                                <IconBtn
-                                    className="important-btn"
-                                    icon={"fasong-copy"}
-                                    onClick={clickTest}
-                                    name={"测试"}
-                                />
+                                <ApiUnitExecuteTest apiUnitId={apiUnitId}/>
                             </Space>
                     }
 
@@ -224,4 +190,4 @@ const ApiUnitEditPageCommon = (props) => {
     )
 }
 
-export default inject('apiUnitStore',"apiEnvStore",)(observer(ApiUnitEditPageCommon));
+export default inject('apiUnitStore')(observer(ApiUnitEditPageCommon));

@@ -52,7 +52,7 @@ const AppPerfStepList = (props) =>{
 
     const setSessionStorage = (id) =>{
         sessionStorage.setItem("appSceneId",id);
-        props.history.push("/repository/testcase/app-perform-to-scene")
+        props.history.push("/repository/app-perform-to-scene")
     }
 
 

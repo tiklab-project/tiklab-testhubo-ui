@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Empty, Popconfirm, Space, Table} from "antd";
-import TestPlanTestcaseAdd from "./testPlanBindCase";
 import IconCommon from "../../common/IconCommon";
-import {showCaseTypeInList, showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeInList, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
 import emptyImg from "../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
 import IconBtn from "../../common/iconBtn/IconBtn";
@@ -89,8 +88,6 @@ const TestPlanBindCaseList = (props) =>{
         })
     }
 
-
-
     // 分页
     const onTableChange = (pagination) => {
         setCurrentPage(pagination.current)
@@ -151,6 +148,7 @@ const TestPlanBindCaseList = (props) =>{
             <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
                 <TestPlanBindCase
                     setVisible={setVisible}
+                    testPlanId={testPlanId}
                 />
             </div>
         </div>

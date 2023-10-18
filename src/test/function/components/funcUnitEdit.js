@@ -52,7 +52,7 @@ const FuncUnitEdit = (props) => {
                 if(res.code===0){
                     findPage&&findPage()
                     sessionStorage.setItem(`functionId`,res.data);
-                    history.push(`/repository/testcase/function/${res.data}`)
+                    history.push(`/repository/function/${res.data}`)
                 }
             })
         }

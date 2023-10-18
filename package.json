@@ -80,7 +80,7 @@
     "axios": "^0.21.0",
     "blueimp-md5": "^2.18.0",
     "chromedriver": "^92.0.2",
-    "csv-parser": "^3.0.0",
+    "d3-dsv": "^3.0.1",
     "echarts": "^5.3.3",
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",

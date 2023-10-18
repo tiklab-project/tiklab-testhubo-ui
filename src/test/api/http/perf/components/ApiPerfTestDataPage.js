@@ -88,6 +88,7 @@ const ApiPerfTestDataPage = (props) =>{
                         columns={column}
                         dataSource={testDataList}
                         rowKey = {record => record.id}
+                        pagination={false}
                         locale={{
                             emptyText: <Empty
                                 imageStyle={{height: 120 }}

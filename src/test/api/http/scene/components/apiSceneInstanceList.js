@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
-import {inject, observer} from "mobx-react";
+import { Empty, Popconfirm, Table, Tag} from "antd";
+import {observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
 import {useHistory} from "react-router";
-import {DrawerCloseIcon} from "../../../../common/BreadcrumbCommon";
-import {ArrowLeftOutlined} from "@ant-design/icons";
 import CaseBread from "../../../../../common/CaseBread";
+import ApiSceneInstanceSinglePage from "./apiSceneInstanceSinglePage";
 
 const ApiSceneInstanceList = (props) =>{
     const {
@@ -24,9 +23,7 @@ const ApiSceneInstanceList = (props) =>{
             title: '执行次数',
             dataIndex: 'executeNumber',
             key: "executeNumber",
-            render:(text,record)=>(
-                <a onClick={()=>toInstance(record.id)} style={{fontWeight:"bold"}}># {text} </a>
-            )
+            render:(text,record)=>(<ApiSceneInstanceSinglePage apiSceneInstanceId={record.id} name={text}/>)
         },{
             title: '总结果',
             dataIndex: 'result',
@@ -93,11 +90,6 @@ const ApiSceneInstanceList = (props) =>{
         findPage()
     },[pageParam])
 
-    const toInstance = (id) =>{
-        sessionStorage.setItem("apiSceneInstanceId",id)
-        history.push(`/repository/testcase/api-scene-instance-single`)
-    }
-
     const findPage = async () => {
         let param = {
             apiSceneId:apiSceneId,
@@ -124,40 +116,32 @@ const ApiSceneInstanceList = (props) =>{
         setPageParam(newParams)
     }
 
-    const goBack = () =>{
-        history.push(`/repository/testcase/api-scene/${apiSceneId}`)
-    }
 
     return(
-        <>
+        <div className={"content-box-center"}>
+            <CaseBread  breadItem={["用例列表","用例详情","用例历史"]}/>
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={apiSceneInstanceList}
+                    rowKey = {record => record.id}
+                    pagination={{
+                        current:currentPage,
+                        pageSize:pageSize,
+                        total:totalRecord,
+                    }}
+                    onChange = {(pagination) => onTableChange(pagination)}
 
-            <div className={"content-box-center"}>
-                <CaseBread title={"历史"}/>
-                <div className={"table-list-box"}>
-                    <Table
-                        columns={column}
-                        dataSource={apiSceneInstanceList}
-                        rowKey = {record => record.id}
-                        pagination={{
-                            current:currentPage,
-                            pageSize:pageSize,
-                            total:totalRecord,
-                        }}
-                        onChange = {(pagination) => onTableChange(pagination)}
-
-                        locale={{
-                            emptyText: <Empty
-                                imageStyle={{height: 120 }}
-                                description={<span>暂无历史</span>}
-                                image={emptyImg}
-                            />,
-                        }}
-                    />
-                </div>
+                    locale={{
+                        emptyText: <Empty
+                            imageStyle={{height: 120 }}
+                            description={<span>暂无历史</span>}
+                            image={emptyImg}
+                        />,
+                    }}
+                />
             </div>
-
-        </>
-
+        </div>
     )
 }
 

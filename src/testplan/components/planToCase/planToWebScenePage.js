@@ -17,17 +17,16 @@ const PlanToWebScenePage = (props) =>{
     },[])
 
     return(
-        <>
+        <div className={"content-box-center"}>
             <CaseBread
                 icon={"diannao"}
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
-                style={{
-                    borderBottom:"none"
-                }}
+                style={{borderBottom:"none"}}
+                breadItem={["用例详情"]}
             />
             <WebSceneDetail planType={true}/>
-        </>
+        </div>
     )
 }
 
