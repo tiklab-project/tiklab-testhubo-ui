@@ -11,29 +11,50 @@ const CaseTypeSelect = (props) =>{
             label: '所有',
         },
         {
-            value: 'function',
-            label: '功能用例',
+            label: '接口',
+            options: [
+                {
+                    value: 'api-unit',
+                    label: '单元',
+                },
+                {
+                    value: 'api-scene',
+                    label: '场景',
+                },
+                {
+                    value: 'api-perform',
+                    label: '性能',
+                },
+            ]
+        },{
+            label: '功能',
+            options: [
+                {
+                    value: 'function',
+                    label: '功能用例',
+                },
+            ]
+        },{
+            label: 'UI',
+            options: [
+                {
+                    value: 'web-scene',
+                    label: '场景',
+                },
+            ]
+        },{
+            label: 'APP',
+            options: [
+                {
+                    value: 'app-scene',
+                    label: '场景',
+                },
+            ]
         },
-        {
-            value: 'api-unit',
-            label: '接口单元',
-        },
-        {
-            value: 'api-scene',
-            label: '接口场景',
-        },
-        {
-            value: 'api-perform',
-            label: '接口性能',
-        },
-        {
-            value: 'web-scene',
-            label: 'web场景',
-        },
-        {
-            value: 'app-scene',
-            label: 'APP场景',
-        },
+
+
+
+
     ]
 
     return(

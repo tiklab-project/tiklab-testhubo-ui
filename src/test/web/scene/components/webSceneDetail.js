@@ -2,13 +2,10 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import WebSceneStepList from "./webSceneStepList";
 import "./webStyle.scss"
-import {useHistory} from "react-router";
 import {Button, Form, Space} from "antd";
-import IconBtn from "../../../../common/iconBtn/IconBtn";
 import CaseContentCommon from "../../../common/CaseContentCommon";
 import DetailCommon from "../../../../common/DetailCommon";
 import VariableTable from "../../../common/Variable/components/VariableTable";
-import WebExecuteTestPage from "./WebExecuteTestPage";
 
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;
@@ -16,7 +13,6 @@ const WebSceneDetail = (props) => {
     const [caseInfo,setCaseInfo]=useState();
 
     const [form] = Form.useForm()
-    let history = useHistory()
     const webSceneId = sessionStorage.getItem('webSceneId');
     useEffect(()=> {
         findWebScene(webSceneId).then(res=>{
@@ -80,23 +76,6 @@ const WebSceneDetail = (props) => {
     return(
         <CaseContentCommon
             tabItem={tabItem}
-            tabBarExtraContent={
-                <>
-                    {
-                        props.planType
-                            ?null
-                            :<Space>
-                                <IconBtn
-                                    className="pi-icon-btn-grey"
-                                    icon={"lishi"}
-                                    onClick={()=>history.push("/repository/web-scene-instance")}
-                                    name={"历史"}
-                                />
-                                <WebExecuteTestPage webSceneId={webSceneId} />
-                            </Space>
-                    }
-                </>
-            }
         />
     )
 }

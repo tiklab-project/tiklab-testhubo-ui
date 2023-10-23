@@ -1,11 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import IconBtn from "../../../../../common/iconBtn/IconBtn";
-import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
-import {useHistory} from "react-router";
-import {Button, Form, Space} from "antd";
+import {Form} from "antd";
 import DetailCommon from "../../../../../common/DetailCommon";
-import ApiPerfExecuteTestPage from "./ApiPerfExecuteTestPage";
 import CaseContentCommon from "../../../../common/CaseContentCommon";
 import ApiPerfStepList from "./apiPerfStepList";
 import ApiPerfTestDataPage from "./ApiPerfTestDataPage";
@@ -19,7 +15,6 @@ const ApiPerformDetail = (props) =>{
 
     const [form] = Form.useForm()
     const [caseInfo,setCaseInfo]=useState();
-    const history = useHistory();
     const apiPerfId = sessionStorage.getItem("apiPerfId");
     useEffect(()=>{
         findApiPerf(apiPerfId).then(res=>{
@@ -89,29 +84,9 @@ const ApiPerformDetail = (props) =>{
     ]
 
     return(
-        < >
-            <CaseContentCommon
-                tabItem={tabItem}
-                tabBarExtraContent={
-                    <>
-                        {
-                            props.planType
-                                ? null
-                                :<Space>
-                                    <ApiEnvDropDownSelect />
-                                    <IconBtn
-                                        className="pi-icon-btn-grey"
-                                        icon={"lishi"}
-                                        onClick={()=>history.push("/repository/api-perform-instance")}
-                                        name={"历史"}
-                                    />
-                                    <ApiPerfExecuteTestPage apiPerfId={apiPerfId}/>
-                                </Space>
-                        }
-                    </>
-                }
-            />
-        </>
+
+        <CaseContentCommon tabItem={tabItem}/>
+
     )
 }
 

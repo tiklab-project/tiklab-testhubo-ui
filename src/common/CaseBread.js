@@ -6,7 +6,7 @@ import {useHistory} from "react-router";
 import {Breadcrumb} from "antd";
 
 const CaseBread = (props) =>{
-    const {title,icon,style,caseType,setOpen,breadItem} = props
+    const {title,icon,style,caseType,setOpen,breadItem,right} = props
 
     const history =useHistory()
 
@@ -46,6 +46,11 @@ const CaseBread = (props) =>{
                 }
             </div>
             {
+                right
+                    ?<>{right}</>
+                    :null
+            }
+            {
                 setOpen
                     ?<IconCommon
                         className={"icon-s edit-icon"}
@@ -54,6 +59,7 @@ const CaseBread = (props) =>{
                     />
                     :null
             }
+
         </div>
     )
 }

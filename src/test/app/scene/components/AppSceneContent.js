@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import { useParams} from "react-router";
+import {useHistory, useParams} from "react-router";
 import AppSceneDetail from "./appSceneDetail";
 import CaseBread from "../../../../common/CaseBread";
+import IconBtn from "../../../../common/iconBtn/IconBtn";
+import AppExecuteTestPage from "./AppExecuteTestPage";
+import {Space} from "antd";
 
 const AppSceneContent = (props) =>{
     const {appSceneStore} = props;
     const {testCaseInfo} = appSceneStore
-
+    let history = useHistory()
     let {id} = useParams()
     const appSceneId = sessionStorage.getItem('appSceneId') || id;
 
@@ -24,6 +27,17 @@ const AppSceneContent = (props) =>{
                 caseType={testCaseInfo?.caseType}
                 style={{borderBottom:"none"}}
                 breadItem={["用例详情"]}
+                right={
+                    <Space>
+                        <IconBtn
+                            className="pi-icon-btn-grey"
+                            icon={"lishi"}
+                            onClick={()=>history.push("/repository/app-scene-instance")}
+                            name={"历史"}
+                        />
+                        <AppExecuteTestPage appSceneId={appSceneId}/>
+                    </Space>
+                }
             />
             <AppSceneDetail/>
         </div>

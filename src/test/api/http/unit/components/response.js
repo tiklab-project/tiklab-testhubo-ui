@@ -12,9 +12,9 @@ const Response = (props) =>{
         <>
             <Tabs defaultActiveKey="1">
                 <TabPane tab="返回头部" key="1">
-
-                    <ResponseHeader  {...props}/>
-
+                    <div className={"tabPane-item-box"}>
+                        <ResponseHeader  {...props}/>
+                    </div>
                 </TabPane>
                 <TabPane tab="返回结果" key="2">
                     <ResponseResult />

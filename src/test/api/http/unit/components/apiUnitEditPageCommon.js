@@ -1,14 +1,10 @@
 import React, { useEffect, useState} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Form, Input, Select, Space} from 'antd';
+import { Input, Select} from 'antd';
 import Request from './request';
 import {dictionary} from "../../../../../common/dictionary/dictionary";
-import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import MethodType from "../../common/methodType";
-import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
 import Response from "./response";
-import {useHistory} from "react-router";
-import ApiUnitExecuteTest from "./apiUnitExecuteTest";
 
 const {Option} = Select;
 
@@ -16,7 +12,6 @@ const ApiUnitEditPageCommon = (props) => {
     const { apiUnitStore } = props;
     const { findApiUnit,updateApiUnit } = apiUnitStore;
 
-    const history = useHistory()
     const apiUnitId = sessionStorage.getItem('apiUnitId');
 
     const [showValidateStatus, setShowValidateStatus ] = useState()
@@ -34,12 +29,6 @@ const ApiUnitEditPageCommon = (props) => {
         setPath(res.path)
 
     },[apiUnitId])
-
-
-
-    const toHistory = () =>{
-        history.push("/repository/api-unit-instance")
-    }
 
     //编辑名称
     const editName = () => {
@@ -127,13 +116,6 @@ const ApiUnitEditPageCommon = (props) => {
                             />
                         </div>
                     </div>
-
-                    {
-                        props.planType
-                            ? null
-                            : <ApiEnvDropDownSelect />
-                    }
-
                 </div>
 
                 <div className='header-box-space-between'>
@@ -153,19 +135,6 @@ const ApiUnitEditPageCommon = (props) => {
                     />
                 </div>
 
-                    {
-                        props.planType
-                            ? null
-                            :<Space>
-                                <IconBtn
-                                    className="pi-icon-btn-grey"
-                                    icon={"lishi"}
-                                    onClick={toHistory}
-                                    name={"历史"}
-                                />
-                                <ApiUnitExecuteTest apiUnitId={apiUnitId}/>
-                            </Space>
-                    }
 
                 </div>
                 <div className={"method"}>

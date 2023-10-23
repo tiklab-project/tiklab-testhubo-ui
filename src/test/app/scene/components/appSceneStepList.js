@@ -192,17 +192,17 @@ const AppSceneStepList = (props) => {
                 <div className={"case-step_right_box"}>
                     <Form
                         form={form}
-                        layout="vertical"
+                        layout="horizontal"
                     >
                         <Row gutter={[0]}>
                             <Col span={12}>
-                                <Form.Item  name="name">
+                                <Form.Item  name="name" label="名称" labelCol={{span: 3}}>
                                     <Input placeholder={"名称"} />
                                 </Form.Item>
                             </Col>
                             <Col span={12}></Col>
                             <Col span={6}>
-                                <Form.Item  name="actionType" >
+                                <Form.Item  name="actionType" label="操作方法" labelCol={{span: 6}}>
                                     {
                                         functionView(actionTypeList)
                                     }
@@ -217,7 +217,7 @@ const AppSceneStepList = (props) => {
                                 </Form.Item>
                             </Col>
                             <Col  span={6}>
-                                <Form.Item  name="location">
+                                <Form.Item  name="location" label="定位器" labelCol={{span: 6}}>
                                     {
                                         locationView(locationList)
                                     }
@@ -225,7 +225,7 @@ const AppSceneStepList = (props) => {
                             </Col>
                             <Col  span={18}>
                                 <Form.Item  name="locationValue" >
-                                    <Input placeholder={"定位器的值"} className={"form-input"}/>
+                                    <Input placeholder={"参数"} className={"form-input"}/>
                                 </Form.Item>
                             </Col>
                         </Row>

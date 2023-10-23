@@ -17,7 +17,7 @@ const RequestHeader = (props) =>{
         setList,
         headerList,
         dataLength,
-        headerSourceList
+
     } = requestHeaderStore;
 
     const [dataSource,setDataSource] = useState([])
@@ -34,16 +34,7 @@ const RequestHeader = (props) =>{
             title: '参数',
             dataIndex: 'headerName',
             width: '40%',
-            render: (text, record)=>(
-                <ExSelect
-                    dictionary={headerParamDictionary}
-                    defaultValue={record.headerName}
-                    handleSave={handleSave}
-                    rowData={record}
-                    dataIndex={'headerName'}
-                    setNewRowAction={setNewRowAction}
-                />
-            )
+            editable: true,
         },
         {
             title: '参数值',
@@ -59,6 +50,9 @@ const RequestHeader = (props) =>{
         }
     ]
 
+
+    const [newRowAction, setNewRowAction] = useState(false);
+
     //取消
     const onCancel = () =>{
         let data = {
@@ -72,7 +66,7 @@ const RequestHeader = (props) =>{
         setNewRowAction(false)
     }
 
-    const [newRowAction, setNewRowAction] = useState(false);
+
 
     // colums 里的操作
     const operation = (record,data) => {
@@ -149,7 +143,7 @@ const RequestHeader = (props) =>{
         }else {
             // 创建新行的时候自带一个id，所以删了，后台会自行创建id
             delete values.id;
-            values.apiUnit= {id:apiUnitId},
+            values.apiUnit= {id:apiUnitId}
             createRequestHeader(values).then(() => {
                 findRequestHeaderList(apiUnitId).then(res=>{
                     setDataSource(res)

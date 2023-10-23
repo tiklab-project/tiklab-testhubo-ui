@@ -92,8 +92,9 @@ export const showCaseTypeIconInList = (type)=>{
             return <AppstoreOutlined />
     }
 }
+
 /**
- * 用例列表中用例类型展示
+ * 用例详情中面包屑中的类型展示
  */
 export const showCaseTypeInList = (type)=>{
     switch (type) {
@@ -117,5 +118,33 @@ export const showCaseTypeInList = (type)=>{
             return <Tag color="#2db7f5">功能用例</Tag>
         default :
             return <Tag color="#2db7f5">功能用例</Tag>
+    }
+}
+
+/**
+ * 用例列表中用例类型展示
+ */
+export const showCaseTypeTable = (type)=>{
+    switch (type) {
+        case "api-unit":
+            return "接口单元"
+        case "api-scene":
+            return "接口场景"
+        case "api-perform":
+            return "接口性能"
+
+        case "web-scene":
+            return "WEB场景"
+        case "web-perform":
+            return "WEB性能"
+
+        case "app-scene":
+            return "APP场景"
+        case "app-perform":
+            return "APP性能"
+        case "function":
+            return "功能用例"
+        default :
+            return "功能用例"
     }
 }

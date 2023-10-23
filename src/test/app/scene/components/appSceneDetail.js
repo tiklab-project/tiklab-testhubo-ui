@@ -4,12 +4,11 @@ import {inject, observer} from "mobx-react";
 import AppSceneStepList from "./appSceneStepList";
 import "./appStyle.scss"
 import {useHistory} from "react-router";
-import { Form, Space} from "antd";
-import IconBtn from "../../../../common/iconBtn/IconBtn";
+import { Form} from "antd";
 import CaseContentCommon from "../../../common/CaseContentCommon";
 import DetailCommon from "../../../../common/DetailCommon";
 import VariableTable from "../../../common/Variable/components/VariableTable";
-import AppExecuteTestPage from "./AppExecuteTestPage";
+
 
 const AppSceneDetail = (props) => {
     const {appSceneStore} = props;
@@ -17,7 +16,6 @@ const AppSceneDetail = (props) => {
     const [caseInfo,setCaseInfo]=useState();
 
     const [form] = Form.useForm()
-    let history = useHistory()
     const appSceneId = sessionStorage.getItem('appSceneId');
     useEffect(()=> {
         findAppScene(appSceneId).then(res=>{
@@ -82,24 +80,6 @@ const AppSceneDetail = (props) => {
     return(
         <CaseContentCommon
             tabItem={tabItem}
-            tabBarExtraContent={
-                <>
-                    {
-                        props.planType
-                            ?null
-                            :<Space>
-                                <IconBtn
-                                    className="pi-icon-btn-grey"
-                                    icon={"lishi"}
-                                    onClick={()=>history.push("/repository/app-scene-instance")}
-                                    name={"历史"}
-                                />
-                                <AppExecuteTestPage appSceneId={appSceneId}/>
-                            </Space>
-                    }
-                </>
-
-            }
         />
     )
 }

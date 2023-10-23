@@ -5,7 +5,6 @@ import {Axios} from "tiklab-core-ui";
 export  class RequestHeaderStore {
     @observable headerList = [];
     @observable headerSourceList = [];
-
     @observable dataLength;
 
     @action

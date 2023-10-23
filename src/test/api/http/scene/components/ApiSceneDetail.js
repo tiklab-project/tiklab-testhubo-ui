@@ -1,25 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {Button, Space,Form} from "antd";
 import ApiSceneStepList from "./apiSceneStepList";
-import {useHistory} from "react-router";
-import IconBtn from "../../../../../common/iconBtn/IconBtn";
-import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
-import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
 import CaseContentCommon from "../../../../common/CaseContentCommon";
 import DetailCommon from "../../../../../common/DetailCommon";
 import {inject, observer} from "mobx-react";
 import VariableTable from "../../../../common/Variable/components/VariableTable";
-import ApiExecuteTestPage from "./ApiExecuteTestPage";
-
 
 const ApiSceneDetail = (props) =>{
     const {apiSceneStore,apiEnvStore} = props;
     const {findApiScene,updateApiScene} = apiSceneStore;
-    const { envUrl } =apiEnvStore;
 
     const [form] = Form.useForm()
     const [caseInfo,setCaseInfo]=useState();
-    let history = useHistory()
     const apiSceneId = sessionStorage.getItem('apiSceneId');
     const repositoryId = sessionStorage.getItem('repositoryId');
     useEffect(()=> {
@@ -84,28 +76,7 @@ const ApiSceneDetail = (props) =>{
     ]
 
     return(
-        <CaseContentCommon
-            tabItem={tabItem}
-            tabBarExtraContent={
-                <>
-                    {
-                    props.planType
-                        ?null
-                        :<Space>
-                            <ApiEnvDropDownSelect />
-                            <IconBtn
-                                className="pi-icon-btn-grey"
-                                icon={"lishi"}
-                                onClick={()=>history.push("/repository/api-scene-instance")}
-                                name={"历史"}
-                            />
-                            <ApiExecuteTestPage apiSceneId={apiSceneId}/>
-                        </Space>
-                    }
-                </>
-            }
-
-        />
+        <CaseContentCommon tabItem={tabItem}/>
     )
 }
 

@@ -108,7 +108,7 @@ const ApiSceneInstanceSinglePage = (props) =>{
 
     return(
         <>
-            <a onClick={showDrawer} style={{fontWeight:"bold"}}>#{name}</a>
+            <a onClick={showDrawer} >{name}</a>
             <Drawer
                 placement="right"
                 onClose={onClose}

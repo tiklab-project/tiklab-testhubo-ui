@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Avatar, Empty, Input, Popconfirm, Space, Table, TreeSelect} from "antd";
+import {Avatar, Empty, Input, Popconfirm, Space, Table, Tag, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
 import IconCommon from "../../../common/IconCommon";
-import {showCaseTypeInList, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
+import { showCaseTypeTable, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined} from "@ant-design/icons";
 import CaseTypeSelect from "./CaseTypeSelect";
 import {useHistory} from "react-router";
@@ -47,7 +47,7 @@ const TestCaseTable = (props) => {
             dataIndex: "caseType",
             key: "caseType",
             width:"10%",
-            render: (text) =>(showCaseTypeInList(text))
+            render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
         },
         {
             title: `最近执行`,
