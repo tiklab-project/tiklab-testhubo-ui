@@ -21,7 +21,7 @@ const LeftNav = (props) =>{
             "key":"overview",
             "router":"/repository/detail"
         }, {
-            "icon":"layers",
+            "icon":"test-case-group",
             "name":"测试用例",
             "key":"testcase",
             "router":"/repository/testcase"
@@ -32,7 +32,7 @@ const LeftNav = (props) =>{
             "key":"testplan",
             "router":"/repository/plan"
         },{
-            "icon":"gongdan",
+            "icon":"baogao",
             "name":"测试报告",
             "key":"report",
             "router":"/repository/report"

@@ -2,8 +2,6 @@ import React, {useState} from "react";
 import {Breadcrumb, Drawer} from "antd";
 import {useHistory} from "react-router";
 import {renderRoutes} from "react-router-config";
-import {DrawerCloseIcon} from "../../test/common/BreadcrumbCommon";
-import IconCommon from "../../common/IconCommon";
 import {inject, observer} from "mobx-react";
 
 const TestPlanBindCaseDrawer = (props) =>{

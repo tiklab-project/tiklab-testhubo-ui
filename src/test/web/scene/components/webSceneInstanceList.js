@@ -6,6 +6,7 @@ import emptyImg from "../../../../assets/img/empty.png";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
 import CaseBread from "../../../../common/CaseBread";
 import WebSceneInstanceSinglePage from "./WebSceneInstanceSinglePage";
+import PaginationCommon from "../../../../common/pagination/Page";
 
 const WebSceneInstanceList = (props) =>{
     const {
@@ -80,7 +81,7 @@ const WebSceneInstanceList = (props) =>{
     ]
 
     const webSceneId = sessionStorage.getItem("webSceneId")
-    const [totalRecord, setTotalRecord] = useState();
+    const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -91,8 +92,8 @@ const WebSceneInstanceList = (props) =>{
     })
 
 
-    useEffect(()=>{
-        findPage()
+    useEffect(async ()=>{
+        await findPage()
     },[pageParam])
 
     const findPage = async () => {
@@ -102,24 +103,25 @@ const WebSceneInstanceList = (props) =>{
         }
         let res = await findWebSceneInstancePage(param)
         if(res.code===0){
-            setTotalRecord(res.data.totalRecord)
+            setTotalPage(res.data.totalPage)
         }
     }
 
 
     // 分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
+    const onTableChange = (current) => {
+        setCurrentPage(current)
         const newParams = {
             ...pageParam,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: pagination.current
+                currentPage: current
             },
         }
 
         setPageParam(newParams)
     }
+
 
     return(
         <div className={"content-box-center"}>
@@ -129,13 +131,7 @@ const WebSceneInstanceList = (props) =>{
                     columns={column}
                     dataSource={webSceneInstanceList}
                     rowKey = {record => record.id}
-                    pagination={{
-                        current:currentPage,
-                        pageSize:pageSize,
-                        total:totalRecord,
-                    }}
-                    onChange = {(pagination) => onTableChange(pagination)}
-
+                    pagination={false}
                     locale={{
                         emptyText: <Empty
                             imageStyle={{height: 120 }}
@@ -143,6 +139,11 @@ const WebSceneInstanceList = (props) =>{
                             image={emptyImg}
                         />,
                     }}
+                />
+                <PaginationCommon
+                    currentPage={currentPage}
+                    totalPage={totalPage}
+                    changePage={onTableChange}
                 />
             </div>
         </div>

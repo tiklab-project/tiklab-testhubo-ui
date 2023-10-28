@@ -4,8 +4,8 @@ import { observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiPerfInstanceStore from "../store/apiPerfInstanceStore";
-import {useHistory} from "react-router";
 import ApiPerfInstanceSinglePage from "./ApiPerfInstanceSinglePage";
+import PaginationCommon from "../../../../../common/pagination/Page";
 
 const ApiPerfInstanceTable = (props) =>{
     const {apiPerfId} = props;
@@ -15,9 +15,6 @@ const ApiPerfInstanceTable = (props) =>{
         findApiPerfInstance,
         deleteApiPerfInstance
     } = apiPerfInstanceStore;
-
-    const history = useHistory();
-
 
     const column = [
         {
@@ -72,8 +69,8 @@ const ApiPerfInstanceTable = (props) =>{
             )
         },
     ]
-    
-    const [totalRecord, setTotalRecord] = useState();
+
+    const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -84,8 +81,8 @@ const ApiPerfInstanceTable = (props) =>{
     })
 
 
-    useEffect(()=>{
-        findPage()
+    useEffect(async ()=>{
+        await findPage()
     },[pageParam])
 
     const findPage = async () => {
@@ -95,27 +92,18 @@ const ApiPerfInstanceTable = (props) =>{
         }
         let res = await findApiPerfInstancePage(param)
         if(res.code===0){
-            setTotalRecord(res.data.totalRecord)
+            setTotalPage(res.data.totalPage)
         }
     }
 
-    /**
-     * 去往单个历史详情页
-     */
-    const toInstanceSinglePage = (id) => {
-        sessionStorage.setItem("apiPerfInstanceId",id)
-        history.push("/repository/api-perform-instance-single")
-    }
-
-
     // 分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
+    const onTableChange = (current) => {
+        setCurrentPage(current)
         const newParams = {
             ...pageParam,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: pagination.current
+                currentPage: current
             },
         }
 
@@ -130,13 +118,7 @@ const ApiPerfInstanceTable = (props) =>{
                 columns={column}
                 dataSource={apiPerfInstanceList}
                 rowKey = {record => record.id}
-                pagination={{
-                    current:currentPage,
-                    pageSize:pageSize,
-                    total:totalRecord,
-                }}
-                onChange = {(pagination) => onTableChange(pagination)}
-
+                pagination={false}
                 locale={{
                     emptyText: <Empty
                         imageStyle={{height: 120 }}
@@ -144,6 +126,11 @@ const ApiPerfInstanceTable = (props) =>{
                         image={emptyImg}
                     />,
                 }}
+            />
+            <PaginationCommon
+                currentPage={currentPage}
+                totalPage={totalPage}
+                changePage={onTableChange}
             />
         </div>
     )

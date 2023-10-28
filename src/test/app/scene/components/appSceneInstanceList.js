@@ -7,6 +7,7 @@ import appSceneInstanceStore from "../store/appSceneInstanceStore";
 import {useHistory} from "react-router";
 import CaseBread from "../../../../common/CaseBread";
 import AppSceneInstanceSinglePage from "./AppSceneInstanceSinglePage";
+import PaginationCommon from "../../../../common/pagination/Page";
 
 const AppSceneInstanceList = (props) =>{
     const {
@@ -80,7 +81,7 @@ const AppSceneInstanceList = (props) =>{
     ]
 
     const appSceneId = sessionStorage.getItem("appSceneId")
-    const [totalRecord, setTotalRecord] = useState();
+    const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -91,8 +92,8 @@ const AppSceneInstanceList = (props) =>{
     })
 
 
-    useEffect(()=>{
-        findPage()
+    useEffect(async ()=>{
+        await findPage()
     },[pageParam])
 
     const findPage = async () => {
@@ -102,26 +103,24 @@ const AppSceneInstanceList = (props) =>{
         }
         let res = await findAppSceneInstancePage(param)
         if(res.code===0){
-            setTotalRecord(res.data.totalRecord)
+            setTotalPage(res.data.totalPage)
         }
 
     }
 
-
     // 分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
+    const onTableChange = (current) => {
+        setCurrentPage(current)
         const newParams = {
             ...pageParam,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: pagination.current
+                currentPage: current
             },
         }
 
         setPageParam(newParams)
     }
-
 
     return(
         <div className={"content-box-center"}>
@@ -131,13 +130,7 @@ const AppSceneInstanceList = (props) =>{
                     columns={column}
                     dataSource={appSceneInstanceList}
                     rowKey = {record => record.id}
-                    pagination={{
-                        current:currentPage,
-                        pageSize:pageSize,
-                        total:totalRecord,
-                    }}
-                    onChange = {(pagination) => onTableChange(pagination)}
-
+                    pagination={false}
                     locale={{
                         emptyText: <Empty
                             imageStyle={{height: 120 }}
@@ -145,6 +138,11 @@ const AppSceneInstanceList = (props) =>{
                             image={emptyImg}
                         />,
                     }}
+                />
+                <PaginationCommon
+                    currentPage={currentPage}
+                    totalPage={totalPage}
+                    changePage={onTableChange}
                 />
             </div>
         </div>

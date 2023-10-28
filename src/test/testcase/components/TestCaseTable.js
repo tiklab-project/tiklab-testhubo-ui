@@ -15,6 +15,7 @@ import TestCaseMenu from "./TestCaseMenu";
 import {getUser} from "tiklab-core-ui";
 import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
 import {CASE_TYPE} from "../../common/DefineVariables";
+import PaginationCommon from "../../../common/pagination/Page";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -100,8 +101,8 @@ const TestCaseTable = (props) => {
 
     const [selectItem, setSelectItem] = useState(null);
     const [selectCategory, setSelectCategory] = useState(null);
-    const [totalRecord, setTotalRecord] = useState();
-    const [pageSize] = useState(12);
+    const [totalPage, setTotalPage] = useState();
+    const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
     let userId = getUser().userId
     let repositoryId = sessionStorage.getItem("repositoryId")
@@ -128,7 +129,7 @@ const TestCaseTable = (props) => {
             ...params
         }
         findTestCaseList(param).then((res)=>{
-            setTotalRecord(res.totalRecord);
+            setTotalPage(res.totalPage);
         })
     }
 
@@ -136,8 +137,8 @@ const TestCaseTable = (props) => {
         if(createUser&&createUser.nickname){
             return <div className={"ws-user-item"}>
                 <Space>
-                    <Avatar size={"small"}>{createUser?.nickname[0]}</Avatar>
-                    <span style={{fontSize:"13px"}}>{createUser?.nickname} </span>
+                    <Avatar style={{width:"20px",height:"20px",lineHeight:"20px"}}>{createUser?.nickname[0]}</Avatar>
+                    <span >{createUser?.nickname} </span>
                 </Space>
             </div>
         }
@@ -177,13 +178,13 @@ const TestCaseTable = (props) => {
     }
 
     // 分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
+    const onTableChange = (current) => {
+        setCurrentPage(current)
 
         let param = {
             pageParam: {
                 pageSize: pageSize,
-                currentPage:pagination.current
+                currentPage:current
             },
         }
 
@@ -295,12 +296,7 @@ const TestCaseTable = (props) => {
                         columns={column}
                         dataSource={testcaseList}
                         rowKey = {record => record.id}
-                        pagination={{
-                            current:currentPage,
-                            pageSize:pageSize,
-                            total:totalRecord,
-                        }}
-                        onChange = {(pagination) => onTableChange(pagination)}
+                        pagination={false}
                         locale={{
                             emptyText: <Empty
                                 imageStyle={{height: 120}}
@@ -308,6 +304,11 @@ const TestCaseTable = (props) => {
                                 image={emptyImg}
                             />,
                         }}
+                    />
+                    <PaginationCommon
+                        currentPage={currentPage}
+                        totalPage={totalPage}
+                        changePage={onTableChange}
                     />
                 </div>
             </div>

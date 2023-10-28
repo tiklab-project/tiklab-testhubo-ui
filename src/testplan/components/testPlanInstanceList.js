@@ -5,6 +5,7 @@ import IconCommon from "../../common/IconCommon";
 import emptyImg from "../../assets/img/empty.png";
 import testPlanInstanceStore from "../store/testPlanInstanceStore";
 import CaseBread from "../../common/CaseBread";
+import PaginationCommon from "../../common/pagination/Page";
 
 const TestPlanInstanceList = (props) =>{
     const {
@@ -72,7 +73,7 @@ const TestPlanInstanceList = (props) =>{
     ]
 
     const testPlanId = sessionStorage.getItem("testPlanId")
-    const [totalRecord, setTotalRecord] = useState();
+    const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -83,8 +84,8 @@ const TestPlanInstanceList = (props) =>{
     })
 
 
-    useEffect(()=>{
-        findPage()
+    useEffect(async ()=>{
+        await findPage()
     },[pageParam])
 
     const findPage = async () => {
@@ -94,7 +95,7 @@ const TestPlanInstanceList = (props) =>{
         }
         let res = await findTestPlanInstancePage(param)
         if(res.code===0){
-            setTotalRecord(res.data.totalRecord)
+            setTotalPage(res.data.totalPage)
         }
 
     }
@@ -107,26 +108,17 @@ const TestPlanInstanceList = (props) =>{
     }
 
     // 分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
+    const onTableChange = (current) => {
+        setCurrentPage(current)
         const newParams = {
             ...pageParam,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: pagination.current
+                currentPage: current
             },
         }
 
         setPageParam(newParams)
-    }
-
-
-    const goBack = () =>{
-        props.history.push(`/repository/plan-detail/${testPlanId}`)
-    }
-
-    const toPlan = () =>{
-        props.history.push(`/repository/plan`)
     }
 
     return(
@@ -137,13 +129,7 @@ const TestPlanInstanceList = (props) =>{
                     columns={column}
                     dataSource={testPlanInstanceList}
                     rowKey = {record => record.id}
-                    pagination={{
-                        current:currentPage,
-                        pageSize:pageSize,
-                        total:totalRecord,
-                    }}
-                    onChange = {(pagination) => onTableChange(pagination)}
-
+                    pagination={false}
                     locale={{
                         emptyText: <Empty
                             imageStyle={{height: 120 }}
@@ -151,6 +137,11 @@ const TestPlanInstanceList = (props) =>{
                             image={emptyImg}
                         />,
                     }}
+                />
+                <PaginationCommon
+                    currentPage={currentPage}
+                    totalPage={totalPage}
+                    changePage={onTableChange}
                 />
             </div>
         </div>

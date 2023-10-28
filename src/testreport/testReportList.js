@@ -4,6 +4,7 @@ import IconCommon from "../common/IconCommon";
 import emptyImg from "../assets/img/empty.png";
 import {observer} from "mobx-react";
 import testPlanInstanceStore from "../testplan/store/testPlanInstanceStore";
+import PaginationCommon from "../common/pagination/Page";
 
 const TestReportList = (props) =>{
     const {
@@ -70,7 +71,7 @@ const TestReportList = (props) =>{
     ]
 
     const repositoryId = sessionStorage.getItem("repositoryId")
-    const [totalRecord, setTotalRecord] = useState();
+    const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -81,8 +82,8 @@ const TestReportList = (props) =>{
     })
 
 
-    useEffect(()=>{
-        findPage()
+    useEffect(async ()=>{
+        await findPage()
     },[pageParam])
 
     const findPage = async () => {
@@ -92,7 +93,7 @@ const TestReportList = (props) =>{
         }
         let res = await findTestPlanInstancePage(param)
         if(res.code===0){
-            setTotalRecord(res.data.totalRecord)
+            setTotalPage(res.data.totalPage)
         }
     }
 
@@ -104,18 +105,19 @@ const TestReportList = (props) =>{
     }
 
     // 分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
+    const onTableChange = (current) => {
+        setCurrentPage(current)
         const newParams = {
             ...pageParam,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: pagination.current
+                currentPage: current
             },
         }
 
         setPageParam(newParams)
     }
+
 
 
     return(
@@ -128,13 +130,7 @@ const TestReportList = (props) =>{
                     columns={column}
                     dataSource={testPlanInstanceList}
                     rowKey = {record => record.id}
-                    pagination={{
-                        current:currentPage,
-                        pageSize:pageSize,
-                        total:totalRecord,
-                    }}
-                    onChange = {(pagination) => onTableChange(pagination)}
-
+                    pagination={false}
                     locale={{
                         emptyText: <Empty
                             imageStyle={{height: 120 }}
@@ -142,6 +138,11 @@ const TestReportList = (props) =>{
                             image={emptyImg}
                         />,
                     }}
+                />
+                <PaginationCommon
+                    currentPage={currentPage}
+                    totalPage={totalPage}
+                    changePage={onTableChange}
                 />
             </div>
         </div>

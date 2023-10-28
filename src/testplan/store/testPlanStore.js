@@ -5,7 +5,7 @@ import {Axios} from "tiklab-core-ui";
 export class TestPlanStore {
     @observable testPlanList = [];
     @observable testPlanInfo = {};
-    @observable totalRecord ;
+    @observable totalPage ;
 
     @action
     findTestPlanPage = async (id,param) => {
@@ -16,7 +16,7 @@ export class TestPlanStore {
         };
         const res = await Axios.post("/testPlan/findTestPlanPage",params)
         if(res.code === 0) {
-            this.totalRecord = res.data.totalRecord;
+            this.totalPage = res.data.totalPage;
             this.testPlanList = res.data.dataList;
             return res.data
         }

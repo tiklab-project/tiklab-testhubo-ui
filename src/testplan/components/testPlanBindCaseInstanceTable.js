@@ -12,6 +12,7 @@ import WebPerformInstanceDrawer from "../../test/web/perf/components/webPerformI
 import AppPerformInstanceDrawer from "../../test/app/perf/components/appPerformInstanceDrawer";
 import testPlanInstanceStore from "../store/testPlanInstanceStore";
 import testPlanBindCaseInstanceStore from "../store/testPlanBindCaseInstanceStore";
+import PaginationCommon from "../../common/pagination/Page";
 
 const TestPlanBindCaseInstanceTable = (props) =>{
     const {
@@ -58,7 +59,7 @@ const TestPlanBindCaseInstanceTable = (props) =>{
     const testPlanInstanceId = sessionStorage.getItem("testPlanInstanceId")
 
     const [allData, setAllData] = useState();
-    const [totalRecord, setTotalRecord] = useState();
+    const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -74,8 +75,8 @@ const TestPlanBindCaseInstanceTable = (props) =>{
         setAllData(res)
     },[testPlanInstanceId])
 
-    useEffect(()=>{
-        findPage()
+    useEffect(async()=>{
+        await findPage()
     },[pageParam])
 
     const findPage = async () => {
@@ -85,7 +86,7 @@ const TestPlanBindCaseInstanceTable = (props) =>{
         }
         let res = await findTestPlanBindCaseInstancePage(param)
         if(res.code===0){
-            setTotalRecord(res.data.totalRecord)
+            setTotalPage(res.data.totalPage)
         }
 
     }
@@ -115,18 +116,19 @@ const TestPlanBindCaseInstanceTable = (props) =>{
 
 
     // 分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
+    const onTableChange = (current) => {
+        setCurrentPage(current)
         const newParams = {
             ...pageParam,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: pagination.current
+                currentPage: current
             },
         }
 
         setPageParam(newParams)
     }
+
 
 
 
@@ -168,13 +170,7 @@ const TestPlanBindCaseInstanceTable = (props) =>{
                     columns={column}
                     dataSource={testPlanBindCaseInstanceList}
                     rowKey = {record => record.id}
-                    pagination={{
-                        current:currentPage,
-                        pageSize:pageSize,
-                        total:totalRecord,
-                    }}
-                    onChange = {(pagination) => onTableChange(pagination)}
-
+                    pagination={false}
                     locale={{
                         emptyText: <Empty
                             imageStyle={{height: 120 }}
@@ -182,6 +178,11 @@ const TestPlanBindCaseInstanceTable = (props) =>{
                             image={emptyImg}
                         />,
                     }}
+                />
+                <PaginationCommon
+                    currentPage={currentPage}
+                    totalPage={totalPage}
+                    changePage={onTableChange}
                 />
             </div>
         </>

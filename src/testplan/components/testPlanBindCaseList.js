@@ -8,6 +8,7 @@ import testPlanDetailStore from "../store/testPlanDetailStore";
 import IconBtn from "../../common/iconBtn/IconBtn";
 import TestPlanBindCase from "./testPlanBindCase";
 import TestPlanBindCaseDrawer from "./TestPlanBindCaseDrawer";
+import PaginationCommon from "../../common/pagination/Page";
 
 const TestPlanBindCaseList = (props) =>{
     const {testcaseStore} = props
@@ -64,7 +65,7 @@ const TestPlanBindCaseList = (props) =>{
     let repositoryId = sessionStorage.getItem("repositoryId")
     const testPlanId = sessionStorage.getItem('testPlanId')
 
-    const [totalRecord, setTotalRecord] = useState();
+    const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -84,23 +85,24 @@ const TestPlanBindCaseList = (props) =>{
             ...pageParam
         }
         findBindTestCaseList(param).then((res)=>{
-            setTotalRecord(res.totalRecord)
+            setTotalPage(res.totalPage)
         })
     }
 
     // 分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
+    const onTableChange = (current) => {
+        setCurrentPage(current)
         const newParams = {
             ...pageParam,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: pagination.current
+                currentPage: current
             },
         }
 
         setPageParam(newParams)
     }
+
 
     const [visible, setVisible] = useState(false);
     const showConnect =()=>{
@@ -129,12 +131,7 @@ const TestPlanBindCaseList = (props) =>{
                         columns={columns}
                         dataSource={testPlanDetailList}
                         rowKey={record => record.id}
-                        pagination={{
-                            current:currentPage,
-                            pageSize:pageSize,
-                            total:totalRecord,
-                        }}
-                        onChange = {(pagination) => onTableChange(pagination)}
+                        pagination={false}
                         locale={{
                             emptyText: <Empty
                                 imageStyle={{height: 120}}
@@ -142,6 +139,11 @@ const TestPlanBindCaseList = (props) =>{
                                 image={emptyImg}
                             />,
                         }}
+                    />
+                    <PaginationCommon
+                        currentPage={currentPage}
+                        totalPage={totalPage}
+                        changePage={onTableChange}
                     />
                 </div>
             </div>

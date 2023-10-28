@@ -12,13 +12,14 @@ import "./testPlanStyle.scss"
 import emptyImg from "../../assets/img/empty.png";
 import IconCommon from "../../common/IconCommon";
 import {SearchOutlined} from "@ant-design/icons";
+import PaginationCommon from "../../common/pagination/Page";
 const TestPlan = (props) => {
     const { testPlanStore } = props;
     const {
         findTestPlanPage,
         deleteTestPlan,
         testPlanList,
-        totalRecord,
+        totalPage,
     } = testPlanStore;
 
     const { t } = useTranslation();
@@ -126,16 +127,17 @@ const TestPlan = (props) => {
         props.history.push(`/repository/plan-detail/${id}`);
     };
 
-    //分页
-    const onTableChange = (pagination) => {
-        setCurrentPage(pagination.current)
+    // 分页
+    const onTableChange = (current) => {
+        setCurrentPage(current)
         const newParams = {
             ...pageParam,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: pagination.current
+                currentPage: current
             },
         }
+
         setPageParam(newParams)
     }
 
@@ -220,12 +222,7 @@ const TestPlan = (props) => {
                     columns={columns}
                     dataSource={testPlanList}
                     rowKey={record => record.id}
-                    pagination={{
-                        current:currentPage,
-                        pageSize:pageSize,
-                        total:totalRecord,
-                    }}
-                    onChange = {(pagination) => onTableChange(pagination)}
+                    pagination={false}
                     loading={tableLoading}
                     locale={{
                         emptyText: <Empty
@@ -236,6 +233,11 @@ const TestPlan = (props) => {
                             image={emptyImg}
                         />,
                     }}
+                />
+                <PaginationCommon
+                    currentPage={currentPage}
+                    totalPage={totalPage}
+                    changePage={onTableChange}
                 />
             </div>
         </div>
