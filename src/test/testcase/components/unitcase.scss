@@ -437,7 +437,7 @@ $backgroud-color: #fff;
 //instance
 .header-item{
     padding: 8px;
-    background: #f5f5f5;
+    background: var(--pi-bg-grey-100);
 }
 
 .back-contant:hover{
@@ -476,7 +476,7 @@ $backgroud-color: #fff;
     height: 30px;
     text-align: center;
     line-height: 28px;
-    background: #efefef;
+    background: var(--pi-bg-grey-100);
 }
 
 .history-item-box{

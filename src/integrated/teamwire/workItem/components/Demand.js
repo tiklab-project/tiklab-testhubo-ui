@@ -82,7 +82,7 @@ const Demand = (props)=>{
             return (
                 <>
                     <div className={` ${showSelect?"demand_hide":"demand_show"}`}>
-                        <span style={{fontSize: "13px", color: "#9b9b9b", margin: "0 43px 0 0"}}>需求 :</span>
+                        <span style={{fontSize: "13px", color: "#9b9b9b", margin: "0 75px 0 0"}}>需求 :</span>
                         <span className={"demand-content_add"} onClick={()=>setShowSelect(true)}>未关联</span>
                     </div>
                     <div style={{height:"400px"}} className={`demand_project_select ${showSelect?"demand_show":"demand_hide"}` }>

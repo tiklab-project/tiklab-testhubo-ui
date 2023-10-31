@@ -79,7 +79,7 @@
 }
 
 .allapi:hover{
-    background: #e4e4e4;
+    background: var(--pi-bg-grey-100);
 }
 
 .categoryNav-ui{
@@ -97,7 +97,7 @@
     border-radius: 5px;
 }
 .categoryNav-li:hover{
-    background-color: #ebebeb;
+    background-color: var(--pi-bg-grey-100);
 }
 
 .action-li{
@@ -156,7 +156,7 @@
         }
 
         .category-action-more-box:hover{
-            background: #e4e4e4;
+            background: var(--pi-bg-grey-100);
         }
 
         .addApi{

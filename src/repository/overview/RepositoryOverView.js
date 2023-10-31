@@ -60,7 +60,7 @@ const RepositoryOverView = (props) => {
 
 
     return (
-        <div className={"content-margin"} style={{ background:"var(--pi-bg-grey-100)"}}>
+        <div className={"content-margin"}>
             <div className={" ws-init-content"}>
                 <div className={"wd-total"}>
                     <div className={"wd-title"}> 概要</div>

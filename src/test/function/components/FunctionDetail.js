@@ -73,13 +73,16 @@ const FunctionDetail = (props) =>{
                     caseInfo={caseInfo}
                     updateFn={updateFuncUnit}
                 />
-                <div className={"case-title_weight"}>关联缺陷</div>
-                <WorkItemBindList caseId={functionId} />
+
             </>
         },{
             label: `用例步骤`,
             key: '2',
             children:<FunctionStepList />
+        },{
+            label: `关联缺陷`,
+            key: '3',
+            children: <WorkItemBindList caseId={functionId} />
         }
     ]
 

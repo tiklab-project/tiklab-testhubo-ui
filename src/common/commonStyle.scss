@@ -85,7 +85,7 @@
 
 .ws-side-menu{
     border-right: 1px solid #e4e4e4;
-    background: #f9f9f9;
+    background: var(--pi-bg-grey-100);
 }
 
 
@@ -208,7 +208,7 @@
         border: none;
 
         &:hover{
-            background: #f4f4f4;
+            background: var(--pi-bg-grey-100);
         }
     }
 
@@ -225,7 +225,7 @@
         border: none;
 
         &:hover{
-            background: #f4f4f4;
+            background: var(--pi-bg-grey-100);
         }
 
         &:hover +.ant-select-arrow{

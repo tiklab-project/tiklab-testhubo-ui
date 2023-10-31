@@ -10,7 +10,7 @@
 }
 
 .defect_project_select .ant-select:not(.ant-select-customize-input) .ant-select-selector{
-    background: #f4f4f4;
+    background: var(--pi-bg-grey-100);
     border-radius: 5px;
     border: none;
 }
