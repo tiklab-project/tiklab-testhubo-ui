@@ -72,7 +72,7 @@ const DynamicWidget = (props) =>{
             dataSource={list}
             locale={{
                 emptyText: <Empty
-                    imageStyle={{ height: 120 }}
+                    imageStyle={{height: 120}}
                     description={<span>暂无动态</span>}
                     image={emptyImg}
                 />,

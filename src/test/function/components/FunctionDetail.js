@@ -6,6 +6,7 @@ import {Form} from "antd";
 import DetailCommon from "../../../common/DetailCommon";
 import CaseContentCommon from "../../common/CaseContentCommon";
 import FunctionStepList from "./FunctionStepList";
+import FuncUnitStepTable from "./FunctionStepTable";
 
 const FunctionDetail = (props) =>{
     const {funcUnitStore} = props;
@@ -78,7 +79,7 @@ const FunctionDetail = (props) =>{
         },{
             label: `用例步骤`,
             key: '2',
-            children:<FunctionStepList />
+            children: <div style={{padding:"10px 0"}}><FuncUnitStepTable /></div>
         },{
             label: `关联缺陷`,
             key: '3',

@@ -39,7 +39,7 @@ const TestCaseTable = (props) => {
             render: (text,record) =>(
                 <Space className={"case-table-name"}>
                     <>{showCaseTypeView(record.caseType)}</>
-                    <a onClick={()=>switchCaseType(record)}>{text}</a>
+                    <span className={"link-text"}  onClick={()=>switchCaseType(record)}>{text}</span>
                 </Space>
             )
         },

@@ -2,9 +2,8 @@
 
 .home-content{
     overflow: auto;
-    /*background-color:#f0f2f5;*/
     height: var(--pi-calc-content);
-    background: white;
+    background: var(--pi-bg-grey-100);
 
     .home-content-box{
         /*width: 800px;*/
@@ -180,8 +179,8 @@
     .ant-list-items .ant-list-item{
         border: none;
     }
-}
 
+}
 
 .home-title{
     font-size: 16px;

@@ -90,7 +90,7 @@ const WorkItemBindList = (props) =>{
         <div style={{padding: "0 0 20px"}}>
             <div className={`${showSelect?"demand_hide":"demand_show"}`}>
                 <div style={{margin:'10px 0'}}>
-                    <div style={{display:"flex",gap:"10px"}}>
+                    <div style={{display:'flex',justifyContent:"end"}}>
                         <IconBtn
                             className="pi-icon-btn-grey"
                             name={"关联缺陷"}

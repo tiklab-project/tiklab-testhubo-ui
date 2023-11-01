@@ -29,7 +29,7 @@ const RepositoryList = (props) => {
             render: (text,record) =>(
                 <Space>
                     <img src={record.iconUrl} alt={"icon"} className={"repository-icon"}/>
-                    <a onClick = {()=>toRepositoryDetail(record.id)}>{text}</a>
+                    <span className={"link-text"}  onClick = {()=>toRepositoryDetail(record.id)}>{text}</span>
                 </Space>
             )
         },

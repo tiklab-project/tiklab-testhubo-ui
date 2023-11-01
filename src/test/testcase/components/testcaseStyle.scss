@@ -13,7 +13,7 @@
     min-width: 860px;
     max-width: 1440px;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 15px;
 }
 .dynamic-select-box{
     margin:0 0 15px 0;
@@ -244,14 +244,6 @@
             margin: 0 0 10px 0 ;
         }
 
-        .case-step_right_box{
-            margin:0 0 20px 0;
-
-            .ant-form-item-label > label{
-                font-size: 12px;
-                color: #a0a0a0;
-            }
-        }
     }
 
     .ui-case-list_right{
@@ -277,10 +269,28 @@
             margin-bottom: 15px;
         }
     }
-
-
-
 }
+
+
+.case-detail_right_box{
+    margin:0 0 20px 0;
+
+    .ant-form-item-label > label{
+        font-size: 12px;
+        color: #a0a0a0;
+    }
+
+    .ant-form-vertical .ant-form-item-label > label{
+        font-size: 12px;
+        color: #8a8a8a;
+    }
+
+    .ant-input{
+        border: 1px solid var(--pi-border-color);
+    }
+}
+
+
 
 
 .ant-tabs{

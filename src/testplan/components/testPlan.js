@@ -30,7 +30,9 @@ const TestPlan = (props) => {
             title:`计划名称`,
             dataIndex: "name",
             key: "name",
-            render: (text,record) =>(<a onClick={()=>toPlanDetail(record.id)}>{text}</a>)
+            render: (text,record) =>(
+                <span className={"link-text"} onClick={()=>toPlanDetail(record.id)}>{text}</span>
+            )
         },
         {
             title:`起始时间`,

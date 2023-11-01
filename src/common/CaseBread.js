@@ -22,6 +22,7 @@ const CaseBread = (props) =>{
         }else {
             return <ArrowLeftOutlined onClick={()=>history.goBack()} style={{cursor:"pointer"}}/>
         }
+
     }
 
     const showBreadItem = (breadItem) =>{

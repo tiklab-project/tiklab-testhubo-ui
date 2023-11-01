@@ -92,10 +92,11 @@ const RepositorySettingMenu = (props) =>{
             <div className={"repository-setting-box"}>
                 <ul className="ws-menu-ul" style={{background: "#f5f5f5"}}>
                     <li style={{
-                        borderBottom:"1px solid #cecece",
-                        padding:"10px 25px"
+                        borderBottom:"1px solid #e4e4e4",
+                        padding:"10px 25px",
+                        fontWeight:"bold",
                     }}
-                    >仓库设置</li>
+                    >设置</li>
                     {
                         renderList(items)
                     }
