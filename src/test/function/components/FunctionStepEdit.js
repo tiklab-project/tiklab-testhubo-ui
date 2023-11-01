@@ -36,14 +36,8 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
         let values =  await form.validateFields();
         values.funcUnitId=functionId
 
-        if(type==="add"){
-            await createFuncUnitStep(values)
-        }else {
-            values.id=stepId
-            await updateFuncUnitStep(values)
-        }
-
-        findList();
+        await createFuncUnitStep(values)
+        await findList();
 
         setVisible(false)
     };
@@ -92,7 +86,7 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
                 <Form
                     form={form}
                     onFinish={onFinish}
-                    preserve={true}
+                    preserve={false}
                     layout={"vertical"}
                 >
                     <Form.Item
@@ -105,15 +99,15 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
                             autoSize={{minRows:2,maxRows:4}}
                         />
                     </Form.Item>
-                    {/*<Form.Item*/}
-                    {/*    label="预期结果"*/}
-                    {/*    name="expect"*/}
-                    {/*>*/}
-                    {/*    <TextArea*/}
-                    {/*        placeholder="预期结果"*/}
-                    {/*        autoSize={{minRows:2,maxRows:4}}*/}
-                    {/*    />*/}
-                    {/*</Form.Item>*/}
+                    <Form.Item
+                        label="预期结果"
+                        name="expect"
+                    >
+                        <TextArea
+                            placeholder="预期结果"
+                            autoSize={{minRows:2,maxRows:4}}
+                        />
+                    </Form.Item>
                     {/*<Form.Item*/}
                     {/*    label="实际结果"*/}
                     {/*    name="actual"*/}

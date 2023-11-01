@@ -1,273 +1,127 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Button, Empty, Form, Popconfirm, Space} from "antd";
-import emptyImg from "../../../assets/img/empty.png";
+import React, {useEffect, useState} from 'react';
 import funcUnitStepStore from "../store/funcUnitStepStore";
-import Input from "antd/es/input/Input";
-import IconBtn from "../../../common/iconBtn/IconBtn";
 import IconCommon from "../../../common/IconCommon";
-
-const {TextArea} = Input
+import {observer} from "mobx-react";
+import FunctionStepEdit from "./FunctionStepEdit";
+import FunctionStepDrawer from "./FunctionStepDrawer";
+import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
+import {MenuOutlined} from "@ant-design/icons";
 
 const {
     findFuncUnitStepList,
     deleteFuncUnitStep,
     updateFuncUnitStep,
-    createFuncUnitStep,
-    findFuncUnitStep
 } = funcUnitStepStore;
 
-const tailLayout = {
-    wrapperCol: {
-        offset: 0,
-        span: 16,
-    },
-};
-
-const FunctionStepList = () =>{
 
 
-    const [form] = Form.useForm();
-    const listRef = useRef();
-    const [isCreate, setIsCreate] = useState(false);
-    const [stepSelect, setStepSelect] = useState();
+const FunctionStepList = () => {
+
     const [stepList, setStepList] = useState([]);
     const funcUnitId = sessionStorage.getItem('functionId')
+
     useEffect(async ()=> {
-        await findPage()
+        await findList()
     },[funcUnitId])
 
-    const findPage =async () =>{
+    const findList = async () =>{
         let list = await findFuncUnitStepList(funcUnitId)
-
         setStepList(list)
     }
 
-
-    const deleteStep =async (id) =>{
-        deleteFuncUnitStep(id).then(async () => {
-            let index = stepList.findIndex(item=>item.id===id)
-            await findPage()
-
-            if(index > 0) {
-                let stepItem = stepList[index-1]
-                setStepSelect(stepItem);
-                form.setFieldsValue(stepItem)
-            } else {
-                form.resetFields()
-                setStepSelect(null);
-            }
-        })
-    }
-
-    /**
-     * 列表项展示
-     */
-    const showListView = (list) =>{
-        if(!list||list.length===0){
-            return <Empty
-                imageStyle={{height: 120}}
-                description={<span style={{fontSize: "13px",color: "#a8a8a8"}}>暂无步骤</span>}
-                image={emptyImg}
-            />
-        }else {
-            return list.map((item,index)=>{
-                return(
-                    <li
-                        key={item.id}
-                        className={`case-list_li ${item.id===stepSelect?.id?"case-list_li_selected":""}`}
-                        onClick={()=>selectListItem(item)}
-                    >
-                        <div className={"case-list_li_item"} style={{flex:"1"}}>
-                            {index+1}
-                        </div>
-                        <div className={"case-list_li_item"} style={{flex:"7"}}>
-                            {item.described}
-                        </div>
-                        <div className={"case-list_li_delete"} style={{flex:"1"}}>
-                            <Popconfirm
-                                title="确定删除？"
-                                onConfirm={() =>  deleteStep(item.id)}
-                                okText='确定'
-                                cancelText='取消'
-                            >
-                                <IconCommon
-                                    className={"icon-s edit-icon"}
-                                    icon={"shanchu3"}
-                                />
-                            </Popconfirm>
-                        </div>
-                    </li>
-                )
-            })
+    const onDragEnd = (result) => {
+        if (!result.destination) {
+            return;
         }
-    }
 
-    /**
-     * 点击列表右侧出详情
-     */
-    const selectListItem =async (item) =>{
-        setStepSelect(item)
+        const reorderedItems = Array.from(stepList);
+        const [dragItem] = reorderedItems.splice(result.source.index, 1);
 
-        let data = await findFuncUnitStep(item.id)
-        form.setFieldsValue({...data})
-    }
+        //排序设置成当前位置
+        dragItem.sort=result.destination.index
+        //源排序位置
+        dragItem.oldSort = result.source.index
 
-
-    /**
-     * 滚动加载分页
-     */
-    const handleScroll = async () => {
-        // if (listRef.current) {
-        //     const { scrollTop, clientHeight, scrollHeight } = listRef.current;
-        //
-        //     if (scrollTop + clientHeight >= scrollHeight-10) {
-        //
-        //         if(totalRecord<pageSize) return;
-        //         //如果当前分页大于总数/pageSize,设置当前currentPage为当前
-        //         if(currentPage>=Math.ceil(totalRecord/pageSize)){
-        //             setCurrentPage(Math.ceil(totalRecord/pageSize));
-        //             return;
-        //         }
-        //         // 调用加载分页数据的方法
-        //         setCurrentPage(currentPage+1)
-        //         let param = {
-        //             pageParam: {
-        //                 pageSize: pageSize,
-        //                 currentPage:currentPage+1
-        //             },
-        //         }
-        //
-        //         await findPage(param,"scroll")
-        //     }
-        // }
+        updateFuncUnitStep(dragItem).then(()=>findList())
     };
 
+    const renderItems = () => {
+        return stepList.map((item, index) => (
+            <Draggable key={item.id} draggableId={item.id} index={index}>
+                {(provided, snapshot) => (
+                    <>
+                        <div
+                            className={"step-item-box"}
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            style={{
+                                backgroundColor: snapshot.isDragging ? 'var(--pi-bg-grey-200)' : 'white',
+                                ...provided.draggableProps.style,
+                            }}
+                        >
+                            <div className={"display-flex-gap"}>
+                                <div
+                                    {...provided.dragHandleProps}
+                                    className={"step-item-box-icon"}
+                                >
+                                    <MenuOutlined />
+                                </div>
 
-    /**
-     * 提交
-     */
-    const onFinish = async () =>{
-        let values = await form.validateFields();
+                                <FunctionStepDrawer
+                                    name={
+                                        <div className={"step-item-content"}>
+                                            <div>{item.sort}</div>
+                                            <div>{item.described}</div>
+                                            {item.expect?<div>{item.expect}</div>:<div className={"step-item-null"}>未设置期望</div>}
+                                            {item.actual?<div>{item.actual}</div>:<div className={"step-item-null"}>未设置实际结果</div>}
+                                        </div>
+                                    }
+                                    stepId={item.id}
+                                    findList={findList}
+                                />
 
-        if(stepSelect){
-            let param={
-                ...stepSelect,
-                ...values
-            }
-            let res =await updateFuncUnitStep(param)
-            if(res.code===0){
-                await findPage()
-                setStepSelect(param)
-            }
-        }else {
-            values.funcUnitId=funcUnitId
-            let res = await createFuncUnitStep(values)
-            if(res.code===0){
-                await findPage()
-                values.id=res.data
-                setStepSelect(values)
-            }
-            setIsCreate(false)
-        }
+                                <div className={"step-item-delete"}>
+                                    <IconCommon
+                                        className={"icon-s edit-icon"}
+                                        icon={"shanchu3"}
+                                        onClick={()=>deleteFuncUnitStep(item.id).then(()=>findList())}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )}
+            </Draggable>
+        ));
+    };
 
-    }
-
-    const cancel = () =>{
-        setStepSelect(null)
-        form.resetFields()
-    }
-
-    const showStepView = () =>{
-        if(stepSelect||isCreate){
-
-            return <div className={"case-step_right_box"}>
-                <Form
-                    form={form}
-                    layout="vertical"
-                    onFinish={onFinish}
-                    {...tailLayout}
-                >
-                    <Form.Item label="步骤描述" name="described">
-                        <TextArea
-                            placeholder="步骤描述"
-                            autoSize={{minRows:2,maxRows:4}}
-                        />
-                    </Form.Item>
-                    <Form.Item  label="预期结果"  name="expect">
-                        <TextArea
-                            placeholder="预期结果"
-                            autoSize={{minRows:2,maxRows:4}}
-                        />
-                    </Form.Item>
-                    <Form.Item  label="实际结果" name="actual">
-                        <TextArea
-                            placeholder="实际结果"
-                            autoSize={{minRows:2,maxRows:4}}
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Space>
-                            <Button
-                                className={"important-btn"}
-                                type="primary"
-                                htmlType="submit"
+    return (
+        <>
+            <div className={"table-list-box"}>
+                <div style={{display:'flex',justifyContent:"end",margin: "0 0 10px 0"}}>
+                    <FunctionStepEdit findList={findList} type={"add"}/>
+                </div>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="list">
+                        {(provided) => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}
                             >
-                                保存
-                            </Button>
-                            <IconBtn
-                                className="pi-icon-btn-grey"
-                                onClick={cancel}
-                                name={"取消"}
-                            />
-                        </Space>
-                    </Form.Item>
-
-                </Form>
-
-
+                                {renderItems()}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </div>
-        }else {
-            return   <Empty
-                imageStyle={{height: 120}}
-                description={<span style={{fontSize: "13px",color: "#a8a8a8"}}>选择步骤</span>}
-                image={emptyImg}
-            />
-        }
-    }
+        </>
+    );
+};
 
 
-    const createStep = () =>{
-        setIsCreate(true)
-        setStepSelect(null)
-        form.resetFields()
-    }
-
-    return(
-        <div className={"case-step_box"}>
-            <div className={"case-step_left"}>
-                <div className={"case-step_add"} onClick={createStep}>
-                    添加步骤
-                </div>
-                <ul className={"case-list_ul"} ref={listRef} onScroll={handleScroll}>
-                    {
-                        showListView(stepList)
-                    }
-                </ul>
-                <div className={"case-list_bottom"}>
-                       <span style={{fontSize: "12px", color: "#989898"}}>
-                           共{stepList.length}个步骤
-                       </span>
-                </div>
-            </div>
-
-            <div className={"case-list_right"}>
-                {
-                    showStepView()
-                }
-            </div>
-
-        </div>
-    )
-}
-
-export default FunctionStepList;
+export default observer(FunctionStepList);

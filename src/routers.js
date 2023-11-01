@@ -34,6 +34,7 @@ import {ExcludeProductUser} from "tiklab-eam-ui";
 import {BackupRecovery, LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
+import Demo from "./demo";
 
 
 //---内部
@@ -118,6 +119,12 @@ const routers =  [
     {
         path: "/login",
         component: LoginContent,
+        exact: true,
+        key:'LoginContent',
+    },
+    {
+        path: "/demo",
+        component: Demo,
         exact: true,
         key:'LoginContent',
     },

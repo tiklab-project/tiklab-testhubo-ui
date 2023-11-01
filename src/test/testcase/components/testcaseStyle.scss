@@ -384,3 +384,55 @@
     border-radius: 5px;
     border: 1px solid #e4e4e4;
 }
+
+.step-item-box{
+    margin: 0 0 10px 0;
+    padding: 2px 2px 2px 15px;
+    position: relative;
+
+    &-icon{
+        margin-right: 10px;
+        cursor: move;
+        color: #e4e4e4;
+
+        &:hover{
+            color: #666;
+        }
+    }
+
+
+    .step-item-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        //background: var(--pi-bg-grey-100);
+        padding: 10px;
+        border: 1px solid var(--pi-border-color);
+        border-radius: var(--pi-border-radius);
+        font-size: 12px;
+
+
+    }
+
+    .link-text:hover{
+        background: var(--pi-bg-grey-100);
+    }
+
+    .step-item-null{
+        padding: 0 2px;
+        border: 1px solid #dadada;
+        border-radius: 4px
+    }
+
+
+    .step-item-delete{
+        display: none;
+        position: absolute;
+        top: 9px;
+        right: 20px;
+    }
+
+    &:hover .step-item-delete{
+        display: block;
+    }
+}

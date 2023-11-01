@@ -3,6 +3,9 @@ import FunctionDetail from "./FunctionDetail";
 import {useParams} from "react-router";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../common/CaseBread";
+import "./functionStyle.scss"
+
+
 const FunctionContent = (props) =>{
     const {funcUnitStore} = props;
     const {testCaseInfo} = funcUnitStore

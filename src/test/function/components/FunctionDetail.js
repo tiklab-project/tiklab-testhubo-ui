@@ -5,8 +5,7 @@ import {inject, observer} from "mobx-react";
 import {Form} from "antd";
 import DetailCommon from "../../../common/DetailCommon";
 import CaseContentCommon from "../../common/CaseContentCommon";
-import FunctionStepList from "./FunctionStepList";
-import FuncUnitStepTable from "./FunctionStepTable";
+import FuncUnitStepTable from "./FunctionStepList";
 
 const FunctionDetail = (props) =>{
     const {funcUnitStore} = props;

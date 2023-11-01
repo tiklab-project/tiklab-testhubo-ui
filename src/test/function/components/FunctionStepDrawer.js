@@ -47,9 +47,13 @@ const FunctionStepDrawer = ({name,stepId,findList}) =>{
 
     return(
         <>
-            <span className={"link-text"} onClick={showDrawer}>
+            <div
+                className={"link-text"}
+                onClick={showDrawer}
+                style={{flexGrow: 1}}
+            >
                 {name}
-            </span>
+            </div>
             <Drawer
                 placement="right"
                 onClose={onClose}

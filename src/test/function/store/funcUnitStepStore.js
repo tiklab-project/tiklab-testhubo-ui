@@ -14,7 +14,7 @@ class FuncUnitStepStore {
 
         const params = {
             funcUnitId: id,
-            orderParams:[{name:'createTime', orderType:'asc'}],
+            orderParams:[{name:'sort', orderType:'asc'}],
         }
         const res = await Axios.post("/funcUnitStep/findFuncUnitStepList",params)
         if(res.code === 0) {
