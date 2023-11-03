@@ -26,7 +26,7 @@ class AppSceneStepStore {
         this.appSceneId=id;
         const params = {
             appSceneId: id,
-            orderParams:[{name:'createTime', orderType:'asc'}],
+            orderParams:[{name:'sort', orderType:'asc'}],
         }
 
         const res = await Axios.post("/appSceneStep/findAppSceneStepList",params)

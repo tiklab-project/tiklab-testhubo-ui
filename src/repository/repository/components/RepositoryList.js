@@ -28,7 +28,7 @@ const RepositoryList = (props) => {
             // align:"center",
             render: (text,record) =>(
                 <Space>
-                    <img src={record.iconUrl} alt={"icon"} className={"repository-icon"}/>
+                    <img src={record.iconUrl} alt={"icon"} className={"repository-icon icon-bg-border"}/>
                     <span className={"link-text"}  onClick = {()=>toRepositoryDetail(record.id)}>{text}</span>
                 </Space>
             )

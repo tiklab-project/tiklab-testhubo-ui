@@ -316,6 +316,7 @@ table .icon{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 .display-flex-gap{
@@ -347,4 +348,10 @@ table .icon{
         color: var(--tiklab-blue);
         cursor: pointer;
     }
+}
+
+.icon-bg-border{
+    background: #fff;
+    border: 1px solid #bfbfbf;
+    border-radius: 4px;
 }

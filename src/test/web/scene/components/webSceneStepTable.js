@@ -21,7 +21,7 @@ const {
 } = webSceneStepStore;
 
 
-const WebSceneStepList = (props) => {
+const WebSceneStepTable = (props) => {
 
     const [form] = Form.useForm();
     const listRef = useRef();
@@ -343,4 +343,4 @@ const WebSceneStepList = (props) => {
     )
 }
 
-export default observer(WebSceneStepList)
+export default observer(WebSceneStepTable)

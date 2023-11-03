@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 
-import AppSceneStepList from "../../scene/components/appSceneStepList";
+import AppSceneStepList from "../../scene/components/appSceneStepListOld";
 import DetailCommon from "../../../../common/DetailCommon";
 import {useHistory} from "react-router";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";

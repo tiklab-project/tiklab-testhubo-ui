@@ -9,9 +9,7 @@ export class ApiSceneStore {
 
     @action
     findApiSceneList = async (value) => {
-
         const res = await Axios.post("/apiSceneCase/findApiSceneCaseListByTestCase",value);
-
         if(res.code === 0) {
             this.apiSceneList = res.data;
             return res.data

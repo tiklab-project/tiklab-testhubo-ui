@@ -173,7 +173,7 @@ const LeftNav = (props) =>{
                     >
                         <div className={"ws-icon-box"}>
                         <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
-                             <img src={repositoryIcon} alt={"icon"} className={"repository-icon"}/>
+                             <img src={repositoryIcon} alt={"icon"} className={"repository-icon icon-bg-border"}/>
                         </span>
                             <IconCommon
                                 style={{"cursor":"pointer"}}

@@ -13,7 +13,7 @@ export class WebSceneStepStore {
         this.webSceneId=id;
         const params = {
             webSceneId: id,
-            orderParams:[{name:'createTime', orderType:'asc'}],
+            orderParams:[{name:'sort', orderType:'asc'}],
         }
 
         const res = await Axios.post("/webSceneStep/findWebSceneStepPage",params)
@@ -29,7 +29,7 @@ export class WebSceneStepStore {
         this.webSceneId=id;
         const params = {
             webSceneId: id,
-            orderParams:[{name:'createTime', orderType:'asc'}],
+            orderParams:[{name:'sort', orderType:'asc'}],
         }
 
         const res = await Axios.post("/webSceneStep/findWebSceneStepList",params)

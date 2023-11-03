@@ -7,7 +7,7 @@ import apiSceneStepStore from "../store/apiSceneStepStore";
 import {useHistory} from "react-router";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 
-const ApiSceneStepList =(props) =>{
+const ApiSceneStepListOld =(props) =>{
     const {apiUnitStore} = props
     const {
         findApiSceneStepList,
@@ -111,4 +111,4 @@ const ApiSceneStepList =(props) =>{
 }
 
 
-export default inject("apiUnitStore")(observer(ApiSceneStepList));
+export default inject("apiUnitStore")(observer(ApiSceneStepListOld));

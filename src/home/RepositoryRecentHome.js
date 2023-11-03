@@ -55,7 +55,7 @@ const RepositoryRecentHome = (props) =>{
             return(
                 <div key={item.id} className={"home-recent-item"} onClick={()=>toDetail(item.id)}>
                     <div className={"home-recent-item-left"}>
-                        <img src={item.iconUrl} alt={"icon"} className={"ws-img-icon"}/>
+                        <img src={item.iconUrl} alt={"icon"} className={"ws-img-icon icon-bg-border"}/>
                         <div className={"home-recent-item-left-name"}>{item.name}</div>
                     </div>
                     <div style={{display:"flex","justifyContent":"space-between"}}>

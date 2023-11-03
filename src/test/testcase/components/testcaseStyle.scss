@@ -386,8 +386,8 @@
 }
 
 .step-item-box{
-    margin: 0 0 10px 0;
-    padding: 2px 2px 2px 15px;
+    margin: 3px 0;
+    padding: 2px ;
     position: relative;
 
     &-icon{
@@ -404,17 +404,24 @@
     .step-item-content {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
         //background: var(--pi-bg-grey-100);
         padding: 10px;
-        border: 1px solid var(--pi-border-color);
-        border-radius: var(--pi-border-radius);
+        //border: 1px solid var(--pi-border-color);
+
         font-size: 12px;
+    }
 
-
+    .step-item-content-header{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        font-size: 13px;
     }
 
     .link-text:hover{
+        border-radius: var(--pi-border-radius);
         background: var(--pi-bg-grey-100);
     }
 
@@ -425,14 +432,73 @@
     }
 
 
-    .step-item-delete{
-        display: none;
-        position: absolute;
-        top: 9px;
-        right: 20px;
+    .ant-row{
+        align-items: center;
     }
 
-    &:hover .step-item-delete{
-        display: block;
+
+}
+
+.case-drawer-box{
+    padding:0 10px;
+
+    .case-step-title{
+        font-weight: bold;
+        margin: 0 0 10px 0 ;
+    }
+
+
+    .case-step-info{
+        margin: 10px 0 0 0;
+        height: calc(100% - -1px);
+        overflow: hidden;
+
+        .ant-input{
+            height: 36px;
+            border-radius: 0 5px 5px 0;
+            border: 1px solid #e4e4e4;
+        }
+
+        .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+            height: 36px;
+            border-radius: 5px 0 0 5px;
+            border: 1px solid #e4e4e4;
+            border-right: 0;
+        }
+
+
+        .ant-form-item{
+            margin-bottom: 15px;
+        }
+
+        .ant-form-item-label > label{
+            font-size: 12px;
+            color: #8a8a8a;
+        }
+    }
+}
+
+.case-step-form{
+    .ant-input{
+        height: 36px;
+        //border-radius: 0 5px 5px 0;
+        border: 1px solid #e4e4e4;
+    }
+
+    .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+        height: 36px;
+        //border-radius: 5px 0 0 5px;
+        border: 1px solid #e4e4e4;
+        border-right: 0;
+    }
+
+
+    .ant-form-item{
+        margin-bottom: 15px;
+    }
+
+    .ant-form-item-label > label{
+        font-size: 12px;
+        color: #8a8a8a;
     }
 }

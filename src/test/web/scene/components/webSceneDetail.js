@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import WebSceneStepList from "./webSceneStepList";
+import WebSceneStepList from "./WebSceneStepList";
 import "./webStyle.scss"
 import {Button, Form, Space} from "antd";
 import CaseContentCommon from "../../../common/CaseContentCommon";

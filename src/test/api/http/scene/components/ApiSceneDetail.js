@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Space,Form} from "antd";
-import ApiSceneStepList from "./apiSceneStepList";
+import ApiSceneStepList from "./ApiSceneStepList";
 import CaseContentCommon from "../../../../common/CaseContentCommon";
 import DetailCommon from "../../../../../common/DetailCommon";
 import {inject, observer} from "mobx-react";

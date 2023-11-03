@@ -1,9 +1,8 @@
 
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import AppSceneStepList from "./appSceneStepList";
+import AppSceneStepList from "./AppSceneStepList";
 import "./appStyle.scss"
-import {useHistory} from "react-router";
 import { Form} from "antd";
 import CaseContentCommon from "../../../common/CaseContentCommon";
 import DetailCommon from "../../../../common/DetailCommon";

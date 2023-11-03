@@ -20,7 +20,7 @@ const {
 } = appSceneStepStore;
 
 
-const AppSceneStepList = (props) => {
+const AppSceneStepListOld = (props) => {
 
     const [form] = Form.useForm();
     const listRef = useRef();
@@ -344,4 +344,4 @@ const AppSceneStepList = (props) => {
     )
 }
 
-export default observer(AppSceneStepList)
+export default observer(AppSceneStepListOld)

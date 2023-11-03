@@ -41,3 +41,43 @@
 .function-step_add:hover{
     background: var(--pi-bg-color);
 }
+
+
+.function-step-item-box{
+    margin: 5px 0;
+    position: relative;
+
+    &-icon{
+        margin-right: 10px;
+        cursor: move;
+        color: #e4e4e4;
+
+        &:hover{
+            color: #666;
+        }
+    }
+
+    .link-text:hover{
+        background: var(--pi-bg-grey-100);
+    }
+
+    .step-item-null{
+        padding: 0 2px;
+        border: 1px solid #dadada;
+        border-radius: 4px
+    }
+
+
+    .step-item-delete{
+        display: none;
+        position: absolute;
+        top: 9px;
+        right: 20px;
+    }
+
+    &:hover .step-item-delete{
+        display: block;
+    }
+
+
+}

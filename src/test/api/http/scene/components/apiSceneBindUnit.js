@@ -4,9 +4,9 @@ import apiSceneStepStore from "../store/apiSceneStepStore";
 import ConnectSelectCommon from "../../../../common/ConnectSelectCommon";
 
 const ApiSceneBindUnit =(props) =>{
-    const {apiUnitStore,setVisible} = props;
+    const {apiUnitStore,setVisible,findList} = props;
     const {findApiUnitList,apiUnitList} = apiUnitStore;
-    const {findApiSceneStepList,bindApiUnit} = apiSceneStepStore
+    const {bindApiUnit} = apiSceneStepStore
 
     const column =[
         {
@@ -33,12 +33,11 @@ const ApiSceneBindUnit =(props) =>{
     ]
 
     let repositoryId = sessionStorage.getItem("repositoryId");
-    let apiSceneId = sessionStorage.getItem("apiSceneId")
 
     // 提交
     const onFinish = async (id) => {
         await bindApiUnit([id])
-        await findApiSceneStepList(apiSceneId)
+        await findList()
         setVisible(false);
     };
 

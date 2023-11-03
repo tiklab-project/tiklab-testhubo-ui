@@ -36,13 +36,13 @@ const FunctionStepDrawer = ({name,stepId,findList}) =>{
         values.id=stepId
         updateFuncUnitStep(values).then((res)=>{
             if(res.code===0){
+                findList();
                 messageFn("success","保存成功")
             }else {
                 messageFn("error","保存失败")
             }
         })
 
-        findList();
     }
 
     return(

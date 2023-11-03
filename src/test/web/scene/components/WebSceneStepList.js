@@ -1,32 +1,32 @@
 import React, {useEffect, useState} from 'react';
-import funcUnitStepStore from "../store/funcUnitStepStore";
-import IconCommon from "../../../common/IconCommon";
+import webSceneStepStore from "../store/webSceneStepStore";
+
 import {observer} from "mobx-react";
-import FunctionStepEdit from "./FunctionStepEdit";
-import FunctionStepDrawer from "./FunctionStepDrawer";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
-import {Row,Col} from "antd";
+import IconCommon from "../../../../common/IconCommon";
+import WebSceneStepEdit from "./WebSceneStepEdit";
+import WebSceneStepDrawer from "./WebSceneStepDrawer";
+import {Col, Row} from "antd";
 
 const {
-    findFuncUnitStepList,
-    deleteFuncUnitStep,
-    updateFuncUnitStep,
-} = funcUnitStepStore;
+    findWebSceneStepList,
+    deleteWebSceneStep,
+    updateWebSceneStep,
+} = webSceneStepStore;
 
 
-
-const FunctionStepList = () => {
+const WebSceneStepList = () => {
 
     const [stepList, setStepList] = useState([]);
-    const funcUnitId = sessionStorage.getItem('functionId')
+    const webSceneId = sessionStorage.getItem('webSceneId')
 
     useEffect(async ()=> {
         await findList()
-    },[funcUnitId])
+    },[webSceneId])
 
     const findList = async () =>{
-        let list = await findFuncUnitStepList(funcUnitId)
+        let list = await findWebSceneStepList(webSceneId)
         setStepList(list)
     }
 
@@ -43,7 +43,7 @@ const FunctionStepList = () => {
         //源排序位置
         dragItem.oldSort = result.source.index
 
-        updateFuncUnitStep(dragItem).then(()=>findList())
+        updateWebSceneStep(dragItem).then(()=>findList())
     };
 
     const renderItems = () => {
@@ -60,9 +60,12 @@ const FunctionStepList = () => {
                                 ...provided.draggableProps.style,
                             }}
                         >
-                            <FunctionStepDrawer
+                            <WebSceneStepDrawer
                                 name={
-                                    <Row className={"step-item-content"}>
+                                    <Row
+                                        // gutter={[10,0]}
+                                        className={"step-item-content"}
+                                    >
                                         <Col span={1}>
                                             <div
                                                 {...provided.dragHandleProps}
@@ -74,29 +77,59 @@ const FunctionStepList = () => {
                                         <Col span={1}>
                                             <div>{item.sort}</div>
                                         </Col>
-                                        <Col span={7}>
-                                            <div>{item.described}</div>
+                                        <Col span={4}>
+                                            <div>{item.name}</div>
                                         </Col>
-                                        <Col span={6}>
-                                            {item.expect?<div>{item.expect}</div>:null}
-                                        </Col>
-                                        <Col span={6}>
-                                            {item.actual?<div>{item.actual}</div>:null}
+                                        <Col span={15}>
+                                            {item.actionType
+                                                ?<div className={"display-flex-gap"}>
+                                                    <div style={{fontSize:"12px",color:"#aaa" }}>操作: </div>
+                                                    <div >{item.actionType}</div>
+
+                                                    {
+                                                        item.parameter
+                                                            ?<>
+                                                                <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
+                                                                <div>{item.parameter}</div>
+                                                            </>
+                                                            :null
+                                                    }
+
+                                                </div>
+                                                :null
+
+                                            }
+                                            {item.location
+                                                ?<div className={"display-flex-gap "}>
+                                                    <div style={{fontSize:"12px",color:"#aaa" }}>定位: </div>
+                                                    <div>{item.location}</div>
+                                                    {
+                                                        item.locationValue
+                                                            ?<>
+                                                                <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
+                                                                <div>{item.locationValue}</div>
+                                                            </>
+                                                            :null
+                                                    }
+                                                </div>
+                                                :null
+                                            }
+
                                         </Col>
                                         <Col style={{marginLeft: "auto",height:"20px"}}>
                                             <IconCommon
                                                 className={"icon-s edit-icon"}
                                                 icon={"shanchu3"}
-                                                onClick={()=>deleteFuncUnitStep(item.id).then(()=>findList())}
+                                                onClick={()=>deleteWebSceneStep(item.id).then(()=>findList())}
                                             />
                                         </Col>
+
                                     </Row>
                                 }
                                 stepId={item.id}
                                 findList={findList}
                             />
                         </div>
-
                     </>
                 )}
             </Draggable>
@@ -107,9 +140,8 @@ const FunctionStepList = () => {
         <>
             <div className={"table-list-box"}>
                 <div style={{display:'flex',justifyContent:"end",margin: "10px 0"}}>
-                    <FunctionStepEdit findList={findList} type={"add"}/>
+                    <WebSceneStepEdit findList={findList} />
                 </div>
-
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="list">
                         {(provided) => (
@@ -125,13 +157,11 @@ const FunctionStepList = () => {
                                     <Row
                                         gutter={[10,0]}
                                         className={"step-item-content-header"}
-                                        style={{padding: "5px 10px"}}
                                     >
                                         <Col span={1}/>
                                         <Col span={1}>序号</Col>
-                                        <Col span={7}>描述</Col>
-                                        <Col span={6}>期望</Col>
-                                        <Col span={6}>结果</Col>
+                                        <Col span={4}>名称</Col>
+                                        <Col span={15}>信息</Col>
                                         <Col style={{marginLeft: "auto",height:"20px"}}>操作</Col>
                                     </Row>
                                 </div>
@@ -154,4 +184,4 @@ const FunctionStepList = () => {
 };
 
 
-export default observer(FunctionStepList);
+export default observer(WebSceneStepList);

@@ -20,7 +20,14 @@ const CaseBread = (props) =>{
                 />
             )
         }else {
-            return <ArrowLeftOutlined onClick={()=>history.goBack()} style={{cursor:"pointer"}}/>
+            return <ArrowLeftOutlined
+                onClick={()=>history.goBack()}
+                style={{
+                    cursor:"pointer",
+                    fontSize:"20px"
+                }}
+
+            />
         }
 
     }
