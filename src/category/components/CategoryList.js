@@ -84,7 +84,7 @@ const CategoryList = (props) => {
 
 
     return(
-        <div className={"testcase-box"}>
+        <div className={"content-box-center"}>
             <div  className={"header-box-space-between"} >
                 <div className={'header-box-title'}>模块列表</div>
                 <CategoryEdit name={`添加模块`} findList={findList}/>

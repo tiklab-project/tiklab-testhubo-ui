@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from "react";
-import {Breadcrumb,  DatePicker, Form, Select} from "antd";
+import {DatePicker, Form, Select, Tabs} from "antd";
 import {inject, observer} from "mobx-react";
 import TestPlanBindCaseList from "./testPlanBindCaseList";
 import moment from "moment";
@@ -7,9 +7,9 @@ import EdiText from "react-editext";
 import {CaretDownOutlined} from "@ant-design/icons";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import TestPlanENVModal from "./testPlanENVModal";
-import IconBtn from "../../common/iconBtn/IconBtn";
-import {useHistory, useParams} from "react-router";
+import {useParams} from "react-router";
 import CaseBread from "../../common/CaseBread";
+import TestPlanInstanceList from "./testPlanInstanceList";
 
 const {Option} = Select;
 
@@ -18,10 +18,9 @@ const TestPlanDetail = (props) =>{
     const {findTestPlan,updateTestPlan} = testPlanStore;
     const [form] = Form.useForm();
     const [executeDate,setExecuteData] = useState()
-
+    const [tabActiveKey, setTabActiveKey] = useState("1");
     const [showValidateStatus, setShowValidateStatus ] = useState()
 
-    let history = useHistory()
     let {id} = useParams()
     const testPlanId = sessionStorage.getItem('testPlanId') || id
 
@@ -40,11 +39,6 @@ const TestPlanDetail = (props) =>{
         })
     },[testPlanId]);
 
-
-    //返回
-    const goBack = () => {
-       history.push('/repository/plan');
-    }
 
 
     const changeStartTime = (data,dataString) =>{
@@ -94,8 +88,24 @@ const TestPlanDetail = (props) =>{
     };
 
 
+    const tabItems = [
+        {
+            label: `用例`,
+            key: '1',
+            children: <TestPlanBindCaseList tabKey={tabActiveKey} {...props}/>,
+        },{
+            label: `历史`,
+            key: '2',
+            children: <TestPlanInstanceList  tabKey={tabActiveKey} {...props}/>,
+        }
+    ]
+
+    const changeTab = (activeKey) =>{
+        setTabActiveKey(activeKey)
+    }
+
     return(
-        <div className={"plan-box"}>
+        <div className={"content-box-center"}>
             <CaseBread breadItem={["计划详情"]}/>
             <Form className="testplan-form-info" form={form} labelAlign={"left"} >
                 <div className="display-flex-between">
@@ -119,12 +129,7 @@ const TestPlanDetail = (props) =>{
                             hideIcons
                         />
                     </div>
-                    <div className={"display-flex-between"} style={{width: 200}}>
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            name={"历史"}
-                            onClick={()=> history.push('/repository/plan-instance')}
-                        />
+                    <div className={"display-flex-between"} style={{width: 130}}>
                         <TestPlanENVModal {...props}/>
                         <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
                     </div>
@@ -181,7 +186,12 @@ const TestPlanDetail = (props) =>{
                     </div>
             </Form>
 
-            <TestPlanBindCaseList {...props}/>
+            <Tabs
+                defaultActiveKey="1"
+                items={tabItems}
+                onChange={changeTab}
+            />
+
 
         </div>
     )

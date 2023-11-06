@@ -113,13 +113,13 @@ const ApiSceneInstanceSinglePage = (props) =>{
                 placement="right"
                 onClose={onClose}
                 open={open}
-                width={"70%"}
+                width={1000}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
                 closable={false}
             >
-                <div className={"content-box-center"}  style={{height: "calc(100% - 35px)"}}>
+                <div className={"content-box-center"}  style={{height: "calc(100% - 52px)"}}>
                     <CaseBread
                         title={"历史详情"}
                         icon={"jiekou1"}

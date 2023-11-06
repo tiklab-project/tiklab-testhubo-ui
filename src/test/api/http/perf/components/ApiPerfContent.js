@@ -28,7 +28,7 @@ const ApiPerfContent = (props) => {
                 style={{borderBottom:"none"}}
                 title={testCaseInfo?.name}
                 caseType={testCaseInfo?.caseType}
-                breadItem={["用例详情"]}
+                breadItem={["接口性能"]}
                 right={
                     <Space>
                         <ApiEnvDropDownSelect />

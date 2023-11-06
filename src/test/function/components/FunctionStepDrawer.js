@@ -11,7 +11,7 @@ const {TextArea} = Input
 const tailLayout = {
     wrapperCol: {
         offset: 0,
-        span: 16,
+        span: 22,
     },
 };
 
@@ -58,10 +58,10 @@ const FunctionStepDrawer = ({name,stepId,findList}) =>{
                 placement="right"
                 onClose={onClose}
                 open={open}
-                width={"70%"}
+                width={700}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
                 closable={false}
             >
                 <div style={{padding:"0 10px"}}>

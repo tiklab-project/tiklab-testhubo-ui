@@ -176,7 +176,7 @@ const TestPlan = (props) => {
     }
 
     return(
-        <div className={"plan-box"}>
+        <div className={"content-box-center"}>
             <div className='header-box-space-between'>
                 <div className={'header-box-title'}>测试计划</div>
                 <TestPlanEdit

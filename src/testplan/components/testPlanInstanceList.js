@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import { Empty, Popconfirm, Table, Tag} from "antd";
-import {inject, observer} from "mobx-react";
+import {Empty, Popconfirm, Table, Tag} from "antd";
+import {observer} from "mobx-react";
 import IconCommon from "../../common/IconCommon";
 import emptyImg from "../../assets/img/empty.png";
 import testPlanInstanceStore from "../store/testPlanInstanceStore";
-import CaseBread from "../../common/CaseBread";
 import PaginationCommon from "../../common/pagination/Page";
 
 const TestPlanInstanceList = (props) =>{
+    const {tabKey} = props
     const {
         findTestPlanInstancePage,
         testPlanInstanceList,
@@ -85,8 +85,11 @@ const TestPlanInstanceList = (props) =>{
 
 
     useEffect(async ()=>{
-        await findPage()
-    },[pageParam])
+        if(tabKey==="2"){
+            await findPage()
+        }
+
+    },[pageParam,tabKey])
 
     const findPage = async () => {
         let param = {
@@ -122,28 +125,25 @@ const TestPlanInstanceList = (props) =>{
     }
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread breadItem={["计划详情","历史详情"]}/>
-            <div className={"table-list-box"}>
-                <Table
-                    columns={column}
-                    dataSource={testPlanInstanceList}
-                    rowKey = {record => record.id}
-                    pagination={false}
-                    locale={{
-                        emptyText: <Empty
-                            imageStyle={{height: 120 }}
-                            description={<span>暂无历史</span>}
-                            image={emptyImg}
-                        />,
-                    }}
-                />
-                <PaginationCommon
-                    currentPage={currentPage}
-                    totalPage={totalPage}
-                    changePage={onTableChange}
-                />
-            </div>
+        <div className={"table-list-box"}>
+            <Table
+                columns={column}
+                dataSource={testPlanInstanceList}
+                rowKey = {record => record.id}
+                pagination={false}
+                locale={{
+                    emptyText: <Empty
+                        imageStyle={{height: 120 }}
+                        description={<span>暂无历史</span>}
+                        image={emptyImg}
+                    />,
+                }}
+            />
+            <PaginationCommon
+                currentPage={currentPage}
+                totalPage={totalPage}
+                changePage={onTableChange}
+            />
         </div>
     )
 }

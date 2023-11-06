@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Breadcrumb, Drawer} from "antd";
+import {Drawer} from "antd";
 import {useHistory} from "react-router";
 import {renderRoutes} from "react-router-config";
 import {inject, observer} from "mobx-react";
@@ -69,10 +69,10 @@ const TestPlanBindCaseDrawer = (props) =>{
                 placement="right"
                 onClose={onClose}
                 open={open}
-                width={"70%"}
+                width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
                 closable={false}
             >
                 {

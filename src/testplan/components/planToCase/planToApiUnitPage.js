@@ -21,8 +21,8 @@ const PlanToApiUnitPage = (props) =>{
             <CaseBread
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
-                icon={"jiekou1"}
-                breadItem={["用例详情"]}
+                // icon={"jiekou1"}
+                breadItem={["计划详情","用例详情"]}
             />
             <div className={"content-box-center"}>
                 <ApiUnitEditPageCommon {...props} planType={true}/>

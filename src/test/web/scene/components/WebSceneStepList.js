@@ -139,8 +139,9 @@ const WebSceneStepList = () => {
     return (
         <>
             <div className={"table-list-box"}>
-                <div style={{display:'flex',justifyContent:"end",margin: "10px 0"}}>
+                <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
                     <WebSceneStepEdit findList={findList} />
+                    <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                 </div>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="list">

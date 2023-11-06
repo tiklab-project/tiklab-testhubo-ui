@@ -22,8 +22,8 @@ const PlanToFuncUnitPage = (props) =>{
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
                 style={{borderBottom:"none"}}
-                icon={"gongneng"}
-                breadItem={["用例详情"]}
+                // icon={"gongneng"}
+                breadItem={["计划详情","用例详情"]}
             />
             <FunctionDetail />
 

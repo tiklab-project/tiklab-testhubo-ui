@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import {Form,  Button, Input, Space,Modal} from 'antd';
 import funcUnitStepStore from "../store/funcUnitStepStore";
 import IconCommon from "../../../common/IconCommon";
+import IconBtn from "../../../common/iconBtn/IconBtn";
 
 const { TextArea } = Input;
 
@@ -10,7 +11,7 @@ const { TextArea } = Input;
  * 添加
  */
 const FunctionStepEdit = ({findList,type,stepId}) => {
-    const {createFuncUnitStep,updateFuncUnitStep,findFuncUnitStep} = funcUnitStepStore;
+    const {createFuncUnitStep} = funcUnitStepStore;
 
     const [form] = Form.useForm();
     const [visible, setVisible] = React.useState(false);
@@ -19,11 +20,6 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
      * 展示添加项
      */
     const showModal = async () => {
-        if(type==="edit"){
-            let info = await findFuncUnitStep(stepId)
-            form.setFieldsValue(info)
-        }
-
         setVisible(true)
     };
 
@@ -42,35 +38,17 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
         setVisible(false)
     };
 
-    const showBtn = () =>{
-        if(type==="add"){
-            return(
-                <Button
-                    className={`important-btn  ${visible?"function-edit_hide":"function-edit_show"}`}
-                    onClick={showModal}
-                >
-                    添加步骤
-                </Button>
-            )
-        }
-
-        if(type==="edit"){
-            return (
-                <IconCommon
-                    className={"icon-s edit-icon"}
-                    icon={"bianji11"}
-                    onClick={showModal}
-                />
-            )
-        }
-    }
 
     const onCancel = () => { setVisible(false) };
 
 
     return (
         <>
-            {showBtn()}
+            <IconBtn
+                className="pi-icon-btn-grey"
+                onClick={showModal}
+                name={"添加步骤"}
+            />
             <Modal
                 destroyOnClose={true}
                 title={type==="add"?"添加步骤":"编辑步骤"}

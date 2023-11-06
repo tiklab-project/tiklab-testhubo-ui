@@ -45,7 +45,7 @@ const UIResultCommon = (props) =>{
 
 
     return(
-        <div style={{height:"calc(100% - 35px)"}}>
+        <div style={{height:"calc(100% - 52px)"}}>
             <Spin spinning={spinning}>
                 <div className={"unit-instance-detail"}>
                     <div className={"header-item"}>步骤总详情</div>

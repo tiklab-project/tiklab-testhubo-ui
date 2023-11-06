@@ -3,10 +3,7 @@ import {applyJump} from "tiklab-core-ui";
 import DemandSelect from "./DemandSelect";
 import "./demandStyle.scss"
 import {inject, observer} from "mobx-react";
-import emptyImg from "../../../../assets/img/empty.png"
 import {Descriptions, Space} from "antd";
-import IconBtn from "../../../../common/iconBtn/IconBtn";
-import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 /**
  * 关联需求
@@ -67,13 +64,12 @@ const Demand = (props)=>{
                     <div
                         style={{
                             display: "flex",
-                            gap: "10px",
+                            gap: "25px",
                             alignItems: "center",
-                            fontWeight:"500"
                         }}
                     >
                         <span>{demandInfo?.name}</span>
-                        <a onClick={unBind} style={{fontSize:"12px"}}>解绑</a>
+                        <span onClick={unBind} style={{fontSize:"12px"}}>解绑</span>
                     </div>
                 </Space>
 

@@ -9,9 +9,10 @@ import IconBtn from "../../common/iconBtn/IconBtn";
 import TestPlanBindCase from "./testPlanBindCase";
 import TestPlanBindCaseDrawer from "./TestPlanBindCaseDrawer";
 import PaginationCommon from "../../common/pagination/Page";
+import {useHistory} from "react-router";
 
 const TestPlanBindCaseList = (props) =>{
-    const {testcaseStore} = props
+    const {testcaseStore,tabKey} = props
     const {findBindTestCaseList,testPlanDetailList,deleteTestPlanDetail} = testPlanDetailStore;
     const {findTestCaseList} = testcaseStore;
     //列表头
@@ -21,11 +22,12 @@ const TestPlanBindCaseList = (props) =>{
             dataIndex: ["testCase","name"],
             key: "name",
             render:(text,record)=>(
-                <TestPlanBindCaseDrawer
-                    caseData={record.testCase}
-                    testPlanId={testPlanId}
-                    {...props}
-                />
+                <span
+                    className={"link-text"}
+                    onClick={()=>toDiffCase(record)}
+                >
+                    {text}
+                </span>
             )
         },
         {
@@ -64,7 +66,7 @@ const TestPlanBindCaseList = (props) =>{
 
     let repositoryId = sessionStorage.getItem("repositoryId")
     const testPlanId = sessionStorage.getItem('testPlanId')
-
+    let history = useHistory();
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
@@ -76,8 +78,10 @@ const TestPlanBindCaseList = (props) =>{
     })
 
     useEffect(()=>{
-        findPage()
-    },[pageParam])
+        if(tabKey==="1"){
+            findPage()
+        }
+    },[pageParam,tabKey])
 
     const findPage = () =>{
         const param = {
@@ -111,12 +115,54 @@ const TestPlanBindCaseList = (props) =>{
     }
 
 
+
+    //再根据不同的用例类型跳到不同的页面
+    const toDiffCase = (record)=>{
+        switch (record.testCase.caseType) {
+            case "api-unit":
+                toDetailAddRouterCommon("apiUnitId",record)
+                break;
+            case "api-scene":
+                toDetailAddRouterCommon("apiSceneId",record)
+                break;
+            case "api-perform":
+                toDetailAddRouterCommon("apiPerfId",record)
+                break;
+
+            case "web-scene":
+                toDetailAddRouterCommon("webSceneId",record)
+                break;
+            case "web-perform":
+                toDetailAddRouterCommon("webPerfId",record)
+                break;
+
+            case "app-scene":
+                toDetailAddRouterCommon("appSceneId",record)
+                break;
+
+            case "app-perform":
+                toDetailAddRouterCommon("appPerfId",record)
+                break;
+            case "function":
+                toDetailAddRouterCommon("functionId",record)
+                break
+        }
+    }
+
+    //跳转路由
+    const toDetailAddRouterCommon = (setId,record)=>{
+        sessionStorage.setItem(`${setId}`,record.testCase.id);
+        history.push(`/repository/plan-to-${record.testCase.caseType}`)
+    }
+
+
+
     return(
         <div style={{margin:"10px 0",height:"100%"}}>
             <div className={`${visible?"teston-hide":"teston-show"}`} >
                 <div className='title-space-between'>
                     <div className={'test-title'}>
-                        <div>关联用例</div>
+                        <div>用例: ({testPlanDetailList.length})</div>
                     </div>
                     <IconBtn
                         className="pi-icon-btn-grey"

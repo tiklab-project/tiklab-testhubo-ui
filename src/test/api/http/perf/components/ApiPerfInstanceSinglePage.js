@@ -60,10 +60,10 @@ const ApiPerfInstanceSinglePage = ({apiPerfInstanceId,name}) =>{
                 placement="right"
                 onClose={onClose}
                 open={open}
-                width={"70%"}
+                width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
                 closable={false}
             >
                 <CaseBread
@@ -71,7 +71,7 @@ const ApiPerfInstanceSinglePage = ({apiPerfInstanceId,name}) =>{
                     icon={"jiekou1"}
                     setOpen={setOpen}
                 />
-                <div  className={"result-spin-box"} style={{margin:"0 10px",overflow: "hidden",height: "calc( 100% - 48px )"}} >
+                <div  className={"result-spin-box"} style={{margin:"0 10px",overflow: "hidden",height: "calc( 100% - 52px )"}} >
                 <Spin spinning={loading}>
                     <div className={"history-detail history-detail-box"}>
                         <div className={"history-detail-all"}>

@@ -120,15 +120,17 @@ const ApiSceneStepList = ({apiUnitStore}) => {
     }
 
     return (
-        <>
+        <div className={"content-box-center"}>
             <div className={"table-list-box"}>
                 <div className={`${visible?"teston-hide":"teston-show"}`} >
-                    <div style={{display:'flex',justifyContent:"end",margin: "10px 0"}}>
+                    <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
                         <IconBtn
                             className="pi-icon-btn-grey"
                             name={"关联用例"}
                             onClick={showConnect}
                         />
+
+                        <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                     </div>
                     <DragDropContext onDragEnd={onDragEnd}>
                         <Droppable droppableId="list">
@@ -179,7 +181,7 @@ const ApiSceneStepList = ({apiUnitStore}) => {
                     />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -92,7 +92,7 @@ const AppPerformTestDrawer = (props) =>{
                 visible={visible}
                 width={1240}
                 destroyOnClose={true}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
             >
                 <div  className={"result-spin-box"}>
                     <Spin spinning={loading}>

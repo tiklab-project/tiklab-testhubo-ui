@@ -79,7 +79,7 @@ const AppPerformInstanceModal=(props) => {
                 visible={visible}
                 width={1200}
                 destroyOnClose={true}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
             >
                 <div className={"scene-step-detail"}>
                     <div className={"header-item"}>用例总详情</div>

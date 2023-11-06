@@ -121,7 +121,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 placement="right"
                 onClose={onClose}
                 visible={visible}
-                width={1240}
+                width={900}
                 destroyOnClose={true}
                 contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
                 closable={false}

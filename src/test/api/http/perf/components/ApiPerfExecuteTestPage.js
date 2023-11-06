@@ -113,10 +113,10 @@ const ApiPerfExecuteTestPage = (props) =>{
                 placement="right"
                 onClose={onClose}
                 open={open}
-                width={"70%"}
+                width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
                 closable={false}
             >
                 <div className={"content-box-center"}>

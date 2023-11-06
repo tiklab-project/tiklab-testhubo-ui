@@ -63,7 +63,6 @@ let ApiSceneContent = LazyComponent(() => import("./test/api/http/scene/componen
 let ApiExecuteTestPage = LazyComponent(() => import("./test/api/http/scene/components/ApiExecuteTestPage"));
 let ApiSceneInstanceSinglePage = LazyComponent(() => import( "./test/api/http/scene/components/apiSceneInstanceSinglePage"));
 let ApiSceneInstanceList = LazyComponent(() => import("./test/api/http/scene/components/apiSceneInstanceList"));
-let ApiSceneToUnitPage = LazyComponent(() => import("./test/api/http/scene/components/apiSceneToUnitPage"));
 let ApiPerfContent = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfContent"));
 let ApiPerfExecuteTestPage = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfExecuteTestPage"));
 let ApiPerfInstanceList = LazyComponent(() => import("./test/api/http/perf/components/apiPerfInstanceList"));
@@ -202,10 +201,6 @@ const routers =  [
                         component: ApiSceneContent,
                     },
                     {
-                        path: "/repository/api-scene-to-unit",
-                        component: ApiSceneToUnitPage,
-                    },
-                    {
                         path: "/repository/api-scene-execute",
                         component: ApiExecuteTestPage,
                     },
@@ -320,46 +315,46 @@ const routers =  [
                     {
                         path: "/repository/plan-detail/:id",
                         component: TestPlanDetail,
-                        routes:[
-                            {
-                                path: "/repository/plan-detail/api-unit",
-                                component: PlanToApiUnitPage,
-                            },
-                            {
-                                path: "/repository/plan-detail/api-scene",
-                                component: PlanToApiScenePage,
-                            },
-                            {
-                                path: "/repository/plan-detail/api-perform",
-                                component: PlanToApiPerformPage,
-                            },
-                            {
-                                path: "/repository/plan-detail/web-scene",
-                                exact: true,
-                                component: PlanToWebScenePage,
-                            },
-                            {
-                                path: "/repository/plan-detail/web-perform",
-                                exact: true,
-                                component: planToWebPerformPage,
-                            },
-                            {
-                                path: "/repository/plan-detail/app-scene",
-                                exact: true,
-                                component: PlanToAppScenePage,
-                            },
-                            {
-                                path: "/repository/plan-detail/app-perform",
-                                exact: true,
-                                component: PlanToAppPerformPage,
-                            },
-                            {
-                                path: "/repository/plan-detail/function",
-                                exact: true,
-                                component: PlanToFuncUnitPage,
-                            },
-                        ]
                     },
+                    {
+                        path: "/repository/plan-to-api-unit",
+                        component: PlanToApiUnitPage,
+                    },
+                    {
+                        path: "/repository/plan-to-api-scene",
+                        component: PlanToApiScenePage,
+                    },
+                    {
+                        path: "/repository/plan-to-api-perform",
+                        component: PlanToApiPerformPage,
+                    },
+                    {
+                        path: "/repository/plan-to-web-scene",
+                        exact: true,
+                        component: PlanToWebScenePage,
+                    },
+                    {
+                        path: "/repository/plan-to-web-perform",
+                        exact: true,
+                        component: planToWebPerformPage,
+                    },
+                    {
+                        path: "/repository/plan-to-app-scene",
+                        exact: true,
+                        component: PlanToAppScenePage,
+                    },
+                    {
+                        path: "/repository/plan-to-app-perform",
+                        exact: true,
+                        component: PlanToAppPerformPage,
+                    },
+                    {
+                        path: "/repository/plan-to-function",
+                        exact: true,
+                        component: PlanToFuncUnitPage,
+                    },
+
+
                     {
                         path: "/repository/report",
                         exact: true,

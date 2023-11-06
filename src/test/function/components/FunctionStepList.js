@@ -106,8 +106,9 @@ const FunctionStepList = () => {
     return (
         <>
             <div className={"table-list-box"}>
-                <div style={{display:'flex',justifyContent:"end",margin: "10px 0"}}>
+                <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
                     <FunctionStepEdit findList={findList} type={"add"}/>
+                    <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                 </div>
 
                 <DragDropContext onDragEnd={onDragEnd}>

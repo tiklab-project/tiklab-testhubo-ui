@@ -22,8 +22,8 @@ const PlanToAppScenePage = (props) =>{
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
                 style={{borderBottom:"none"}}
-                icon={"shouji"}
-                breadItem={["用例详情"]}
+                // icon={"shouji"}
+                breadItem={["计划详情","用例详情"]}
             />
             <AppSceneDetail planType={true} />
         </div>

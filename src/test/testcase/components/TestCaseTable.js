@@ -246,7 +246,7 @@ const TestCaseTable = (props) => {
 
     return(
         <>
-            <div className={"testcase-box"} >
+            <div className={"content-box-center"} >
                 <div  className={"header-box-space-between"} >
                     <div className={'header-box-title'}>测试用例</div>
                     <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
