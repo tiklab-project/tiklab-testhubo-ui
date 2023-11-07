@@ -106,9 +106,7 @@ const TestPlan = (props) => {
     const repositoryId = sessionStorage.getItem('repositoryId')
 
     useEffect(()=> {
-        findTestPlanPage(repositoryId,pageParam).then(()=>{
-            setTableLoading(false)
-        });
+        findPage()
     },[pageParam])
 
 
@@ -126,7 +124,8 @@ const TestPlan = (props) => {
     // 去往详情页
     const toPlanDetail = (id) => {
         sessionStorage.setItem('testPlanId',id);
-        props.history.push(`/repository/plan-detail/${id}`);
+        localStorage.setItem("leftRouter","/plan/case");
+        props.history.push(`/plan/case`);
     };
 
     // 分页
@@ -165,14 +164,22 @@ const TestPlan = (props) => {
     }
 
     const findPage = ()=>{
-        findTestPlanPage(repositoryId,pageParam)
+        let param={
+            repositoryId:repositoryId,
+            pageParam,
+        }
+        findTestPlanPage(param).then(()=>{
+            setTableLoading(false)
+        });
     }
 
     const progressSelectFn = (state) =>{
-
-        let param= Object.assign({},pageParam,{state:state})
-
-        findTestPlanPage(repositoryId,param)
+        let param={
+            repositoryId:repositoryId,
+            pageParam,
+            state:state
+        }
+        findTestPlanPage(param)
     }
 
     return(

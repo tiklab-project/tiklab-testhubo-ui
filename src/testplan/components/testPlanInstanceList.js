@@ -7,7 +7,7 @@ import testPlanInstanceStore from "../store/testPlanInstanceStore";
 import PaginationCommon from "../../common/pagination/Page";
 
 const TestPlanInstanceList = (props) =>{
-    const {tabKey} = props
+
     const {
         findTestPlanInstancePage,
         testPlanInstanceList,
@@ -74,6 +74,7 @@ const TestPlanInstanceList = (props) =>{
 
     const testPlanId = sessionStorage.getItem("testPlanId")
     const [totalPage, setTotalPage] = useState();
+    const [tableLoading,setTableLoading] = useState(true);
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -85,11 +86,8 @@ const TestPlanInstanceList = (props) =>{
 
 
     useEffect(async ()=>{
-        if(tabKey==="2"){
-            await findPage()
-        }
-
-    },[pageParam,tabKey])
+        await findPage()
+    },[pageParam])
 
     const findPage = async () => {
         let param = {
@@ -99,6 +97,7 @@ const TestPlanInstanceList = (props) =>{
         let res = await findTestPlanInstancePage(param)
         if(res.code===0){
             setTotalPage(res.data.totalPage)
+            setTableLoading(false)
         }
 
     }
@@ -106,7 +105,7 @@ const TestPlanInstanceList = (props) =>{
     //跳往用例历史列表页
     const toCaseInstanceList = (testPlanInstanceId) =>{
         sessionStorage.setItem("testPlanInstanceId",testPlanInstanceId)
-        props.history.push("/repository/plan-instance-case")
+        props.history.push("/plan/plan-instance-case")
 
     }
 
@@ -125,12 +124,18 @@ const TestPlanInstanceList = (props) =>{
     }
 
     return(
-        <div className={"table-list-box"}>
+        <div className={"content-box-center"}>
+            <div  className={"header-box-space-between"} >
+                <div className={'header-box-title'}>测试历史</div>
+
+            </div>
+            <div className={"table-list-box"}>
             <Table
                 columns={column}
                 dataSource={testPlanInstanceList}
                 rowKey = {record => record.id}
                 pagination={false}
+                loading={tableLoading}
                 locale={{
                     emptyText: <Empty
                         imageStyle={{height: 120 }}
@@ -144,6 +149,7 @@ const TestPlanInstanceList = (props) =>{
                 totalPage={totalPage}
                 changePage={onTableChange}
             />
+        </div>
         </div>
     )
 }

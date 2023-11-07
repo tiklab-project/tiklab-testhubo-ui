@@ -23,7 +23,7 @@ const PlanToApiPerformPage = (props) =>{
                 caseType={caseInfo?.caseType}
                 style={{borderBottom:"none"}}
                 // icon={"jiekou1"}
-                breadItem={["计划详情","用例详情"]}
+                breadItem={["测试用例","用例详情"]}
             />
             <ApiPerformDetail planType={true}/>
         </div>

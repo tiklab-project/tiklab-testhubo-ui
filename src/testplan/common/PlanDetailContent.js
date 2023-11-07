@@ -1,34 +1,24 @@
 import React from "react";
-import LeftNav from "./LeftNav";
-import "./repositoryDetailStyle.scss"
-import "../../common/commonStyle.scss";
-import "../../test/common/styles/testcaseStyle.scss";
-import "../../test/common/styles/caseContantStyle.scss";
-import "../../test/common/styles/unitcase.scss";
-import "../../testplan/components/testPlanStyle.scss"
+import ContentPageCommon from "../../common/ContentPageCommon/ContentPageCommon";
 import { Provider } from 'mobx-react';
+import PlanLeftMenu from "./PlanLeftMenu";
 import CategoryStore from "../../category/store/CategoryStore";
 import ApiUnitStore from "../../test/api/http/unit/store/apiUnitStore";
+import ApiSceneStore from "../../test/api/http/scene/store/apiSceneStore";
 import ApiPerfStore from "../../test/api/http/perf/store/apiPerfStore";
 import AppSceneStore from "../../test/app/scene/store/appSceneStore";
 import AppPerfStore from "../../test/app/perf/store/appPerfStore";
-import ApiSceneStore from "../../test/api/http/scene/store/apiSceneStore";
 import FuncUnitStore from "../../test/function/store/funcUnitStore";
 import WebSceneStore from "../../test/web/scene/store/webSceneStore";
 import WebPerfStore from "../../test/web/perf/store/webPerfStore";
-import TestPlanStore from "../../testplan/store/testPlanStore";
+import TestPlanStore from "../store/testPlanStore";
 import WorkItemStore from "../../integrated/teamwire/workItem/store/WorkItemStore";
 import AgentConfigStore from "../../support/agent/store/AgentConfigStore";
 import ApiEnvStore from "../../support/environment/store/apiEnvStore";
 import AppEnvStore from "../../support/environment/store/appEnvStore";
 import WebEnvStore from "../../support/environment/store/webEnvStore";
-import ContentPageCommon from "../../common/ContentPageCommon/ContentPageCommon";
 
-
-/**
- * 详情的布局，为左右结构
- */
-const RepositoryDetailLayout = (props) =>{
+const PlanDetailContent = (props) =>{
     let store = {
         categoryStore: CategoryStore,
         apiUnitStore:ApiUnitStore,
@@ -54,12 +44,10 @@ const RepositoryDetailLayout = (props) =>{
     return(
         <Provider {...store}>
             <ContentPageCommon
-                left={<LeftNav {...props} />}
+                left={<PlanLeftMenu />}
                 {...props}
             />
         </Provider>
     )
 }
-
-export default RepositoryDetailLayout;
-
+export default PlanDetailContent

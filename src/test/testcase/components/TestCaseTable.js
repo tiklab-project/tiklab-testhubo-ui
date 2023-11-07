@@ -8,9 +8,9 @@ import {SearchOutlined} from "@ant-design/icons";
 import CaseTypeSelect from "./CaseTypeSelect";
 import {useHistory} from "react-router";
 import DropdownAdd from "./DropdownAdd";
-import "./testcaseStyle.scss"
-import "./caseContantStyle.scss"
-import "./unitcase.scss"
+import "../../common/styles/testcaseStyle.scss"
+import "../../common/styles/caseContantStyle.scss"
+import "../../common/styles/unitcase.scss"
 import TestCaseMenu from "./TestCaseMenu";
 import {getUser} from "tiklab-core-ui";
 import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
@@ -99,6 +99,7 @@ const TestCaseTable = (props) => {
         },
     ]
 
+    const [tableLoading,setTableLoading] = useState(true);
     const [selectItem, setSelectItem] = useState(null);
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalPage, setTotalPage] = useState();
@@ -130,6 +131,7 @@ const TestCaseTable = (props) => {
         }
         findTestCaseList(param).then((res)=>{
             setTotalPage(res.totalPage);
+            setTableLoading(false)
         })
     }
 
@@ -297,6 +299,7 @@ const TestCaseTable = (props) => {
                         dataSource={testcaseList}
                         rowKey = {record => record.id}
                         pagination={false}
+                        loading={tableLoading}
                         locale={{
                             emptyText: <Empty
                                 imageStyle={{height: 120}}

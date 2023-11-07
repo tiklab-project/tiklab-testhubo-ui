@@ -43,8 +43,8 @@ const TestPlanEdit = (props) => {
     const onFinish =async () => {
         let values =  await form.validateFields()
 
-        values.startTime=rangeTime[0];
-        values.endTime=rangeTime[1];
+        values.startTime=values.rangeTime[0];
+        values.endTime=values.rangeTime[1];
         values.repository= {id:repositoryId};
         // values.principal = {id:userSelectId?userSelectId:principal};
         if(props.type === "add" ){

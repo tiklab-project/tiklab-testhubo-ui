@@ -89,8 +89,10 @@ let AppPerformToScenePage = LazyComponent(() => import("./test/app/perf/componen
 
 let FuncUnitDetail = LazyComponent(() => import("./test/function/components/FunctionContent"));
 
+let PlanDetailContent = LazyComponent(()=>import("./testplan/common/PlanDetailContent"))
 let TestPlan = LazyComponent(() => import("./testplan/components/testPlan"));
 let TestPlanDetail = LazyComponent(() => import("./testplan/components/testPlanDetail"));
+let TestPlanBindCaseList = LazyComponent(() => import("./testplan/components/testPlanBindCaseList"));
 let TestPlanInstanceList = LazyComponent(() => import("./testplan/components/testPlanInstanceList"));
 let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/components/testPlanBindCaseInstanceList"));
 let PlanToApiUnitPage = LazyComponent(() => import("./testplan/components/planToCase/planToApiUnitPage"));
@@ -101,6 +103,7 @@ let planToWebPerformPage = LazyComponent(() => import("./testplan/components/pla
 let PlanToFuncUnitPage = LazyComponent(() => import("./testplan/components/planToCase/planToFuncUnitPage"));
 let PlanToAppPerformPage = LazyComponent(() => import("./testplan/components/planToCase/planToAppPerformPage"));
 let PlanToAppScenePage = LazyComponent(() => import("./testplan/components/planToCase/planToAppScenePage"));
+let PlanSetting = LazyComponent(() => import( "./testplan/components/PlanSetting"));
 
 let TestReportList = LazyComponent(() => import("./testreport/testReportList"));
 let TestReportDetail = LazyComponent(() => import("./testreport/testReportDetail"));
@@ -304,55 +307,6 @@ const routers =  [
                         path: "/repository/plan",
                         component:TestPlan ,
                     },
-                    {
-                        path: "/repository/plan-instance",
-                        component: TestPlanInstanceList,
-                    },
-                    {
-                        path: "/repository/plan-instance-case",
-                        component: TestPlanBindCaseInstanceList,
-                    },
-                    {
-                        path: "/repository/plan-detail/:id",
-                        component: TestPlanDetail,
-                    },
-                    {
-                        path: "/repository/plan-to-api-unit",
-                        component: PlanToApiUnitPage,
-                    },
-                    {
-                        path: "/repository/plan-to-api-scene",
-                        component: PlanToApiScenePage,
-                    },
-                    {
-                        path: "/repository/plan-to-api-perform",
-                        component: PlanToApiPerformPage,
-                    },
-                    {
-                        path: "/repository/plan-to-web-scene",
-                        exact: true,
-                        component: PlanToWebScenePage,
-                    },
-                    {
-                        path: "/repository/plan-to-web-perform",
-                        exact: true,
-                        component: planToWebPerformPage,
-                    },
-                    {
-                        path: "/repository/plan-to-app-scene",
-                        exact: true,
-                        component: PlanToAppScenePage,
-                    },
-                    {
-                        path: "/repository/plan-to-app-perform",
-                        exact: true,
-                        component: PlanToAppPerformPage,
-                    },
-                    {
-                        path: "/repository/plan-to-function",
-                        exact: true,
-                        component: PlanToFuncUnitPage,
-                    },
 
 
                     {
@@ -435,6 +389,76 @@ const routers =  [
                     },
                 ]
             },
+            {
+                path:"/plan",
+                component: PlanDetailContent,
+                routes: [
+                    {
+                        path: "/plan/case",
+                        exact: true,
+                        component: TestPlanBindCaseList,
+                    }, {
+                        path: "/plan/instance",
+                        exact: true,
+                        component: TestPlanInstanceList,
+                    }, {
+                        path: "/plan/setting",
+                        exact: true,
+                        component: PlanSetting,
+                    },
+
+
+                    {
+                        path: "/plan/plan-instance-case",
+                        component: TestPlanBindCaseInstanceList,
+                    },
+                    {
+                        path: "/plan/plan-detail/:id",
+                        component: TestPlanDetail,
+                    },
+                    {
+                        path: "/plan/plan-to-api-unit",
+                        component: PlanToApiUnitPage,
+                    },
+                    {
+                        path: "/plan/plan-to-api-scene",
+                        component: PlanToApiScenePage,
+                    },
+                    {
+                        path: "/plan/plan-to-api-perform",
+                        component: PlanToApiPerformPage,
+                    },
+                    {
+                        path: "/plan/plan-to-web-scene",
+                        exact: true,
+                        component: PlanToWebScenePage,
+                    },
+                    {
+                        path: "/plan/plan-to-web-perform",
+                        exact: true,
+                        component: planToWebPerformPage,
+                    },
+                    {
+                        path: "/plan/plan-to-app-scene",
+                        exact: true,
+                        component: PlanToAppScenePage,
+                    },
+                    {
+                        path: "/plan/plan-to-app-perform",
+                        exact: true,
+                        component: PlanToAppPerformPage,
+                    },
+                    {
+                        path: "/plan/plan-to-function",
+                        exact: true,
+                        component: PlanToFuncUnitPage,
+                    },
+
+
+                ]
+            },
+
+
             {
                 path:'/systemManagement',
                 key:'systemManagement',
@@ -600,9 +624,6 @@ const routers =  [
             },
         ]
     },
-
-
-
-  ];
+];
 
 export default routers

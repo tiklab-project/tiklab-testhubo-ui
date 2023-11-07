@@ -2,10 +2,13 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import WebSceneStepList from "./WebSceneStepList";
 import "./webStyle.scss"
-import {Button, Form, Space} from "antd";
+import {Form} from "antd";
 import CaseContentCommon from "../../../common/CaseContentCommon";
 import DetailCommon from "../../../../common/DetailCommon";
 import VariableTable from "../../../common/Variable/components/VariableTable";
+import "../../../common/styles/testcaseStyle.scss"
+import "../../../common/styles/caseContantStyle.scss"
+import "../../../common/styles/unitcase.scss"
 
 const WebSceneDetail = (props) => {
     const {webSceneStore} = props;

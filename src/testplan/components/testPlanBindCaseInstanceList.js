@@ -8,7 +8,7 @@ const TestPlanBindCaseInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread breadItem={["计划详情","历史详情"]} />
+            <CaseBread breadItem={["测试历史","历史详情"]} />
             <TestPlanBindCaseInstanceTable />
         </div>
     )

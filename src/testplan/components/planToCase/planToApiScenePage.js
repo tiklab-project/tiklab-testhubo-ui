@@ -23,7 +23,7 @@ const PlanToApiScenePage = (props) =>{
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
                 // icon={"jiekou1"}
-                breadItem={["计划详情","用例详情"]}
+                breadItem={["测试用例","用例详情"]}
             />
             <ApiSceneDetail planType={true}/>
         </div>

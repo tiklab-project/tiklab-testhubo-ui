@@ -4,9 +4,14 @@
  */
 import React, { useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Modal, Table, Space, Select, Row, Col, Input,} from 'antd';
+import {Modal, Table, Space, Select, Row, Col, Input, Avatar,} from 'antd';
 import IconBtn from "../../common/iconBtn/IconBtn";
-import {showCaseTypeInList, showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import {
+    showCaseTypeInList,
+    showCaseTypeTable,
+    showCaseTypeView,
+    showTestTypeView
+} from "../../common/caseCommon/CaseCommonFn";
 import testPlanDetailStore from "../store/testPlanDetailStore";
 import ApiSceneBindUnit from "../../test/api/http/scene/components/apiSceneBindUnit";
 import {SearchOutlined} from "@ant-design/icons";
@@ -26,18 +31,29 @@ const TestPlanBindCase = (props) => {
             width:'40%'
         },
         {
-            title:`测试类型`,
-            dataIndex: "testType",
-            key: "testType",
-            width:'30%',
-            render:(text,record)=>(showTestTypeView(record.testType))
-        },
-        {
-            title:`用例类型`,
+            title: `用例类型`,
             dataIndex: "caseType",
             key: "caseType",
-            width:'30%',
-            render:(text,record)=>(showCaseTypeInList(record.caseType))
+            width:"10%",
+            render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
+        }, {
+            title: `模块`,
+            dataIndex: ["category","name"],
+            key: "category",
+            width:"10%",
+        },
+        {
+            title: `创建人`,
+            dataIndex:  ["createUser","name"],
+            key: "user",
+            width:"15%",
+            render: (text, record) => (showCreateUser(record.createUser))
+        },
+        {
+            title: `创建时间`,
+            dataIndex: 'createTime',
+            key: "createTime",
+            width:"15%",
         },
     ]
 
@@ -53,6 +69,16 @@ const TestPlanBindCase = (props) => {
         setVisible(false)
     }
 
+    const showCreateUser = (createUser) =>{
+        if(createUser&&createUser.nickname){
+            return <div className={"ws-user-item"}>
+                <Space>
+                    <Avatar style={{width:"20px",height:"20px",lineHeight:"20px"}}>{createUser?.nickname[0]}</Avatar>
+                    <span >{createUser?.nickname} </span>
+                </Space>
+            </div>
+        }
+    }
 
     //测试类型筛选
     const testTypeFn = (type)=>{

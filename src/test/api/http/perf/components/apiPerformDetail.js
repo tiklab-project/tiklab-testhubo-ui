@@ -6,7 +6,9 @@ import CaseContentCommon from "../../../../common/CaseContentCommon";
 import ApiPerfStepList from "./apiPerfStepList";
 import ApiPerfTestDataPage from "./ApiPerfTestDataPage";
 import ApiPerformConfig from "./apiPerfConfig";
-
+import "../../../../common/styles/testcaseStyle.scss"
+import "../../../../common/styles/caseContantStyle.scss"
+import "../../../../common/styles/unitcase.scss"
 
 const ApiPerformDetail = (props) =>{
     const {apiPerfStore,apiEnvStore} = props;

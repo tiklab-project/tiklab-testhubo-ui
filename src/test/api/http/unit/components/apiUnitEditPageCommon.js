@@ -5,6 +5,9 @@ import Request from './request';
 import {dictionary} from "../../../../../common/dictionary/dictionary";
 import MethodType from "../../common/methodType";
 import Response from "./response";
+import "../../../../common/styles/testcaseStyle.scss"
+import "../../../../common/styles/caseContantStyle.scss"
+import "../../../../common/styles/unitcase.scss"
 
 const {Option} = Select;
 

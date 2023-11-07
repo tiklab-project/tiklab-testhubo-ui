@@ -5,6 +5,7 @@ import {getUser} from "tiklab-core-ui";
 import IconCommon from "../../common/IconCommon";
 import {useHistory} from "react-router";
 import "./repositoryDetailStyle.scss"
+import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
 
 /**
  * 左侧导航展示
@@ -43,7 +44,6 @@ const LeftNav = (props) =>{
     const [visible, setVisible] = useState(false);
     const [repositoryIcon, setRepositoryIcon] = useState();
     let userId = getUser().userId
-    const leftRouter = localStorage.getItem("leftRouter")
     const repositoryId = sessionStorage.getItem("repositoryId")
     const history = useHistory()
 
@@ -74,29 +74,6 @@ const LeftNav = (props) =>{
         }
     }
 
-    const showMenuItem = (data) =>{
-        return data&&data.map(item=>{
-            return(
-                <li
-                    key={item.key}
-                    className={`ws-detail-left-nav-item `}
-                    onClick={()=>clickAddRouter(item)}
-                >
-                    <div className={`ws-detail-left-nav-item-box ${leftRouter===item.router?"selectlink":null}`}>
-                        <div className={"ws-detail-left-nav-item-detail"}>
-                            <svg className="icon" aria-hidden="true">
-                                <use xlinkHref= {`#icon-${item.icon}`}/>
-                            </svg>
-                        </div>
-                        <div  className={"ws-detail-left-nav-item-detail"}>
-                            {item.name}
-                        </div>
-                    </div>
-                </li>
-            )
-        })
-    }
-
 
     /**
      * 展示切换的仓库
@@ -125,8 +102,6 @@ const LeftNav = (props) =>{
             <a className={"ws-toggle-repository_more"} onClick={()=>history.push("/repository-page")}>查看更多</a>
         </div>
     )
-
-
 
     /**
      * 切换仓库
@@ -161,48 +136,36 @@ const LeftNav = (props) =>{
     }
 
 
-    return(
-        <ul className={"ws-detail-left-nav left-nav-box"}>
-            <div>
-                <li className={`ws-detail-left-nav-item-repository `} >
-                    <Dropdown
-                        overlay={toggleRepositorys}
-                        trigger={['click']}
-                        visible={visible}
-                        onOpenChange={()=>setVisible(!visible)}
-                    >
-                        <div className={"ws-icon-box"}>
-                        <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
-                             <img src={repositoryIcon} alt={"icon"} className={"repository-icon icon-bg-border"}/>
-                        </span>
-                            <IconCommon
-                                style={{"cursor":"pointer"}}
-                                className={"icon-s"}
-                                icon={"xiala"}
-                            />
-                        </div>
-                    </Dropdown>
-                </li>
-                {
-                    showMenuItem(menuData)
-                }
-            </div>
 
-            <div className={"ws-nav-setting"}>
-                <div className={`ws-detail-left-nav-item`} onClick={clickSetting}>
-                    <div className={`ws-detail-left-nav-item-box  ws-detail-left-nav-item-setting`}>
-                        <div className={"ws-detail-left-nav-item-detail"}>
-                            <IconCommon
-                                className={"icon-s"}
-                                icon={"setting"}
-                            />
-                        </div>
-                        <div  className={"ws-detail-left-nav-item-detail"}>设置</div>
-                    </div>
+    const showToggleRepository = ()=> (
+        <li className={`ws-detail-left-nav-item-repository `} >
+            <Dropdown
+                overlay={toggleRepositorys}
+                trigger={['click']}
+                visible={visible}
+                onOpenChange={()=>setVisible(!visible)}
+            >
+                <div className={"ws-icon-box"}>
+                    <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
+                         <img src={repositoryIcon} alt={"icon"} className={"repository-icon icon-bg-border"}/>
+                    </span>
+                    <IconCommon
+                        style={{"cursor":"pointer"}}
+                        className={"icon-s"}
+                        icon={"xiala"}
+                    />
                 </div>
-            </div>
-        </ul>
+            </Dropdown>
+        </li>
+    )
 
+    return(
+        <LeftNavCommon
+            menuData={menuData}
+            clickAddRouter={clickAddRouter}
+            clickSetting={clickSetting}
+            diffHeader={showToggleRepository}
+        />
     )
 }
 

@@ -356,3 +356,140 @@ table .icon{
     border-radius: 4px;
 }
 
+.table-list-box{
+
+    .ant-table{
+        border-bottom: 1px solid var(--pi-border-color);
+    }
+
+
+
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
+        padding: 8px;
+    }
+
+    .ant-table-thead > tr > th{
+        background:var(--pi-bg-color);
+        font-weight: 500;
+    }
+
+    .ant-table-tbody > tr > td{
+        border-bottom: 0;
+    }
+
+    .tablelist  .ant-spin-nested-loading .ant-spin-container .ant-table-container .ant-table-tbody{
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .ant-table-tbody>tr>td,  .ant-table tfoot>tr>td, .ant-table tfoot>tr>th{
+        padding: 8px ;
+    }
+
+    .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before{
+        content: none;
+    }
+}
+
+
+.base-info-form{
+    .ant-form-item-label{
+        text-align: left;
+    }
+    .ant-form-item-label > label{
+        color: rgb(138 138 138 / 85%);
+        font-size: 13px;
+    }
+
+    .ant-input{
+        border: none;
+
+        &:hover{
+            background: var(--pi-bg-grey-100);
+        }
+    }
+
+    .ant-input[disabled]{
+        background: white;
+        cursor: auto;
+        color: #8a8a8a;
+        &:hover{
+            background: white;
+        }
+    }
+
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector{
+        border: none;
+
+        &:hover{
+            background: var(--pi-bg-grey-100);
+        }
+
+        &:hover +.ant-select-arrow{
+            display: block;
+        }
+    }
+
+    .ant-select-arrow{
+        display: none;
+    }
+
+}
+
+
+.breadcrumb-title_between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    //border-bottom: 1px solid #e4e4e4;
+    margin: 15px 0;
+
+    .case-breadcrumb{
+        font-weight: bold;
+
+        .first-item:hover{
+            cursor: pointer;
+            color: #48a8d9;
+        }
+    }
+
+    ol{
+        display: flex;
+        align-items: center;
+    }
+
+
+    .breadcrumb-left{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .case-header_title{
+        border: none;
+        font-weight: bold;
+    }
+}
+
+.ws-delete-box{
+    height: 180px;
+
+
+    .ws-delete-tip{
+        padding: 5px;
+        background: #ffe7bb;
+        border-radius: 5px;
+    }
+
+    .ws-delete-text-bold{
+        font-weight: var(--pi-font-weight-title);
+    }
+
+    .ws-delete-input-title{
+        margin: 25px 5px 5px;
+    }
+
+    .ws-delete-modal-btn{
+        width: 100%;
+        margin: 10px 0;
+    }
+}

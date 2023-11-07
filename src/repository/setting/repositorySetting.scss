@@ -27,29 +27,6 @@
 
 }
 
-.ws-delete-box{
-    height: 180px;
-
-
-    .ws-delete-tip{
-        padding: 5px;
-        background: #ffe7bb;
-        border-radius: 5px;
-    }
-
-    .ws-delete-text-bold{
-        font-weight: var(--pi-font-weight-title);
-    }
-
-    .ws-delete-input-title{
-        margin: 25px 5px 5px;
-    }
-
-    .ws-delete-modal-btn{
-        width: 100%;
-        margin: 10px 0;
-    }
-}
 
 .ws-setting-edit-visibility{
     display: flex;

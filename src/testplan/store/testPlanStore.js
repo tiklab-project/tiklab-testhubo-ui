@@ -8,9 +8,8 @@ export class TestPlanStore {
     @observable totalPage ;
 
     @action
-    findTestPlanPage = async (id,param) => {
+    findTestPlanPage = async (param) => {
         const params = {
-            repositoryId:id,
             ...param,
             orderParams: [{name:'name', orderType:'asc'}],
         };
@@ -50,4 +49,5 @@ export class TestPlanStore {
 
 }
 
-export default new TestPlanStore();
+let testPlanStore = new TestPlanStore()
+export default testPlanStore;

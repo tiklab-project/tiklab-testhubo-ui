@@ -23,7 +23,7 @@ const PlanToWebScenePage = (props) =>{
                 title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
                 style={{borderBottom:"none"}}
-                breadItem={["计划详情","用例详情"]}
+                breadItem={["测试用例","用例详情"]}
             />
             <WebSceneDetail planType={true}/>
         </div>

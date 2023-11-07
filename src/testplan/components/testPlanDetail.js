@@ -5,8 +5,6 @@ import TestPlanBindCaseList from "./testPlanBindCaseList";
 import moment from "moment";
 import EdiText from "react-editext";
 import {CaretDownOutlined} from "@ant-design/icons";
-import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
-import TestPlanENVModal from "./testPlanENVModal";
 import {useParams} from "react-router";
 import CaseBread from "../../common/CaseBread";
 import TestPlanInstanceList from "./testPlanInstanceList";
@@ -130,8 +128,7 @@ const TestPlanDetail = (props) =>{
                         />
                     </div>
                     <div className={"display-flex-between"} style={{width: 130}}>
-                        <TestPlanENVModal {...props}/>
-                        <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
+
                     </div>
                 </div>
                 <div className={'form-edit-detail'}>
@@ -170,7 +167,6 @@ const TestPlanDetail = (props) =>{
                                 {/*<Select onChange={changeState}>*/}
                                 <Select
                                     style={{width:120,height:32}}
-                                    // value={executeDate?.data}
                                     onChange={changeState}
                                     showArrow={showValidateStatus === "state"}
                                     suffixIcon={showValidateStatus === "state"?<CaretDownOutlined />:null}

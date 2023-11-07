@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Empty} from "antd";
+import {Empty, Spin} from "antd";
 import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../assets/img/empty.png";
@@ -13,6 +13,7 @@ const RepositoryRecentHome = (props) =>{
     const {findRepositoryRecentList,repositoryRecent}=repositoryStore;
 
     const [dataList, setDataList] = useState([]);
+    const [spinning, setSpinning] = useState(true);
 
     const userId = getUser().userId;
 
@@ -25,7 +26,7 @@ const RepositoryRecentHome = (props) =>{
         }else {
             newList=list;
         }
-
+        setSpinning(false)
         setDataList(newList)
     },[userId])
 
@@ -77,16 +78,21 @@ const RepositoryRecentHome = (props) =>{
 
 
     return(
-        <div className={"home-recent-box"}>
-            {
-                dataList&&dataList.length>0
-                    ?showRecent(dataList)
-                    : <Empty
-                        description={<span>暂无访问</span>}
-                        image={emptyImg}
-                    />
-            }
-        </div>
+        <Spin spinning={spinning}>
+            <div className={"home-recent-box"}>
+                {
+                    // dataList&&dataList.length>0
+                    //     ?showRecent(dataList)
+                    //     : <Empty
+                    //         description={<span>暂无访问</span>}
+                    //         image={emptyImg}
+                    //     />
+                    showRecent(dataList)
+                }
+            </div>
+
+        </Spin>
+
     )
 }
 

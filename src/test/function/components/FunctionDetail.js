@@ -6,6 +6,9 @@ import {Form} from "antd";
 import DetailCommon from "../../../common/DetailCommon";
 import CaseContentCommon from "../../common/CaseContentCommon";
 import FuncUnitStepTable from "./FunctionStepList";
+import "../../common/styles/testcaseStyle.scss"
+import "../../common/styles/caseContantStyle.scss"
+import "../../common/styles/unitcase.scss"
 
 const FunctionDetail = (props) =>{
     const {funcUnitStore} = props;

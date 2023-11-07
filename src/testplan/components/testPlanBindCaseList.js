@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {Empty, Popconfirm, Space, Table} from "antd";
+import {Avatar, Empty, Popconfirm, Space, Table} from "antd";
 import IconCommon from "../../common/IconCommon";
-import {showCaseTypeInList, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeInList, showCaseTypeTable, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
 import emptyImg from "../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
 import IconBtn from "../../common/iconBtn/IconBtn";
 import TestPlanBindCase from "./testPlanBindCase";
-import TestPlanBindCaseDrawer from "./TestPlanBindCaseDrawer";
 import PaginationCommon from "../../common/pagination/Page";
 import {useHistory} from "react-router";
+import TestPlanENVModal from "./testPlanENVModal";
+import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 
 const TestPlanBindCaseList = (props) =>{
-    const {testcaseStore,tabKey} = props
+    const {testcaseStore} = props
     const {findBindTestCaseList,testPlanDetailList,deleteTestPlanDetail} = testPlanDetailStore;
     const {findTestCaseList} = testcaseStore;
     //列表头
@@ -21,6 +22,7 @@ const TestPlanBindCaseList = (props) =>{
             title:`名称`,
             dataIndex: ["testCase","name"],
             key: "name",
+            width:"30%",
             render:(text,record)=>(
                 <span
                     className={"link-text"}
@@ -31,16 +33,29 @@ const TestPlanBindCaseList = (props) =>{
             )
         },
         {
-            title:`测试类型`,
-            dataIndex:["testCase","testType"],
-            key: "type",
-            render:(text,record)=>(showTestTypeView(record.testCase?.testType))
-        },
-        {
             title:`用例类型`,
             dataIndex:["testCase","caseType"],
             key: "type",
-            render:(text,record)=>(showCaseTypeInList(record.testCase?.caseType))
+            width:"15%",
+            render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
+        },,
+        {
+            title: `模块`,
+            dataIndex: ["testCase","category","name"],
+            key: "category",
+            width:"15%",
+        },{
+            title: `创建人`,
+            dataIndex:  ["testCase","createUser"],
+            key: "user",
+            width:"15%",
+            render: (text, record) => (showCreateUser(record.testCase.createUser))
+        },
+        {
+            title: `创建时间`,
+            dataIndex:  ["testCase","createTime"],
+            key: "createTime",
+            width:"15%",
         },
         {
             title: `操作`,
@@ -67,6 +82,7 @@ const TestPlanBindCaseList = (props) =>{
     let repositoryId = sessionStorage.getItem("repositoryId")
     const testPlanId = sessionStorage.getItem('testPlanId')
     let history = useHistory();
+    const [tableLoading,setTableLoading] = useState(true);
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
@@ -78,10 +94,8 @@ const TestPlanBindCaseList = (props) =>{
     })
 
     useEffect(()=>{
-        if(tabKey==="1"){
-            findPage()
-        }
-    },[pageParam,tabKey])
+        findPage()
+    },[pageParam,testPlanId])
 
     const findPage = () =>{
         const param = {
@@ -90,6 +104,7 @@ const TestPlanBindCaseList = (props) =>{
         }
         findBindTestCaseList(param).then((res)=>{
             setTotalPage(res.totalPage)
+            setTableLoading(false)
         })
     }
 
@@ -114,6 +129,16 @@ const TestPlanBindCaseList = (props) =>{
         setVisible(true);
     }
 
+    const showCreateUser = (createUser) =>{
+        if(createUser&&createUser.nickname){
+            return <div className={"ws-user-item"}>
+                <Space>
+                    <Avatar style={{width:"20px",height:"20px",lineHeight:"20px"}}>{createUser?.nickname[0]}</Avatar>
+                    <span >{createUser?.nickname} </span>
+                </Space>
+            </div>
+        }
+    }
 
 
     //再根据不同的用例类型跳到不同的页面
@@ -152,23 +177,30 @@ const TestPlanBindCaseList = (props) =>{
     //跳转路由
     const toDetailAddRouterCommon = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.testCase.id);
-        history.push(`/repository/plan-to-${record.testCase.caseType}`)
+        history.push(`/plan/plan-to-${record.testCase.caseType}`)
     }
 
 
 
     return(
-        <div style={{margin:"10px 0",height:"100%"}}>
+        <div className={"content-box-center"}>
+            <div style={{margin:"10px 0",height:"100%"}}>
             <div className={`${visible?"teston-hide":"teston-show"}`} >
                 <div className='title-space-between'>
                     <div className={'test-title'}>
-                        <div>用例: ({testPlanDetailList.length})</div>
+                        <div>测试用例({testPlanDetailList.length})</div>
                     </div>
-                    <IconBtn
-                        className="pi-icon-btn-grey"
-                        name={"关联用例"}
-                        onClick={showConnect}
-                    />
+                    <Space>
+                        <TestPlanENVModal {...props}/>
+                        <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
+
+                        <IconBtn
+                            className="pi-icon-btn-grey"
+                            name={"关联用例"}
+                            onClick={showConnect}
+                        />
+                    </Space>
+
                 </div>
 
                 <div className={"table-list-box"}>
@@ -178,6 +210,7 @@ const TestPlanBindCaseList = (props) =>{
                         dataSource={testPlanDetailList}
                         rowKey={record => record.id}
                         pagination={false}
+                        loading={tableLoading}
                         locale={{
                             emptyText: <Empty
                                 imageStyle={{height: 120}}
@@ -200,7 +233,7 @@ const TestPlanBindCaseList = (props) =>{
                 />
             </div>
         </div>
-
+        </div>
     )
 }
 
