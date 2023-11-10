@@ -7,6 +7,7 @@ import IconCommon from "../../../../common/IconCommon";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import ScriptEdit from "../../../common/ScriptEdit";
 import {Axios} from "tiklab-core-ui";
+import StepAssertWeb from "./StepAssertWeb";
 
 let {Option}  =  Select;
 
@@ -199,10 +200,14 @@ const WebSceneStepDrawer = ({name,stepId,findList}) =>{
                                     label: `后置`,
                                     key: '2',
                                     children: <ScriptEdit changeScript={changeAfterScript} script={stepInfo?.afterScript} />
+                                },{
+                                    label: `断言`,
+                                    key: '3',
+                                    children: <StepAssertWeb stepId={stepId}/>
                                 },
                             ]}
                         />
-                        <div style={{position: "absolute", bottom: "10px"}}>
+                        <div style={{position: "absolute", bottom: "10px",right: "30px"}}>
                         <Space>
                             <Button
                                 className={"important-btn"}

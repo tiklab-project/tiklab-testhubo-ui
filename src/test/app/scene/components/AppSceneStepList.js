@@ -97,7 +97,6 @@ const AppSceneStepList = () => {
 
                                                 </div>
                                                 :null
-
                                             }
                                             {item.location
                                                 ?<div className={"display-flex-gap "}>

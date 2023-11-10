@@ -409,41 +409,48 @@
 
 .case-drawer-box{
     padding:0 10px;
+    height: calc(100% - 50px);
 
     .case-step-title{
         font-weight: bold;
         margin: 0 0 10px 0 ;
     }
 
-
     .case-step-info{
         margin: 10px 0 0 0;
         height: calc(100% - -1px);
         overflow: hidden;
 
-        .ant-input{
-            height: 36px;
-            border-radius: 0 5px 5px 0;
-            border: 1px solid #e4e4e4;
-        }
-
-        .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector{
-            height: 36px;
-            border-radius: 5px 0 0 5px;
-            border: 1px solid #e4e4e4;
-            border-right: 0;
-        }
-
-
-        .ant-form-item{
-            margin-bottom: 15px;
-        }
-
-        .ant-form-item-label > label{
-            font-size: 12px;
-            color: #8a8a8a;
-        }
     }
+
+    .ant-input{
+        height: 36px;
+        //border-radius: 0 5px 5px 0;
+        border: 1px solid #e4e4e4;
+    }
+
+    .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+        height: 36px;
+        //border-radius: 5px 0 0 5px;
+        border: 1px solid #e4e4e4;
+        border-right: 0;
+    }
+
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector{
+        height: 36px;
+        border: 1px solid #e4e4e4;
+    }
+
+
+    .ant-form-item{
+        margin-bottom: 15px;
+    }
+
+    .ant-form-item-label > label{
+        font-size: 12px;
+        color: #8a8a8a;
+    }
+
 }
 
 .case-step-form{

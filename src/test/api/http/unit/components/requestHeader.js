@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { Space, Popconfirm } from 'antd';
-import { headerParamDictionary } from '../../../../../common/dictionary/dictionary';
-import ExSelect from "../../../../../common/ExSelect";
 import {ExTable}from '../../../../../common/EditTable';
 import IconCommon from "../../../../../common/IconCommon";
 import requestHeaderStore from "../store/requestHeaderStore";

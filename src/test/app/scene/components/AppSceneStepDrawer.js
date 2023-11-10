@@ -130,7 +130,7 @@ const AppSceneStepDrawer = ({name,stepId,findList}) =>{
                 contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
                 closable={false}
             >
-                <div className={"case-drawer-box"}>
+                <div className={"case-drawer-box"} >
                     <div className={"breadcrumb-title_between"} style={{borderBottom: "1px solid var(--pi-border-color)"}}>
                         <div className={"breadcrumb-left"}>
 
@@ -202,7 +202,7 @@ const AppSceneStepDrawer = ({name,stepId,findList}) =>{
                                 },
                             ]}
                         />
-                        <div style={{position: "absolute", bottom: "10px"}}>
+                        <div style={{position: "absolute", bottom: "10px",right: "30px"}}>
                         <Space>
                             <Button
                                 className={"important-btn"}
