@@ -11,35 +11,23 @@ import "./stepAssertStyle.scss"
 const {Option} = Select
 
 const StepAssertCommon = (props) =>{
-    const {stepId,type} = props
+    const {stepId} = props
     const {
         findStepAssertCommonList,
         findStepAssertCommon,
         createStepAssertCommon,
         updateStepAssertCommon,
+        deleteStepAssertCommon,
         assertList
     } = stepAssertCommonStore;
 
+    const [assertId, setAssertId] = useState();
+    const [type, setType] = useState("add");
     const [visible, setVisible] = useState(false);
     const [assertType, setAssertType] = useState("variable");
     const [locationList, setLocationList] = useState([]);
     const [elementType, setElementType] = useState(1);
     const [form] = Form.useForm();
-
-
-    const addAssert = async () =>{
-        let locationRes= await Axios.post("/location/findAllLocation");
-        if(locationRes.code===0){
-            setLocationList(locationRes.data)
-        }
-        if(type==="edit"){
-            let assertInfo = await findStepAssertCommon(stepId)
-
-            form.setFieldsValue({assertInfo})
-        }
-
-        setVisible(true);
-    }
 
 
     //定位器下拉选择框渲染
@@ -72,8 +60,11 @@ const StepAssertCommon = (props) =>{
             if(values.type==="variable"){
                 params={
                     ...assertParam,
+                    id:assertId,
                     stepId:stepId,
                     variableAssert:{
+                        id:assertId,
+                        assertId:assertId,
                         variable:values.variable,
                         compare:values.compare,
                         expect:values.expect
@@ -82,8 +73,11 @@ const StepAssertCommon = (props) =>{
             }else {
                 params={
                     ...assertParam,
+                    id:assertId,
                     stepId:stepId,
                     elementAssert:{
+                        id:assertId,
+                        assertId:assertId,
                         location:values.location,
                         locationValue:values.locationValue,
                         elementType:values.elementType,
@@ -123,10 +117,74 @@ const StepAssertCommon = (props) =>{
         setVisible(false);
     }
 
+    const findList =async ()=> {
+        await findStepAssertCommonList({stepId:stepId})
+    }
+
+    const findLocation = async () =>{
+        let locationRes= await Axios.post("/location/findAllLocation");
+        if(locationRes.code===0){
+            setLocationList(locationRes.data)
+        }
+    }
+
+    /**
+     * 添加断言
+     */
+    const addAssert = async () =>{
+        await findLocation()
+
+        setVisible(true);
+    }
+
+    /**
+     * 删除断言
+     */
+    const deleteAssert =async (assertId) =>{
+        await deleteStepAssertCommon(assertId);
+        await findList()
+    }
+
+    /**
+     * 更新断言
+     */
+    const updateAssert = async (assertId)=>{
+        await findLocation()
+
+        let assertInfo = await findStepAssertCommon(assertId)
+        setAssertType(assertInfo.type)
+
+        if(assertInfo.type==="variable"){
+            let values = assertInfo.variableAssert
+
+            form.setFieldsValue({
+                type:assertInfo.type,
+                variable:values.variable,
+                compare:values.compare,
+                expect:values.expect
+            })
+        }
+
+        if(assertInfo.type==="element"){
+            let values = assertInfo.elementAssert
+
+            form.setFieldsValue({
+                type:assertInfo.type,
+                location:values.location,
+                locationValue:values.locationValue,
+                elementType:values.elementType,
+                expect:values.expect
+            })
+        }
+
+        setAssertId(assertId)
+        setType("edit")
+        setVisible(true);
+    }
 
     return(
-        <div className={"table-list-box"}>
-            <div className={`${visible?"teston-hide":"teston-show"}`}>
+        <div className={"table-list-box step-assert-box"}>
+            <div className={`assert-overflow-auto ${visible?"teston-hide":"teston-show"}`}>
                 <div style={{padding:"10px 0"}}>
                     <IconBtn
                         className="pi-icon-btn-grey"
@@ -136,11 +194,15 @@ const StepAssertCommon = (props) =>{
 
                 </div>
 
-                <AssertList assertList={assertList}/>
+                <AssertList
+                    assertList={assertList}
+                    deleteAssert={deleteAssert}
+                    updateAssert={updateAssert}
+                />
 
 
             </div>
-            <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
+            <div className={`assert-overflow-auto case-bind_box ${visible?"teston-show":"teston-hide"}`}>
 
                 <Form
                     form={form}
@@ -244,7 +306,11 @@ const StepAssertCommon = (props) =>{
                                 <IconBtn
                                     className="pi-icon-btn-grey"
                                     name={"取消"}
-                                    onClick={()=>setVisible(false)}
+                                    onClick={()=> {
+                                        form.resetFields()
+                                        setVisible(false)
+                                        setType("add")
+                                    }}
                                 />
                             </Space>
                         </Col>

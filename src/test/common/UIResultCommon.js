@@ -35,13 +35,23 @@ const UIResultCommon = (props) =>{
             title: '是否通过',
             width: '10%',
             dataIndex: 'result',
-            render: (text) => (
-                text===1
-                    ?<div  className={"history-item-result isSucceed"} style={{margin:0}}>通过</div>
-                    :<div  className={"history-item-result isFailed"} style={{margin:0}}>未通过</div>
-            )
+            render: (text) => (showResult(text))
         },
     ]
+
+    const showResult = (result) =>{
+        if(result===0){
+            return <div  className={"history-item-result isFailed"} style={{margin:0}}>未通过</div>
+        }
+
+        if(result===1){
+            return <div  className={"history-item-result isSucceed"} style={{margin:0}}>通过</div>
+        }
+
+        if(result===2){
+            return <div  className={"history-item-result isNotRun"} style={{margin:0}}>未执行</div>
+        }
+    }
 
 
     return(

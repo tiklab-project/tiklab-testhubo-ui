@@ -1,11 +1,15 @@
 import React from "react";
 import {Space, Table, Tag} from "antd";
 import "./stepAssertStyle.scss"
+import IconCommon from "../../../common/IconCommon";
+import {observer} from "mobx-react";
 
 const AssertList =(props) =>{
-    const {assertList} = props;
+    const {assertList,deleteAssert,updateAssert} = props;
 
-
+    /**
+     * 值断言中的比较
+     */
     const showCompare = (compare) =>{
         switch (compare) {
             case 1:
@@ -24,6 +28,9 @@ const AssertList =(props) =>{
         }
     }
 
+    /**
+     * 元素断言中的类型
+     */
     const showElementType = (type) =>{
         switch (type) {
             case 1:
@@ -35,69 +42,100 @@ const AssertList =(props) =>{
         }
     }
 
+    /**
+     * 值断言
+     */
+    const variableView = (data)=>{
+        return(
+            <div className={"display-flex-gap"}>
+                <div style={{width:"100px"}}>
+                    <Tag color="#2db7f5">值断言</Tag>
+                </div>
+                <Space>
+                    <div style={{fontSize:"12px",color:"#aaa" }}>变量值: </div>
+                    <div>{data.variable}</div>
 
-    const showAssertList = () =>{
-        return assertList&&assertList.map(item=>{
+                    <div style={{fontSize:"12px",color:"#aaa" }}>比较: </div>
+                    <div>{showCompare(data.compare)}</div>
 
-            if(item.type==="variable"){
-                const  variable = item.variableAssert
+                    <div style={{fontSize:"12px",color:"#aaa" }}>期望值: </div>
+                    <div>{data.expect}</div>
+                </Space>
+            </div>
+        )
+    }
 
-                return(
-                    <div className={"assert-item"}>
-                        <Tag color="#2db7f5">值断言</Tag>
-                        <Space>
-                            <div style={{fontSize:"12px",color:"#aaa" }}>变量值: </div>
-                            <div>{variable.variable}</div>
+    /**
+     * 元素断言
+     */
+    const elementView = (data)=>{
+        return(
+            <div className={"display-flex-gap"}>
+                <div style={{width:"100px"}}>
+                    <Tag color="#2db7f5">元素断言</Tag>
+                </div>
 
-                            <div style={{fontSize:"12px",color:"#aaa" }}>比较: </div>
-                            <div>{showCompare(variable.compare)}</div>
-
-                            <div style={{fontSize:"12px",color:"#aaa" }}>期望值: </div>
-                            <div>{variable.expect}</div>
-                        </Space>
+                <div>
+                    <div className={"display-flex-gap"}>
+                        <div style={{fontSize:"12px",color:"#aaa" }}>定位: </div>
+                        <div>{data.location}</div>
+                        <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
+                        <div>{data.locationValue}</div>
                     </div>
-                )
-            }else {
-                const  element = item.elementAssert
 
-                return(
-                    <div className={"assert-item"}>
-                        <Tag color="#2db7f5">元素断言</Tag>
-                        <Space>
-                            <div style={{fontSize:"12px",color:"#aaa" }}>定位: </div>
-                            <div>{element.location}</div>
-                            <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
-                            <div>{item.locationValue}</div>
+                    <div className={"display-flex-gap"}>
+                        <div style={{fontSize:"12px",color:"#aaa" }}>元素类型: </div>
+                        <div>{showElementType(data.elementType)}</div>
 
-                            <div style={{fontSize:"12px",color:"#aaa" }}>元素类型: </div>
-                            <div>{showElementType(element.elementType)}</div>
-
-                            {
-                                element.elementType===1
-                                    ? <>
-                                        <div style={{fontSize:"12px",color:"#aaa" }}>期望值: </div>
-                                        <div>{element.expect}</div>
-                                    </>
-
-
-                                    : null
-                            }
-
-                        </Space>
+                        {
+                            data.elementType===1
+                                ? <>
+                                    <div style={{fontSize:"12px",color:"#aaa" }}>期望值: </div>
+                                    <div>{data.expect}</div>
+                                </>
+                                : null
+                        }
                     </div>
-                )
-            }
-        })
+
+                </div>
+            </div>
+        )
     }
 
 
     return(
         <div>
             {
-                showAssertList()
+                assertList&&assertList.map(item=>{
+                    return(
+                        <div className={"assert-item"}>
+                            <div className={"display-flex-between"}>
+                                {
+                                    item.type==="variable"
+                                        ?variableView(item.variableAssert)
+                                        :elementView( item.elementAssert)
+                                }
+
+                                <Space>
+                                    <IconCommon
+                                        className={"icon-s edit-icon"}
+                                        icon={"bianji11"}
+                                        onClick={()=> updateAssert(item.id)}
+                                    />
+                                    <IconCommon
+                                        className={"icon-s edit-icon"}
+                                        icon={"shanchu3"}
+                                        onClick={()=> deleteAssert(item.id)}
+                                    />
+                                </Space>
+
+                            </div>
+                        </div>
+                    )
+                })
             }
         </div>
     )
 }
 
-export default AssertList;
+export default observer(AssertList);

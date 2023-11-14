@@ -2,4 +2,17 @@
     border: 1px solid var(--pi-border-color);
     padding: 10px;
     margin:0 0 10px 0;
+    font-size: 12px;
+}
+
+.step-assert-box{
+    overflow: hidden;
+    height: calc(100% - 260px);
+    padding: 10px;
+
+    .assert-overflow-auto{
+        height: 100%;
+        overflow: auto;
+    }
+
 }
