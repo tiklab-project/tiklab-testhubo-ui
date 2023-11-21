@@ -72,7 +72,6 @@ const day = ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08
 ]
 
 //功能测试结果
-
 const functionalTestResult =[
     '未执行',
     '成功',
@@ -81,11 +80,21 @@ const functionalTestResult =[
     '阻塞'
 ]
 
+//用例类型
+const CASE_TYPE={
+    WEB:"web",
+    APP:"app",
+    API:"api",
+    FUNCTION:"function"
+}
+
+
 export {
     headerParamDictionary,
     mockValueDictionary,
     dataTypeDictionary,
     week,
     day,
-    functionalTestResult
+    functionalTestResult,
+    CASE_TYPE
 }

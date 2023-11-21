@@ -32,7 +32,7 @@ const ApiSceneStepDrawer = (props) =>{
                 width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
                 <div className={"content-box-center"}>

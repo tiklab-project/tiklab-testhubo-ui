@@ -4,7 +4,7 @@ import apiSceneStepStore from "../store/apiSceneStepStore";
 import ConnectSelectCommon from "../../../../common/ConnectSelectCommon";
 
 const ApiSceneBindUnit =(props) =>{
-    const {apiUnitStore,setVisible,findList} = props;
+    const {apiUnitStore,setVisible,findList,apiSceneId} = props;
     const {findApiUnitList,apiUnitList} = apiUnitStore;
     const {bindApiUnit} = apiSceneStepStore
 
@@ -36,7 +36,7 @@ const ApiSceneBindUnit =(props) =>{
 
     // 提交
     const onFinish = async (id) => {
-        await bindApiUnit([id])
+        await bindApiUnit([id],apiSceneId)
         await findList()
         setVisible(false);
     };

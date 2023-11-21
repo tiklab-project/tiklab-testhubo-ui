@@ -1,20 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import apiSceneStepStore from "../store/apiSceneStepStore";
-
 import {inject, observer} from "mobx-react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
-import {Col, Row, Table} from "antd";
+import {Button, Col, Dropdown, Menu, Row, Table, Tag} from "antd";
 import IconCommon from "../../../../../common/IconCommon";
-import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiSceneBindUnit from "./apiSceneBindUnit";
 import ApiSceneStepDrawer from "./ApiSceneStepDrawer";
+import stepCommonStore from "../../../../common/stepcommon/store/StepCommonStore";
+import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
+import IfJudgmentDrawer from "../../../../common/ifJudgment/components/IfJudgmentDrawer";
+import IfJudgmentEdit from "../../../../common/ifJudgment/components/IfJudgmentEdit";
 
-const {
-    findApiSceneStepList,
-    deleteApiSceneStep,
-    updateApiSceneStep,
-} = apiSceneStepStore;
+const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
 
 const ApiSceneStepList = ({apiUnitStore}) => {
@@ -30,7 +27,7 @@ const ApiSceneStepList = ({apiUnitStore}) => {
     },[apiSceneId])
 
     const findList = async () =>{
-        let list = await findApiSceneStepList(apiSceneId)
+        let list = await  findStepCommonList({caseId:apiSceneId,caseType:CASE_TYPE.API})
         setStepList(list)
     }
 
@@ -42,17 +39,25 @@ const ApiSceneStepList = ({apiUnitStore}) => {
         const reorderedItems = Array.from(stepList);
         const [dragItem] = reorderedItems.splice(result.source.index, 1);
 
-        //排序设置成当前位置
-        dragItem.sort=result.destination.index
-        //源排序位置
-        dragItem.oldSort = result.source.index
+        let param = {
+            //排序设置成当前位置
+            sort:result.destination.index,
+            //源排序位置
+            oldSort:result.source.index,
+            id:dragItem.id,
+            caseId:dragItem.caseId
+        }
 
-        updateApiSceneStep(dragItem).then(()=>findList())
+
+        updateStepCommon(param).then(()=>findList())
     };
 
     const renderItems = () => {
-        return stepList.map((item, index) => (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
+        return stepList.map((item, index) => {
+            let step = item.apiSceneStep
+            let ifJudgment = item.ifJudgment
+
+            return <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                     <>
                         <div
@@ -64,53 +69,93 @@ const ApiSceneStepList = ({apiUnitStore}) => {
                                 ...provided.draggableProps.style,
                             }}
                         >
-                            <ApiSceneStepDrawer
-                                name={
-                                    <Row
-                                        // gutter={[10,0]}
-                                        className={"step-item-content"}
-                                    >
-                                        <Col span={1}>
-                                            <div
-                                                {...provided.dragHandleProps}
-                                                className={"step-item-box-icon"}
+                            {
+                                ifJudgment
+                                    ? <IfJudgmentDrawer
+                                        name={
+                                            <Row
+                                                // gutter={[10,0]}
+                                                className={"step-item-content"}
                                             >
-                                                <MenuOutlined />
-                                            </div>
-                                        </Col>
-                                        <Col span={1}>
-                                            <div>{item.sort}</div>
-                                        </Col>
-                                        <Col span={3}>
-                                            {item?.apiUnit?.testCase?.name}
-                                        </Col>
-                                        <Col span={2}>
-                                            {item?.apiUnit?.methodType}
-                                        </Col>
-                                        <Col span={8}>{item?.apiUnit?.path}</Col>
-                                        <Col span={3}>{item.createTime}</Col>
-                                        <Col style={{marginLeft: "auto",height:"20px"}}>
-                                            <div className={"step-item-delete"}>
-                                                <IconCommon
-                                                    className={"icon-s edit-icon"}
-                                                    icon={"shanchu3"}
-                                                    onClick={(e)=> {
-                                                        deleteApiSceneStep(item.id).then(() => findList())
-                                                        e.stopPropagation()
-                                                    }}
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                }
-                                stepId={item.id}
-                                findList={findList}
-                            />
+                                                <Col span={1}>
+                                                    <div
+                                                        {...provided.dragHandleProps}
+                                                        className={"step-item-box-icon"}
+                                                    >
+                                                        <MenuOutlined/>
+                                                    </div>
+                                                </Col>
+                                                <Col span={1}>
+                                                    <div>{item.sort}</div>
+                                                </Col>
+                                                <Col span={4}>
+                                                    <Tag color={"processing"}>if 条件判断</Tag>
+                                                </Col>
+                                                <Col style={{marginLeft: "auto", height: "20px"}}>
+                                                    <div className={"step-item-delete"}>
+                                                        <IconCommon
+                                                            className={"icon-s edit-icon"}
+                                                            icon={"shanchu3"}
+                                                            onClick={(e) => {
+                                                                deleteStepCommon(item.id, CASE_TYPE.API).then(() => findList())
+                                                                e.stopPropagation()
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        }
+                                        stepId={item.id}
+                                        findList={findList}
+                                    />
+                                    : <ApiSceneStepDrawer
+                                        name={
+                                            <Row
+                                                // gutter={[10,0]}
+                                                className={"step-item-content"}
+                                            >
+                                                <Col span={1}>
+                                                    <div
+                                                        {...provided.dragHandleProps}
+                                                        className={"step-item-box-icon"}
+                                                    >
+                                                        <MenuOutlined/>
+                                                    </div>
+                                                </Col>
+                                                <Col span={1}>
+                                                    <div>{item.sort}</div>
+                                                </Col>
+                                                <Col span={3}>
+                                                    {step?.apiUnit?.testCase?.name}
+                                                </Col>
+                                                <Col span={2}>
+                                                    {step?.apiUnit?.methodType}
+                                                </Col>
+                                                <Col span={8}>{step?.apiUnit?.path}</Col>
+                                                <Col span={3}>{item.createTime}</Col>
+                                                <Col style={{marginLeft: "auto", height: "20px"}}>
+                                                    <div className={"step-item-delete"}>
+                                                        <IconCommon
+                                                            className={"icon-s edit-icon"}
+                                                            icon={"shanchu3"}
+                                                            onClick={(e) => {
+                                                                deleteStepCommon(item.id, CASE_TYPE.API).then(() => findList())
+                                                                e.stopPropagation()
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        }
+                                        stepId={item.id}
+                                        findList={findList}
+                                    />
+                            }
                         </div>
                     </>
                 )}
             </Draggable>
-        ));
+        });
     };
 
 
@@ -119,17 +164,26 @@ const ApiSceneStepList = ({apiUnitStore}) => {
         setVisible(true);
     }
 
+
+    //添加步骤
+    const menu = (
+        <Menu>
+            <Menu.Item><a onClick={showConnect}>关联用例</a></Menu.Item>
+            <Menu.Item><IfJudgmentEdit caseId={apiSceneId} findList={findList}/> </Menu.Item>
+        </Menu>
+    );
+
     return (
         <div className={"content-box-center"}>
             <div className={"table-list-box"}>
                 <div className={`${visible?"teston-hide":"teston-show"}`} >
                     <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            name={"关联用例"}
-                            onClick={showConnect}
-                        />
-
+                        <Dropdown
+                            overlay={menu}
+                            placement="bottom"
+                        >
+                            <Button>添加步骤</Button>
+                        </Dropdown>
                         <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                     </div>
                     <DragDropContext onDragEnd={onDragEnd}>
@@ -178,6 +232,7 @@ const ApiSceneStepList = ({apiUnitStore}) => {
                         visible={visible}
                         setVisible={setVisible}
                         findList={findList}
+                        apiSceneId={apiSceneId}
                     />
                 </div>
             </div>

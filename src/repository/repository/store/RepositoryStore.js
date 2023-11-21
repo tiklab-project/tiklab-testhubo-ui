@@ -2,7 +2,7 @@ import {observable,action} from "mobx";
 import {Axios} from "tiklab-core-ui";
 
 /**
- * 仓库 store
+ * 仓库 stepAssertCommon
  */
 export class RepositoryStore {
     @observable repositoryList = [];

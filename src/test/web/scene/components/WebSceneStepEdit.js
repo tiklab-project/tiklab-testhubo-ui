@@ -3,7 +3,6 @@ import { observer } from "mobx-react";
 import {Form, Button, Input, Modal, Select, Col, Row} from 'antd';
 import webSceneStepStore from "../store/webSceneStepStore";
 import {Axios} from "tiklab-core-ui";
-import IconBtn from "../../../../common/iconBtn/IconBtn";
 
 let {Option}  =  Select;
 /**
@@ -98,11 +97,7 @@ const WebSceneStepEdit = ({findList}) => {
 
     return (
         <>
-            <IconBtn
-                className="pi-icon-btn-grey"
-                onClick={showModal}
-                name={"添加步骤"}
-            />
+            <a onClick={showModal}>添加步骤</a>
             <Modal
                 destroyOnClose={true}
                 title={"添加步骤"}

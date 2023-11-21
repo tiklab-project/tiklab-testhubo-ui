@@ -1,20 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import funcUnitStepStore from "../store/funcUnitStepStore";
 import IconCommon from "../../../common/IconCommon";
 import {observer} from "mobx-react";
 import FunctionStepEdit from "./FunctionStepEdit";
 import FunctionStepDrawer from "./FunctionStepDrawer";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
-import {Row,Col} from "antd";
+import {Row, Col, Menu, Dropdown, Button} from "antd";
+import stepCommonStore from "../../common/stepcommon/store/StepCommonStore";
+import {CASE_TYPE} from "../../../common/dictionary/dictionary";
+import AppSceneStepEdit from "../../app/scene/components/AppSceneStepEdit";
 
-const {
-    findFuncUnitStepList,
-    deleteFuncUnitStep,
-    updateFuncUnitStep,
-} = funcUnitStepStore;
-
-
+const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
 const FunctionStepList = () => {
 
@@ -26,7 +22,7 @@ const FunctionStepList = () => {
     },[funcUnitId])
 
     const findList = async () =>{
-        let list = await findFuncUnitStepList(funcUnitId)
+        let list = await findStepCommonList({caseId:funcUnitId,caseType:CASE_TYPE.FUNCTION})
         setStepList(list)
     }
 
@@ -38,17 +34,23 @@ const FunctionStepList = () => {
         const reorderedItems = Array.from(stepList);
         const [dragItem] = reorderedItems.splice(result.source.index, 1);
 
-        //排序设置成当前位置
-        dragItem.sort=result.destination.index
-        //源排序位置
-        dragItem.oldSort = result.source.index
+        let param = {
+            //排序设置成当前位置
+            sort:result.destination.index,
+            //源排序位置
+            oldSort:result.source.index,
+            id:dragItem.id,
+            caseId:dragItem.caseId
+        }
 
-        updateFuncUnitStep(dragItem).then(()=>findList())
+
+        updateStepCommon(param).then(()=>findList())
     };
 
     const renderItems = () => {
-        return stepList.map((item, index) => (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
+        return stepList.map((item, index) => {
+            let step = item.funcUnitStep
+            return <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                     <>
                         <div
@@ -75,19 +77,22 @@ const FunctionStepList = () => {
                                             <div>{item.sort}</div>
                                         </Col>
                                         <Col span={7}>
-                                            <div>{item.described}</div>
+                                            <div>{step?.described}</div>
                                         </Col>
                                         <Col span={6}>
-                                            {item.expect?<div>{item.expect}</div>:null}
+                                            {step?.expect?<div>{step?.expect}</div>:null}
                                         </Col>
                                         <Col span={6}>
-                                            {item.actual?<div>{item.actual}</div>:null}
+                                            {step?.actual?<div>{step?.actual}</div>:null}
                                         </Col>
                                         <Col style={{marginLeft: "auto",height:"20px"}}>
                                             <IconCommon
                                                 className={"icon-s edit-icon"}
                                                 icon={"shanchu3"}
-                                                onClick={()=>deleteFuncUnitStep(item.id).then(()=>findList())}
+                                                onClick={(e)=> {
+                                                    deleteStepCommon(item.id, CASE_TYPE.FUNCTION).then(() => findList())
+                                                    e.stopPropagation()
+                                                }}
                                             />
                                         </Col>
                                     </Row>
@@ -100,14 +105,28 @@ const FunctionStepList = () => {
                     </>
                 )}
             </Draggable>
-        ));
+        });
     };
+
+
+    //添加步骤
+    const menu = (
+        <Menu>
+            <Menu.Item><FunctionStepEdit findList={findList} type={"add"}/></Menu.Item>
+            <Menu.Item><a>If判断</a> </Menu.Item>
+        </Menu>
+    );
 
     return (
         <>
             <div className={"table-list-box"}>
                 <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
-                    <FunctionStepEdit findList={findList} type={"add"}/>
+                    <Dropdown
+                        overlay={menu}
+                        placement="bottom"
+                    >
+                        <Button>添加步骤</Button>
+                    </Dropdown>
                     <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                 </div>
 

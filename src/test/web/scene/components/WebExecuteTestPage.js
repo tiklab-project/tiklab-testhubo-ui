@@ -53,7 +53,7 @@ const WebExecuteTestPage = (props) =>{
 
             if(res.code===0){
                 let data = res.data;
-                setWebStepList(data?.webUnitResultList);
+                setWebStepList(data?.stepCommonInstanceList);
 
                 let instance = data?.webSceneInstance;
                 form.setFieldsValue({
@@ -102,7 +102,7 @@ const WebExecuteTestPage = (props) =>{
                 width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
                 <div className={"content-box-center"}>

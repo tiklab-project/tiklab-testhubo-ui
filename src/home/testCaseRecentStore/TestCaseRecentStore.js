@@ -2,7 +2,7 @@ import { observable,  action } from "mobx";
 import {Axios} from "tiklab-core-ui";
 
 /**
- * 最近访问的用例 store
+ * 最近访问的用例 stepAssertCommon
  */
 export class TestCaseRecentStore {
 	@observable recentList = [];

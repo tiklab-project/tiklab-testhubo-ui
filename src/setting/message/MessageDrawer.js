@@ -233,7 +233,7 @@ const MessageDrawer = (props) =>{
                 mask={false}
                 width={360}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 extra={
                     <div className={"msg-select-box"}>
                         {

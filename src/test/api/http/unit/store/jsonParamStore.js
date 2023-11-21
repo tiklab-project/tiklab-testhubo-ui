@@ -5,7 +5,7 @@ import {Axios} from "tiklab-core-ui";
 /**
  * 定义
  * http
- * json store
+ * json stepAssertCommon
  */
 class JsonParamStore {
 

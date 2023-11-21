@@ -1,5 +1,9 @@
 import React from "react";
-import {Form, Input, Spin, Table} from "antd";
+import {Col, Empty, Form, Input, List, Row, Skeleton, Spin, Table, Tag} from "antd";
+import emptyImg from "../../assets/img/empty.png";
+import {MenuOutlined} from "@ant-design/icons";
+import IconCommon from "../../common/IconCommon";
+import {CASE_TYPE} from "../../common/dictionary/dictionary";
 
 const layout = {
     labelCol: {span: 4},
@@ -41,21 +45,93 @@ const UIResultCommon = (props) =>{
 
     const showResult = (result) =>{
         if(result===0){
-            return <div  className={"history-item-result isFailed"} style={{margin:0}}>未通过</div>
+            return  <Tag color="error">未通过</Tag>
         }
 
         if(result===1){
-            return <div  className={"history-item-result isSucceed"} style={{margin:0}}>通过</div>
+            return  <Tag color="success">通过</Tag>
         }
 
         if(result===2){
-            return <div  className={"history-item-result isNotRun"} style={{margin:0}}>未执行</div>
+            return  <Tag color="default">未执行</Tag>
         }
     }
 
 
+    const showIfStep = (item) =>(
+        <Row
+            className={"step-item-content"}
+            style={{ width: "100%"}}
+        >
+            <Col span={1}>
+                <div>{item.sort}</div>
+            </Col>
+            <Col span={4}>
+            </Col>
+            <Col span={15}><Tag color={"processing"}>if 条件判断</Tag></Col>
+            <Col style={{marginLeft: "auto",height:"20px"}}>
+                <div>{showResult(item.result)}</div>
+            </Col>
+        </Row>
+    )
+
+    const showWebStep = (instance,item) =>(
+        <Row
+            className={"step-item-content"}
+            style={{ width: "100%"}}
+        >
+            <Col span={1}>
+                <div>{item.sort}</div>
+            </Col>
+            <Col span={4}>
+                <div>{instance?.name}</div>
+            </Col>
+            <Col span={15}>
+                {instance?.actionType
+                    ?<div className={"display-flex-gap"}>
+                        <div style={{fontSize:"12px",color:"#aaa" }}>操作: </div>
+                        <div >{instance?.actionType}</div>
+
+                        {
+                            instance?.parameter
+                                ?<>
+                                    <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
+                                    <div>{instance?.parameter}</div>
+                                </>
+                                :null
+                        }
+
+                    </div>
+                    :null
+
+                }
+                {instance?.location
+                    ?<div className={"display-flex-gap "}>
+                        <div style={{fontSize:"12px",color:"#aaa" }}>定位: </div>
+                        <div>{instance?.location}</div>
+                        {
+                            instance?.locationValue
+                                ?<>
+                                    <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
+                                    <div>{instance?.locationValue}</div>
+                                </>
+                                :null
+                        }
+                    </div>
+                    :null
+                }
+
+            </Col>
+            <Col style={{marginLeft: "auto",height:"20px"}}>
+                <div>{showResult(item.result)}</div>
+            </Col>
+        </Row>
+    )
+
+
+
     return(
-        <div style={{height:"calc(100% - 52px)"}}>
+        <div style={{height:"calc(100% - 50px)"}}>
             <Spin spinning={spinning}>
                 <div className={"unit-instance-detail"}>
                     <div className={"header-item"}>步骤总详情</div>
@@ -93,11 +169,27 @@ const UIResultCommon = (props) =>{
                     </div>
                     <div className={"header-item"}>步骤列表</div>
                     <div className='table-list-box' style={{margin:"10px"}}>
-                        <Table
-                            columns={columns}
+                        <List
+                            className="demo-loadmore-list"
+                            // loading={initLoading}
+                            itemLayout="horizontal"
                             dataSource={dataList}
-                            rowKey={record => record.index}
-                            pagination={false}
+                            locale={{
+                                emptyText: <Empty
+                                    imageStyle={{ height: 120 }}
+                                    description={<span>暂无历史步骤</span>}
+                                    image={emptyImg}
+                                />,
+                            }}
+                            renderItem={(item) =>(
+                                <List.Item className={"home-list-api"} >
+                                    {
+                                        item.webSceneInstanceStep
+                                            ?showWebStep(item.webSceneInstanceStep,item)
+                                            :showIfStep(item)
+                                    }
+                                </List.Item>
+                            )}
                         />
                     </div>
                 </div>

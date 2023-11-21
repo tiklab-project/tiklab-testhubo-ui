@@ -44,11 +44,7 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
 
     return (
         <>
-            <IconBtn
-                className="pi-icon-btn-grey"
-                onClick={showModal}
-                name={"添加步骤"}
-            />
+            <a onClick={showModal}>添加步骤</a>
             <Modal
                 destroyOnClose={true}
                 title={type==="add"?"添加步骤":"编辑步骤"}

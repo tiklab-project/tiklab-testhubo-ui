@@ -49,7 +49,7 @@ const AppSceneInstanceSinglePage =({appSceneInstanceId,name})=>{
                 width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
                 <CaseBread

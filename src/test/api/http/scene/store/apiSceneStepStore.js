@@ -37,11 +37,11 @@ class ApiSceneStepStore {
 
 
     @action
-    bindApiUnit = async (selectItem) => {
+    bindApiUnit = async (selectItem,apiSceneId) => {
         let bindList = [];
         for (let i=0;i<selectItem.length;i++){
             bindList.push({
-                apiScene: {id: this.apiSceneId},
+                apiSceneId:apiSceneId,
                 apiUnit: {id:selectItem[i]}
             });
         }

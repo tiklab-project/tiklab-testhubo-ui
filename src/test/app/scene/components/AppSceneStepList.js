@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import appSceneStepStore from "../store/appSceneStepStore";
 
 import {observer} from "mobx-react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
@@ -7,14 +6,13 @@ import {MenuOutlined} from "@ant-design/icons";
 import IconCommon from "../../../../common/IconCommon";
 import AppSceneStepEdit from "./AppSceneStepEdit";
 import AppSceneStepDrawer from "./AppSceneStepDrawer";
-import {Col, Row} from "antd";
+import {Button, Col, Dropdown, Menu, Row, Tag} from "antd";
+import stepCommonStore from "../../../common/stepcommon/store/StepCommonStore";
+import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
+import IfJudgmentDrawer from "../../../common/ifJudgment/components/IfJudgmentDrawer";
+import IfJudgmentEdit from "../../../common/ifJudgment/components/IfJudgmentEdit";
 
-const {
-    findAppSceneStepList,
-    deleteAppSceneStep,
-    updateAppSceneStep,
-} = appSceneStepStore;
-
+const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
 const AppSceneStepList = () => {
 
@@ -26,7 +24,7 @@ const AppSceneStepList = () => {
     },[appSceneId])
 
     const findList = async () =>{
-        let list = await findAppSceneStepList(appSceneId)
+        let list = await findStepCommonList({caseId:appSceneId,caseType:CASE_TYPE.APP})
         setStepList(list)
     }
 
@@ -38,17 +36,24 @@ const AppSceneStepList = () => {
         const reorderedItems = Array.from(stepList);
         const [dragItem] = reorderedItems.splice(result.source.index, 1);
 
-        //排序设置成当前位置
-        dragItem.sort=result.destination.index
-        //源排序位置
-        dragItem.oldSort = result.source.index
+        let param = {
+            //排序设置成当前位置
+            sort:result.destination.index,
+            //源排序位置
+            oldSort:result.source.index,
+            id:dragItem.id,
+            caseId:dragItem.caseId
+        }
 
-        updateAppSceneStep(dragItem).then(()=>findList())
+        updateStepCommon(param).then(()=>findList())
     };
 
     const renderItems = () => {
-        return stepList.map((item, index) => (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
+        return stepList.map((item, index) => {
+            let step = item.appSceneStep
+            let ifJudgment = item.ifJudgment
+
+            return <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                     <>
                         <div
@@ -60,88 +65,145 @@ const AppSceneStepList = () => {
                                 ...provided.draggableProps.style,
                             }}
                         >
-                            <AppSceneStepDrawer
-                                name={
-                                    <Row
-                                        // gutter={[10,0]}
-                                        className={"step-item-content"}
-                                    >
-                                        <Col span={1}>
-                                            <div
-                                                {...provided.dragHandleProps}
-                                                className={"step-item-box-icon"}
+                            {
+                                ifJudgment
+                                    ? <IfJudgmentDrawer
+                                        name={
+                                            <Row
+                                                // gutter={[10,0]}
+                                                className={"step-item-content"}
                                             >
-                                                <MenuOutlined />
-                                            </div>
-                                        </Col>
-                                        <Col span={1}>
-                                            <div>{item.sort}</div>
-                                        </Col>
-                                        <Col span={4}>
-                                            <div>{item.name}</div>
-                                        </Col>
-                                        <Col span={15}>
-                                            {item.actionType
-                                                ?<div className={"display-flex-gap"}>
-                                                    <div style={{fontSize:"12px",color:"#aaa" }}>操作: </div>
-                                                    <div >{item.actionType}</div>
+                                                <Col span={1}>
+                                                    <div
+                                                        {...provided.dragHandleProps}
+                                                        className={"step-item-box-icon"}
+                                                    >
+                                                        <MenuOutlined/>
+                                                    </div>
+                                                </Col>
+                                                <Col span={1}>
+                                                    <div>{item.sort}</div>
+                                                </Col>
+                                                <Col span={4}>
+                                                    <Tag color={"processing"}>if 条件判断</Tag>
+                                                </Col>
+                                                <Col style={{marginLeft: "auto", height: "20px"}}>
+                                                    <div className={"step-item-delete"}>
+                                                        <IconCommon
+                                                            className={"icon-s edit-icon"}
+                                                            icon={"shanchu3"}
+                                                            onClick={(e) => {
+                                                                deleteStepCommon(item.id, CASE_TYPE.APP).then(() => findList())
+                                                                e.stopPropagation()
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        }
+                                        stepId={item.id}
+                                        findList={findList}
+                                    />
+                                    : <AppSceneStepDrawer
+                                        name={
+                                            <Row
+                                                // gutter={[10,0]}
+                                                className={"step-item-content"}
+                                            >
+                                                <Col span={1}>
+                                                    <div
+                                                        {...provided.dragHandleProps}
+                                                        className={"step-item-box-icon"}
+                                                    >
+                                                        <MenuOutlined/>
+                                                    </div>
+                                                </Col>
+                                                <Col span={1}>
+                                                    <div>{item.sort}</div>
+                                                </Col>
+                                                <Col span={4}>
+                                                    <div>{step?.name}</div>
+                                                </Col>
+                                                <Col span={15}>
+                                                    {step?.actionType
+                                                        ? <div className={"display-flex-gap"}>
+                                                            <div style={{fontSize: "12px", color: "#aaa"}}>操作:</div>
+                                                            <div>{step?.actionType}</div>
 
-                                                    {
-                                                        item.parameter
-                                                            ?<>
-                                                                <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
-                                                                <div>{item.parameter}</div>
-                                                            </>
-                                                            :null
+                                                            {
+                                                                step?.parameter
+                                                                    ? <>
+                                                                        <div style={{fontSize: "12px", color: "#aaa"}}>参数:</div>
+                                                                        <div>{step?.parameter}</div>
+                                                                    </>
+                                                                    : null
+                                                            }
+
+                                                        </div>
+                                                        : null
+                                                    }
+                                                    {step?.location
+                                                        ? <div className={"display-flex-gap "}>
+                                                            <div style={{fontSize: "12px", color: "#aaa"}}>定位:</div>
+                                                            <div>{step?.location}</div>
+                                                            {
+                                                                step?.locationValue
+                                                                    ? <>
+                                                                        <div style={{fontSize: "12px", color: "#aaa"}}>参数:</div>
+                                                                        <div>{step?.locationValue}</div>
+                                                                    </>
+                                                                    : null
+                                                            }
+                                                        </div>
+                                                        : null
                                                     }
 
-                                                </div>
-                                                :null
-                                            }
-                                            {item.location
-                                                ?<div className={"display-flex-gap "}>
-                                                    <div style={{fontSize:"12px",color:"#aaa" }}>定位: </div>
-                                                    <div>{item.location}</div>
-                                                    {
-                                                        item.locationValue
-                                                            ?<>
-                                                                <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
-                                                                <div>{item.locationValue}</div>
-                                                            </>
-                                                            :null
-                                                    }
-                                                </div>
-                                                :null
-                                            }
+                                                </Col>
+                                                <Col style={{marginLeft: "auto", height: "20px"}}>
+                                                    <div className={"step-item-delete"}>
+                                                        <IconCommon
+                                                            className={"icon-s edit-icon"}
+                                                            icon={"shanchu3"}
+                                                            onClick={(e) => {
+                                                                deleteStepCommon(item.id, CASE_TYPE.APP).then(() => findList())
+                                                                e.stopPropagation()
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </Col>
 
-                                        </Col>
-                                        <Col style={{marginLeft: "auto",height:"20px"}}>
-                                            <div className={"step-item-delete"}>
-                                                <IconCommon
-                                                    className={"icon-s edit-icon"}
-                                                    icon={"shanchu3"}
-                                                    onClick={()=>deleteAppSceneStep(item.id).then(()=>findList())}
-                                                />
-                                            </div>
-                                        </Col>
-
-                                    </Row>
-                                }
-                                stepId={item.id}
-                                findList={findList}
-                            />
+                                            </Row>
+                                        }
+                                        stepId={item.id}
+                                        findList={findList}
+                                    />
+                            }
                         </div>
                     </>
                 )}
             </Draggable>
-        ));
+        });
     };
+
+
+    //添加步骤
+    const menu = (
+        <Menu>
+            <Menu.Item><AppSceneStepEdit findList={findList} /></Menu.Item>
+            <Menu.Item><IfJudgmentEdit caseId={appSceneId} findList={findList}/> </Menu.Item>
+        </Menu>
+    );
 
     return (
         <>
             <div className={"table-list-box"}>
                 <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
-                    <AppSceneStepEdit findList={findList} />
+                    <Dropdown
+                        overlay={menu}
+                        placement="bottom"
+                    >
+                        <Button>添加步骤</Button>
+                    </Dropdown>
                     <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                 </div>
                 <DragDropContext onDragEnd={onDragEnd}>
