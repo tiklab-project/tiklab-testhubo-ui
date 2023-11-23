@@ -248,7 +248,7 @@
 
 //
 .result-spin-box{
-    height: 100%;
+    height: calc(100% - 15px)
 
 
 }
@@ -281,13 +281,13 @@
 }
 
 .scene-step-detail{
-    overflow: auto;
+    overflow: hidden;
     flex: 1;
 }
 
 .scene-step-contant{
     width: 240px;
-    border: 1px solid #e4e4e4;
+    border: 1px solid var(--pi-border-color);
 }
 
 .perform-client-box{

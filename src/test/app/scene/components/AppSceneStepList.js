@@ -51,7 +51,6 @@ const AppSceneStepList = () => {
     const renderItems = () => {
         return stepList.map((item, index) => {
             let step = item.appSceneStep
-            let ifJudgment = item.ifJudgment
 
             return <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
@@ -66,7 +65,7 @@ const AppSceneStepList = () => {
                             }}
                         >
                             {
-                                ifJudgment
+                                item.type==="if"
                                     ? <IfJudgmentDrawer
                                         name={
                                             <Row

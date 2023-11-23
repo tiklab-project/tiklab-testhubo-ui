@@ -8,7 +8,7 @@ const {TabPane} = Tabs;
 const ResponseCommon = (props) =>{
 
     return(
-        <div style={{margin:"0 10px",overflow: "hidden",height: "calc( 100% - 52px )"}}>
+        <div style={{margin:"0 10px",overflow: "auto",height: "calc( 100% - 52px )"}}>
             <div >{props?.detail}</div>
 
             <Tabs defaultActiveKey="1"  >

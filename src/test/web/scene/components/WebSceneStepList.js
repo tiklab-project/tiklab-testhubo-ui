@@ -5,7 +5,7 @@ import {MenuOutlined} from "@ant-design/icons";
 import IconCommon from "../../../../common/IconCommon";
 import WebSceneStepEdit from "./WebSceneStepEdit";
 import WebSceneStepDrawer from "./WebSceneStepDrawer";
-import {Button, Col, Dropdown, Menu, Row, Space, Tag} from "antd";
+import {Button, Col, Dropdown, Menu, Row, Tag} from "antd";
 import stepCommonStore from "../../../common/stepcommon/store/StepCommonStore";
 import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
 import IfJudgmentDrawer from "../../../common/ifJudgment/components/IfJudgmentDrawer";
@@ -44,13 +44,14 @@ const WebSceneStepList = () => {
             caseId:dragItem.caseId
         }
 
-
         updateStepCommon(param).then(()=>findList())
     };
 
+    /**
+     * 步骤
+     */
     const renderItems = () => {
         return stepList.map((item, index) =>{
-            const ifJudgment = item.ifJudgment
 
             return <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
@@ -65,7 +66,7 @@ const WebSceneStepList = () => {
                             }}
                         >
                             {
-                                ifJudgment
+                                item.type==="if"
                                     ?<IfJudgmentDrawer
                                         name={
                                             <Row

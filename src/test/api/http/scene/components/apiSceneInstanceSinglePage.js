@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
 import {TextMethodType} from "../../common/methodType";
@@ -7,7 +7,8 @@ import {observer} from "mobx-react";
 import apiUnitInstanceStore from "../../unit/store/apiUnitInstanceStore";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
 import CaseBread from "../../../../../common/CaseBread";
-import {Drawer} from "antd";
+import {Drawer, Tag} from "antd";
+import IfInstance from "../../../../common/ifJudgment/components/ifInstance";
 
 const ApiSceneInstanceSinglePage = (props) =>{
     const {apiSceneInstanceId,name} = props
@@ -18,6 +19,8 @@ const ApiSceneInstanceSinglePage = (props) =>{
     const [stepSelect, setStepSelect] = useState();
     const [stepData, setStepData] = useState();
     const [open, setOpen] = useState(false);
+    const [ifInstance, setIfInstance] = useState();
+    const [stepType, setStepType] = useState();
 
     const showDrawer = async () => {
         let res = await findApiSceneInstance(apiSceneInstanceId)
@@ -73,38 +76,105 @@ const ApiSceneInstanceSinglePage = (props) =>{
     }
 
     //点击步骤
-    const clickFindStep = id =>{
-        setStepSelect(id)
-        findApiUnitInstance(id).then(res=>{
-            setStepData(res)
-        })
+    const clickFindStep = item =>{
+        setStepSelect(item.id)
+        setStepType(item.type)
+
+        if(item.type==="if"){
+            setIfInstance(item.ifJudgmentInstance)
+        }
+
+        if(item.type==="api-scene"){
+            findApiUnitInstance(item.id).then(res=>{
+                setStepData(res)
+            })
+        }
+
     }
 
 
     //展示步骤列表
     const showStepListView = (data)=>{
         return data&&data.map(item=>{
-
             let apiUnitInstance = item.apiUnitInstance;
-            return(
-                <div
-                    style={{display:"flex",alignItems:"center"}}
-                    className={`history-step-item ${stepSelect===item.id?"history-item-selected":""}`}
-                    key={item.id}
-                    onClick={()=>clickFindStep(apiUnitInstance.id)}
-                >
-                    {
-                        apiUnitInstance.result===1
-                            ?<div style={{background: "green",width: "8px",height: "8px",borderRadius: "50%"}} />
-                            :<div style={{background: "red",width: "8px",height: "8px",borderRadius: "50%"}}  />
-                    }
-                    <TextMethodType type={apiUnitInstance.apiUnit?.methodType} />
-                    <div style={{overflow: "hidden",textOverflow: "ellipsis"}}>{apiUnitInstance.apiUnit?.path}</div>
-                </div>
-            )
+
+            if(item.type==="api-scene"){
+                return(
+                    <div
+                        style={{display:"flex",alignItems:"center"}}
+                        className={`history-step-item ${stepSelect===item.id?"history-item-selected":""}`}
+                        key={item.id}
+                        onClick={()=> {
+                            if(item.result===2){return}
+                            clickFindStep(item)
+                        }}
+                    >
+                        {showResult(item.result)}
+                        <TextMethodType type={apiUnitInstance.apiUnit?.methodType} />
+                        <div style={{overflow: "hidden",textOverflow: "ellipsis"}}>{apiUnitInstance.apiUnit?.path}</div>
+                    </div>
+                )
+            }
+
+            if(item.type==="if"){
+                return(
+                    <div
+                        style={{display:"flex",alignItems:"center",gap:"3px"}}
+                        className={`history-step-item  ${stepSelect===item.id?"history-item-selected":""}`}
+                        key={item.id}
+                        onClick={()=> {
+                            if(item.result===2){return}
+                            clickFindStep(item)
+                        }}
+                    >
+                        {showResult(item.result)}
+                        <div className='history-item-detail'>
+                            <div  style={{overflow: "hidden",textOverflow: "ellipsis"}}>
+                                <Tag color={"processing"}>if 条件判断</Tag>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         })
     }
 
+    /**
+     * 右侧内容
+     */
+    const rightContent = () =>{
+
+        switch (stepType) {
+            case "api-scene":
+                return(
+                    <ResponseCommon
+                        detail={showDetail(detail)}
+                        resBody={stepData?.responseInstance?.responseBody}
+                        resHeader={processResHeader(stepData?.responseInstance?.responseHeader)}
+                        reqHeader={processResHeader(stepData?.requestInstance?.requestHeader)}
+                    />
+                )
+            case "if":
+                return <IfInstance ifInstance={ifInstance}/>
+            default:
+                return <EmptyTip />
+
+        }
+    }
+
+    const showResult = (result) =>{
+        if(result===0){
+            return <div style={{background: "red",width: "8px",height: "8px",borderRadius: "50%"}}  />
+        }
+
+        if(result===1){
+            return <div style={{background: "green",width: "8px",height: "8px",borderRadius: "50%"}} />
+        }
+
+        if(result===2){
+            return <div style={{background: "grey",width: "8px",height: "8px",borderRadius: "50%"}}  />
+        }
+    }
 
     return(
         <>
@@ -160,21 +230,14 @@ const ApiSceneInstanceSinglePage = (props) =>{
                                 <div className={"header-item"}>步骤列表</div>
                                 <div>
                                     {
-                                        showStepListView(allData?.stepList)
+                                        showStepListView(allData?.stepCommonInstanceList)
                                     }
                                 </div>
                             </div>
                             <div className={"scene-step-detail"}>
                                 <div className={"header-item"}>步骤详情</div>
                                 {
-                                    stepData
-                                        ?<ResponseCommon
-                                            detail={showDetail(detail)}
-                                            resBody={stepData?.responseInstance?.responseBody}
-                                            resHeader={processResHeader(stepData?.responseInstance?.responseHeader)}
-                                            reqHeader={processResHeader(stepData?.requestInstance?.requestHeader)}
-                                        />
-                                        :<EmptyTip />
+                                    rightContent()
                                 }
 
                             </div>

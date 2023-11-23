@@ -310,7 +310,7 @@
 }
 
 .history-detail-all-item{
-    width: 150px;
+    width: 130px;
     height: 100px;
     background: #efefef;
     border-radius: 5px;
@@ -368,16 +368,6 @@
     }
 
 
-    .step-item-content {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        //background: var(--pi-bg-grey-100);
-        padding: 10px;
-        //border: 1px solid var(--pi-border-color);
-
-        font-size: 12px;
-    }
 
     .step-item-content-header{
         display: flex;
@@ -402,8 +392,16 @@
     .ant-row{
         align-items: center;
     }
+}
 
-
+.step-item-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    //background: var(--pi-bg-grey-100);
+    padding: 10px;
+    //border: 1px solid var(--pi-border-color);
+    font-size: 12px;
 }
 
 .case-drawer-box{

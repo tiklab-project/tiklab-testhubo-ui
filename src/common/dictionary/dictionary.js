@@ -84,7 +84,8 @@ const functionalTestResult =[
 const CASE_TYPE={
     WEB:"web",
     APP:"app",
-    API:"api",
+    API_SCENE:"api-scene",
+    API_UNIT:"api-unit",
     FUNCTION:"function"
 }
 

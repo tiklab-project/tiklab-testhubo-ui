@@ -27,7 +27,7 @@ const ApiSceneStepList = ({apiUnitStore}) => {
     },[apiSceneId])
 
     const findList = async () =>{
-        let list = await  findStepCommonList({caseId:apiSceneId,caseType:CASE_TYPE.API})
+        let list = await  findStepCommonList({caseId:apiSceneId,caseType:CASE_TYPE.API_SCENE})
         setStepList(list)
     }
 
@@ -55,7 +55,6 @@ const ApiSceneStepList = ({apiUnitStore}) => {
     const renderItems = () => {
         return stepList.map((item, index) => {
             let step = item.apiSceneStep
-            let ifJudgment = item.ifJudgment
 
             return <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
@@ -70,7 +69,7 @@ const ApiSceneStepList = ({apiUnitStore}) => {
                             }}
                         >
                             {
-                                ifJudgment
+                                item.type==="if"
                                     ? <IfJudgmentDrawer
                                         name={
                                             <Row
@@ -97,7 +96,7 @@ const ApiSceneStepList = ({apiUnitStore}) => {
                                                             className={"icon-s edit-icon"}
                                                             icon={"shanchu3"}
                                                             onClick={(e) => {
-                                                                deleteStepCommon(item.id, CASE_TYPE.API).then(() => findList())
+                                                                deleteStepCommon(item.id, CASE_TYPE.API_SCENE).then(() => findList())
                                                                 e.stopPropagation()
                                                             }}
                                                         />
@@ -139,7 +138,7 @@ const ApiSceneStepList = ({apiUnitStore}) => {
                                                             className={"icon-s edit-icon"}
                                                             icon={"shanchu3"}
                                                             onClick={(e) => {
-                                                                deleteStepCommon(item.id, CASE_TYPE.API).then(() => findList())
+                                                                deleteStepCommon(item.id, CASE_TYPE.API_SCENE).then(() => findList())
                                                                 e.stopPropagation()
                                                             }}
                                                         />
