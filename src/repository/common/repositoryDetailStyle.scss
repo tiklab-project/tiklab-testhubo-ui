@@ -81,11 +81,6 @@
         }
     }
 
-    .wd-title{
-        padding: 10px;
-        font-weight: 600;
-    }
-
     .wd-total-box{
         display: flex;
         justify-content: space-between;
@@ -95,7 +90,7 @@
     }
     .wd-total{
         background: #fff;
-        padding: 0 10px 20px;
+        padding: 15px;
         border: 1px solid var(--pi-border-color);
         border-radius: var(--pi-border-radius);
 
@@ -117,7 +112,7 @@
     }
 
     .wd-dynamic-box{
-        padding: 0 10px 20px;
+        padding: 15px;
         margin: 10px 0 0;
         background: #fff;
         //border: 1px solid var(--pi-border-color);

@@ -3,7 +3,7 @@ import Demand from "../../../integrated/teamwire/workItem/components/Demand";
 import WorkItemBindList from "../../../integrated/teamwire/defect/components/WorkItemBindList";
 import {inject, observer} from "mobx-react";
 import {Form} from "antd";
-import DetailCommon from "../../../common/DetailCommon";
+import DetailCommon from "../../../common/caseCommon/DetailCommon";
 import CaseContentCommon from "../../common/CaseContentCommon";
 import FuncUnitStepTable from "./FunctionStepList";
 import "../../common/styles/testcaseStyle.scss"
@@ -33,6 +33,7 @@ const FunctionDetail = (props) =>{
                 status:testCase.status,
                 priorityLevel:testCase.priorityLevel,
                 director:testCase.director?.id,
+                desc: testCase.desc,
             })
         })
     },[functionId])
@@ -48,6 +49,7 @@ const FunctionDetail = (props) =>{
                 status:newData.status,
                 priorityLevel:newData.priorityLevel,
                 director: {id:newData.director},
+                desc:newData.desc
             }
         }
         updateFuncUnit(params).then(()=>{
@@ -62,21 +64,19 @@ const FunctionDetail = (props) =>{
             label: `详细信息`,
             key: '1',
             children: <>
-                <div className={"case-title_weight"}>
-                    <div>基本信息</div>
-                </div>
                 <DetailCommon
                     type={true}
                     detailInfo={caseInfo}
                     updateCase={updateCase}
                     form={form}
+                    demand={
+                        <Demand
+                            workItemId={workItemId}
+                            caseInfo={caseInfo}
+                            updateFn={updateFuncUnit}
+                        />
+                    }
                 />
-                <Demand
-                    workItemId={workItemId}
-                    caseInfo={caseInfo}
-                    updateFn={updateFuncUnit}
-                />
-
             </>
         },{
             label: `用例步骤`,

@@ -6,6 +6,7 @@ import {getUser} from "tiklab-core-ui";
 import emptyImg  from "../../../assets/img/empty.png"
 import repositoryFollowStore from "../store/RepositoryFollowStore";
 import {UserOutlined} from "@ant-design/icons";
+import RepositoryIcon from "../../../common/RepositoryIcon";
 
 
 /**
@@ -28,7 +29,7 @@ const RepositoryList = (props) => {
             // align:"center",
             render: (text,record) =>(
                 <Space>
-                    <img src={record.iconUrl} alt={"icon"} className={"repository-icon icon-bg-border"}/>
+                    <RepositoryIcon iconUrl={record.iconUrl} className={"ws-img-icon"}/>
                     <span className={"link-text"}  onClick = {()=>toRepositoryDetail(record.id)}>{text}</span>
                 </Space>
             )

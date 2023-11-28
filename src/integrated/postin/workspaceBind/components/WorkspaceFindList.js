@@ -19,7 +19,7 @@ const WorkspaceFindList = (props) =>{
             // align:"center",
             render: (text,record) =>(
                 <Space>
-                    <img src={record.iconUrl} alt={"icon"} className={"repository-icon"}/>
+                    <img src={record.iconUrl} alt={"icon"} className={"ws-img-icon"}/>
                     <span>{text}</span>
                 </Space>
             )

@@ -4,8 +4,7 @@ import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
 import {ArrowLeftOutlined, LeftCircleOutlined} from "@ant-design/icons";
 import {Dropdown, Space} from "antd";
 import IconCommon from "../../common/IconCommon";
-import {inject, observer} from "mobx-react";
-import planImg from "../../assets/img/pi1.png"
+import planImg from "../../assets/img/plan.png"
 import testPlanStore from "../store/testPlanStore";
 
 const PlanLeftMenu = (props) =>{
@@ -106,7 +105,7 @@ const PlanLeftMenu = (props) =>{
                 >
                     <div className={"ws-icon-box"}>
                     <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
-                         <img src={planImg} alt={"icon"} className={"repository-icon icon-bg-border"}/>
+                         <img src={planImg} alt={"icon"} className={"repository-icon"}/>
                     </span>
                         <IconCommon
                             style={{"cursor":"pointer"}}

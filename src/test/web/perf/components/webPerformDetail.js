@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
-import DetailCommon from "../../../../common/DetailCommon";
+import DetailCommon from "../../../../common/caseCommon/DetailCommon";
 import WebPerformTestDrawer from "./webPerformTestDrawer";
 import WebPerformDetailCommon from "./webPerformDetailCommon";
 import {useHistory, useParams} from "react-router";

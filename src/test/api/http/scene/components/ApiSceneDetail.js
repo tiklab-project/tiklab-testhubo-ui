@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Space,Form} from "antd";
 import ApiSceneStepList from "./ApiSceneStepList";
 import CaseContentCommon from "../../../../common/CaseContentCommon";
-import DetailCommon from "../../../../../common/DetailCommon";
+import DetailCommon from "../../../../../common/caseCommon/DetailCommon";
 import {inject, observer} from "mobx-react";
 import VariableTable from "../../../../common/Variable/components/VariableTable";
 import "../../../../common/styles/testcaseStyle.scss"
@@ -30,6 +30,7 @@ const ApiSceneDetail = (props) =>{
                 status:testCase.status,
                 priorityLevel:testCase.priorityLevel,
                 director:testCase.director?.id,
+                desc: testCase.desc,
             })
 
         })
@@ -47,6 +48,7 @@ const ApiSceneDetail = (props) =>{
                 status:newData.status,
                 priorityLevel:newData.priorityLevel,
                 director: {id:newData.director},
+                desc:newData.desc
             }
         }
         updateApiScene(params).then(()=>{

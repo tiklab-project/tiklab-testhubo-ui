@@ -63,7 +63,7 @@ const RepositoryOverView = (props) => {
         <div className={"content-margin"}  style={{ background:"var(--pi-bg-grey-100)"}}>
             <div className={" ws-init-content"}>
                 <div className={"wd-total"}>
-                    <div className={"wd-title"}> 概要</div>
+                    <div className={"title-bold"}> 概要</div>
                     <div className={"wd-total-box"}>
                         {
                             showDetailView(items)
@@ -71,7 +71,7 @@ const RepositoryOverView = (props) => {
                     </div>
                 </div>
                 <div className={"wd-dynamic-box"}>
-                    <div className={"wd-title"} >动态详情</div>
+                    <div className={"title-bold"} >动态详情</div>
                     <div style={{margin: "0 10px"}}>
                         <DynamicWidget screen={{"repositoryId": repositoryId}}/>
                     </div>

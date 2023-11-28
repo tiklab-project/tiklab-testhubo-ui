@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form,  Button, Input,  Row, Col, Select} from 'antd';
@@ -20,7 +19,7 @@ const tailLayout = {
  * 仓库 新增
  */
 const RepositoryEdit = (props) => {
-    const { repositoryStore, repositoryId,findList,selectItem } = props;
+    const { repositoryStore,findList,selectItem } = props;
     const {
         repositoryRecent,
         createRepository,
@@ -74,7 +73,6 @@ const RepositoryEdit = (props) => {
             toRepositoryConfig(res.data)
             findList({}, selectItem)
         });
-
     };
 
 

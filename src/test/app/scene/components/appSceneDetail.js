@@ -5,7 +5,7 @@ import AppSceneStepList from "./AppSceneStepList";
 import "./appStyle.scss"
 import { Form} from "antd";
 import CaseContentCommon from "../../../common/CaseContentCommon";
-import DetailCommon from "../../../../common/DetailCommon";
+import DetailCommon from "../../../../common/caseCommon/DetailCommon";
 import VariableTable from "../../../common/Variable/components/VariableTable";
 import "../../../common/styles/testcaseStyle.scss"
 import "../../../common/styles/caseContantStyle.scss"
@@ -31,6 +31,7 @@ const AppSceneDetail = (props) => {
                 status:testCase.status,
                 priorityLevel:testCase.priorityLevel,
                 director:testCase.director?.id,
+                desc: testCase.desc,
             })
         })
     },[appSceneId])
@@ -47,6 +48,7 @@ const AppSceneDetail = (props) => {
                 status:newData.status,
                 priorityLevel:newData.priorityLevel,
                 director: {id:newData.director},
+                desc:newData.desc
             }
         }
         updateAppScene(params).then(()=>{

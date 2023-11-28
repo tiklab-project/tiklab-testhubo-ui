@@ -201,7 +201,7 @@ const AppSceneStepList = () => {
                         overlay={menu}
                         placement="bottom"
                     >
-                        <Button>添加步骤</Button>
+                        <Button className={"important-btn"}>添加步骤</Button>
                     </Dropdown>
                     <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                 </div>

@@ -4,6 +4,7 @@ import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../assets/img/empty.png";
 import "./homestyle.scss"
+import RepositoryIcon from "../common/RepositoryIcon";
 
 /**
  * 最近访问的仓库
@@ -56,7 +57,7 @@ const RepositoryRecentHome = (props) =>{
             return(
                 <div key={item.id} className={"home-recent-item"} onClick={()=>toDetail(item.id)}>
                     <div className={"home-recent-item-left"}>
-                        <img src={item.iconUrl} alt={"icon"} className={"ws-img-icon icon-bg-border"}/>
+                        <RepositoryIcon iconUrl={item.iconUrl} className={"repository-icon"}/>
                         <div className={"home-recent-item-left-name"}>{item.name}</div>
                     </div>
                     <div style={{display:"flex","justifyContent":"space-between"}}>

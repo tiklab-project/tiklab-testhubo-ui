@@ -3,7 +3,7 @@ import {Breadcrumb} from "antd";
 import {inject, observer} from "mobx-react";
 
 import AppSceneStepList from "../../scene/components/AppSceneStepList";
-import DetailCommon from "../../../../common/DetailCommon";
+import DetailCommon from "../../../../common/caseCommon/DetailCommon";
 import {useHistory} from "react-router";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
 

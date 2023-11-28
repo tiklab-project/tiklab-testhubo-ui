@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Form} from "antd";
-import DetailCommon from "../../../../../common/DetailCommon";
+import DetailCommon from "../../../../../common/caseCommon/DetailCommon";
 import CaseContentCommon from "../../../../common/CaseContentCommon";
 import ApiPerfStepList from "./apiPerfStepList";
 import ApiPerfTestDataPage from "./ApiPerfTestDataPage";
@@ -31,6 +31,7 @@ const ApiPerformDetail = (props) =>{
                 status:testCase.status,
                 priorityLevel:testCase.priorityLevel,
                 director:testCase.director?.id,
+                desc: testCase.desc,
             })
         })
 
@@ -50,6 +51,7 @@ const ApiPerformDetail = (props) =>{
                 status:newData.status,
                 priorityLevel:newData.priorityLevel,
                 director: {id:newData.director},
+                desc:newData.desc
             }
         }
         updateApiPerf(params).then(()=>{

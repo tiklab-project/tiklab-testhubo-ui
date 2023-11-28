@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {inject, observer} from "mobx-react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
-import {Button, Col, Dropdown, Menu, Row, Table, Tag} from "antd";
+import {Button, Col, Dropdown, Menu, Row, Tag} from "antd";
 import IconCommon from "../../../../../common/IconCommon";
 import ApiSceneBindUnit from "./apiSceneBindUnit";
 import ApiSceneStepDrawer from "./ApiSceneStepDrawer";
@@ -181,7 +181,7 @@ const ApiSceneStepList = ({apiUnitStore}) => {
                             overlay={menu}
                             placement="bottom"
                         >
-                            <Button>添加步骤</Button>
+                            <Button className={"important-btn"}>添加步骤</Button>
                         </Dropdown>
                         <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                     </div>

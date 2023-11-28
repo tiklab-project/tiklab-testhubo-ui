@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from "react";
-import {Dropdown, Space} from "antd";
+import {Dropdown, Space, Tooltip} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
 import IconCommon from "../../common/IconCommon";
 import {useHistory} from "react-router";
 import "./repositoryDetailStyle.scss"
 import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
+import RepositoryIcon from "../../common/RepositoryIcon";
 
 /**
  * 左侧导航展示
  */
 const LeftNav = (props) =>{
     const {repositoryStore,systemRoleStore,testcaseStore} = props;
-    const {findRepository,findRepositoryList,repositoryList,repositoryRecent} = repositoryStore;
+    const {findRepository,repositoryRecent,findRepositoryRecentList} = repositoryStore;
 
     const {setTestType} = testcaseStore;
 
@@ -42,19 +43,20 @@ const LeftNav = (props) =>{
     ]
 
     const [visible, setVisible] = useState(false);
-    const [repositoryIcon, setRepositoryIcon] = useState();
+    const [repositoryInfo, setRepositoryInfo] = useState();
+    const [recentList, setRecentList] = useState([]);
     let userId = getUser().userId
     const repositoryId = sessionStorage.getItem("repositoryId")
     const history = useHistory()
 
+
     useEffect(()=>{
         findRepository(repositoryId).then(res=>{
-            setRepositoryIcon(res.iconUrl)
+            setRepositoryInfo(res)
         })
-        findRepositoryList({userId:userId})
 
         systemRoleStore.getInitProjectPermissions(userId, repositoryId)
-    },[])
+    },[repositoryId])
 
 
     /**
@@ -75,6 +77,12 @@ const LeftNav = (props) =>{
     }
 
 
+    const openToggleWorkspace = async () =>{
+        setVisible(!visible)
+        let list = await findRepositoryRecentList()
+        setRecentList(list)
+    }
+
     /**
      * 展示切换的仓库
      */
@@ -84,14 +92,20 @@ const LeftNav = (props) =>{
                 <div className={"ws-hover-box-title"}>切换仓库</div>
                 <div style={{height:"169px"}}>
                     {
-                        repositoryList&&repositoryList.map((item,index)=> {
+                        recentList&&recentList.map((item,index)=> {
                             if(index>3) return
-                                return <div className={"ws-hover-item"} key={item.id} onClick={() => toggleRepository(item.id)}>
-                                    <Space>
-                                        <img src={item.iconUrl} alt={"icon"} className={"repository-icon"} width={20}/>
-                                        {item.name}
-                                    </Space>
-                                </div>
+                                return(
+                                    <div
+                                        className={`ws-hover-item ${item.id===repositoryId?"ws-toggle-ws-select":""}`}
+                                        key={item.id}
+                                        onClick={() => toggleRepository(item.id)}
+                                    >
+                                        <Space>
+                                            <RepositoryIcon iconUrl={item.iconUrl} className={"ws-img-icon"}/>
+                                            {item.name}
+                                        </Space>
+                                    </div>
+                                )
                             }
                         )
                     }
@@ -139,23 +153,25 @@ const LeftNav = (props) =>{
 
     const showToggleRepository = ()=> (
         <li className={`ws-detail-left-nav-item-repository `} >
-            <Dropdown
-                overlay={toggleRepositorys}
-                trigger={['click']}
-                visible={visible}
-                onOpenChange={()=>setVisible(!visible)}
-            >
-                <div className={"ws-icon-box"}>
-                    <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
-                         <img src={repositoryIcon} alt={"icon"} className={"repository-icon icon-bg-border"}/>
-                    </span>
-                    <IconCommon
-                        style={{"cursor":"pointer"}}
-                        className={"icon-s"}
-                        icon={"xiala"}
-                    />
-                </div>
-            </Dropdown>
+            <Tooltip placement="right" title={repositoryInfo?.name}>
+                <Dropdown
+                    overlay={toggleRepositorys}
+                    trigger={['click']}
+                    visible={visible}
+                    onOpenChange={openToggleWorkspace}
+                >
+                    <div className={"ws-icon-box"}>
+                        <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
+                             <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={"repository-icon"}/>
+                        </span>
+                        <IconCommon
+                            style={{"cursor":"pointer"}}
+                            className={"icon-s"}
+                            icon={"xiala"}
+                        />
+                    </div>
+                </Dropdown>
+            </Tooltip>
         </li>
     )
 
