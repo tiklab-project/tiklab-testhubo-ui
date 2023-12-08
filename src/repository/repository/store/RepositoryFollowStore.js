@@ -1,5 +1,5 @@
 import { observable,  action } from "mobx";
-import {Axios} from "tiklab-core-ui";
+import {Axios} from "thoughtware-core-ui";
 
 /**
  * 仓库关注 stepAssertCommon

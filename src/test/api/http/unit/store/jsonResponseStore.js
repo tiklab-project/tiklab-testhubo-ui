@@ -1,5 +1,5 @@
 import { observable,  action, toJS } from "mobx";
-import {Axios} from "tiklab-core-ui";
+import {Axios} from "thoughtware-core-ui";
 
 //响应结果Store
 export class JsonResponseStore {

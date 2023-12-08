@@ -28,14 +28,14 @@ const LazyComponent =  (importComponent) =>{
 
 
 //---平台
-import {Directory, Orga, UserGroup, User,} from "tiklab-user-ui";
-import { NotFound, ProjectFeature, ProjectRole, SystemFeature, SystemRole} from "tiklab-privilege-ui"
-import {ExcludeProductUser} from "tiklab-eam-ui";
-import {BackupRestore, LogTemplate, LogType, MyLog} from "tiklab-security-ui";
-import {PluginDetail, Plugin} from "tiklab-plugin-manager-ui";
-import {MessageNotice, MessageSendType, MessageType} from "tiklab-message-ui";
+import {Directory, Orga, UserGroup, User,} from "thoughtware-user-ui";
+import { NotFound, ProjectFeature, ProjectRole, SystemFeature, SystemRole} from "thoughtware-privilege-ui"
+import {ExcludeProductUser} from "thoughtware-eam-ui";
+import {BackupRestore, LogTemplate, LogType, MyLog} from "thoughtware-security-ui";
+import {PluginDetail, Plugin} from "thoughtware-plugin-manager-ui";
+import {MessageNotice, MessageSendType, MessageType} from "thoughtware-message-ui";
 import Demo from "./demo";
-import {ProductAuth} from "tiklab-licence-ui";
+import {ProductAuth} from "thoughtware-licence-ui";
 
 
 //---内部

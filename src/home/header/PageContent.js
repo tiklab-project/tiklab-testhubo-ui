@@ -2,8 +2,8 @@ import React, {useEffect} from "react";
 import HeaderContent from "./HeaderContent";
 import {renderRoutes} from "react-router-config";
 import {inject, observer} from "mobx-react";
-import {getUser} from "tiklab-core-ui";
-import { SYSTEM_ROLE_STORE } from 'tiklab-privilege-ui/es/store';
+import {getUser} from "thoughtware-core-ui";
+import { SYSTEM_ROLE_STORE } from 'thoughtware-privilege-ui/es/store';
 import './portalStyle.scss'
 
 /**

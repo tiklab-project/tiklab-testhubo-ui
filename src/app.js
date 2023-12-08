@@ -7,7 +7,7 @@ import './common/language/i18n';
 import "./assets/iconfont/iconfont";
 import "./assets/iconfont/iconfont.css";
 import {useTranslation} from "react-i18next";
-import { PluginProvider,pluginLoader} from 'tiklab-plugin-core-ui';
+import { PluginProvider,pluginLoader} from 'thoughtware-plugin-core-ui';
 
 import resources from './common/language/resource';
 

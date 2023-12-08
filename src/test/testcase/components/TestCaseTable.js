@@ -12,7 +12,7 @@ import "../../common/styles/testcaseStyle.scss"
 import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
 import TestCaseMenu from "./TestCaseMenu";
-import {getUser} from "tiklab-core-ui";
+import {getUser} from "thoughtware-core-ui";
 import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
 import {CASE_TYPE} from "../../common/DefineVariables";
 import PaginationCommon from "../../../common/pagination/Page";

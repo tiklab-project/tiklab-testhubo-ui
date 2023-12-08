@@ -3,7 +3,7 @@ import {Drawer} from "antd";
 import {useHistory, useLocation} from "react-router";
 import {renderRoutes} from "react-router-config";
 import {CASE_TYPE} from "./DefineVariables";
-import {getUser} from "tiklab-core-ui";
+import {getUser} from "thoughtware-core-ui";
 import {inject, observer} from "mobx-react";
 
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Popconfirm, Table} from "antd";
 import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
-import {applyJump} from "tiklab-core-ui"
+import {applyJump} from "thoughtware-core-ui"
 import "./workItemStyle.scss"
 import workItemBindStore from "../store/WorkItemBindStore";
 import IconBtn from "../../../../common/iconBtn/IconBtn";

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {applyJump} from "tiklab-core-ui";
+import {applyJump} from "thoughtware-core-ui";
 import DemandSelect from "./DemandSelect";
 import "./demandStyle.scss"
 import {inject, observer} from "mobx-react";

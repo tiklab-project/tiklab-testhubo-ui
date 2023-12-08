@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './repository.scss';
 import {Input} from "antd";
 import {inject, observer} from "mobx-react";
-import {getUser} from "tiklab-core-ui";
+import {getUser} from "thoughtware-core-ui";
 import RepositoryRecentHome from "../../../home/RepositoryRecentHome";
 import {SearchOutlined} from "@ant-design/icons";
 import RepositoryList from "./RepositoryList";

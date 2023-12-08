@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { observer } from "mobx-react";
 import {Form, Button, Input, Modal, Select, Col, Row} from 'antd';
 import webSceneStepStore from "../store/webSceneStepStore";
-import {Axios} from "tiklab-core-ui";
+import {Axios} from "thoughtware-core-ui";
 
 let {Option}  =  Select;
 /**

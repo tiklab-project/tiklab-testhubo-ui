@@ -5,9 +5,9 @@ import { HashRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import App from './app';
 
-import { orgStores } from 'tiklab-user-ui/es/store';
-import { privilegeStores } from "tiklab-privilege-ui/es/store";
-import {enableAxiosCE} from "tiklab-core-ui"
+import { orgStores } from 'thoughtware-user-ui/es/store';
+import { privilegeStores } from "thoughtware-privilege-ui/es/store";
+import {enableAxiosCE} from "thoughtware-core-ui"
 
 import { stores } from './stores';
 import routes from './routers';

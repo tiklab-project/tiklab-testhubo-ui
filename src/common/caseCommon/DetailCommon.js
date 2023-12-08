@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Form, Row, Col, TreeSelect, Select, Button, Tag} from "antd";
 import Input from "antd/es/input/Input";
 import {inject, observer} from "mobx-react";
-import {Axios} from "tiklab-core-ui";
+import {Axios} from "thoughtware-core-ui";
 import CaseDesc from "./CaseDesc";
 import {showCaseTypeInList} from "./CaseCommonFn";
 

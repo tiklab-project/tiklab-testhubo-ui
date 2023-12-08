@@ -5,7 +5,7 @@ import {inject, observer} from "mobx-react";
 import {messageFn} from "../../common/messageCommon/MessageCommon";
 import emptyImg from "../../assets/img/empty.png";
 import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
-import {Axios} from "tiklab-core-ui";
+import {Axios} from "thoughtware-core-ui";
 import CaseBread from "../../common/CaseBread";
 
 

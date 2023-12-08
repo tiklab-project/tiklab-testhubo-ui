@@ -5,7 +5,7 @@ import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import IconCommon from "../../../../common/IconCommon";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import ScriptEdit from "../../../common/ScriptEdit";
-import {Axios} from "tiklab-core-ui";
+import {Axios} from "thoughtware-core-ui";
 import appSceneStepStore from "../store/appSceneStepStore";
 import StepAssertApp from "./StepAssertWeb";
 

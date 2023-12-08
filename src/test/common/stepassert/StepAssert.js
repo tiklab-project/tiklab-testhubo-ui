@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 import {Button, Col, Form, Input, Row, Select, Space} from "antd";
-import {Axios} from "tiklab-core-ui";
+import {Axios} from "thoughtware-core-ui";
 import {observer} from "mobx-react";
 import stepAssertCommonStore from "../stepAssertCommon/StepAssertCommonStore";
 import AssertList from "./AssertList";

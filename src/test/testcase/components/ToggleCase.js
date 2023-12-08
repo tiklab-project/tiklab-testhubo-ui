@@ -3,7 +3,7 @@ import {showCaseTypeInList} from "../../../common/caseCommon/CaseCommonFn";
 import {inject, observer} from "mobx-react";
 import PaginationCommon from "../../../common/pagination/Page";
 import {CASE_TYPE} from "../../common/DefineVariables";
-import {getUser} from "tiklab-core-ui";
+import {getUser} from "thoughtware-core-ui";
 import {useHistory} from "react-router";
 import IconCommon from "../../../common/IconCommon";
 import {Spin} from "antd";
