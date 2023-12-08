@@ -32,7 +32,7 @@ const EnvContent = (props)=>{
     return(
         <div className={"content-box-center"}>
             <div  className={"header-box-space-between"} >
-                <div className={'header-box-title'}>环境管理</div>
+                <div className={'header-box-title'}>环境</div>
                 {
                     showEditView(activeKey)
                 }
@@ -40,13 +40,19 @@ const EnvContent = (props)=>{
             <div className={"env-tab-box"}>
                 <Tabs defaultActiveKey="api"  onChange={onChange}>
                     <TabPane tab="API环境" key="api">
-                        <ApiEnvList />
+                        <div style={{marginTop:"10px"}}>
+                            <ApiEnvList />
+                        </div>
                     </TabPane>
                     <TabPane tab="APP环境" key="app">
-                        <AppEnvList />
+                        <div style={{marginTop:"10px"}}>
+                            <AppEnvList />
+                        </div>
                     </TabPane>
                     <TabPane tab="WEB环境" key="web">
-                        <WebEnvList />
+                        <div style={{marginTop:"10px"}}>
+                            <WebEnvList />
+                        </div>
                     </TabPane>
                 </Tabs>
             </div>

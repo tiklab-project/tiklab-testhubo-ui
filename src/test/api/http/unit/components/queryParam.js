@@ -12,7 +12,7 @@ import {ExTable}from '../../../../../common/EditTable';
 import IconCommon from "../../../../../common/IconCommon";
 import queryParamStore from "../store/queryParamStore";
 
-const QueryParam = (props) =>{
+const QueryParam = ({apiUnitId}) =>{
     const {
         findQueryParamList,
         deleteQueryParam,
@@ -23,9 +23,7 @@ const QueryParam = (props) =>{
         dataLength,
     } = queryParamStore;
 
-
     const [dataSource,setDataSource] = useState([])
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
 
     useEffect( ()=>{
         findQueryParamList(apiUnitId).then(res=>setDataSource(res))

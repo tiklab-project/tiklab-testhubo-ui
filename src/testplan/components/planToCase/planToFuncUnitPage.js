@@ -8,10 +8,10 @@ const PlanToFuncUnitPage = (props) =>{
     const {findFuncUnit} = funcUnitStore
 
     const [caseInfo, setCaseInfo] = useState();
-    const funcUnitId = sessionStorage.getItem('functionId');
+    const functionId = sessionStorage.getItem('functionId');
 
     useEffect(()=>{
-        findFuncUnit(funcUnitId).then(res=>{
+        findFuncUnit(functionId).then(res=>{
             setCaseInfo(res.testCase);
         })
     },[])
@@ -25,7 +25,7 @@ const PlanToFuncUnitPage = (props) =>{
                 // icon={"gongneng"}
                 breadItem={["测试用例","用例详情"]}
             />
-            <FunctionDetail />
+            <FunctionDetail functionId={functionId}/>
 
         </div>
     )

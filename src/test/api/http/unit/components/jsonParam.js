@@ -9,11 +9,10 @@ import jsonParamStore from "../store/jsonParamStore";
 import JsonSchemaTable from "./JsonSchemaTable";
 const {findJsonParam,updateJsonParam} = jsonParamStore;
 
-const JsonParam = (props) => {
+const JsonParam = ({apiUnitId}) => {
 
     const [schemaData, setSchemaData] = useState();
 
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
     useEffect(async ()=>{
         let res = await findJsonParam(apiUnitId)
         if( res.code === 0){

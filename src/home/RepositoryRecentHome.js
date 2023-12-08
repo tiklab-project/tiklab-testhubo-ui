@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Spin} from "antd";
+import {Empty, Space, Spin} from "antd";
 import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../assets/img/empty.png";
@@ -82,13 +82,12 @@ const RepositoryRecentHome = (props) =>{
         <Spin spinning={spinning}>
             <div className={"home-recent-box"}>
                 {
-                    // dataList&&dataList.length>0
-                    //     ?showRecent(dataList)
-                    //     : <Empty
-                    //         description={<span>暂无访问</span>}
-                    //         image={emptyImg}
-                    //     />
-                    showRecent(dataList)
+                    dataList&&dataList.length>0
+                        ?<Space size={"large"}>{showRecent(dataList)}</Space>
+                        : <Empty
+                            description={<span>暂无访问</span>}
+                            image={emptyImg}
+                        />
                 }
             </div>
 

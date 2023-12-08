@@ -7,6 +7,7 @@ import ApiEnvDropDownSelect from "../../../../../support/environment/components/
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiPerfExecuteTestPage from "./ApiPerfExecuteTestPage";
 import {Space} from "antd";
+import ToggleCase from "../../../../testcase/components/ToggleCase";
 
 
 const ApiPerfContent = (props) => {
@@ -28,7 +29,7 @@ const ApiPerfContent = (props) => {
             <CaseBread
                 style={{borderBottom:"none"}}
                 title={testCaseInfo?.name}
-                caseType={testCaseInfo?.caseType}
+                toggleCase={<ToggleCase  caseId={apiPerfId}/>}
                 breadItem={["接口性能"]}
                 right={
                     <Space>
@@ -43,7 +44,7 @@ const ApiPerfContent = (props) => {
                     </Space>
                 }
             />
-            <ApiPerformDetail/>
+            <ApiPerformDetail apiPerfId={apiPerfId}/>
         </div>
     )
 }

@@ -46,7 +46,7 @@ const ApiPerfEdit = (props) => {
                 if(res.code===0){
                     findPage&&findPage()
                     sessionStorage.setItem(`apiPerfId`,res.data);
-                    props.history.push(`/repository/testcaseapi-perform/${res.data}`)
+                    props.history.push(`/repository/api-perform/${res.data}`)
                 }
             })
         }

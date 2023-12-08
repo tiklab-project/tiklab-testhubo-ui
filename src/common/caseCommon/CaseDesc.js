@@ -12,7 +12,7 @@ const CaseDesc = ({form,updateCase}) =>{
     return(
         <div>
             <div className="title-bold">描述:</div>
-            <Form form={form}>
+            <Form form={form} onValuesChange={updateCase}>
                 <Form.Item name='desc'>
                     <TextArea
                         autoSize={{minRows: 4, maxRows: 6 }}
@@ -22,7 +22,6 @@ const CaseDesc = ({form,updateCase}) =>{
                     />
                 </Form.Item>
             </Form>
-
             <div className={` ${isFocus?"teston-show":"teston-hide"}`}>
                 <Button
                     onClick={()=>{

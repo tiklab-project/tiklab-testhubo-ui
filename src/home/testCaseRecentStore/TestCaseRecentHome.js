@@ -18,7 +18,8 @@ const TestCaseRecentHome = (props) =>{
 
     useEffect( async ()=>{
         let list = await findTestCaseRecentList({userId:userId})
-        let newList = list.slice(0,4);
+        if(list==null) return
+        let newList = list.slice(0,8);
 
         setDataList(newList)
     },[userId])

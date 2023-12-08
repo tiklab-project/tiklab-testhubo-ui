@@ -14,7 +14,7 @@ import FileTextSelect from "../../../../../common/FileTextSelect";
 import IconCommon from "../../../../../common/IconCommon";
 import formParamStore from "../store/formParamStore";
 
-const FormParam = (props) =>{
+const FormParam = ({apiUnitId}) =>{
 
     const {
         findFormParamList,
@@ -27,7 +27,6 @@ const FormParam = (props) =>{
     } = formParamStore;
 
     const [dataSource,setDataSource] =useState([])
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
     
     useEffect( ()=>{
         findFormParamList(apiUnitId).then(res => setDataSource(res));

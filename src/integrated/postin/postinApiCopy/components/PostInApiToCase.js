@@ -36,17 +36,16 @@ const PostInApiToCase = (props) => {
 
     let repositoryId = sessionStorage.getItem("repositoryId")
     const [visible, setVisible] = React.useState(false);
-    const [postInApiList, setWorkspaceList] = useState();
+    const [postInApiList, setPostInApi] = useState();
     const [selectItem, setSelectItem] = useState();
 
 
 
     // 弹框展示
-    const showModal = () => {
-        findWorkspaceBindList({repositoryId:repositoryId})
-
+    const showModal =async () => {
+        await findWorkspaceBindList({repositoryId:repositoryId})
         findPostInApiList(repositoryId).then(list=>{
-            setWorkspaceList(list)
+            setPostInApi(list)
         })
         setVisible(true);
     };
@@ -99,9 +98,7 @@ const PostInApiToCase = (props) => {
 
                 <div style={{display:"flex","alignItems":"center",padding:"0 0 15px"}}>
                     <div>项目 :  {workspaceName}</div>
-
                 </div>
-
 
                 <Table
                     columns={columns}

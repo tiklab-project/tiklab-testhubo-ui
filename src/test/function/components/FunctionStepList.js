@@ -12,17 +12,17 @@ import AppSceneStepEdit from "../../app/scene/components/AppSceneStepEdit";
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
-const FunctionStepList = () => {
+const FunctionStepList = ({functionId}) => {
 
     const [stepList, setStepList] = useState([]);
-    const funcUnitId = sessionStorage.getItem('functionId')
+   
 
     useEffect(async ()=> {
         await findList()
-    },[funcUnitId])
+    },[functionId])
 
     const findList = async () =>{
-        let list = await findStepCommonList({caseId:funcUnitId,caseType:CASE_TYPE.FUNCTION})
+        let list = await findStepCommonList({caseId:functionId,caseType:CASE_TYPE.FUNCTION})
         setStepList(list)
     }
 
@@ -109,25 +109,14 @@ const FunctionStepList = () => {
     };
 
 
-    //添加步骤
-    const menu = (
-        <Menu>
-            <Menu.Item><FunctionStepEdit findList={findList} type={"add"}/></Menu.Item>
-            <Menu.Item><a>If判断</a> </Menu.Item>
-        </Menu>
-    );
 
     return (
         <>
             <div className={"table-list-box"}>
-                <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
-                    <Dropdown
-                        overlay={menu}
-                        placement="bottom"
-                    >
-                        <Button className={"important-btn"}>添加步骤</Button>
-                    </Dropdown>
-                    <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
+                <div className={"display-flex-between"} style={{margin: "10px 0"}}>
+                     <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
+
+                     <FunctionStepEdit findList={findList} type={"add"}/>
                 </div>
 
                 <DragDropContext onDragEnd={onDragEnd}>
@@ -147,7 +136,9 @@ const FunctionStepList = () => {
                                         className={"step-item-content-header"}
                                         style={{padding: "5px 10px"}}
                                     >
-                                        <Col span={1}/>
+                                        <Col span={1}>
+                                            <MenuOutlined />
+                                        </Col>
                                         <Col span={1}>序号</Col>
                                         <Col span={7}>描述</Col>
                                         <Col span={6}>期望</Col>

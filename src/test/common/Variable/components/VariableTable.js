@@ -111,10 +111,14 @@ const VariableTable = (props) =>{
 
     return(
         <div className={"table-list-box"} style={{margin:"10px 0 "}}>
-            <VariableEdit
-                belongId={belongId}
-                findPage={findPage}
-            />
+            <div className={"display-flex-between"} style={{margin: "10px 0"}}>
+                <div style={{fontWeight:"bold"}}>步骤: ({dataList.length})</div>
+
+                <VariableEdit
+                    belongId={belongId}
+                    findPage={findPage}
+                />
+            </div>
             <Table
                 columns={column}
                 dataSource={dataList}

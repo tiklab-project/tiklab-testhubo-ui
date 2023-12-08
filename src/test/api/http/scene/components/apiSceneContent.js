@@ -7,6 +7,7 @@ import ApiEnvDropDownSelect from "../../../../../support/environment/components/
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiExecuteTestPage from "./ApiExecuteTestPage";
 import {Space} from "antd";
+import ToggleCase from "../../../../testcase/components/ToggleCase";
 
 
 const ApiSceneContent = (props) => {
@@ -28,7 +29,7 @@ const ApiSceneContent = (props) => {
             <CaseBread
                 style={{borderBottom:"none"}}
                 // title={testCaseInfo?.name}
-                caseType={testCaseInfo?.caseType}
+                toggleCase={<ToggleCase  caseId={apiSceneId}/>}
                 breadItem={["用例详情"]}
                 right={
                     <Space>
@@ -43,7 +44,7 @@ const ApiSceneContent = (props) => {
                     </Space>
                 }
             />
-            <ApiSceneDetail/>
+            <ApiSceneDetail apiSceneId={apiSceneId}/>
         </div>
     )
 

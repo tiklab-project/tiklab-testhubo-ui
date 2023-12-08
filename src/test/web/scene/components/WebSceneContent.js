@@ -6,6 +6,7 @@ import CaseBread from "../../../../common/CaseBread";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import WebExecuteTestPage from "./WebExecuteTestPage";
 import {Space} from "antd";
+import ToggleCase from "../../../testcase/components/ToggleCase";
 
 
 const WebSceneContent = (props) =>{
@@ -25,7 +26,7 @@ const WebSceneContent = (props) =>{
         <div className={"content-box-center"}>
            <CaseBread
                title={testCaseInfo?.name}
-               caseType={testCaseInfo?.caseType}
+               toggleCase={<ToggleCase  caseId={webSceneId}/>}
                style={{borderBottom:"none"}}
                breadItem={["用例详情"]}
                right={
@@ -40,7 +41,7 @@ const WebSceneContent = (props) =>{
                    </Space>
                }
            />
-           <WebSceneDetail/>
+           <WebSceneDetail webSceneId={webSceneId}/>
         </div>
     )
 }

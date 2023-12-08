@@ -12,7 +12,7 @@ const { Option } = Select;
 
 
 // 请求参数的可编辑表格
-const AssertParam = (props) =>{
+const AssertParam = ({apiUnitId}) =>{
     const {
         findAssertParamList,
         deleteAssertParam,
@@ -24,7 +24,6 @@ const AssertParam = (props) =>{
     } = assertParamStore;
     
     const [dataSource,setDataSource] =useState([])
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
 
     useEffect( ()=>{
         findAssertParamList(apiUnitId).then(res => setDataSource(res));

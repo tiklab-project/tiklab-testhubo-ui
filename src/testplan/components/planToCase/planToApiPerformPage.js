@@ -25,7 +25,7 @@ const PlanToApiPerformPage = (props) =>{
                 // icon={"jiekou1"}
                 breadItem={["测试用例","用例详情"]}
             />
-            <ApiPerformDetail planType={true}/>
+            <ApiPerformDetail planType={true} apiPerfId={apiPerfId}/>
         </div>
     )
 }

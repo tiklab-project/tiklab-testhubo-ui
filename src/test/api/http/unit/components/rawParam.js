@@ -7,7 +7,7 @@ import rawParamStore from "../store/rawParamStore";
 const { TextArea } = Input;
 const { Option } = Select;
 
-const RawParam = (props) => {
+const RawParam = ({apiUnitId}) => {
     const { 
         createRawParam, 
         updateRawParam, 
@@ -17,8 +17,6 @@ const RawParam = (props) => {
     const [focus, setFocus] = useState(false);
     const [dataSource, setDataSource] = useState();
     const [form] = Form.useForm();
-
-    const apiUnitId = sessionStorage.getItem('apiUnitId') ;
 
     useEffect(()=>{
         findRawParam(apiUnitId).then((data)=>{

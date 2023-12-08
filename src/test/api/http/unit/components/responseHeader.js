@@ -6,7 +6,7 @@ import responseHeaderStore from "../store/responseHeaderStore";
 import IconCommon from "../../../../../common/IconCommon";
 
 // 请求参数的可编辑表格
-const ResponseHeader = (props) =>{
+const ResponseHeader = ({apiUnitId}) =>{
     const {
         findResponseHeaderList,
         deleteResponseHeader,
@@ -150,7 +150,6 @@ const ResponseHeader = (props) =>{
 
 
     const [dataSource,setDataSource] = useState([])
-    const apiUnitId =  sessionStorage.getItem('apiUnitId');
 
     useEffect( ()=>{
         findResponseHeaderList(apiUnitId).then(res=>setDataSource(res))

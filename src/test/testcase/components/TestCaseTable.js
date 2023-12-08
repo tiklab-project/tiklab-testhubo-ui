@@ -61,7 +61,7 @@ const TestCaseTable = (props) => {
             title: `模块`,
             dataIndex: ["category","name"],
             key: "category",
-            width:"10%",
+            width:"15%",
         },
         {
             title: `创建人`,
@@ -80,7 +80,7 @@ const TestCaseTable = (props) => {
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            width: 100,
+            width: 50,
             render: (text, record) => (
                 <Space size="middle">
                     <Popconfirm

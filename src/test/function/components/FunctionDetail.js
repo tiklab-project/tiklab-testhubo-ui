@@ -11,14 +11,12 @@ import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
 
 const FunctionDetail = (props) =>{
-    const {funcUnitStore} = props;
+    const {funcUnitStore,functionId} = props;
     const {findFuncUnit,updateFuncUnit} = funcUnitStore;
 
     const [form] = Form.useForm()
     const [caseInfo,setCaseInfo]=useState();
     const [workItemId, setWorkItemId] = useState();
-
-    const functionId = sessionStorage.getItem('functionId')
 
     useEffect(()=> {
         findFuncUnit(functionId).then(res=>{
@@ -81,7 +79,7 @@ const FunctionDetail = (props) =>{
         },{
             label: `用例步骤`,
             key: '2',
-            children: <div style={{padding:"10px 0"}}><FuncUnitStepTable /></div>
+            children: <FuncUnitStepTable functionId={functionId}/>
         },{
             label: `关联缺陷`,
             key: '3',

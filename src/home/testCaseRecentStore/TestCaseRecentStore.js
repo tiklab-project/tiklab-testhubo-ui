@@ -27,13 +27,17 @@ export class TestCaseRecentStore {
 		this.params = {
 			...value,
 			orderParams:[{name:'updateTime', orderType:'desc'}],
+			pageParam:{
+				pageSize:10,
+				currentPage:1
+			}
 		}
-		const res = await Axios.post("/testCaseRecent/findTestCaseRecentList",this.params)
+		const res = await Axios.post("/testCaseRecent/findTestCaseRecentPage",this.params)
 
 		if(res.code === 0 ) {
-			this.recentList = res.data;
+			this.recentList = res.data.dataList;
 
-			return res.data;
+			return res.data.dataList;
 		}
 	}
 

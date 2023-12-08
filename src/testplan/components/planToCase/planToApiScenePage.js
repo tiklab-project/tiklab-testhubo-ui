@@ -25,7 +25,7 @@ const PlanToApiScenePage = (props) =>{
                 // icon={"jiekou1"}
                 breadItem={["测试用例","用例详情"]}
             />
-            <ApiSceneDetail planType={true}/>
+            <ApiSceneDetail planType={true} apiSceneId={apiSceneId}/>
         </div>
     )
 }

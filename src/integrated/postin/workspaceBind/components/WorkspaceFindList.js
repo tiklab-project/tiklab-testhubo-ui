@@ -4,6 +4,7 @@ import IconBtn from "../../../../common/iconBtn/IconBtn";
 import {inject, observer} from "mobx-react";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import workspaceBindStore from "../store/WorkspaceBindStore";
+import RepositoryIcon from "../../../../common/RepositoryIcon";
 
 const WorkspaceFindList = (props) =>{
     const {findWorkspaceList,bindWorkspace,findWorkspaceBindList} = workspaceBindStore;
@@ -19,7 +20,7 @@ const WorkspaceFindList = (props) =>{
             // align:"center",
             render: (text,record) =>(
                 <Space>
-                    <img src={record.iconUrl} alt={"icon"} className={"ws-img-icon"}/>
+                    <RepositoryIcon iconUrl={record.iconUrl} className={"repository-icon"}/>
                     <span>{text}</span>
                 </Space>
             )
@@ -52,7 +53,7 @@ const WorkspaceFindList = (props) =>{
 
     // 弹框展示
     const showModal = () => {
-        findWorkspaceList({}).then(list=>{
+        findWorkspaceList({repositoryId:repositoryId}).then(list=>{
             setWorkspaceList(list)
         })
         setVisible(true);

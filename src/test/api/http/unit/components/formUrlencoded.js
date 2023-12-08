@@ -6,7 +6,7 @@ import DataTypeSelect from "../../../../../common/DataTypeSelect";
 import formUrlencodedStore from "../store/formUrlencodedStore";
 
 
-const FormUrlencoded = (props) =>{
+const FormUrlencoded = ({apiUnitId}) =>{
 
     const {
         findFormUrlencodedList,
@@ -19,8 +19,6 @@ const FormUrlencoded = (props) =>{
     } = formUrlencodedStore;
 
     const [dataSource,setDataSource] =useState([])
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
-
     useEffect( ()=>{
         findFormUrlencodedList(apiUnitId).then(res => setDataSource(res));
     },[dataLength,apiUnitId])

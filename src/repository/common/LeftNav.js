@@ -13,7 +13,7 @@ import RepositoryIcon from "../../common/RepositoryIcon";
  */
 const LeftNav = (props) =>{
     const {repositoryStore,systemRoleStore,testcaseStore} = props;
-    const {findRepository,repositoryRecent,findRepositoryRecentList} = repositoryStore;
+    const {findRepository,repositoryRecent,findRepositoryRecentList,findRepositoryJoinList} = repositoryStore;
 
     const {setTestType} = testcaseStore;
 
@@ -79,8 +79,26 @@ const LeftNav = (props) =>{
 
     const openToggleWorkspace = async () =>{
         setVisible(!visible)
-        let list = await findRepositoryRecentList()
-        setRecentList(list)
+
+        let userId = getUser().userId
+        let recentList = await findRepositoryRecentList(userId)
+
+        // 如果不足 5 个，从 repositoryList 补充，并去重
+        if (recentList.length < 5) {
+            let additionalList = await findRepositoryJoinList({ userId: userId });
+
+            // 去重
+            additionalList = additionalList.filter(item => !recentList.some(existingItem => existingItem.id === item.id));
+
+            // 将不足的项目添加到最近项目列表
+            recentList = recentList.concat(additionalList.slice(0, 5 - recentList.length));
+        }
+
+        // 如果超过 5 个，保留最新的 5 个项目
+        recentList = recentList.slice(-5);
+
+
+        setRecentList(recentList)
     }
 
     /**
@@ -90,10 +108,10 @@ const LeftNav = (props) =>{
         <div className={"ws-hover-box"}>
             <div style={{ padding: "10px"}}>
                 <div className={"ws-hover-box-title"}>切换仓库</div>
-                <div style={{height:"169px"}}>
+                <div style={{height:"210px"}}>
                     {
                         recentList&&recentList.map((item,index)=> {
-                            if(index>3) return
+                            if(index>4) return
                                 return(
                                     <div
                                         className={`ws-hover-item ${item.id===repositoryId?"ws-toggle-ws-select":""}`}

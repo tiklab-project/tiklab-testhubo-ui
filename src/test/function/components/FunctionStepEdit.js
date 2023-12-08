@@ -2,8 +2,6 @@ import React from 'react';
 import { observer } from "mobx-react";
 import {Form,  Button, Input, Space,Modal} from 'antd';
 import funcUnitStepStore from "../store/funcUnitStepStore";
-import IconCommon from "../../../common/IconCommon";
-import IconBtn from "../../../common/iconBtn/IconBtn";
 
 const { TextArea } = Input;
 
@@ -38,13 +36,11 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
         setVisible(false)
     };
 
-
     const onCancel = () => { setVisible(false) };
-
 
     return (
         <>
-            <a onClick={showModal}>添加步骤</a>
+            <Button className={"important-btn"} onClick={showModal}>添加步骤</Button>
             <Modal
                 destroyOnClose={true}
                 title={type==="add"?"添加步骤":"编辑步骤"}
@@ -55,7 +51,6 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
                 cancelText="取消"
                 centered
                 width={500}
-
             >
                 <Form
                     form={form}
@@ -69,7 +64,7 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
                         name="described"
                     >
                         <TextArea
-                            placeholder="预期结果"
+                            placeholder="描述"
                             autoSize={{minRows:2,maxRows:4}}
                         />
                     </Form.Item>

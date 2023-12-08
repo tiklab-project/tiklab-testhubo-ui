@@ -474,3 +474,35 @@
         color: #8a8a8a;
     }
 }
+
+.case-toggle{
+    position: relative;
+
+    .case-toggle-title{
+        padding: 5px;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        background: var(--pi-bg-grey-100);
+        width: 300px;
+        z-index: 1;
+        border-radius: 5px;
+        box-shadow: 0 3px 11px rgb(140 149 159 / 50%);
+    }
+
+    .toggle-case-item{
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover{
+            background: var(--pi-hover-color);
+        }
+    }
+
+    .toggle-case-item-selected{
+        background: var(--pi-hover-color);
+    }
+
+
+}

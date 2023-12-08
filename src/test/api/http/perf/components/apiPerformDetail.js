@@ -11,13 +11,12 @@ import "../../../../common/styles/caseContantStyle.scss"
 import "../../../../common/styles/unitcase.scss"
 
 const ApiPerformDetail = (props) =>{
-    const {apiPerfStore,apiEnvStore} = props;
+    const {apiPerfStore,apiEnvStore,apiPerfId} = props;
     const {findApiPerf,updateApiPerf} = apiPerfStore;
     const { envUrl } =apiEnvStore;
 
     const [form] = Form.useForm()
     const [caseInfo,setCaseInfo]=useState();
-    const apiPerfId = sessionStorage.getItem("apiPerfId");
     useEffect(()=>{
         findApiPerf(apiPerfId).then(res=>{
             setCaseInfo(res);
@@ -75,15 +74,15 @@ const ApiPerformDetail = (props) =>{
         },{
             label:"场景配置",
             key:"2",
-            children:<ApiPerfStepList type={true} {...props} />
+            children:<ApiPerfStepList type={true} {...props} apiPerfId={apiPerfId}/>
         },{
             label:"压力配置",
             key:"3",
-            children: <ApiPerformConfig {...props}/>
+            children: <ApiPerformConfig {...props} apiPerfId={apiPerfId}/>
         },{
             label:"测试数据",
             key:"4",
-            children: <ApiPerfTestDataPage />
+            children: <ApiPerfTestDataPage apiPerfId={apiPerfId} />
         }
     ]
 

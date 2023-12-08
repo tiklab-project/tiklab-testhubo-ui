@@ -25,7 +25,7 @@ const PlanToWebScenePage = (props) =>{
                 style={{borderBottom:"none"}}
                 breadItem={["测试用例","用例详情"]}
             />
-            <WebSceneDetail planType={true}/>
+            <WebSceneDetail planType={true} webSceneId={webSceneId}/>
         </div>
     )
 }

@@ -10,7 +10,7 @@ import { Button } from 'antd';
 import afterScriptStore from "../store/afterScriptStore";
 import ReactMonacoEditor from "../../../../../common/ReactMonacoEditor";
 
-const AfterScript = (props) => {
+const AfterScript = ({apiUnitId}) => {
 
     const { 
         createAfterScript, 
@@ -23,7 +23,6 @@ const AfterScript = (props) => {
     const [dataSource, setDataSource] = useState();
     const [editValue, setEditValue] = useState();
 
-    const  apiUnitId = sessionStorage.getItem('apiUnitId');
 
     useEffect(()=>{
         findAfterScript(apiUnitId).then((data)=>{

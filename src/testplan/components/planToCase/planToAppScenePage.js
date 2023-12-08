@@ -25,7 +25,7 @@ const PlanToAppScenePage = (props) =>{
                 // icon={"shouji"}
                 breadItem={["测试用例","用例详情"]}
             />
-            <AppSceneDetail planType={true} />
+            <AppSceneDetail planType={true} appSceneId={appSceneId}/>
         </div>
     )
 }

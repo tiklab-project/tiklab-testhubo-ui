@@ -13,10 +13,9 @@ import IfJudgmentEdit from "../../../common/ifJudgment/components/IfJudgmentEdit
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
-const WebSceneStepList = () => {
+const WebSceneStepList = ({webSceneId}) => {
 
     const [stepList, setStepList] = useState([]);
-    const webSceneId = sessionStorage.getItem('webSceneId')
 
     useEffect(async ()=> {
         await findList()
@@ -196,14 +195,14 @@ const WebSceneStepList = () => {
     return (
         <>
             <div className={"table-list-box"}>
-                <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
-                    <Dropdown
+                  <div className={"display-flex-between"} style={{margin: "10px 0"}}>
+                     <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
+                     <Dropdown
                         overlay={menu}
                         placement="bottom"
-                    >
+                     >
                         <Button className={"important-btn"}>添加步骤</Button>
-                    </Dropdown>
-                    <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
+                     </Dropdown>
                 </div>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="list">
@@ -221,7 +220,9 @@ const WebSceneStepList = () => {
                                         gutter={[10,0]}
                                         className={"step-item-content-header"}
                                     >
-                                        <Col span={1}/>
+                                        <Col span={1}>
+                                            <MenuOutlined />
+                                        </Col>
                                         <Col span={1}>序号</Col>
                                         <Col span={4}>名称</Col>
                                         <Col span={15}>信息</Col>

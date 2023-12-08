@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import {Form, Modal, Button, Input} from 'antd';
 import IconCommon from "../../../../common/IconCommon";
 import variableStore from "../store/VariableStore";
+import IconBtn from "../../../../common/iconBtn/IconBtn";
 const {
     findVariable,
     createVariable,
@@ -59,7 +60,11 @@ const VariableEdit = (props) => {
                         className={"icon-s edit-icon"}
                         onClick={showModal}
                     />
-                    : <Button className="important-btn" onClick={showModal}>添加变量</Button>
+                    :  <IconBtn
+                        className="pi-icon-btn-grey"
+                        name={"添加变量"}
+                        onClick={showModal}
+                    />
             }
 
             <Modal

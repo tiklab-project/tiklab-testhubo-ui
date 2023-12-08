@@ -1,24 +1,32 @@
 import React, {useEffect, useState} from "react";
 import {Form, Input} from "antd";
-import {inject, observer} from "mobx-react";
-import {getUser} from "tiklab-core-ui";
-import postinUrlStore from "../store/PostinUrlStore";
+import { observer} from "mobx-react";
+import integratedUrlStore from "../store/IntegratedUrlStore";
 
-const PostinUrlConfig = (props) =>{
-    const {findPostinUrlList,createPostinUrl,updatePostinUrl} = postinUrlStore;
+const IntegratedUrlConfig = (props) =>{
+    const {findIntegratedUrlList,createIntegratedUrl,updateIntegratedUrl} = integratedUrlStore;
 
     const [form] = Form.useForm();
     const [postInCurUrlData, setPostInCurData] = useState();
-
-
     const [teamWireCurData, setTeamWireCurData] = useState();
+    const repositoryId = sessionStorage.getItem("repositoryId")
+
 
     useEffect(()=>{
+        findPostInList()
+    },[])
+
+    
+    useEffect(()=>{
+        findTeamWireList()
+    },[])
+
+    const findPostInList = () =>{
         let param = {
-            userId:getUser().userId,
+            repositoryId:repositoryId,
             projectName: "postin"
         }
-        findPostinUrlList(param).then(list=>{
+        findIntegratedUrlList(param).then(list=>{
             if(list!==null&&list.length>0){
 
                 let postInInfo = {
@@ -27,22 +35,23 @@ const PostinUrlConfig = (props) =>{
                 }
                 setPostInCurData(postInInfo)
 
-                let postinUrl = list[0].url;
+                let integratedUrl = list[0].url;
                 form.setFieldsValue({
-                    postInUrl:postinUrl
+                    postInUrl:integratedUrl
                 })
             }else {
                 setPostInCurData({list:[]})
             }
         })
-    },[])
-    
-    useEffect(()=>{
+    }
+
+
+    const findTeamWireList = () =>{
         let param = {
-            userId:getUser().userId,
+            repositoryId:repositoryId,
             projectName: "teamwire"
         }
-        findPostinUrlList(param).then(list=>{
+        findIntegratedUrlList(param).then(list=>{
             if(list!==null&&list.length>0){
                 let teamWireInfo = {
                     list:list,
@@ -57,8 +66,7 @@ const PostinUrlConfig = (props) =>{
                 setTeamWireCurData({list:[]})
             }
         })
-    },[])
-
+    }
     /**
      * 公共方法
      * 设置地址
@@ -71,15 +79,26 @@ const PostinUrlConfig = (props) =>{
                 ...curUrlData.curData,
                 ...url,
             }
-            updatePostinUrl(param)
+            await updateIntegratedUrl(param)
+
+            if(projectName==="postin"){
+                findPostInList()
+            }else {
+                findTeamWireList()
+            }
         }else {
             let param ={
                 projectName:projectName,
-                userId:getUser().userId,
+                repositoryId:repositoryId,
                 ...url,
             }
 
-            createPostinUrl(param)
+           await createIntegratedUrl(param)
+            if(projectName==="postin"){
+                findPostInList()
+            }else {
+                findTeamWireList()
+            }
         }
     }
 
@@ -128,4 +147,4 @@ const PostinUrlConfig = (props) =>{
     )
 }
 
-export default observer(PostinUrlConfig);
+export default observer(IntegratedUrlConfig);

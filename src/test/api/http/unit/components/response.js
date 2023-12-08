@@ -7,6 +7,7 @@ const { TabPane } = Tabs;
 
 // 输出参数 返回头部与返回结果的切换
 const Response = (props) =>{
+    const {apiUnitId} = props
 
     return(
         <>
@@ -17,7 +18,7 @@ const Response = (props) =>{
                     </div>
                 </TabPane>
                 <TabPane tab="返回结果" key="2">
-                    <ResponseResult />
+                    <ResponseResult apiUnitId={apiUnitId} />
                 </TabPane>
             </Tabs>
         </>

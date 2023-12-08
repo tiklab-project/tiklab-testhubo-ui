@@ -35,7 +35,7 @@ export class ApiEnvStore {
 			orderParams: [{name:'name',orderType:'asc'}],
 		}
 
-		const res = await Axios.post("/apiEnv/findApiEnvPage",params)
+		const res = await Axios.post("/apxEnv/findApiEnvPage",params)
 		if(res.code === 0) {
 			this.apiEnvList = res.data.dataList;
 			this.totalRecord = res.data.totalRecord;
@@ -52,7 +52,7 @@ export class ApiEnvStore {
 
 		let newRow = [{id:"apiEnvInitRow"}]
 
-		const res = await Axios.post("/apiEnv/findApiEnvList",params)
+		const res = await Axios.post("/apxEnv/findApiEnvList",params)
 		if(res.code === 0) {
 			this.dataLength = res.data.length
 			this.apiEnvSourceList=res.data
@@ -71,15 +71,15 @@ export class ApiEnvStore {
 		const param = new FormData();
 		param.append('id', id);
 
-		await Axios.post("/apiEnv/deleteApiEnv",param)
+		await Axios.post("apxEnv/deleteApiEnv",param)
 	}
 
     @action
-	createApiEnv = async (values) => await Axios.post("/apiEnv/createApiEnv",values)
+	createApiEnv = async (values) => await Axios.post("apxEnv/createApiEnv",values)
 
 
 	@action
-	updateApiEnv = async (values) =>  await Axios.post("/apiEnv/updateApiEnv",values)
+	updateApiEnv = async (values) =>  await Axios.post("apxEnv/updateApiEnv",values)
 
 	
 	@action
@@ -88,7 +88,7 @@ export class ApiEnvStore {
 		const param = new FormData();
 		param.append('id', id);
 		
-		const res = await Axios.post("/apiEnv/findApiEnv",param)
+		const res = await Axios.post("apxEnv/findApiEnv",param)
 		if( res.code === 0){
 			return res.data;
 		}

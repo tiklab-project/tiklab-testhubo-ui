@@ -117,7 +117,7 @@ export const showCaseTypeInList = (type)=>{
         case "function":
             return <Tag color="#2db7f5">功能用例</Tag>
         default :
-            return <Tag color="#2db7f5">功能用例</Tag>
+            return ;
     }
 }
 

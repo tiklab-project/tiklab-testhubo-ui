@@ -11,7 +11,7 @@ const {Option} = Select
  * http
  * 响应结果
  */
-const ResponseResult = (props) =>{
+const ResponseResult = ({apiUnitId}) =>{
     const {findResponseResult,updateResponseResult} = responseResultStore;
 
     const [schemaData, setSchemaData] = useState();
@@ -19,9 +19,6 @@ const ResponseResult = (props) =>{
     const [rawText, setRawText] = useState();
     const [dataValue, setDataValue] = useState();
     const [type, setType] = useState();
-
-
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
 
 
     useEffect(async ()=>{

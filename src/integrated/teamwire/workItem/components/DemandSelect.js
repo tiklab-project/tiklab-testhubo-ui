@@ -4,7 +4,6 @@ import {Table, Input, Col,Row} from "antd";
 import {inject, observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
-import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 const DemandSelect = (props) =>{
     const {workItemStore,setShowSelect,caseInfo,updateFn,setBinded,setDemandInfo} = props;
@@ -15,6 +14,7 @@ const DemandSelect = (props) =>{
 
     const [selectProjectId, setSelectProjectId] = useState();
     const [workItemList, setWorkItemList] = useState([]);
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     const columns = [
         {
@@ -46,7 +46,7 @@ const DemandSelect = (props) =>{
         setSelectProjectId(id)
         caseInfo.testCase.workItemId = id;
         updateFn(caseInfo).then(()=>{
-            findWorkItem(id).then(res=>{
+            findWorkItem(id,repositoryId).then(res=>{
                 if(res.code === 0) {
                     setDemandInfo(res.data)
                     setBinded(true)
@@ -77,6 +77,7 @@ const DemandSelect = (props) =>{
      */
     const findDemandList = (param)=>{
         let params = {
+            repositoryId:repositoryId,
             workTypeCode:"demand",
             ...param
         }

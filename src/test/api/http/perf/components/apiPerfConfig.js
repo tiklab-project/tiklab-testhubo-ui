@@ -10,7 +10,7 @@ const layout = {
 
 //压力测试配置
 const ApiPerfConfig = (props) =>{
-    const {apiPerfStore,agentConfigStore} = props;
+    const {apiPerfStore,agentConfigStore,apiPerfId} = props;
     const {findApiPerf,updateApiPerf} = apiPerfStore;
     const {findAgentConfigList} = agentConfigStore;
 
@@ -19,7 +19,6 @@ const ApiPerfConfig = (props) =>{
     const [agentConfigList, setAgentConfigList] = useState();
 
 
-    const apiPerfId = sessionStorage.getItem("apiPerfId")
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(()=>{

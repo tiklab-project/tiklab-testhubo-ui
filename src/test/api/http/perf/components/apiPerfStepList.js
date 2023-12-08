@@ -9,6 +9,7 @@ import apiSceneStore from "../../scene/store/apiSceneStore";
 import ApiPerformBindScene from "./apiPerformBindScene";
 
 const ApiPerfStepList = (props) =>{
+    const {apiPerfId} = props
     const {findApiPerfStepList,apiPerfStepList,deleteApiPerfStep} =apiPerfStepStore;
     const {findApiSceneList} =apiSceneStore;
 
@@ -49,7 +50,6 @@ const ApiPerfStepList = (props) =>{
     ]
 
     let repositoryId = sessionStorage.getItem("repositoryId");
-    const apiPerfId = sessionStorage.getItem("apiPerfId")
     let history = useHistory()
     const [visible, setVisible] = useState(false);
 

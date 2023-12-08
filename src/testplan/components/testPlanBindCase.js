@@ -2,7 +2,7 @@
  * @description：测试计划中关联用例
  * @date: 2021-08-20 17:00
  */
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Modal, Table, Space, Select, Row, Col, Input, Avatar,} from 'antd';
 import IconBtn from "../../common/iconBtn/IconBtn";
@@ -15,11 +15,12 @@ import {
 import testPlanDetailStore from "../store/testPlanDetailStore";
 import ApiSceneBindUnit from "../../test/api/http/scene/components/apiSceneBindUnit";
 import {SearchOutlined} from "@ant-design/icons";
+import PaginationCommon from "../../common/pagination/Page";
 
 // 添加与编辑
 const TestPlanBindCase = (props) => {
-    const {testPlanId,testcaseStore,setVisible} = props;
-    const {findBindTestCaseList,planBindCase} = testPlanDetailStore;
+    const {testPlanId,testcaseStore,setVisible,findBindCasePage} = props;
+    const {planBindCase} = testPlanDetailStore;
     const {findTestCaseList,testcaseList} = testcaseStore;
 
 
@@ -58,6 +59,13 @@ const TestPlanBindCase = (props) => {
     ]
 
     let repositoryId = sessionStorage.getItem("repositoryId")
+    const [totalPage, setTotalPage] = useState();
+    const [pageSize] = useState(20);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(()=>{
+        findPage()
+    },[])
 
     //提交
     const onFinish = (id) => {
@@ -65,7 +73,7 @@ const TestPlanBindCase = (props) => {
             testPlan:{id: testPlanId},
             testCase: {id:id}
         }
-        planBindCase([obj]).then(()=>findBindTestCaseList({testPlanId:testPlanId}))
+        planBindCase([obj]).then(()=>findBindCasePage())
         setVisible(false)
     }
 
@@ -94,11 +102,30 @@ const TestPlanBindCase = (props) => {
     }
 
     const findPage = (params) =>{
-        let values = {
+        let param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:1
+            },
             repositoryId:repositoryId,
             ...params
         }
-        findTestCaseList(values)
+        findTestCaseList(param).then((res)=>{
+            setTotalPage(res.totalPage);
+        })
+    }
+
+    // 分页
+    const onTableChange = (current) => {
+        setCurrentPage(current)
+        let param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:current
+            },
+        }
+
+        findPage(param)
     }
 
 
@@ -165,6 +192,11 @@ const TestPlanBindCase = (props) => {
                             };
                         }}
                         pagination={false}
+                    />
+                    <PaginationCommon
+                        currentPage={currentPage}
+                        totalPage={totalPage}
+                        changePage={onTableChange}
                     />
                 </div>
             </div>

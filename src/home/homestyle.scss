@@ -9,7 +9,7 @@
         /*width: 800px;*/
         margin: 0 auto;
         width: 1080px;
-        padding: 10px 10px 0 10px ;
+        padding: 20px ;
 
         .ant-list-item-meta{
             align-items: center;
@@ -72,10 +72,9 @@
 
         .home-recent-item{
             height: 100px;
-            width: 210px;
-            //border: 1px solid var(--pi-border-color);
+            width: 235px;
             border-radius: var(--pi-border-radius) ;
-            margin: 0 20px 10px 0;
+            margin: 0 3px 0 0;
             background: var(--pi-bg-grey-100);
             padding: 10px;
             cursor: pointer;
@@ -98,7 +97,7 @@
 
 
             &-num{
-                padding: 10px;
+                padding: 25px 0 0 0;
                 display: flex;
                 align-items: center;
 
@@ -129,11 +128,11 @@
 
     &-title{
         margin: 0 0 0 10px;
-        font-size: var(--pi-font-size-16);
         color: #009cff;
         width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-size: 13px;
     }
 
     &-other{
@@ -150,7 +149,7 @@
 .home-list-api{
     cursor:pointer;
     border-radius:5px;
-    padding: 10px!important;
+    padding: 5px!important;
     margin: 0 0 5px 0;
 }
 

@@ -54,7 +54,7 @@ const CategoryEdit =(props)=>{
                 props.findList()
             });
         }else{
-            values.parentCategory = { id:categoryId }
+            values.parentId = categoryId
             createCategory(values).then(()=>{
                 props.findList()
             });

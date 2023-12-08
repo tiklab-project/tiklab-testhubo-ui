@@ -8,7 +8,7 @@ const ProjectSelect = (props)=>{
     const {findProjectList} = workItemStore;
 
     const [projectList, setProjectList] = useState([]);
-
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     const showOption = (list) =>{
         return list&&list.map((item,index)=>(
@@ -22,7 +22,7 @@ const ProjectSelect = (props)=>{
     }
 
     const onSearch =()=>{
-        findProjectList({}).then(list=>{
+        findProjectList({repositoryId:repositoryId}).then(list=>{
             setProjectList(list)
         })
     }

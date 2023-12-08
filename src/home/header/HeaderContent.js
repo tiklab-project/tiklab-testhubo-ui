@@ -12,7 +12,7 @@ const HeaderContent = props => {
 
     //去往系统设置页
     const toSystem = () =>{
-        props.history.push("/systemManagement/systemRole")
+        props.history.push("/setting/systemRole")
     }
 
     return(

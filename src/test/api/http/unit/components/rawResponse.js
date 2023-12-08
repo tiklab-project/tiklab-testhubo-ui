@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import {Input, Button, Form, Select} from 'antd';
 import rawResponseStore from "../store/rawResponseStore";
+import {useParams} from "react-router";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -21,10 +22,10 @@ const RawResponse = (props) => {
     const [focus, setFocus] = useState(false);
     
     const [form] = Form.useForm();
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
+    const {id} = useParams()
 
     useEffect(()=>{
-        findRawResponse(apiUnitId).then((res)=>{
+        findRawResponse(id).then((res)=>{
             if( res.data.code === 0){
                 const data = res.data.data;
                 if(data !== null){
@@ -35,7 +36,7 @@ const RawResponse = (props) => {
                 }
             } 
         })
-    },[radioValue,apiUnitId])
+    },[radioValue,id])
 
     // 提交保存
     const onFinish = (values) => {

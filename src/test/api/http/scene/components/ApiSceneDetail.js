@@ -10,12 +10,11 @@ import "../../../../common/styles/caseContantStyle.scss"
 import "../../../../common/styles/unitcase.scss"
 
 const ApiSceneDetail = (props) =>{
-    const {apiSceneStore,apiEnvStore} = props;
+    const {apiSceneStore,apiSceneId} = props;
     const {findApiScene,updateApiScene} = apiSceneStore;
 
     const [form] = Form.useForm()
     const [caseInfo,setCaseInfo]=useState();
-    const apiSceneId = sessionStorage.getItem('apiSceneId');
     const repositoryId = sessionStorage.getItem('repositoryId');
     useEffect(()=> {
         findApiScene(apiSceneId).then(res=>{
@@ -72,7 +71,7 @@ const ApiSceneDetail = (props) =>{
         },{
             label: `测试步骤`,
             key: '2',
-            children: <ApiSceneStepList />
+            children: <ApiSceneStepList apiSceneId={apiSceneId}/>
         },{
             label: `环境变量`,
             key: '3',
@@ -81,7 +80,7 @@ const ApiSceneDetail = (props) =>{
     ]
 
     return(
-        <CaseContentCommon tabItem={tabItem}/>
+        <CaseContentCommon tabItem={tabItem} apiSceneId={apiSceneId}/>
     )
 }
 

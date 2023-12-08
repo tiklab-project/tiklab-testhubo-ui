@@ -84,7 +84,7 @@ const TestPlanBindCaseList = (props) =>{
     let history = useHistory();
     const [tableLoading,setTableLoading] = useState(true);
     const [totalPage, setTotalPage] = useState();
-    const [pageSize] = useState(12);
+    const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
         pageParam: {
@@ -125,7 +125,6 @@ const TestPlanBindCaseList = (props) =>{
 
     const [visible, setVisible] = useState(false);
     const showConnect =()=>{
-        findTestCaseList({repositoryId:repositoryId})
         setVisible(true);
     }
 
@@ -230,6 +229,7 @@ const TestPlanBindCaseList = (props) =>{
                 <TestPlanBindCase
                     setVisible={setVisible}
                     testPlanId={testPlanId}
+                    findBindCasePage={findPage}
                 />
             </div>
         </div>

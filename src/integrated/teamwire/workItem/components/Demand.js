@@ -3,7 +3,7 @@ import {applyJump} from "tiklab-core-ui";
 import DemandSelect from "./DemandSelect";
 import "./demandStyle.scss"
 import {inject, observer} from "mobx-react";
-import {Descriptions, Space} from "antd";
+import {Col, Form, Row, Space} from "antd";
 
 /**
  * 关联需求
@@ -15,10 +15,11 @@ const Demand = (props)=>{
     const [demandInfo, setDemandInfo] = useState();
     const [showSelect, setShowSelect] = useState(false);
     const [binded, setBinded] = useState(false);
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(()=>{
         if(workItemId){
-            findWorkItem(workItemId).then(res=>{
+            findWorkItem(workItemId,repositoryId).then(res=>{
                 if(res.code === 0) {
                     setDemandInfo(res.data)
                     setBinded(true)
@@ -78,8 +79,16 @@ const Demand = (props)=>{
             return (
                 <>
                     <div className={` ${showSelect?"demand_hide":"demand_show"}`}>
-                        <span style={{fontSize: "13px", color: "#9b9b9b", margin: "0 75px 0 0"}}>需求 :</span>
-                        <span className={"demand-content_add"} onClick={()=>setShowSelect(true)}>未关联</span>
+                        <Form   className={"base-info-form"} layout="inline">
+                            <Row style={{width:"100%"}}>
+                                <Col span={9}>
+                                    <Form.Item label={"需求"} labelCol={{span:6}}>
+                                        <span className={"demand-content_add"} onClick={()=>setShowSelect(true)}>未关联</span>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                        </Form>
+
                     </div>
                     <div style={{height:"400px"}} className={`demand_project_select ${showSelect?"demand_show":"demand_hide"}` }>
                         <DemandSelect

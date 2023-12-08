@@ -16,7 +16,7 @@
     .ws-detail-left-nav-item-box{
         padding: 6px 0;
         cursor: pointer;
-        border-left: 3px solid var(--pi-bg-grey-200);
+        border-left: 3px solid var(--pi-bg-grey-100);
     }
     .ws-detail-left-nav-item-box:hover{
         background-color: var(--pi-hover-color);
@@ -75,8 +75,8 @@
     //display: none;
     width: 240px;
     position: absolute;
-    top: -40px;
-    left: 72px;
+    top: -45px;
+    left: 73px;
     box-shadow: 0 3px 6px rgb(0 0 0 / 22%);
     background: #fff;
     z-index: 10;

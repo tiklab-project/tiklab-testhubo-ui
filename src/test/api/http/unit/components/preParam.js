@@ -11,7 +11,7 @@ import preParamStore from "../store/preParamStore";
 import ReactMonacoEditor from "../../../../../common/ReactMonacoEditor";
 
 
-const PreParam = (props) => {
+const PreParam = ({apiUnitId}) => {
 
     const { 
         createPreScript, 
@@ -22,8 +22,6 @@ const PreParam = (props) => {
     const [showBtn, setShowBtn] = useState(false);
     const [dataSource, setDataSource] = useState();
     const [editValue, setEditValue] = useState();
-
-    const apiUnitId =sessionStorage.getItem('apiUnitId');
 
     useEffect(()=>{
         findPreScript(apiUnitId).then((data)=>{

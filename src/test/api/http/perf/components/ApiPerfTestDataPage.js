@@ -7,7 +7,7 @@ import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiPerfTestDataDetail from "./ApiPerfTestDataDetail";
 import {observer} from "mobx-react";
 
-const ApiPerfTestDataPage = (props) =>{
+const ApiPerfTestDataPage = ({apiPerfId}) =>{
     const {
         findApiPerfTestDataList,
         findApiPerfTestData,
@@ -21,7 +21,15 @@ const ApiPerfTestDataPage = (props) =>{
             title: '测试数据名称',
             dataIndex: 'name',
             key: "name",
-            render:(text,record)=>(<a onClick={()=>toDetail(record)}>{text}</a>)
+            render:(text,record)=>(
+                <ApiPerfTestDataDetail
+                    type={"edit"}
+                    testDataId={record.id}
+                    apiPerfId={apiPerfId}
+                    findPage={findPage}
+                    name={text}
+                />
+            )
         },
         {
             title: `创建时间`,
@@ -43,10 +51,7 @@ const ApiPerfTestDataPage = (props) =>{
         },
     ]
 
-    const [testDataInfo, setTestDataInfo] = useState();
-    const [visible, setVisible] = useState(false);
     const [testDataList, setTestDataList] = useState([]);
-    const apiPerfId = sessionStorage.getItem("apiPerfId")
 
     useEffect(async ()=>{
         await findPage()
@@ -58,56 +63,32 @@ const ApiPerfTestDataPage = (props) =>{
         setTestDataList(list)
     }
 
-    const toDetail = async (record) =>{
-        let info =  await findApiPerfTestData(record.id)
-        setTestDataInfo(info)
-        setVisible(!visible)
-    }
 
-
-    const addTestData = () =>{
-        setTestDataInfo(null)
-        setVisible(!visible)
-    }
-
-    const cancel = () =>{
-        setTestDataInfo(null)
-        setVisible(!visible)
-    }
 
     return(
-        <div style={{margin:"10px 0 0 0",overflow: "auto",height: "calc(100% - 280px)"}}>
-            <div className={`${visible?"teston-hide":"teston-show"}`}>
-                <IconBtn
-                    className="pi-icon-btn-grey"
-                    onClick={addTestData}
-                    name={"新增测试数据"}
-                />
-                <div className={"table-list-box"}>
-                    <Table
-                        columns={column}
-                        dataSource={testDataList}
-                        rowKey = {record => record.id}
-                        pagination={false}
-                        locale={{
-                            emptyText: <Empty
-                                imageStyle={{height: 120 }}
-                                description={<span>暂无测试数据</span>}
-                                image={emptyImg}
-                            />,
-                        }}
-                    />
-                </div>
-            </div>
-            <div className={`${visible?"teston-show":"teston-hide"}`}>
-                <ApiPerfTestDataDetail
-                    cancel={cancel}
-                    testDataInfo={testDataInfo}
-                    apiPerfId={apiPerfId}
-                    findPage={findPage}
-                    setTestDataInfo={setTestDataInfo}
+        <div style={{margin:"10px 0 0 0",overflow: "auto"}}>
+
+            <ApiPerfTestDataDetail
+                apiPerfId={apiPerfId}
+                findPage={findPage}
+                name={"新增测试数据"}
+            />
+            <div className={"table-list-box"}>
+                <Table
+                    columns={column}
+                    dataSource={testDataList}
+                    rowKey = {record => record.id}
+                    pagination={false}
+                    locale={{
+                        emptyText: <Empty
+                            imageStyle={{height: 120 }}
+                            description={<span>暂无测试数据</span>}
+                            image={emptyImg}
+                        />,
+                    }}
                 />
             </div>
+
 
         </div>
     )

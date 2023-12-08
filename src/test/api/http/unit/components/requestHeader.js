@@ -6,7 +6,7 @@ import IconCommon from "../../../../../common/IconCommon";
 import requestHeaderStore from "../store/requestHeaderStore";
 
 // 请求头的可编辑表格
-const RequestHeader = (props) =>{
+const RequestHeader = ({apiUnitId}) =>{
     const {
         findRequestHeaderList,
         deleteRequestHeader,
@@ -19,7 +19,6 @@ const RequestHeader = (props) =>{
     } = requestHeaderStore;
 
     const [dataSource,setDataSource] = useState([])
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
 
     useEffect( ()=>{
         findRequestHeaderList(apiUnitId).then(list=>setDataSource(list))

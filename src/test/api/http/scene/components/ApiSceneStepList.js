@@ -10,16 +10,16 @@ import stepCommonStore from "../../../../common/stepcommon/store/StepCommonStore
 import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
 import IfJudgmentDrawer from "../../../../common/ifJudgment/components/IfJudgmentDrawer";
 import IfJudgmentEdit from "../../../../common/ifJudgment/components/IfJudgmentEdit";
+import IconBtn from "../../../../../common/iconBtn/IconBtn";
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
 
-const ApiSceneStepList = ({apiUnitStore}) => {
+const ApiSceneStepList = ({apiUnitStore,apiSceneId}) => {
     const {findApiUnitList} = apiUnitStore;
 
     const [stepList, setStepList] = useState([]);
     let repositoryId = sessionStorage.getItem("repositoryId");
-    const apiSceneId = sessionStorage.getItem("apiSceneId");
     const [visible, setVisible] = useState(false);
 
     useEffect(async ()=> {
@@ -173,67 +173,71 @@ const ApiSceneStepList = ({apiUnitStore}) => {
     );
 
     return (
-        <div className={"content-box-center"}>
-            <div className={"table-list-box"}>
-                <div className={`${visible?"teston-hide":"teston-show"}`} >
-                    <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
-                        <Dropdown
-                            overlay={menu}
-                            placement="bottom"
-                        >
-                            <Button className={"important-btn"}>添加步骤</Button>
-                        </Dropdown>
-                        <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
-                    </div>
-                    <DragDropContext onDragEnd={onDragEnd}>
-                        <Droppable droppableId="list">
-                            {(provided) => (
-                                <div
-                                    ref={provided.innerRef}
-                                    {...provided.droppableProps}
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                    }}
-                                >
-                                    <div className={"step-item-box"}>
-                                        <Row
-                                            gutter={[10,0]}
-                                            style={{padding: "8px",flexGrow:1}}
-                                            className={"step-item-content-header"}
-                                        >
-                                            <Col span={1}/>
-                                            <Col span={1}>序号</Col>
-                                            <Col span={3}>名称</Col>
-                                            <Col span={2}>请求类型</Col>
-                                            <Col span={8}>路径</Col>
-                                            <Col span={3}>创建时间</Col>
-                                            <Col style={{marginLeft: "auto",height:"20px"}}>操作</Col>
-                                        </Row>
-                                    </div>
-                                    <div
-                                        style={{
-                                            borderBottom: "1px solid #e4e4e4",
-                                            borderTop: "1px solid #e4e4e4",
-                                        }}
-                                    >
-                                        {renderItems()}
-                                    </div>
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
+        <div className={"table-list-box"}>
+            <div className={`${visible?"teston-hide":"teston-show"}`} >
+                <div className={"display-flex-between"} style={{margin: "10px 0"}}>
+                    <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
+                    <Dropdown
+                        overlay={menu}
+                        placement="bottom"
+                    >
+                        <IconBtn
+                            className="pi-icon-btn-grey"
+                            name={"添加步骤"}
+                        />
+                    </Dropdown>
 
                 </div>
-                <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
-                    <ApiSceneBindUnit
-                        visible={visible}
-                        setVisible={setVisible}
-                        findList={findList}
-                        apiSceneId={apiSceneId}
-                    />
-                </div>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="list">
+                        {(provided) => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}
+                            >
+                                <div className={"step-item-box"}>
+                                    <Row
+                                        gutter={[10,0]}
+                                        style={{padding: "8px",flexGrow:1}}
+                                        className={"step-item-content-header"}
+                                    >
+                                        <Col span={1}>
+                                            <MenuOutlined />
+                                        </Col>
+                                        <Col span={1}>序号</Col>
+                                        <Col span={3}>名称</Col>
+                                        <Col span={2}>请求类型</Col>
+                                        <Col span={8}>路径</Col>
+                                        <Col span={3}>创建时间</Col>
+                                        <Col style={{marginLeft: "auto",height:"20px"}}>操作</Col>
+                                    </Row>
+                                </div>
+                                <div
+                                    style={{
+                                        borderBottom: "1px solid #e4e4e4",
+                                        borderTop: "1px solid #e4e4e4",
+                                    }}
+                                >
+                                    {renderItems()}
+                                </div>
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+
+            </div>
+            <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
+                <ApiSceneBindUnit
+                    visible={visible}
+                    setVisible={setVisible}
+                    findList={findList}
+                    apiSceneId={apiSceneId}
+                />
             </div>
         </div>
     );

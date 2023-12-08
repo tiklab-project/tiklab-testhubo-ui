@@ -12,12 +12,11 @@ import "../../../common/styles/caseContantStyle.scss"
 import "../../../common/styles/unitcase.scss"
 
 const AppSceneDetail = (props) => {
-    const {appSceneStore} = props;
+    const {appSceneStore,appSceneId} = props;
     const {findAppScene,updateAppScene} = appSceneStore;
     const [caseInfo,setCaseInfo]=useState();
 
     const [form] = Form.useForm()
-    const appSceneId = sessionStorage.getItem('appSceneId');
     useEffect(()=> {
         findAppScene(appSceneId).then(res=>{
             setCaseInfo(res);
@@ -73,7 +72,7 @@ const AppSceneDetail = (props) => {
         {
             label: `测试步骤`,
             key: '2',
-            children:<AppSceneStepList />
+            children:<AppSceneStepList appSceneId={appSceneId}/>
         },{
             label: `环境变量`,
             key: '3',

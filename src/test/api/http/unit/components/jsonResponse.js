@@ -11,6 +11,7 @@ import ExSelect from "../../../../../common/ExSelect";
 import {ExTable}from '../../../../../common/EditTable';
 import {dataTypeDictionary, mockValueDictionary} from '../../../../../common/dictionary/dictionary';
 import jsonResponseStore from "../store/jsonResponseStore";
+import {useParams} from "react-router";
 
 
 const JsonResponse = (props) => {
@@ -104,11 +105,11 @@ const JsonResponse = (props) => {
         }
     ]
 
-    const apiUnitId =  sessionStorage.getItem('apiUnitId');
+    const {id} = useParams()
 
     useEffect(()=>{
-        findJsonResponseListTree(apiUnitId)
-    },[radioValue,apiUnitId])
+        findJsonResponseListTree(id)
+    },[radioValue,id])
 
     // 表格checked
     const toggleChecked= (e,row)=> {
@@ -138,7 +139,7 @@ const JsonResponse = (props) => {
         const values = data;
         delete values.id;
         values.step = {
-            id: apiUnitId
+            id: id
         }
         createJsonResponse(values)
 

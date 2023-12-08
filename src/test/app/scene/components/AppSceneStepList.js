@@ -11,13 +11,13 @@ import stepCommonStore from "../../../common/stepcommon/store/StepCommonStore";
 import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
 import IfJudgmentDrawer from "../../../common/ifJudgment/components/IfJudgmentDrawer";
 import IfJudgmentEdit from "../../../common/ifJudgment/components/IfJudgmentEdit";
+import IconBtn from "../../../../common/iconBtn/IconBtn";
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
-const AppSceneStepList = () => {
+const AppSceneStepList = ({appSceneId}) => {
 
     const [stepList, setStepList] = useState([]);
-    const appSceneId = sessionStorage.getItem('appSceneId')
 
     useEffect(async ()=> {
         await findList()
@@ -196,14 +196,17 @@ const AppSceneStepList = () => {
     return (
         <>
             <div className={"table-list-box"}>
-                <div style={{display:'flex',justifyContent:"space-between",margin: "10px 0"}}>
+                 <div className={"display-flex-between"} style={{margin: "10px 0"}}>
+                    <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                     <Dropdown
                         overlay={menu}
                         placement="bottom"
                     >
-                        <Button className={"important-btn"}>添加步骤</Button>
+                        <IconBtn
+                            className="pi-icon-btn-grey"
+                            name={"添加步骤"}
+                        />
                     </Dropdown>
-                    <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
                 </div>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="list">
@@ -222,7 +225,9 @@ const AppSceneStepList = () => {
                                         style={{padding: "8px",flexGrow:1}}
                                         className={"step-item-content-header"}
                                     >
-                                        <Col span={1}/>
+                                        <Col span={1}>
+                                            <MenuOutlined />
+                                        </Col>
                                         <Col span={1}>序号</Col>
                                         <Col span={4}>名称</Col>
                                         <Col span={15}>信息</Col>

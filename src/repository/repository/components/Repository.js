@@ -110,14 +110,7 @@ const Repository = (props)=> {
     return(
         <div style={{"height":"var(--pi-calc-content)",overflow:"auto"}}>
             <div className='ws-layout'>
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        padding: "10px 0 10px 10px"
-                    }}
-                >
+                <div className={"display-flex-between"}>
                     <div>
                     <span className={"ws-detail-title"}>
                        <div

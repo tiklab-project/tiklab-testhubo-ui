@@ -31,7 +31,7 @@ const WebEnvSelect = (props) =>{
     }
 
     const toEnvMana= () =>{
-        props.history.push("/systemManagement/envMana")
+        props.history.push("/setting/envMana")
     }
 
 

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Form, Row, Col, TreeSelect, Select, Button} from "antd";
+import {Form, Row, Col, TreeSelect, Select, Button, Tag} from "antd";
 import Input from "antd/es/input/Input";
 import {inject, observer} from "mobx-react";
 import {Axios} from "tiklab-core-ui";
 import CaseDesc from "./CaseDesc";
+import {showCaseTypeInList} from "./CaseCommonFn";
 
 const { TextArea } = Input;
 const {Option} = Select
@@ -15,10 +16,9 @@ const tailLayout = {
  * 用于详情
  */
 const DetailCommon = (props) =>{
-    const {categoryStore,updateCase,form,demand } = props;
+    const {categoryStore,updateCase,form,demand,detailInfo} = props;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
     const [userList, setUserList] = useState([]);
-
 
     const repositoryId = sessionStorage.getItem("repositoryId")
     useEffect(()=>{
@@ -26,9 +26,7 @@ const DetailCommon = (props) =>{
     },[])
 
     useEffect(async ()=>{
-        const params = {
-            domainId:repositoryId,
-        };
+        const params = {domainId:repositoryId};
         const res = await Axios.post("/dmUser/findDmUserPage",params);
         if(res.code===0){
             setUserList(res.data.dataList)
@@ -48,9 +46,14 @@ const DetailCommon = (props) =>{
                     {...tailLayout}
                 >
                     <Row gutter={[0,10]}>
-                        <Col span={18}>
-                            <Form.Item label={"名称"} name="name" labelCol={{span:3}}>
+                        <Col span={9}>
+                            <Form.Item label={"名称"} name="name" labelCol={{span:6}}>
                                 <Input placeholder={"名称"} />
+                            </Form.Item>
+                        </Col>
+                        <Col span={9}>
+                            <Form.Item label={"用例类型"} labelCol={{span:6}}>
+                                <div style={{margin:"0 0 0 10px"}}>{showCaseTypeInList(detailInfo?.testCase?.caseType)}</div>
                             </Form.Item>
                         </Col>
                         <Col span={9}>
@@ -72,9 +75,9 @@ const DetailCommon = (props) =>{
                         <Col span={9}>
                             <Form.Item label={"状态"} name="status" >
                                 <Select placeholder={"无"}>
-                                    <Option value={0}>未开始</Option>
-                                    <Option value={1}>进行中</Option>
-                                    <Option value={2}>结束</Option>
+                                    <Option value={0}><Tag color="cyan">未开始</Tag></Option>
+                                    <Option value={1}><Tag color="processing">进行中</Tag></Option>
+                                    <Option value={2}><Tag color="success">结束</Tag></Option>
                                 </Select>
                             </Form.Item>
                         </Col>
@@ -115,8 +118,11 @@ const DetailCommon = (props) =>{
                     demand&&demand
                 }
             </div>
-
-            <CaseDesc form={form} updateCase={updateCase}/>
+            <Row >
+                <Col span={20}>
+                    <CaseDesc form={form} updateCase={updateCase}/>
+                </Col>
+            </Row>
 
         </div>
     )

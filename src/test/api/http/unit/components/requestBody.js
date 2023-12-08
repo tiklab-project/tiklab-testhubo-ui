@@ -11,7 +11,7 @@ import requestBodyStore from "../store/requestBodyStore";
 /**
  *接口定义中的请求体
  */
-const RequestBody  = (props) =>{
+const RequestBody  = ({apiUnitId}) =>{
     const {
         findRequestBody,
         updateRequestBody,
@@ -20,13 +20,11 @@ const RequestBody  = (props) =>{
 
     const [radioType, setRadioType] = useState("none");
 
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
-
     useEffect(()=>{
         findRequestBody(apiUnitId).then((res) => {
             setRadioType(res.bodyType)
         })
-    },[bodyType])
+    },[bodyType,apiUnitId])
 
 
     const updateBodyType = async (data)=>{
@@ -40,11 +38,10 @@ const RequestBody  = (props) =>{
             radioValue={radioType}
             updateFn={updateBodyType}
             setRadioType={setRadioType}
-            form={<FormParam  />}
-            formUrlencoded={<FormUrlencoded />}
-            json={<JsonParam />}
-            raw={<RawParam />}
-            binary={null}
+            form={<FormParam  apiUnitId={apiUnitId} />}
+            formUrlencoded={<FormUrlencoded apiUnitId={apiUnitId} />}
+            json={<JsonParam apiUnitId={apiUnitId} />}
+            raw={<RawParam apiUnitId={apiUnitId} />}
         />
     )
 }

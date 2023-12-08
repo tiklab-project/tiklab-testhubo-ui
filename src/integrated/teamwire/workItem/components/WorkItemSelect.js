@@ -5,12 +5,7 @@ import ProjectSelect from "./ProjectSelect";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 
 const WorkItemSelect = (props) =>{
-    const {workItemStore,caseInfo,updateCase} = props;
-    const {
-        findWorkItemList,
-        findWorkItem,
-        getDemandInfo
-    } = workItemStore;
+
 
     //
     //

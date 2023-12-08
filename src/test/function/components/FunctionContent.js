@@ -4,6 +4,7 @@ import {useParams} from "react-router";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../common/CaseBread";
 import "./functionStyle.scss"
+import ToggleCase from "../../testcase/components/ToggleCase";
 
 
 const FunctionContent = (props) =>{
@@ -24,11 +25,11 @@ const FunctionContent = (props) =>{
         <div className={"content-box-center"}>
             <CaseBread
                 title={testCaseInfo?.name}
-                caseType={testCaseInfo?.caseType}
+                toggleCase={<ToggleCase caseId={functionId}/>}
                 style={{borderBottom:"none"}}
                 breadItem={["用例详情"]}
             />
-            <FunctionDetail />
+            <FunctionDetail functionId={functionId} />
 
         </div>
 

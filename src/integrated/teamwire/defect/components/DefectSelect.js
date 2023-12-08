@@ -5,7 +5,6 @@ import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import workItemBindStore from "../store/WorkItemBindStore";
 import ProjectSelect from "../../workItem/components/ProjectSelect";
-import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 const {createWorkItemBind,findWorkItemBindList} = workItemBindStore;
 
 const DefectSelect = (props) =>{
@@ -14,6 +13,8 @@ const DefectSelect = (props) =>{
 
     const [selectProjectId, setSelectProjectId] = useState();
     const [workItemList, setWorkItemList] = useState([]);
+    const repositoryId = sessionStorage.getItem("repositoryId")
+
 
     const columns = [
         {
@@ -89,6 +90,7 @@ const DefectSelect = (props) =>{
      */
     const findDemandList = (param)=>{
         let params = {
+            repositoryId:repositoryId,
             workTypeCode:"defect",
             ...param
         }

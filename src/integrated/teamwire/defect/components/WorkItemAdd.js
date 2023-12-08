@@ -10,6 +10,7 @@ const WorkItemAdd = (props) =>{
     const {workItemStore,caseId} = props;
     const {findWorkItemBindList} = workItemBindStore;
     const {createWorkItem} = workItemStore;
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     const [form] = Form.useForm();
 
@@ -28,6 +29,7 @@ const WorkItemAdd = (props) =>{
         let values = await form.getFieldsValue();
 
         let param = {
+            repositoryId:repositoryId,
             name:values.name,
             projectId:selectProjectId,
             planBeginTime:rangeTime[0],

@@ -16,7 +16,7 @@ const Home =(props)=> {
                             <svg className="icon-m home-item-title-icon" aria-hidden="true">
                                 <use xlinkHref= {`#icon-zuijinfangwen-`} />
                             </svg>
-                            <span>最近项目访问</span>
+                            <span>常用仓库</span>
                         </div>
                     </div>
                     <div className={"home-box-item-detail"}>
@@ -29,7 +29,7 @@ const Home =(props)=> {
                             <svg className="icon-m home-item-title-icon" aria-hidden="true">
                                 <use xlinkHref= {`#icon-rizhijilu`} />
                             </svg>
-                            <span>最近用例访问</span>
+                            <span>常用用例</span>
                         </div>
                     </div>
                     <div style={{"padding":" 0 20px"}}>

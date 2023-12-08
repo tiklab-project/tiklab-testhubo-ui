@@ -34,9 +34,10 @@ export class WorkItemStore {
 	findWorkItemList = async (values) =>  await Axios.post("/teamWire/findWorkItemList",values);
 
 	@action
-	findWorkItem = async (id) => {
+	findWorkItem = async (id,repositoryId) => {
 		const param = new FormData();
 		param.append("id",id)
+		param.append("repositoryId",repositoryId)
 		return  await Axios.post("/teamWire/findWorkItem",param);
 	}
 

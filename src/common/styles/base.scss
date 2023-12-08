@@ -278,7 +278,7 @@ table .icon{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 10px 0;
+    padding: 10px 0;
 
     .header-box-title{
         font-weight: bold;
@@ -305,7 +305,7 @@ table .icon{
     min-width: 760px;
     max-width: 1440px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 10px 30px;
     background: white;
 }
 
@@ -433,7 +433,7 @@ table .icon{
     justify-content: space-between;
     align-items: center;
     //border-bottom: 1px solid #e4e4e4;
-    margin: 15px 0;
+    padding: 10px 0;
 
     .case-breadcrumb{
         font-weight: bold;
@@ -493,4 +493,11 @@ table .icon{
 .repository-icon{
     width:var(--pi-icon-x);
     height:var(--pi-icon-x);
+}
+
+.text-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
 }

@@ -35,12 +35,12 @@ const RepositorySettingMenu = (props) =>{
             key: '/repository/setting/category',
         },
         {
-            title: '环境管理',
+            title: '环境',
             // icon: 'icon-modular',
             key: '/repository/setting/envMana',
         },
         {
-            title: '集成项目',
+            title: '系统集成',
             // icon: 'icon-modular',
             key: '/repository/setting/workspace',
         },

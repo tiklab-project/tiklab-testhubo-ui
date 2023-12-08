@@ -23,7 +23,6 @@ const ApiUnitEditPageCommon = (props) => {
     const [methodType,setMethodType] =useState();
     const [path, setPath] = useState();
 
-
     useEffect(async ()=>{
         let res = await findApiUnit(apiUnitId)
         setResData(res)
@@ -152,11 +151,11 @@ const ApiUnitEditPageCommon = (props) => {
 
             <div className="header-title ex-title">请求</div>
             <div className={"white-bg-box"}>
-                <Request />
+                <Request apiUnitId={apiUnitId}/>
             </div>
 
             <div className='header-title ex-title'> 响应</div>
-            <Response />
+            <Response apiUnitId={apiUnitId} />
 
         </div>
     )

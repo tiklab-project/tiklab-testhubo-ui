@@ -4,9 +4,10 @@ import {showCaseTypeInList} from "./caseCommon/CaseCommonFn";
 import {ArrowLeftOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router";
 import {Breadcrumb} from "antd";
+import ToggleCase from "../test/testcase/components/ToggleCase";
 
 const CaseBread = (props) =>{
-    const {title,icon,style,caseType,setOpen,breadItem,right} = props
+    const {title,icon,style,toggleCase,setOpen,breadItem,right} = props
 
     const history =useHistory()
 
@@ -50,7 +51,7 @@ const CaseBread = (props) =>{
                         :<div className={"case-header_title"}>{title}</div>
                 }
                 {
-                    caseType&&showCaseTypeInList(caseType)
+                    toggleCase&&toggleCase
                 }
             </div>
             {
