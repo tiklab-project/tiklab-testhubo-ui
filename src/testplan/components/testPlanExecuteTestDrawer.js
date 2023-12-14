@@ -4,7 +4,7 @@ import {Drawer, Empty, Spin, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import {messageFn} from "../../common/messageCommon/MessageCommon";
 import emptyImg from "../../assets/img/empty.png";
-import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeTable,  showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
 import {Axios} from "thoughtware-core-ui";
 import CaseBread from "../../common/CaseBread";
 
@@ -37,7 +37,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
             title: '用例类型',
             dataIndex: 'caseType',
             width: '25%',
-            render: (text) =>(showCaseTypeView(text))
+            render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
         },
         {
             title: '是否通过',
@@ -127,7 +127,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 closable={false}
             >
                 <Spin spinning={spinning}>
-                    <CaseBread title={"测试"} icon={"ceshi"}/>
+                    <CaseBread breadItem={["测试"]} icon={"ceshi"}/>
                     <div className={"unit-instance-detail"}>
                         <div className={"header-item"}>测试详情</div>
                         <div className={"history-detail-all-box"}>

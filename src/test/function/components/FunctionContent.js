@@ -24,10 +24,10 @@ const FunctionContent = (props) =>{
     return(
         <div className={"content-box-center"}>
             <CaseBread
-                title={testCaseInfo?.name}
+                router={"/repository/testcase"}
+                breadItem={[testCaseInfo?.name]}
                 toggleCase={<ToggleCase caseId={functionId}/>}
                 style={{borderBottom:"none"}}
-                breadItem={["用例详情"]}
             />
             <FunctionDetail functionId={functionId} />
 

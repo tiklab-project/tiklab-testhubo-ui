@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {Avatar, Empty, Popconfirm, Space, Table} from "antd";
+import {Avatar, Empty, Input, Popconfirm, Space, Table} from "antd";
 import IconCommon from "../../common/IconCommon";
-import {showCaseTypeInList, showCaseTypeTable, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import { showCaseTypeTable} from "../../common/caseCommon/CaseCommonFn";
 import emptyImg from "../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
 import IconBtn from "../../common/iconBtn/IconBtn";
@@ -11,16 +11,18 @@ import PaginationCommon from "../../common/pagination/Page";
 import {useHistory} from "react-router";
 import TestPlanENVModal from "./testPlanENVModal";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
+import {SearchOutlined} from "@ant-design/icons";
 
 const TestPlanBindCaseList = (props) =>{
-    const {testcaseStore} = props
+    const { testPlanStore } = props;
+    const {findTestPlan} = testPlanStore;
     const {findBindTestCaseList,testPlanDetailList,deleteTestPlanDetail} = testPlanDetailStore;
-    const {findTestCaseList} = testcaseStore;
+
     //列表头
     const columns = [
         {
             title:`名称`,
-            dataIndex: ["testCase","name"],
+            dataIndex: "name",
             key: "name",
             width:"30%",
             render:(text,record)=>(
@@ -34,26 +36,26 @@ const TestPlanBindCaseList = (props) =>{
         },
         {
             title:`用例类型`,
-            dataIndex:["testCase","caseType"],
+            dataIndex:"caseType",
             key: "type",
             width:"15%",
             render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
         },,
         {
             title: `模块`,
-            dataIndex: ["testCase","category","name"],
+            dataIndex: ["category","name"],
             key: "category",
             width:"15%",
         },{
             title: `创建人`,
-            dataIndex:  ["testCase","createUser"],
+            dataIndex:  ["createUser"],
             key: "user",
             width:"15%",
-            render: (text, record) => (showCreateUser(record.testCase.createUser))
+            render: (text, record) => (showCreateUser(record.createUser))
         },
         {
             title: `创建时间`,
-            dataIndex:  ["testCase","createTime"],
+            dataIndex:  ["createTime"],
             key: "createTime",
             width:"15%",
         },
@@ -79,11 +81,12 @@ const TestPlanBindCaseList = (props) =>{
         },
     ]
 
-    let repositoryId = sessionStorage.getItem("repositoryId")
     const testPlanId = sessionStorage.getItem('testPlanId')
     let history = useHistory();
     const [tableLoading,setTableLoading] = useState(true);
+    const [name, setName] = useState();
     const [totalPage, setTotalPage] = useState();
+    const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -97,13 +100,22 @@ const TestPlanBindCaseList = (props) =>{
         findPage()
     },[pageParam,testPlanId])
 
-    const findPage = () =>{
+    useEffect(()=>{
+        findTestPlan(testPlanId).then((res)=>{
+            setName(res.name)
+        })
+    },[])
+
+
+    const findPage = (params) =>{
         const param = {
             testPlanId:testPlanId,
-            ...pageParam
+            ...pageParam,
+            ...params
         }
         findBindTestCaseList(param).then((res)=>{
             setTotalPage(res.totalPage)
+            setTotalRecord(res.totalRecord)
             setTableLoading(false)
         })
     }
@@ -142,7 +154,7 @@ const TestPlanBindCaseList = (props) =>{
 
     //再根据不同的用例类型跳到不同的页面
     const toDiffCase = (record)=>{
-        switch (record.testCase.caseType) {
+        switch (record.caseType) {
             case "api-unit":
                 toDetailAddRouterCommon("apiUnitId",record)
                 break;
@@ -175,66 +187,79 @@ const TestPlanBindCaseList = (props) =>{
 
     //跳转路由
     const toDetailAddRouterCommon = (setId,record)=>{
-        sessionStorage.setItem(`${setId}`,record.testCase.id);
-        history.push(`/plan/plan-to-${record.testCase.caseType}`)
+        sessionStorage.setItem(`${setId}`,record.id);
+        history.push(`/plan/plan-to-${record.caseType}`)
     }
 
 
+    //搜索
+    const onSearch = (e) =>{
+        setCurrentPage(1)
+        let param = {name: e.target.value}
+
+        findPage(param)
+    }
 
     return(
         <div className={"content-box-center"}>
+            <div className='header-box-space-between'>
+                <div className={'header-box-title'}>{name}</div>
+                <Space>
+                    <TestPlanENVModal {...props}/>
+                    <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
+                    <IconBtn
+                        className="pi-icon-btn-grey"
+                        name={"关联用例"}
+                        onClick={showConnect}
+                    />
+                </Space>
+            </div>
             <div style={{margin:"10px 0",height:"100%"}}>
-            <div className={`${visible?"teston-hide":"teston-show"}`} >
-                <div className='title-space-between'>
-                    <div className={'test-title'}>
-                        <div>测试用例({testPlanDetailList.length})</div>
-                    </div>
-                    <Space>
-                        <TestPlanENVModal {...props}/>
-                        <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
+                <div className={`${visible?"teston-hide":"teston-show"}`} >
+                    <div className='display-flex-between'>
+                        <span>( {totalRecord} ) 个用例</span>
 
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            name={"关联用例"}
-                            onClick={showConnect}
+                        <Input
+                            placeholder={`搜索用例`}
+                            onPressEnter={onSearch}
+                            className='search-input-common'
+                            prefix={<SearchOutlined />}
                         />
-                    </Space>
+                    </div>
 
+                    <div className={"table-list-box"}>
+                        <Table
+                            className="tablelist"
+                            columns={columns}
+                            dataSource={testPlanDetailList}
+                            rowKey={record => record.id}
+                            pagination={false}
+                            loading={tableLoading}
+                            locale={{
+                                emptyText: <Empty
+                                    imageStyle={{height: 120}}
+                                    description={<span>暂无用例</span>}
+                                    image={emptyImg}
+                                />,
+                            }}
+                        />
+                        <PaginationCommon
+                            currentPage={currentPage}
+                            totalPage={totalPage}
+                            changePage={onTableChange}
+                        />
+                    </div>
                 </div>
-
-                <div className={"table-list-box"}>
-                    <Table
-                        className="tablelist"
-                        columns={columns}
-                        dataSource={testPlanDetailList}
-                        rowKey={record => record.id}
-                        pagination={false}
-                        loading={tableLoading}
-                        locale={{
-                            emptyText: <Empty
-                                imageStyle={{height: 120}}
-                                description={<span>暂无用例</span>}
-                                image={emptyImg}
-                            />,
-                        }}
-                    />
-                    <PaginationCommon
-                        currentPage={currentPage}
-                        totalPage={totalPage}
-                        changePage={onTableChange}
+                <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
+                    <TestPlanBindCase
+                        setVisible={setVisible}
+                        testPlanId={testPlanId}
+                        findBindCasePage={findPage}
                     />
                 </div>
             </div>
-            <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
-                <TestPlanBindCase
-                    setVisible={setVisible}
-                    testPlanId={testPlanId}
-                    findBindCasePage={findPage}
-                />
-            </div>
-        </div>
         </div>
     )
 }
 
-export default inject("testcaseStore")(observer(TestPlanBindCaseList));
+export default inject("testcaseStore","testPlanStore")(observer(TestPlanBindCaseList));

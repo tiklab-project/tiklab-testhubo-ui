@@ -100,8 +100,8 @@ const ApiUnitExecuteTest = (props) =>{
                 closable={false}
             >
                 <CaseBread
-                    icon={"jiekou1"}
-                    title={"接口测试"}
+                    icon={"api1"}
+                    breadItem={["接口测试"]}
                     setOpen={setOpen}
                 />
                 <ResponseCommon

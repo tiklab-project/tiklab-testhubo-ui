@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Empty, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../assets/img/empty.png";
-import {showCaseTypeView, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeTable, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
 import ApiUnitInstanceDrawer from "../../test/api/http/unit/components/apiUnitInstanceSinglePage";
 import ApiSceneInstanceDrawer from "../../test/api/http/scene/components/apiSceneInstanceSinglePage";
 import WebSceneInstanceDrawer from "../../test/web/scene/components/WebSceneInstanceSinglePage";
@@ -42,7 +42,7 @@ const TestPlanBindCaseInstanceTable = (props) =>{
             dataIndex: "caseType",
             key: "caseType",
             width:'30%',
-            render:(text,record)=>(showCaseTypeView(record.caseType))
+            render:(text,record)=>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
         },
         {
             title: '是否通过',

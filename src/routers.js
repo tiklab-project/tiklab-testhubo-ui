@@ -1,30 +1,6 @@
 import React, {Component} from 'react'
 import {Redirect} from "react-router";
 
-const LazyComponent =  (importComponent) =>{
-    class LazyComponent extends Component{
-        constructor(props) {
-            super(props);
-            this.state = {
-                component: null,
-            };
-        }
-        async componentDidMount() {
-            const { default: component } = await importComponent();
-
-            this.setState({
-                component: component
-            });
-        }
-
-        render() {
-            const C =  this.state.component;
-            return C && <C {...this.props} />
-        }
-
-    }
-    return LazyComponent;
-}
 
 
 //---平台
@@ -36,6 +12,7 @@ import {PluginDetail, Plugin} from "thoughtware-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "thoughtware-message-ui";
 import Demo from "./demo";
 import {ProductAuth} from "thoughtware-licence-ui";
+import LazyComponent from "./common/Lazy";
 
 
 //---内部
@@ -563,7 +540,7 @@ const routers =  [
                     {
                         path: "/setting/baseSystemRole",
                         exact: true,
-                        render: () => <SystemRole isBase={true} group={'system'} bgroup={"postin"}/>,
+                        render: () => <SystemRole isBase={true} group={'system'} bgroup={"teston"}/>,
                     },
                     {
                         path: "/setting/systemFeature",

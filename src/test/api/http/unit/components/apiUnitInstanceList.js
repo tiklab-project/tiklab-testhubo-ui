@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Empty,Table} from "antd";
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
@@ -9,10 +9,11 @@ import ApiUnitInstanceSinglePage from "./apiUnitInstanceSinglePage";
 import PaginationCommon from "../../../../../common/pagination/Page";
 
 const ApiUnitInstanceList = (props) =>{
+    const {apiUnitStore} = props
+    const {testCaseInfo} = apiUnitStore
     const {
         findApiUnitInstancePage,
         apiUnitInstanceList,
-        findApiUnitInstance,
         deleteApiUnitInstance
     } = apiUnitInstanceStore;
 
@@ -120,7 +121,10 @@ const ApiUnitInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread breadItem={["用例详情","用例历史"]}/>
+            <CaseBread
+                breadItem={[testCaseInfo?.name,"历史"]}
+                router={`/repository/api-unit/${apiUnitId}`}
+            />
             <div className={"table-list-box"}>
                 <Table
                     columns={column}
@@ -147,4 +151,4 @@ const ApiUnitInstanceList = (props) =>{
     )
 }
 
-export default observer(ApiUnitInstanceList);
+export default inject("apiUnitStore")(observer(ApiUnitInstanceList));

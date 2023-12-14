@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Popconfirm, Table, Tag} from "antd";
+import {Empty, Input, Popconfirm, Table, Tag} from "antd";
 import IconCommon from "../common/IconCommon";
 import emptyImg from "../assets/img/empty.png";
 import {observer} from "mobx-react";
 import testPlanInstanceStore from "../testplan/store/testPlanInstanceStore";
 import PaginationCommon from "../common/pagination/Page";
+import {SearchOutlined} from "@ant-design/icons";
 
 const TestReportList = (props) =>{
     const {
@@ -15,10 +16,10 @@ const TestReportList = (props) =>{
 
     const column = [
         {
-            title: '执行次数',
-            dataIndex: 'executeNumber',
-            key: "executeNumber",
-            render:(text,record)=>(<a style={{fontWeight:"bold"}} onClick={()=>toCaseInstanceList(record.id)}>#{text}</a>)
+            title: '测试计划名',
+            dataIndex: ["testPlan",'name'],
+            key: "name",
+            render:(text,record)=>(<span className={"link-text"}  onClick={()=>toCaseInstanceList(record.id)}>{text}</span>)
         },{
             title: `用例数`,
             dataIndex: "total",
@@ -72,6 +73,7 @@ const TestReportList = (props) =>{
 
     const repositoryId = sessionStorage.getItem("repositoryId")
     const [totalPage, setTotalPage] = useState();
+    const [totalRecord, setTotalRecord] = useState(0);
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -86,14 +88,16 @@ const TestReportList = (props) =>{
         await findPage()
     },[pageParam])
 
-    const findPage = async () => {
+    const findPage = async (params) => {
         let param = {
             repositoryId:repositoryId,
-            ...pageParam
+            ...pageParam,
+            ...params
         }
         let res = await findTestPlanInstancePage(param)
         if(res.code===0){
             setTotalPage(res.data.totalPage)
+            setTotalRecord(res.data.totalRecord)
         }
     }
 
@@ -118,12 +122,27 @@ const TestReportList = (props) =>{
         setPageParam(newParams)
     }
 
+    //搜索
+    const onSearch = async (e) =>{
+        setCurrentPage(1)
+        let param = {name: e.target.value}
 
+        await findPage(param)
+    }
 
     return(
         <div className={"content-box-center"}>
             <div className='header-box-space-between'>
                 <div className={'header-box-title'}>测试报告</div>
+            </div>
+            <div className='header-box-space-between'>
+                <Input
+                    placeholder={`搜索用例`}
+                    onPressEnter={onSearch}
+                    className='search-input-common'
+                    prefix={<SearchOutlined />}
+                />
+                <div style={{padding: "3px 8px", fontSize: "13px", borderRadius: "5px"}}>历史数：{totalRecord}</div>
             </div>
             <div className={"table-list-box"}>
                 <Table

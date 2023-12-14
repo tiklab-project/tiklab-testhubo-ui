@@ -19,11 +19,10 @@ const PlanToWebScenePage = (props) =>{
     return(
         <div className={"content-box-center"}>
             <CaseBread
-                // icon={"diannao"}
-                title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
                 style={{borderBottom:"none"}}
-                breadItem={["测试用例","用例详情"]}
+                router={"/plan/case"}
+                breadItem={[caseInfo?.name]}
             />
             <WebSceneDetail planType={true} webSceneId={webSceneId}/>
         </div>

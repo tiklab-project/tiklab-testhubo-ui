@@ -6,7 +6,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 
 const DemandSelect = (props) =>{
-    const {workItemStore,setShowSelect,caseInfo,updateFn,setBinded,setDemandInfo} = props;
+    const {workItemStore,caseInfo,updateFn,setDemandInfo} = props;
     const {
         findWorkItemList,
         findWorkItem,
@@ -49,7 +49,6 @@ const DemandSelect = (props) =>{
             findWorkItem(id,repositoryId).then(res=>{
                 if(res.code === 0) {
                     setDemandInfo(res.data)
-                    setBinded(true)
                 }
             })
         })
@@ -94,7 +93,7 @@ const DemandSelect = (props) =>{
         <>
             <div style={{padding:"0 0 15px"}}>
                 <Row gutter={16}>
-                    <Col className="gutter-row" span={15}>
+                    <Col className="gutter-row" span={18}>
                         <Input
                             placeholder={`搜索需求名称`}
                             onPressEnter={onSearch}
@@ -107,13 +106,6 @@ const DemandSelect = (props) =>{
                         <ProjectSelect
                             clickProject={clickProject}
                             {...props}
-                        />
-                    </Col>
-                    <Col className="gutter-row" span={3}>
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            onClick={()=>setShowSelect(false)}
-                            name={"取消"}
                         />
                     </Col>
 

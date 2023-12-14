@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Empty, List, Skeleton} from "antd";
 import {Axios, getUser} from "thoughtware-core-ui";
 import {inject, observer} from "mobx-react";
-import emptyImg from "../assets/img/empty.png";
-import logImg from "../assets/img/logimg.png";
+import DynamicList from "../common/templateList/TemplateList";
 
 /**
  * 首页中动态
@@ -12,7 +10,6 @@ const DynamicWidget = (props) =>{
     const {screen,repositoryStore} = props;
     const {findRepositoryJoinList} = repositoryStore;
 
-    const [initLoading, setInitLoading] = useState(true);
     const [list, setList] = useState([]);
 
     useEffect(async () => {
@@ -26,7 +23,7 @@ const DynamicWidget = (props) =>{
         let contentList = { repositoryId:repositoryList }
 
         let params = {
-            content:screen?screen:contentList,
+            data:screen?screen:contentList,
             pageParam: {
                 pageSize: 8,
                 currentPage:1
@@ -34,7 +31,6 @@ const DynamicWidget = (props) =>{
         }
         findList(params).then(res=>{
             setList(res);
-            setInitLoading(false);
         })
     }, []);
 
@@ -66,30 +62,7 @@ const DynamicWidget = (props) =>{
     };
 
     return (
-        <List
-            className="demo-loadmore-list"
-            loading={initLoading}
-            itemLayout="horizontal"
-            dataSource={list}
-            locale={{
-                emptyText: <Empty
-                    imageStyle={{height: 120}}
-                    description={<span>暂无动态</span>}
-                    image={emptyImg}
-                />,
-            }}
-            renderItem={(item) => (
-                <List.Item >
-                    <Skeleton avatar title={false} loading={item.loading} active>
-                        <img src={logImg} alt={"icon"} width={24}/>
-                        <List.Item.Meta
-                            description={<div  dangerouslySetInnerHTML={{__html: item.data}} />}
-                        />
-                        <div>{item.createTime}</div>
-                    </Skeleton>
-                </List.Item>
-            )}
-        />
+        <DynamicList dynamicList={list}/>
     );
 }
 

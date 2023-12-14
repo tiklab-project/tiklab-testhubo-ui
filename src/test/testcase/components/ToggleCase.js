@@ -129,10 +129,9 @@ const ToggleCase = (props) =>{
         <div className={"case-toggle"} ref={caseToggleRef}>
             <div
                 onClick={toggle}
-                style={{cursor:"pointer"}}
+                style={{cursor:"pointer",margin:"5px 0 0"}}
             >
                 <IconCommon
-                    style={{"cursor":"pointer"}}
                     className={"icon-s"}
                     icon={"xiala"}
                 />

@@ -12,7 +12,7 @@ const AppSceneEdit = (props) => {
     
     const [form] = Form.useForm();
 
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState(false);
     const [categoryId, setCategoryId] = useState();
     
     

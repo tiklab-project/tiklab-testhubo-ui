@@ -27,10 +27,10 @@ const ApiPerfContent = (props) => {
     return(
         <div className={"content-box-center"}>
             <CaseBread
+                router={"/repository/testcase"}
                 style={{borderBottom:"none"}}
-                title={testCaseInfo?.name}
+                breadItem={[testCaseInfo?.name]}
                 toggleCase={<ToggleCase  caseId={apiPerfId}/>}
-                breadItem={["接口性能"]}
                 right={
                     <Space>
                         <ApiEnvDropDownSelect />

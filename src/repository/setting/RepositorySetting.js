@@ -58,7 +58,7 @@ const RepositorySetting = (props) =>{
                     <div className={'header-box-title'}>仓库信息</div>
                 </div>
 
-                <Collapse  defaultActiveKey={['1']} expandIconPosition={"end"} >
+                <Collapse expandIconPosition={"end"} >
                     <Panel header={<><EditOutlined/> <span style={{padding:"0 5px"}}>编辑仓库</span></>} key="1">
                         <div>
                             <Form

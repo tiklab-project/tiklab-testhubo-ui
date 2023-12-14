@@ -1,0 +1,30 @@
+.select-menu-box{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 300px;
+
+    .select-menu-item{
+        padding: 10px 0;
+        flex: 1;
+        text-align: center;
+        cursor: pointer;
+        border-bottom: 3px solid #ffffff00;
+
+        span{
+            font-size: var(--pi-font-size-14);
+            //font-weight: var(--pi-font-weight-title);
+        }
+    }
+
+    .select-menu-item:hover{
+        border-bottom:3px solid  var(--pi-base-color);
+        color:  var(--pi-base-color);
+    }
+
+    .select-menu-item-selected{
+        color:  var(--pi-base-color);
+        border-bottom:3px solid  var(--pi-base-color);
+    }
+}
+

@@ -197,7 +197,7 @@ const AppSceneStepList = ({appSceneId}) => {
         <>
             <div className={"table-list-box"}>
                  <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                    <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
+                    <div> ( {stepList.length} ) 个步骤</div>
                     <Dropdown
                         overlay={menu}
                         placement="bottom"

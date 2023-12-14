@@ -3,9 +3,9 @@
  * @LastEditTime: 2021-10-21 13:20:46
  */
 
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer, inject } from "mobx-react";
-import {Breadcrumb, Input, Table, Space, Popconfirm, Empty, Select} from 'antd';
+import {Input, Table, Space, Popconfirm, Empty, Select, Tag} from 'antd';
 import TestPlanEdit from './testPlanEdit';
 import  { useTranslation } from 'react-i18next'
 import "./testPlanStyle.scss"
@@ -13,6 +13,9 @@ import emptyImg from "../../assets/img/empty.png";
 import IconCommon from "../../common/IconCommon";
 import {SearchOutlined} from "@ant-design/icons";
 import PaginationCommon from "../../common/pagination/Page";
+import MenuSelect from "../../common/menuSelect/MenuSelect";
+
+
 const TestPlan = (props) => {
     const { testPlanStore } = props;
     const {
@@ -30,27 +33,31 @@ const TestPlan = (props) => {
             title:`计划名称`,
             dataIndex: "name",
             key: "name",
+            width: "30%",
             render: (text,record) =>(
                 <span className={"link-text"} onClick={()=>toPlanDetail(record.id)}>{text}</span>
             )
         },
         {
-            title:`起始时间`,
-            dataIndex: "startTime",
-            key: "startTIme",
-        },
-        {
-            title: `结束时间`,
-            dataIndex: "endTime",
-            key: "endTime",
+            title:`计划时间`,
+            dataIndex: "planTime",
+            key: "planTime",
+            width: "25%",
+            render:(text,record)=>(
+                <span>{record.startTime} ~ {record.endTime}</span>
+            )
         },
         {
             title: `用例数`,
             dataIndex: "testCaseNum",
             key: "testCaseNum",
+            width: "15%",
+            render:(text)=>(
+                <span style={{color:"#3facff"}}>{text}</span>
+            )
         },
         {
-            title: `进度`,
+            title: `状态`,
             dataIndex: "state",
             key: "desc",
             render: (text,record) =>(showState(record.state))
@@ -94,6 +101,7 @@ const TestPlan = (props) => {
         },
     ]
 
+    const [selectItem, setSelectItem] = useState("all");
     const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -113,11 +121,11 @@ const TestPlan = (props) => {
     const showState = (type)=>{
         switch (type){
             case 0 :
-                return '未开始'
+                return <Tag >未开始</Tag>
             case 1 :
-                return '进行中'
+                return <Tag color={"blue"}>进行中</Tag>
             case 2 :
-                return '结束'
+                return <Tag color={"green"}>结束</Tag>
         }
     }
 
@@ -173,14 +181,47 @@ const TestPlan = (props) => {
         });
     }
 
-    const progressSelectFn = (state) =>{
+
+    /**
+     * 点击筛选项查找
+     */
+    const selectFn = (item)=>{
+
+        setSelectItem(item.key)
+
         let param={
             repositoryId:repositoryId,
             pageParam,
-            state:state
+            state:item.key
         }
+
+        if(item.key==='all'){
+            delete param.state
+        }
+
         findTestPlanPage(param)
     }
+
+
+    //项目筛选列表
+    const items = [
+        {
+            title: '所有',
+            key: `all`,
+        },
+        {
+            title: '进行中',
+            key: `1`,
+        },
+        {
+            title: '未开始',
+            key: `0`,
+        },
+        {
+            title: '结束',
+            key: `2`,
+        },
+    ];
 
     return(
         <div className={"content-box-center"}>
@@ -192,7 +233,13 @@ const TestPlan = (props) => {
                     type={"add"}
                 />
             </div>
-            <div className='search-btn'>
+
+            <div className={"display-flex-between"} style={{margin:"0 0 10px 0"}}>
+                <MenuSelect
+                    menuItems={items}
+                    selectFn={selectFn}
+                    selected={selectItem}
+                />
 
                 <Input
                     placeholder={`${t('tcsearch')}`}
@@ -200,31 +247,9 @@ const TestPlan = (props) => {
                     className='search-input-common'
                     prefix={<SearchOutlined />}
                 />
-
-                <Select
-                    // defaultValue={null}
-                    placeholder={"进度"}
-                    className={"progress-select-box-item"}
-                    onChange={progressSelectFn}
-                    options={[
-                        {
-                            value: null,
-                            label: '所有',
-                        },{
-                            value: 0,
-                            label: '未开始',
-                        },
-                        {
-                            value: 1,
-                            label: '进行中',
-                        },{
-                            value: 2,
-                            label: '结束',
-                        },
-                    ]}
-                />
-
             </div>
+
+
             <div className={"table-list-box"}>
                 <Table
                     className="tablelist"

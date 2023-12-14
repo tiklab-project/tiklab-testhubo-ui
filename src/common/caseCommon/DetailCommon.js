@@ -112,11 +112,17 @@ const DetailCommon = (props) =>{
                                 <Input disabled={true}  placeholder={"更新时间"}/>
                             </Form.Item>
                         </Col>
+                        {
+                            demand
+                                ?<Col span={9}>
+                                        <Form.Item label={"更新时间"} name="updateTime" >
+                                            {demand}
+                                        </Form.Item>
+                                </Col>
+                                :null
+                        }
                     </Row>
                 </Form>
-                {
-                    demand&&demand
-                }
             </div>
             <Row >
                 <Col span={20}>

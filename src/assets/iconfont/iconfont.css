@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4299819 */
-  src: url('iconfont.woff2?t=1701845919560') format('woff2'),
-       url('iconfont.woff?t=1701845919560') format('woff'),
-       url('iconfont.ttf?t=1701845919560') format('truetype'),
-       url('iconfont.svg?t=1701845919560#iconfont') format('svg');
+  src: url('iconfont.woff2?t=1702264229383') format('woff2'),
+       url('iconfont.woff?t=1702264229383') format('woff'),
+       url('iconfont.ttf?t=1702264229383') format('truetype'),
+       url('iconfont.svg?t=1702264229383#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,22 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-diannao1:before {
+  content: "\e69b";
+}
+
+.icon-shouji1:before {
+  content: "\e69c";
+}
+
+.icon-gongneng1:before {
+  content: "\e631";
+}
+
+.icon-api1:before {
+  content: "\e618";
 }
 
 .icon-lianjie-copy:before {
@@ -332,22 +348,6 @@
 
 .icon-login:before {
   content: "\e67f";
-}
-
-.icon-shouji:before {
-  content: "\e7a2";
-}
-
-.icon-gongneng:before {
-  content: "\e719";
-}
-
-.icon-diannao:before {
-  content: "\e61b";
-}
-
-.icon-jiekou1:before {
-  content: "\ef96";
 }
 
 .icon-tianjia:before {

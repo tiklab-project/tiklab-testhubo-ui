@@ -1,46 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {applyJump} from "thoughtware-core-ui";
+import React, {useState} from "react";
 import DemandSelect from "./DemandSelect";
 import "./demandStyle.scss"
-import {inject, observer} from "mobx-react";
-import {Col, Form, Row, Space} from "antd";
+import {Modal} from "antd";
+import {observer} from "mobx-react";
 
 /**
  * 关联需求
  */
 const Demand = (props)=>{
-    const {workItemId,workItemStore,caseInfo,updateFn} = props
-    const {findWorkItem} =workItemStore
+    const {demandInfo,caseInfo,updateFn,setDemandInfo} = props
 
-    const [demandInfo, setDemandInfo] = useState();
-    const [showSelect, setShowSelect] = useState(false);
-    const [binded, setBinded] = useState(false);
-    const repositoryId = sessionStorage.getItem("repositoryId")
+    const [visible, setVisible] = useState(false);
 
-    useEffect(()=>{
-        if(workItemId){
-            findWorkItem(workItemId,repositoryId).then(res=>{
-                if(res.code === 0) {
-                    setDemandInfo(res.data)
-                    setBinded(true)
-                }else {
-                    // messageFn("error","TeamWire连接失败!")
-                }
-
-            })
-        }
-    },[workItemId])
-
-    const toWorkItem = (record)=>{
-        try{
-            if(IS_DEV){
-                applyJump(`${teamwireUrl}/#/index/projectDetail/${record.projectId}/workDetail/${record.id}`,'_blank')
-            }else {
-                applyJump(`${record.projectUrl}/#/index/projectDetail/${record.projectId}/workDetail/${record.id}`,'_blank')
-            }
-        }catch {
-            applyJump(`${record.projectUrl}/#/index/projectDetail/${record.projectId}/workDetail/${record.id}`,'_blank')
-        }
+    const showModal = () => {
+        setVisible(true);
     }
 
     const unBind = ()=>{
@@ -53,64 +26,40 @@ const Demand = (props)=>{
         }
 
         updateFn(param).then(()=>{
-            setBinded(false)
+            setVisible(false)
         })
     }
 
-    const isBind = () =>{
-        if(binded){
-            return(
-                <Space>
-                    <span style={{fontSize: "13px", color: "#9b9b9b", margin: "0 43px 0 0"}}>需求 :</span>
-                    <div
-                        style={{
-                            display: "flex",
-                            gap: "25px",
-                            alignItems: "center",
-                        }}
-                    >
-                        <span>{demandInfo?.name}</span>
-                        <span onClick={unBind} style={{fontSize:"12px"}}>解绑</span>
-                    </div>
-                </Space>
-
-            )
-        }else {
-            return (
-                <>
-                    <div className={` ${showSelect?"demand_hide":"demand_show"}`}>
-                        <Form   className={"base-info-form"} layout="inline">
-                            <Row style={{width:"100%"}}>
-                                <Col span={9}>
-                                    <Form.Item label={"需求"} labelCol={{span:6}}>
-                                        <span className={"demand-content_add"} onClick={()=>setShowSelect(true)}>未关联</span>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Form>
-
-                    </div>
-                    <div style={{height:"400px"}} className={`demand_project_select ${showSelect?"demand_show":"demand_hide"}` }>
-                        <DemandSelect
-                            setShowSelect={setShowSelect}
-                            caseInfo={caseInfo}
-                            updateFn={updateFn}
-                            setBinded={setBinded}
-                            setDemandInfo={setDemandInfo}
-                        />
-                    </div>
-                </>
-            )
-        }
-    }
+    const onCancel = () => { setVisible(false) };
 
     return(
-        <div className={"detail-box "}>
-            <div style={{height:"100%",padding: "0 0 20px"}}>
-                {isBind()}
-            </div>
-        </div>
+        <>
+            {
+                demandInfo?.name
+                    ?<>
+                        <span>{demandInfo?.name}</span>
+                        <span onClick={unBind} style={{fontSize:"12px"}}>解绑</span>
+                    </>
+
+                    :<span onClick={showModal} style={{padding:"0 10px",cursor:"pointer"}}>未设置</span>
+            }
+
+            <Modal
+                destroyOnClose={true}
+                title={"关联的需求"}
+                visible={visible}
+                onCancel={onCancel}
+                footer={null}
+                centered
+            >
+                <DemandSelect
+                    caseInfo={caseInfo}
+                    updateFn={updateFn}
+                    setDemandInfo={setDemandInfo}
+                />
+            </Modal>
+        </>
     )
 }
 
-export default inject("workItemStore")(observer(Demand));
+export default observer(Demand);

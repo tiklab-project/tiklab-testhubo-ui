@@ -19,11 +19,10 @@ const PlanToFuncUnitPage = (props) =>{
     return(
         <div className={"content-box-center"}>
             <CaseBread
-                title={caseInfo?.name}
                 caseType={caseInfo?.caseType}
                 style={{borderBottom:"none"}}
-                // icon={"gongneng"}
-                breadItem={["测试用例","用例详情"]}
+                router={"/plan/case"}
+                breadItem={[caseInfo?.name]}
             />
             <FunctionDetail functionId={functionId}/>
 

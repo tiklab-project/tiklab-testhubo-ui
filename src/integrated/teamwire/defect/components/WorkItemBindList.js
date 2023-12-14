@@ -91,7 +91,7 @@ const WorkItemBindList = (props) =>{
             <div className={`${showSelect?"demand_hide":"demand_show"}`}>
                 <div style={{margin:'10px 0'}}>
                     <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                        <div style={{fontWeight:"bold"}}>步骤: ({workItemBindList.length})</div>
+                        <div> ( {workItemBindList.length} ) 个缺陷</div>
                         <IconBtn
                             className="pi-icon-btn-grey"
                             name={"关联缺陷"}

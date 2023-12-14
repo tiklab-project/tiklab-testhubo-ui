@@ -25,10 +25,10 @@ const AppSceneContent = (props) =>{
     return(
         <div className={"content-box-center"}>
             <CaseBread
-                title={testCaseInfo?.name}
+                breadItem={[testCaseInfo?.name]}
                 toggleCase={<ToggleCase  caseId={appSceneId}/>}
                 style={{borderBottom:"none"}}
-                breadItem={["用例详情"]}
+                router={"/repository/testcase"}
                 right={
                     <Space>
                         <IconBtn

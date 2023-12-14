@@ -1,19 +1,20 @@
 import React, {useEffect, useState} from "react";
 import { Empty, Table, Tag} from "antd";
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import appSceneInstanceStore from "../store/appSceneInstanceStore";
-import {useHistory} from "react-router";
+
 import CaseBread from "../../../../common/CaseBread";
 import AppSceneInstanceSinglePage from "./AppSceneInstanceSinglePage";
 import PaginationCommon from "../../../../common/pagination/Page";
 
 const AppSceneInstanceList = (props) =>{
+    const {appSceneStore} = props;
+    const {testCaseInfo} = appSceneStore
     const {
         findAppSceneInstancePage,
         appSceneInstanceList,
-        findAppSceneInstance,
         deleteAppSceneInstance
     } = appSceneInstanceStore;
 
@@ -124,7 +125,10 @@ const AppSceneInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread breadItem={["用例详情","用例历史"]}/>
+            <CaseBread
+                breadItem={[testCaseInfo?.name,"历史"]}
+                router={`/repository/app-scene/${appSceneId}`}
+            />
             <div className={"table-list-box"}>
                 <Table
                     columns={column}
@@ -149,4 +153,4 @@ const AppSceneInstanceList = (props) =>{
     )
 }
 
-export default observer(AppSceneInstanceList);
+export default inject('appSceneStore')(observer(AppSceneInstanceList));

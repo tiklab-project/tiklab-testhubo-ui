@@ -2,6 +2,7 @@ import React from 'react';
 import { observer } from "mobx-react";
 import {Form,  Button, Input, Space,Modal} from 'antd';
 import funcUnitStepStore from "../store/funcUnitStepStore";
+import IconBtn from "../../../common/iconBtn/IconBtn";
 
 const { TextArea } = Input;
 
@@ -40,7 +41,11 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
 
     return (
         <>
-            <Button className={"important-btn"} onClick={showModal}>添加步骤</Button>
+            <IconBtn
+                className="pi-icon-btn-grey"
+                name={"添加步骤"}
+                onClick={showModal}
+            />
             <Modal
                 destroyOnClose={true}
                 title={type==="add"?"添加步骤":"编辑步骤"}

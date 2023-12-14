@@ -5,7 +5,6 @@ import emptyImg from "../../../assets/img/empty.png"
 import IconCommon from "../../../common/IconCommon";
 import { showCaseTypeTable, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined} from "@ant-design/icons";
-import CaseTypeSelect from "./CaseTypeSelect";
 import {useHistory} from "react-router";
 import DropdownAdd from "./DropdownAdd";
 import "../../common/styles/testcaseStyle.scss"
@@ -16,6 +15,7 @@ import {getUser} from "thoughtware-core-ui";
 import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
 import {CASE_TYPE} from "../../common/DefineVariables";
 import PaginationCommon from "../../../common/pagination/Page";
+import {SelectItem, SelectSimple} from "../../../common/select";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -148,18 +148,16 @@ const TestCaseTable = (props) => {
 
     //模块赛选
     const changeCategory=(categoryId)=> {
-        setSelectCategory(categoryId)
+        let param
+        if(categoryId==="null"){
+            setSelectCategory(null)
+            param = {categoryId:null}
+        }else {
+            setSelectCategory(categoryId)
+            param = {categoryId:categoryId}
+        }
 
-        let param = {categoryId:categoryId}
         findPage(param)
-    }
-
-    //用例筛选
-    const caseSelectFn = (caseType) =>{
-        setCurrentPage(1)
-
-        let param = {caseType:caseType}
-        findPage(param);
     }
 
     //点击测试类型筛选项查找
@@ -246,6 +244,36 @@ const TestCaseTable = (props) => {
     }
 
 
+    function handleChange(caseTypeList, value) {
+        let param = {
+            [caseTypeList]:value
+        }
+
+        findPage(param)
+    }
+
+    const caseList = [
+        {
+            id:"api-unit",
+            name:"接口单元用例"
+        },{
+            id:"api-scene",
+            name:"接口场景用例"
+        },{
+            id:"api-perform",
+            name:"接口性能用例"
+        },{
+            id:"web-scene",
+            name:"WEB场景用例"
+        },{
+            id:"app-scene",
+            name:"APP场景用例"
+        },{
+            id:"function",
+            name:"功能用例"
+        }
+    ]
+
     return(
         <>
             <div className={"content-box-center"} >
@@ -265,10 +293,81 @@ const TestCaseTable = (props) => {
                         selectKeyFun={selectKeyFun}
                     />
                     <Space>
-                        <CaseTypeSelect
-                            caseSelectFn={caseSelectFn}
-                            testType={testType}
-                        />
+
+                        <SelectSimple
+                            name="workStatus"
+                            onChange={(value) => handleChange("caseTypeList", value)}
+                            title={"用例类型"}
+                            ismult={true}
+                        >
+                            <div className="select-group-title">功能用例</div>
+                            {
+                                caseList.map(item => {
+                                    if (item.id === "function") {
+                                        return <SelectItem
+                                            value={item.id}
+                                            label={item.name}
+                                            key={item.id}
+                                            imgUrl={item.iconUrl}
+                                        />
+                                    } else {
+                                        return <div/>
+                                    }
+                                })
+                            }
+
+                            <div className="select-group-title">接口</div>
+                            {
+                                caseList.map(item => {
+                                    if (item.id === "api-unit"||item.id==="api-scene") {
+                                        return <SelectItem
+                                            value={item.id}
+                                            label={item.name}
+                                            key={item.id}
+                                            imgUrl={item.iconUrl}
+                                        />
+                                    } else {
+                                        return <div/>
+                                    }
+
+                                })
+                            }
+                            <div className="select-group-title">UI</div>
+                            {
+                                caseList.map(item => {
+                                    if (item.id === "app-scene" || item.id === "web-scene") {
+                                        return <SelectItem
+                                            value={item.id}
+                                            label={item.name}
+                                            key={item.id}
+                                            imgUrl={item.iconUrl}
+                                        />
+                                    } else {
+                                        return <div/>
+                                    }
+
+                                })
+                            }
+
+
+                            <div className="select-group-title">性能</div>
+                            {
+                                caseList.map(item => {
+                                    if (item.id === "api-perform") {
+                                        return <SelectItem
+                                            value={item.id}
+                                            label={item.name}
+                                            key={item.id}
+                                            imgUrl={item.iconUrl}
+                                        />
+                                    } else {
+                                        return <div/>
+                                    }
+
+                                })
+                            }
+
+                        </SelectSimple>
 
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
@@ -282,7 +381,7 @@ const TestCaseTable = (props) => {
                             allowClear
                             treeDefaultExpandAll
                             onChange={changeCategory}
-                            treeData={categoryTableList}
+                            treeData={[{name:"所有",id:"null"},...categoryTableList]}
                         />
 
                         <Input

@@ -227,8 +227,8 @@ const ApiExecuteTestPage = (props) =>{
             >
                 <div style={{height: "calc(100% - 35px)"}}>
                     <CaseBread
-                        title={"接口场景测试"}
-                        icon={"jiekou1"}
+                        breadItem={["接口场景测试"]}
+                        icon={"api1"}
                         setOpen={setOpen}
                     />
                     <div  className={"result-spin-box"}>

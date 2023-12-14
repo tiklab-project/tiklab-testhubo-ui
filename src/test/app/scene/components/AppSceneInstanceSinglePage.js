@@ -164,8 +164,8 @@ const AppSceneInstanceSinglePage =({appSceneInstanceId,name})=>{
                 closable={false}
             >
                 <CaseBread
-                    title={"历史详情"}
-                    icon={"jiekou1"}
+                    breadItem={["历史详情"]}
+                    icon={"api1"}
                     setOpen={setOpen}
                 />
                 <UIResultCommon

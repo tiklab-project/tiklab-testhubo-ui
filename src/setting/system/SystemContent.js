@@ -122,13 +122,15 @@ const SystemContent = (props) =>{
                     id: '/setting/role',
                 },
                 {
-                    title: '消息通知方案',
-                    icon: 'modular',
+                    title: "消息发送方式",
                     id: '/setting/messageSendTypeBase',
                 },
                 {
+                    title: "消息通知方案",
+                    id: '/setting/message-notice-base',
+                },
+                {
                     title: '消息类型管理',
-                    icon: 'modular',
                     id: '/setting/messageType',
                 },{
                     title: '日志模板',

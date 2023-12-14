@@ -10,6 +10,7 @@ import stepCommonStore from "../../../common/stepcommon/store/StepCommonStore";
 import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
 import IfJudgmentDrawer from "../../../common/ifJudgment/components/IfJudgmentDrawer";
 import IfJudgmentEdit from "../../../common/ifJudgment/components/IfJudgmentEdit";
+import IconBtn from "../../../../common/iconBtn/IconBtn";
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
@@ -196,12 +197,17 @@ const WebSceneStepList = ({webSceneId}) => {
         <>
             <div className={"table-list-box"}>
                   <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                     <div style={{fontWeight:"bold"}}>步骤: ({stepList.length})</div>
+                     <div> ( {stepList.length} ) 个步骤</div>
                      <Dropdown
                         overlay={menu}
                         placement="bottom"
                      >
-                        <Button className={"important-btn"}>添加步骤</Button>
+                         <div>
+                             <IconBtn
+                                 className="pi-icon-btn-grey"
+                                 name={"添加步骤"}
+                             />
+                         </div>
                      </Dropdown>
                 </div>
                 <DragDropContext onDragEnd={onDragEnd}>

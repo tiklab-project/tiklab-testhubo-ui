@@ -11,6 +11,8 @@ import ToggleCase from "../../../../testcase/components/ToggleCase";
 
 
 const ApiUnitContent = (props) =>{
+    const {apiUnitStore} = props
+    const {testCaseInfo} = apiUnitStore
 
     const history = useHistory()
     let {id} = useParams()
@@ -26,7 +28,8 @@ const ApiUnitContent = (props) =>{
         <div className={"content-box-center"}>
             <CaseBread
                 toggleCase={<ToggleCase  caseId={id}/>}
-                breadItem={["用例详情"]}
+                breadItem={[testCaseInfo?.name]}
+                router={"/repository/testcase"}
                 right={
                     <Space>
                         <ApiEnvDropDownSelect />

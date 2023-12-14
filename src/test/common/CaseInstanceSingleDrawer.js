@@ -1,10 +1,12 @@
 import React from "react";
 import {CASE_TYPE} from "./DefineVariables";
-import ApiUnitInstanceSinglePage from "../api/http/unit/components/apiUnitInstanceSinglePage";
-import ApiSceneInstanceSinglePage from "../api/http/scene/components/apiSceneInstanceSinglePage";
-import ApiPerfInstanceSinglePage from "../api/http/perf/components/ApiPerfInstanceSinglePage";
-import WebSceneInstanceSinglePage from "../web/scene/components/WebSceneInstanceSinglePage";
-import AppSceneInstanceSinglePage from "../app/scene/components/AppSceneInstanceSinglePage";
+import LazyComponent from "../../common/Lazy";
+
+let ApiUnitInstanceSinglePage = LazyComponent(() => import("../api/http/unit/components/apiUnitInstanceSinglePage"));
+let ApiSceneInstanceSinglePage = LazyComponent(() => import("../api/http/scene/components/apiSceneInstanceSinglePage"));
+let ApiPerfInstanceSinglePage = LazyComponent(() => import("../api/http/perf/components/ApiPerfInstanceSinglePage"));
+let WebSceneInstanceSinglePage = LazyComponent(() => import("../web/scene/components/WebSceneInstanceSinglePage"));
+let AppSceneInstanceSinglePage = LazyComponent(() => import("../app/scene/components/AppSceneInstanceSinglePage"));
 
 
 const CaseInstanceSingleDrawer = (props) =>{

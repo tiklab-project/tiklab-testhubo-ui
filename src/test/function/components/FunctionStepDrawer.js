@@ -11,7 +11,7 @@ const {TextArea} = Input
 const tailLayout = {
     wrapperCol: {
         offset: 0,
-        span: 22,
+        span: 24,
     },
 };
 
@@ -102,22 +102,25 @@ const FunctionStepDrawer = ({name,stepId,findList}) =>{
                                     autoSize={{minRows:2,maxRows:4}}
                                 />
                             </Form.Item>
-                            <Form.Item>
-                                <Space>
-                                    <Button
-                                        className={"important-btn"}
-                                        type="primary"
-                                        htmlType="submit"
-                                    >
-                                        保存
-                                    </Button>
-                                    <IconBtn
-                                        className="pi-icon-btn-grey"
-                                        onClick={onClose}
-                                        name={"取消"}
-                                    />
-                                </Space>
-                            </Form.Item>
+                            <div className={"case-save-cancel-btn"}>
+                                <Form.Item>
+                                    <Space>
+                                        <Button
+                                            className={"important-btn"}
+                                            type="primary"
+                                            htmlType="submit"
+                                        >
+                                            保存
+                                        </Button>
+                                        <IconBtn
+                                            className="pi-icon-btn-grey"
+                                            onClick={onClose}
+                                            name={"取消"}
+                                        />
+                                    </Space>
+                                </Form.Item>
+                            </div>
+
                         </Form>
                     </div>
                 </div>

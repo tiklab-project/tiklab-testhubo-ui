@@ -1,23 +1,24 @@
 import React, {useEffect, useState} from "react";
 import { Empty, Popconfirm, Table, Tag} from "antd";
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
-import {useHistory} from "react-router";
 import CaseBread from "../../../../../common/CaseBread";
 import ApiSceneInstanceSinglePage from "./apiSceneInstanceSinglePage";
 import PaginationCommon from "../../../../../common/pagination/Page";
 
 const ApiSceneInstanceList = (props) =>{
+    const {apiSceneStore} = props;
+    const {testCaseInfo} = apiSceneStore
+
     const {
         findApiSceneInstancePage,
         apiSceneInstanceList,
-        findApiSceneInstance,
         deleteApiSceneInstance
     } = apiSceneInstanceStore;
 
-    const history = useHistory();
+
 
     const column = [
         {
@@ -120,7 +121,10 @@ const ApiSceneInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread  breadItem={["用例详情","用例历史"]}/>
+            <CaseBread
+                breadItem={[testCaseInfo?.name,"历史"]}
+                router={`/repository/api-scene/${apiSceneId}`}
+            />
             <div className={"table-list-box"}>
                 <Table
                     columns={column}
@@ -145,4 +149,4 @@ const ApiSceneInstanceList = (props) =>{
     )
 }
 
-export default observer(ApiSceneInstanceList);
+export default inject("apiSceneStore")(observer(ApiSceneInstanceList));

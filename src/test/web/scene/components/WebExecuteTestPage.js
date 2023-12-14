@@ -220,8 +220,8 @@ const WebExecuteTestPage = (props) =>{
             >
                 <div className={"content-box-center"}>
                     <CaseBread
-                        title={"WEB场景测试"}
-                        icon={"jiekou1"}
+                        breadItem={["WEB场景测试"]}
+                        icon={"api1"}
                         setOpen={setOpen}
                     />
                     <UIResultCommon

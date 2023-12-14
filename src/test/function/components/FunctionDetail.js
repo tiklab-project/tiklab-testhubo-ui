@@ -11,12 +11,15 @@ import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
 
 const FunctionDetail = (props) =>{
-    const {funcUnitStore,functionId} = props;
+    const {funcUnitStore,functionId,workItemStore} = props;
     const {findFuncUnit,updateFuncUnit} = funcUnitStore;
+    const {findWorkItem} =workItemStore
 
     const [form] = Form.useForm()
     const [caseInfo,setCaseInfo]=useState();
     const [workItemId, setWorkItemId] = useState();
+    const repositoryId = sessionStorage.getItem("repositoryId")
+    const [demandInfo, setDemandInfo] = useState();
 
     useEffect(()=> {
         findFuncUnit(functionId).then(res=>{
@@ -35,6 +38,20 @@ const FunctionDetail = (props) =>{
             })
         })
     },[functionId])
+
+
+
+    useEffect(()=>{
+        if(workItemId){
+            findWorkItem(workItemId,repositoryId).then(res=>{
+                if(res.code === 0) {
+                    setDemandInfo(res.data)
+                }else {
+                    // messageFn("error","TeamWire连接失败!")
+                }
+            })
+        }
+    },[])
 
     const updateCase = async () =>{
         let newData = await form.getFieldsValue()
@@ -72,6 +89,7 @@ const FunctionDetail = (props) =>{
                             workItemId={workItemId}
                             caseInfo={caseInfo}
                             updateFn={updateFuncUnit}
+                            demandInfo={demandInfo}
                         />
                     }
                 />
@@ -87,7 +105,6 @@ const FunctionDetail = (props) =>{
         }
     ]
 
-
     return(
         <>
             <CaseContentCommon
@@ -97,4 +114,4 @@ const FunctionDetail = (props) =>{
     )
 }
 
-export default inject('funcUnitStore')(observer(FunctionDetail));
+export default inject('funcUnitStore',"workItemStore")(observer(FunctionDetail));

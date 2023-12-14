@@ -27,45 +27,45 @@ export const showCaseTypeView = (type)=>{
     switch (type) {
         case "api-unit":
             return  <IconCommon
-                icon={"jiekou1"}
+                icon={"api1"}
                 className="icon-l"
             />
 
         case "api-scene":
             return  <IconCommon
-                icon={"jiekou1"}
+                icon={"api1"}
                 className="icon-l"
             />
         case "api-perform":
             return  <IconCommon
-                icon={"jiekou1"}
+                icon={"api1"}
                 className="icon-l"
             />
 
         case "web-scene":
             return <IconCommon
-                icon={"diannao"}
+                icon={"diannao1"}
                 className="icon-l"
             />
         case "web-perform":
             return <IconCommon
-                icon={"diannao"}
+                icon={"diannao1"}
                 className="icon-l"
             />
 
         case "app-scene":
             return <IconCommon
-                icon={"shouji"}
+                icon={"shouji1"}
                 className="icon-l"
             />
         case "app-perform":
             return <IconCommon
-                icon={"shouji"}
+                icon={"shouji1"}
                 className="icon-l"
             />
         default :
             return <IconCommon
-                icon={"gongneng"}
+                icon={"gongneng1"}
                 className="icon-l"
             />
     }

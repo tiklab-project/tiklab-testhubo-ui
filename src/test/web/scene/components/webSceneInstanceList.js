@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Empty, Table, Tag} from "antd";
-import { observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import emptyImg from "../../../../assets/img/empty.png";
 import webSceneInstanceStore from "../store/webSceneInstanceStore";
@@ -9,10 +9,12 @@ import WebSceneInstanceSinglePage from "./WebSceneInstanceSinglePage";
 import PaginationCommon from "../../../../common/pagination/Page";
 
 const WebSceneInstanceList = (props) =>{
+    const {webSceneStore} = props;
+    const {testCaseInfo} = webSceneStore
+
     const {
         findWebSceneInstancePage,
         webSceneInstanceList,
-        findWebSceneInstance,
         deleteWebSceneInstance
     } = webSceneInstanceStore;
 
@@ -125,7 +127,10 @@ const WebSceneInstanceList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread  breadItem={["用例详情","用例历史"]}/>
+            <CaseBread
+                breadItem={[testCaseInfo?.name,"历史"]}
+                router={`/repository/web-scene/${webSceneId}`}
+            />
             <div className={"table-list-box"}>
                 <Table
                     columns={column}
@@ -150,4 +155,4 @@ const WebSceneInstanceList = (props) =>{
     )
 }
 
-export default observer(WebSceneInstanceList);
+export default inject('webSceneStore')(observer(WebSceneInstanceList));

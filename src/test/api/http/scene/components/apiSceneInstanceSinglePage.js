@@ -191,8 +191,8 @@ const ApiSceneInstanceSinglePage = (props) =>{
             >
                 <div className={"content-box-center"}  style={{height: "calc(100% - 52px)"}}>
                     <CaseBread
-                        title={"历史详情"}
-                        icon={"jiekou1"}
+                        breadItem={["历史详情"]}
+                        icon={"api1"}
                         setOpen={setOpen}
                     />
                     <div className={"history-detail history-detail-box"}>

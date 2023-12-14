@@ -112,7 +112,7 @@ const VariableTable = (props) =>{
     return(
         <div className={"table-list-box"} style={{margin:"10px 0 "}}>
             <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                <div style={{fontWeight:"bold"}}>步骤: ({dataList.length})</div>
+                <div> ( {dataList.length} ) 个变量</div>
 
                 <VariableEdit
                     belongId={belongId}

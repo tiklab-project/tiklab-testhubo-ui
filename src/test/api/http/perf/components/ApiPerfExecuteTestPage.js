@@ -121,8 +121,8 @@ const ApiPerfExecuteTestPage = (props) =>{
             >
                 <div className={"content-box-center"}>
                     <CaseBread
-                        title={"接口性能测试"}
-                        icon={"jiekou1"}
+                        breadItem={["接口性能测试"]}
+                        icon={"api1"}
                         setOpen={setOpen}
                     />
                     <div  className={"result-spin-box"}>

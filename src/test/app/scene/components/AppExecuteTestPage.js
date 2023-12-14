@@ -214,7 +214,7 @@ const AppExecuteTestPage =({appSceneId})=>{
                 closable={false}
             >
                 <div className={"content-box-center"}>
-                    <CaseBread title={"APP场景测试"}/>
+                    <CaseBread breadItem={["APP场景测试"]}/>
                     <UIResultCommon
                         spinning={spinning}
                         form={form}

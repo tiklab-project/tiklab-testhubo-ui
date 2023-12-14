@@ -27,10 +27,10 @@ const ApiSceneContent = (props) => {
     return(
         <div className={"content-box-center"}>
             <CaseBread
+                breadItem={[testCaseInfo?.name]}
+                router={"/repository/testcase"}
                 style={{borderBottom:"none"}}
-                // title={testCaseInfo?.name}
                 toggleCase={<ToggleCase  caseId={apiSceneId}/>}
-                breadItem={["用例详情"]}
                 right={
                     <Space>
                         <ApiEnvDropDownSelect />

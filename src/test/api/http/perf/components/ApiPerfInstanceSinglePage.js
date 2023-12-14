@@ -67,8 +67,8 @@ const ApiPerfInstanceSinglePage = ({apiPerfInstanceId,name}) =>{
                 closable={false}
             >
                 <CaseBread
-                    title={"历史详情"}
-                    icon={"jiekou1"}
+                    breadItem={["历史详情"]}
+                    icon={"api1"}
                     setOpen={setOpen}
                 />
                 <div  className={"result-spin-box"} style={{margin:"0 10px",overflow: "hidden",height: "calc( 100% - 52px )"}} >

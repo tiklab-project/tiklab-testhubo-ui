@@ -89,45 +89,45 @@ const TestCaseRecentHome = (props) =>{
         switch (caseType) {
             case "api-unit":
                 return  <IconCommon
-                    icon={"jiekou1"}
+                    icon={"api1"}
                     className="ws-img-icon"
                 />
 
             case "api-scene":
                 return  <IconCommon
-                    icon={"jiekou1"}
+                    icon={"api1"}
                     className="ws-img-icon"
                 />
             case "api-perform":
                 return  <IconCommon
-                    icon={"jiekou1"}
+                    icon={"api1"}
                     className="ws-img-icon"
                 />
 
             case "web-scene":
                 return <IconCommon
-                    icon={"diannao"}
+                    icon={"diannao1"}
                     className="ws-img-icon"
                 />
             case "web-perform":
                 return <IconCommon
-                    icon={"diannao"}
+                    icon={"diannao1"}
                     className="ws-img-icon"
                 />
 
             case "app-scene":
                 return <IconCommon
-                    icon={"shouji"}
+                    icon={"shouji1"}
                     className="ws-img-icon"
                 />
             case "app-perform":
                 return <IconCommon
-                    icon={"shouji"}
+                    icon={"shouji1"}
                     className="ws-img-icon"
                 />
             default :
                 return <IconCommon
-                    icon={"gongneng"}
+                    icon={"gongneng1"}
                     className="ws-img-icon"
                 />
         }
@@ -156,7 +156,6 @@ const TestCaseRecentHome = (props) =>{
                                     {item.testCase?.name}
                                 </div>
                                 <div className={"home-list-item-other"} >
-                                    <div className={"home-list-item-other-text"} >仓库 :  </div>
                                     <div  className={"home-list-item-other-text"}> {item?.repository?.name}</div>
                                 </div>
                             </div>

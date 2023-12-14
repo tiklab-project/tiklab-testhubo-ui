@@ -71,10 +71,9 @@ const RepositoryOverView = (props) => {
                     </div>
                 </div>
                 <div className={"wd-dynamic-box"}>
-                    <div className={"title-bold"} >最近动态</div>
-                    <div style={{margin: "0 10px"}}>
-                        <DynamicWidget screen={{"repositoryId": repositoryId}}/>
-                    </div>
+                    <div className={"title-bold"} style={{margin: "0 0 10px 0"}}>最近动态</div>
+
+                    <DynamicWidget screen={{"repositoryId": repositoryId}}/>
                 </div>
             </div>
         </div>

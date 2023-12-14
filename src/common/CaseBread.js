@@ -7,7 +7,7 @@ import {Breadcrumb} from "antd";
 import ToggleCase from "../test/testcase/components/ToggleCase";
 
 const CaseBread = (props) =>{
-    const {title,icon,style,toggleCase,setOpen,breadItem,right} = props
+    const {icon,style,toggleCase,setOpen,breadItem,right,router} = props
 
     const history =useHistory()
 
@@ -22,7 +22,7 @@ const CaseBread = (props) =>{
             )
         }else {
             return <ArrowLeftOutlined
-                onClick={()=>history.goBack()}
+                onClick={()=>history.push(router)}
                 style={{
                     cursor:"pointer",
                     fontSize:"20px"
@@ -45,11 +45,7 @@ const CaseBread = (props) =>{
                 {
                     showIcon(icon)
                 }
-                {
-                    breadItem
-                        ?<Breadcrumb style={{fontWeight:"bold"}}>{showBreadItem(breadItem)}</Breadcrumb>
-                        :<div className={"case-header_title"}>{title}</div>
-                }
+                <Breadcrumb style={{fontWeight:"bold"}}>{showBreadItem(breadItem)}</Breadcrumb>
                 {
                     toggleCase&&toggleCase
                 }
