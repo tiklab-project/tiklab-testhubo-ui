@@ -5,6 +5,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import workItemBindStore from "../store/WorkItemBindStore";
 import ProjectSelect from "../../workItem/components/ProjectSelect";
+import PaginationCommon from "../../../../common/pagination/Page";
 const {createWorkItemBind,findWorkItemBindList} = workItemBindStore;
 
 const DefectSelect = (props) =>{
@@ -14,30 +15,32 @@ const DefectSelect = (props) =>{
     const [selectProjectId, setSelectProjectId] = useState();
     const [workItemList, setWorkItemList] = useState([]);
     const repositoryId = sessionStorage.getItem("repositoryId")
-
+    const [totalPage, setTotalPage] = useState();
+    const [pageSize] = useState(8);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const columns = [
         {
             title:`缺陷名`,
-            dataIndex: "name",
+            dataIndex: "title",
             key: "name",
             width:"40%",
         },
         {
             title: `项目`,
-            dataIndex:"projectName",
+            dataIndex:["project","name"],
             key: "projectName",
             width:"20%",
         },
         {
             title: `状态`,
-            dataIndex: "status",
+            dataIndex:  ["workStatusNode","name"],
             key: "status",
             width:"15%",
         },
         {
             title: `优先级`,
-            dataIndex: "priority",
+            dataIndex: ["workPriority","name"],
             key: "priority",
             width:"15%",
         },
@@ -92,14 +95,35 @@ const DefectSelect = (props) =>{
         let params = {
             repositoryId:repositoryId,
             workTypeCode:"defect",
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:1
+            },
             ...param
         }
         findWorkItemList(params).then(res=>{
             if(res.code===0){
-                setWorkItemList(res.data);
+                setWorkItemList(res.data.dataList);
+                setTotalPage(res.data.totalPage)
             }
         })
     }
+
+
+    // 分页
+    const onTableChange = (current) => {
+        setCurrentPage(current)
+
+        let param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:current
+            },
+        }
+
+        findDemandList(param)
+    }
+
 
     return(
         <>
@@ -144,6 +168,11 @@ const DefectSelect = (props) =>{
                             };
                         }}
                         pagination={false}
+                    />
+                    <PaginationCommon
+                        currentPage={currentPage}
+                        totalPage={totalPage}
+                        changePage={onTableChange}
                     />
                 </div>
 

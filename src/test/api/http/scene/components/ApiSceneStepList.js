@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {inject, observer} from "mobx-react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
-import {Button, Col, Dropdown, Menu, Row, Tag} from "antd";
+import {Col, Dropdown, Menu, Row, Tag} from "antd";
 import IconCommon from "../../../../../common/IconCommon";
 import ApiSceneBindUnit from "./apiSceneBindUnit";
 import ApiSceneStepDrawer from "./ApiSceneStepDrawer";
@@ -157,12 +157,10 @@ const ApiSceneStepList = ({apiUnitStore,apiSceneId}) => {
         });
     };
 
-
     const showConnect =()=>{
         findApiUnitList({repositoryId:repositoryId,caseType: "api-unit", testType: "api"});
         setVisible(true);
     }
-
 
     //添加步骤
     const menu = (
@@ -181,10 +179,12 @@ const ApiSceneStepList = ({apiUnitStore,apiSceneId}) => {
                         overlay={menu}
                         placement="bottom"
                     >
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            name={"添加步骤"}
-                        />
+                        <span>
+                          <IconBtn
+                              className="pi-icon-btn-grey"
+                              name={"添加步骤"}
+                          />
+                        </span>
                     </Dropdown>
 
                 </div>

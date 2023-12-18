@@ -12,19 +12,15 @@ import "../../common/styles/unitcase.scss"
 
 const FunctionDetail = (props) =>{
     const {funcUnitStore,functionId,workItemStore} = props;
-    const {findFuncUnit,updateFuncUnit} = funcUnitStore;
+    const {findFuncUnit,updateFuncUnit,testCaseInfo,funcUnitInfo} = funcUnitStore;
     const {findWorkItem} =workItemStore
 
     const [form] = Form.useForm()
-    const [caseInfo,setCaseInfo]=useState();
-    const [workItemId, setWorkItemId] = useState();
     const repositoryId = sessionStorage.getItem("repositoryId")
     const [demandInfo, setDemandInfo] = useState();
 
     useEffect(()=> {
         findFuncUnit(functionId).then(res=>{
-            setCaseInfo(res);
-            setWorkItemId(res?.testCase?.workItemId)
             let testCase = res.testCase
             form.setFieldsValue({
                 name: testCase.name,
@@ -36,14 +32,13 @@ const FunctionDetail = (props) =>{
                 director:testCase.director?.id,
                 desc: testCase.desc,
             })
+
         })
     },[functionId])
 
-
-
     useEffect(()=>{
-        if(workItemId){
-            findWorkItem(workItemId,repositoryId).then(res=>{
+        if(testCaseInfo?.workItemId){
+            findWorkItem(testCaseInfo?.workItemId,repositoryId).then(res=>{
                 if(res.code === 0) {
                     setDemandInfo(res.data)
                 }else {
@@ -51,14 +46,14 @@ const FunctionDetail = (props) =>{
                 }
             })
         }
-    },[])
+    },[testCaseInfo])
 
     const updateCase = async () =>{
         let newData = await form.getFieldsValue()
         const params = {
-            id:caseInfo.id,
+            id:funcUnitInfo.id,
             testCase: {
-                ...caseInfo.testCase,
+                ...funcUnitInfo.testCase,
                 name:newData.name,
                 category:{id:newData.category||"nullstring"},
                 status:newData.status,
@@ -68,9 +63,13 @@ const FunctionDetail = (props) =>{
             }
         }
         updateFuncUnit(params).then(()=>{
-            findFuncUnit(functionId).then(res=>{
-                setCaseInfo(res);
-            })
+            findFuncUnit(functionId)
+        })
+    }
+
+    const updateDemand = (param) =>{
+        updateFuncUnit(param).then(()=>{
+            findFuncUnit(functionId)
         })
     }
 
@@ -81,14 +80,14 @@ const FunctionDetail = (props) =>{
             children: <>
                 <DetailCommon
                     type={true}
-                    detailInfo={caseInfo}
+                    detailInfo={funcUnitInfo}
                     updateCase={updateCase}
                     form={form}
                     demand={
                         <Demand
-                            workItemId={workItemId}
-                            caseInfo={caseInfo}
-                            updateFn={updateFuncUnit}
+                            workItemId={testCaseInfo?.workItemId}
+                            caseInfo={funcUnitInfo}
+                            updateFn={updateDemand}
                             demandInfo={demandInfo}
                         />
                     }

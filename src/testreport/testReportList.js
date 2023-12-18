@@ -6,6 +6,8 @@ import {observer} from "mobx-react";
 import testPlanInstanceStore from "../testplan/store/testPlanInstanceStore";
 import PaginationCommon from "../common/pagination/Page";
 import {SearchOutlined} from "@ant-design/icons";
+import MenuSelect from "../common/menuSelect/MenuSelect";
+import {getUser} from "thoughtware-core-ui";
 
 const TestReportList = (props) =>{
     const {
@@ -72,8 +74,8 @@ const TestReportList = (props) =>{
     ]
 
     const repositoryId = sessionStorage.getItem("repositoryId")
+    const [selectItem, setSelectItem] = useState("all");
     const [totalPage, setTotalPage] = useState();
-    const [totalRecord, setTotalRecord] = useState(0);
     const [pageSize] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -97,7 +99,6 @@ const TestReportList = (props) =>{
         let res = await findTestPlanInstancePage(param)
         if(res.code===0){
             setTotalPage(res.data.totalPage)
-            setTotalRecord(res.data.totalRecord)
         }
     }
 
@@ -130,19 +131,53 @@ const TestReportList = (props) =>{
         await findPage(param)
     }
 
+
+    /**
+     * 点击筛选项查找
+     */
+    const selectFn = async (item)=>{
+        setSelectItem(item.key)
+
+        let param
+        if(item.key==="self"){
+            param = {"createUser":getUser().userId};
+        }
+
+        await findPage(param)
+    }
+
+
+    //项目筛选列表
+    const items = [
+        {
+            title: '所有',
+            key: `all`,
+        },
+        {
+            title: '我执行的',
+            key: `self`,
+        }
+    ];
+
     return(
         <div className={"content-box-center"}>
             <div className='header-box-space-between'>
                 <div className={'header-box-title'}>测试报告</div>
             </div>
             <div className='header-box-space-between'>
+                <MenuSelect
+                    menuItems={items}
+                    selectFn={selectFn}
+                    selected={selectItem}
+                />
+
+
                 <Input
                     placeholder={`搜索用例`}
                     onPressEnter={onSearch}
                     className='search-input-common'
                     prefix={<SearchOutlined />}
                 />
-                <div style={{padding: "3px 8px", fontSize: "13px", borderRadius: "5px"}}>历史数：{totalRecord}</div>
             </div>
             <div className={"table-list-box"}>
                 <Table

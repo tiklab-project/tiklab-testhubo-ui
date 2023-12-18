@@ -37,15 +37,22 @@ const ApiUnitInstanceList = (props) =>{
                     ?<div className={"history-item-result isSucceed"} style={{margin:0}}>通过</div>
                     :<div className={"history-item-result isFailed"} style={{margin:0}}>未通过</div>
             )
-        },{
-            title: `测试地址`,
-            dataIndex: ["requestInstance","requestUrl"],
-            key: "requestUrl",
-
-        },{
+        },
+        // {
+        //     title: `测试地址`,
+        //     dataIndex: ["requestInstance","requestUrl"],
+        //     key: "requestUrl",
+        //
+        // },
+        {
             title: `状态码`,
             dataIndex: ["apiUnitInstance","statusCode"],
             key: "statusCode",
+            render:(text,record)=>(
+                <>
+                    {text ? <span>{text}</span> : <span>无</span>}
+                </>
+            )
         },
         {
             title: `耗时/ms`,
