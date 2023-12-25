@@ -12,9 +12,10 @@ export class ApiSceneInstanceStore {
     findApiSceneInstancePage = async (value) => {
         const params = {
             ...value,
+            type:"api-scene",
             orderParams:[{name:'createTime', orderType:'desc'}],
         }
-        const res = await Axios.post("/apiSceneInstance/findApiSceneInstancePage",params);
+        const res = await Axios.post("/instance/findInstancePage",params);
         if(res.code === 0) {
             this.apiSceneInstanceList = res.data.dataList;
         }
@@ -23,20 +24,6 @@ export class ApiSceneInstanceStore {
     }
 
 
-    @action
-    findApiSceneInstanceList = async (id) => {
-        this.apiSceneId = id;
-        const params = {
-            apiSceneId: id,
-            orderParams:[{name:'createTime', orderType:'desc'}],
-        }
-        const res = await Axios.post("/apiSceneInstance/findApiSceneInstanceList",params);
-
-        if(res.code === 0) {
-            this.apiSceneInstanceList = res.data;
-            return res.data
-        }
-    }
 
     @action
     findApiSceneInstance = async (id) => {
@@ -56,7 +43,7 @@ export class ApiSceneInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await Axios.post("/apiSceneInstance/deleteApiSceneInstance",param)
+        await Axios.post("/instance/deleteInstance",param)
 
     }
 

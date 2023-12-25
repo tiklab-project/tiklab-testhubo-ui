@@ -82,11 +82,14 @@ const functionalTestResult =[
 
 //用例类型
 const CASE_TYPE={
-    WEB:"web",
-    APP:"app",
+    WEB:"web-scene",
+    APP:"app-scene",
     API_SCENE:"api-scene",
     API_UNIT:"api-unit",
-    FUNCTION:"function"
+    API_PERFORM:"api-perform",
+    FUNCTION:"function",
+    TEST_PLAN:"test-plan",
+    TEST_REPORT:"test-report"
 }
 
 

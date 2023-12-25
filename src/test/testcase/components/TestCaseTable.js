@@ -16,6 +16,7 @@ import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
 import {CASE_TYPE} from "../../common/DefineVariables";
 import PaginationCommon from "../../../common/pagination/Page";
 import {SelectItem, SelectSimple} from "../../../common/select";
+import MenuSelect from "../../../common/menuSelect/MenuSelect";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -100,12 +101,11 @@ const TestCaseTable = (props) => {
     ]
 
     const [tableLoading,setTableLoading] = useState(true);
-    const [selectItem, setSelectItem] = useState(null);
+    const [selectItem, setSelectItem] = useState("all");
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
-    let userId = getUser().userId
     let repositoryId = sessionStorage.getItem("repositoryId")
 
     let history = useHistory();
@@ -160,22 +160,6 @@ const TestCaseTable = (props) => {
         findPage(param)
     }
 
-    //点击测试类型筛选项查找
-    const selectKeyFun = (item)=>{
-        let key = item.key
-
-        setSelectItem(key)
-
-        let param
-        switch (key) {
-            case "createUser":
-                param = {"createUser":userId};
-                break;
-        }
-
-
-        findPage(param)
-    }
 
     // 分页
     const onTableChange = (current) => {
@@ -243,7 +227,6 @@ const TestCaseTable = (props) => {
         testCaseRecent(params)
     }
 
-
     function handleChange(caseTypeList, value) {
         let param = {
             [caseTypeList]:value
@@ -274,6 +257,43 @@ const TestCaseTable = (props) => {
         }
     ]
 
+    const items = [
+        {
+            title: '所有',
+            key: `all`,
+        },
+        {
+            title: '功能',
+            key: `function`,
+        },
+        {
+            title: '接口',
+            key: `api`,
+        },
+        {
+            title: 'UI',
+            key: `ui`,
+        },
+        {
+            title: '性能',
+            key: `perform`,
+        }
+    ];
+
+
+    //点击测试类型筛选项查找
+    const selectKeyFun = (item)=>{
+        let key = item.key
+        setSelectItem(key)
+
+        let param
+        if(key!=="all"){
+            param={testType:key}
+        }
+
+        findPage(param)
+    }
+
     return(
         <>
             <div className={"content-box-center"} >
@@ -288,10 +308,13 @@ const TestCaseTable = (props) => {
                 </div>
 
                 <div className={"dynamic-select-box"}>
-                    <TestCaseMenu
-                        selectItem={selectItem}
-                        selectKeyFun={selectKeyFun}
+                    <MenuSelect
+                        menuItems={items}
+                        selectFn={selectKeyFun}
+                        selected={selectItem}
+                        style={{width: "300px"}}
                     />
+
                     <Space>
 
                         <SelectSimple

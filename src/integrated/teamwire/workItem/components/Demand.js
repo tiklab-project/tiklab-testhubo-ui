@@ -25,9 +25,7 @@ const Demand = (props)=>{
             }
         }
 
-        updateFn(param).then(()=>{
-            setVisible(false)
-        })
+        updateFn(param)
     }
 
     const onCancel = () => { setVisible(false) };
@@ -35,9 +33,9 @@ const Demand = (props)=>{
     return(
         <>
             {
-                demandInfo?.name
+                demandInfo?.name&&caseInfo.testCase.workItemId
                     ?<>
-                        <span>{demandInfo?.name}</span>
+                        <span style={{padding:"0 10px"}}>{demandInfo?.name}</span>
                         <span onClick={unBind} style={{fontSize:"12px"}}>解绑</span>
                     </>
 
@@ -51,11 +49,13 @@ const Demand = (props)=>{
                 onCancel={onCancel}
                 footer={null}
                 centered
+                width={600}
             >
                 <DemandSelect
                     caseInfo={caseInfo}
                     updateFn={updateFn}
                     setDemandInfo={setDemandInfo}
+                    onCancel={onCancel}
                 />
             </Modal>
         </>

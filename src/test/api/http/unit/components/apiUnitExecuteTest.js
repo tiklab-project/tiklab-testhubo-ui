@@ -54,7 +54,7 @@ const ApiUnitExecuteTest = (props) =>{
             key:"methodType"
         },{
             title:"状态码:",
-            value:data?.statusCode,
+            value:data?.statusCode||"无",
             key:"statusCode"
         },{
             title:"测试结果:",
@@ -109,6 +109,7 @@ const ApiUnitExecuteTest = (props) =>{
                     resBody={data?.responseInstance?.responseBody}
                     resHeader={processResHeader(data?.responseInstance?.responseHeader)}
                     reqHeader={processResHeader(data?.requestInstance?.requestHeader)}
+                    error={data?.errMessage}
                 />
             </Drawer>
         </>

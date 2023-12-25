@@ -18,42 +18,30 @@ const ApiPerfInstanceTable = (props) =>{
 
     const column = [
         {
-            title: '执行次数',
+            title: '序号',
             dataIndex: 'executeNumber',
             key: "executeNumber",
+            width: "5%",
             render:(text,record)=>(<ApiPerfInstanceSinglePage name={text} apiPerfInstanceId={record.id}/>)
         },
         {
-            title: `总场景数`,
-            dataIndex: "total",
-            key: "total",
-
-        },{
-            title: `通过率`,
-            dataIndex: "passRate",
-            key: "passNumber",
-            render:(text)=>(<Tag color="success">{text}</Tag>)
+            title: '详情',
+            dataIndex: "detail",
+            key: "detail",
+            width: "60%",
+            render:(text,record)=>(showDetail(record))
         },
         {
-            title: `通过数`,
-            dataIndex: "passNum",
-            key: "passNum",
-
-        },{
-            title: `失败率`,
-            dataIndex: "errorRate",
-            key: "errorRate",
-            render:(text)=>(<Tag color="error">{text}</Tag>)
-        },{
-            title: `失败数`,
-            dataIndex: "failNum",
-            key: "failNum",
-
+            title: `测试人`,
+            dataIndex: ["createUser","nickname"],
+            key: "name",
+            width: "10%",
         },
         {
             title: `测试时间`,
             dataIndex: "createTime",
             key: "createTime",
+            width: "20%",
         },
         {
             title: '操作',
@@ -95,6 +83,30 @@ const ApiPerfInstanceTable = (props) =>{
             setTotalPage(res.data.totalPage)
         }
     }
+
+    const showDetail = (record)=> {
+        let content = JSON.parse(record.content);
+
+        return <>
+            <div className={"display-flex-gap"}>
+                <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
+                <div>{content.total}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>
+                <div>{content.passNum}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>
+                <div>{content.passRate}</div>
+            </div>
+            <div className={"display-flex-gap"}>
+                <div style={{fontSize: "12px", color: "#aaa"}}> 错误数:</div>
+                <div>{content.failNum}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> 失败率:</div>
+                <div>{content.errorRate}</div>
+            </div>
+
+        </>
+    }
+
+
 
     // 分页
     const onTableChange = (current) => {

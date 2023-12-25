@@ -6,7 +6,6 @@ import {Axios} from "thoughtware-core-ui";
 import CaseDesc from "./CaseDesc";
 import {showCaseTypeInList} from "./CaseCommonFn";
 
-const { TextArea } = Input;
 const {Option} = Select
 const tailLayout = {
     labelCol:{span: 6}
@@ -86,7 +85,7 @@ const DetailCommon = (props) =>{
                                 <Select placeholder={"无"}>
                                     {
                                         userList&&userList.map(item=>{
-                                            return <Option key={item.user.id} value={item.user.id}>{item.user.nickname}</Option>
+                                            return <Option key={item?.user?.id} value={item?.user?.id}>{item?.user?.nickname}</Option>
                                         })
                                     }
                                 </Select>
@@ -115,7 +114,7 @@ const DetailCommon = (props) =>{
                         {
                             demand
                                 ?<Col span={9}>
-                                        <Form.Item label={"更新时间"} name="updateTime" >
+                                        <Form.Item label={"关联需求"} name="updateTime" >
                                             {demand}
                                         </Form.Item>
                                 </Col>

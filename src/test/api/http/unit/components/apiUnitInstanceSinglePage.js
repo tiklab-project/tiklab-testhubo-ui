@@ -38,7 +38,7 @@ const ApiUnitInstanceSinglePage = (props) =>{
             key:"methodType"
         },{
             title:"状态码:",
-            value:allData?.statusCode,
+            value:allData?.statusCode||"无",
             key:"statusCode"
         },{
             title:"测试结果:",
@@ -91,6 +91,7 @@ const ApiUnitInstanceSinglePage = (props) =>{
                     setOpen={setOpen}
                 />
                 <ResponseCommon
+                    error={allData?.errMessage}
                     detail={showDetail(detail)}
                     resBody={allData?.responseInstance?.responseBody}
                     resHeader={processResHeader(allData?.responseInstance?.responseHeader)}

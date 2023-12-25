@@ -10,27 +10,14 @@ class ApiUnitInstanceStore {
 
     @action
     findApiUnitInstancePage = async (value) => {
-
-        const res = await Axios.post("/apiUnitInstanceBind/findApiUnitInstanceBindPage",value);
+        value.type="api-unit"
+        const res = await Axios.post("/instance/findInstancePage",value);
         if(res.code === 0) {
             this.apiUnitInstanceList = res.data.dataList;
         }
         return res
     }
 
-    @action
-    findApiUnitInstanceList = async (id) =>{
-        let param = {
-            "apiUnitId":id,
-            orderParams:[{name:'createTime', orderType:'desc' }]
-        }
-
-        const res = await Axios.post("/apiUnitInstanceBind/findApiUnitInstanceBindList",param);
-        if(res.code===0){
-            this.apiUnitInstanceList = res.data;
-            return res.data;
-        }
-    }
 
     @action
     findApiUnitInstance = async (id) => {
@@ -50,7 +37,7 @@ class ApiUnitInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await Axios.post("/apiUnitInstanceBind/deleteApiUnitInstanceBind",param)
+        await Axios.post("/instance/deleteInstance",param)
     }
 
 

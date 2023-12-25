@@ -144,7 +144,5 @@ export const showCaseTypeTable = (type)=>{
             return "APP性能"
         case "function":
             return "功能用例"
-        default :
-            return "功能用例"
     }
 }

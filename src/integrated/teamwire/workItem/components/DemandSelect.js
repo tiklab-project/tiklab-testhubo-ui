@@ -4,9 +4,10 @@ import {Table, Input, Col,Row} from "antd";
 import {inject, observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
+import PaginationCommon from "../../../../common/pagination/Page";
 
 const DemandSelect = (props) =>{
-    const {workItemStore,caseInfo,updateFn,setDemandInfo} = props;
+    const {workItemStore,caseInfo,updateFn,setDemandInfo,onCancel} = props;
     const {
         findWorkItemList,
         findWorkItem,
@@ -15,26 +16,33 @@ const DemandSelect = (props) =>{
     const [selectProjectId, setSelectProjectId] = useState();
     const [workItemList, setWorkItemList] = useState([]);
     const repositoryId = sessionStorage.getItem("repositoryId")
+    const [totalPage, setTotalPage] = useState();
+    const [pageSize] = useState(8);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const columns = [
         {
             title:`需求名`,
-            dataIndex: "name",
+            dataIndex: "title",
             key: "name",
+            width:"40%"
         },
         {
-            title:`负责人`,
-            dataIndex: "director",
+            title:`经办人`,
+            dataIndex: ["assigner","name"],
             key: "director",
+            width:"20%"
         },
         {
             title:`状态`,
-            dataIndex: "status",
+            dataIndex: ["workStatusNode","name"],
             key: "status",
+            width:"20%"
         }, {
             title:`优先级`,
-            dataIndex: "priority",
+            dataIndex: ["workPriority","name"],
             key: "priority",
+            width:"20%"
         }
     ]
 
@@ -52,6 +60,8 @@ const DemandSelect = (props) =>{
                 }
             })
         })
+
+        onCancel()
     };
 
     /**
@@ -66,7 +76,8 @@ const DemandSelect = (props) =>{
     const onSearch =(e)=>{
         let param = {
             projectId:selectProjectId,
-            name:e.target.value
+            name:e.target.value,
+
         }
         findDemandList(param)
     }
@@ -78,15 +89,34 @@ const DemandSelect = (props) =>{
         let params = {
             repositoryId:repositoryId,
             workTypeCode:"demand",
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:1
+            },
             ...param
         }
         findWorkItemList(params).then(res=>{
             if(res.code===0){
-                setWorkItemList(res.data);
+                setWorkItemList(res.data.dataList);
+                setTotalPage(res.data.totalPage)
             }else {
                 // messageFn("error","TeamWire连接失败!")
             }
         })
+    }
+
+    // 分页
+    const onTableChange = (current) => {
+        setCurrentPage(current)
+
+        let param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:current
+            },
+        }
+
+        findDemandList(param)
     }
 
     return(
@@ -111,7 +141,7 @@ const DemandSelect = (props) =>{
 
                 </Row>
             </div>
-            <div style={{"overflow": "auto","height": "calc(100% - 38px)"}}>
+            <div style={{"overflow": "auto","height": "350px"}}>
                 <div className={"table-list-box"} >
                     <Table
                         columns={columns}
@@ -124,6 +154,11 @@ const DemandSelect = (props) =>{
                             };
                         }}
                         pagination={false}
+                    />
+                    <PaginationCommon
+                        currentPage={currentPage}
+                        totalPage={totalPage}
+                        changePage={onTableChange}
                     />
                 </div>
             </div>

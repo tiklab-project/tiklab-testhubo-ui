@@ -11,29 +11,16 @@ class AppSceneInstanceStore {
     findAppSceneInstancePage = async (value) => {
         let params = {
             ...value,
+            type:"app-scene",
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await Axios.post("/appSceneInstance/findAppSceneInstancePage",params );
+        const res = await Axios.post("/instance/findInstancePage",params );
         if(res.code === 0) {
             this.appSceneInstanceList = res.data.dataList;
         }
         
         return res
-    }
-
-    @action
-    findAppSceneInstanceList = async (id) =>{
-        let param = {
-            "testcaseId":id,
-            orderParams:[{name:'createTime', orderType:'asc' }]
-        }
-
-        const res = await Axios.post("/appSceneInstance/findAppSceneInstanceList",param);
-        if(res.code===0){
-            this.appSceneInstanceList = res.data;
-            return res.data;
-        }
     }
 
     @action
@@ -52,7 +39,7 @@ class AppSceneInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await Axios.post("/appSceneInstance/deleteAppSceneInstance",param)
+        await Axios.post("/instance/deleteInstance",param)
     }
 
 

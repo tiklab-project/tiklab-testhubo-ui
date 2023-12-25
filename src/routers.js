@@ -83,8 +83,8 @@ let PlanToAppPerformPage = LazyComponent(() => import("./testplan/components/pla
 let PlanToAppScenePage = LazyComponent(() => import("./testplan/components/planToCase/planToAppScenePage"));
 let PlanSetting = LazyComponent(() => import( "./testplan/components/PlanSetting"));
 
-let TestReportList = LazyComponent(() => import("./testreport/testReportList"));
-let TestReportDetail = LazyComponent(() => import("./testreport/testReportDetail"));
+let TestReportList = LazyComponent(() => import("./testreport/components/testReportList"));
+let TestReportDetail = LazyComponent(() => import("./testreport/components/testReportDetail"));
 
 let EnvContent = LazyComponent(() => import("./support/environment/components/envContent"));
 let AgentConfigList = LazyComponent(() => import("./support/agent/components/AgentConfigList"));

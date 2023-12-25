@@ -40,7 +40,7 @@ const TestPlanBindCaseList = (props) =>{
             key: "type",
             width:"15%",
             render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
-        },,
+        },
         {
             title: `模块`,
             dataIndex: ["category","name"],
@@ -67,7 +67,7 @@ const TestPlanBindCaseList = (props) =>{
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteTestPlanDetail(record.id).then(()=> findPage())}
+                        onConfirm={() =>deleteTestPlanDetail(record.planCaseId).then(()=> findPage())}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -203,7 +203,7 @@ const TestPlanBindCaseList = (props) =>{
     return(
         <div className={"content-box-center"}>
             <div className='header-box-space-between'>
-                <div className={'header-box-title'}>{name}</div>
+                <div className={'header-box-title'}>测试用例</div>
                 <Space>
                     <TestPlanENVModal {...props}/>
                     <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
@@ -217,7 +217,7 @@ const TestPlanBindCaseList = (props) =>{
             <div style={{margin:"10px 0",height:"100%"}}>
                 <div className={`${visible?"teston-hide":"teston-show"}`} >
                     <div className='display-flex-between'>
-                        <span>( {totalRecord} ) 个用例</span>
+                        <span>{totalRecord}个用例</span>
 
                         <Input
                             placeholder={`搜索用例`}
