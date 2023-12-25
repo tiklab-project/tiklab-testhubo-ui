@@ -13,7 +13,7 @@ import WebSceneInstanceSinglePage from "../../test/web/scene/components/WebScene
 import AppSceneInstanceSinglePage from "../../test/app/scene/components/AppSceneInstanceSinglePage";
 import {useHistory} from "react-router";
 import MenuSelect from "../../common/menuSelect/MenuSelect";
-import {SearchOutlined} from "@ant-design/icons";
+import {CheckCircleTwoTone, CloseCircleTwoTone, SearchOutlined} from "@ant-design/icons";
 import {getUser} from "thoughtware-core-ui";
 
 const InstanceListCommon = (props) =>{
@@ -134,6 +134,9 @@ const InstanceListCommon = (props) =>{
         await findPage(newParams)
     }
 
+    /**
+     * 类型展示
+     */
     const showType = (text, record) => {
         switch (record.type) {
             case CASE_TYPE.API_UNIT:
@@ -172,14 +175,18 @@ const InstanceListCommon = (props) =>{
             case CASE_TYPE.APP:
                 return <AppSceneInstanceSinglePage appSceneInstanceId={record.id} name={text}/>
             case CASE_TYPE.TEST_PLAN:
-                return <a onClick={() => planToCaseInstanceList(record.id)}>{text}</a>
+                return <span
+                    className={"link-text"}
+                    onClick={() => {
+                        sessionStorage.setItem("testPlanInstanceId",record.id)
+                        history.push(`/repository/report/${record.id}`)
+                    }}
+                >
+                    {text}
+                </span>
         }
     }
 
-    const planToCaseInstanceList = (testPlanInstanceId) =>{
-        sessionStorage.setItem("testPlanInstanceId",testPlanInstanceId)
-        history.push(`/repository/report/${testPlanInstanceId}`)
-    }
 
     const showDetail = (record)=>{
         let content = JSON.parse(record.content);
@@ -207,24 +214,42 @@ const InstanceListCommon = (props) =>{
     }
 
     const apiUnitContent = (content) => (
-        <>
-            <div className={"display-flex-gap"}>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 请求类型:</div>
-                <div>{content.requestType}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 状态码:</div>
-                <div>{content.statusCode}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 时间:</div>
-                <div>{content.elapsedTime} ms</div>
+        <div className={"display-flex-gap"}>
+            {showResult(content.result)}
+            <div>
+                <div className={"display-flex-gap"}>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> 请求类型:</div>
+                    <div>{content.requestType}</div>
+                    {
+                        content.statusCode
+                            ? <>
+                                <div style={{fontSize: "12px", color: "#aaa"}}> 状态码:</div>
+                                <div>{content.statusCode}</div>
+                            </>
+                            :null
+                    }
+                    {
+                        content.elapsedTime
+                            ? <>
+                                <div style={{fontSize: "12px", color: "#aaa"}}> 时间:</div>
+                                <div>{content.elapsedTime} ms</div>
+                            </>
+                            :null
+                    }
+
+                </div>
+                <div className={"display-flex-gap"}>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> 请求地址:</div>
+                    <div>{content.url}</div>
+                </div>
             </div>
-            <div className={"display-flex-gap"}>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 请求地址:</div>
-                <div>{content.url}</div>
-            </div>
-        </>
+        </div>
+
     )
 
     const apiSceneContent = (content) => (
-        <>
+        <div className={"display-flex-gap"}>
+            {showResult(content.result)}
             <div className={"display-flex-gap"}>
                 <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
                 <div>{content.testNumber}</div>
@@ -236,11 +261,12 @@ const InstanceListCommon = (props) =>{
                 <div>{content.passRate}</div>
             </div>
 
-        </>
+        </div>
     )
 
     const apiPerformContent = (content) =>(
-        <>
+        <div className={"display-flex-gap"}>
+            {showResult(content.result)}
             <div className={"display-flex-gap"}>
                 <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
                 <div>{content.total}</div>
@@ -253,11 +279,12 @@ const InstanceListCommon = (props) =>{
                 <div style={{fontSize: "12px", color: "#aaa"}}> 失败率:</div>
                 <div>{content.errorRate}</div>
             </div>
-        </>
+        </div>
     )
 
     const webSceneContent = (content)=>(
-        <>
+        <div className={"display-flex-gap"}>
+            {showResult(content.result)}
             <div className={"display-flex-gap"}>
                 <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
                 <div>{content.stepNum}</div>
@@ -268,11 +295,12 @@ const InstanceListCommon = (props) =>{
                 <div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>
                 <div>{content.passRate}</div>
             </div>
-        </>
+        </div>
     )
 
     const appSceneContent = (content) =>(
-        <>
+        <div className={"display-flex-gap"}>
+            {showResult(content.result)}
             <div className={"display-flex-gap"}>
                 <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
                 <div>{content.stepNum}</div>
@@ -283,11 +311,12 @@ const InstanceListCommon = (props) =>{
                 <div style={{fontSize: "12px", color: "#aaa"}}> 失败数:</div>
                 <div>{content.failNum}</div>
             </div>
-        </>
+        </div>
     )
 
     const testPlanContent = (content) =>(
-        <>
+        <div className={"display-flex-gap"}>
+            {showResult(content.result)}
             <div className={"display-flex-gap"}>
                 <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
                 <div>{content.total}</div>
@@ -300,11 +329,20 @@ const InstanceListCommon = (props) =>{
                 <div style={{fontSize: "12px", color: "#aaa"}}> 失败率:</div>
                 <div>{content.errorRate}</div>
             </div>
-
-        </>
+        </div>
     )
 
-
+    const showResult = (result)=>{
+        return(
+            <>
+                {
+                    result==="1"
+                        ?<CheckCircleTwoTone twoToneColor={"#52c41a"}/>
+                        :<CloseCircleTwoTone twoToneColor={"red"}/>
+                }
+            </>
+        )
+    }
 
     //搜索
     const onSearch = async (e) =>{

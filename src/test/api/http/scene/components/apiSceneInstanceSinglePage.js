@@ -178,7 +178,7 @@ const ApiSceneInstanceSinglePage = (props) =>{
 
     return(
         <>
-            <a onClick={showDrawer} >{name}</a>
+            <span className={"link-text"} onClick={showDrawer} >{name}</span>
             <Drawer
                 placement="right"
                 onClose={onClose}

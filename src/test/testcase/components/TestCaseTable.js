@@ -10,13 +10,12 @@ import DropdownAdd from "./DropdownAdd";
 import "../../common/styles/testcaseStyle.scss"
 import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
-import TestCaseMenu from "./TestCaseMenu";
 import {getUser} from "thoughtware-core-ui";
 import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
 import {CASE_TYPE} from "../../common/DefineVariables";
 import PaginationCommon from "../../../common/pagination/Page";
-import {SelectItem, SelectSimple} from "../../../common/select";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
+import CaseTypeSelect from "./CaseTypeSelect";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -26,7 +25,6 @@ const TestCaseTable = (props) => {
         testcaseList,
         deleteTestCase,
         testType,
-        setTestType,
         testCaseRecent
     }=testcaseStore;
 
@@ -227,35 +225,6 @@ const TestCaseTable = (props) => {
         testCaseRecent(params)
     }
 
-    function handleChange(caseTypeList, value) {
-        let param = {
-            [caseTypeList]:value
-        }
-
-        findPage(param)
-    }
-
-    const caseList = [
-        {
-            id:"api-unit",
-            name:"接口单元用例"
-        },{
-            id:"api-scene",
-            name:"接口场景用例"
-        },{
-            id:"api-perform",
-            name:"接口性能用例"
-        },{
-            id:"web-scene",
-            name:"WEB场景用例"
-        },{
-            id:"app-scene",
-            name:"APP场景用例"
-        },{
-            id:"function",
-            name:"功能用例"
-        }
-    ]
 
     const items = [
         {
@@ -280,7 +249,6 @@ const TestCaseTable = (props) => {
         }
     ];
 
-
     //点击测试类型筛选项查找
     const selectKeyFun = (item)=>{
         let key = item.key
@@ -293,6 +261,9 @@ const TestCaseTable = (props) => {
 
         findPage(param)
     }
+
+
+
 
     return(
         <>
@@ -316,89 +287,18 @@ const TestCaseTable = (props) => {
                     />
 
                     <Space>
-
-                        <SelectSimple
-                            name="workStatus"
-                            onChange={(value) => handleChange("caseTypeList", value)}
-                            title={"用例类型"}
-                            ismult={true}
-                        >
-                            <div className="select-group-title">功能用例</div>
+                        <>
                             {
-                                caseList.map(item => {
-                                    if (item.id === "function") {
-                                        return <SelectItem
-                                            value={item.id}
-                                            label={item.name}
-                                            key={item.id}
-                                            imgUrl={item.iconUrl}
-                                        />
-                                    } else {
-                                        return <div/>
-                                    }
-                                })
+                                selectItem==="api"||selectItem==="ui"
+                                    ?<CaseTypeSelect testType={selectItem} findPage={findPage}/>
+                                    :null
                             }
-
-                            <div className="select-group-title">接口</div>
-                            {
-                                caseList.map(item => {
-                                    if (item.id === "api-unit"||item.id==="api-scene") {
-                                        return <SelectItem
-                                            value={item.id}
-                                            label={item.name}
-                                            key={item.id}
-                                            imgUrl={item.iconUrl}
-                                        />
-                                    } else {
-                                        return <div/>
-                                    }
-
-                                })
-                            }
-                            <div className="select-group-title">UI</div>
-                            {
-                                caseList.map(item => {
-                                    if (item.id === "app-scene" || item.id === "web-scene") {
-                                        return <SelectItem
-                                            value={item.id}
-                                            label={item.name}
-                                            key={item.id}
-                                            imgUrl={item.iconUrl}
-                                        />
-                                    } else {
-                                        return <div/>
-                                    }
-
-                                })
-                            }
-
-
-                            <div className="select-group-title">性能</div>
-                            {
-                                caseList.map(item => {
-                                    if (item.id === "api-perform") {
-                                        return <SelectItem
-                                            value={item.id}
-                                            label={item.name}
-                                            key={item.id}
-                                            imgUrl={item.iconUrl}
-                                        />
-                                    } else {
-                                        return <div/>
-                                    }
-
-                                })
-                            }
-
-                        </SelectSimple>
+                        </>
 
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
                             style={{  width: '150px'}}
-                            dropdownStyle={{
-                                maxHeight: 400,
-                                overflow: 'auto',
-                            }}
+                            dropdownStyle={{maxHeight: 400,overflow: 'auto'}}
                             className={"dynamic-select-box-item"}
                             placeholder="模块"
                             allowClear
