@@ -43,7 +43,7 @@ const ApiSceneInstanceSinglePage = (props) =>{
             key:"methodType"
         },{
             title:"状态码:",
-            value:stepData?.statusCode,
+            value:stepData?.statusCode||"无",
             key:"statusCode"
         },{
             title:"测试结果:",
@@ -78,7 +78,6 @@ const ApiSceneInstanceSinglePage = (props) =>{
     //点击步骤
     const clickFindStep = item =>{
         setStepSelect(item.id)
-        setStepType(item.type)
 
         if(item.type==="if"){
             setIfInstance(item.ifJudgmentInstance)
@@ -87,9 +86,9 @@ const ApiSceneInstanceSinglePage = (props) =>{
         if(item.type==="api-scene"){
             findApiUnitInstance(item.id).then(res=>{
                 setStepData(res)
+                setStepType(item.type)
             })
         }
-
     }
 
 
@@ -143,6 +142,7 @@ const ApiSceneInstanceSinglePage = (props) =>{
      * 右侧内容
      */
     const rightContent = () =>{
+        if(!stepData) return
 
         switch (stepType) {
             case "api-scene":
@@ -152,6 +152,7 @@ const ApiSceneInstanceSinglePage = (props) =>{
                         resBody={stepData?.responseInstance?.responseBody}
                         resHeader={processResHeader(stepData?.responseInstance?.responseHeader)}
                         reqHeader={processResHeader(stepData?.requestInstance?.requestHeader)}
+                        error={stepData?.errMessage}
                     />
                 )
             case "if":
@@ -189,7 +190,7 @@ const ApiSceneInstanceSinglePage = (props) =>{
                 contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
-                <div className={"content-box-center"}  style={{height: "calc(100% - 52px)"}}>
+                <div style={{height: "calc(100% - 52px)"}}>
                     <CaseBread
                         breadItem={["历史详情"]}
                         icon={"api1"}
@@ -239,7 +240,6 @@ const ApiSceneInstanceSinglePage = (props) =>{
                                 {
                                     rightContent()
                                 }
-
                             </div>
                         </div>
                     </div>

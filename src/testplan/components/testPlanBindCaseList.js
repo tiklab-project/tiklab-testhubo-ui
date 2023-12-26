@@ -16,7 +16,7 @@ import {SearchOutlined} from "@ant-design/icons";
 const TestPlanBindCaseList = (props) =>{
     const { testPlanStore } = props;
     const {findTestPlan} = testPlanStore;
-    const {findBindTestCaseList,testPlanDetailList,deleteTestPlanDetail} = testPlanDetailStore;
+    const {findBindTestCasePage,testPlanDetailList,deleteTestPlanDetail,findTestCasePage} = testPlanDetailStore;
 
     //列表头
     const columns = [
@@ -67,7 +67,19 @@ const TestPlanBindCaseList = (props) =>{
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteTestPlanDetail(record.planCaseId).then(()=> findPage())}
+                        onConfirm={() =>deleteTestPlanDetail(record.planCaseId).then(()=> {
+                            findPage()
+
+                            let param = {
+                                pageParam: {
+                                    pageSize: 20,
+                                    currentPage:1
+                                },
+                                repositoryId:repositoryId,
+                                testPlanId:testPlanId,
+                            }
+                            findTestCasePage(param)
+                        })}
                         okText='确定'
                         cancelText='取消'
                     >
@@ -79,10 +91,11 @@ const TestPlanBindCaseList = (props) =>{
                 </Space>
             ),
         },
-    ]
 
+    ]
+    const repositoryId = sessionStorage.getItem("repositoryId")
     const testPlanId = sessionStorage.getItem('testPlanId')
-    let history = useHistory();
+    const history = useHistory();
     const [tableLoading,setTableLoading] = useState(true);
     const [name, setName] = useState();
     const [totalPage, setTotalPage] = useState();
@@ -113,7 +126,7 @@ const TestPlanBindCaseList = (props) =>{
             ...pageParam,
             ...params
         }
-        findBindTestCaseList(param).then((res)=>{
+        findBindTestCasePage(param).then((res)=>{
             setTotalPage(res.totalPage)
             setTotalRecord(res.totalRecord)
             setTableLoading(false)

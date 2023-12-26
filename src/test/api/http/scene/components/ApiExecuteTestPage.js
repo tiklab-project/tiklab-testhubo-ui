@@ -2,16 +2,14 @@ import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
 import apiSceneTestDispatchStore from "../store/apiSceneTestDispatchStore";
 import {TextMethodType} from "../../common/methodType";
-import {Drawer, Spin, Tabs, Tag} from "antd";
-import ResponseBodyCommon from "../../common/response/responseBodyCommon";
-import ResHeaderCommon from "../../common/response/resHeaderCommon";
+import {Drawer, Spin, Tag} from "antd";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
-import TabPane from "antd/es/tabs/TabPane";
 import CaseBread from "../../../../../common/CaseBread";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IfInstance from "../../../../common/ifJudgment/components/ifInstance";
+import ResponseCommon from "../../common/response/responseCommon";
 
 const { apiSceneExecute } = apiSceneTestDispatchStore;
 
@@ -132,6 +130,8 @@ const ApiExecuteTestPage = (props) =>{
         })
     }
 
+
+
     /**
      * 右侧类容
      * @returns {JSX.Element}
@@ -141,59 +141,56 @@ const ApiExecuteTestPage = (props) =>{
             let apiUnitInstance = selectedStepData.apiUnitInstance
             let ifJudgmentInstance = selectedStepData.ifJudgmentInstance;
 
+            //响应结果基础信息项
+            const detail = [
+                {
+                    title:"请求地址:",
+                    value:apiUnitInstance?.requestInstance?.requestUrl,
+                    key:"url"
+                },{
+                    title:"请求方式:",
+                    value:apiUnitInstance?.requestInstance?.requestType,
+                    key:"methodType"
+                },{
+                    title:"状态码:",
+                    value:apiUnitInstance?.statusCode||"无",
+                    key:"statusCode"
+                },{
+                    title:"测试结果:",
+                    value:apiUnitInstance?.result ? '成功' : '失败',
+                    key:"result"
+                },
+            ]
+
+            const showDetail = (data) =>{
+                return data.map(item=>{
+                    return(
+                        <div key={item.key} className={"history-detail-item-box"}>
+                            <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
+                                <span className={"history-detail-item-box-title"}>{item.title}</span>
+                            </div>
+
+                            {
+                                item.key==="methodType"
+                                    ? <TextMethodType type={apiUnitInstance?.requestInstance?.requestType} />
+                                    :<span className={"history-detail-item-box-value"}>{item.value}</span>
+                            }
+
+                        </div>
+                    )
+                })
+            }
+
             if(selectedStepData?.type==="api-scene"){
                 return (
                     <div style={{margin:"0 10px",overflow: "auto",height: "calc( 100% - 48px )"}}>
-                        <div >
-                            <div className={"history-detail-item-box"}>
-                                <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
-                                    <span className={"history-detail-item-box-title"}>请求地址</span>
-                                </div>
-                                <span className={"history-detail-item-box-value"}>{apiUnitInstance?.requestInstance?.requestUrl}</span>
-                            </div>
-                            <div className={"history-detail-item-box"}>
-                                <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
-                                    <span className={"history-detail-item-box-title"}>请求方式</span>
-                                </div>
-                                <TextMethodType type={apiUnitInstance?.requestInstance?.requestType} />
-                            </div>
-                            <div className={"history-detail-item-box"}>
-                                <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
-                                    <span className={"history-detail-item-box-title"}>状态码</span>
-                                </div>
-                                <span className={"history-detail-item-box-value"}>{apiUnitInstance?.statusCode}</span>
-                            </div>
-                            <div className={"history-detail-item-box"}>
-                                <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
-                                    <span className={"history-detail-item-box-title"}>测试结果</span>
-                                </div>
-                                <span className={"history-detail-item-box-value"}>{apiUnitInstance?.result ? '成功' : '失败'}</span>
-                            </div>
-                            <div className={"history-detail-item-box"}>
-                                <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
-                                    <span className={"history-detail-item-box-title"}>用时</span>
-                                </div>
-                                <span className={"history-detail-item-box-value"}>{apiUnitInstance?.elapsedTime}</span>
-                            </div>
-                        </div>
-
-                        <Tabs defaultActiveKey="1"  >
-                            <TabPane tab="响应体" key="1">
-                                <ResponseBodyCommon
-                                    responseBodyData={apiUnitInstance?.responseInstance?.responseBody}
-                                />
-                            </TabPane>
-                            <TabPane tab="响应头" key="2">
-                                <ResHeaderCommon
-                                    headers={processResHeader(apiUnitInstance?.responseInstance?.responseHeader)}
-                                />
-                            </TabPane>
-                            <TabPane tab="请求头" key="3">
-                                <ResHeaderCommon
-                                    headers={processResHeader(apiUnitInstance?.requestInstance?.requestHeader)}
-                                />
-                            </TabPane>
-                        </Tabs>
+                        <ResponseCommon
+                            detail={showDetail(detail)}
+                            resBody={apiUnitInstance?.responseInstance?.responseBody}
+                            resHeader={processResHeader(apiUnitInstance?.responseInstance?.responseHeader)}
+                            reqHeader={processResHeader(apiUnitInstance?.requestInstance?.requestHeader)}
+                            error={apiUnitInstance?.errMessage}
+                        />
                     </div>
                 )
             }
