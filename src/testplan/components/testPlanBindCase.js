@@ -21,7 +21,7 @@ import PaginationCommon from "../../common/pagination/Page";
 const TestPlanBindCase = (props) => {
     const {testPlanId,testcaseStore,setVisible,findBindCasePage} = props;
     const {planBindCase} = testPlanDetailStore;
-    const {findTestCaseList,testcaseList} = testcaseStore;
+    const {findTestCasePage,testCaseList} = testPlanDetailStore;
 
 
     const columns = [
@@ -73,7 +73,10 @@ const TestPlanBindCase = (props) => {
             testPlan:{id: testPlanId},
             testCase: {id:id}
         }
-        planBindCase([obj]).then(()=>findBindCasePage())
+        planBindCase([obj]).then(()=> {
+            findBindCasePage()
+            findPage()
+        })
         setVisible(false)
     }
 
@@ -108,9 +111,10 @@ const TestPlanBindCase = (props) => {
                 currentPage:1
             },
             repositoryId:repositoryId,
+            testPlanId:testPlanId,
             ...params
         }
-        findTestCaseList(param).then((res)=>{
+        findTestCasePage(param).then((res)=>{
             setTotalPage(res.totalPage);
         })
     }
@@ -183,7 +187,7 @@ const TestPlanBindCase = (props) => {
                 <div className={"table-list-box"} >
                     <Table
                         columns={columns}
-                        dataSource={testcaseList}
+                        dataSource={testCaseList}
                         rowKey = {record => record.id}
                         onRow={(record) => {
                             return {

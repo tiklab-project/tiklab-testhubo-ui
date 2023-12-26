@@ -14,10 +14,11 @@ export class WebSceneInstanceStore {
     findWebSceneInstancePage = async (value) => {
         this.params = {
             ...value,
+            type:"web-scene",
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await Axios.post("/webSceneInstance/findWebSceneInstancePage",this.params );
+        const res = await Axios.post("/instance/findInstancePage",this.params );
         if(res.code === 0) {
             this.webSceneInstanceList = res.data.dataList;
             this.totalRecord = res.data.totalRecord;
@@ -25,19 +26,6 @@ export class WebSceneInstanceStore {
         return res
     }
 
-    @action
-    findWebSceneInstanceList = async (id) =>{
-        let param = {
-            "webSceneId":id,
-            orderParams:[{name:'createTime', orderType:'desc' }]
-        }
-
-        const res = await Axios.post("/webSceneInstance/findWebSceneInstanceList",param);
-        if(res.code===0){
-            this.webSceneInstanceList = res.data;
-            return res.data;
-        }
-    }
 
     @action
     findWebSceneInstance = async (id) => {
@@ -59,7 +47,7 @@ export class WebSceneInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await Axios.post("/webSceneInstance/deleteWebSceneInstance",param)
+        await Axios.post("/instance/deleteInstance",param)
     }
 
 

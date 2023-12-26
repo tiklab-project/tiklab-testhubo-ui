@@ -1,71 +1,85 @@
 import React from "react";
-import {Select} from "antd";
+import {SelectItem, SelectSimple} from "../../../common/select";
 
 
 const CaseTypeSelect = (props) =>{
-    const {caseSelectFn} = props;
+    const {findPage,testType} = props;
 
-    const apiCaseTypeItem=[
+    const handleChange = (caseTypeList, value) =>{
+        let param = {
+            testType:testType,
+            [caseTypeList]:value
+        }
+
+        findPage(param)
+    }
+
+    const apiList = [
         {
-            value: null,
-            label: '所有',
-        },
-        {
-            label: '接口',
-            options: [
-                {
-                    value: 'api-unit',
-                    label: '单元',
-                },
-                {
-                    value: 'api-scene',
-                    label: '场景',
-                },
-                {
-                    value: 'api-perform',
-                    label: '性能',
-                },
-            ]
+            id:"api-unit",
+            name:"接口单元用例"
         },{
-            label: '功能',
-            options: [
-                {
-                    value: 'function',
-                    label: '功能用例',
-                },
-            ]
-        },{
-            label: 'UI',
-            options: [
-                {
-                    value: 'web-scene',
-                    label: '场景',
-                },
-            ]
-        },{
-            label: 'APP',
-            options: [
-                {
-                    value: 'app-scene',
-                    label: '场景',
-                },
-            ]
-        },
-
-
-
-
+            id:"api-scene",
+            name:"接口场景用例"
+        }
     ]
+
+    const uiList = [
+       {
+            id:"web-scene",
+            name:"WEB场景用例"
+        },{
+            id:"app-scene",
+            name:"APP场景用例"
+        }
+    ]
+
 
     return(
         <>
-            <Select
-                // defaultValue={null}
-                placeholder={"用例类型"}
-                className={"dynamic-select-box-item"}
-                onChange={caseSelectFn}
-                options={apiCaseTypeItem}
-            />
+            {
+                testType==="api"
+                    ? <SelectSimple
+                        name="workStatus"
+                        onChange={(value) => handleChange("caseTypeList", value)}
+                        title={testType === "api" && "接口类型"}
+                        ismult={true}
+                    >
+                        <div className="select-group-title">接口</div>
+                        {
+                            apiList.map(item => {
+                                return <SelectItem
+                                    value={item.id}
+                                    label={item.name}
+                                    key={item.id}
+                                />
+                            })
+                        }
+                    </SelectSimple>
+                    : null
+            }
+
+            {
+                testType==="ui"
+                    ? <SelectSimple
+                        name="workStatus"
+                        onChange={(value) => handleChange("caseTypeList", value)}
+                        title={testType === "ui" && "UI类型"}
+                        ismult={true}
+                    >
+                        <div className="select-group-title">UI</div>
+                        {
+                            uiList.map(item => {
+                                return <SelectItem
+                                    value={item.id}
+                                    label={item.name}
+                                    key={item.id}
+                                />
+                            })
+                        }
+                    </SelectSimple>
+                    : null
+            }
         </>
     )
 }

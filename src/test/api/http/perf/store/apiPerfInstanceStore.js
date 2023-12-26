@@ -11,9 +11,10 @@ export class ApiPerfInstanceStore {
     findApiPerfInstancePage = async (value) => {
         const params = {
             ...value,
+            type:"api-perform",
             orderParams:[{name:'createTime', orderType:'desc'}],
         }
-        const res = await Axios.post("/apiPerfInstance/findApiPerfInstancePage",params);
+        const res = await Axios.post("/instance/findInstancePage",params);
 
         if(res.code === 0) {
             this.apiPerfInstanceList = res.data.dataList;
@@ -22,21 +23,6 @@ export class ApiPerfInstanceStore {
         return res
     }
 
-
-    @action
-    findApiPerfInstanceList = async (id) => {
-        this.apiPerformId = id;
-        const params = {
-            apiPerfId: id,
-            orderParams:[{name:'createTime', orderType:'desc'}],
-        }
-        const res = await Axios.post("/apiPerfInstance/findApiPerfInstanceList",params);
-
-        if(res.code === 0) {
-            this.apiPerfInstanceList = res.data;
-            return res.data
-        }
-    }
 
     @action
     findApiPerfInstance = async (id) => {
@@ -57,7 +43,7 @@ export class ApiPerfInstanceStore {
         const param = new FormData();
         param.append('id', id);
         
-        await Axios.post("/apiPerfInstance/deleteApiPerfInstance",param)
+        await Axios.post("/instance/deleteInstance",param)
     }
 
 }

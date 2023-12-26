@@ -2,6 +2,8 @@ import React from "react";
 import ApiPerfInstanceTable from "./apiPerfInstanceTable";;
 import CaseBread from "../../../../../common/CaseBread";
 import {inject, observer} from "mobx-react";
+import InstanceListCommon from "../../../../../testreport/common/InstanceListCommon";
+import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
 
 const ApiPerfInstanceList = (props) =>{
     const {apiPerfStore} = props;
@@ -15,7 +17,7 @@ const ApiPerfInstanceList = (props) =>{
                 breadItem={[testCaseInfo?.name,"历史"]}
                 router={`/repository/api-perform/${apiPerfId}`}
             />
-            <ApiPerfInstanceTable apiPerfId={apiPerfId}/>
+            <InstanceListCommon belongId={apiPerfId} type={CASE_TYPE.API_PERFORM}/>
         </div>
     )
 }

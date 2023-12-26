@@ -17,7 +17,7 @@ const WebPerfInstanceList = (props) =>{
 
     const column = [
         {
-            title: '执行次数',
+            title: '序号',
             dataIndex: 'executeNumber',
             key: "executeNumber",
             render:(text,record)=>(<div style={{fontWeight:"bold"}}>#{text}</div>)

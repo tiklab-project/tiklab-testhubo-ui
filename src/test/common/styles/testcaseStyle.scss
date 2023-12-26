@@ -33,39 +33,6 @@
     }
 }
 
-.tc-header-menu-left{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width:140px;
-
-
-    .tc-header-menu-item{
-        padding: 10px 0;
-        flex: 1;
-        text-align: center;
-        cursor: pointer;
-        border-bottom: 3px solid #ffffff00;
-
-        span{
-            font-size: var(--pi-font-size-14);
-            //font-weight: var(--pi-font-weight-title);
-        }
-    }
-
-    .tc-header-menu-item:hover{
-        border-bottom:3px solid  var(--pi-base-color);
-        color:  var(--pi-base-color);
-    }
-
-    .tc-header-menu-item-selected{
-        color:  var(--pi-base-color);
-        border-bottom:3px solid  var(--pi-base-color);
-    }
-}
-
-
-
 
 .edit-icon{
     cursor:pointer;

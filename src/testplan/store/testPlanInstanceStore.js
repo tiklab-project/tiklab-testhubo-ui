@@ -12,29 +12,16 @@ export class TestPlanInstanceStore {
     findTestPlanInstancePage = async (value) => {
         this.params = {
             ...value,
+            type:"test-plan",
             orderParams:[{name:'createTime', orderType:'desc' }]
         }
 
-        const res = await Axios.post("/testPlanInstance/findTestPlanInstancePage",this.params );
+        const res = await Axios.post("/instance/findInstancePage",this.params );
         if(res.code === 0) {
             this.testPlanInstanceList = res.data.dataList;
             this.totalRecord = res.data.totalRecord;
         }
         return res
-    }
-
-    @action
-    findTestPlanInstanceList = async (id) =>{
-        let param = {
-            "testPlanId":id,
-            orderParams:[{name:'createTime', orderType:'desc' }]
-        }
-
-        const res = await Axios.post("/testPlanInstance/findTestPlanInstanceList",param);
-        if(res.code===0){
-            this.testPlanInstanceList = res.data;
-            return res.data;
-        }
     }
 
     @action
@@ -55,7 +42,7 @@ export class TestPlanInstanceStore {
         const param = new FormData();
         param.append('id', id);
 
-        await Axios.post("/testPlanInstance/deleteTestPlanInstance",param)
+        await Axios.post("/instance/deleteInstance",param)
     }
 
 

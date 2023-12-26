@@ -7,10 +7,10 @@ export class TestPlanDetailStore {
     @observable testPlanDetailInfo = {};
     @observable totalRecord ;
     @observable testPlanTestcaseList=[];
-    @observable tcTotalRecord;
+    @observable testCaseList=[]
 
     @action
-    findBindTestCaseList = async (param) => {
+    findBindTestCasePage = async (param) => {
         const params = {
             ...param,
             orderParams: [{name:'id', orderType:'desc'}],
@@ -26,16 +26,12 @@ export class TestPlanDetailStore {
 
     //点击添加用例，弹框中的查询
     @action
-    findTesCaseList = async (values) =>{
-
-        const res = await Axios.post("/testPlanCase/findTestPlanCaseList",values)
-
+    findTestCasePage = async (values) =>{
+        const res = await Axios.post("/testPlanCase/findTestCasePage",values)
         if(res.code === 0) {
-            this.tcTotalRecord = res.data.totalRecord;
-            this.testPlanTestcaseList = res.data.dataList;
+            this.testCaseList=res.data.dataList
+            return res.data
         }
-
-        return res;
     }
 
     @action
