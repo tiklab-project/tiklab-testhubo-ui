@@ -360,8 +360,8 @@ const InstanceListCommon = (props) =>{
         setSelectItem(item.key)
 
         let param
-        if(item.key==="self"){
-            param = {"createUser":getUser().userId};
+        if(item.key!=="all"){
+            param = {"type":item.key};
         }
 
         await findPage(param)
@@ -375,10 +375,30 @@ const InstanceListCommon = (props) =>{
             key: `all`,
         },
         {
-            title: '我执行的',
-            key: `self`,
+            title: 'API单元',
+            key: `api-unit`,
+        },
+        {
+            title: 'API场景',
+            key: `api-scene`,
+        },
+        {
+            title: 'WEB',
+            key: `web-scene`,
+        },
+        {
+            title: 'APP',
+            key: `app-scene`,
+        },{
+            title: '性能',
+            key: `api-perform`,
+        },{
+            title: '计划',
+            key: `test-plan`,
         }
     ];
+
+
     return(
         <>
             {
@@ -392,7 +412,7 @@ const InstanceListCommon = (props) =>{
                                 menuItems={items}
                                 selectFn={selectFn}
                                 selected={selectItem}
-                                style={{width: "150px"}}
+                                style={{width: "465px"}}
                             />
 
                             <Input

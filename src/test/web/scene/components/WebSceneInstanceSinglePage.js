@@ -5,6 +5,7 @@ import webSceneInstanceStore from "../store/webSceneInstanceStore";
 import UIResultCommon from "../../../common/UIResultCommon";
 import CaseBread from "../../../../common/CaseBread";
 import emptyImg from "../../../../assets/img/empty.png";
+import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
 
 
 const WebSceneInstanceSinglePage =({webSceneInstanceId,name})=>{
@@ -55,7 +56,7 @@ const WebSceneInstanceSinglePage =({webSceneInstanceId,name})=>{
             renderItem={(item) =>(
                 <List.Item style={{padding:0}}>
                     {
-                        item.type==="web"
+                        item.type===CASE_TYPE.WEB
                             ?showWebStep(item.webSceneInstanceStep,item)
                             :showIfStep(item)
                     }

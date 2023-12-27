@@ -29,7 +29,7 @@ const PostInApiToCase = (props) => {
         },
         {
             title: '地址',
-            dataIndex: ["httpApi",'path'],
+            dataIndex: 'path',
             width: '45%',
         },
     ]

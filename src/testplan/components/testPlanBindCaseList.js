@@ -12,6 +12,7 @@ import {useHistory} from "react-router";
 import TestPlanENVModal from "./testPlanENVModal";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import {SearchOutlined} from "@ant-design/icons";
+import MenuSelect from "../../common/menuSelect/MenuSelect";
 
 const TestPlanBindCaseList = (props) =>{
     const { testPlanStore } = props;
@@ -97,9 +98,8 @@ const TestPlanBindCaseList = (props) =>{
     const testPlanId = sessionStorage.getItem('testPlanId')
     const history = useHistory();
     const [tableLoading,setTableLoading] = useState(true);
-    const [name, setName] = useState();
     const [totalPage, setTotalPage] = useState();
-    const [totalRecord, setTotalRecord] = useState();
+    const [selectItem, setSelectItem] = useState("all");
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageParam, setPageParam] = useState({
@@ -113,11 +113,6 @@ const TestPlanBindCaseList = (props) =>{
         findPage()
     },[pageParam,testPlanId])
 
-    useEffect(()=>{
-        findTestPlan(testPlanId).then((res)=>{
-            setName(res.name)
-        })
-    },[])
 
 
     const findPage = (params) =>{
@@ -128,7 +123,6 @@ const TestPlanBindCaseList = (props) =>{
         }
         findBindTestCasePage(param).then((res)=>{
             setTotalPage(res.totalPage)
-            setTotalRecord(res.totalRecord)
             setTableLoading(false)
         })
     }
@@ -213,6 +207,45 @@ const TestPlanBindCaseList = (props) =>{
         findPage(param)
     }
 
+
+    const items = [
+        {
+            title: '所有',
+            key: `all`,
+        },
+        {
+            title: '功能',
+            key: `function`,
+        },
+        {
+            title: '接口',
+            key: `api`,
+        },
+        {
+            title: 'UI',
+            key: `ui`,
+        },
+        {
+            title: '性能',
+            key: `perform`,
+        }
+    ];
+
+    //点击测试类型筛选项查找
+    const selectKeyFun = (item)=>{
+        let key = item.key
+        setSelectItem(key)
+
+        let param
+        if(key!=="all"){
+            param={testType:key}
+        }
+
+        findPage(param)
+    }
+
+
+
     return(
         <div className={"content-box-center"}>
             <div className='header-box-space-between'>
@@ -230,7 +263,12 @@ const TestPlanBindCaseList = (props) =>{
             <div style={{margin:"10px 0",height:"100%"}}>
                 <div className={`${visible?"teston-hide":"teston-show"}`} >
                     <div className='display-flex-between'>
-                        <span>{totalRecord}个用例</span>
+                        <MenuSelect
+                            menuItems={items}
+                            selectFn={selectKeyFun}
+                            selected={selectItem}
+                            style={{width: "300px"}}
+                        />
 
                         <Input
                             placeholder={`搜索用例`}

@@ -5,6 +5,7 @@ import UIResultCommon from "../../../common/UIResultCommon";
 import {Col, Drawer, Empty, Form, List, Row, Tag} from "antd";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import emptyImg from "../../../../assets/img/empty.png";
+import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
 
 const WebExecuteTestPage = (props) =>{
     const {webSceneStore,webSceneId} = props;
@@ -104,7 +105,7 @@ const WebExecuteTestPage = (props) =>{
             renderItem={(item) =>(
                 <List.Item style={{padding:0}}>
                     {
-                        item.type==="web"
+                        item.type===CASE_TYPE.WEB
                             ?showWebStep(item.webSceneInstanceStep,item)
                             :showIfStep(item)
                     }

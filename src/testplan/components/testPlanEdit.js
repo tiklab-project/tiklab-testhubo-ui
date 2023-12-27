@@ -106,6 +106,7 @@ const TestPlanEdit = (props) => {
                     <Form.Item
                         label="日期范围"
                         name="rangeTime"
+                        rules={[{ required: true, message:'日期范围未添加'}]}
                         wrapperCol={{
                             offset: 0,
                             span: 24,
