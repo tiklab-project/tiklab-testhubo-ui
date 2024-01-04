@@ -74,7 +74,6 @@ const PlanSetting = (props) =>{
             <div  className={"header-box-space-between"}>
                 <div className={'header-box-title'}>计划信息</div>
             </div>
-
             <Collapse  expandIconPosition={"end"} >
                 <Panel header={<><EditOutlined/> <span style={{padding:"0 5px"}}>编辑计划</span></>} key="1">
                     <div className={"detail-box"}>
