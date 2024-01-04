@@ -9,11 +9,11 @@ import {Input, Table, Space, Popconfirm, Empty, Select, Tag} from 'antd';
 import TestPlanEdit from './testPlanEdit';
 import  { useTranslation } from 'react-i18next'
 import "./testPlanStyle.scss"
-import emptyImg from "../../assets/img/empty.png";
-import IconCommon from "../../common/IconCommon";
+import emptyImg from "../../../assets/img/empty.png";
+import IconCommon from "../../../common/IconCommon";
 import {SearchOutlined} from "@ant-design/icons";
-import PaginationCommon from "../../common/pagination/Page";
-import MenuSelect from "../../common/menuSelect/MenuSelect";
+import PaginationCommon from "../../../common/pagination/Page";
+import MenuSelect from "../../../common/menuSelect/MenuSelect";
 
 
 const TestPlan = (props) => {

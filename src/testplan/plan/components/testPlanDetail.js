@@ -6,7 +6,7 @@ import moment from "moment";
 import EdiText from "react-editext";
 import {CaretDownOutlined} from "@ant-design/icons";
 import {useParams} from "react-router";
-import CaseBread from "../../common/CaseBread";
+import CaseBread from "../../../common/CaseBread";
 import TestPlanInstanceList from "./testPlanInstanceList";
 
 const {Option} = Select;

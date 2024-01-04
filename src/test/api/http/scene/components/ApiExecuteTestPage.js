@@ -9,7 +9,7 @@ import CaseBread from "../../../../../common/CaseBread";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IfInstance from "../../../../common/ifJudgment/components/ifInstance";
-import ResponseCommon from "../../common/response/responseCommon";
+import ResponseCommon from "../../common/response/responseCommon/responseCommon";
 
 const { apiSceneExecute } = apiSceneTestDispatchStore;
 
@@ -188,7 +188,8 @@ const ApiExecuteTestPage = (props) =>{
                             detail={showDetail(detail)}
                             resBody={apiUnitInstance?.responseInstance?.responseBody}
                             resHeader={processResHeader(apiUnitInstance?.responseInstance?.responseHeader)}
-                            reqHeader={processResHeader(apiUnitInstance?.requestInstance?.requestHeader)}
+                            assertList={apiUnitInstance?.responseInstance?.assertInstanceList}
+                            reqHeader={apiUnitInstance?.requestInstance?.requestHeader}
                             error={apiUnitInstance?.errMessage}
                         />
                     </div>

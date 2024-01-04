@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form, Modal, Button, Input, DatePicker, Select} from 'antd';
 import moment from "moment";
-import IconCommon from "../../common/IconCommon";
+import IconCommon from "../../../common/IconCommon";
 
 const { RangePicker } = DatePicker;
 

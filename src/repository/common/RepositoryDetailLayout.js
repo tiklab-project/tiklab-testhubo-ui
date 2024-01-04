@@ -5,7 +5,7 @@ import "../../common/commonStyle.scss";
 import "../../test/common/styles/testcaseStyle.scss";
 import "../../test/common/styles/caseContantStyle.scss";
 import "../../test/common/styles/unitcase.scss";
-import "../../testplan/components/testPlanStyle.scss"
+import "../../testplan/plan/components/testPlanStyle.scss"
 import { Provider } from 'mobx-react';
 import CategoryStore from "../../category/store/CategoryStore";
 import ApiUnitStore from "../../test/api/http/unit/store/apiUnitStore";
@@ -16,7 +16,7 @@ import ApiSceneStore from "../../test/api/http/scene/store/apiSceneStore";
 import FuncUnitStore from "../../test/function/store/funcUnitStore";
 import WebSceneStore from "../../test/web/scene/store/webSceneStore";
 import WebPerfStore from "../../test/web/perf/store/webPerfStore";
-import TestPlanStore from "../../testplan/store/testPlanStore";
+import TestPlanStore from "../../testplan/plan/store/testPlanStore";
 import WorkItemStore from "../../integrated/teamwire/workItem/store/WorkItemStore";
 import AgentConfigStore from "../../support/agent/store/AgentConfigStore";
 import ApiEnvStore from "../../support/environment/store/apiEnvStore";

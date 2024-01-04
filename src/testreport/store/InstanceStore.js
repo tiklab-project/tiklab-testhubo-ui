@@ -8,7 +8,6 @@ export class InstanceStore {
     findInstancePage = async (value) => {
         const params = {
             ...value,
-            orderParams:[{name:'createTime', orderType:'desc'}],
         }
         const res = await Axios.post("/instance/findInstancePage",params);
         if(res.code === 0) {

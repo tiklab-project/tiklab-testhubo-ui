@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {Empty, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
-import emptyImg from "../../assets/img/empty.png";
-import {showCaseTypeTable, showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
-import ApiUnitInstanceDrawer from "../../test/api/http/unit/components/apiUnitInstanceSinglePage";
-import ApiSceneInstanceDrawer from "../../test/api/http/scene/components/apiSceneInstanceSinglePage";
-import WebSceneInstanceDrawer from "../../test/web/scene/components/WebSceneInstanceSinglePage";
-import AppSceneInstanceDrawer from "../../test/app/scene/components/AppSceneInstanceSinglePage";
-import ApiPerformInstanceDrawer from "../../test/api/http/perf/components/ApiPerfInstanceSinglePage";
-import WebPerformInstanceDrawer from "../../test/web/perf/components/webPerformInstanceDrawer";
-import AppPerformInstanceDrawer from "../../test/app/perf/components/appPerformInstanceDrawer";
+import emptyImg from "../../../assets/img/empty.png";
+import {showCaseTypeTable, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
+import ApiUnitInstanceDrawer from "../../../test/api/http/unit/components/apiUnitInstanceSinglePage";
+import ApiSceneInstanceDrawer from "../../../test/api/http/scene/components/apiSceneInstanceSinglePage";
+import WebSceneInstanceDrawer from "../../../test/web/scene/components/WebSceneInstanceSinglePage";
+import AppSceneInstanceDrawer from "../../../test/app/scene/components/AppSceneInstanceSinglePage";
+import ApiPerformInstanceDrawer from "../../../test/api/http/perf/components/ApiPerfInstanceSinglePage";
+import WebPerformInstanceDrawer from "../../../test/web/perf/components/webPerformInstanceDrawer";
+import AppPerformInstanceDrawer from "../../../test/app/perf/components/appPerformInstanceDrawer";
 import testPlanInstanceStore from "../store/testPlanInstanceStore";
 import testPlanBindCaseInstanceStore from "../store/testPlanBindCaseInstanceStore";
-import PaginationCommon from "../../common/pagination/Page";
+import PaginationCommon from "../../../common/pagination/Page";
 
 const TestPlanBindCaseInstanceTable = (props) =>{
     const {

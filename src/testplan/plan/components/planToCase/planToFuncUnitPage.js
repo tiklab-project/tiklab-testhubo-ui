@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import AppSceneDetail from "../../../test/app/scene/components/appSceneDetail";
-import CaseBread from "../../../common/CaseBread";
+import FunctionDetail from "../../../../test/function/components/FunctionDetail";
+import CaseBread from "../../../../common/CaseBread";
 
-const PlanToAppScenePage = (props) =>{
-    const {appSceneStore} = props;
-    const {findAppScene} = appSceneStore
+const PlanToFuncUnitPage = (props) =>{
+    const {funcUnitStore} = props;
+    const {findFuncUnit} = funcUnitStore
 
     const [caseInfo, setCaseInfo] = useState();
-    const appSceneId = sessionStorage.getItem('appSceneId');
+    const functionId = sessionStorage.getItem('functionId');
 
     useEffect(()=>{
-        findAppScene(appSceneId).then(res=>{
+        findFuncUnit(functionId).then(res=>{
             setCaseInfo(res.testCase);
         })
     },[])
@@ -24,9 +24,10 @@ const PlanToAppScenePage = (props) =>{
                 router={"/plan/case"}
                 breadItem={[caseInfo?.name]}
             />
-            <AppSceneDetail planType={true} appSceneId={appSceneId}/>
+            <FunctionDetail functionId={functionId}/>
+
         </div>
     )
 }
 
-export default inject("appSceneStore")(observer(PlanToAppScenePage));
+export default inject("funcUnitStore")(observer(PlanToFuncUnitPage));

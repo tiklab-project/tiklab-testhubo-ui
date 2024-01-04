@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
-import IconBtn from "../../common/iconBtn/IconBtn";
+import IconBtn from "../../../common/iconBtn/IconBtn";
 import {Drawer, Empty, Spin, Table} from "antd";
 import {inject, observer} from "mobx-react";
-import {messageFn} from "../../common/messageCommon/MessageCommon";
-import emptyImg from "../../assets/img/empty.png";
-import {showCaseTypeTable,  showTestTypeView} from "../../common/caseCommon/CaseCommonFn";
+import {messageFn} from "../../../common/messageCommon/MessageCommon";
+import emptyImg from "../../../assets/img/empty.png";
+import {showCaseTypeTable,  showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {Axios} from "thoughtware-core-ui";
-import CaseBread from "../../common/CaseBread";
+import CaseBread from "../../../common/CaseBread";
 
 
 const TestPlanExecuteTestDrawer = (props) =>{

@@ -5,17 +5,17 @@
 import React, {useEffect, useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Modal, Table, Space, Select, Row, Col, Input, Avatar,} from 'antd';
-import IconBtn from "../../common/iconBtn/IconBtn";
+import IconBtn from "../../../common/iconBtn/IconBtn";
 import {
     showCaseTypeInList,
     showCaseTypeTable,
     showCaseTypeView,
     showTestTypeView
-} from "../../common/caseCommon/CaseCommonFn";
+} from "../../../common/caseCommon/CaseCommonFn";
 import testPlanDetailStore from "../store/testPlanDetailStore";
-import ApiSceneBindUnit from "../../test/api/http/scene/components/apiSceneBindUnit";
+import ApiSceneBindUnit from "../../../test/api/http/scene/components/apiSceneBindUnit";
 import {SearchOutlined} from "@ant-design/icons";
-import PaginationCommon from "../../common/pagination/Page";
+import PaginationCommon from "../../../common/pagination/Page";
 
 // 添加与编辑
 const TestPlanBindCase = (props) => {
@@ -180,7 +180,6 @@ const TestPlanBindCase = (props) => {
                             name={"取消"}
                         />
                     </Col>
-
                 </Row>
             </div>
             <div style={{"overflow": "auto","height": "calc(100% - 38px)"}}>

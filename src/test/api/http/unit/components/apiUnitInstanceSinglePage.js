@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
 import {TextMethodType} from "../../common/methodType";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
-import ResponseCommon from "../../common/response/responseCommon";
+import ResponseCommon from "../../common/response/responseCommon/responseCommon";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 import CaseBread from "../../../../../common/CaseBread";
 import {Drawer} from "antd";
@@ -93,9 +93,10 @@ const ApiUnitInstanceSinglePage = (props) =>{
                 <ResponseCommon
                     error={allData?.errMessage}
                     detail={showDetail(detail)}
+                    reqHeader={processResHeader(allData?.requestInstance?.requestHeader)}
                     resBody={allData?.responseInstance?.responseBody}
                     resHeader={processResHeader(allData?.responseInstance?.responseHeader)}
-                    reqHeader={processResHeader(allData?.requestInstance?.requestHeader)}
+                    assertList={allData?.responseInstance?.assertInstanceList}
                 />
             </Drawer>
         </>

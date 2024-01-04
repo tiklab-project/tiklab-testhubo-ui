@@ -5,14 +5,6 @@ import {SelectItem, SelectSimple} from "../../../common/select";
 const CaseTypeSelect = (props) =>{
     const {findPage,testType} = props;
 
-    const handleChange = (caseTypeList, value) =>{
-        let param = {
-            testType:testType,
-            [caseTypeList]:value
-        }
-
-        findPage(param)
-    }
 
     const apiList = [
         {
@@ -41,7 +33,7 @@ const CaseTypeSelect = (props) =>{
                 testType==="api"
                     ? <SelectSimple
                         name="workStatus"
-                        onChange={(value) => handleChange("caseTypeList", value)}
+                        onChange={(value) => findPage(value)}
                         title={testType === "api" && "接口类型"}
                         ismult={true}
                     >
@@ -63,7 +55,7 @@ const CaseTypeSelect = (props) =>{
                 testType==="ui"
                     ? <SelectSimple
                         name="workStatus"
-                        onChange={(value) => handleChange("caseTypeList", value)}
+                        onChange={(value) => findPage(value)}
                         title={testType === "ui" && "UI类型"}
                         ismult={true}
                     >

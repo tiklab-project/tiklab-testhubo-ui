@@ -11,7 +11,7 @@ import AppPerfStore from "../../test/app/perf/store/appPerfStore";
 import FuncUnitStore from "../../test/function/store/funcUnitStore";
 import WebSceneStore from "../../test/web/scene/store/webSceneStore";
 import WebPerfStore from "../../test/web/perf/store/webPerfStore";
-import TestPlanStore from "../store/testPlanStore";
+import TestPlanStore from "../plan/store/testPlanStore";
 import WorkItemStore from "../../integrated/teamwire/workItem/store/WorkItemStore";
 import AgentConfigStore from "../../support/agent/store/AgentConfigStore";
 import ApiEnvStore from "../../support/environment/store/apiEnvStore";

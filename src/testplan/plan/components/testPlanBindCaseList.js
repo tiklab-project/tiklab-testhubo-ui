@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Avatar, Empty, Input, Popconfirm, Space, Table} from "antd";
-import IconCommon from "../../common/IconCommon";
-import { showCaseTypeTable} from "../../common/caseCommon/CaseCommonFn";
-import emptyImg from "../../assets/img/empty.png";
+import IconCommon from "../../../common/IconCommon";
+import { showCaseTypeTable} from "../../../common/caseCommon/CaseCommonFn";
+import emptyImg from "../../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
-import IconBtn from "../../common/iconBtn/IconBtn";
+import IconBtn from "../../../common/iconBtn/IconBtn";
 import TestPlanBindCase from "./testPlanBindCase";
-import PaginationCommon from "../../common/pagination/Page";
+import PaginationCommon from "../../../common/pagination/Page";
 import {useHistory} from "react-router";
 import TestPlanENVModal from "./testPlanENVModal";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import {SearchOutlined} from "@ant-design/icons";
-import MenuSelect from "../../common/menuSelect/MenuSelect";
+import MenuSelect from "../../../common/menuSelect/MenuSelect";
+import CaseTypeSelect from "../../../test/testcase/components/CaseTypeSelect";
 
 const TestPlanBindCaseList = (props) =>{
     const { testPlanStore } = props;
@@ -244,6 +245,14 @@ const TestPlanBindCaseList = (props) =>{
         findPage(param)
     }
 
+    const caseSelectPage = (value) =>{
+        let param = {
+            testType:selectItem,
+            caseTypeList:value
+        }
+
+        findPage(param)
+    }
 
 
     return(
@@ -270,12 +279,19 @@ const TestPlanBindCaseList = (props) =>{
                             style={{width: "300px"}}
                         />
 
-                        <Input
-                            placeholder={`搜索用例`}
-                            onPressEnter={onSearch}
-                            className='search-input-common'
-                            prefix={<SearchOutlined />}
-                        />
+                        <Space>
+                            {
+                                selectItem==="api"||selectItem==="ui"
+                                    ?<CaseTypeSelect findPage={caseSelectPage} testType={selectItem}/>
+                                    :null
+                            }
+                            <Input
+                                placeholder={`搜索用例`}
+                                onPressEnter={onSearch}
+                                className='search-input-common'
+                                prefix={<SearchOutlined />}
+                            />
+                        </Space>
                     </div>
 
                     <div className={"table-list-box"}>

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import ResponseCommon from "../../common/response/responseCommon";
+import ResponseCommon from "../../common/response/responseCommon/responseCommon";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../../common/CaseBread";
@@ -106,9 +106,10 @@ const ApiUnitExecuteTest = (props) =>{
                 />
                 <ResponseCommon
                     detail={showDetail(detail)}
+                    reqHeader={processResHeader(data?.requestInstance?.requestHeader)}
                     resBody={data?.responseInstance?.responseBody}
                     resHeader={processResHeader(data?.responseInstance?.responseHeader)}
-                    reqHeader={processResHeader(data?.requestInstance?.requestHeader)}
+                    assertList={data?.responseInstance?.assertInstanceList}
                     error={data?.errMessage}
                 />
             </Drawer>

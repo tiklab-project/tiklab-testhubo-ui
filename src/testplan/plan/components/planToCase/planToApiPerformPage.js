@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import ApiPerformDetail from "../../../test/api/http/perf/components/apiPerformDetail";
-import CaseBread from "../../../common/CaseBread";
+import ApiPerformDetail from "../../../../test/api/http/perf/components/apiPerformDetail";
+import CaseBread from "../../../../common/CaseBread";
 
 const PlanToApiPerformPage = (props) =>{
     const {apiPerfStore} = props;

@@ -1,15 +1,17 @@
 import React from "react";
 import {Tabs} from "antd";
-import ResponseBodyCommon from "./responseBodyCommon";
-import ResHeaderCommon from "./resHeaderCommon";
+import ResponseBodyCommon from "../responseBodyCommon";
+import ResHeaderCommon from "../resHeaderCommon";
 const {TabPane} = Tabs;
+import "./responseCommonStyle.scss"
+import ResponseAssertCommon from "../ResponseAssertCommon";
 
 //展示响应结果
 const ResponseCommon = (props) =>{
     const {error}  = props
 
     return(
-        <div style={{margin:"0 10px",overflow: "auto",height: "calc( 100% - 42px )"}}>
+        <div className={"responseCommon"}>
             <div >{props?.detail}</div>
 
             <Tabs defaultActiveKey="1"  >
@@ -44,6 +46,11 @@ const ResponseCommon = (props) =>{
                             <TabPane tab="请求头" key="3">
                                 <ResHeaderCommon
                                     headers={props?.reqHeader}
+                                />
+                            </TabPane>
+                            <TabPane tab="断言" key="4">
+                                <ResponseAssertCommon
+                                    list={props?.assertList}
                                 />
                             </TabPane>
                         </>

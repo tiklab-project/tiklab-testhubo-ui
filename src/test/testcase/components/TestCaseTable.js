@@ -263,6 +263,14 @@ const TestCaseTable = (props) => {
     }
 
 
+    const caseSelectPage = (value) =>{
+        let param = {
+            testType:selectItem,
+            caseTypeList:value
+        }
+
+        findPage(param)
+    }
 
 
     return(
@@ -290,7 +298,7 @@ const TestCaseTable = (props) => {
                         <>
                             {
                                 selectItem==="api"||selectItem==="ui"
-                                    ?<CaseTypeSelect testType={selectItem} findPage={findPage}/>
+                                    ?<CaseTypeSelect findPage={caseSelectPage} testType={selectItem}/>
                                     :null
                             }
                         </>

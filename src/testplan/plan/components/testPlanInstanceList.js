@@ -1,7 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react";
-import InstanceListCommon from "../../testreport/common/InstanceListCommon";
-import {CASE_TYPE} from "../../common/dictionary/dictionary";
+import InstanceListCommon from "../../../testreport/common/InstanceListCommon";
+import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 
 const TestPlanInstanceList = (props) =>{
 

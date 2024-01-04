@@ -3,7 +3,7 @@
  * @date: 2021-08-13 17:41
  */
 import React, { useState, useEffect } from 'react';
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { Space,  Select, Popconfirm } from 'antd';
 import {ExTable}from '../../../../../common/EditTable';
 import IconCommon from "../../../../../common/IconCommon";
@@ -39,7 +39,6 @@ const AssertParam = ({apiUnitId}) =>{
             render:(text,record) =>  (
                 <Select
                     defaultValue={record.source}
-                    allowClear
                     bordered={false}
                     style={{'width':"100%"}}
                     onSelect= {(e) => onSelect(e,record)}

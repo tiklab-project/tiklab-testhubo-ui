@@ -5,10 +5,10 @@
 import React, { useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Modal} from 'antd';
-import IconBtn from "../../common/iconBtn/IconBtn";
-import ApiEnvSelect from "../../support/environment/components/apiEnvSelect";
-import AppEnvSelect from "../../support/environment/components/appEnvSelect";
-import WebEnvSelect from "../../support/environment/components/webEnvSelect";
+import IconBtn from "../../../common/iconBtn/IconBtn";
+import ApiEnvSelect from "../../../support/environment/components/apiEnvSelect";
+import AppEnvSelect from "../../../support/environment/components/appEnvSelect";
+import WebEnvSelect from "../../../support/environment/components/webEnvSelect";
 
 // 添加与编辑
 const TestPlanENVModal = (props) => {

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Input, Table, Tag} from "antd";
+import {Empty, Input, Space, Table, Tag} from "antd";
 import { observer} from "mobx-react";
 import instanceStore from "../store/InstanceStore";
 import IconCommon from "../../common/IconCommon";
@@ -14,7 +14,7 @@ import AppSceneInstanceSinglePage from "../../test/app/scene/components/AppScene
 import {useHistory} from "react-router";
 import MenuSelect from "../../common/menuSelect/MenuSelect";
 import {CheckCircleTwoTone, CloseCircleTwoTone, SearchOutlined} from "@ant-design/icons";
-import {getUser} from "thoughtware-core-ui";
+import CaseTypeSelect from "../../test/testcase/components/CaseTypeSelect";
 
 const InstanceListCommon = (props) =>{
     const {belongId,type} = props;
@@ -85,6 +85,7 @@ const InstanceListCommon = (props) =>{
     const [selectItem, setSelectItem] = useState("all");
     const history = useHistory()
     const repositoryId = sessionStorage.getItem("repositoryId")
+    const [typeList, setTypeList] = useState([]);
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(15);
     const [currentPage, setCurrentPage] = useState(1);
@@ -95,6 +96,7 @@ const InstanceListCommon = (props) =>{
 
     const findPage = async (params) => {
         let param={
+            typeList:typeList,
             pageParam: {
                 pageSize: pageSize,
                 currentPage: currentPage
@@ -158,9 +160,6 @@ const InstanceListCommon = (props) =>{
 
     /**
      * 根据类型展示不同的界面
-     * @param text
-     * @param record
-     * @returns {Element}
      */
     const showTitle = (text,record)=>{
         switch (record.type) {
@@ -186,7 +185,6 @@ const InstanceListCommon = (props) =>{
                 </span>
         }
     }
-
 
     const showDetail = (record)=>{
         let content = JSON.parse(record.content);
@@ -244,7 +242,6 @@ const InstanceListCommon = (props) =>{
                 </div>
             </div>
         </div>
-
     )
 
     const apiSceneContent = (content) => (
@@ -357,13 +354,23 @@ const InstanceListCommon = (props) =>{
      * 点击筛选项查找
      */
     const selectFn = async (item)=>{
-        setSelectItem(item.key)
+        let key= item.key
+        setSelectItem(key)
 
         let param
-        if(item.key!=="all"){
-            param = {"type":item.key};
+        if(key!=="all"){
+            if(key==="api"){
+                param = {"typeList":["api-scene","api-unit"]};
+            }else if(key==="ui"){
+                param = {"typeList":["app-scene","web-scene"]};
+            }else {
+                param = {"type":key};
+            }
+        }else {
+            setTypeList([])
         }
 
+        setTypeList(param.typeList)
         await findPage(param)
     }
 
@@ -375,20 +382,12 @@ const InstanceListCommon = (props) =>{
             key: `all`,
         },
         {
-            title: 'API单元',
-            key: `api-unit`,
+            title: '接口',
+            key: `api`,
         },
         {
-            title: 'API场景',
-            key: `api-scene`,
-        },
-        {
-            title: 'WEB',
-            key: `web-scene`,
-        },
-        {
-            title: 'APP',
-            key: `app-scene`,
+            title: 'UI',
+            key: `ui`,
         },{
             title: '性能',
             key: `api-perform`,
@@ -397,6 +396,33 @@ const InstanceListCommon = (props) =>{
             key: `test-plan`,
         }
     ];
+
+
+    const instanceSelectPage = async (list) =>{
+        let param
+        if(selectItem==="api"){
+            if(list.length===0){
+                param = {"typeList":["api-scene","api-unit"]};
+            }else {
+                param = {
+                    typeList:list
+                }
+            }
+        }
+
+        if (selectItem==="ui"){
+            if(list.length===0){
+                param = {"typeList":["app-scene","web-scene"]};
+            }else {
+                param = {
+                    typeList:list
+                }
+            }
+        }
+
+        setTypeList(param.typeList)
+        await findPage(param)
+    }
 
 
     return(
@@ -412,15 +438,26 @@ const InstanceListCommon = (props) =>{
                                 menuItems={items}
                                 selectFn={selectFn}
                                 selected={selectItem}
-                                style={{width: "465px"}}
+                                style={{width: "300px"}}
                             />
 
-                            <Input
-                                placeholder={`搜索用例`}
-                                onPressEnter={onSearch}
-                                className='search-input-common'
-                                prefix={<SearchOutlined/>}
-                            />
+                            <Space>
+                                <>
+                                    {
+                                        selectItem==="api"||selectItem==="ui"
+                                            ?<CaseTypeSelect testType={selectItem} findPage={instanceSelectPage}/>
+                                            :null
+                                    }
+                                </>
+
+                                <Input
+                                    placeholder={`搜索用例`}
+                                    onPressEnter={onSearch}
+                                    className='search-input-common'
+                                    prefix={<SearchOutlined/>}
+                                />
+                            </Space>
+
                         </div>
                     </>
                     :null

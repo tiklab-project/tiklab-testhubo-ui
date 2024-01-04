@@ -14,7 +14,6 @@ import Demo from "./demo";
 import {ProductAuth} from "thoughtware-licence-ui";
 import LazyComponent from "./common/Lazy";
 
-
 //---内部
 let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
 let LoginOut = LazyComponent(() => import("./home/header/LoginOut"));
@@ -68,20 +67,22 @@ let AppPerformToScenePage = LazyComponent(() => import("./test/app/perf/componen
 let FuncUnitDetail = LazyComponent(() => import("./test/function/components/FunctionContent"));
 
 let PlanDetailContent = LazyComponent(()=>import("./testplan/common/PlanDetailContent"))
-let TestPlan = LazyComponent(() => import("./testplan/components/testPlan"));
-let TestPlanDetail = LazyComponent(() => import("./testplan/components/testPlanDetail"));
-let TestPlanBindCaseList = LazyComponent(() => import("./testplan/components/testPlanBindCaseList"));
-let TestPlanInstanceList = LazyComponent(() => import("./testplan/components/testPlanInstanceList"));
-let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/components/testPlanBindCaseInstanceList"));
-let PlanToApiUnitPage = LazyComponent(() => import("./testplan/components/planToCase/planToApiUnitPage"));
-let PlanToApiScenePage = LazyComponent(() => import("./testplan/components/planToCase/planToApiScenePage"));
-let PlanToApiPerformPage = LazyComponent(() => import("./testplan/components/planToCase/planToApiPerformPage"));
-let PlanToWebScenePage = LazyComponent(() => import("./testplan/components/planToCase/planToWebScenePage"));
-let planToWebPerformPage = LazyComponent(() => import("./testplan/components/planToCase/planToWebPerformPage"));
-let PlanToFuncUnitPage = LazyComponent(() => import("./testplan/components/planToCase/planToFuncUnitPage"));
-let PlanToAppPerformPage = LazyComponent(() => import("./testplan/components/planToCase/planToAppPerformPage"));
-let PlanToAppScenePage = LazyComponent(() => import("./testplan/components/planToCase/planToAppScenePage"));
-let PlanSetting = LazyComponent(() => import( "./testplan/components/PlanSetting"));
+let TestPlan = LazyComponent(() => import("./testplan/plan/components/testPlan"));
+let TestPlanDetail = LazyComponent(() => import("./testplan/plan/components/testPlanDetail"));
+let TestPlanBindCaseList = LazyComponent(() => import("./testplan/plan/components/testPlanBindCaseList"));
+let TestPlanInstanceList = LazyComponent(() => import("./testplan/plan/components/testPlanInstanceList"));
+let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/plan/components/testPlanBindCaseInstanceList"));
+let PlanToApiUnitPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToApiUnitPage"));
+let PlanToApiScenePage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToApiScenePage"));
+let PlanToApiPerformPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToApiPerformPage"));
+let PlanToWebScenePage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToWebScenePage"));
+let planToWebPerformPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToWebPerformPage"));
+let PlanToFuncUnitPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToFuncUnitPage"));
+let PlanToAppPerformPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToAppPerformPage"));
+let PlanToAppScenePage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToAppScenePage"));
+let PlanSetting = LazyComponent(() => import( "./testplan/plan/components/PlanSetting"));
+let QuartzPlanList = LazyComponent(() => import( "./testplan/quartz/components/QuartzPlanList"));
+
 
 let TestReportList = LazyComponent(() => import("./testreport/components/testReportList"));
 let TestReportDetail = LazyComponent(() => import("./testreport/components/testReportDetail"));
@@ -379,7 +380,11 @@ const routers =  [
                         path: "/plan/instance",
                         exact: true,
                         component: TestPlanInstanceList,
-                    }, {
+                    },  {
+                        path: "/plan/quartz",
+                        exact: true,
+                        component: QuartzPlanList,
+                    },{
                         path: "/plan/setting",
                         exact: true,
                         component: PlanSetting,

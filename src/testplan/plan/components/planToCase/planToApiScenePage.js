@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import ApiSceneDetail from "../../../test/api/http/scene/components/ApiSceneDetail";
-import CaseBread from "../../../common/CaseBread";
+import ApiSceneDetail from "../../../../test/api/http/scene/components/ApiSceneDetail";
+import CaseBread from "../../../../common/CaseBread";
 
 const PlanToApiScenePage = (props) =>{
     const {apiSceneStore} = props;

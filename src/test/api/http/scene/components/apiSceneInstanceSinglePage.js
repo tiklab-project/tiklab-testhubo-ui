@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
 import {TextMethodType} from "../../common/methodType";
-import ResponseCommon from "../../common/response/responseCommon";
+import ResponseCommon from "../../common/response/responseCommon/responseCommon";
 import {observer} from "mobx-react";
 import apiUnitInstanceStore from "../../unit/store/apiUnitInstanceStore";
 import apiSceneInstanceStore from "../store/apiSceneInstanceStore";
@@ -149,9 +149,10 @@ const ApiSceneInstanceSinglePage = (props) =>{
                 return(
                     <ResponseCommon
                         detail={showDetail(detail)}
+                        reqHeader={processResHeader(stepData?.requestInstance?.requestHeader)}
                         resBody={stepData?.responseInstance?.responseBody}
                         resHeader={processResHeader(stepData?.responseInstance?.responseHeader)}
-                        reqHeader={processResHeader(stepData?.requestInstance?.requestHeader)}
+                        assertList={stepData?.responseInstance?.assertInstanceList}
                         error={stepData?.errMessage}
                     />
                 )

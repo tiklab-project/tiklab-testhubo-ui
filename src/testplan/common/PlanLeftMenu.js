@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router";
 import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
-import {ArrowLeftOutlined, LeftCircleOutlined} from "@ant-design/icons";
-import {Dropdown, Space} from "antd";
+import { LeftCircleOutlined} from "@ant-design/icons";
+import {Dropdown} from "antd";
 import IconCommon from "../../common/IconCommon";
 import planImg from "../../assets/img/plan.png"
-import testPlanStore from "../store/testPlanStore";
+import testPlanStore from "../plan/store/testPlanStore";
 
 const PlanLeftMenu = (props) =>{
     const {findTestPlanPage,testPlanList} = testPlanStore;
@@ -21,6 +21,11 @@ const PlanLeftMenu = (props) =>{
             "name":"测试历史",
             "key":"instance",
             "router":"/plan/instance"
+        },{
+            "icon":"dingshi",
+            "name":"定时任务",
+            "key":"quartz",
+            "router":"/plan/quartz"
         }
     ]
 
@@ -28,7 +33,7 @@ const PlanLeftMenu = (props) =>{
     const repositoryId = sessionStorage.getItem('repositoryId')
     const [visible, setVisible] = useState(false);
 
-    useEffect(()=>{
+    useEffect(async ()=>{
         let param={
             repositoryId:repositoryId,
             pageParam: {
@@ -36,7 +41,7 @@ const PlanLeftMenu = (props) =>{
                 currentPage: 1
             },
         }
-        findTestPlanPage(param)
+        await findTestPlanPage(param)
     },[])
 
     /**

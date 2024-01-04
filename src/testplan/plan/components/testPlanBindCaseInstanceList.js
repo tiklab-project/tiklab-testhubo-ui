@@ -1,6 +1,6 @@
 import React from "react";
 import TestPlanBindCaseInstanceTable from "./testPlanBindCaseInstanceTable";
-import CaseBread from "../../common/CaseBread";
+import CaseBread from "../../../common/CaseBread";
 
 const TestPlanBindCaseInstanceList = (props) =>{
 

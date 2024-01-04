@@ -1,6 +1,7 @@
 import React from "react";
 import {CASE_TYPE} from "./DefineVariables";
 import LazyComponent from "../../common/Lazy";
+import {CheckCircleTwoTone, CloseCircleTwoTone} from "@ant-design/icons";
 
 let ApiUnitInstanceSinglePage = LazyComponent(() => import("../api/http/unit/components/apiUnitInstanceSinglePage"));
 let ApiSceneInstanceSinglePage = LazyComponent(() => import("../api/http/scene/components/apiSceneInstanceSinglePage"));
@@ -63,9 +64,9 @@ const CaseInstanceSingleDrawer = (props) =>{
     const showRecent=(recentInstance)=>{
         switch (recentInstance.result) {
             case 0:
-                return <>失败 #{recentInstance.executeNumber}</>
+                return <><CloseCircleTwoTone twoToneColor={"red"}/> #{recentInstance.executeNumber}</>
             case 1:
-                return <>成功 #{recentInstance.executeNumber}</>
+                return <><CheckCircleTwoTone twoToneColor={"#52c41a"}/> #{recentInstance.executeNumber}</>
         }
     }
 
