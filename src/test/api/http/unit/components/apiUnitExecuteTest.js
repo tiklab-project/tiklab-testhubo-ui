@@ -29,10 +29,14 @@ const ApiUnitExecuteTest = (props) =>{
         let res = await apiUnitExecute(apiUnitId,envUrl?envUrl:values.host)
         if(res.code===0){
             setData(res.data)
-        }
+        }else {
+            let msg = res.msg
+            let errorMsg = msg.split(":")[1]
+            if(errorMsg.includes("Could not connect")){
+                errorMsg="无法连接agent"
+            }
 
-        if(res.code===60000){
-            messageFn("error","Agent错误")
+            return messageFn("error",errorMsg)
         }
 
         setOpen(true);

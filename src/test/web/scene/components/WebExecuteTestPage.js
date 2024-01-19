@@ -6,6 +6,7 @@ import {Col, Drawer, Empty, Form, List, Row, Tag} from "antd";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import emptyImg from "../../../../assets/img/empty.png";
 import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
+import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 const WebExecuteTestPage = (props) =>{
     const {webSceneStore,webSceneId} = props;
@@ -34,16 +35,27 @@ const WebExecuteTestPage = (props) =>{
                     webSceneId:webSceneId,
                     webDriver:"chrome"
                 }
+
                 //开始执行
                 webSceneTestDispatch(param)
                 setStartStatus(1)
+
+                setOpen(true);
+            }else {
+                let msg = res.msg
+                let errorMsg = msg.split(":")[1]
+                if(errorMsg.includes("Could not connect")){
+                    errorMsg="无法连接agent"
+                }
+
+                return messageFn("error",errorMsg)
             }
         });
-
-        setOpen(true);
     };
 
     const onClose = () => {
+        setWebStepList([])
+        setSpinning(true)
         setOpen(false);
     };
 
@@ -51,7 +63,7 @@ const WebExecuteTestPage = (props) =>{
     const testResult = () =>{
         ref.current =  setInterval(async ()=>{
             //获取执行结果
-            let res = await webSceneTestResult({webSceneId:webSceneId,webDriver:"chrome"})
+            let res = await webSceneTestResult({webSceneId:webSceneId})
 
             if(res.code===0){
                 let data = res.data;
@@ -67,7 +79,7 @@ const WebExecuteTestPage = (props) =>{
                     totalDuration:instance?.totalDuration
                 })
 
-                setSpinning(false)
+                setSpinning(true)
 
                 //获取执行状态，是否结束
                 webSceneTestStatus().then(res =>{
@@ -80,8 +92,11 @@ const WebExecuteTestPage = (props) =>{
                         clearInterval(ref.current)
 
                         //如果状态变回0 还要走一遍
-                        webSceneTestResult({webSceneId:webSceneId,webDriver:"chrome"})
+                        webSceneTestResult({webSceneId:webSceneId})
+
+                        messageFn("success","执行完成")
                     }
+                    setSpinning(false)
                 })
             }
         },3000);

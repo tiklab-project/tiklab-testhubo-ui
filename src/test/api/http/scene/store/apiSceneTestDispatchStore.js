@@ -12,8 +12,8 @@ export class ApiSceneTestDispatchStore {
         const res = await Axios.post("/apiSceneTestDispatch/execute",param);
         if(res.code === 0) {
             this.apiSceneTestResult = res.data;
-            return res.data
         }
+        return res
     }
 
 

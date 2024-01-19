@@ -5,12 +5,13 @@ export class AgentConfigStore {
 	@observable agentConfigList = [];
 
 	@action
-	findAgentConfigList = async () => {
+	findAgentConfigList = async (param) => {
 		const params = {
 			orderParams: [{
 				name:'createTime',
 				orderType:'desc'
 			}],
+			...param
 		}
 
 		const res = await Axios.post("/agentConfig/findAgentConfigList",params);

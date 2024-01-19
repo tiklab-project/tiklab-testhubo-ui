@@ -34,13 +34,23 @@ const ApiExecuteTestPage = (props) =>{
                 repositoryId:repositoryId
             }
             apiSceneExecute(param).then(res=>{
-                setAllData(res.apiSceneInstance);
-                setStepList(res.stepCommonInstanceList)
+                if(res.code===0){
 
-                setLoading(false);
+                    setAllData(res.data.apiSceneInstance);
+                    setStepList(res.data.stepCommonInstanceList)
+
+                    setLoading(false);
+                    setOpen(true);
+                }else {
+                    let msg = res.msg
+                    let errorMsg = msg.split(":")[1]
+                    if(errorMsg.includes("Could not connect")){
+                        errorMsg="无法连接agent"
+                    }
+
+                    return messageFn("error",errorMsg)
+                }
             })
-
-            setOpen(true);
         }else {
             messageFn("error","请选择环境")
         }

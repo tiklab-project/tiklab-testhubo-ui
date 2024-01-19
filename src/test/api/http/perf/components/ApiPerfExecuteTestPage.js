@@ -67,6 +67,9 @@ const ApiPerfExecuteTestPage = (props) =>{
                     setResult(res.apiPerfInstance)
                     setStepList(res.apiSceneInstanceList)
 
+
+                    setSpinning(true)
+
                     apiPerfTestStatus().then(res=>{
                         if(res.code!==0){
                             clearInterval(ref.current)
@@ -75,8 +78,10 @@ const ApiPerfExecuteTestPage = (props) =>{
                         if(res.data===0){
                             clearInterval(ref.current)
                             setStart(0)
-                            setSpinning(false)
+
+                            messageFn("success","执行完成")
                         }
+                        setSpinning(false)
                     })
                 })
             },3000);
@@ -90,13 +95,26 @@ const ApiPerfExecuteTestPage = (props) =>{
             if(res.code===0&&res.data===0){
                 apiPerfExecute(apiPerfId,envUrl)
                 setStart(1)
+
+                setOpen(true);
+            }else {
+                let msg = res.msg
+                let errorMsg = msg.split(":")[1]
+                if(errorMsg.includes("Could not connect")){
+                    errorMsg="无法连接agent"
+                }
+
+                return messageFn("error",errorMsg)
             }
         })
 
-        setOpen(true);
+
     };
 
     const onClose = () => {
+        setStepList([]);
+        setResult(null)
+        setSpinning(true)
         setOpen(false);
     };
 

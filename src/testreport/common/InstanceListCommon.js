@@ -366,11 +366,11 @@ const InstanceListCommon = (props) =>{
             }else {
                 param = {"type":key};
             }
+            setTypeList(param.typeList)
         }else {
             setTypeList([])
         }
 
-        setTypeList(param.typeList)
         await findPage(param)
     }
 

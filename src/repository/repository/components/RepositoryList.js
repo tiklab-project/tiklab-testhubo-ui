@@ -42,8 +42,8 @@ const RepositoryList = (props) => {
             render: (text, record) => (
                 <div className={"ws-user-item"}>
                     <Space>
-                        <Avatar size={"small"}>{record.user.nickname[0]}</Avatar>
-                        <span style={{fontSize:"13px"}}>{record.user.nickname} </span>
+                        <Avatar size={"small"}>{record?.user?.nickname[0]}</Avatar>
+                        <span style={{fontSize:"13px"}}>{record?.user?.nickname} </span>
                     </Space>
                 </div>
 

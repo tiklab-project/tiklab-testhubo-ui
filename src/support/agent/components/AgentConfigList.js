@@ -69,9 +69,10 @@ const AgentConfigList = (props) => {
         }
     ]
 
-
+    let repositoryId = sessionStorage.getItem("repositoryId");
     useEffect(()=> {
-        findAgentConfigList();
+
+        findAgentConfigList({repositoryId:repositoryId});
     },[])
 
  

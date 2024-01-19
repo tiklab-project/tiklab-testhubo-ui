@@ -6,6 +6,7 @@ import appSceneStore from "../store/appSceneStore";
 import {observer} from "mobx-react";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import emptyImg from "../../../../assets/img/empty.png";
+import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 
 const AppExecuteTestPage =({appSceneId})=>{
@@ -25,13 +26,24 @@ const AppExecuteTestPage =({appSceneId})=>{
                 //开始执行
                 appSceneTestDispatch(appSceneId)
                 setStartStatus(1)
+
+                setOpen(true);
+            }else {
+                let msg = res.msg
+                let errorMsg = msg.split(":")[1]
+                if(errorMsg.includes("Could not connect")){
+                    errorMsg="无法连接agent"
+                }
+
+                return messageFn("error",errorMsg)
             }
         });
 
-        setOpen(true);
     };
 
     const onClose = () => {
+        setAppStepList([])
+        setSpinning(true)
         setOpen(false);
     };
 
@@ -61,7 +73,7 @@ const AppExecuteTestPage =({appSceneId})=>{
                     passRate:instance?.passRate,
                 })
 
-                setSpinning(false)
+                setSpinning(true)
 
                 //获取执行状态，是否结束
                 appSceneTestStatus().then(res =>{
@@ -75,7 +87,9 @@ const AppExecuteTestPage =({appSceneId})=>{
 
                         //如果状态变回0 还要走一遍
                         appSceneTestResult(appSceneId)
+                        messageFn("success","执行完成")
                     }
+                    setSpinning(false)
                 })
             }
         },3000);
