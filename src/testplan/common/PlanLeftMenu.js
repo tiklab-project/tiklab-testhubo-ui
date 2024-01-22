@@ -6,6 +6,7 @@ import {Dropdown} from "antd";
 import IconCommon from "../../common/IconCommon";
 import planImg from "../../assets/img/plan.png"
 import testPlanStore from "../plan/store/testPlanStore";
+import "../plan/components/testPlanStyle.scss"
 
 const PlanLeftMenu = (props) =>{
     const {findTestPlanPage,testPlanList} = testPlanStore;

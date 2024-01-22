@@ -6,6 +6,7 @@ export class TestPlanStore {
     @observable testPlanList = [];
     @observable testPlanInfo = {};
     @observable totalPage ;
+    @observable testDrawerVisible=false;
 
     @action
     findTestPlanPage = async (param) => {
@@ -45,6 +46,11 @@ export class TestPlanStore {
         param.append('id', id);
 
          await Axios.post("/testPlan/deleteTestPlan",param)
+    }
+
+    @action
+    setTestDrawerVisible = (visible) =>{
+        this.testDrawerVisible = visible
     }
 
 }

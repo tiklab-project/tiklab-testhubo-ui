@@ -4,7 +4,7 @@ import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {inject, observer} from "mobx-react";
 import moment from "moment";
 import DeletePlanModal from "./DeletePlanModal";
-import ApiEnvSelect from "../../../support/environment/components/apiEnvSelect";
+import ApiEnvSelect from "../../support/environment/components/apiEnvSelect";
 
 const { Panel } = Collapse;
 const {Option} = Select;
@@ -15,9 +15,8 @@ const tailLayout = {
 };
 
 const PlanSetting = (props) =>{
-    const {testPlanStore,apiEnvStore} = props;
+    const {testPlanStore} = props;
     const {findTestPlan,updateTestPlan,deleteTestPlan} = testPlanStore;
-    const {findApiEnvList,apiEnvList} = apiEnvStore;
 
     const [form] = Form.useForm();
     const [name, setName] = useState();
@@ -36,10 +35,6 @@ const PlanSetting = (props) =>{
             })
         })
     },[])
-
-    useEffect(()=>{
-        findApiEnvList(repositoryId)
-    },[repositoryId])
 
 
     const updatePlan = async ()=>{
@@ -117,25 +112,6 @@ const PlanSetting = (props) =>{
                                         />
                                     </Form.Item>
                                 </Col>
-                                <Col span={16}>
-                                    <Form.Item
-                                        label={"接口环境"}
-                                        name="apiEnv"
-                                    >
-                                        <Select placeholder={"无"}>
-                                            {
-                                                apiEnvList&&apiEnvList.map(item=>{
-                                                    return (
-                                                        <Option key={item.id} value={item.id}>
-                                                            <Tooltip placement="leftTop" title={item.preUrl}> {item.name} </Tooltip>
-                                                        </Option>
-                                                    )
-                                                })
-                                            }
-
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
                                 <Col span={16} offset={4}>
                                     <Form.Item >
                                         <Button
@@ -172,4 +148,4 @@ const PlanSetting = (props) =>{
     )
 }
 
-export default  inject('testPlanStore',"apiEnvStore")(observer(PlanSetting));
+export default  inject('testPlanStore')(observer(PlanSetting));

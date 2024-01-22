@@ -25,7 +25,8 @@ const TestCaseTable = (props) => {
         testcaseList,
         deleteTestCase,
         testType,
-        testCaseRecent
+        testCaseRecent,
+        findDiffTypeCaseNum
     }=testcaseStore;
 
 
@@ -104,6 +105,7 @@ const TestCaseTable = (props) => {
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
+    const [diffTypeCaseNum, setDiffTypeCaseNum] = useState();
     let repositoryId = sessionStorage.getItem("repositoryId")
 
     let history = useHistory();
@@ -114,6 +116,12 @@ const TestCaseTable = (props) => {
 
     useEffect(()=>{
         findCategoryListTreeTable(repositoryId)
+    },[])
+
+    useEffect(()=>{
+        findDiffTypeCaseNum(repositoryId).then(res=>{
+            setDiffTypeCaseNum(res)
+        })
     },[])
 
     const findPage = (params) =>{
@@ -228,23 +236,23 @@ const TestCaseTable = (props) => {
 
     const items = [
         {
-            title: '所有',
+            title: `所有 (${diffTypeCaseNum?.all||0})`,
             key: `all`,
         },
         {
-            title: '功能',
+            title: `功能 (${diffTypeCaseNum?.function||0})`,
             key: `function`,
         },
         {
-            title: '接口',
+            title: `接口 (${diffTypeCaseNum?.api||0})`,
             key: `api`,
         },
         {
-            title: 'UI',
+            title: `UI (${diffTypeCaseNum?.ui||0})`,
             key: `ui`,
         },
         {
-            title: '性能',
+            title: `性能 (${diffTypeCaseNum?.perform||0})`,
             key: `perform`,
         }
     ];
@@ -291,7 +299,7 @@ const TestCaseTable = (props) => {
                         menuItems={items}
                         selectFn={selectKeyFun}
                         selected={selectItem}
-                        style={{width: "300px"}}
+                        style={{width: "400px"}}
                     />
 
                     <Space>

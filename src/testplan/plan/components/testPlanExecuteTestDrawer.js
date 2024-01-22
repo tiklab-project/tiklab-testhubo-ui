@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from "react";
-import IconBtn from "../../../common/iconBtn/IconBtn";
 import {Drawer, Empty, Spin, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import {messageFn} from "../../../common/messageCommon/MessageCommon";
@@ -10,13 +9,12 @@ import CaseBread from "../../../common/CaseBread";
 
 
 const TestPlanExecuteTestDrawer = (props) =>{
-    const {apiEnvStore,appEnvStore,webEnvStore,testPlanId} = props;
+    const {apiEnvStore,appEnvStore,webEnvStore,testPlanStore} = props;
     const {envUrl} = apiEnvStore
     const {appEnv} = appEnvStore
     const {webEnv} = webEnvStore
+    const {setTestDrawerVisible,testDrawerVisible} = testPlanStore
 
-
-    const [visible, setVisible] = useState(false);
     const [spinning, setSpinning] = useState(true);
     const [caseList, setCaseList] = useState();
 
@@ -51,10 +49,17 @@ const TestPlanExecuteTestDrawer = (props) =>{
         },
     ]
 
+    const testPlanId = sessionStorage.getItem('testPlanId')
     let repositoryId = sessionStorage.getItem("repositoryId")
     const [result, setResult] = useState();
     const [start, setStart] = useState(false);
     let ref = useRef(null)
+
+    useEffect(()=>{
+        if(testDrawerVisible){
+            showModal()
+        }
+    },[testDrawerVisible])
 
     useEffect(()=>{
         if (start) {
@@ -76,7 +81,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
                     }
 
                 })
-            },1500);
+            },1000);
 
             setSpinning(true)
         }
@@ -85,8 +90,6 @@ const TestPlanExecuteTestDrawer = (props) =>{
 
     const showModal =  () =>{
         if(envUrl) {
-            setVisible(true)
-
             let params = {
                 apiEnv: envUrl,
                 testPlanId:testPlanId,
@@ -95,16 +98,32 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 webEnv:webEnv,
             }
 
-            Axios.post("/testPlanTestDispatch/execute",params)
+            Axios.post("/testPlanTestDispatch/execute",params).then(res=>{
+                if(res.code===0){
+                    setTestDrawerVisible(true)
+                    setStart(true)
+                }else {
+                    let msg = res.msg
+                    let errorMsg;
 
-            setStart(true)
+                    if(msg.includes("Could not connect")){
+                        errorMsg="无法连接agent"
+                    }
+
+                    if(msg.includes("配置agent")){
+                        errorMsg="不是内嵌agent，请到设置中配置agent"
+                    }
+
+                    return messageFn("error",errorMsg)
+                }
+            })
         }else {
             messageFn("error","请选择环境")
         }
     }
 
     const onClose = () => {
-        setVisible(false);
+        setTestDrawerVisible(false);
         setCaseList([])
         setSpinning(true)
         setResult(null)
@@ -112,15 +131,10 @@ const TestPlanExecuteTestDrawer = (props) =>{
 
     return(
         <>
-            <IconBtn
-                className="important-btn"
-                name={"测试"}
-                onClick={showModal}
-            />
             <Drawer
                 placement="right"
                 onClose={onClose}
-                visible={visible}
+                visible={testDrawerVisible}
                 width={900}
                 destroyOnClose={true}
                 contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
@@ -136,7 +150,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
                                 <div className={"history-detail-all-item-value"}>{result?.result===1?"成功":"失败"}</div>
                             </div>
                             <div className={"history-detail-all-item"}>
-                                <div>步骤数</div>
+                                <div>可执行用例</div>
                                 <div className={"history-detail-all-item-value"}>{result?.total}</div>
                             </div>
                             <div className={"history-detail-all-item"}>
@@ -176,4 +190,4 @@ const TestPlanExecuteTestDrawer = (props) =>{
     )
 }
 
-export default inject("apiEnvStore","appEnvStore","webEnvStore")(observer(TestPlanExecuteTestDrawer));
+export default inject("apiEnvStore","appEnvStore","webEnvStore","testPlanStore")(observer(TestPlanExecuteTestDrawer));

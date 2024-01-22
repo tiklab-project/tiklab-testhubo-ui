@@ -32,6 +32,16 @@ export class TestCaseStore {
         }
     }
 
+    @action
+    findDiffTypeCaseNum = async (repositoryId) => {
+        const param = new FormData();
+        param.append('repositoryId', repositoryId);
+
+        const res = await Axios.post("/testCase/findDiffTypeCaseNum",param)
+        if(res.code === 0){
+            return res.data;
+        }
+    }
 
     @action
     createTestCase = async (values) => await Axios.post("/testCase/createTestCase", values)

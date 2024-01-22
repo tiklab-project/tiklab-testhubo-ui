@@ -141,7 +141,7 @@ const TestPlanBindCaseInstanceTable = (props) =>{
                         <div className={"history-detail-all-item-value"}>{allData?.result===1?"成功":"失败"}</div>
                     </div>
                     <div className={"history-detail-all-item"}>
-                        <div>用例数</div>
+                        <div>可执行用例</div>
                         <div className={"history-detail-all-item-value"}>{allData?.total}</div>
                     </div>
                     <div className={"history-detail-all-item"}>

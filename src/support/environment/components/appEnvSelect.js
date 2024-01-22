@@ -39,7 +39,7 @@ const AppEnvSelect = (props) =>{
         <Select
             placeholder={"未设置环境"}
             bordered={false}
-            className={"api-env-select-box"}
+            className={"env-select-box"}
             onChange={(value)=> onSelectChange(value)}
             defaultValue={appEnv}
             // dropdownRender={item=>(

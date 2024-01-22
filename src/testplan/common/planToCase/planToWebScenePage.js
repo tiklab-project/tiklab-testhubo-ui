@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import WebSceneDetail from "../../../../test/web/scene/components/webSceneDetail";
-import CaseBread from "../../../../common/CaseBread";
+import WebSceneDetail from "../../../test/web/scene/components/webSceneDetail";
+import CaseBread from "../../../common/CaseBread";
 
 const PlanToWebScenePage = (props) =>{
     const {webSceneStore} = props;

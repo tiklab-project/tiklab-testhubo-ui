@@ -174,15 +174,29 @@ const InstanceListCommon = (props) =>{
             case CASE_TYPE.APP:
                 return <AppSceneInstanceSinglePage appSceneInstanceId={record.id} name={text}/>
             case CASE_TYPE.TEST_PLAN:
-                return <span
-                    className={"link-text"}
-                    onClick={() => {
-                        sessionStorage.setItem("testPlanInstanceId",record.id)
-                        history.push(`/repository/report/${record.id}`)
-                    }}
-                >
+
+                if(type === CASE_TYPE.TEST_REPORT){
+                    return <span
+                        className={"link-text"}
+                        onClick={() => {
+                            sessionStorage.setItem("testPlanInstanceId",record.id)
+                            history.push(`/repository/report/${record.id}`)
+                        }}
+                    >
                     {text}
                 </span>
+                }else {
+                    return <span
+                        className={"link-text"}
+                        onClick={() => {
+                            sessionStorage.setItem("testPlanInstanceId",record.id)
+                            history.push(`/plan/${record.id}`)
+                        }}
+                    >
+                    {text}
+                </span>
+                }
+
         }
     }
 
@@ -314,18 +328,25 @@ const InstanceListCommon = (props) =>{
     const testPlanContent = (content) =>(
         <div className={"display-flex-gap"}>
             {showResult(content.result)}
-            <div className={"display-flex-gap"}>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
-                <div>{content.total}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>
-                <div>{content.passNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>
-                <div>{content.passRate}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 错误数:</div>
-                <div>{content.failNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 失败率:</div>
-                <div>{content.errorRate}</div>
+            <div>
+                <div className={"display-flex-gap"}>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> 总用例:</div>
+                    <div>{content.total}</div>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> 可执行用例:</div>
+                    <div>{content.executableCaseNum}</div>
+                </div>
+                <div className={"display-flex-gap"}>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>
+                    <div>{content.passNum}</div>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>
+                    <div>{content.passRate}</div>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> 错误数:</div>
+                    <div>{content.failNum}</div>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> 失败率:</div>
+                    <div>{content.errorRate}</div>
+                </div>
             </div>
+
         </div>
     )
 

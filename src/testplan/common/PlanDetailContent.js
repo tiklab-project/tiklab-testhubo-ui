@@ -17,6 +17,7 @@ import AgentConfigStore from "../../support/agent/store/AgentConfigStore";
 import ApiEnvStore from "../../support/environment/store/apiEnvStore";
 import AppEnvStore from "../../support/environment/store/appEnvStore";
 import WebEnvStore from "../../support/environment/store/webEnvStore";
+import "../plan/components/testPlanStyle.scss"
 
 const PlanDetailContent = (props) =>{
     let store = {

@@ -4,8 +4,6 @@ import CaseBread from "../../../common/CaseBread";
 
 const TestPlanBindCaseInstanceList = (props) =>{
 
-
-
     return(
         <div className={"content-box-center"}>
             <CaseBread

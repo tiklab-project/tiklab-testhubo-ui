@@ -1,5 +1,5 @@
 import React from "react";
-import TestPlanBindCaseInstanceTable from "../../testplan/plan/components/testPlanBindCaseInstanceTable";
+import TestPlanBindCaseInstanceTable from "../../testplan/instance/components/testPlanBindCaseInstanceTable";
 import CaseBread from "../../common/CaseBread";
 
 const TestReportDetail = (props) =>{

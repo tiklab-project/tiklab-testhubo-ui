@@ -63,10 +63,10 @@
 }
 
 .test-plan-env-width{
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    //width: 300px;
+    //display: flex;
+    //justify-content: space-between;
+    //align-items: center;
     margin: 0 0 10px ;
 }
 
@@ -75,4 +75,14 @@
     align-items: center;
     padding: 0 10px;
     height: 35px;
+}
+
+.quartz-select-box{
+    width: 200px;
+    height: 32px;
+    border-radius: var(--pi-border-radius);
+    border: var(--pi-input-border);
+    border: var(--pi-input-border);
+    background-color: white;
+    font-size: 12px!important;
 }

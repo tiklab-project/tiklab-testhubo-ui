@@ -71,18 +71,17 @@ let TestPlan = LazyComponent(() => import("./testplan/plan/components/testPlan")
 let TestPlanDetail = LazyComponent(() => import("./testplan/plan/components/testPlanDetail"));
 let TestPlanBindCaseList = LazyComponent(() => import("./testplan/plan/components/testPlanBindCaseList"));
 let TestPlanInstanceList = LazyComponent(() => import("./testplan/plan/components/testPlanInstanceList"));
-let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/plan/components/testPlanBindCaseInstanceList"));
-let PlanToApiUnitPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToApiUnitPage"));
-let PlanToApiScenePage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToApiScenePage"));
-let PlanToApiPerformPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToApiPerformPage"));
-let PlanToWebScenePage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToWebScenePage"));
-let planToWebPerformPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToWebPerformPage"));
-let PlanToFuncUnitPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToFuncUnitPage"));
-let PlanToAppPerformPage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToAppPerformPage"));
-let PlanToAppScenePage = LazyComponent(() => import("./testplan/plan/components/planToCase/planToAppScenePage"));
-let PlanSetting = LazyComponent(() => import( "./testplan/plan/components/PlanSetting"));
+let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/instance/components/testPlanBindCaseInstanceList"));
+let PlanToApiUnitPage = LazyComponent(() => import("./testplan/common/planToCase/planToApiUnitPage"));
+let PlanToApiScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToApiScenePage"));
+let PlanToApiPerformPage = LazyComponent(() => import("./testplan/common/planToCase/planToApiPerformPage"));
+let PlanToWebScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToWebScenePage"));
+let planToWebPerformPage = LazyComponent(() => import("./testplan/common/planToCase/planToWebPerformPage"));
+let PlanToFuncUnitPage = LazyComponent(() => import("./testplan/common/planToCase/planToFuncUnitPage"));
+let PlanToAppPerformPage = LazyComponent(() => import("./testplan/common/planToCase/planToAppPerformPage"));
+let PlanToAppScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToAppScenePage"));
+let PlanSetting = LazyComponent(() => import( "./testplan/setting/PlanSetting"));
 let QuartzPlanList = LazyComponent(() => import( "./testplan/quartz/components/QuartzPlanList"));
-
 
 let TestReportList = LazyComponent(() => import("./testreport/components/testReportList"));
 let TestReportDetail = LazyComponent(() => import("./testreport/components/testReportDetail"));
@@ -389,12 +388,12 @@ const routers =  [
                         exact: true,
                         component: PlanSetting,
                     },
-
-
                     {
-                        path: "/plan/plan-instance-case",
+                        path: "/plan/:id",
+                        exact: true,
                         component: TestPlanBindCaseInstanceList,
                     },
+
                     {
                         path: "/plan/plan-detail/:id",
                         component: TestPlanDetail,

@@ -69,7 +69,7 @@ const ApiSceneDetail = (props) =>{
                 form={form}
             />
         },{
-            label: `测试步骤`,
+            label: `测试步骤 (${caseInfo?.stepNum||0})`,
             key: '2',
             children: <ApiSceneStepList apiSceneId={apiSceneId}/>
         },{

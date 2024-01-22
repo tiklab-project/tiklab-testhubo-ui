@@ -94,7 +94,7 @@ const FunctionDetail = (props) =>{
                 />
             </>
         },{
-            label: `用例步骤`,
+            label: `测试步骤 (${funcUnitInfo?.stepNum||0})`,
             key: '2',
             children: <FuncUnitStepTable functionId={functionId}/>
         },{

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import ApiUnitEditPageCommon from "../../../../test/api/http/unit/components/apiUnitEditPageCommon";
-import CaseBread from "../../../../common/CaseBread";
+import ApiUnitEditPageCommon from "../../../test/api/http/unit/components/apiUnitEditPageCommon";
+import CaseBread from "../../../common/CaseBread";
 
 
 const PlanToApiUnitPage = (props) =>{
