@@ -12,7 +12,7 @@ const {Option} = Select
 // 添加与编辑
 const TestPlanENVModal = (props) => {
     const { testPlanStore,apiEnvStore,appEnvStore} = props;
-    const {findApiEnvList,apiEnvList,getTestEnvUrl} = apiEnvStore;
+    const {findApiEnvList,apiEnvList,getTestEnvUrl,envUrl} = apiEnvStore;
     const {findAppEnvList,appEnvList,getAppEnv} = appEnvStore;
 
     const {setTestDrawerVisible} = testPlanStore
@@ -23,6 +23,11 @@ const TestPlanENVModal = (props) => {
 
     // 弹框展示
     const showModal = () => {
+        form.setFieldsValue({
+            api:envUrl
+        })
+
+
         findAppEnvList(repositoryId)
         findApiEnvList(repositoryId)
 
@@ -51,7 +56,7 @@ const TestPlanENVModal = (props) => {
             />
             <Modal
                 destroyOnClose={true}
-                title='环境设置'
+                title='测试设置'
                 visible={visible}
                 onCancel={onCancel}
                 onOk={onFinish}
@@ -74,7 +79,7 @@ const TestPlanENVModal = (props) => {
                     >
                         <Select
                             bordered={false}
-                            className={"env-select-box"}
+                            className={"quartz-select-box"}
                             placeholder={"未设置环境"}
                         >
                             {
@@ -95,7 +100,7 @@ const TestPlanENVModal = (props) => {
                     >
                         <Select
                             bordered={false}
-                            className={"env-select-box"}
+                            className={"quartz-select-box"}
                             placeholder={"未设置环境"}
                         >
                         {

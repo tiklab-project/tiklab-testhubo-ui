@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Drawer, Empty, Spin, Table} from "antd";
+import {Drawer, Empty, Spin, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import {messageFn} from "../../../common/messageCommon/MessageCommon";
 import emptyImg from "../../../assets/img/empty.png";
 import {showCaseTypeTable,  showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {Axios} from "thoughtware-core-ui";
 import CaseBread from "../../../common/CaseBread";
+import {LoadingOutlined} from "@ant-design/icons";
 
 
 const TestPlanExecuteTestDrawer = (props) =>{
@@ -41,45 +42,63 @@ const TestPlanExecuteTestDrawer = (props) =>{
             title: '是否通过',
             width: 150,
             dataIndex: 'result',
-            render: (text, record) => (
-                text===1
-                    ?<div className={"history-item-result isSucceed"} style={{margin:0}}>通过</div>
-                    :<div className={"history-item-result isFailed"} style={{margin:0}}>未通过</div>
-            )
+            render: (text, record) => (showCaseResult(record))
         },
     ]
+
 
     const testPlanId = sessionStorage.getItem('testPlanId')
     let repositoryId = sessionStorage.getItem("repositoryId")
     const [result, setResult] = useState();
     const [start, setStart] = useState(false);
+    const [testPlanInstanceInfo, setTestPlanInstanceInfo] = useState();
     let ref = useRef(null)
 
-    useEffect(()=>{
+    useEffect( ()=>{
         if(testDrawerVisible){
-            showModal()
+             showModal()
         }
     },[testDrawerVisible])
 
     useEffect(()=>{
         if (start) {
             ref.current =  setInterval(()=>{
-                Axios.post("/testPlanTestDispatch/exeResult").then(res=>{
+                // setSpinning(true)
+
+                let param = new FormData()
+                param.append("testPlanId", testPlanId)
+                Axios.post("/testPlanTestDispatch/exeResult",param).then(res=>{
                     if(res.code===0){
                         if (res.data.status === 0) {
                             messageFn("success","执行完毕")
-
                             clearInterval(ref.current)
-
                             setStart(false)
+
+                            //最后一次执行清楚后端缓存数据
+                            Axios.post("/testPlanTestDispatch/cleanUpExecutionData",param)
                         }
+
                         setSpinning(false)
-                        setResult(res.data.testPlanInstance)
+                        setTestPlanInstanceInfo(res.data.testPlanInstance)
+                        setResult(res.data)
                         setCaseList(res.data.testPlanCaseInstanceList)
                     }else {
-                        setStart(false)
-                    }
+                        let msg = res.msg
+                        let errorMsg;
 
+                        if(msg.includes("Could not connect")){
+                            errorMsg="无法连接agent"
+                        }
+
+                        if(msg.includes("配置agent")){
+                            errorMsg="不是内嵌agent，请到设置中配置agent"
+                        }
+
+                        setTestDrawerVisible(false)
+                        setStart(false)
+                        clearInterval(ref.current)
+                        return messageFn("error",errorMsg)
+                    }
                 })
             },1000);
 
@@ -89,37 +108,16 @@ const TestPlanExecuteTestDrawer = (props) =>{
     },[start])
 
     const showModal =  () =>{
-        if(envUrl) {
-            let params = {
-                apiEnv: envUrl,
-                testPlanId:testPlanId,
-                repositoryId:repositoryId,
-                appEnv:appEnv,
-                webEnv:webEnv,
-            }
-
-            Axios.post("/testPlanTestDispatch/execute",params).then(res=>{
-                if(res.code===0){
-                    setTestDrawerVisible(true)
-                    setStart(true)
-                }else {
-                    let msg = res.msg
-                    let errorMsg;
-
-                    if(msg.includes("Could not connect")){
-                        errorMsg="无法连接agent"
-                    }
-
-                    if(msg.includes("配置agent")){
-                        errorMsg="不是内嵌agent，请到设置中配置agent"
-                    }
-
-                    return messageFn("error",errorMsg)
-                }
-            })
-        }else {
-            messageFn("error","请选择环境")
+        let params = {
+            apiEnv: envUrl,
+            testPlanId:testPlanId,
+            repositoryId:repositoryId,
+            appEnv:appEnv,
+            webEnv:webEnv,
         }
+
+        Axios.post("/testPlanTestDispatch/execute",params)
+        setStart(true)
     }
 
     const onClose = () => {
@@ -127,7 +125,30 @@ const TestPlanExecuteTestDrawer = (props) =>{
         setCaseList([])
         setSpinning(true)
         setResult(null)
+        setTestPlanInstanceInfo(null)
     };
+
+
+    const showCaseResult = (record)=>{
+        //状态为 1 说明正在执行
+        switch (record.status) {
+            case 0:
+                return showResult(record.result)
+            case 1:
+                return <Spin indicator={<LoadingOutlined style={{fontSize: 24}} spin/>} />
+            default:
+                return <Tag color="error">状态异常</Tag>
+        }
+    }
+
+    const showResult = (type)=>{
+        if(type){
+            return <Tag color="success">通过</Tag>
+        }else{
+            return <Tag color="error">未通过</Tag>
+        }
+    }
+
 
     return(
         <>
@@ -147,24 +168,37 @@ const TestPlanExecuteTestDrawer = (props) =>{
                         <div className={"history-detail-all-box"}>
                             <div className={"history-detail-all-item"}>
                                 <div>测试结果</div>
-                                <div className={"history-detail-all-item-value"}>{result?.result===1?"成功":"失败"}</div>
+                                <div className={"history-detail-all-item-value"}>
+                                    {
+                                        result?.status===1
+                                            ? <Spin indicator={<LoadingOutlined style={{fontSize: 24}} spin/>} />
+                                            : <>
+                                                {
+                                                    testPlanInstanceInfo?.result===1&&"成功"
+                                                }
+                                                {
+                                                    testPlanInstanceInfo?.result===0&&"失败"
+                                                }
+                                            </>
+                                    }
+                                </div>
                             </div>
                             <div className={"history-detail-all-item"}>
                                 <div>可执行用例</div>
-                                <div className={"history-detail-all-item-value"}>{result?.total}</div>
+                                <div className={"history-detail-all-item-value"}>{testPlanInstanceInfo?.total}</div>
                             </div>
                             <div className={"history-detail-all-item"}>
                                 <div>测试通过率</div>
-                                <div className={"history-detail-all-item-value"}>{result?.passRate}</div>
+                                <div className={"history-detail-all-item-value"}>{testPlanInstanceInfo?.passRate}</div>
                             </div>
 
                             <div className={"history-detail-all-item"}>
                                 <div>通过步骤数</div>
-                                <div className={"history-detail-all-item-value"}>{result?.passNum}</div>
+                                <div className={"history-detail-all-item-value"}>{testPlanInstanceInfo?.passNum}</div>
                             </div>
                             <div className={"history-detail-all-item"}>
                                 <div>未通过步骤数</div>
-                                <div className={"history-detail-all-item-value"}>{result?.failNum}</div>
+                                <div className={"history-detail-all-item-value"}>{testPlanInstanceInfo?.failNum}</div>
                             </div>
                         </div>
                         <div className={"header-item"}>用例列表</div>

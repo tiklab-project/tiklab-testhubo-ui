@@ -67,6 +67,8 @@ const CaseInstanceSingleDrawer = (props) =>{
                 return <><CloseCircleTwoTone twoToneColor={"red"}/> #{recentInstance.executeNumber}</>
             case 1:
                 return <><CheckCircleTwoTone twoToneColor={"#52c41a"}/> #{recentInstance.executeNumber}</>
+            default:
+                return <><CheckCircleTwoTone /> #{recentInstance.executeNumber}</>
         }
     }
 

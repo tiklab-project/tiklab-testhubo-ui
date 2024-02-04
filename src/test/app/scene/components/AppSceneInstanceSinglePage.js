@@ -55,7 +55,7 @@ const AppSceneInstanceSinglePage =({appSceneInstanceId,name})=>{
             renderItem={(item) =>(
                 <List.Item style={{padding:0}}>
                     {
-                        item.type==="app"
+                        item.type==="app-scene"
                             ?showWebStep(item.appSceneInstanceStep,item)
                             :showIfStep(item)
                     }

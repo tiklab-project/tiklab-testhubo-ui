@@ -13,7 +13,7 @@ import WebSceneInstanceSinglePage from "../../test/web/scene/components/WebScene
 import AppSceneInstanceSinglePage from "../../test/app/scene/components/AppSceneInstanceSinglePage";
 import {useHistory} from "react-router";
 import MenuSelect from "../../common/menuSelect/MenuSelect";
-import {CheckCircleTwoTone, CloseCircleTwoTone, SearchOutlined} from "@ant-design/icons";
+import {CheckCircleTwoTone, CloseCircleTwoTone, LoadingOutlined, SearchOutlined} from "@ant-design/icons";
 import CaseTypeSelect from "../../test/testcase/components/CaseTypeSelect";
 
 const InstanceListCommon = (props) =>{
@@ -211,23 +211,23 @@ const InstanceListCommon = (props) =>{
 
         switch (isNotReportType) {
             case CASE_TYPE.API_UNIT:
-                return apiUnitContent(content)
+                return apiUnitContent(content,record)
             case CASE_TYPE.API_SCENE:
-                return apiSceneContent(content)
+                return apiSceneContent(content,record)
             case CASE_TYPE.API_PERFORM:
-                return apiPerformContent(content)
+                return apiPerformContent(content,record)
             case CASE_TYPE.WEB:
-                return webSceneContent(content)
+                return webSceneContent(content,record)
             case CASE_TYPE.APP:
-                return appSceneContent(content)
+                return appSceneContent(content,record)
             case CASE_TYPE.TEST_PLAN:
-                return testPlanContent(content)
+                return testPlanContent(content,record)
         }
     }
 
-    const apiUnitContent = (content) => (
+    const apiUnitContent = (content,record) => (
         <div className={"display-flex-gap"}>
-            {showResult(content.result)}
+            {showResult(record.status)}
             <div>
                 <div className={"display-flex-gap"}>
                     <div style={{fontSize: "12px", color: "#aaa"}}> 请求类型:</div>
@@ -258,9 +258,9 @@ const InstanceListCommon = (props) =>{
         </div>
     )
 
-    const apiSceneContent = (content) => (
+    const apiSceneContent = (content,record) => (
         <div className={"display-flex-gap"}>
-            {showResult(content.result)}
+            {showResult(record.status)}
             <div className={"display-flex-gap"}>
                 <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
                 <div>{content.testNumber}</div>
@@ -275,9 +275,9 @@ const InstanceListCommon = (props) =>{
         </div>
     )
 
-    const apiPerformContent = (content) =>(
+    const apiPerformContent = (content,record) =>(
         <div className={"display-flex-gap"}>
-            {showResult(content.result)}
+            {showResult(record.status)}
             <div className={"display-flex-gap"}>
                 <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
                 <div>{content.total}</div>
@@ -293,9 +293,9 @@ const InstanceListCommon = (props) =>{
         </div>
     )
 
-    const webSceneContent = (content)=>(
+    const webSceneContent = (content,record)=>(
         <div className={"display-flex-gap"}>
-            {showResult(content.result)}
+            {showResult(record.status)}
             <div className={"display-flex-gap"}>
                 <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
                 <div>{content.stepNum}</div>
@@ -309,9 +309,9 @@ const InstanceListCommon = (props) =>{
         </div>
     )
 
-    const appSceneContent = (content) =>(
+    const appSceneContent = (content,record) =>(
         <div className={"display-flex-gap"}>
-            {showResult(content.result)}
+            {showResult(record.status)}
             <div className={"display-flex-gap"}>
                 <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
                 <div>{content.stepNum}</div>
@@ -325,9 +325,9 @@ const InstanceListCommon = (props) =>{
         </div>
     )
 
-    const testPlanContent = (content) =>(
+    const testPlanContent = (content,record) =>(
         <div className={"display-flex-gap"}>
-            {showResult(content.result)}
+            {showResult(record.status)}
             <div>
                 <div className={"display-flex-gap"}>
                     <div style={{fontSize: "12px", color: "#aaa"}}> 总用例:</div>
@@ -350,16 +350,15 @@ const InstanceListCommon = (props) =>{
         </div>
     )
 
-    const showResult = (result)=>{
-        return(
-            <>
-                {
-                    result==="1"
-                        ?<CheckCircleTwoTone twoToneColor={"#52c41a"}/>
-                        :<CloseCircleTwoTone twoToneColor={"red"}/>
-                }
-            </>
-        )
+    const showResult = (status)=>{
+        switch (status) {
+            case "success": return <CheckCircleTwoTone twoToneColor={"#52c41a"}/>
+            case "fail": return <CloseCircleTwoTone twoToneColor={"red"}/>
+            case "start": return <LoadingOutlined twoToneColor={"blue"} />
+            default: return <LoadingOutlined twoToneColor={"blue"} />
+        }
+
+
     }
 
     //搜索

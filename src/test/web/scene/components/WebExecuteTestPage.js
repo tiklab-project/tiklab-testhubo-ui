@@ -9,54 +9,54 @@ import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 const WebExecuteTestPage = (props) =>{
-    const {webSceneStore,webSceneId} = props;
+    const {webSceneStore} = props;
     const {webSceneTestStatus,webSceneTestDispatch,webSceneTestResult,setStartStatus,startStatus} = webSceneStore;
 
+    const webSceneId = sessionStorage.getItem("webSceneId")
     const repositoryId = sessionStorage.getItem('repositoryId')
     const [spinning, setSpinning] = useState(true);
     const [webStepList, setWebStepList] = useState([]);
     const [open, setOpen] = useState(false);
+    const [start, setStart] = useState(false);
     const ref = useRef();
     const [form] = Form.useForm();
 
     useEffect(async ()=>{
-        if(startStatus === 1){
+        if(start){
             testResult()
         }
         return () => ref.current = null
-    },[startStatus])
+    },[start])
 
     const showDrawer = async () => {
-        webSceneTestStatus().then(res =>{
-            //如果执行状态为0:未开始
-            if(res.code===0&&res.data===0){
-                let param = {
-                    repositoryId:repositoryId,
-                    webSceneId:webSceneId,
-                    webDriver:"chrome"
-                }
-
-                //开始执行
-                webSceneTestDispatch(param)
-                setStartStatus(1)
-
-                setOpen(true);
-            }else {
-                let msg = res.msg
-                let errorMsg = msg.split(":")[1]
-                if(errorMsg.includes("Could not connect")){
-                    errorMsg="无法连接agent"
-                }
-
-                return messageFn("error",errorMsg)
+        let res = await webSceneTestResult({webSceneId:webSceneId})
+        //如果执行状态为0:未开始
+        if(res.code===0&&res.data.status===0){
+            let param = {
+                repositoryId:repositoryId,
+                webSceneId:webSceneId,
             }
-        });
+
+            //开始执行
+            webSceneTestDispatch(param)
+            setStart(true)
+            setOpen(true);
+        }else {
+            let msg = res.msg
+            let errorMsg = msg.split(":")[1]
+            if(errorMsg.includes("Could not connect")){
+                errorMsg="无法连接agent"
+            }
+
+            return messageFn("error",errorMsg)
+        }
     };
 
     const onClose = () => {
         setWebStepList([])
         setSpinning(true)
         setOpen(false);
+        setStart(false)
     };
 
 
@@ -79,27 +79,16 @@ const WebExecuteTestPage = (props) =>{
                     totalDuration:instance?.totalDuration
                 })
 
-                setSpinning(true)
+                setSpinning(false)
 
-                //获取执行状态，是否结束
-                webSceneTestStatus().then(res =>{
-                    if(res.code!==0){
-                        clearInterval(ref.current)
-                        return
-                    }
-                    if(res.data===0){
-                        setStartStatus(res.data)
-                        clearInterval(ref.current)
 
-                        //如果状态变回0 还要走一遍
-                        webSceneTestResult({webSceneId:webSceneId})
-
-                        messageFn("success","执行完成")
-                    }
-                    setSpinning(false)
-                })
+                if(data.status===0){
+                    setStart(false)
+                    clearInterval(ref.current)
+                    messageFn("success","执行完成")
+                }
             }
-        },3000);
+        },1000);
     }
 
 

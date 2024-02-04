@@ -18,26 +18,26 @@ const AppExecuteTestPage =({appSceneId})=>{
     const [open, setOpen] = useState(false);
     const ref = useRef();
     const [form] = Form.useForm();
+    const [start, setStart] = useState(false);
 
     const showDrawer = async () => {
-        appSceneTestStatus().then(res =>{
-            //如果执行状态为0:未开始
-            if(res.code===0&&res.data===0){
-                //开始执行
-                appSceneTestDispatch(appSceneId)
-                setStartStatus(1)
+        let res = await appSceneTestResult(appSceneId)
 
-                setOpen(true);
-            }else {
-                let msg = res.msg
-                let errorMsg = msg.split(":")[1]
-                if(errorMsg.includes("Could not connect")){
-                    errorMsg="无法连接agent"
-                }
-
-                return messageFn("error",errorMsg)
+        //如果执行状态为0:未开始
+        if(res.code===0&&res.data.status===0){
+            //开始执行
+            appSceneTestDispatch(appSceneId)
+            setOpen(true);
+            setStart(true)
+        }else {
+            let msg = res.msg
+            let errorMsg = msg.split(":")[1]
+            if(errorMsg.includes("Could not connect")){
+                errorMsg="无法连接agent"
             }
-        });
+
+            return messageFn("error",errorMsg)
+        }
 
     };
 
@@ -45,14 +45,15 @@ const AppExecuteTestPage =({appSceneId})=>{
         setAppStepList([])
         setSpinning(true)
         setOpen(false);
+        setStart(false)
     };
 
     useEffect(async ()=>{
-        if(startStatus === 1){
+        if(start){
             testResult()
         }
         return () => ref.current = null
-    },[startStatus])
+    },[start])
 
 
     const testResult = () =>{
@@ -73,24 +74,27 @@ const AppExecuteTestPage =({appSceneId})=>{
                     passRate:instance?.passRate,
                 })
 
-                setSpinning(true)
+                setSpinning(false)
 
-                //获取执行状态，是否结束
-                appSceneTestStatus().then(res =>{
-                    if(res.code!==0){
-                        clearInterval(ref.current)
-                        return
-                    }
-                    if(res.data===0){
-                        setStartStatus(res.data)
-                        clearInterval(ref.current)
-
-                        //如果状态变回0 还要走一遍
-                        appSceneTestResult(appSceneId)
-                        messageFn("success","执行完成")
-                    }
-                    setSpinning(false)
-                })
+                if(data.status===0){
+                    setStart(false)
+                    clearInterval(ref.current)
+                    messageFn("success","执行完成")
+                }
+                // //获取执行状态，是否结束
+                // appSceneTestStatus().then(res =>{
+                //     if(res.code!==0){
+                //         clearInterval(ref.current)
+                //         return
+                //     }
+                //     if(res.data===0){
+                //         //如果状态变回0 还要走一遍
+                //         appSceneTestResult(appSceneId)
+                //
+                //     }
+                //
+                //     setSpinning(false)
+                // })
             }
         },3000);
     }
@@ -112,7 +116,7 @@ const AppExecuteTestPage =({appSceneId})=>{
             renderItem={(item) =>(
                 <List.Item style={{padding:0}}>
                     {
-                        item.type==="app"
+                        item.type==="app-scene"
                             ?showWebStep(item.appSceneInstanceStep,item)
                             :showIfStep(item)
                     }

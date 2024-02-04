@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { InputNumber, Radio, Form, Popconfirm} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
+import {useHistory} from "react-router";
 
 const layout = {
     labelCol: {span: 2},
@@ -18,7 +19,7 @@ const ApiPerfConfig = (props) =>{
     const [exeMode, setExeMode] = useState();
     const [agentConfigList, setAgentConfigList] = useState();
 
-
+    let history = useHistory()
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(()=>{
@@ -102,7 +103,7 @@ const ApiPerfConfig = (props) =>{
     }
 
     const toAgentPage = ()=>{
-        props.history.push("/repository/setting/agent")
+        history.push("/repository/setting/agent")
     }
 
 

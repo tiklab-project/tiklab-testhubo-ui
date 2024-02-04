@@ -10,6 +10,7 @@ import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IfInstance from "../../../../common/ifJudgment/components/ifInstance";
 import ResponseCommon from "../../common/response/responseCommon/responseCommon";
+import {LoadingOutlined} from "@ant-design/icons";
 
 const { apiSceneExecute } = apiSceneTestDispatchStore;
 
@@ -199,7 +200,7 @@ const ApiExecuteTestPage = (props) =>{
                             resBody={apiUnitInstance?.responseInstance?.responseBody}
                             resHeader={processResHeader(apiUnitInstance?.responseInstance?.responseHeader)}
                             assertList={apiUnitInstance?.responseInstance?.assertInstanceList}
-                            reqHeader={apiUnitInstance?.requestInstance?.requestHeader}
+                            reqHeader={processResHeader(apiUnitInstance?.requestInstance?.requestHeader)}
                             error={apiUnitInstance?.errMessage}
                         />
                     </div>
@@ -246,7 +247,20 @@ const ApiExecuteTestPage = (props) =>{
                                     <div className={"history-detail-all-box"}>
                                         <div className={"history-detail-all-item"}>
                                             <div>测试结果</div>
-                                            <div className={"history-detail-all-item-value"}>{allData?.result===1?"成功":"失败"}</div>
+                                            <div className={"history-detail-all-item-value"}>
+                                                {
+                                                    allData?.status===1
+                                                        ? <Spin indicator={<LoadingOutlined style={{fontSize: 24}} spin/>} />
+                                                        : <>
+                                                            {
+                                                                allData?.result===1&&"成功"
+                                                            }
+                                                            {
+                                                                allData?.result===0&&"失败"
+                                                            }
+                                                        </>
+                                                }
+                                            </div>
                                         </div>
                                         <div className={"history-detail-all-item"}>
                                             <div>耗时</div>

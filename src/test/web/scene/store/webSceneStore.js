@@ -58,8 +58,11 @@ export class WebSceneStore {
      * 返回当前执行的状态 0：未开始，1：进行中
      */
     @action
-    webSceneTestStatus = async () => {
-        let res = await Axios.post("/webSceneTestDispatch/status")
+    webSceneTestStatus = async (webSceneId) => {
+        const param = new FormData();
+        param.append('webSceneId', webSceneId);
+
+        let res = await Axios.post("/webSceneTestDispatch/status",param)
         this.startStatus = res.data
         return res
     }
@@ -68,8 +71,7 @@ export class WebSceneStore {
      * web测试的结果
      */
     @action
-    webSceneTestResult = async (params) => await Axios.post("/webSceneTestDispatch/result",params)
-
+    webSceneTestResult = async (params) => await Axios.post("/webSceneTestDispatch/result", params)
 
     @action
     setStartStatus = (status) =>{
