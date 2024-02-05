@@ -13,20 +13,13 @@ const WebSceneInstanceSinglePage =({webSceneInstanceId,name})=>{
 
     const [spinning, setSpinning] = useState(true);
     const [webStepList, setWebStepList] = useState([]);
-    const [form] = Form.useForm();
     const [open, setOpen] = useState(false);
+    const [instanceInfo, setInstanceInfo] = useState();
 
     const showDrawer = async () => {
         let res = await findWebSceneInstance(webSceneInstanceId)
 
-        form.setFieldsValue({
-            result:res?.result===1?"成功":"失败",
-            stepNum:res?.stepNum,
-            passNum:res?.passNum,
-            failNum:res?.failNum,
-            passRate:res?.passRate,
-        })
-
+        setInstanceInfo(res)
         setWebStepList(res.stepList)
 
         setSpinning(false);
@@ -172,7 +165,7 @@ const WebSceneInstanceSinglePage =({webSceneInstanceId,name})=>{
                 />
                 <UIResultCommon
                     spinning={spinning}
-                    form={form}
+                    instanceInfo={instanceInfo}
                     showList={showStepListView}
                 />
             </Drawer>

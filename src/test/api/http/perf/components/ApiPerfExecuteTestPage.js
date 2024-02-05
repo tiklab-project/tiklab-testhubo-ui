@@ -72,7 +72,7 @@ const ApiPerfExecuteTestPage = (props) =>{
                     setSpinning(false)
 
                     if (data.status === 0) {
-                        clearInterval(ref.current); // 定时器满足条件时自我清理
+                        clearInterval(ref.current);
                         setStart(false);
                         messageFn("success", "执行完成");
                     }
@@ -92,22 +92,29 @@ const ApiPerfExecuteTestPage = (props) =>{
     },[start])
 
     const showDrawer = async () => {
-        setTimeout(()=>{
-            setOpen(true);
-            setStart(true);
-        }, 1000);
+        if(envUrl){
+            setTimeout(()=>{
+                setOpen(true);
+                setStart(true);
+            }, 1000);
 
-        let res = await apiPerfExecute(apiPerfId,envUrl)
-        if(res.code!==0) {
-            let msg = res.msg
-            let errorMsg = msg.split(":")[1]
-            if(errorMsg.includes("Could not connect")){
-                errorMsg="无法连接agent"
-            }else {
-                errorMsg="执行异常"
+            let res = await apiPerfExecute(apiPerfId,envUrl)
+            if(res.code!==0) {
+                let msg = res.msg
+                let errorMsg = msg.split(":")[1]
+                if(errorMsg.includes("Could not connect")){
+                    errorMsg="无法连接agent"
+                }else {
+                    errorMsg="执行异常"
+                }
+                messageFn("error",errorMsg)
             }
-            return messageFn("error",errorMsg)
+        }else {
+            messageFn("error","请选择环境")
         }
+
+
+
     };
 
     const onClose = () => {
@@ -179,7 +186,6 @@ const ApiPerfExecuteTestPage = (props) =>{
                                         <div>失败率</div>
                                         <div className={"history-detail-all-item-value"}>{result?.errorRate}</div>
                                     </div>
-
                                 </div>
                             </div>
                             <div className={"history-detail-all"}>

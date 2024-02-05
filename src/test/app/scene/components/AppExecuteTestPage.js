@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import CaseBread from "../../../../common/CaseBread";
 import UIResultCommon from "../../../common/UIResultCommon";
-import {Col, Drawer, Empty, Form, List, Row, Tag} from "antd";
+import {Col, Drawer, Empty, List, Row, Tag} from "antd";
 import appSceneStore from "../store/appSceneStore";
 import {observer} from "mobx-react";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
@@ -11,94 +11,77 @@ import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 const AppExecuteTestPage =({appSceneId})=>{
 
-    const {appSceneTestStatus,appSceneTestDispatch,appSceneTestResult,setStartStatus,startStatus} = appSceneStore;
+    const {appSceneTestDispatch,appSceneTestResult} = appSceneStore;
 
     const [spinning, setSpinning] = useState(true);
     const [appStepList, setAppStepList] = useState([]);
     const [open, setOpen] = useState(false);
     const ref = useRef();
-    const [form] = Form.useForm();
     const [start, setStart] = useState(false);
+    const [instanceInfo, setInstanceInfo] = useState();
+
+    useEffect( ()=>{
+        if(start){
+            ref.current =  setInterval(async ()=>{
+                //获取执行结果
+                let res = await appSceneTestResult(appSceneId)
+
+                if(res.code===0){
+                    let data = res.data;
+                    setAppStepList(data?.stepCommonInstanceList);
+                    setInstanceInfo(data?.appSceneInstance);
+
+                    setSpinning(false)
+
+                    if(data.status===0){
+                        clearInterval(ref.current);
+                        setStart(false);
+                        messageFn("success", "执行完成");
+                    }
+                }else {
+                    // 出错时清理定时器
+                    clearInterval(ref.current);
+                    setStart(false);
+                    messageFn("error", "执行失败");
+                }
+            },3000);
+        }
+
+        return () => {
+            if (ref.current) {
+                // 清理定时器
+                clearInterval(ref.current);
+            }
+        };
+    },[start])
 
     const showDrawer = async () => {
-        let res = await appSceneTestResult(appSceneId)
-
-        //如果执行状态为0:未开始
-        if(res.code===0&&res.data.status===0){
-            //开始执行
-            appSceneTestDispatch(appSceneId)
+        setTimeout(()=>{
             setOpen(true);
-            setStart(true)
-        }else {
+            setStart(true);
+        }, 1000);
+
+        //开始执行
+        let res = appSceneTestDispatch(appSceneId)
+        if(res.code!==0) {
             let msg = res.msg
             let errorMsg = msg.split(":")[1]
             if(errorMsg.includes("Could not connect")){
                 errorMsg="无法连接agent"
+            }else {
+                errorMsg="执行异常"
             }
-
-            return messageFn("error",errorMsg)
+            messageFn("error",errorMsg)
         }
-
     };
 
     const onClose = () => {
         setAppStepList([])
         setSpinning(true)
         setOpen(false);
-        setStart(false)
+        setStart(false);
+        setInstanceInfo(null);
     };
-
-    useEffect(async ()=>{
-        if(start){
-            testResult()
-        }
-        return () => ref.current = null
-    },[start])
-
-
-    const testResult = () =>{
-        ref.current =  setInterval(async ()=>{
-            //获取执行结果
-            let res = await appSceneTestResult(appSceneId)
-
-            if(res.code===0){
-                let data = res.data;
-                setAppStepList(data?.stepCommonInstanceList);
-
-                let instance = data?.appSceneInstance;
-                form.setFieldsValue({
-                    result:instance?.result===1?"成功":"失败",
-                    stepNum:instance?.stepNum,
-                    passNum:instance?.passNum,
-                    failNum:instance?.failNum,
-                    passRate:instance?.passRate,
-                })
-
-                setSpinning(false)
-
-                if(data.status===0){
-                    setStart(false)
-                    clearInterval(ref.current)
-                    messageFn("success","执行完成")
-                }
-                // //获取执行状态，是否结束
-                // appSceneTestStatus().then(res =>{
-                //     if(res.code!==0){
-                //         clearInterval(ref.current)
-                //         return
-                //     }
-                //     if(res.data===0){
-                //         //如果状态变回0 还要走一遍
-                //         appSceneTestResult(appSceneId)
-                //
-                //     }
-                //
-                //     setSpinning(false)
-                // })
-            }
-        },3000);
-    }
-
 
     const showStepListView=()=>(
         <List
@@ -235,7 +218,7 @@ const AppExecuteTestPage =({appSceneId})=>{
                     <CaseBread breadItem={["APP场景测试"]}/>
                     <UIResultCommon
                         spinning={spinning}
-                        form={form}
+                        instanceInfo={instanceInfo}
                         showList={showStepListView}
                     />
                 </div>

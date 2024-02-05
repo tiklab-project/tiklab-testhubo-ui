@@ -83,20 +83,25 @@ const TestPlanExecuteTestDrawer = (props) =>{
                         setResult(res.data)
                         setCaseList(res.data.testPlanCaseInstanceList)
                     }else {
-                        let msg = res.msg
-                        let errorMsg;
-
-                        if(msg.includes("Could not connect")){
-                            errorMsg="无法连接agent"
-                        }
-
-                        if(msg.includes("配置agent")){
-                            errorMsg="不是内嵌agent，请到设置中配置agent"
-                        }
-
                         setTestDrawerVisible(false)
                         setStart(false)
                         clearInterval(ref.current)
+
+                        let msg = res.msg
+                        let errorMsg;
+                        if(msg){
+                            if(msg.includes("Could not connect")){
+                                errorMsg="无法连接agent"
+                            }
+
+                            if(msg.includes("配置agent")){
+                                errorMsg="不是内嵌agent，请到设置中配置agent"
+                            }
+                        }else {
+                            errorMsg="执行失败"
+                        }
+
+
                         return messageFn("error",errorMsg)
                     }
                 })

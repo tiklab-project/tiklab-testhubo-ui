@@ -10,45 +10,76 @@ import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 const WebExecuteTestPage = (props) =>{
     const {webSceneStore} = props;
-    const {webSceneTestStatus,webSceneTestDispatch,webSceneTestResult,setStartStatus,startStatus} = webSceneStore;
+    const {webSceneTestDispatch,webSceneTestResult} = webSceneStore;
 
     const webSceneId = sessionStorage.getItem("webSceneId")
+
     const repositoryId = sessionStorage.getItem('repositoryId')
+    const ref = useRef();
     const [spinning, setSpinning] = useState(true);
+    const [instanceInfo, setInstanceInfo] = useState();
     const [webStepList, setWebStepList] = useState([]);
     const [open, setOpen] = useState(false);
     const [start, setStart] = useState(false);
-    const ref = useRef();
+
     const [form] = Form.useForm();
 
-    useEffect(async ()=>{
+    useEffect( ()=>{
         if(start){
-            testResult()
+            ref.current =  setInterval(async ()=>{
+                //获取执行结果
+                let res = await webSceneTestResult({webSceneId:webSceneId})
+
+                if(res.code===0){
+                    let data = res.data;
+                    setWebStepList(data?.stepCommonInstanceList);
+                    setInstanceInfo(data?.webSceneInstance);
+
+                    setSpinning(false)
+
+                    if (data.status === 0) {
+                        clearInterval(ref.current);
+                        setStart(false);
+                        messageFn("success", "执行完成");
+                    }
+                }else {
+                    // 出错时清理定时器
+                    clearInterval(ref.current);
+                    setStart(false);
+                    messageFn("error", "执行失败");
+                }
+            },1000);
         }
-        return () => ref.current = null
+
+        return () => {
+            if (ref.current) {
+                // 清理定时器
+                clearInterval(ref.current);
+            }
+        };
     },[start])
 
-    const showDrawer = async () => {
-        let res = await webSceneTestResult({webSceneId:webSceneId})
-        //如果执行状态为0:未开始
-        if(res.code===0&&res.data.status===0){
-            let param = {
-                repositoryId:repositoryId,
-                webSceneId:webSceneId,
-            }
 
-            //开始执行
-            webSceneTestDispatch(param)
-            setStart(true)
+    const showDrawer = async () => {
+        setTimeout(()=>{
             setOpen(true);
-        }else {
+            setStart(true);
+        }, 1000);
+
+        let param = {
+            repositoryId:repositoryId,
+            webSceneId:webSceneId,
+        }
+        let res = webSceneTestDispatch(param)
+        if(res.code!==0) {
             let msg = res.msg
             let errorMsg = msg.split(":")[1]
             if(errorMsg.includes("Could not connect")){
                 errorMsg="无法连接agent"
+            }else {
+                errorMsg="执行异常"
             }
-
-            return messageFn("error",errorMsg)
+            messageFn("error",errorMsg)
         }
     };
 
@@ -56,42 +87,9 @@ const WebExecuteTestPage = (props) =>{
         setWebStepList([])
         setSpinning(true)
         setOpen(false);
-        setStart(false)
+        setStart(false);
+        setInstanceInfo(null);
     };
-
-
-    const testResult = () =>{
-        ref.current =  setInterval(async ()=>{
-            //获取执行结果
-            let res = await webSceneTestResult({webSceneId:webSceneId})
-
-            if(res.code===0){
-                let data = res.data;
-                setWebStepList(data?.stepCommonInstanceList);
-
-                let instance = data?.webSceneInstance;
-                form.setFieldsValue({
-                    result:instance?.result,
-                    stepNum:instance?.stepNum,
-                    passNum:instance?.passNum,
-                    failNum:instance?.failNum,
-                    passRate:instance?.passRate,
-                    totalDuration:instance?.totalDuration
-                })
-
-                setSpinning(false)
-
-
-                if(data.status===0){
-                    setStart(false)
-                    clearInterval(ref.current)
-                    messageFn("success","执行完成")
-                }
-            }
-        },1000);
-    }
-
-
 
     const showStepListView=()=>(
         <List
@@ -231,7 +229,7 @@ const WebExecuteTestPage = (props) =>{
                     />
                     <UIResultCommon
                         spinning={spinning}
-                        form={form}
+                        instanceInfo={instanceInfo}
                         showList={showStepListView}
                     />
                 </div>
