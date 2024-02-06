@@ -86,6 +86,8 @@ const TestPlanExecuteTestDrawer = (props) =>{
                         setTestDrawerVisible(false)
                         setStart(false)
                         clearInterval(ref.current)
+                        //最后一次执行清楚后端缓存数据
+                        Axios.post("/testPlanTestDispatch/cleanUpExecutionData",param)
 
                         let msg = res.msg
                         let errorMsg;
@@ -122,7 +124,10 @@ const TestPlanExecuteTestDrawer = (props) =>{
         }
 
         Axios.post("/testPlanTestDispatch/execute",params)
-        setStart(true)
+
+        setTimeout(()=>{
+            setStart(true);
+        }, 2000);
     }
 
     const onClose = () => {
@@ -141,6 +146,8 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 return showResult(record.result)
             case 1:
                 return <Spin indicator={<LoadingOutlined style={{fontSize: 24}} spin/>} />
+            case 2:
+                return <Tag color="error">未执行</Tag>
             default:
                 return <Tag color="error">状态异常</Tag>
         }

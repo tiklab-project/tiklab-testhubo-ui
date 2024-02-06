@@ -44,11 +44,17 @@ const ApiExecuteTestPage = (props) =>{
                     setOpen(true);
                 }else {
                     let msg = res.msg
-                    let errorMsg = msg.split(":")[1]
-                    if(errorMsg.includes("Could not connect")){
-                        errorMsg="无法连接agent"
+                    let errorMsg
+                    if(msg) {
+                        errorMsg = msg.split(":")[1]
+                        if (errorMsg.includes("Could not connect")) {
+                            errorMsg = "无法连接agent"
+                        } else {
+                            errorMsg = "执行异常"
+                        }
+                    }else {
+                        errorMsg = "执行异常"
                     }
-
                     return messageFn("error",errorMsg)
                 }
             })

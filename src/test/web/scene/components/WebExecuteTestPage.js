@@ -70,14 +70,19 @@ const WebExecuteTestPage = (props) =>{
             repositoryId:repositoryId,
             webSceneId:webSceneId,
         }
-        let res = webSceneTestDispatch(param)
+        let res = await webSceneTestDispatch(param)
         if(res.code!==0) {
             let msg = res.msg
-            let errorMsg = msg.split(":")[1]
-            if(errorMsg.includes("Could not connect")){
-                errorMsg="无法连接agent"
+            let errorMsg
+            if(msg) {
+                errorMsg = msg.split(":")[1]
+                if (errorMsg.includes("Could not connect")) {
+                    errorMsg = "无法连接agent"
+                } else {
+                    errorMsg = "执行异常"
+                }
             }else {
-                errorMsg="执行异常"
+                errorMsg = "执行异常"
             }
             messageFn("error",errorMsg)
         }
