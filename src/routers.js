@@ -326,12 +326,6 @@ const routers =  [
                                 component: WorkspaceBindList
                             },
                             {
-                                path: "/repository/setting/agent",
-                                key:'agent',
-                                exact: true,
-                                component: AgentConfigList
-                            },
-                            {
                                 path: "/repository/setting/role",
                                 key:'domainRole',
                                 exact: true,
@@ -469,6 +463,12 @@ const routers =  [
                         key:'authConfig',
                         exact: true,
                         render: () => <UserGroup />,
+                    },
+                    {
+                        path: "/setting/agent",
+                        key:'agent',
+                        exact: true,
+                        component: AgentConfigList
                     },
                     //权限
                     {

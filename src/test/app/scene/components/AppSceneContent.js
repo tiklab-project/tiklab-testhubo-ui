@@ -7,6 +7,7 @@ import IconBtn from "../../../../common/iconBtn/IconBtn";
 import AppExecuteTestPage from "./AppExecuteTestPage";
 import {Space} from "antd";
 import ToggleCase from "../../../testcase/components/ToggleCase";
+import AppEnvSelect from "../../../../support/environment/components/appEnvSelect";
 
 
 const AppSceneContent = (props) =>{
@@ -31,6 +32,7 @@ const AppSceneContent = (props) =>{
                 router={"/repository/testcase"}
                 right={
                     <Space>
+                        <AppEnvSelect />
                         <IconBtn
                             className="pi-icon-btn-grey"
                             icon={"lishi"}

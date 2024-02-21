@@ -45,10 +45,6 @@ const RepositorySettingMenu = (props) =>{
             key: '/repository/setting/workspace',
         },
         {
-            title: 'Agent配置',
-            key: '/repository/setting/agent',
-            // icon: 'icon-modular',
-        },{
             title: '成员',
             key: '/repository/setting/role',
             // icon: 'icon-chengyuan',

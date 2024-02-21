@@ -42,12 +42,13 @@ const AppEnvSelect = (props) =>{
             className={"env-select-box"}
             onChange={(value)=> onSelectChange(value)}
             defaultValue={appEnv}
+            style={{width:"200px"}}
             // dropdownRender={item=>(
             //     <>
             //         <div style={{"overflow":"auto","height":"100px"}}>{item}</div>
             //
-            //         <Divider  />
-            //         <div className={'env-click'} onClick={toEnvMana}>环境管理</div>
+            //         <Divider style={{ margin: '5px 0' }} />
+            //         <ApiEnvModel />
             //     </>
             // )}
         >

@@ -3,16 +3,16 @@ import CaseBread from "../../../../common/CaseBread";
 import UIResultCommon from "../../../common/UIResultCommon";
 import {Col, Drawer, Empty, List, Row, Tag} from "antd";
 import appSceneStore from "../store/appSceneStore";
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import emptyImg from "../../../../assets/img/empty.png";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 
-const AppExecuteTestPage =({appSceneId})=>{
-
+const AppExecuteTestPage =(props)=>{
+    const {appEnvStore,appSceneId} = props
     const {appSceneTestDispatch,appSceneTestResult} = appSceneStore;
-
+    const {appEnv} = appEnvStore
     const [spinning, setSpinning] = useState(true);
     const [appStepList, setAppStepList] = useState([]);
     const [open, setOpen] = useState(false);
@@ -24,7 +24,11 @@ const AppExecuteTestPage =({appSceneId})=>{
         if(start){
             ref.current =  setInterval(async ()=>{
                 //获取执行结果
-                let res = await appSceneTestResult(appSceneId)
+                let param = {
+                    appSceneId:appSceneId,
+                    appEnvId: appEnv
+                }
+                let res = await appSceneTestResult(param)
 
                 if(res.code===0){
                     let data = res.data;
@@ -62,7 +66,11 @@ const AppExecuteTestPage =({appSceneId})=>{
         }, 1000);
 
         //开始执行
-        let res = await appSceneTestDispatch(appSceneId)
+        let param = {
+            appSceneId:appSceneId,
+            appEnvId: appEnv
+        }
+        let res = await appSceneTestDispatch(param)
         if(res.code!==0) {
             let msg = res.msg
             let errorMsg
@@ -233,4 +241,4 @@ const AppExecuteTestPage =({appSceneId})=>{
     );
 }
 
-export default observer(AppExecuteTestPage);
+export default inject("appEnvStore")(observer(AppExecuteTestPage));

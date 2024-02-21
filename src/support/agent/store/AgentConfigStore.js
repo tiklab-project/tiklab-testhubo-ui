@@ -48,7 +48,7 @@ export class AgentConfigStore {
 
 
 }
-
-export default new AgentConfigStore();
+const agentConfigStore = new AgentConfigStore();
+export default agentConfigStore;
 
 

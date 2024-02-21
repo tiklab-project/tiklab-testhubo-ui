@@ -57,7 +57,11 @@ const SystemContent = (props) =>{
                 },
             ],
         },
-
+        {
+            title: 'Agent配置',
+            id: '/setting/agent',
+            icon: 'jiqun-mianxing',
+        },
         {
             title: '插件',
             icon: 'plugin',

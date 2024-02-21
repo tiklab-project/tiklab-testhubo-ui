@@ -18,7 +18,6 @@ import WebSceneStore from "../../test/web/scene/store/webSceneStore";
 import WebPerfStore from "../../test/web/perf/store/webPerfStore";
 import TestPlanStore from "../../testplan/plan/store/testPlanStore";
 import WorkItemStore from "../../integrated/teamwire/workItem/store/WorkItemStore";
-import AgentConfigStore from "../../support/agent/store/AgentConfigStore";
 import ApiEnvStore from "../../support/environment/store/apiEnvStore";
 import AppEnvStore from "../../support/environment/store/appEnvStore";
 import WebEnvStore from "../../support/environment/store/webEnvStore";
@@ -45,7 +44,6 @@ const RepositoryDetailLayout = (props) =>{
         testPlanStore:TestPlanStore,
 
         workItemStore:WorkItemStore,
-        agentConfigStore:AgentConfigStore,
         apiEnvStore:ApiEnvStore,
         appEnvStore:AppEnvStore,
         webEnvStore:WebEnvStore

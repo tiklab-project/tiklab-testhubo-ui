@@ -4,14 +4,14 @@
  * @LastEditTime: 2021-05-08 17:06:47
  */
 import React, { useEffect, useState } from 'react';
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import {Popconfirm, Space, Table} from "antd";
 import AgentConfigEdit from "./AgentConfigEdit";
 import IconCommon from "../../../common/IconCommon";
+import agentConfigStore from "../store/AgentConfigStore";
 
 //
 const AgentConfigList = (props) => {
-    const { agentConfigStore } = props;
     const {
         findAgentConfigList,
         agentConfigList,
@@ -69,10 +69,8 @@ const AgentConfigList = (props) => {
         }
     ]
 
-    let repositoryId = sessionStorage.getItem("repositoryId");
-    useEffect(()=> {
-
-        findAgentConfigList({repositoryId:repositoryId});
+    useEffect(async ()=> {
+        await findAgentConfigList();
     },[])
 
  
@@ -99,4 +97,4 @@ const AgentConfigList = (props) => {
     )
 }
 
-export default inject('agentConfigStore')(observer(AgentConfigList));
+export default observer(AgentConfigList);

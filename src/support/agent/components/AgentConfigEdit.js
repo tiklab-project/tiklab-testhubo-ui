@@ -1,16 +1,12 @@
 import React from 'react';
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import {Form, Modal, Button, Input} from 'antd';
 import IconCommon from "../../../common/IconCommon";
-
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
+import agentConfigStore from "../store/AgentConfigStore";
 
 // 添加与编辑
 const AgentConfigEdit = (props) => {
-    const { agentConfigStore, agentConfigId } = props;
+    const { agentConfigId } = props;
     const {
         findAgentConfig,
         createAgentConfig,
@@ -21,7 +17,6 @@ const AgentConfigEdit = (props) => {
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
-    const repositoryId= sessionStorage.getItem('repositoryId')
 
     // 弹框展示
     const showModal = async () => {
@@ -40,11 +35,10 @@ const AgentConfigEdit = (props) => {
     const onFinish =async () => {
         let values =  await form.validateFields()
         if(props.type === "add" ){
-            values.repositoryId=repositoryId;
-            createAgentConfig(values).then(()=>findAgentConfigList(repositoryId));
+            createAgentConfig(values).then(()=>findAgentConfigList());
         }else{
             values.id=agentConfigId;
-            updateAgentConfig(values).then(()=>findAgentConfigList(repositoryId));
+            updateAgentConfig(values).then(()=>findAgentConfigList());
         }
         setVisible(false);
     };
@@ -97,4 +91,4 @@ const AgentConfigEdit = (props) => {
     );
 };
 
-export default inject('agentConfigStore')(observer(AgentConfigEdit));
+export default observer(AgentConfigEdit);
