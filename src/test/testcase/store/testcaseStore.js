@@ -50,9 +50,10 @@ export class TestCaseStore {
     updateTestCase = async (values) => await Axios.post("/testCase/updateTestCase", values)
 
     @action
-    deleteTestCase = async (id) => {
+    deleteTestCase = async (id,caseType) => {
         const param = new FormData();
         param.append('id', id);
+        param.append('caseType', caseType);
 
         await Axios.post("/testCase/deleteTestCase", param)
     }

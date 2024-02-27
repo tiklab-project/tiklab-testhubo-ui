@@ -3,13 +3,17 @@ import React from "react";
 import {Table, Input, Col,Row} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../common/iconBtn/IconBtn";
+import PaginationCommon from "../../common/pagination/Page";
 const ConnectSelectCommon = (props) =>{
     const {
         setVisible,
         dataList,
         columns,
         onSearch,
-        onFinish
+        onFinish,
+        totalPage,
+        currentPage,
+        onTableChange
     } = props;
 
 
@@ -50,6 +54,11 @@ const ConnectSelectCommon = (props) =>{
                             };
                         }}
                         pagination={false}
+                    />
+                    <PaginationCommon
+                        currentPage={currentPage}
+                        totalPage={totalPage}
+                        changePage={onTableChange}
                     />
                 </div>
             </div>

@@ -38,14 +38,7 @@ export class ApiSceneInstanceStore {
     }
 
 
-    @action
-    deleteApiSceneInstance = async (id) => {
-        const param = new FormData();
-        param.append('id', id);
 
-        await Axios.post("/instance/deleteInstance",param)
-
-    }
 
 }
 

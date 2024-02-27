@@ -15,11 +15,9 @@ import IconBtn from "../../../../../common/iconBtn/IconBtn";
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
 
-const ApiSceneStepList = ({apiUnitStore,apiSceneId}) => {
-    const {findApiUnitList} = apiUnitStore;
+const ApiSceneStepList = ({apiSceneId}) => {
 
     const [stepList, setStepList] = useState([]);
-    let repositoryId = sessionStorage.getItem("repositoryId");
     const [visible, setVisible] = useState(false);
 
     useEffect(async ()=> {
@@ -47,7 +45,6 @@ const ApiSceneStepList = ({apiUnitStore,apiSceneId}) => {
             id:dragItem.id,
             caseId:dragItem.caseId
         }
-
 
         updateStepCommon(param).then(()=>findList())
     };
@@ -157,8 +154,7 @@ const ApiSceneStepList = ({apiUnitStore,apiSceneId}) => {
         });
     };
 
-    const showConnect =()=>{
-        findApiUnitList({repositoryId:repositoryId,caseType: "api-unit", testType: "api"});
+    const showConnect = async ()=>{
         setVisible(true);
     }
 

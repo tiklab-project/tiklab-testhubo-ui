@@ -1,68 +1,110 @@
-import React from "react";
-import {inject, observer} from "mobx-react";
+import React, {useEffect, useState} from "react";
+import { observer} from "mobx-react";
 import apiPerfStepStore from "../store/apiPerfStepStore";
 import ConnectSelectCommon from "../../../../common/ConnectSelectCommon";
-import apiSceneStore from "../../scene/store/apiSceneStore";
 
 const ApiPerformBindScene = (props) =>{
-    const {apiPerfId,setVisible} = props;
-    const {findApiSceneList,apiSceneList} =apiSceneStore;
+    const {setVisible} = props;
 
-    const {bindApiScene,findApiPerfStepList} = apiPerfStepStore;
+    const {bindApiScene,findApiPerfStepList,findApiPerfStepWillBindCasePage,apiPerfStepWillBindCaseData} = apiPerfStepStore;
 
 
     const column =[
         {
             title: '场景名称',
-            dataIndex: ['testCase','name'],
+            dataIndex: 'name',
             key: 'name',
             // width: "30%",
         },{
             title: '类型',
-            dataIndex:['testCase','testType'],
+            dataIndex:'caseType',
             key: 'testType',
             // width: "30%",
+        },,{
+            title: `创建人`,
+            dataIndex: ['createUser', 'nickname'],
+            key: "user",
+            // width: "20%",
         },
         {
             title: `创建时间`,
-            dataIndex: ['testCase', 'createTime'],
+            dataIndex: 'createTime',
             key: "createTime",
         }
     ]
 
-
+    const apiPerfId = sessionStorage.getItem('apiPerfId');
     let repositoryId = sessionStorage.getItem("repositoryId");
+    const [totalPage, setTotalPage] = useState();
+    const [pageSize] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+
+
+    useEffect( ()=>{
+        findPage()
+    },[])
+
+
+    const findPage = (params) =>{
+        let param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:1
+            },
+            repositoryId:repositoryId,
+            apiPerfId:apiPerfId,
+            ...params
+        }
+        findApiPerfStepWillBindCasePage(param).then((res)=>{
+            setTotalPage(res.totalPage);
+        })
+    }
+
 
     // 弹框展示
     const onSearch = (e) => {
-        findApiSceneList({
-            repositoryId:repositoryId,
-            caseType:"api-scene",
-            testType:"api",
-            name:e.target.value
-        });
+        findPage({name:e.target.value})
     };
 
 
     // 提交
     const onFinish = async (id) => {
-        bindApiScene([id]).then(()=>findApiPerfStepList(apiPerfId));
+        bindApiScene([id]).then(()=> {
+            findApiPerfStepList(apiPerfId)
+            findPage()
+        });
 
         setVisible(false);
     };
+
+    // 分页
+    const onTableChange = (current) => {
+        setCurrentPage(current)
+        let param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:current
+            },
+        }
+
+        findPage(param)
+    }
 
 
     return(
         <>
             <ConnectSelectCommon
                 setVisible={setVisible}
-                dataList={apiSceneList}
+                dataList={apiPerfStepWillBindCaseData?.dataList}
                 columns={column}
                 onSearch={onSearch}
                 onFinish={onFinish}
+                totalPage={totalPage}
+                currentPage={currentPage}
+                onTableChange={onTableChange}
             />
         </>
     )
 }
 
-export default inject("apiSceneStore")(observer(ApiPerformBindScene));
+export default observer(ApiPerformBindScene);

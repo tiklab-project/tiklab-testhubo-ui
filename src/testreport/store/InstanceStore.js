@@ -18,10 +18,10 @@ export class InstanceStore {
     }
 
     @action
-    deleteInstance = async (id) => {
+    deleteInstance = async (id,caseType) => {
         const param = new FormData();
         param.append('id', id);
-        
+        param.append('caseType', caseType);
         await Axios.post("/instance/deleteInstance",param)
     }
 

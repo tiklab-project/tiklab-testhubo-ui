@@ -6,7 +6,7 @@ import {MenuOutlined} from "@ant-design/icons";
 import IconCommon from "../../../../common/IconCommon";
 import AppSceneStepEdit from "./AppSceneStepEdit";
 import AppSceneStepDrawer from "./AppSceneStepDrawer";
-import {Button, Col, Dropdown, Menu, Row, Tag} from "antd";
+import {Col, Dropdown, Menu, Row, Tag} from "antd";
 import stepCommonStore from "../../../common/stepcommon/store/StepCommonStore";
 import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
 import IfJudgmentDrawer from "../../../common/ifJudgment/components/IfJudgmentDrawer";
@@ -202,10 +202,12 @@ const AppSceneStepList = ({appSceneId}) => {
                         overlay={menu}
                         placement="bottom"
                     >
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            name={"添加步骤"}
-                        />
+                        <div>
+                            <IconBtn
+                                className="pi-icon-btn-grey"
+                                name={"添加步骤"}
+                            />
+                        </div>
                     </Dropdown>
                 </div>
                 <DragDropContext onDragEnd={onDragEnd}>

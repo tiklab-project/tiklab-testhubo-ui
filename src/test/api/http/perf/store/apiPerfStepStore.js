@@ -6,6 +6,7 @@ export class ApiPerfStepStore {
     @observable apiPerfStepList = [];
     @observable apiPerfStepInfo = {};
     @observable apiPerfId;
+    @observable apiPerfStepWillBindCaseData;
 
     @action
     bindApiScene = async (selectItem) => {
@@ -80,6 +81,17 @@ export class ApiPerfStepStore {
         await Axios.post("/apiPerfStep/deleteApiPerfStep",param);
 
     }
+
+    @action
+    findApiPerfStepWillBindCasePage = async (params) => {
+        const res = await Axios.post("/apiPerfStep/findApiPerfStepWillBindCasePage",params);
+        if( res.code === 0){
+            this.apiPerfStepWillBindCaseData=res.data
+            return res.data
+        }
+
+    }
+
 }
 
 let apiPerfStepStore = new ApiPerfStepStore();

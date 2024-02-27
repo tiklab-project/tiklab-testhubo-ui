@@ -37,15 +37,6 @@ export class ApiPerfInstanceStore {
         }
     }
 
-
-    @action
-    deleteApiPerfInstance = async (id) => {
-        const param = new FormData();
-        param.append('id', id);
-        
-        await Axios.post("/instance/deleteInstance",param)
-    }
-
 }
 
 let apiPerfInstanceStore = new ApiPerfInstanceStore();

@@ -1,17 +1,17 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import apiSceneStepStore from "../store/apiSceneStepStore";
 import ConnectSelectCommon from "../../../../common/ConnectSelectCommon";
 
 const ApiSceneBindUnit =(props) =>{
-    const {apiUnitStore,setVisible,findList,apiSceneId} = props;
-    const {findApiUnitList,apiUnitList} = apiUnitStore;
+    const {setVisible,findList,apiSceneId} = props;
+    const {apiSceneStepWillBindCaseData,findApiSceneStepWillBindCasePage} = apiSceneStepStore
     const {bindApiUnit} = apiSceneStepStore
 
     const column =[
         {
-            title: 'UnitCase名',
-            dataIndex: ['testCase','name'],
+            title: '名称',
+            dataIndex: 'name',
             key: 'name',
             width: "30%",
         },{
@@ -26,28 +26,71 @@ const ApiSceneBindUnit =(props) =>{
             width: "20%",
         },{
             title: `创建人`,
-            dataIndex: ['testCase','user', 'name'],
+            dataIndex: ['createUser', 'nickname'],
             key: "user",
             width: "20%",
         }
     ]
 
     let repositoryId = sessionStorage.getItem("repositoryId");
+    const [totalPage, setTotalPage] = useState();
+    const [pageSize] = useState(20);
+    const [currentPage, setCurrentPage] = useState(1);
+
+
+    useEffect( ()=>{
+         findApiSceneStepWillBindCasePage({
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:1
+            },
+            repositoryId:repositoryId,
+            apiSceneId: apiSceneId
+        }).then(res=>{
+             setTotalPage(res.totalPage)
+         });
+    },[])
 
     // 提交
     const onFinish = async (id) => {
         await bindApiUnit([id],apiSceneId)
         await findList()
+        await findPage()
         setVisible(false);
     };
 
-    const onSearch = (e) =>{
-        findApiUnitList({
+
+    const findPage = (params) =>{
+        let param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:1
+            },
             repositoryId:repositoryId,
-            caseType: "api-unit",
-            testType: "api",
-            name:e.target.value
+            apiSceneId:apiSceneId,
+            ...params
+        }
+        findApiSceneStepWillBindCasePage(param).then((res)=>{
+            setTotalPage(res.totalPage);
         })
+    }
+
+
+    const onSearch = (e) =>{
+        findPage({name:e.target.value})
+    }
+
+    // 分页
+    const onTableChange = (current) => {
+        setCurrentPage(current)
+        let param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:current
+            },
+        }
+
+        findPage(param)
     }
 
 
@@ -55,10 +98,13 @@ const ApiSceneBindUnit =(props) =>{
         <>
             <ConnectSelectCommon
                 setVisible={setVisible}
-                dataList={apiUnitList}
+                dataList={apiSceneStepWillBindCaseData?.dataList}
                 columns={column}
                 onSearch={onSearch}
                 onFinish={onFinish}
+                totalPage={totalPage}
+                currentPage={currentPage}
+                onTableChange={onTableChange}
             />
         </>
     )

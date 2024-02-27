@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button,  Input, Modal} from "antd";
-
+import {PrivilegeProjectButton} from "thoughtware-privilege-ui";
 /**
  * 仓库设置中的删除仓库
  */
@@ -37,9 +37,9 @@ const DeleteRepositoryModal = (props) =>{
 
     return(
         <>
-            {/*<PrivilegeProjectButton code={"repositoryDelete"} domainId={repositoryId}>*/}
+            <PrivilegeProjectButton code={"repositoryDelete"} domainId={repositoryId}>
                 <Button type="primary" danger onClick={showModal}>删除仓库</Button>
-            {/*</PrivilegeProjectButton>*/}
+            </PrivilegeProjectButton>
             <Modal
                 destroyOnClose={true}
                 title="你确定删除仓库吗？"

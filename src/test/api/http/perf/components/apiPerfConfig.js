@@ -3,6 +3,7 @@ import { InputNumber, Radio, Form, Popconfirm} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import {useHistory} from "react-router";
+import agentConfigStore from "../../../../../support/agent/store/AgentConfigStore";
 
 const layout = {
     labelCol: {span: 2},
@@ -11,7 +12,7 @@ const layout = {
 
 //压力测试配置
 const ApiPerfConfig = (props) =>{
-    const {apiPerfStore,agentConfigStore,apiPerfId} = props;
+    const {apiPerfStore,apiPerfId} = props;
     const {findApiPerf,updateApiPerf} = apiPerfStore;
     const {findAgentConfigList} = agentConfigStore;
 
@@ -168,4 +169,4 @@ const ApiPerfConfig = (props) =>{
     )
 }
 
-export default inject("apiPerfStore","agentConfigStore")(observer(ApiPerfConfig));
+export default inject("apiPerfStore")(observer(ApiPerfConfig));

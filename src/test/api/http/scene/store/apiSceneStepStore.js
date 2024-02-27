@@ -8,6 +8,7 @@ class ApiSceneStepStore {
     @observable apiSceneStepInfo;
     @observable apiSceneId;
     @observable apiSceneName;
+    @observable apiSceneStepWillBindCaseData;
 
     @action
     findApiSceneStepList = async (id) => {
@@ -60,6 +61,18 @@ class ApiSceneStepStore {
 
         await Axios.post("/apiSceneStep/deleteApiSceneStep",param)
     }
+
+    @action
+    findApiSceneStepWillBindCasePage = async (params) => {
+        const res = await Axios.post("/apiSceneStep/findApiSceneStepWillBindCasePage",params);
+        if( res.code === 0){
+            this.apiSceneStepWillBindCaseData=res.data
+            return res.data
+        }
+
+    }
+
+
 
 }
 

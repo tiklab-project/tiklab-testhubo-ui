@@ -5,13 +5,12 @@ import IconCommon from "../../../../../common/IconCommon";
 import apiPerfStepStore from "../store/apiPerfStepStore";
 import {useHistory} from "react-router";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
-import apiSceneStore from "../../scene/store/apiSceneStore";
 import ApiPerformBindScene from "./apiPerformBindScene";
 
 const ApiPerfStepList = (props) =>{
     const {apiPerfId} = props
     const {findApiPerfStepList,apiPerfStepList,deleteApiPerfStep} =apiPerfStepStore;
-    const {findApiSceneList} =apiSceneStore;
+
 
     const column =[
         {
@@ -49,7 +48,6 @@ const ApiPerfStepList = (props) =>{
         },
     ]
 
-    let repositoryId = sessionStorage.getItem("repositoryId");
     let history = useHistory()
     const [visible, setVisible] = useState(false);
 
@@ -63,11 +61,6 @@ const ApiPerfStepList = (props) =>{
     }
 
     const showConnect =()=>{
-        findApiSceneList({
-            repositoryId:repositoryId,
-            caseType:"api-scene",
-            testType:"api",
-        });
         setVisible(true);
     }
 

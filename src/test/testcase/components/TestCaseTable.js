@@ -85,7 +85,7 @@ const TestCaseTable = (props) => {
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteTestCase(record.id).then(()=>findPage())}
+                        onConfirm={() =>deleteTestCase(record.id,record.caseType).then(()=>findPage())}
                         okText='确定'
                         cancelText='取消'
                     >

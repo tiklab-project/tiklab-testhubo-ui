@@ -1,5 +1,4 @@
 import React from "react";
-import ApiPerfInstanceTable from "./apiPerfInstanceTable";;
 import CaseBread from "../../../../../common/CaseBread";
 import {inject, observer} from "mobx-react";
 import InstanceListCommon from "../../../../../testreport/common/InstanceListCommon";

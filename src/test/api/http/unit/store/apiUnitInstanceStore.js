@@ -32,14 +32,6 @@ class ApiUnitInstanceStore {
         }
     }
 
-    @action
-    deleteApiUnitInstance = async (id) => {
-        const param = new FormData();
-        param.append('id', id);
-
-        await Axios.post("/instance/deleteInstance",param)
-    }
-
 
 }
 

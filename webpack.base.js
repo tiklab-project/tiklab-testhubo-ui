@@ -165,6 +165,7 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
+            favicon: path.resolve(__dirname, './src/assets/img/logo.png'), // 指定favicon路径
             alwaysWriteToDisk: true,
             title:'接口管理',
             template: path.resolve(__dirname, './public/index.html'),

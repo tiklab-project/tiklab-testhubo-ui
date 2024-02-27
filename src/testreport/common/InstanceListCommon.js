@@ -76,7 +76,7 @@ const InstanceListCommon = (props) =>{
                 <IconCommon
                     className={"icon-s edit-icon"}
                     icon={"shanchu3"}
-                    onClick={() => deleteInstance(record.id).then(()=>findPage())}
+                    onClick={() => deleteInstance(record.id,record.caseType).then(()=>findPage())}
                 />
             )
         },
