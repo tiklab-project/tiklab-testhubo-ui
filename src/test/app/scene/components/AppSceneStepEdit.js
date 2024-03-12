@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { observer } from "mobx-react";
+import {inject, observer} from "mobx-react";
 import {Form, Input, Modal, Select, Col, Row} from 'antd';
 import appSceneStepStore from "../store/appSceneStepStore";
 import {Axios} from "thoughtware-core-ui";
@@ -8,8 +8,10 @@ let {Option}  =  Select;
 /**
  * 添加
  */
-const AppSceneStepEdit = ({findList}) => {
+const AppSceneStepEdit = (props) => {
+    const {appSceneStore,findList} = props
     const {createAppSceneStep} = appSceneStepStore;
+    const {findAppScene} = appSceneStore
 
     const [form] = Form.useForm();
     const [visible, setVisible] = React.useState(false);
@@ -45,6 +47,7 @@ const AppSceneStepEdit = ({findList}) => {
 
         await createAppSceneStep(values)
         await findList();
+        await findAppScene(appSceneId)
 
         setVisible(false)
     };
@@ -160,4 +163,4 @@ const AppSceneStepEdit = ({findList}) => {
     );
 };
 
-export default observer(AppSceneStepEdit);
+export default inject("appSceneStore")(observer(AppSceneStepEdit));

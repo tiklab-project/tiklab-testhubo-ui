@@ -4,7 +4,7 @@ import {processResHeader} from "../../common/response/testResponseFnCommon";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../../common/CaseBread";
 import apiUnitTestDispatchStore from "../store/apiUnitTestDispatchStore";
-import {Drawer, Form} from "antd";
+import {Drawer, Form, Spin} from "antd";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 
@@ -13,11 +13,15 @@ const ApiUnitExecuteTest = (props) =>{
     const {apiUnitExecute} = apiUnitTestDispatchStore;
     const { envUrl } = apiEnvStore;
 
+    const [spinning, setSpinning] = useState(true);
     const [data, setData] = useState();
     const [open, setOpen] = useState(false);
     const [form] = Form.useForm();
 
     const showDrawer = async () => {
+        setOpen(true);
+        setSpinning(true)
+
         let values = await form.validateFields()
 
         //测试环境为空提示
@@ -29,6 +33,7 @@ const ApiUnitExecuteTest = (props) =>{
         let res = await apiUnitExecute(apiUnitId,envUrl?envUrl:values.host)
         if(res.code===0){
             setData(res.data)
+            setSpinning(false)
         }else {
             let msg = res.msg
             let errorMsg
@@ -45,7 +50,7 @@ const ApiUnitExecuteTest = (props) =>{
             return messageFn("error",errorMsg)
         }
 
-        setOpen(true);
+
     };
 
     const onClose = () => {
@@ -109,19 +114,21 @@ const ApiUnitExecuteTest = (props) =>{
                 contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
-                <CaseBread
-                    icon={"api1"}
-                    breadItem={["接口测试"]}
-                    setOpen={setOpen}
-                />
-                <ResponseCommon
-                    detail={showDetail(detail)}
-                    reqHeader={processResHeader(data?.requestInstance?.requestHeader)}
-                    resBody={data?.responseInstance?.responseBody}
-                    resHeader={processResHeader(data?.responseInstance?.responseHeader)}
-                    assertList={data?.responseInstance?.assertInstanceList}
-                    error={data?.errMessage}
-                />
+                <Spin spinning={spinning}>
+                    <CaseBread
+                        icon={"api1"}
+                        breadItem={["接口测试"]}
+                        setOpen={setOpen}
+                    />
+                    <ResponseCommon
+                        detail={showDetail(detail)}
+                        reqHeader={processResHeader(data?.requestInstance?.requestHeader)}
+                        resBody={data?.responseInstance?.responseBody}
+                        resHeader={processResHeader(data?.responseInstance?.responseHeader)}
+                        assertList={data?.responseInstance?.assertInstanceList}
+                        error={data?.errMessage}
+                    />
+                </Spin>
             </Drawer>
         </>
 

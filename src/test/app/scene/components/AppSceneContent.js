@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import {useHistory, useParams} from "react-router";
 import AppSceneDetail from "./appSceneDetail";
@@ -9,10 +9,9 @@ import {Space} from "antd";
 import ToggleCase from "../../../testcase/components/ToggleCase";
 import AppEnvSelect from "../../../../support/environment/components/appEnvSelect";
 
-
 const AppSceneContent = (props) =>{
     const {appSceneStore} = props;
-    const {testCaseInfo} = appSceneStore
+    const {testCaseInfo,appSceneInfo} = appSceneStore
     let history = useHistory()
     let {id} = useParams()
     const appSceneId = sessionStorage.getItem('appSceneId') || id;
@@ -39,7 +38,7 @@ const AppSceneContent = (props) =>{
                             onClick={()=>history.push("/repository/app-scene-instance")}
                             name={"历史"}
                         />
-                        <AppExecuteTestPage appSceneId={appSceneId}/>
+                        <AppExecuteTestPage appSceneId={appSceneId} stepNum={appSceneInfo?.stepNum||0}/>
                     </Space>
                 }
             />

@@ -56,6 +56,7 @@ const CategoryList = (props) => {
                         onConfirm={() =>deleteCategory(record.id).then(()=>findList())}
                         okText='确定'
                         cancelText='取消'
+                        placement="topRight"
                     >
                         <IconCommon
                             className={"icon-s edit-icon"}

@@ -20,7 +20,7 @@ const ApiPerformBindScene = (props) =>{
             dataIndex:'caseType',
             key: 'testType',
             // width: "30%",
-        },,{
+        },{
             title: `创建人`,
             dataIndex: ['createUser', 'nickname'],
             key: "user",
@@ -34,7 +34,7 @@ const ApiPerformBindScene = (props) =>{
     ]
 
     const apiPerfId = sessionStorage.getItem('apiPerfId');
-    let repositoryId = sessionStorage.getItem("repositoryId");
+    const repositoryId = sessionStorage.getItem("repositoryId");
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);

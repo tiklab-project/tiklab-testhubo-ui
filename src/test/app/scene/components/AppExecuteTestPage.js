@@ -10,7 +10,7 @@ import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 
 const AppExecuteTestPage =(props)=>{
-    const {appEnvStore,appSceneId} = props
+    const {appEnvStore,appSceneId,stepNum} = props
     const {appSceneTestDispatch,appSceneTestResult} = appSceneStore;
     const {appEnv} = appEnvStore
     const [spinning, setSpinning] = useState(true);
@@ -60,10 +60,18 @@ const AppExecuteTestPage =(props)=>{
     },[start])
 
     const showDrawer = async () => {
-        setTimeout(()=>{
-            setOpen(true);
-            setStart(true);
-        }, 1000);
+        if(stepNum===0){
+            messageFn("warning","添加步骤")
+            return
+        }
+
+        if(!appEnv){
+            messageFn("warning","请选择环境")
+            return
+        }
+
+        setOpen(true);
+        setStart(true);
 
         //开始执行
         let param = {

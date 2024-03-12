@@ -15,7 +15,7 @@ import {LoadingOutlined} from "@ant-design/icons";
 const { apiSceneExecute } = apiSceneTestDispatchStore;
 
 const ApiExecuteTestPage = (props) =>{
-    const { apiEnvStore} = props;
+    const { apiEnvStore,stepNum} = props;
     const { envUrl } =apiEnvStore;
 
     const repositoryId = sessionStorage.getItem("repositoryId")
@@ -28,6 +28,11 @@ const ApiExecuteTestPage = (props) =>{
     const [open, setOpen] = useState(false);
 
     const showDrawer = async () => {
+        if(stepNum===0){
+            messageFn("warning","添加步骤")
+            return
+        }
+
         if(envUrl){
             const param = {
                 apiSceneCase:{id:apiSceneId},

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
 import IconCommon from "../../../../common/IconCommon";
@@ -14,9 +14,10 @@ import IconBtn from "../../../../common/iconBtn/IconBtn";
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
-const WebSceneStepList = ({webSceneId}) => {
-
+const WebSceneStepList = (props) => {
+    const {webSceneId,webSceneStore} = props
     const [stepList, setStepList] = useState([]);
+    const {findWebScene} = webSceneStore
 
     useEffect(async ()=> {
         await findList()
@@ -92,7 +93,10 @@ const WebSceneStepList = ({webSceneId}) => {
                                                         className={"icon-s edit-icon"}
                                                         icon={"shanchu3"}
                                                         onClick={(e)=> {
-                                                            deleteStepCommon(item.id, CASE_TYPE.WEB).then(() => findList())
+                                                            deleteStepCommon(item.id, CASE_TYPE.WEB).then(async () => {
+                                                                await findList()
+                                                                await findWebScene(webSceneId)
+                                                            })
                                                             e.stopPropagation()
                                                         }}
                                                     />
@@ -163,7 +167,10 @@ const WebSceneStepList = ({webSceneId}) => {
                                                         className={"icon-s edit-icon"}
                                                         icon={"shanchu3"}
                                                         onClick={(e)=> {
-                                                            deleteStepCommon(item.id, CASE_TYPE.WEB).then(() => findList())
+                                                            deleteStepCommon(item.id, CASE_TYPE.WEB).then(async () => {
+                                                                await findList()
+                                                                await findWebScene(webSceneId)
+                                                            })
                                                             e.stopPropagation()
                                                         }}
                                                     />
@@ -188,7 +195,7 @@ const WebSceneStepList = ({webSceneId}) => {
     //添加步骤
     const menu = (
         <Menu>
-            <Menu.Item><WebSceneStepEdit findList={findList} /></Menu.Item>
+            <Menu.Item><WebSceneStepEdit findList={findList}  /></Menu.Item>
             <Menu.Item><IfJudgmentEdit caseId={webSceneId} findList={findList}/> </Menu.Item>
         </Menu>
     );
@@ -254,4 +261,4 @@ const WebSceneStepList = ({webSceneId}) => {
 };
 
 
-export default observer(WebSceneStepList);
+export default inject("webSceneStore")(observer(WebSceneStepList));

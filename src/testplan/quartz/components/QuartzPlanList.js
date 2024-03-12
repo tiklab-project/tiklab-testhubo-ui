@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Popconfirm, Select, Space, Table, Tag, Tooltip} from "antd";
+import {Empty, Popconfirm, Space, Table, Tag} from "antd";
 import emptyImg from "../../../assets/img/empty.png";
 import {inject, observer} from "mobx-react";
 import quartzPlanStore from "../store/quartzPlanStore";
 import QuartzPlanEdit from "./QuartzPlanEdit";
 import IconCommon from "../../../common/IconCommon";
-import moment from "moment";
+import QuartzEnvModal from "./quartzEnvModal";
 
-const {Option} = Select;
+
 const QuartzPlanList = (props) =>{
     const {testPlanStore,apiEnvStore} =  props;
     const {findQuartzPlanList,deleteQuartzPlan} = quartzPlanStore
-    const {findApiEnvList,apiEnvList} = apiEnvStore;
-    const {findTestPlan,updateTestPlan,testPlanInfo} = testPlanStore;
+    const {findApiEnvList} = apiEnvStore;
+    const {findTestPlan} = testPlanStore;
 
     const columns = [
         {
@@ -97,36 +97,12 @@ const QuartzPlanList = (props) =>{
         setTableLoading(false)
     }
 
-    //
-    const onSelectChange = (value) => {
-        let param = {
-            ...testPlanInfo,
-            apiEnv:value
-        }
-        updateTestPlan(param)
-    }
-
     return(
         <div className={"content-box-center"}>
             <div  className={"header-box-space-between"} >
                 <div className={'header-box-title'}>定时任务</div>
                 <Space>
-                    <Select
-                        className={"quartz-select-box"}
-                        placeholder={"未设置环境"}
-                        onChange={(value)=> onSelectChange(value)}
-                        defaultValue={testPlanInfo?.apiEnv}
-                    >
-                        {
-                            apiEnvList&&apiEnvList.map(item=>{
-                                return (
-                                    <Option key={item.id} value={item.id}>
-                                        <Tooltip placement="leftTop" title={item.preUrl}> {item.name} </Tooltip>
-                                    </Option>
-                                )
-                            })
-                        }
-                    </Select>
+                    <QuartzEnvModal />
                     <QuartzPlanEdit
                         type={"add"}
                         name={"添加定时"}

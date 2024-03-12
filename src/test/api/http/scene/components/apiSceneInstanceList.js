@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../../common/CaseBread";
 import InstanceListCommon from "../../../../../testreport/common/InstanceListCommon";

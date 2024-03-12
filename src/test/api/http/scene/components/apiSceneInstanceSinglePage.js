@@ -86,9 +86,10 @@ const ApiSceneInstanceSinglePage = (props) =>{
         if(item.type==="api-scene"){
             findApiUnitInstance(item.id).then(res=>{
                 setStepData(res)
-                setStepType(item.type)
             })
         }
+
+        setStepType(item.type)
     }
 
 

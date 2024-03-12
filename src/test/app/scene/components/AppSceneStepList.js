@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
 import IconCommon from "../../../../common/IconCommon";
@@ -15,9 +15,10 @@ import IconBtn from "../../../../common/iconBtn/IconBtn";
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
-const AppSceneStepList = ({appSceneId}) => {
-
+const AppSceneStepList = (props) => {
+    const {appSceneId,appSceneStore} = props
     const [stepList, setStepList] = useState([]);
+    const {findAppScene} = appSceneStore
 
     useEffect(async ()=> {
         await findList()
@@ -92,7 +93,10 @@ const AppSceneStepList = ({appSceneId}) => {
                                                             className={"icon-s edit-icon"}
                                                             icon={"shanchu3"}
                                                             onClick={(e) => {
-                                                                deleteStepCommon(item.id, CASE_TYPE.APP).then(() => findList())
+                                                                deleteStepCommon(item.id, CASE_TYPE.APP).then(async () => {
+                                                                    await findList()
+                                                                    await findAppScene(appSceneId)
+                                                                })
                                                                 e.stopPropagation()
                                                             }}
                                                         />
@@ -164,7 +168,10 @@ const AppSceneStepList = ({appSceneId}) => {
                                                             className={"icon-s edit-icon"}
                                                             icon={"shanchu3"}
                                                             onClick={(e) => {
-                                                                deleteStepCommon(item.id, CASE_TYPE.APP).then(() => findList())
+                                                                deleteStepCommon(item.id, CASE_TYPE.APP).then(async () => {
+                                                                    await findList()
+                                                                    await findAppScene(appSceneId)
+                                                                })
                                                                 e.stopPropagation()
                                                             }}
                                                         />
@@ -255,4 +262,4 @@ const AppSceneStepList = ({appSceneId}) => {
 };
 
 
-export default observer(AppSceneStepList);
+export default inject("appSceneStore")(observer(AppSceneStepList));

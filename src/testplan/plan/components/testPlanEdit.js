@@ -26,8 +26,6 @@ const TestPlanEdit = (props) => {
     const showModal = () => {
         if(props.type === "edit"){
             findTestPlan(testPlanId).then((res)=>{
-                setRangeTime(res.startTime);
-                setEndTime(res.endTime);
                 // setPrincipal(res.principal)
                 form.setFieldsValue({
                     name: res.name,

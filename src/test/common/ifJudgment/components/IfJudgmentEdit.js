@@ -4,7 +4,8 @@ import ifJudgmentStore from "../store/IfJudgmentStore";
 
 const {createIfJudgment} = ifJudgmentStore
 
-const IfJudgmentEdit = ({caseId,findList}) => {
+const IfJudgmentEdit = (props) => {
+    const {caseId,findList}=props
 
     const addIfJudgment =async  ()=>{
         let param = {

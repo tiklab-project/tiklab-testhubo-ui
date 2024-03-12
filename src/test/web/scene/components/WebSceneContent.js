@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import {useHistory, useParams} from "react-router";
 import WebSceneDetail from "./webSceneDetail";
@@ -11,7 +11,7 @@ import ToggleCase from "../../../testcase/components/ToggleCase";
 
 const WebSceneContent = (props) =>{
     const {webSceneStore} = props;
-    const {testCaseInfo} = webSceneStore
+    const {testCaseInfo,webSceneInfo} = webSceneStore
     let history = useHistory()
     let {id} = useParams()
     const webSceneId = sessionStorage.getItem('webSceneId') || id;
@@ -37,7 +37,7 @@ const WebSceneContent = (props) =>{
                            onClick={()=>history.push("/repository/web-scene-instance")}
                            name={"历史"}
                        />
-                       <WebExecuteTestPage webSceneId={webSceneId} />
+                       <WebExecuteTestPage webSceneId={webSceneId} stepNum={webSceneInfo?.stepNum||0}/>
                    </Space>
                }
            />

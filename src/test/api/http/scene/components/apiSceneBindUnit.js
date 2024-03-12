@@ -4,9 +4,9 @@ import apiSceneStepStore from "../store/apiSceneStepStore";
 import ConnectSelectCommon from "../../../../common/ConnectSelectCommon";
 
 const ApiSceneBindUnit =(props) =>{
-    const {setVisible,findList,apiSceneId} = props;
-    const {apiSceneStepWillBindCaseData,findApiSceneStepWillBindCasePage} = apiSceneStepStore
-    const {bindApiUnit} = apiSceneStepStore
+    const {setVisible,findList,apiSceneId,apiSceneStore} = props;
+    const {apiSceneStepWillBindCaseData,findApiSceneStepWillBindCasePage,bindApiUnit} = apiSceneStepStore
+    const {findApiScene} = apiSceneStore
 
     const column =[
         {
@@ -56,6 +56,7 @@ const ApiSceneBindUnit =(props) =>{
         await bindApiUnit([id],apiSceneId)
         await findList()
         await findPage()
+        await findApiScene(apiSceneId)
         setVisible(false);
     };
 
@@ -110,4 +111,4 @@ const ApiSceneBindUnit =(props) =>{
     )
 }
 
-export default inject("apiUnitStore")(observer(ApiSceneBindUnit));
+export default inject("apiUnitStore","apiSceneStore")(observer(ApiSceneBindUnit));

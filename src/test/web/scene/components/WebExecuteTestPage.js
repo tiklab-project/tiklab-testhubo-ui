@@ -9,7 +9,7 @@ import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 
 const WebExecuteTestPage = (props) =>{
-    const {webSceneStore} = props;
+    const {webSceneStore,stepNum} = props;
     const {webSceneTestDispatch,webSceneTestResult} = webSceneStore;
 
     const webSceneId = sessionStorage.getItem("webSceneId")
@@ -21,8 +21,6 @@ const WebExecuteTestPage = (props) =>{
     const [webStepList, setWebStepList] = useState([]);
     const [open, setOpen] = useState(false);
     const [start, setStart] = useState(false);
-
-    const [form] = Form.useForm();
 
     useEffect( ()=>{
         if(start){
@@ -61,10 +59,13 @@ const WebExecuteTestPage = (props) =>{
 
 
     const showDrawer = async () => {
-        setTimeout(()=>{
-            setOpen(true);
-            setStart(true);
-        }, 1000);
+        if(stepNum===0){
+            messageFn("warning","添加步骤")
+            return
+        }
+
+        setOpen(true);
+        setStart(true);
 
         let param = {
             repositoryId:repositoryId,

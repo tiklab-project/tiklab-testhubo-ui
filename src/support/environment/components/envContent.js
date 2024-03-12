@@ -21,8 +21,8 @@ const EnvContent = (props)=>{
         switch (type) {
             case "api":
                return <ApiEnvEdit name="添加环境" type="add"  />
-            case "web":
-                return <WebEnvEdit name="添加环境" type="add" />
+            // case "web":
+            //     return <WebEnvEdit name="添加环境" type="add" />
             case "app":
                 return <AppEnvEdit name="添加环境" type="add" />
         }
@@ -49,11 +49,11 @@ const EnvContent = (props)=>{
                             <AppEnvList />
                         </div>
                     </TabPane>
-                    <TabPane tab="WEB环境" key="web">
-                        <div style={{marginTop:"10px"}}>
-                            <WebEnvList />
-                        </div>
-                    </TabPane>
+                    {/*<TabPane tab="WEB环境" key="web">*/}
+                    {/*    <div style={{marginTop:"10px"}}>*/}
+                    {/*        <WebEnvList />*/}
+                    {/*    </div>*/}
+                    {/*</TabPane>*/}
                 </Tabs>
             </div>
 

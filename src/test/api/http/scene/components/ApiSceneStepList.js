@@ -15,7 +15,9 @@ import IconBtn from "../../../../../common/iconBtn/IconBtn";
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
 
-const ApiSceneStepList = ({apiSceneId}) => {
+const ApiSceneStepList = (props) => {
+    const {apiSceneId,apiSceneStore} = props
+    const {findApiScene} = apiSceneStore
 
     const [stepList, setStepList] = useState([]);
     const [visible, setVisible] = useState(false);
@@ -93,7 +95,10 @@ const ApiSceneStepList = ({apiSceneId}) => {
                                                             className={"icon-s edit-icon"}
                                                             icon={"shanchu3"}
                                                             onClick={(e) => {
-                                                                deleteStepCommon(item.id, CASE_TYPE.API_SCENE).then(() => findList())
+                                                                deleteStepCommon(item.id, CASE_TYPE.API_SCENE).then(() => {
+                                                                    findList()
+                                                                    findApiScene(apiSceneId)
+                                                                })
                                                                 e.stopPropagation()
                                                             }}
                                                         />
@@ -135,7 +140,10 @@ const ApiSceneStepList = ({apiSceneId}) => {
                                                             className={"icon-s edit-icon"}
                                                             icon={"shanchu3"}
                                                             onClick={(e) => {
-                                                                deleteStepCommon(item.id, CASE_TYPE.API_SCENE).then(() => findList())
+                                                                deleteStepCommon(item.id, CASE_TYPE.API_SCENE).then(() => {
+                                                                    findList()
+                                                                    findApiScene(apiSceneId)
+                                                                })
                                                                 e.stopPropagation()
                                                             }}
                                                         />
@@ -240,4 +248,4 @@ const ApiSceneStepList = ({apiSceneId}) => {
 };
 
 
-export default inject("apiUnitStore")(observer(ApiSceneStepList));
+export default inject("apiUnitStore",'apiSceneStore')(observer(ApiSceneStepList));

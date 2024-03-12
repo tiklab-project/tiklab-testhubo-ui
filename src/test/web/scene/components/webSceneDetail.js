@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import WebSceneStepList from "./WebSceneStepList";
 import "./webStyle.scss"
@@ -12,14 +12,11 @@ import "../../../common/styles/unitcase.scss"
 
 const WebSceneDetail = (props) => {
     const {webSceneStore,webSceneId} = props;
-    const {findWebScene,updateWebScene} = webSceneStore;
-    const [caseInfo,setCaseInfo]=useState();
+    const {findWebScene,updateWebScene,webSceneInfo} = webSceneStore;
 
     const [form] = Form.useForm()
     useEffect(()=> {
         findWebScene(webSceneId).then(res=>{
-            setCaseInfo(res);
-
             let testCase = res.testCase
             form.setFieldsValue({
                 name: testCase.name,
@@ -37,9 +34,9 @@ const WebSceneDetail = (props) => {
     const updateCase = async () =>{
         let newData = await form.getFieldsValue()
         const params = {
-            id:caseInfo.id,
+            id:webSceneInfo.id,
             testCase: {
-                ...caseInfo.testCase,
+                ...webSceneInfo.testCase,
                 name:newData.name,
                 category:{id:newData.category||"nullstring"},
                 status:newData.status,
@@ -48,11 +45,7 @@ const WebSceneDetail = (props) => {
                 desc: newData.desc,
             }
         }
-        updateWebScene(params).then(()=>{
-            findWebScene(webSceneId).then(res=>{
-                setCaseInfo(res);
-            })
-        })
+        updateWebScene(params).then(()=> findWebScene(webSceneId))
     }
 
 
@@ -62,12 +55,12 @@ const WebSceneDetail = (props) => {
             key: '1',
             children:<DetailCommon
                 type={true}
-                detailInfo={caseInfo}
+                detailInfo={webSceneInfo}
                 updateCase={updateCase}
                 form={form}
             />
         },{
-            label: `测试步骤 (${caseInfo?.stepNum||0})`,
+            label: `测试步骤 (${webSceneInfo?.stepNum||0})`,
             key: '2',
             children:  <WebSceneStepList webSceneId={webSceneId}/>
         },{

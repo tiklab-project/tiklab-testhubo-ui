@@ -12,7 +12,7 @@ import ToggleCase from "../../../../testcase/components/ToggleCase";
 
 const ApiSceneContent = (props) => {
     const {apiSceneStore} = props;
-    const {testCaseInfo} = apiSceneStore
+    const {testCaseInfo,apiSceneInfo} = apiSceneStore
 
     let history = useHistory()
     let {id} = useParams()
@@ -40,7 +40,7 @@ const ApiSceneContent = (props) => {
                             onClick={()=>history.push("/repository/api-scene-instance")}
                             name={"历史"}
                         />
-                        <ApiExecuteTestPage apiSceneId={apiSceneId}/>
+                        <ApiExecuteTestPage apiSceneId={apiSceneId} stepNum={apiSceneInfo?.stepNum||0}/>
                     </Space>
                 }
             />

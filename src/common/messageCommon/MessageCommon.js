@@ -27,8 +27,8 @@ export const messageFn = (type,content) =>{
             case "error":
                 message.error(errorOptions)
                 break
-            default:
-                message.error(errorOptions)
+            case "warning":
+                message.warning(errorOptions)
                 break
         }
     }

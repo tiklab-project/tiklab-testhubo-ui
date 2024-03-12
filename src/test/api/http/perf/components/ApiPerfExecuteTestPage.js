@@ -118,8 +118,6 @@ const ApiPerfExecuteTestPage = (props) =>{
             messageFn("error","请选择环境")
         }
 
-
-
     };
 
     const onClose = () => {

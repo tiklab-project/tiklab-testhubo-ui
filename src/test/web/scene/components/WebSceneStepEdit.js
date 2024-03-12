@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { observer } from "mobx-react";
+import {inject, observer} from "mobx-react";
 import {Form, Button, Input, Modal, Select, Col, Row} from 'antd';
 import webSceneStepStore from "../store/webSceneStepStore";
 import {Axios} from "thoughtware-core-ui";
@@ -8,8 +8,10 @@ let {Option}  =  Select;
 /**
  * 添加
  */
-const WebSceneStepEdit = ({findList}) => {
+const WebSceneStepEdit = (props) => {
+    const {webSceneStore,findList} = props
     const {createWebSceneStep} = webSceneStepStore;
+    const {findWebScene} = webSceneStore
 
     const [form] = Form.useForm();
     const [visible, setVisible] = React.useState(false);
@@ -31,7 +33,6 @@ const WebSceneStepEdit = ({findList}) => {
             setActionTypeList(actionTypeRes.data)
         }
 
-
         setVisible(true)
     };
 
@@ -45,6 +46,7 @@ const WebSceneStepEdit = ({findList}) => {
 
         await createWebSceneStep(values)
         await findList();
+        await findWebScene(webSceneId)
 
         setVisible(false)
     };
@@ -160,4 +162,4 @@ const WebSceneStepEdit = ({findList}) => {
     );
 };
 
-export default observer(WebSceneStepEdit);
+export default inject("webSceneStore")(observer(WebSceneStepEdit));

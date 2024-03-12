@@ -1,5 +1,5 @@
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import AppSceneStepList from "./AppSceneStepList";
 import "./appStyle.scss"
@@ -13,14 +13,11 @@ import "../../../common/styles/unitcase.scss"
 
 const AppSceneDetail = (props) => {
     const {appSceneStore,appSceneId} = props;
-    const {findAppScene,updateAppScene} = appSceneStore;
-    const [caseInfo,setCaseInfo]=useState();
+    const {findAppScene,updateAppScene,appSceneInfo} = appSceneStore;
 
     const [form] = Form.useForm()
     useEffect(()=> {
         findAppScene(appSceneId).then(res=>{
-            setCaseInfo(res);
-
             let testCase = res.testCase
             form.setFieldsValue({
                 name: testCase.name,
@@ -39,9 +36,9 @@ const AppSceneDetail = (props) => {
     const updateCase = async (e) =>{
         let newData = await form.getFieldsValue()
         const params = {
-            id:caseInfo.id,
+            id:appSceneInfo.id,
             testCase: {
-                ...caseInfo.testCase,
+                ...appSceneInfo.testCase,
                 name:newData.name,
                 category:{id:newData.category||"nullstring"},
                 status:newData.status,
@@ -51,9 +48,7 @@ const AppSceneDetail = (props) => {
             }
         }
         updateAppScene(params).then(()=>{
-            findAppScene(appSceneId).then(res=>{
-                setCaseInfo(res);
-            })
+            findAppScene(appSceneId)
         })
     }
 
@@ -64,13 +59,13 @@ const AppSceneDetail = (props) => {
             key: '1',
             children:<DetailCommon
                 type={true}
-                detailInfo={caseInfo}
+                detailInfo={appSceneInfo}
                 updateCase={updateCase}
                 form={form}
             />
         },
         {
-            label: `测试步骤 (${caseInfo?.stepNum||0})`,
+            label: `测试步骤 (${appSceneInfo?.stepNum||0})`,
             key: '2',
             children:<AppSceneStepList appSceneId={appSceneId}/>
         },{

@@ -46,7 +46,7 @@ const ResponseHeader = ({apiUnitId}) =>{
         {
             title: '示例',
             width: '22%',
-            dataIndex: 'eg',
+            dataIndex: 'value',
             editable: true,
         },
         {

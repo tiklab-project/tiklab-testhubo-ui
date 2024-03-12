@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Button, Space,Form} from "antd";
+import React, {useEffect} from "react";
+import {Form} from "antd";
 import ApiSceneStepList from "./ApiSceneStepList";
 import CaseContentCommon from "../../../../common/CaseContentCommon";
 import DetailCommon from "../../../../../common/caseCommon/DetailCommon";
@@ -11,15 +11,13 @@ import "../../../../common/styles/unitcase.scss"
 
 const ApiSceneDetail = (props) =>{
     const {apiSceneStore,apiSceneId} = props;
-    const {findApiScene,updateApiScene} = apiSceneStore;
+    const {findApiScene,updateApiScene,apiSceneInfo} = apiSceneStore;
 
     const [form] = Form.useForm()
-    const [caseInfo,setCaseInfo]=useState();
+
     const repositoryId = sessionStorage.getItem('repositoryId');
     useEffect(()=> {
         findApiScene(apiSceneId).then(res=>{
-            setCaseInfo(res);
-
             let testCase = res.testCase
             form.setFieldsValue({
                 name: testCase.name,
@@ -39,9 +37,9 @@ const ApiSceneDetail = (props) =>{
     const updateCase = async () =>{
         let newData = await form.getFieldsValue()
         const params = {
-            id:caseInfo.id,
+            id:apiSceneInfo.id,
             testCase: {
-                ...caseInfo.testCase,
+                ...apiSceneInfo.testCase,
                 name:newData.name,
                 category:{id:newData.category||"nullstring"},
                 status:newData.status,
@@ -51,9 +49,7 @@ const ApiSceneDetail = (props) =>{
             }
         }
         updateApiScene(params).then(()=>{
-            findApiScene(apiSceneId).then(res=>{
-                setCaseInfo(res);
-            })
+            findApiScene(apiSceneId)
         })
     }
 
@@ -64,12 +60,12 @@ const ApiSceneDetail = (props) =>{
             key: '1',
             children:<DetailCommon
                 type={true}
-                detailInfo={caseInfo}
+                detailInfo={apiSceneInfo}
                 updateCase={updateCase}
                 form={form}
             />
         },{
-            label: `测试步骤 (${caseInfo?.stepNum||0})`,
+            label: `测试步骤 (${apiSceneInfo?.stepNum||0})`,
             key: '2',
             children: <ApiSceneStepList apiSceneId={apiSceneId}/>
         },{
