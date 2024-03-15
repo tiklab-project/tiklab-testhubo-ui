@@ -5,17 +5,15 @@ import FunctionStepEdit from "./FunctionStepEdit";
 import FunctionStepDrawer from "./FunctionStepDrawer";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
-import {Row, Col, Menu, Dropdown, Button} from "antd";
+import {Row, Col} from "antd";
 import stepCommonStore from "../../common/stepcommon/store/StepCommonStore";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
-import AppSceneStepEdit from "../../app/scene/components/AppSceneStepEdit";
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
 const FunctionStepList = ({functionId}) => {
 
     const [stepList, setStepList] = useState([]);
-   
 
     useEffect(async ()=> {
         await findList()
@@ -42,7 +40,6 @@ const FunctionStepList = ({functionId}) => {
             id:dragItem.id,
             caseId:dragItem.caseId
         }
-
 
         updateStepCommon(param).then(()=>findList())
     };
@@ -114,7 +111,7 @@ const FunctionStepList = ({functionId}) => {
         <>
             <div className={"table-list-box"}>
                 <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                     <div> ( {stepList.length} ) 个步骤</div>
+                     <div> 共 {stepList.length} 个步骤</div>
 
                      <FunctionStepEdit findList={findList} type={"add"}/>
                 </div>

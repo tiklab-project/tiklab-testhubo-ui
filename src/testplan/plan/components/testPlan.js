@@ -2,18 +2,18 @@
  * @Description: 测试计划列表页
  * @LastEditTime: 2021-10-21 13:20:46
  */
-
 import React, { useEffect, useState } from 'react';
 import { observer, inject } from "mobx-react";
-import {Input, Table, Space, Popconfirm, Empty, Select, Tag} from 'antd';
+import {Input, Table, Space, Empty, Tag} from 'antd';
 import TestPlanEdit from './testPlanEdit';
 import  { useTranslation } from 'react-i18next'
 import "./testPlanStyle.scss"
 import emptyImg from "../../../assets/img/empty.png";
-import IconCommon from "../../../common/IconCommon";
 import {SearchOutlined} from "@ant-design/icons";
 import PaginationCommon from "../../../common/pagination/Page";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
+import HideDelete from "../../../common/hideDelete/HideDelete";
+import PlanInstanceDrawer from "../../instance/components/PlanInstanceDrawer";
 
 
 const TestPlan = (props) => {
@@ -42,9 +42,17 @@ const TestPlan = (props) => {
             title:`计划时间`,
             dataIndex: "planTime",
             key: "planTime",
-            width: "25%",
+            width: "20%",
             render:(text,record)=>(
                 <span>{record.startTime} ~ {record.endTime}</span>
+            )
+        },{
+            title: `最近执行`,
+            dataIndex: "recentInstance",
+            key: "principal",
+            width: "15%",
+            render:(text,record)=>(
+                <PlanInstanceDrawer instance={record?.recentInstance} {...props} />
             )
         },
         {
@@ -59,14 +67,11 @@ const TestPlan = (props) => {
         {
             title: `状态`,
             dataIndex: "state",
-            key: "desc",
+            key: "state",
+            width: "10%",
             render: (text,record) =>(showState(record.state))
         },
-        // {
-        //     title: `执行人`,
-        //     dataIndex: ["principal",'name'],
-        //     key: "principal",
-        // },
+
         // {
         //     title: `描述`,
         //     dataIndex: "desc",
@@ -85,17 +90,9 @@ const TestPlan = (props) => {
                         findPage={findPage}
                     />
 
-                    <Popconfirm
-                        title="确定删除？"
-                        onConfirm={() =>deleteTestPlan(record.id).then(()=>findPage())}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <IconCommon
-                            className={"icon-s edit-icon"}
-                            icon={"shanchu3"}
-                        />
-                    </Popconfirm>
+                    <HideDelete
+                        deleteFn={() =>deleteTestPlan(record.id).then(()=>findPage())}
+                    />
                 </Space>
             ),
         },
@@ -242,7 +239,7 @@ const TestPlan = (props) => {
                 />
 
                 <Input
-                    placeholder={`${t('tcsearch')}`}
+                    placeholder={`搜索计划名`}
                     onPressEnter={onSearch}
                     className='search-input-common'
                     prefix={<SearchOutlined />}

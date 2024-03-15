@@ -29,7 +29,6 @@ const ApiSceneDetail = (props) =>{
                 director:testCase.director?.id,
                 desc: testCase.desc,
             })
-
         })
     },[apiSceneId])
 
@@ -69,7 +68,7 @@ const ApiSceneDetail = (props) =>{
             key: '2',
             children: <ApiSceneStepList apiSceneId={apiSceneId}/>
         },{
-            label: `环境变量`,
+            label: `环境变量 (${apiSceneInfo?.variableNum||0})`,
             key: '3',
             children: <VariableTable belongId={repositoryId}/>
         }

@@ -9,7 +9,6 @@ const UIResultCommon = (props) =>{
         <div style={{height:"calc(100% - 50px)"}}>
             <Spin spinning={spinning}>
                 <div className={"unit-instance-detail"}>
-                    <div className={"header-item"}>步骤总详情</div>
                     <div style={{padding:"10px 0 "}}>
                         <div className={"history-detail-all-box"}>
                             <div className={"history-detail-all-item"}>

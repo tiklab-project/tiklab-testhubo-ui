@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
 import apiSceneStepStore from "../store/apiSceneStepStore";
-import ConnectSelectCommon from "../../../../common/ConnectSelectCommon";
+import {Col, Input, Modal, Row, Table} from "antd"
+import {SearchOutlined} from "@ant-design/icons";
+import PaginationCommon from "../../../../../common/pagination/Page";
 
 const ApiSceneBindUnit =(props) =>{
-    const {setVisible,findList,apiSceneId,apiSceneStore} = props;
+    const {findList,apiSceneId,apiSceneStore} = props;
     const {apiSceneStepWillBindCaseData,findApiSceneStepWillBindCasePage,bindApiUnit} = apiSceneStepStore
     const {findApiScene} = apiSceneStore
 
@@ -36,10 +38,9 @@ const ApiSceneBindUnit =(props) =>{
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
-
-
-    useEffect( ()=>{
-         findApiSceneStepWillBindCasePage({
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        findApiSceneStepWillBindCasePage({
             pageParam: {
                 pageSize: pageSize,
                 currentPage:1
@@ -47,9 +48,16 @@ const ApiSceneBindUnit =(props) =>{
             repositoryId:repositoryId,
             apiSceneId: apiSceneId
         }).then(res=>{
-             setTotalPage(res.totalPage)
-         });
-    },[])
+            setTotalPage(res.totalPage)
+        });
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     // 提交
     const onFinish = async (id) => {
@@ -57,9 +65,7 @@ const ApiSceneBindUnit =(props) =>{
         await findList()
         await findPage()
         await findApiScene(apiSceneId)
-        setVisible(false);
     };
-
 
     const findPage = (params) =>{
         let param = {
@@ -97,16 +103,50 @@ const ApiSceneBindUnit =(props) =>{
 
     return(
         <>
-            <ConnectSelectCommon
-                setVisible={setVisible}
-                dataList={apiSceneStepWillBindCaseData?.dataList}
-                columns={column}
-                onSearch={onSearch}
-                onFinish={onFinish}
-                totalPage={totalPage}
-                currentPage={currentPage}
-                onTableChange={onTableChange}
-            />
+            <a onClick={showModal}>关联用例</a>
+            <Modal
+                title="关联"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                width={700}
+                footer={false}
+            >
+                <div style={{padding:"0 0 15px"}}>
+                    <Row gutter={16}>
+                        <Col className="gutter-row" span={8}>
+                            <Input
+                                placeholder={`搜索名称`}
+                                onPressEnter={onSearch}
+                                onChange={onSearch}
+                                className='demand_project_search'
+                                prefix={<SearchOutlined />}
+                            />
+                        </Col>
+                    </Row>
+                </div>
+                <div style={{"overflow": "auto","height": "calc(100% - 38px)"}}>
+                    <div className={"table-list-box"} >
+                        <Table
+                            columns={column}
+                            dataSource={apiSceneStepWillBindCaseData?.dataList}
+                            rowKey = {record => record.id}
+                            onRow={(record) => {
+                                return {
+                                    onClick: () => {onFinish(record.id)},
+                                    style: {cursor: 'pointer'}
+                                };
+                            }}
+                            pagination={false}
+                        />
+                        <PaginationCommon
+                            currentPage={currentPage}
+                            totalPage={totalPage}
+                            changePage={onTableChange}
+                        />
+                    </div>
+                </div>
+            </Modal>
         </>
     )
 }

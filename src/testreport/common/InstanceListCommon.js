@@ -15,6 +15,9 @@ import {useHistory} from "react-router";
 import MenuSelect from "../../common/menuSelect/MenuSelect";
 import {CheckCircleTwoTone, CloseCircleTwoTone, LoadingOutlined, SearchOutlined} from "@ant-design/icons";
 import CaseTypeSelect from "../../test/testcase/components/CaseTypeSelect";
+import {TextMethodType} from "../../test/api/http/common/methodType";
+import "./instanceListStyle.scss"
+import HideDelete from "../../common/hideDelete/HideDelete";
 
 const InstanceListCommon = (props) =>{
     const {belongId,type} = props;
@@ -30,14 +33,14 @@ const InstanceListCommon = (props) =>{
         dataIndex: 'executeNumber',
         key: "executeNumber",
         width: "10%",
-        render:(text,record)=>(showTitle(text,record))
+        render:(text,record)=>(showTitle(text,record,"executeNumber"))
     }
     const nameColumn =[
         {
             title: '名称',
             dataIndex: 'name',
             key: "name",
-            width: "15%",
+            width: "20%",
             render:(text,record)=>(showTitle(text,record))
         },{
             title: '类型',
@@ -49,10 +52,10 @@ const InstanceListCommon = (props) =>{
     ]
     const column = [
         {
-            title: '详情',
+            title: '概要详情',
             dataIndex: "detail",
             key: "detail",
-            width: "55%",
+            width: "40%",
             render:(text,record)=>(showDetail(record))
         },
         {
@@ -65,7 +68,7 @@ const InstanceListCommon = (props) =>{
             title: `测试时间`,
             dataIndex: "createTime",
             key: "createTime",
-            width: "10%",
+            width: "15%",
         },
         {
             title: '操作',
@@ -73,10 +76,8 @@ const InstanceListCommon = (props) =>{
             key: 'operation',
             width: 120,
             render: (text, record) => (
-                <IconCommon
-                    className={"icon-s edit-icon"}
-                    icon={"shanchu3"}
-                    onClick={() => deleteInstance(record.id,record.caseType).then(()=>findPage())}
+                <HideDelete
+                    deleteFn={() => deleteInstance(record.id,record.caseType).then(()=>findPage())}
                 />
             )
         },
@@ -161,18 +162,18 @@ const InstanceListCommon = (props) =>{
     /**
      * 根据类型展示不同的界面
      */
-    const showTitle = (text,record)=>{
+    const showTitle = (text,record,executeNumber)=>{
         switch (record.type) {
             case CASE_TYPE.API_UNIT:
-                return <ApiUnitInstanceSinglePage apiUnitInstanceId={record.id} name={text}/>
+                return <ApiUnitInstanceSinglePage apiUnitInstanceId={record.id} name={`${text} ${executeNumber?'':`#${record.executeNumber}`}`}/>
             case CASE_TYPE.API_SCENE:
-                return <ApiSceneInstanceSinglePage apiSceneInstanceId={record.id} name={text}/>
+                return <ApiSceneInstanceSinglePage apiSceneInstanceId={record.id} name={`${text} ${executeNumber?'':`#${record.executeNumber}`}`}/>
             case CASE_TYPE.API_PERFORM:
-                return <ApiPerfInstanceSinglePage name={text} apiPerfInstanceId={record.id}/>
+                return <ApiPerfInstanceSinglePage apiPerfInstanceId={record.id} name={`${text} ${executeNumber?'':`#${record.executeNumber}`}`}/>
             case CASE_TYPE.WEB:
-                return <WebSceneInstanceSinglePage webSceneInstanceId={record.id} name={text}/>
+                return <WebSceneInstanceSinglePage webSceneInstanceId={record.id} name={`${text} ${executeNumber?'':`#${record.executeNumber}`}`}/>
             case CASE_TYPE.APP:
-                return <AppSceneInstanceSinglePage appSceneInstanceId={record.id} name={text}/>
+                return <AppSceneInstanceSinglePage appSceneInstanceId={record.id} name={`${text} ${executeNumber?'':`#${record.executeNumber}`}`}/>
             case CASE_TYPE.TEST_PLAN:
 
                 if(type === CASE_TYPE.TEST_REPORT){
@@ -183,8 +184,8 @@ const InstanceListCommon = (props) =>{
                             history.push(`/repository/report/${record.id}`)
                         }}
                     >
-                    {text}
-                </span>
+                        {text}  {executeNumber?'':`#${record.executeNumber}`}
+                    </span>
                 }else {
                     return <span
                         className={"link-text"}
@@ -193,8 +194,8 @@ const InstanceListCommon = (props) =>{
                             history.push(`/plan/${record.id}`)
                         }}
                     >
-                    {text}
-                </span>
+                        {text}
+                    </span>
                 }
 
         }
@@ -230,30 +231,30 @@ const InstanceListCommon = (props) =>{
             {showResult(record.status)}
             <div>
                 <div className={"display-flex-gap"}>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> 请求类型:</div>
-                    <div>{content.requestType}</div>
+                    <TextMethodType type={content.requestType}/>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
                     {
                         content.statusCode
                             ? <>
-                                <div style={{fontSize: "12px", color: "#aaa"}}> 状态码:</div>
                                 <div>{content.statusCode}</div>
                             </>
                             :null
                     }
+                    <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
                     {
                         content.elapsedTime
                             ? <>
-                                <div style={{fontSize: "12px", color: "#aaa"}}> 时间:</div>
+                                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 时间:</div>*/}
                                 <div>{content.elapsedTime} ms</div>
                             </>
                             :null
                     }
 
                 </div>
-                <div className={"display-flex-gap"}>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> 请求地址:</div>
-                    <div>{content.url}</div>
-                </div>
+                {/*<div className={"display-flex-gap"}>*/}
+                {/*    <div style={{fontSize: "12px", color: "#aaa"}}> 请求地址:</div>*/}
+                {/*    <div>{content.url}</div>*/}
+                {/*</div>*/}
             </div>
         </div>
     )
@@ -262,14 +263,17 @@ const InstanceListCommon = (props) =>{
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div className={"display-flex-gap"}>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>*/}
                 <div>{content.testNumber}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 耗时:</div>
-                <div>{content.elapsedTime}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>
-                <div>{content.passNumber}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>
-                <div>{content.passRate}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 耗时:</div>*/}
+                <div>{content.elapsedTime} ms</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>*/}
+                <div className={"instance-green"}>{content.passNumber}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>*/}
+                <div className={"instance-green"}>{content.passRate}</div>
             </div>
 
         </div>
@@ -279,16 +283,20 @@ const InstanceListCommon = (props) =>{
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div className={"display-flex-gap"}>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>*/}
                 <div>{content.total}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>
-                <div>{content.passNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>
-                <div>{content.passRate}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 错误数:</div>
-                <div>{content.failNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 失败率:</div>
-                <div>{content.errorRate}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>*/}
+                <div className={"instance-green"}>{content.passNum}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}} > /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>*/}
+                <div className={"instance-green"}>{content.passRate}</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 错误数:</div>*/}
+                {/*<div className={"instance-red"}>{content.failNum}</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 失败率:</div>*/}
+                {/*<div>{content.errorRate}</div>*/}
             </div>
         </div>
     )
@@ -297,14 +305,17 @@ const InstanceListCommon = (props) =>{
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div className={"display-flex-gap"}>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>*/}
                 <div>{content.stepNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 耗时:</div>
-                <div>{content.totalDuration}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>
-                <div>{content.passNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>
-                <div>{content.passRate}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 耗时:</div>*/}
+                <div>{content.totalDuration} ms</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>*/}
+                <div className={"instance-green"}>{content.passNum}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>*/}
+                <div className={"instance-green"}>{content.passRate}</div>
             </div>
         </div>
     )
@@ -313,14 +324,17 @@ const InstanceListCommon = (props) =>{
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div className={"display-flex-gap"}>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>*/}
                 <div>{content.stepNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>
-                <div>{content.passRate}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>
-                <div>{content.passNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> 失败数:</div>
-                <div>{content.failNum}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>*/}
+                <div className={"instance-green"}>{content.passRate}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>*/}
+                <div className={"instance-green"}>{content.passNum}</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 失败数:</div>*/}
+                {/*<div className={"instance-red"}>{content.failNum}</div>*/}
             </div>
         </div>
     )
@@ -329,21 +343,27 @@ const InstanceListCommon = (props) =>{
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div>
+                {/*<div className={"display-flex-gap"}>*/}
+                {/*    /!*<div style={{fontSize: "12px", color: "#aaa"}}> 总用例:</div>*!/*/}
+                {/*    <div>{content.total}</div>*/}
+                {/*    <div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                {/*    /!*<div style={{fontSize: "12px", color: "#aaa"}}> 可执行用例:</div>*!/*/}
+                {/*    <div>{content.executableCaseNum}</div>*/}
+                {/*</div>*/}
                 <div className={"display-flex-gap"}>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> 总用例:</div>
-                    <div>{content.total}</div>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> 可执行用例:</div>
                     <div>{content.executableCaseNum}</div>
-                </div>
-                <div className={"display-flex-gap"}>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>
-                    <div>{content.passNum}</div>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>
-                    <div>{content.passRate}</div>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> 错误数:</div>
-                    <div>{content.failNum}</div>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> 失败率:</div>
-                    <div>{content.errorRate}</div>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                    {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>*/}
+                    <div className={"instance-green"}>{content.passNum}</div>
+                    <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                    {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>*/}
+                    <div className={"instance-green"}>{content.passRate}</div>
+                    {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                    {/*<div style={{fontSize: "12px", color: "#aaa"}}> 错误数:</div>*/}
+                    {/*<div className={"instance-red"}>{content.failNum}</div>*/}
+                    {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                    {/*<div style={{fontSize: "12px", color: "#aaa"}}> 失败率:</div>*/}
+                    {/*<div className={"instance-red"}>{content.errorRate}</div>*/}
                 </div>
             </div>
 
@@ -359,8 +379,6 @@ const InstanceListCommon = (props) =>{
             case "start": return <LoadingOutlined twoToneColor={"blue"} />
             default: return <LoadingOutlined twoToneColor={"blue"} />
         }
-
-
     }
 
     //搜索
@@ -473,7 +491,7 @@ const InstanceListCommon = (props) =>{
                                 </>
 
                                 <Input
-                                    placeholder={`搜索用例`}
+                                    placeholder={`搜索用例名`}
                                     onPressEnter={onSearch}
                                     className='search-input-common'
                                     prefix={<SearchOutlined/>}

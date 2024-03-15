@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {observer} from "mobx-react";
-import {TextMethodType} from "../../common/methodType";
-import {processResHeader} from "../../common/response/testResponseFnCommon";
-import ResponseCommon from "../../common/response/responseCommon/responseCommon";
 import apiUnitInstanceStore from "../store/apiUnitInstanceStore";
 import CaseBread from "../../../../../common/CaseBread";
 import {Drawer} from "antd";
+import ApiUnitInstanceDetail from "./apiUnitInstanceDetail";
 
 const ApiUnitInstanceSinglePage = (props) =>{
     const {apiUnitInstanceId,name} = props
@@ -51,26 +49,6 @@ const ApiUnitInstanceSinglePage = (props) =>{
         },
     ]
 
-    //响应结果基础信息展示
-    const showDetail = (data) =>{
-        return data.map(item=>{
-            return(
-                <div key={item.key} className={"history-detail-item-box"}>
-                    <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
-                        <span className={"history-detail-item-box-title"}>{item.title}</span>
-                    </div>
-
-                    {
-                        item.key==="methodType"
-                            ? <TextMethodType type={allData?.requestInstance?.requestType} />
-                            :<span className={"history-detail-item-box-value"}>{item.value}</span>
-                    }
-
-                </div>
-            )
-        })
-    }
-
 
     return(
         <>
@@ -90,13 +68,10 @@ const ApiUnitInstanceSinglePage = (props) =>{
                     icon={"api1"}
                     setOpen={setOpen}
                 />
-                <ResponseCommon
-                    error={allData?.errMessage}
-                    detail={showDetail(detail)}
-                    reqHeader={processResHeader(allData?.requestInstance?.requestHeader)}
-                    resBody={allData?.responseInstance?.responseBody}
-                    resHeader={processResHeader(allData?.responseInstance?.responseHeader)}
-                    assertList={allData?.responseInstance?.assertInstanceList}
+
+                <ApiUnitInstanceDetail
+                    detail={detail}
+                    allData={allData}
                 />
             </Drawer>
         </>

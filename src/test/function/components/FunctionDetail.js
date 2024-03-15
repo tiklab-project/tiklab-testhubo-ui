@@ -32,7 +32,6 @@ const FunctionDetail = (props) =>{
                 director:testCase.director?.id,
                 desc: testCase.desc,
             })
-
         })
     },[functionId])
 
@@ -98,7 +97,7 @@ const FunctionDetail = (props) =>{
             key: '2',
             children: <FuncUnitStepTable functionId={functionId}/>
         },{
-            label: `关联缺陷`,
+            label: `关联缺陷 (${funcUnitInfo?.defectNum||0})`,
             key: '3',
             children: <WorkItemBindList caseId={functionId} />
         }

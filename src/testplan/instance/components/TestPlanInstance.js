@@ -1,25 +1,19 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Space, Table} from "antd";
-import {inject, observer} from "mobx-react";
+import CaseBread from "../../../common/CaseBread";
+import {Empty, Table} from "antd";
 import emptyImg from "../../../assets/img/empty.png";
-import {showCaseTypeTable, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
-import ApiUnitInstanceDrawer from "../../../test/api/http/unit/components/apiUnitInstanceSinglePage";
-import ApiSceneInstanceDrawer from "../../../test/api/http/scene/components/apiSceneInstanceSinglePage";
-import WebSceneInstanceDrawer from "../../../test/web/scene/components/WebSceneInstanceSinglePage";
-import AppSceneInstanceDrawer from "../../../test/app/scene/components/AppSceneInstanceSinglePage";
-import ApiPerformInstanceDrawer from "../../../test/api/http/perf/components/ApiPerfInstanceSinglePage";
-import WebPerformInstanceDrawer from "../../../test/web/perf/components/webPerformInstanceDrawer";
-import AppPerformInstanceDrawer from "../../../test/app/perf/components/appPerformInstanceDrawer";
-import testPlanInstanceStore from "../store/testPlanInstanceStore";
-import testPlanBindCaseInstanceStore from "../store/testPlanBindCaseInstanceStore";
 import PaginationCommon from "../../../common/pagination/Page";
+import {showCaseTypeTable, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
+import testPlanBindCaseInstanceStore from "../store/testPlanBindCaseInstanceStore";
+import testPlanInstanceStore from "../store/testPlanInstanceStore";
+import {CASE_TYPE} from "../../../test/common/DefineVariables.js"
+import {useHistory} from "react-router";
 
-const TestPlanBindCaseInstanceTable = (props) =>{
+const TestPlanInstance = (props) =>{
     const {
         findTestPlanBindCaseInstancePage,
         testPlanBindCaseInstanceList,
     } = testPlanBindCaseInstanceStore;
-
     const {findTestPlanInstance} = testPlanInstanceStore;
 
     const column = [
@@ -28,7 +22,9 @@ const TestPlanBindCaseInstanceTable = (props) =>{
             dataIndex: "name",
             key: "name",
             width:'30%',
-            render:(text,record)=>(showCaseInstance(record))
+            render:(text,record)=>(
+                <span className={"link-text"}  onClick={()=>showCaseInstance(record)}>{text}</span>
+            )
         },
         {
             title:`测试类型`,
@@ -56,8 +52,8 @@ const TestPlanBindCaseInstanceTable = (props) =>{
         },
     ]
 
+    const history = useHistory()
     const testPlanInstanceId = sessionStorage.getItem("testPlanInstanceId")
-
     const [allData, setAllData] = useState();
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(12);
@@ -69,6 +65,7 @@ const TestPlanBindCaseInstanceTable = (props) =>{
         }
     })
 
+
     useEffect(async ()=>{
         let res = await findTestPlanInstance(testPlanInstanceId)
 
@@ -78,6 +75,7 @@ const TestPlanBindCaseInstanceTable = (props) =>{
     useEffect(async()=>{
         await findPage()
     },[pageParam])
+
 
     const findPage = async () => {
         let param = {
@@ -91,27 +89,31 @@ const TestPlanBindCaseInstanceTable = (props) =>{
 
     }
 
-
     const showCaseInstance = (record) =>{
         switch (record.caseType) {
-            case "api-unit":
-                return <ApiUnitInstanceDrawer name={record.name}  apiUnitInstanceId={record.caseInstanceId}/>
-            case "api-scene":
-                return <ApiSceneInstanceDrawer name={record.name}  apiSceneInstanceId={record.caseInstanceId}/>
-            case "web-scene":
-                return <WebSceneInstanceDrawer name={record.name}  webSceneInstanceId={record.caseInstanceId}/>
-            case "app-scene":
-                return <AppSceneInstanceDrawer name={record.name}  appSceneInstanceId={record.caseInstanceId}/>
-            case "api-perform":
-                return <ApiPerformInstanceDrawer name={record.name} apiPerfInstanceId={record.caseInstanceId} />
-            case "web-perform":
-                return  <WebPerformInstanceDrawer name={record.name} webPerfInstanceId={record.caseInstanceId} />
-            case "app-perform":
-                return <AppPerformInstanceDrawer name={record.name} appPerfInstanceId={record.caseInstanceId} />
+            case CASE_TYPE.API_UNIT:
+                toCaseDetail("apiUnitInstanceId",record)
+                break;
+            case CASE_TYPE.API_SCENE:
+                toCaseDetail("apiSceneInstanceId",record)
+                break;
+            case  CASE_TYPE.WEB_SCENE:
+                toCaseDetail("webSceneInstanceId",record)
+                break;
+            case CASE_TYPE.APP_SCENE:
+                toCaseDetail("appSceneInstanceId",record)
+                break;
+            case CASE_TYPE.API_PERFORM:
+                toCaseDetail("apiPerfInstanceId",record)
         }
     }
 
-    // 分页
+    const toCaseDetail = (setId,record)=> {
+        sessionStorage.setItem(`${setId}`, record.caseInstanceId);
+        history.push(`/repository/plan/${record.caseType}`)
+    }
+
+        // 分页
     const onTableChange = (current) => {
         setCurrentPage(current)
         const newParams = {
@@ -128,6 +130,11 @@ const TestPlanBindCaseInstanceTable = (props) =>{
 
     return(
         <>
+            <CaseBread
+                breadItem={["历史详情"]}
+                icon={"jihua"}
+                // setOpen={setOpen}
+            />
             <div className={"history-detail-all"}>
                 <div className={"history-detail-all-box"}>
                     <div className={"history-detail-all-item"}>
@@ -156,7 +163,6 @@ const TestPlanBindCaseInstanceTable = (props) =>{
                     </div>
                 </div>
             </div>
-
             <div className={"table-list-box"}>
                 <Table
                     columns={column}
@@ -178,8 +184,7 @@ const TestPlanBindCaseInstanceTable = (props) =>{
                 />
             </div>
         </>
-
     )
 }
 
-export default observer(TestPlanBindCaseInstanceTable);
+export default TestPlanInstance;

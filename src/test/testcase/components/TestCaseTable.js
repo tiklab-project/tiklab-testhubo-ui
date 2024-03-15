@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Avatar, Empty, Input, Popconfirm, Space, Table, Tag, TreeSelect} from "antd";
+import {Avatar, Empty, Input, Popconfirm, Space, Table, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
-import IconCommon from "../../../common/IconCommon";
 import { showCaseTypeTable, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router";
@@ -16,6 +15,7 @@ import {CASE_TYPE} from "../../common/DefineVariables";
 import PaginationCommon from "../../../common/pagination/Page";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
+import HideDelete from "../../../common/hideDelete/HideDelete";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -83,24 +83,16 @@ const TestCaseTable = (props) => {
             width: 50,
             render: (text, record) => (
                 <Space size="middle">
-                    <Popconfirm
-                        title="确定删除？"
-                        onConfirm={() =>deleteTestCase(record.id,record.caseType).then(()=>findPage())}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <IconCommon
-                            className={"icon-s edit-icon"}
-                            icon={"shanchu3"}
-                        />
-                    </Popconfirm>
+                    <HideDelete
+                        deleteFn={() =>deleteTestCase(record.id,record.caseType).then(()=>findPage())}
+                    />
                 </Space>
             )
         },
     ]
 
     const [tableLoading,setTableLoading] = useState(true);
-    const [selectItem, setSelectItem] = useState("all");
+    const [selectCaseType, setMenuCaseType] = useState("all");
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(20);
@@ -152,20 +144,40 @@ const TestCaseTable = (props) => {
         }
     }
 
-    //模块赛选
-    const changeCategory=(categoryId)=> {
+    //点击测试类型筛选项查找
+    const selectKeyFun = (item)=>{
+        let key = item.key
+        setMenuCaseType(key)
+
         let param
-        if(categoryId==="null"){
-            setSelectCategory(null)
-            param = {categoryId:null}
-        }else {
-            setSelectCategory(categoryId)
-            param = {categoryId:categoryId}
+        if(key!=="all"){
+            param={testType:key}
         }
 
         findPage(param)
     }
 
+    //模块赛选
+    const changeCategory=(categoryId)=> {
+        let param = {
+            testType:selectCaseType
+        }
+        if(categoryId==="null"){
+            setSelectCategory(null)
+            param = {
+                categoryId:null,
+                ...param
+            }
+        }else {
+            setSelectCategory(categoryId)
+            param = {
+                categoryId:categoryId,
+                ...param
+            }
+        }
+
+        findPage(param)
+    }
 
     // 分页
     const onTableChange = (current) => {
@@ -185,6 +197,38 @@ const TestCaseTable = (props) => {
     const onSearch = (e) =>{
         setCurrentPage(1)
         let param = {name: e.target.value}
+
+        findPage(param)
+    }
+
+    const items = [
+        {
+            title: `所有 (${diffTypeCaseNum?.all||0})`,
+            key: `all`,
+        },
+        {
+            title: `功能 (${diffTypeCaseNum?.function||0})`,
+            key: `function`,
+        },
+        {
+            title: `接口 (${diffTypeCaseNum?.api||0})`,
+            key: `api`,
+        },
+        {
+            title: `UI (${diffTypeCaseNum?.ui||0})`,
+            key: `ui`,
+        },
+        {
+            title: `性能 (${diffTypeCaseNum?.perform||0})`,
+            key: `perform`,
+        }
+    ];
+
+    const caseSelectPage = (value) =>{
+        let param = {
+            testType:selectCaseType,
+            caseTypeList:value
+        }
 
         findPage(param)
     }
@@ -233,54 +277,6 @@ const TestCaseTable = (props) => {
         testCaseRecent(params)
     }
 
-
-    const items = [
-        {
-            title: `所有 (${diffTypeCaseNum?.all||0})`,
-            key: `all`,
-        },
-        {
-            title: `功能 (${diffTypeCaseNum?.function||0})`,
-            key: `function`,
-        },
-        {
-            title: `接口 (${diffTypeCaseNum?.api||0})`,
-            key: `api`,
-        },
-        {
-            title: `UI (${diffTypeCaseNum?.ui||0})`,
-            key: `ui`,
-        },
-        {
-            title: `性能 (${diffTypeCaseNum?.perform||0})`,
-            key: `perform`,
-        }
-    ];
-
-    //点击测试类型筛选项查找
-    const selectKeyFun = (item)=>{
-        let key = item.key
-        setSelectItem(key)
-
-        let param
-        if(key!=="all"){
-            param={testType:key}
-        }
-
-        findPage(param)
-    }
-
-
-    const caseSelectPage = (value) =>{
-        let param = {
-            testType:selectItem,
-            caseTypeList:value
-        }
-
-        findPage(param)
-    }
-
-
     return(
         <>
             <div className={"content-box-center"} >
@@ -298,15 +294,15 @@ const TestCaseTable = (props) => {
                     <MenuSelect
                         menuItems={items}
                         selectFn={selectKeyFun}
-                        selected={selectItem}
+                        selected={selectCaseType}
                         style={{width: "400px"}}
                     />
 
                     <Space>
                         <>
                             {
-                                selectItem==="api"||selectItem==="ui"
-                                    ?<CaseTypeSelect findPage={caseSelectPage} testType={selectItem}/>
+                                selectCaseType==="api"||selectCaseType==="ui"
+                                    ?<CaseTypeSelect findPage={caseSelectPage} testType={selectCaseType}/>
                                     :null
                             }
                         </>
@@ -324,7 +320,7 @@ const TestCaseTable = (props) => {
                         />
 
                         <Input
-                            placeholder={`搜索用例`}
+                            placeholder={`搜索用例名`}
                             onPressEnter={onSearch}
                             className='search-input-common'
                             prefix={<SearchOutlined />}

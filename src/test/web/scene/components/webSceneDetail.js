@@ -64,7 +64,7 @@ const WebSceneDetail = (props) => {
             key: '2',
             children:  <WebSceneStepList webSceneId={webSceneId}/>
         },{
-            label: `环境变量`,
+            label: `环境变量 (${webSceneInfo?.variableNum||0})`,
             key: '3',
             children: <VariableTable belongId={webSceneId}/>
         }

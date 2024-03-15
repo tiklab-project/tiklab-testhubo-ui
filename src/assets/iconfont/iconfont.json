@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "23962204",
+      "name": "icon_level2",
+      "font_class": "icon_level2",
+      "unicode": "e6a1",
+      "unicode_decimal": 59041
+    },
+    {
+      "icon_id": "23962205",
+      "name": "icon_level3",
+      "font_class": "icon_level3",
+      "unicode": "e6a2",
+      "unicode_decimal": 59042
+    },
+    {
+      "icon_id": "23962206",
+      "name": "icon_level1",
+      "font_class": "icon_level1",
+      "unicode": "e6a3",
+      "unicode_decimal": 59043
+    },
+    {
+      "icon_id": "14930294",
+      "name": "Left向左 (9)",
+      "font_class": "Leftxiangzuo9",
+      "unicode": "e700",
+      "unicode_decimal": 59136
+    },
+    {
       "icon_id": "3759642",
       "name": "电脑",
       "font_class": "diannao1",

@@ -5,6 +5,7 @@ import {inject, observer} from "mobx-react";
 import {Axios} from "thoughtware-core-ui";
 import CaseDesc from "./CaseDesc";
 import {showCaseTypeInList} from "./CaseCommonFn";
+import IconCommon from "../IconCommon";
 
 const {Option} = Select
 const tailLayout = {
@@ -64,7 +65,7 @@ const DetailCommon = (props) =>{
                                         maxHeight: 400,
                                         overflow: 'auto',
                                     }}
-                                    placeholder="选择模块"
+                                    placeholder="未设置"
                                     allowClear
                                     treeDefaultExpandAll
                                     treeData={categoryTableList}
@@ -73,7 +74,7 @@ const DetailCommon = (props) =>{
                         </Col>
                         <Col span={9}>
                             <Form.Item label={"状态"} name="status" >
-                                <Select placeholder={"无"}>
+                                <Select placeholder={"未设置"}>
                                     <Option value={0}><Tag color="cyan">未开始</Tag></Option>
                                     <Option value={1}><Tag color="processing">进行中</Tag></Option>
                                     <Option value={2}><Tag color="success">结束</Tag></Option>
@@ -82,7 +83,7 @@ const DetailCommon = (props) =>{
                         </Col>
                         <Col span={9}>
                             <Form.Item label={"责任人"} name="director">
-                                <Select placeholder={"无"}>
+                                <Select placeholder={"未设置"}>
                                     {
                                         userList&&userList.map(item=>{
                                             return <Option key={item?.user?.id} value={item?.user?.id}>{item?.user?.nickname}</Option>
@@ -93,10 +94,37 @@ const DetailCommon = (props) =>{
                         </Col>
                         <Col span={9}>
                             <Form.Item label={"优先级"} name="priorityLevel" >
-                                <Select placeholder={"无"}>
-                                    <Option value={0}>低</Option>
-                                    <Option value={1}>中</Option>
-                                    <Option value={2}>高</Option>
+                                <Select placeholder={"未设置"}>
+                                    <Option value={0}>
+                                        <div className={"display-flex-gap"}>
+                                            <IconCommon
+                                                className={"icon-s"}
+                                                icon={"icon_level1"}
+                                                style={{cursor:"pointer"}}
+                                            />
+                                            <div>低</div>
+                                        </div>
+                                    </Option>
+                                    <Option value={1}>
+                                        <div className={"display-flex-gap"}>
+                                            <IconCommon
+                                                className={"icon-s"}
+                                                icon={"icon_level2"}
+                                                style={{cursor:"pointer"}}
+                                            />
+                                            <div>中</div>
+                                        </div>
+                                    </Option>
+                                    <Option value={2}>
+                                        <div className={"display-flex-gap"}>
+                                            <IconCommon
+                                                className={"icon-s"}
+                                                icon={"icon_level3"}
+                                                style={{cursor:"pointer"}}
+                                            />
+                                            <div>高</div>
+                                        </div>
+                                    </Option>
                                 </Select>
                             </Form.Item>
                         </Col>

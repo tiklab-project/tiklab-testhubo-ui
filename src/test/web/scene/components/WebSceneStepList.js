@@ -204,7 +204,7 @@ const WebSceneStepList = (props) => {
         <>
             <div className={"table-list-box"}>
                   <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                     <div> ( {stepList.length} ) 个步骤</div>
+                     <div> 共 {stepList.length} 个步骤</div>
                      <Dropdown
                         overlay={menu}
                         placement="bottom"

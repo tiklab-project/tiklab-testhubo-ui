@@ -5,7 +5,6 @@ import IconCommon from "../../../common/IconCommon";
 import { showCaseTypeTable} from "../../../common/caseCommon/CaseCommonFn";
 import emptyImg from "../../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
-import IconBtn from "../../../common/iconBtn/IconBtn";
 import TestPlanBindCase from "./testPlanBindCase";
 import PaginationCommon from "../../../common/pagination/Page";
 import {useHistory} from "react-router";
@@ -114,8 +113,6 @@ const TestPlanBindCaseList = (props) =>{
         findPage()
     },[pageParam,testPlanId])
 
-
-
     const findPage = (params) =>{
         const param = {
             testPlanId:testPlanId,
@@ -140,12 +137,6 @@ const TestPlanBindCaseList = (props) =>{
         }
 
         setPageParam(newParams)
-    }
-
-
-    const [visible, setVisible] = useState(false);
-    const showConnect =()=>{
-        setVisible(true);
     }
 
     const showCreateUser = (createUser) =>{
@@ -262,71 +253,61 @@ const TestPlanBindCaseList = (props) =>{
                 <Space>
                     <TestPlanENVModal {...props}/>
                     <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
-                    <IconBtn
-                        className="pi-icon-btn-grey"
-                        name={"关联用例"}
-                        onClick={showConnect}
+                    <TestPlanBindCase
+                        testPlanId={testPlanId}
+                        findBindCasePage={findPage}
                     />
                 </Space>
             </div>
             <div style={{margin:"10px 0",height:"100%"}}>
-                <div className={`${visible?"teston-hide":"teston-show"}`} >
-                    <div className='display-flex-between'>
-                        <MenuSelect
-                            menuItems={items}
-                            selectFn={selectKeyFun}
-                            selected={selectItem}
-                            style={{width: "300px"}}
-                        />
+                <div className='display-flex-between'>
+                    <MenuSelect
+                        menuItems={items}
+                        selectFn={selectKeyFun}
+                        selected={selectItem}
+                        style={{width: "300px"}}
+                    />
 
-                        <Space>
-                            {
-                                selectItem==="api"||selectItem==="ui"
-                                    ?<CaseTypeSelect findPage={caseSelectPage} testType={selectItem}/>
-                                    :null
-                            }
-                            <Input
-                                placeholder={`搜索用例`}
-                                onPressEnter={onSearch}
-                                className='search-input-common'
-                                prefix={<SearchOutlined />}
-                            />
-                        </Space>
-                    </div>
-
-                    <div className={"table-list-box"}>
-                        <Table
-                            className="tablelist"
-                            columns={columns}
-                            dataSource={testPlanDetailList}
-                            rowKey={record => record.id}
-                            pagination={false}
-                            loading={tableLoading}
-                            locale={{
-                                emptyText: <Empty
-                                    imageStyle={{height: 120}}
-                                    description={<span>暂无用例</span>}
-                                    image={emptyImg}
-                                />,
-                            }}
+                    <Space>
+                        {
+                            selectItem==="api"||selectItem==="ui"
+                                ?<CaseTypeSelect findPage={caseSelectPage} testType={selectItem}/>
+                                :null
+                        }
+                        <Input
+                            placeholder={`搜索用例`}
+                            onPressEnter={onSearch}
+                            className='search-input-common'
+                            prefix={<SearchOutlined />}
                         />
-                        <PaginationCommon
-                            currentPage={currentPage}
-                            totalPage={totalPage}
-                            changePage={onTableChange}
-                        />
-                    </div>
+                    </Space>
                 </div>
-                <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
-                    <TestPlanBindCase
-                        setVisible={setVisible}
-                        testPlanId={testPlanId}
-                        findBindCasePage={findPage}
+                <div className={"table-list-box"}>
+                    <Table
+                        className="tablelist"
+                        columns={columns}
+                        dataSource={testPlanDetailList}
+                        rowKey={record => record.id}
+                        pagination={false}
+                        loading={tableLoading}
+                        locale={{
+                            emptyText: <Empty
+                                imageStyle={{height: 120}}
+                                description={<span>暂无用例</span>}
+                                image={emptyImg}
+                            />,
+                        }}
+                    />
+                    <PaginationCommon
+                        currentPage={currentPage}
+                        totalPage={totalPage}
+                        changePage={onTableChange}
                     />
                 </div>
             </div>
         </div>
     )
 }
+
 
 export default inject("testcaseStore","testPlanStore")(observer(TestPlanBindCaseList));

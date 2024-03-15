@@ -49,8 +49,6 @@ const ApiPerfStepList = (props) =>{
     ]
 
     let history = useHistory()
-    const [visible, setVisible] = useState(false);
-
     useEffect(async ()=>{
         await findApiPerfStepList(apiPerfId)
     },[apiPerfId])
@@ -60,33 +58,16 @@ const ApiPerfStepList = (props) =>{
         history.push("/repository/api-perform-to-scene")
     }
 
-    const showConnect =()=>{
-        setVisible(true);
-    }
-
-
     return(
         <div style={{margin:"10px 0",height:"100%"}}>
-            <div className={`${visible?"teston-hide":"teston-show"}`} >
-                <IconBtn
-                    className="pi-icon-btn-grey"
-                    name={"关联用例"}
-                    onClick={showConnect}
-                />
-                <div className={"table-list-box"}>
-                <Table
-                    columns={column}
-                    dataSource={apiPerfStepList}
-                    rowKey = {record => record.id}
-                    pagination={false}
-                />
-                </div>
-            </div>
-            <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
-                <ApiPerformBindScene
-                    visible={visible}
-                    setVisible={setVisible}
-                />
+            <ApiPerformBindScene />
+            <div className={"table-list-box"}>
+            <Table
+                columns={column}
+                dataSource={apiPerfStepList}
+                rowKey = {record => record.id}
+                pagination={false}
+            />
             </div>
         </div>
     )

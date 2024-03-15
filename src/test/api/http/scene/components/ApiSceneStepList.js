@@ -18,9 +18,7 @@ const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 const ApiSceneStepList = (props) => {
     const {apiSceneId,apiSceneStore} = props
     const {findApiScene} = apiSceneStore
-
     const [stepList, setStepList] = useState([]);
-    const [visible, setVisible] = useState(false);
 
     useEffect(async ()=> {
         await findList()
@@ -162,37 +160,37 @@ const ApiSceneStepList = (props) => {
         });
     };
 
-    const showConnect = async ()=>{
-        setVisible(true);
-    }
-
     //添加步骤
     const menu = (
         <Menu>
-            <Menu.Item><a onClick={showConnect}>关联用例</a></Menu.Item>
+            <Menu.Item>
+                <ApiSceneBindUnit
+                    findList={findList}
+                    apiSceneId={apiSceneId}
+                />
+            </Menu.Item>
             <Menu.Item><IfJudgmentEdit caseId={apiSceneId} findList={findList}/> </Menu.Item>
         </Menu>
     );
 
     return (
         <div className={"table-list-box"}>
-            <div className={`${visible?"teston-hide":"teston-show"}`} >
-                <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                    <div> ( {stepList.length} ) 个步骤</div>
-                    <Dropdown
-                        overlay={menu}
-                        placement="bottom"
-                    >
-                        <span>
-                          <IconBtn
-                              className="pi-icon-btn-grey"
-                              name={"添加步骤"}
-                          />
-                        </span>
-                    </Dropdown>
+            <div className={"display-flex-between"} style={{margin: "10px 0"}}>
+                <div> 共 {stepList.length} 个步骤</div>
+                <Dropdown
+                    overlay={menu}
+                    placement="bottom"
+                >
+                    <span>
+                      <IconBtn
+                          className="pi-icon-btn-grey"
+                          name={"添加步骤"}
+                      />
+                    </span>
+                </Dropdown>
 
-                </div>
-                <DragDropContext onDragEnd={onDragEnd}>
+            </div>
+            <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="list">
                         {(provided) => (
                             <div
@@ -233,16 +231,6 @@ const ApiSceneStepList = (props) => {
                         )}
                     </Droppable>
                 </DragDropContext>
-
-            </div>
-            <div className={`case-bind_box ${visible?"teston-show":"teston-hide"}`}>
-                <ApiSceneBindUnit
-                    visible={visible}
-                    setVisible={setVisible}
-                    findList={findList}
-                    apiSceneId={apiSceneId}
-                />
-            </div>
         </div>
     );
 };

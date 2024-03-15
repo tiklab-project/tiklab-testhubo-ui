@@ -13,6 +13,12 @@ import {MessageNotice, MessageSendType, MessageType} from "thoughtware-message-u
 import Demo from "./demo";
 import {ProductAuth} from "thoughtware-licence-ui";
 import LazyComponent from "./common/Lazy";
+import TestPlanInstance from "./testplan/instance/components/TestPlanInstance";
+import PlanToApiUnitInstance from "./testplan/instance/components/PlanToApiUnitInstance";
+import PlanToApiSceneInstance from "./testplan/instance/components/PlanToApiSceneInstance";
+import PlanToApiPerfInstance from "./testplan/instance/components/PlanToApiPerfInstance";
+import PlanToWebSceneInstance from "./testplan/instance/components/PlanToWebSceneInstance";
+import PlanToAppSceneInstance from "./testplan/instance/components/PlanToAppSceneInstance";
 
 //---内部
 let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
@@ -71,6 +77,8 @@ let TestPlan = LazyComponent(() => import("./testplan/plan/components/testPlan")
 let TestPlanDetail = LazyComponent(() => import("./testplan/plan/components/testPlanDetail"));
 let TestPlanBindCaseList = LazyComponent(() => import("./testplan/plan/components/testPlanBindCaseList"));
 let TestPlanInstanceList = LazyComponent(() => import("./testplan/plan/components/testPlanInstanceList"));
+
+
 let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/instance/components/testPlanBindCaseInstanceList"));
 let PlanToApiUnitPage = LazyComponent(() => import("./testplan/common/planToCase/planToApiUnitPage"));
 let PlanToApiScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToApiScenePage"));
@@ -284,6 +292,27 @@ const routers =  [
                     {
                         path: "/repository/plan",
                         component:TestPlan ,
+                        routes: [
+                            {
+                                path: "/repository/plan/instance",
+                                component: TestPlanInstance,
+                            },{
+                                path: "/repository/plan/api-unit",
+                                component: PlanToApiUnitInstance,
+                            },{
+                                path: "/repository/plan/api-scene",
+                                component: PlanToApiSceneInstance,
+                            },{
+                                path: "/repository/plan/api-perform",
+                                component: PlanToApiPerfInstance,
+                            },{
+                                path: "/repository/plan/web-scene",
+                                component: PlanToWebSceneInstance,
+                            },{
+                                path: "/repository/plan/app-scene",
+                                component: PlanToAppSceneInstance,
+                            }
+                        ]
                     },
 
 
@@ -602,6 +631,8 @@ const routers =  [
                     },
                 ]
             },
+
+
             {
                 path: "/",
                 key:'tohome',

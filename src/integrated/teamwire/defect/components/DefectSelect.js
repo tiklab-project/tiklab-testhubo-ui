@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Table, Input, Col,Row} from "antd";
+import React, { useState} from "react";
+import {Table, Input, Col,Row,Modal} from "antd";
 import {inject, observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
@@ -9,16 +9,8 @@ import PaginationCommon from "../../../../common/pagination/Page";
 const {createWorkItemBind,findWorkItemBindList} = workItemBindStore;
 
 const DefectSelect = (props) =>{
-    const {workItemStore,setShowSelect,caseId} = props;
+    const {workItemStore,caseId} = props;
     const {findWorkItemList} = workItemStore;
-
-    const [selectProjectId, setSelectProjectId] = useState();
-    const [workItemList, setWorkItemList] = useState([]);
-    const repositoryId = sessionStorage.getItem("repositoryId")
-    const [totalPage, setTotalPage] = useState();
-    const [pageSize] = useState(8);
-    const [currentPage, setCurrentPage] = useState(1);
-
     const columns = [
         {
             title:`缺陷名`,
@@ -55,20 +47,31 @@ const DefectSelect = (props) =>{
         // }
     ]
 
-    useEffect(()=>{
+    const [selectProjectId, setSelectProjectId] = useState();
+    const [workItemList, setWorkItemList] = useState([]);
+    const repositoryId = sessionStorage.getItem("repositoryId")
+    const [totalPage, setTotalPage] = useState();
+    const [pageSize] = useState(8);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
         findDemandList({})
-    },[])
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     const onFinish = (id) => {
         let param = {
             caseId:caseId,
             workItem:{id:id}
         }
-        createWorkItemBind(param).then(()=>{
-            findWorkItemBindList({caseId:caseId}).then(()=>{
-                setShowSelect(false)
-            })
-        })
+        createWorkItemBind(param).then(()=>findWorkItemBindList({caseId:caseId}))
     };
 
     /**
@@ -127,35 +130,40 @@ const DefectSelect = (props) =>{
 
     return(
         <>
-            <div style={{padding:"0 0 15px"}}>
-                <Row gutter={16}>
-                    <Col className="gutter-row" span={15}>
-                        <Input
-                            placeholder={`搜索缺陷名称`}
-                            onPressEnter={onSearch}
-                            onChange={onSearch}
-                            className='demand_project_search'
-                            prefix={<SearchOutlined />}
-                        />
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                        <ProjectSelect
-                            clickProject={clickProject}
-                            {...props}
-                        />
-                    </Col>
-                    <Col className="gutter-row" span={3}>
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            onClick={()=>setShowSelect(false)}
-                            name={"取消"}
-                        />
-                    </Col>
+            <IconBtn
+                className="pi-icon-btn-grey"
+                name={"关联缺陷"}
+                onClick={showModal}
+            />
+            <Modal
+                title="关联"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                width={700}
+                footer={false}
+            >
+                <div style={{padding:"0 0 15px"}}>
+                    <Row gutter={16}>
+                        <Col className="gutter-row" span={8}>
+                            <Input
+                                placeholder={`搜索缺陷名称`}
+                                onPressEnter={onSearch}
+                                onChange={onSearch}
+                                className='demand_project_search'
+                                prefix={<SearchOutlined />}
+                            />
+                        </Col>
+                        <Col className="gutter-row" span={6}>
+                            <ProjectSelect
+                                clickProject={clickProject}
+                                {...props}
+                            />
+                        </Col>
 
-                </Row>
-            </div>
-
-            <div style={{"overflow": "auto","height": "calc(100% - 38px)"}}>
+                    </Row>
+                </div>
+                <div style={{"overflow": "auto","height": "calc(100% - 38px)"}}>
                 <div className={"table-list-box"} >
                     <Table
                         columns={columns}
@@ -177,8 +185,7 @@ const DefectSelect = (props) =>{
                 </div>
 
             </div>
-
-
+            </Modal>
         </>
     )
 }

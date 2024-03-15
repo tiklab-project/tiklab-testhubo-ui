@@ -21,14 +21,16 @@ const CaseBread = (props) =>{
                 />
             )
         }else {
-            return <ArrowLeftOutlined
-                onClick={()=>history.push(router)}
+            return<IconCommon
+                icon={"Leftxiangzuo9"}
+                className="icon-l"
                 style={{
-                    cursor:"pointer",
-                    fontSize:"20px"
+                    cursor:"pointer"
                 }}
-
+                onClick={()=>history.push(router)}
             />
+
+
         }
 
     }

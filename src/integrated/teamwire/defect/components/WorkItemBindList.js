@@ -20,9 +20,9 @@ const WorkItemBindList = (props) =>{
             title:`缺陷名称`,
             dataIndex: ["workItem","name"],
             key: "name",
-            render:(text,record)=>(
-                <a onClick={()=>toWorkItem(record)}>{text}</a>
-            )
+            // render:(text,record)=>(
+            //     <a onClick={()=>toWorkItem(record)}>{text}</a>
+            // )
         },
         {
             title: `项目`,
@@ -88,31 +88,23 @@ const WorkItemBindList = (props) =>{
 
     return(
         <div style={{padding: "0 0 20px"}}>
-            <div className={`${showSelect?"demand_hide":"demand_show"}`}>
-                <div style={{margin:'10px 0'}}>
-                    <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                        <div> ( {workItemBindList.length} ) 个缺陷</div>
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            name={"关联缺陷"}
-                            onClick={()=>setShowSelect(true)}
-                        />
-                    </div>
-                </div>
-                <div className={"table-list-box"}  >
-                    <Table
-                        className="tablelist"
-                        columns={columns}
-                        dataSource={workItemBindList}
-                        rowKey={record => record.id}
-                        pagination={false}
+            <div style={{margin:'10px 0'}}>
+                <div className={"display-flex-between"} style={{margin: "10px 0"}}>
+                    <div>共 {workItemBindList.length} 个缺陷</div>
+                    <DefectSelect
+                        caseId={caseId}
                     />
                 </div>
             </div>
-            <div style={{height:"400px"}} className={`defect_project_select ${showSelect?"demand_show":"demand_hide"}` }>
-                <DefectSelect setShowSelect={setShowSelect} caseId={caseId}/>
+            <div className={"table-list-box"}  >
+                <Table
+                    className="tablelist"
+                    columns={columns}
+                    dataSource={workItemBindList}
+                    rowKey={record => record.id}
+                    pagination={false}
+                />
             </div>
-
         </div>
 
     )

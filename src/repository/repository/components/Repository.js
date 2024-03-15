@@ -25,12 +25,12 @@ const Repository = (props)=> {
             key: `all`,
         },
         {
-            title: '我收藏的',
-            key: `follow`,
-        },
-        {
             title: '我创建的',
             key: `create`,
+        },
+        {
+            title: '我收藏的',
+            key: `follow`,
         }
     ];
 
@@ -148,7 +148,7 @@ const Repository = (props)=> {
                     </div>
                     <Input
                         prefix={<SearchOutlined />}
-                        placeholder={`搜索仓库`}
+                        placeholder={`搜索仓库名`}
                         onPressEnter={onSearch}
                         className={"search-input-common"}
                     />
