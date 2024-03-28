@@ -1,7 +1,7 @@
 import React from "react";
-import {CASE_TYPE} from "./DefineVariables";
 import LazyComponent from "../../common/Lazy";
 import {CheckCircleTwoTone, CloseCircleTwoTone} from "@ant-design/icons";
+import {CASE_TYPE} from "../../common/dictionary/dictionary";
 
 let ApiUnitInstanceSinglePage = LazyComponent(() => import("../api/http/unit/components/apiUnitInstanceSinglePage"));
 let ApiSceneInstanceSinglePage = LazyComponent(() => import("../api/http/scene/components/apiSceneInstanceSinglePage"));
@@ -44,17 +44,13 @@ const CaseInstanceSingleDrawer = (props) =>{
                     webSceneInstanceId={recentInstance.instanceId}
                     name={showRecent(recentInstance)}
                 />
-            // case CASE_TYPE.WEB_PERFORM:
-            //     toCaseDetail("webPerfInstanceId",recentInstance,caseType)
-            //     break;
+
             case CASE_TYPE.APP_SCENE:
                 return   <AppSceneInstanceSinglePage
                     appSceneInstanceId={recentInstance.instanceId}
                     name={showRecent(recentInstance)}
                 />
-            // case CASE_TYPE.APP_PERFORM:
-            //     toCaseDetail("appPerfInstanceId",recentInstance,caseType)
-            //     break;
+
         }
     }
 

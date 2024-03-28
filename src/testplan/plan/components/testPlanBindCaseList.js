@@ -15,8 +15,6 @@ import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import CaseTypeSelect from "../../../test/testcase/components/CaseTypeSelect";
 
 const TestPlanBindCaseList = (props) =>{
-    const { testPlanStore } = props;
-    const {findTestPlan} = testPlanStore;
     const {findBindTestCasePage,testPlanDetailList,deleteTestPlanDetail,findTestCasePage} = testPlanDetailStore;
 
     //列表头
@@ -68,7 +66,7 @@ const TestPlanBindCaseList = (props) =>{
                 <Space size="middle">
                     <Popconfirm
                         title="确定删除？"
-                        onConfirm={() =>deleteTestPlanDetail(record.planCaseId).then(()=> {
+                        onConfirm={() =>deleteTestPlanDetail(record.planCaseId).then(async ()=> {
                             findPage()
 
                             let param = {
@@ -79,7 +77,7 @@ const TestPlanBindCaseList = (props) =>{
                                 repositoryId:repositoryId,
                                 testPlanId:testPlanId,
                             }
-                            findTestCasePage(param)
+                           await findTestCasePage(param)
                         })}
                         okText='确定'
                         cancelText='取消'
@@ -310,4 +308,4 @@ const TestPlanBindCaseList = (props) =>{
 }
 
 
-export default inject("testcaseStore","testPlanStore")(observer(TestPlanBindCaseList));
+export default inject("testPlanStore")(observer(TestPlanBindCaseList));

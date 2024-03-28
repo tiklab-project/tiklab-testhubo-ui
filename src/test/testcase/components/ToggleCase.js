@@ -2,11 +2,11 @@ import React, {useEffect, useRef, useState} from "react";
 import {showCaseTypeInList} from "../../../common/caseCommon/CaseCommonFn";
 import {inject, observer} from "mobx-react";
 import PaginationCommon from "../../../common/pagination/Page";
-import {CASE_TYPE} from "../../common/DefineVariables";
 import {getUser} from "thoughtware-core-ui";
 import {useHistory} from "react-router";
 import IconCommon from "../../../common/IconCommon";
 import {Spin} from "antd";
+import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 
 const ToggleCase = (props) =>{
     const {testcaseStore,caseId} = props
@@ -92,15 +92,11 @@ const ToggleCase = (props) =>{
             case CASE_TYPE.WEB_SCENE:
                 toCaseDetail("webSceneId",record)
                 break;
-            case CASE_TYPE.WEB_PERFORM:
-                toCaseDetail("webPerfId",record)
-                break;
+
             case CASE_TYPE.APP_SCENE:
                 toCaseDetail("appSceneId",record)
                 break;
-            case CASE_TYPE.APP_PERFORM:
-                toCaseDetail("appPerfId",record)
-                break;
+
             case CASE_TYPE.FUNCTION:
                 toCaseDetail("functionId",record)
                 break;

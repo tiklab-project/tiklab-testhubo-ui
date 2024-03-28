@@ -16,7 +16,7 @@ const HideDelete = (props) =>{
                     cancelText='取消'
                     placement="topRight"
                 >
-                    <a >删除</a>
+                    <div style={{cursor:"pointer",width:"100px"}}>删除</div>
                 </Popconfirm>
             </Menu.Item>
         </Menu>

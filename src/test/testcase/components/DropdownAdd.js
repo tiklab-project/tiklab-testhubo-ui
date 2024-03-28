@@ -14,17 +14,19 @@ const DropdownAdd = (props) =>{
 
     const addMenu =(
         <Menu>
-            <Menu.Item key={"function-add"}>
-                <FuncUnitEdit
-                    name={"添加功能用例"}
-                    type={"add"}
-                    {...props}
-                />
-            </Menu.Item>
-            <Menu.SubMenu title="接口测试" key={"api-add"}>
+            <Menu.ItemGroup  title="功能" key={"function-Group"}>
+                <Menu.Item key={"function-add"}>
+                    <FuncUnitEdit
+                        name={"添加功能用例"}
+                        type={"add"}
+                        {...props}
+                    />
+                </Menu.Item>
+            </Menu.ItemGroup>
+            <Menu.ItemGroup  title="接口" key={"api-add"}>
                 <Menu.Item key={"api-unit-add"}>
                     <ApiUnitEdit
-                        name={"添加接口测试"}
+                        name={"添加接口单元"}
                         type={"add"}
                         {...props}
                     />
@@ -39,8 +41,8 @@ const DropdownAdd = (props) =>{
                 <Menu.Item key={"postIn-api"}>
                     <PostInApiToCase />
                 </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu title="UI测试" key={"ui-add"}>
+            </Menu.ItemGroup >
+            <Menu.ItemGroup  title="UI" key={"ui-add"}>
                 <Menu.Item key={"web-scene-add"}>
                     <WebSceneEdit
                         name={"添加Web用例"}
@@ -55,8 +57,8 @@ const DropdownAdd = (props) =>{
                         {...props}
                     />
                 </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu title="性能测试" key={"perform-add"}>
+            </Menu.ItemGroup >
+            <Menu.ItemGroup  title="性能" key={"perform-add"}>
                 <Menu.Item key={"api-perf-add"}>
                     <ApiPerfEdit
                         name={"添加接口性能"}
@@ -79,12 +81,16 @@ const DropdownAdd = (props) =>{
                 {/*        {...props}*/}
                 {/*    />*/}
                 {/*</Menu.Item>*/}
-            </Menu.SubMenu>
+            </Menu.ItemGroup >
         </Menu>
     )
 
     return(
-        <Dropdown overlay={addMenu} placement="bottom">
+        <Dropdown
+            overlay={addMenu}
+            placement="bottomRight"
+            overlayStyle={{width:"160px"}}
+        >
             {
                 icon
                     ? <div>

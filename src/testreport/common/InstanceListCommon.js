@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Input, Space, Table, Tag} from "antd";
+import {Empty, Input, Space, Table} from "antd";
 import { observer} from "mobx-react";
 import instanceStore from "../store/InstanceStore";
-import IconCommon from "../../common/IconCommon";
 import PaginationCommon from "../../common/pagination/Page";
 import emptyImg from "../../assets/img/empty.png"
 import {CASE_TYPE} from "../../common/dictionary/dictionary";
@@ -32,7 +31,7 @@ const InstanceListCommon = (props) =>{
         title: '序号',
         dataIndex: 'executeNumber',
         key: "executeNumber",
-        width: "10%",
+        width: "20%",
         render:(text,record)=>(showTitle(text,record,"executeNumber"))
     }
     const nameColumn =[
@@ -40,13 +39,13 @@ const InstanceListCommon = (props) =>{
             title: '名称',
             dataIndex: 'name',
             key: "name",
-            width: "20%",
+            width: "25%",
             render:(text,record)=>(showTitle(text,record))
         },{
             title: '类型',
             dataIndex: 'type',
             key: "type",
-            width: "8%",
+            width: "10%",
             render:(text,record)=>(<div className={"case-table-case-type"}>{showType(text, record)}</div>)
         }
     ]
@@ -55,14 +54,14 @@ const InstanceListCommon = (props) =>{
             title: '概要详情',
             dataIndex: "detail",
             key: "detail",
-            width: "40%",
+            width: "30%",
             render:(text,record)=>(showDetail(record))
         },
         {
             title: `测试人`,
             dataIndex: ["createUser","nickname"],
             key: "name",
-            width: "7%",
+            width: "10%",
         },
         {
             title: `测试时间`,
@@ -74,7 +73,7 @@ const InstanceListCommon = (props) =>{
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            width: 120,
+            width: "10%",
             render: (text, record) => (
                 <HideDelete
                     deleteFn={() => deleteInstance(record.id,record.caseType).then(()=>findPage())}
@@ -148,9 +147,9 @@ const InstanceListCommon = (props) =>{
                 return "接口场景"
             case CASE_TYPE.API_PERFORM:
                 return "接口性能"
-            case CASE_TYPE.WEB:
+            case CASE_TYPE.WEB_SCENE:
                 return "WEB场景"
-            case CASE_TYPE.APP:
+            case CASE_TYPE.APP_SCENE:
                 return "APP场景"
             case CASE_TYPE.TEST_PLAN:
                 return "测试计划"
@@ -170,9 +169,9 @@ const InstanceListCommon = (props) =>{
                 return <ApiSceneInstanceSinglePage apiSceneInstanceId={record.id} name={`${text} ${executeNumber?'':`#${record.executeNumber}`}`}/>
             case CASE_TYPE.API_PERFORM:
                 return <ApiPerfInstanceSinglePage apiPerfInstanceId={record.id} name={`${text} ${executeNumber?'':`#${record.executeNumber}`}`}/>
-            case CASE_TYPE.WEB:
+            case CASE_TYPE.WEB_SCENE:
                 return <WebSceneInstanceSinglePage webSceneInstanceId={record.id} name={`${text} ${executeNumber?'':`#${record.executeNumber}`}`}/>
-            case CASE_TYPE.APP:
+            case CASE_TYPE.APP_SCENE:
                 return <AppSceneInstanceSinglePage appSceneInstanceId={record.id} name={`${text} ${executeNumber?'':`#${record.executeNumber}`}`}/>
             case CASE_TYPE.TEST_PLAN:
 
@@ -217,9 +216,9 @@ const InstanceListCommon = (props) =>{
                 return apiSceneContent(content,record)
             case CASE_TYPE.API_PERFORM:
                 return apiPerformContent(content,record)
-            case CASE_TYPE.WEB:
+            case CASE_TYPE.WEB_SCENE:
                 return webSceneContent(content,record)
-            case CASE_TYPE.APP:
+            case CASE_TYPE.APP_SCENE:
                 return appSceneContent(content,record)
             case CASE_TYPE.TEST_PLAN:
                 return testPlanContent(content,record)

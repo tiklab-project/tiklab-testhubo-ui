@@ -16,7 +16,7 @@ const WebSceneInstanceList = (props) =>{
                 breadItem={[testCaseInfo?.name,"历史"]}
                 router={`/repository/web-scene/${webSceneId}`}
             />
-            <InstanceListCommon belongId={webSceneId} type={CASE_TYPE.WEB}/>
+            <InstanceListCommon belongId={webSceneId} type={CASE_TYPE.WEB_SCENE}/>
 
         </div>
     )

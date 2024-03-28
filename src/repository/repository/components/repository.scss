@@ -55,6 +55,7 @@ ul{
 
     .ant-table-thead > tr > th{
         background:var(--pi-bg-color);
+        font-size: 12px;
     }
 
     .ant-table-tbody > tr > td{
@@ -87,7 +88,6 @@ ul{
     width: 1080px;
     padding: 20px;
     margin: 0 auto;
-    height: var(--pi-calc-content);
 }
 
 .ws-side{

@@ -9,7 +9,7 @@ import RepositoryList from "./RepositoryList";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 
 /**
- * 仓库页
+ * 项目页
  */
 const Repository = (props)=> {
     const {repositoryStore} = props;
@@ -21,7 +21,7 @@ const Repository = (props)=> {
     //项目筛选列表
     const items = [
         {
-            title: '所有仓库',
+            title: '所有项目',
             key: `all`,
         },
         {
@@ -124,7 +124,10 @@ const Repository = (props)=> {
                                 <svg className={"icon-m"} aria-hidden="true" >
                                     <use xlinkHref= {`#icon-home`} />
                                 </svg>
-                                <span>仓库</span>
+                                <span style={{
+                                    fontSize:"16px",
+                                    fontWeight:"bold",
+                                }}>项目</span>
                            </div>
                         </span>
                     </div>
@@ -132,7 +135,7 @@ const Repository = (props)=> {
                         <IconBtn
                             className="important-btn"
                             onClick={toRepositoryPage}
-                            name={"添加仓库"}
+                            name={"添加项目"}
                         />
                     </div>
                 </div>
@@ -148,13 +151,13 @@ const Repository = (props)=> {
                     </div>
                     <Input
                         prefix={<SearchOutlined />}
-                        placeholder={`搜索仓库名`}
+                        placeholder={`搜索项目名`}
                         onPressEnter={onSearch}
                         className={"search-input-common"}
                     />
                 </div>
 
-                <div className='contant-box'>
+                <div className='contant-box' style={{margin:"10px 0 0 0"}}>
                     <RepositoryList
                         {...props}
                         findList={findList}

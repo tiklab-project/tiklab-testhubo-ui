@@ -50,7 +50,7 @@ const PlanSetting = (props) =>{
     }
 
     /**
-     * 删除仓库跳到仓库页
+     * 删除项目跳到项目页
      */
     const deleteFn = () =>{
         deleteTestPlan(testPlanId).then(()=>{

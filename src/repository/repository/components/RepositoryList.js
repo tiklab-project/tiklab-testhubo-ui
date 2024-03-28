@@ -10,7 +10,7 @@ import RepositoryIcon from "../../../common/RepositoryIcon";
 
 
 /**
- * 仓库列表
+ * 项目列表
  */
 const RepositoryList = (props) => {
     const { repositoryStore ,findList,selectItem } = props;
@@ -85,7 +85,7 @@ const RepositoryList = (props) => {
     ]
 
     /**
-     * 收藏仓库
+     * 收藏项目
      */
     const follow = (record)=>{
 
@@ -132,12 +132,12 @@ const RepositoryList = (props) => {
     }
 
     /**
-     * 去往仓库公共配置
+     * 去往项目公共配置
      */
     const toRepositoryConfig= (id) =>{
         sessionStorage.setItem("repositoryId",id);
 
-        //最近仓库
+        //最近项目
         let params = {
             repository: {id:id},
             userId:userId
@@ -170,7 +170,7 @@ const RepositoryList = (props) => {
                         imageStyle={{
                             height: 120,
                         }}
-                        description={<span>暂无仓库</span>}
+                        description={<span>暂无项目</span>}
                         image={emptyImg}
                     />,
                 }}

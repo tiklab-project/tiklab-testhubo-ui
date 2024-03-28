@@ -83,7 +83,7 @@ const PostInApiToCase = (props) => {
 
     return(
         <>
-            <a onClick={showModal}>从PostIn导入</a>
+            <a onClick={showModal}>导入PostIn</a>
             <Modal
                 destroyOnClose={true}
                 title="从PostIn复制"

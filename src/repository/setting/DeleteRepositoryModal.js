@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Button,  Input, Modal} from "antd";
 import {PrivilegeProjectButton} from "thoughtware-privilege-ui";
 /**
- * 仓库设置中的删除仓库
+ * 项目设置中的删除项目
  */
 const DeleteRepositoryModal = (props) =>{
     const {repositoryStore,repositoryName} = props;
@@ -27,7 +27,7 @@ const DeleteRepositoryModal = (props) =>{
     
     
     /**
-     * 删除仓库跳到仓库页
+     * 删除项目跳到项目页
      */
     const deleteFn = () =>{
         deleteRepository(repositoryId).then(()=>{
@@ -38,11 +38,11 @@ const DeleteRepositoryModal = (props) =>{
     return(
         <>
             <PrivilegeProjectButton code={"repositoryDelete"} domainId={repositoryId}>
-                <Button type="primary" danger onClick={showModal}>删除仓库</Button>
+                <Button type="primary" danger onClick={showModal}>删除项目</Button>
             </PrivilegeProjectButton>
             <Modal
                 destroyOnClose={true}
-                title="你确定删除仓库吗？"
+                title="你确定删除项目吗？"
                 visible={visible}
                 onCancel={onCancel}
                 footer={false}
@@ -65,7 +65,7 @@ const DeleteRepositoryModal = (props) =>{
                         className={"ws-delete-modal-btn"}
 
                     >
-                        我了解后果，删除此仓库
+                        我了解后果，删除此项目
                     </Button>
                 </div>
 

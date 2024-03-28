@@ -4,11 +4,12 @@ import {observer} from "mobx-react";
 import {Empty, List, Skeleton} from "antd";
 import emptyImg from "../../assets/img/empty.png";
 import IconCommon from "../../common/IconCommon";
-import {CASE_TYPE} from "../../test/common/DefineVariables";
+
 import testCaseRecentStore from "./TestCaseRecentStore";
+import {CASE_TYPE} from "../../common/dictionary/dictionary";
 
 /**
- * 最近访问的仓库
+ * 最近访问的项目
  */
 const TestCaseRecentHome = (props) =>{
     const {findTestCaseRecentList,testCaseRecent}=testCaseRecentStore;
@@ -61,14 +62,8 @@ const TestCaseRecentHome = (props) =>{
             case CASE_TYPE.WEB_SCENE:
                 toCaseDetail("webSceneId",record)
                 break;
-            case CASE_TYPE.WEB_PERFORM:
-                toCaseDetail("webPerfId",record)
-                break;
             case CASE_TYPE.APP_SCENE:
                 toCaseDetail("appSceneId",record)
-                break;
-            case CASE_TYPE.APP_PERFORM:
-                toCaseDetail("appPerfId",record)
                 break;
             case CASE_TYPE.FUNCTION:
                 toCaseDetail("functionId",record)

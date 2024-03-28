@@ -25,7 +25,7 @@ const AppSceneStepList = (props) => {
     },[appSceneId])
 
     const findList = async () =>{
-        let list = await findStepCommonList({caseId:appSceneId,caseType:CASE_TYPE.APP})
+        let list = await findStepCommonList({caseId:appSceneId,caseType:CASE_TYPE.APP_SCENE})
         setStepList(list)
     }
 
@@ -93,7 +93,7 @@ const AppSceneStepList = (props) => {
                                                             className={"icon-s edit-icon"}
                                                             icon={"shanchu3"}
                                                             onClick={(e) => {
-                                                                deleteStepCommon(item.id, CASE_TYPE.APP).then(async () => {
+                                                                deleteStepCommon(item.id, CASE_TYPE.APP_SCENE).then(async () => {
                                                                     await findList()
                                                                     await findAppScene(appSceneId)
                                                                 })
@@ -168,7 +168,7 @@ const AppSceneStepList = (props) => {
                                                             className={"icon-s edit-icon"}
                                                             icon={"shanchu3"}
                                                             onClick={(e) => {
-                                                                deleteStepCommon(item.id, CASE_TYPE.APP).then(async () => {
+                                                                deleteStepCommon(item.id, CASE_TYPE.APP_SCENE).then(async () => {
                                                                     await findList()
                                                                     await findAppScene(appSceneId)
                                                                 })

@@ -104,7 +104,7 @@ const ApiPerfConfig = (props) =>{
     }
 
     const toAgentPage = ()=>{
-        history.push("/repository/setting/agent")
+        history.push("/setting/agent")
     }
 
 

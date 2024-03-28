@@ -6,8 +6,8 @@ import PaginationCommon from "../../../common/pagination/Page";
 import {showCaseTypeTable, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import testPlanBindCaseInstanceStore from "../store/testPlanBindCaseInstanceStore";
 import testPlanInstanceStore from "../store/testPlanInstanceStore";
-import {CASE_TYPE} from "../../../test/common/DefineVariables.js"
 import {useHistory} from "react-router";
+import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 
 const TestPlanInstance = (props) =>{
     const {

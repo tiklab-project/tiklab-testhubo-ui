@@ -102,12 +102,12 @@ const LeftNav = (props) =>{
     }
 
     /**
-     * 展示切换的仓库
+     * 展示切换的项目
      */
     const toggleRepositorys = (
         <div className={"ws-hover-box"}>
             <div style={{ padding: "10px"}}>
-                <div className={"ws-hover-box-title"}>切换仓库</div>
+                <div className={"ws-hover-box-title"}>切换项目</div>
                 <div style={{height:"210px"}}>
                     {
                         recentList&&recentList.map((item,index)=> {
@@ -136,7 +136,7 @@ const LeftNav = (props) =>{
     )
 
     /**
-     * 切换仓库
+     * 切换项目
      */
     const toggleRepository = (repositoryId)=>{
 
@@ -145,7 +145,7 @@ const LeftNav = (props) =>{
         //给左侧导航设置一个选择项
         localStorage.setItem("leftRouter","/repository/detail")
 
-        //最近仓库
+        //最近项目
         let params = {
             repository: {id:repositoryId},
             userId:userId

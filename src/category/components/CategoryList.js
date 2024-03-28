@@ -19,7 +19,7 @@ const CategoryList = (props) => {
 
     const { t } = useTranslation();
 
-    //仓库列表头
+    //项目列表头
     const columns = [
         {
             title:`模块名称`,

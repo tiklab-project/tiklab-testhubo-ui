@@ -59,13 +59,13 @@ const dataTypeDictionary = [
 ]
 
 const week = [
-    {label:'星期日',value:1},
-    {label:'星期一',value:2},
-    {label:'星期二',value:3},
-    {label:'星期三',value:4},
-    {label:'星期四',value:5},
-    {label:'星期五',value:6},
-    {label:'星期六',value:7},
+    {label:'星期一',value:1},
+    {label:'星期二',value:2},
+    {label:'星期三',value:3},
+    {label:'星期四',value:4},
+    {label:'星期五',value:5},
+    {label:'星期六',value:6},
+    {label:'星期日',value:7},
 ];
 const day = ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00',
     '12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'
@@ -82,11 +82,11 @@ const functionalTestResult =[
 
 //用例类型
 const CASE_TYPE={
-    WEB:"web-scene",
-    APP:"app-scene",
-    API_SCENE:"api-scene",
     API_UNIT:"api-unit",
+    API_SCENE:"api-scene",
     API_PERFORM:"api-perform",
+    WEB_SCENE:"web-scene",
+    APP_SCENE:"app-scene",
     FUNCTION:"function",
     TEST_PLAN:"test-plan",
     TEST_REPORT:"test-report"

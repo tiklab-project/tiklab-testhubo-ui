@@ -7,12 +7,14 @@ const PlanToApiPerfInstance = () =>{
 
     const { findApiPerfInstance } = apiPerfInstanceStore;
     const [allData, setAllData] = useState();
-    const apiPerformInstanceId = sessionStorage.getItem("apiPerformInstanceId")
+    const apiPerfInstanceId = sessionStorage.getItem("apiPerfInstanceId")
+    const [loading, setLoading] = useState(true);
 
     useEffect(async ()=>{
-        let res = await findApiPerfInstance(apiPerformInstanceId)
+        let res = await findApiPerfInstance(apiPerfInstanceId)
         setAllData(res)
-    },[apiPerformInstanceId])
+        setLoading(false)
+    },[apiPerfInstanceId])
 
     return(
         <>
@@ -20,7 +22,10 @@ const PlanToApiPerfInstance = () =>{
                 breadItem={["历史详情","接口性能"]}
                 router={"/repository/plan/instance"}
             />
-            <ApiPerfInstanceDetail  allData={allData}/>
+            <ApiPerfInstanceDetail
+                result={allData}
+                loading={loading}
+            />
         </>
     )
 }

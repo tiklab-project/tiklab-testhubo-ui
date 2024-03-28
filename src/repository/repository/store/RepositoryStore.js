@@ -2,7 +2,7 @@ import {observable,action} from "mobx";
 import {Axios} from "thoughtware-core-ui";
 
 /**
- * 仓库 stepAssertCommon
+ * 项目 stepAssertCommon
  */
 export class RepositoryStore {
     @observable repositoryList = [];
@@ -11,7 +11,7 @@ export class RepositoryStore {
     @observable envUrlId;
 
     /**
-     * 按分页查询仓库列表
+     * 按分页查询项目列表
      */
     @action
     findRepositoryPage = async (param) => {
@@ -29,7 +29,7 @@ export class RepositoryStore {
     }
 
     /**
-     * 查询我参数的仓库列表
+     * 查询我参数的项目列表
      */
     @action
     findRepositoryJoinList = async (params) => {
@@ -45,7 +45,7 @@ export class RepositoryStore {
     }
     
     /**
-     * 获取仓库列表
+     * 获取项目列表
      */
     @action
     findRepositoryList = async (params) => {
@@ -61,7 +61,7 @@ export class RepositoryStore {
     }
 
     /**
-     * 查询我关注的仓库列表
+     * 查询我关注的项目列表
      */
     @action
     findRepositoryFollowList = async (value) => {
@@ -79,7 +79,7 @@ export class RepositoryStore {
     }
 
     /**
-     * 通过id查询单个仓库
+     * 通过id查询单个项目
      */
     @action
     findRepository = async (id) => {
@@ -94,7 +94,7 @@ export class RepositoryStore {
     }
 
     /**
-     * 仓库概况
+     * 项目概况
      */
     @action
     findRepositoryTotal = async (id) =>{
@@ -108,19 +108,19 @@ export class RepositoryStore {
     }
 
     /**
-     * 创建仓库
+     * 创建项目
      */
     @action
     createRepository = async (values) =>  await Axios.post("/repository/createRepository",values)
 
     /**
-     * 更新仓库
+     * 更新项目
      */
     @action
     updateRepository = async (values) =>  await Axios.post("/repository/updateRepository",values)
 
     /**
-     * 删除仓库
+     * 删除项目
      */
     @action
     deleteRepository = async (id) => {
@@ -132,7 +132,7 @@ export class RepositoryStore {
 
 
     /**
-     * 设置最近访问的仓库
+     * 设置最近访问的项目
      */
     @action
     repositoryRecent = async (values) => {
@@ -143,7 +143,7 @@ export class RepositoryStore {
     }
 
     /**
-     * 查询最近访问的仓库列表
+     * 查询最近访问的项目列表
      */
     @action
     findRepositoryRecentList = async (userId) => {

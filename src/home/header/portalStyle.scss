@@ -151,6 +151,25 @@
             text-align: center;
         }
 
+
+        .header-menu-item-label{
+            padding:  2px 6px;
+            border-radius: var(--pi-border-radius);
+        }
+
+        .header-menu-item-label:hover{
+            background: #091e4224;
+        }
+
+        .header-menu-item-label:active{
+            background: #85b8ff;
+            color: white;
+        }
+
+        .header-menu-item-label-action{
+            color: var(--pi-base-color);
+        }
+
         .header-menu-item-action{
             border-bottom: 3px solid var(--pi-base-color);
         }

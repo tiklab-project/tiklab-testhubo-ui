@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Avatar, Empty, Input, Popconfirm, Space, Table, TreeSelect} from "antd";
+import {Avatar, Empty, Input, Space, Table, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
 import { showCaseTypeTable, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
@@ -11,11 +11,12 @@ import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
 import {getUser} from "thoughtware-core-ui";
 import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
-import {CASE_TYPE} from "../../common/DefineVariables";
 import PaginationCommon from "../../../common/pagination/Page";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
 import HideDelete from "../../../common/hideDelete/HideDelete";
+import {messageFn} from "../../../common/messageCommon/MessageCommon";
+import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -26,7 +27,10 @@ const TestCaseTable = (props) => {
         deleteTestCase,
         testType,
         testCaseRecent,
-        findDiffTypeCaseNum
+        findDiffTypeCaseNum,
+        isApiUnitBind,
+        isCaseExist,
+        isApiSceneBind
     }=testcaseStore;
 
 
@@ -84,7 +88,7 @@ const TestCaseTable = (props) => {
             render: (text, record) => (
                 <Space size="middle">
                     <HideDelete
-                        deleteFn={() =>deleteTestCase(record.id,record.caseType).then(()=>findPage())}
+                        deleteFn={() =>deleteFn(record)}
                     />
                 </Space>
             )
@@ -131,6 +135,38 @@ const TestCaseTable = (props) => {
             setTotalPage(res.totalPage);
             setTableLoading(false)
         })
+    }
+
+    /**
+     * 删除用例
+     * @param record
+     * @returns {Promise<void>}
+     */
+    const deleteFn =async (record) =>{
+        let isBind = false;
+        let bindMsg = '';
+
+        switch (record.caseType) {
+            case CASE_TYPE.API_UNIT:
+                isBind = isApiUnitBind(record.id);
+                bindMsg = "该用例已被接口场景或测试计划绑定，无法删除！";
+                break;
+            case CASE_TYPE.API_SCENE:
+                isBind = isApiSceneBind(record.id);
+                bindMsg = "该用例已被接口性能或测试计划绑定，无法删除！";
+                break;
+            default:
+                isBind = isCaseExist(record.id);
+                bindMsg = "该用例已被测试计划绑定，无法删除！";
+                break;
+        }
+
+        if (isBind) {
+            messageFn("warning", bindMsg);
+        } else {
+            await deleteTestCase(record.id, record.caseType);
+            await findPage();
+        }
     }
 
     const showCreateUser = (createUser) =>{
@@ -248,14 +284,8 @@ const TestCaseTable = (props) => {
             case CASE_TYPE.WEB_SCENE:
                 toCaseDetail("webSceneId",record)
                 break;
-            case CASE_TYPE.WEB_PERFORM:
-                toCaseDetail("webPerfId",record)
-                break;
             case CASE_TYPE.APP_SCENE:
                 toCaseDetail("appSceneId",record)
-                break;
-            case CASE_TYPE.APP_PERFORM:
-                toCaseDetail("appPerfId",record)
                 break;
             case CASE_TYPE.FUNCTION:
                 toCaseDetail("functionId",record)

@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {Drawer} from "antd";
 import {useHistory, useLocation} from "react-router";
 import {renderRoutes} from "react-router-config";
-import {CASE_TYPE} from "./DefineVariables";
 import {getUser} from "thoughtware-core-ui";
 import {inject, observer} from "mobx-react";
+import {CASE_TYPE} from "../../common/dictionary/dictionary";
 
 
 const TestCaseDrawer = (props) =>{
@@ -48,15 +48,11 @@ const TestCaseDrawer = (props) =>{
             case CASE_TYPE.WEB_SCENE:
                 toCaseDetail("webSceneId",record)
                 break;
-            case CASE_TYPE.WEB_PERFORM:
-                toCaseDetail("webPerfId",record)
-                break;
+
             case CASE_TYPE.APP_SCENE:
                 toCaseDetail("appSceneId",record)
                 break;
-            case CASE_TYPE.APP_PERFORM:
-                toCaseDetail("appPerfId",record)
-                break;
+
             case CASE_TYPE.FUNCTION:
                 toCaseDetail("functionId",record)
                 break;

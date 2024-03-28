@@ -4,8 +4,12 @@
  */
 import React, { useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Select, Tooltip} from 'antd';
+import {Empty, Form, Modal, Select, Tooltip} from 'antd';
 import IconBtn from "../../../common/iconBtn/IconBtn";
+import testPlanDetailStore from "../store/testPlanDetailStore";
+import {CASE_TYPE} from "../../../common/dictionary/dictionary";
+import {messageFn} from "../../../common/messageCommon/MessageCommon";
+import webImg from "../../../assets/img/web-plan.png";
 
 const {Option} = Select
 
@@ -14,28 +18,76 @@ const TestPlanENVModal = (props) => {
     const { testPlanStore,apiEnvStore,appEnvStore} = props;
     const {findApiEnvList,apiEnvList,getTestEnvUrl,envUrl} = apiEnvStore;
     const {findAppEnvList,appEnvList,getAppEnv} = appEnvStore;
+    const {getCaseTypeNum} = testPlanDetailStore
 
     const {setTestDrawerVisible} = testPlanStore
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
-    let repositoryId = sessionStorage.getItem("repositoryId")
+    const [showApiEnv, setShowApiEnv] = useState(false);
+    const [showAppEnv, setShowAppEnv] = useState(false);
 
+    const repositoryId = sessionStorage.getItem("repositoryId")
+    const testPlanId = sessionStorage.getItem("testPlanId")
 
     // 弹框展示
-    const showModal = () => {
-        form.setFieldsValue({
-            api:envUrl
-        })
+    const showModal =async () => {
+        //可执行用例
+        let isExecutable = false;
+        let isShowApiEnv = false;
+        let isShowAppEnv = false;
+
+        let caseTypeObj = await getCaseTypeNum(testPlanId)
+        for (let key of Object.keys(caseTypeObj)) {
+            if (key.includes("api") || key.includes("app") || key.includes("web")) {
+                isExecutable = true;
+
+                switch (key) {
+                    case CASE_TYPE.API_UNIT:
+                    case CASE_TYPE.API_SCENE:
+                    case CASE_TYPE.API_PERFORM:
+                        isShowApiEnv = true;
+                        break;
+                    case CASE_TYPE.APP_SCENE:
+                        isShowAppEnv = true;
+                        break;
+                    default:
+                        break;
+                }
+
+                // 如果已经找到需要的信息，就退出循环
+                if (isShowApiEnv && isShowAppEnv) {
+                    break;
+                }
+            }
+        }
 
 
-        findAppEnvList(repositoryId)
-        findApiEnvList(repositoryId)
+        if(isExecutable){
+            if(isShowApiEnv){
+                setShowApiEnv(true)
+                findApiEnvList(repositoryId)
+                form.setFieldsValue({
+                    api:envUrl
+                })
+            }
 
-        setVisible(true)
+            if(isShowAppEnv){
+                setShowAppEnv(true)
+                findAppEnvList(repositoryId)
+            }
+
+            setVisible(true)
+        }else {
+            messageFn("warning","暂无可执行用例")
+        }
     };
 
     // 关闭弹框
-    const onCancel = () => { setVisible(false) };
+    const onCancel = () => {
+        setShowApiEnv(false)
+        setShowAppEnv(false)
+        setVisible(false)
+    };
 
     const onFinish = async () => {
         let values = await form.validateFields()
@@ -45,6 +97,59 @@ const TestPlanENVModal = (props) => {
 
         setVisible(false)
         setTestDrawerVisible(true)
+    }
+
+
+    const showApiForm = ()=>{
+        if(showApiEnv){
+            return<Form.Item
+                label="接口环境"
+                rules={[{ required: true, message:"请选择环境"}]}
+                name="api"
+            >
+                <Select
+                    bordered={false}
+                    className={"quartz-select-box"}
+                    placeholder={"未设置环境"}
+                >
+                    {
+                        apiEnvList&&apiEnvList.map(item=>{
+                            return (
+                                <Option key={item.id} value={item.preUrl}>
+                                    <Tooltip placement="leftTop" title={item.preUrl}> {item.name} </Tooltip>
+                                </Option>
+                            )
+                        })
+                    }
+                </Select>
+            </Form.Item>
+        }
+    }
+
+    const showAppForm = ()=>{
+        if(showAppEnv){
+            return <Form.Item
+                label="APP环境"
+                rules={[{ required: true, message:"请选择环境"}]}
+                name="app"
+            >
+                <Select
+                    bordered={false}
+                    className={"quartz-select-box"}
+                    placeholder={"未设置环境"}
+                >
+                    {
+                        appEnvList&&appEnvList.map(item=>{
+                            return (
+                                <Option key={item.id} value={item.id}>
+                                    <Tooltip placement="leftTop" title={item.id}> {item.name} </Tooltip>
+                                </Option>
+                            )
+                        })
+                    }
+                </Select>
+            </Form.Item>
+        }
     }
 
     return (
@@ -72,49 +177,23 @@ const TestPlanENVModal = (props) => {
                     layout={"vertical"}
                     onFinish={onFinish}
                 >
-                    <Form.Item
-                        label="接口环境"
-                        rules={[{ required: true, message:"请选择环境"}]}
-                        name="api"
-                    >
-                        <Select
-                            bordered={false}
-                            className={"quartz-select-box"}
-                            placeholder={"未设置环境"}
-                        >
-                            {
-                                apiEnvList&&apiEnvList.map(item=>{
-                                    return (
-                                        <Option key={item.id} value={item.preUrl}>
-                                            <Tooltip placement="leftTop" title={item.preUrl}> {item.name} </Tooltip>
-                                        </Option>
-                                    )
-                                })
-                            }
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
-                        label="APP环境"
-                        // rules={[{ required: true, }]}
-                        name="app"
-                    >
-                        <Select
-                            bordered={false}
-                            className={"quartz-select-box"}
-                            placeholder={"未设置环境"}
-                        >
-                        {
-                            appEnvList&&appEnvList.map(item=>{
-                                return (
-                                    <Option key={item.id} value={item.id}>
-                                        <Tooltip placement="leftTop" title={item.id}> {item.name} </Tooltip>
-                                    </Option>
-                                )
-                            })
-                        }
-                        </Select>
-                    </Form.Item>
+                    {
+                        showApiForm()
+                    }
+                    {
+                        showAppForm()
+                    }
 
+                    {
+                        showAppEnv||showApiEnv
+                            ?null
+                            :<Empty
+                                imageStyle={{height: 120}}
+                                description={<span> WEB用例直接执行</span>}
+                                image={webImg}
+                            />
+
+                    }
                 </Form>
             </Modal>
         </>

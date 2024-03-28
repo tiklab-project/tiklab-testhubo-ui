@@ -48,6 +48,17 @@ export class TestPlanDetailStore {
         await Axios.post("/testPlanCase/deleteTestPlanCase",param)
     }
 
+    @action
+    getCaseTypeNum = async (id) =>{
+        const param = new FormData();
+        param.append('testPlanId', id)
+
+        const res = await Axios.post("/testPlanCase/getCaseTypeNum",param)
+        if(res.code === 0) {
+            return res.data
+        }
+    }
+
 }
 
 let testPlanDetailStore = new TestPlanDetailStore();

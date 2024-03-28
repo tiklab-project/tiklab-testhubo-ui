@@ -4,8 +4,6 @@ import {Axios} from "thoughtware-core-ui";
 
 export class TestCaseStore {
     @observable testcaseList = [];
-
-    @observable activeKey
     @observable tabList = [];
     @observable testType;
     @observable caseType;
@@ -70,12 +68,6 @@ export class TestCaseStore {
     }
 
 
-    //tab页设置activeKey
-    @action
-    setActiveKey = (key) => {
-        this.activeKey = key;
-    }
-
     /**
      * 设置最近访问的用例
      */
@@ -87,6 +79,56 @@ export class TestCaseStore {
         }
     }
 
+
+    /**
+     * 判断用例是否被绑定
+     * @param id
+     * @returns {Promise<void>}
+     */
+    @action
+    isCaseExist = async (id) => {
+        const param = new FormData();
+        param.append('caseId', id);
+
+        const res = await Axios.post("/testPlanCase/isCaseExist", param)
+        if (res.code === 0) {
+            return res.data;
+        }
+    }
+
+    /**
+     * 判断接口单元用例是否被绑定
+     * 接口场景、测试计划 两处
+     * @param id
+     * @returns {Promise<void>}
+     */
+    @action
+    isApiUnitBind = async (id) => {
+        const param = new FormData();
+        param.append('id', id);
+
+        const res = await Axios.post("/apiUnitCase/isApiUnitBind", param)
+        if (res.code === 0) {
+            return res.data;
+        }
+    }
+
+    /**
+     * 判断接口场景用例是否被绑定
+     * 接口性能、测试计划 两处
+     * @param id
+     * @returns {Promise<void>}
+     */
+    @action
+    isApiSceneBind = async (id) => {
+        const param = new FormData();
+        param.append('id', id);
+
+        const res = await Axios.post("/apiSceneCase/isApiSceneBind", param)
+        if (res.code === 0) {
+            return res.data;
+        }
+    }
 
 }
 

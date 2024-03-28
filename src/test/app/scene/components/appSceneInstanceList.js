@@ -16,7 +16,7 @@ const AppSceneInstanceList = (props) =>{
                 breadItem={[testCaseInfo?.name,"历史"]}
                 router={`/repository/app-scene/${appSceneId}`}
             />
-            <InstanceListCommon belongId={appSceneId} type={CASE_TYPE.APP}/>
+            <InstanceListCommon belongId={appSceneId} type={CASE_TYPE.APP_SCENE}/>
 
         </div>
     )

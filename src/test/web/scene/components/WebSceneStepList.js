@@ -24,7 +24,7 @@ const WebSceneStepList = (props) => {
     },[webSceneId])
 
     const findList = async () =>{
-        let list = await findStepCommonList({caseId:webSceneId,caseType:CASE_TYPE.WEB})
+        let list = await findStepCommonList({caseId:webSceneId,caseType:CASE_TYPE.WEB_SCENE})
         setStepList(list)
     }
 
@@ -93,7 +93,7 @@ const WebSceneStepList = (props) => {
                                                         className={"icon-s edit-icon"}
                                                         icon={"shanchu3"}
                                                         onClick={(e)=> {
-                                                            deleteStepCommon(item.id, CASE_TYPE.WEB).then(async () => {
+                                                            deleteStepCommon(item.id, CASE_TYPE.WEB_SCENE).then(async () => {
                                                                 await findList()
                                                                 await findWebScene(webSceneId)
                                                             })
@@ -167,7 +167,7 @@ const WebSceneStepList = (props) => {
                                                         className={"icon-s edit-icon"}
                                                         icon={"shanchu3"}
                                                         onClick={(e)=> {
-                                                            deleteStepCommon(item.id, CASE_TYPE.WEB).then(async () => {
+                                                            deleteStepCommon(item.id, CASE_TYPE.WEB_SCENE).then(async () => {
                                                                 await findList()
                                                                 await findWebScene(webSceneId)
                                                             })

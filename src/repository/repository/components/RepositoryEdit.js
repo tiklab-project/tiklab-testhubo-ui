@@ -16,7 +16,7 @@ const tailLayout = {
 };
 
 /**
- * 仓库 新增
+ * 项目 新增
  */
 const RepositoryEdit = (props) => {
     const { repositoryStore,findList,selectItem } = props;
@@ -45,12 +45,12 @@ const RepositoryEdit = (props) => {
     },[])
 
     /**
-     * 去往仓库公共配置
+     * 去往项目公共配置
      */
     const toRepositoryConfig= (id) =>{
         sessionStorage.setItem("repositoryId",id);
 
-        //最近仓库
+        //最近项目
         let params = {
             repository: {id:id},
             userId:getUser().userId
@@ -139,7 +139,7 @@ const RepositoryEdit = (props) => {
                 >
                     <div className={"ws-edit-box"}>
                         <div className={"ws-edit-box-header"}>
-                            <div className={"ws-edit-box-header-title"}>添加仓库</div>
+                            <div className={"ws-edit-box-header-title"}>添加项目</div>
                         </div>
 
                         <Form
@@ -151,11 +151,11 @@ const RepositoryEdit = (props) => {
                         >
                             <div className={"ws-edit-form-input"}>
                                 <Form.Item
-                                    label="仓库名称"
+                                    label="项目名称"
                                     rules={[{ required: true, message: '添加目录名称!' }]}
                                     name="name"
                                 >
-                                    <Input  placeholder="仓库名称"/>
+                                    <Input  placeholder="项目名称"/>
                                 </Form.Item>
                             </div>
 
@@ -207,7 +207,7 @@ const RepositoryEdit = (props) => {
                                 label="描述"
                                 name="desc"
                             >
-                                <TextArea  rows={4}  placeholder="仓库的描述"/>
+                                <TextArea  rows={4}  placeholder="项目的描述"/>
                             </Form.Item>
                         </Form>
                         <div className={"ws-edit-box-footer"}>

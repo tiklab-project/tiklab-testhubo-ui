@@ -11,6 +11,7 @@ const PlanInstanceDrawer = (props) =>{
     const history = useHistory()
 
     const showDrawer = async () => {
+        sessionStorage.setItem("testPlanInstanceId",instance.instanceId)
         history.push("/repository/plan/instance")
         setOpen(true);
     }
@@ -33,7 +34,7 @@ const PlanInstanceDrawer = (props) =>{
             case 1:
                 return <><CheckCircleTwoTone twoToneColor={"#52c41a"}/> #{instance.executeNumber}</>
             default:
-                return <><CheckCircleTwoTone /> #{instance.executeNumber}</>
+                return <> #{instance.executeNumber}</>
         }
     }
 

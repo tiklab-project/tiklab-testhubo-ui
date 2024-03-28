@@ -4,10 +4,6 @@ import { observer, inject } from "mobx-react";
 import {Form, Modal, Input, TreeSelect} from 'antd';
 import {useHistory} from "react-router";
 
-const layout = {
-    labelCol: {span: 4},
-    wrapperCol: {span: 20},
-};
 
 // 添加与编辑
 const FuncUnitEdit = (props) => {
@@ -87,7 +83,7 @@ const FuncUnitEdit = (props) => {
                     form={form}
                     onFinish={onFinish}
                     preserve={false}
-                    {...layout}
+                    layout={"vertical"}
                 >
                     <Form.Item
                         label="名称"

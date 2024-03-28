@@ -14,7 +14,7 @@ const formItemLayout = {
 };
 
 /**
- * 仓库设置页
+ * 项目设置页
  */
 const RepositorySetting = (props) =>{
     const {repositoryStore} = props;
@@ -55,11 +55,11 @@ const RepositorySetting = (props) =>{
         <div className={"ws-setting-flex"}>
             <div className={"ws-setting-box"}>
                 <div  className={"header-box-space-between"}>
-                    <div className={'header-box-title'}>仓库信息</div>
+                    <div className={'header-box-title'}>项目信息</div>
                 </div>
 
                 <Collapse expandIconPosition={"end"} >
-                    <Panel header={<><EditOutlined/> <span style={{padding:"0 5px"}}>编辑仓库</span></>} key="1">
+                    <Panel header={<><EditOutlined/> <span style={{padding:"0 5px"}}>编辑项目</span></>} key="1">
                         <div>
                             <Form
                                 className='ws-edit-modal-form'
@@ -119,10 +119,10 @@ const RepositorySetting = (props) =>{
                         </div>
 
                     </Panel>
-                    <Panel header={<><DeleteOutlined />  <span style={{padding:"0 5px"}}>删除仓库</span> </>} key="2">
+                    <Panel header={<><DeleteOutlined />  <span style={{padding:"0 5px"}}>删除项目</span> </>} key="2">
                         <div>
                             <div style={{display:"flex",alignItems:"center",margin:"0 0 10px 0"}}>
-                                <div  style={{fontWeight:"bold"}}>删除此仓库</div>
+                                <div  style={{fontWeight:"bold"}}>删除此项目</div>
                                 <div className={"ws-setting-delete"}>(删除存储库后,将无法返回)</div>
                             </div>
 

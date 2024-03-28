@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Button,  Input, Modal} from "antd";
 
 /**
- * 仓库设置中的删除仓库
+ * 项目设置中的删除项目
  */
 const DeletePlanModal = (props) =>{
     const {deleteFn,name} = props;
@@ -28,7 +28,7 @@ const DeletePlanModal = (props) =>{
             <Button type="primary" danger onClick={showModal}>删除计划</Button>
             <Modal
                 destroyOnClose={true}
-                title="你确定删除仓库吗？"
+                title="你确定删除项目吗？"
                 visible={visible}
                 onCancel={onCancel}
                 footer={false}
@@ -51,7 +51,7 @@ const DeletePlanModal = (props) =>{
                         className={"ws-delete-modal-btn"}
 
                     >
-                        我了解后果，删除此仓库
+                        我了解后果，删除此项目
                     </Button>
                 </div>
 

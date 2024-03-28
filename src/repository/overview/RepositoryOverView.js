@@ -5,7 +5,7 @@ import DynamicWidget from "../../home/DynamicWidget";
 import {useParams} from "react-router";
 
 /**
- * 仓库 概况
+ * 项目 概况
  */
 const RepositoryOverView = (props) => {
     const {repositoryStore} = props;

@@ -37,7 +37,9 @@ const HeaderMenu = (props) =>{
                     className={`header-menu-item ${current===item.key?"header-menu-item-action":""}`}
                     onClick={()=>onClick(item)}
                 >
-                    <span>{item.label}</span>
+                    <div className={`header-menu-item-label title-font-weight-500 ${current===item.key?"header-menu-item-label-action":""}`}>
+                        {item.label}
+                    </div>
                 </div>
             )
         })
@@ -47,7 +49,6 @@ const HeaderMenu = (props) =>{
         <div className={"header-menu-box"}>
             {showMenuItem(items)}
         </div>
-
     )
 }
 export default inject("repositoryStore")(observer(HeaderMenu));

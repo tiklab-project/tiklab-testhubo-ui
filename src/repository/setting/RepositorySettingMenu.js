@@ -4,7 +4,7 @@ import "./repositorySetting.scss"
 import {ProjectNav} from "thoughtware-privilege-ui"
 import {useLocation} from "react-router";
 /**
- * 仓库设置页中的左侧导航
+ * 项目设置页中的左侧导航
  */
 const RepositorySettingMenu = (props) =>{
     const routes = props.route.routes;
@@ -26,7 +26,7 @@ const RepositorySettingMenu = (props) =>{
 
     const items=[
         {
-            title: '仓库信息',
+            title: '项目信息',
             key: '/repository/setting/detail',
             // icon: 'icon-setting',
         }, {

@@ -113,7 +113,7 @@ const WebExecuteTestPage = (props) =>{
             renderItem={(item) =>(
                 <List.Item style={{padding:0}}>
                     {
-                        item.type===CASE_TYPE.WEB
+                        item.type===CASE_TYPE.WEB_SCENE
                             ?showWebStep(item.webSceneInstanceStep,item)
                             :showIfStep(item)
                     }

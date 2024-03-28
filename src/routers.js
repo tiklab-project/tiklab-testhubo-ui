@@ -398,39 +398,26 @@ const routers =  [
                         path: "/plan/case",
                         exact: true,
                         component: TestPlanBindCaseList,
-                    }, {
-                        path: "/plan/instance",
-                        exact: true,
-                        component: TestPlanInstanceList,
-                    },  {
-                        path: "/plan/quartz",
-                        exact: true,
-                        component: QuartzPlanList,
-                    },{
-                        path: "/plan/setting",
-                        exact: true,
-                        component: PlanSetting,
-                    },
-                    {
-                        path: "/plan/:id",
-                        exact: true,
-                        component: TestPlanBindCaseInstanceList,
                     },
 
                     {
                         path: "/plan/plan-detail/:id",
+                        exact: true,
                         component: TestPlanDetail,
                     },
                     {
                         path: "/plan/plan-to-api-unit",
+                        exact: true,
                         component: PlanToApiUnitPage,
                     },
                     {
                         path: "/plan/plan-to-api-scene",
+                        exact: true,
                         component: PlanToApiScenePage,
                     },
                     {
                         path: "/plan/plan-to-api-perform",
+                        exact: true,
                         component: PlanToApiPerformPage,
                     },
                     {
@@ -457,8 +444,24 @@ const routers =  [
                         path: "/plan/plan-to-function",
                         exact: true,
                         component: PlanToFuncUnitPage,
+                    },{
+                        path: "/plan/instance",
+                        exact: true,
+                        component: TestPlanInstanceList,
+                    },{
+                        path: "/plan/quartz",
+                        exact: true,
+                        component: QuartzPlanList,
+                    },{
+                        path: "/plan/setting",
+                        exact: true,
+                        component: PlanSetting,
                     },
-
+                    {
+                        path: "/plan/:id",
+                        exact: true,
+                        component: TestPlanBindCaseInstanceList,
+                    },
 
                 ]
             },

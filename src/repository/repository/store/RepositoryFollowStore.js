@@ -2,14 +2,14 @@ import { observable,  action } from "mobx";
 import {Axios} from "thoughtware-core-ui";
 
 /**
- * 仓库关注 stepAssertCommon
+ * 项目关注 stepAssertCommon
  */
 class RepositoryFollowStore {
 	@observable followList = [];
 	@observable totalRecord;
 
 	/**
-	 * 查询关注的仓库列表
+	 * 查询关注的项目列表
 	 */
 	@action
 	findRepositoryFollowPage = async (value) => {
@@ -26,7 +26,7 @@ class RepositoryFollowStore {
 	}
 
 	/**
-	 * 查询关注的仓库列表
+	 * 查询关注的项目列表
 	 */
 	@action
 	findRepositoryFollowList = async (value) => {
@@ -43,7 +43,7 @@ class RepositoryFollowStore {
 	}
 
 	/**
-	 * 删除仓库关注
+	 * 删除项目关注
 	 */
 	@action
 	deleteRepositoryFollow = async (id) => {
@@ -58,13 +58,13 @@ class RepositoryFollowStore {
 	}
 
 	/**
-	 * 创建仓库关注
+	 * 创建项目关注
 	 */
 	@action
 	createRepositoryFollow = async (values) => await Axios.post("/repositoryFollow/createRepositoryFollow",values);
 
 	/**
-	 * 更新仓库关注
+	 * 更新项目关注
 	 */
 	@action
 	updateRepositoryFollow = async (values) => await Axios.post("/repositoryFollow/updateRepositoryFollow",values);

@@ -7,7 +7,7 @@ import "./homestyle.scss"
 import RepositoryIcon from "../common/RepositoryIcon";
 
 /**
- * 最近访问的仓库
+ * 最近访问的项目
  */
 const RepositoryRecentHome = (props) =>{
     const {repositoryStore} = props;

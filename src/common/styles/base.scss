@@ -327,8 +327,8 @@ table .icon{
 
 
 .ws-img-icon{
-    width: var(--pi-icon-l);
-    height: var(--pi-icon-l);
+    width: var(--pi-icon-x);
+    height: var(--pi-icon-x);
 }
 
 .teston-show{
@@ -354,15 +354,14 @@ table .icon{
         border-bottom: 1px solid var(--pi-border-color);
     }
 
-
-
     .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
         padding: 8px;
     }
 
     .ant-table-thead > tr > th{
         background:var(--pi-bg-color);
-        font-weight: 500;
+        font-weight: 600;
+        font-size: 12px;
     }
 
     .ant-table-tbody > tr > td{
@@ -500,4 +499,21 @@ table .icon{
     text-overflow: ellipsis;
     vertical-align: middle;
     white-space: nowrap;
+}
+
+.title-font-weight-500{
+    font-weight: 600;
+}
+
+
+.ant-form-vertical .ant-form-item-label > label{
+    color: #6e6e6e;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.ant-modal-content{
+    .ant-modal-body{
+        padding:16px 24px
+    }
 }
