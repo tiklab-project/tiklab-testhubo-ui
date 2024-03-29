@@ -39,21 +39,17 @@ let TestCaseTable = LazyComponent(() => import("./test/testcase/components/TestC
 
 let ApiUnitContent = LazyComponent(() => import("./test/api/http/unit/components/apiUnitContent"));
 let ApiUnitInstanceList = LazyComponent(() => import("./test/api/http/unit/components/apiUnitInstanceList"));
-let ApiUnitExecuteTest = LazyComponent(() => import( "./test/api/http/unit/components/apiUnitExecuteTest"));
 let ApiUnitInstanceSinglePage = LazyComponent(() => import( "./test/api/http/unit/components/apiUnitInstanceSinglePage"));
 
 let ApiSceneContent = LazyComponent(() => import("./test/api/http/scene/components/apiSceneContent"));
-let ApiExecuteTestPage = LazyComponent(() => import("./test/api/http/scene/components/ApiExecuteTestPage"));
 let ApiSceneInstanceSinglePage = LazyComponent(() => import( "./test/api/http/scene/components/apiSceneInstanceSinglePage"));
 let ApiSceneInstanceList = LazyComponent(() => import("./test/api/http/scene/components/apiSceneInstanceList"));
 let ApiPerfContent = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfContent"));
-let ApiPerfExecuteTestPage = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfExecuteTestPage"));
 let ApiPerfInstanceList = LazyComponent(() => import("./test/api/http/perf/components/apiPerfInstanceList"));
 let ApiPerformToScenePage = LazyComponent(() => import("./test/api/http/perf/components/apiPerformToScenePage"));
 let ApiPerfInstanceSinglePage = LazyComponent(() => import( "./test/api/http/perf/components/ApiPerfInstanceSinglePage"));
 
 let WebSceneContent = LazyComponent(() => import("./test/web/scene/components/WebSceneContent"));
-let WebExecuteTestPage = LazyComponent(() =>import( "./test/web/scene/components/WebExecuteTestPage"));
 let WebSceneInstanceList = LazyComponent(() => import("./test/web/scene/components/webSceneInstanceList"));
 let WebSceneInstanceSinglePage  = LazyComponent(() => import( "./test/web/scene/components/WebSceneInstanceSinglePage"));
 
@@ -62,7 +58,6 @@ let WebPerfInstanceList = LazyComponent(() => import("./test/web/perf/components
 let WebPerformToScenePage = LazyComponent(() => import("./test/web/perf/components/webPerformToScenePage"));
 
 let AppSceneContent = LazyComponent(() => import("./test/app/scene/components/AppSceneContent"));
-let AppExecuteTestPage = LazyComponent(() =>import("./test/app/scene/components/AppExecuteTestPage"));
 let AppSceneInstanceList = LazyComponent(() => import("./test/app/scene/components/appSceneInstanceList"));
 let AppSceneInstanceSinglePage = LazyComponent(() => import( "./test/app/scene/components/AppSceneInstanceSinglePage"));
 
@@ -177,10 +172,6 @@ const routers =  [
                         component: ApiUnitInstanceList,
                     },
                     {
-                        path: "/repository/api-unit-execute",
-                        component: ApiUnitExecuteTest,
-                    },
-                    {
                         path: "/repository/api-unit-instance-single",
                         component: ApiUnitInstanceSinglePage,
                     },
@@ -188,10 +179,6 @@ const routers =  [
                     {
                         path: "/repository/api-scene/:id",
                         component: ApiSceneContent,
-                    },
-                    {
-                        path: "/repository/api-scene-execute",
-                        component: ApiExecuteTestPage,
                     },
                     {
                         path: "/repository/api-scene-instance",
@@ -210,10 +197,6 @@ const routers =  [
                         component: ApiPerformToScenePage ,
                     },
                     {
-                        path: "/repository/api-perform-execute",
-                        component: ApiPerfExecuteTestPage,
-                    },
-                    {
                         path: "/repository/api-perform-instance",
                         component: ApiPerfInstanceList,
                     },
@@ -228,10 +211,6 @@ const routers =  [
                     },{
                         path: "/repository/web-scene-instance",
                         component: WebSceneInstanceList,
-                    },
-                    {
-                        path: "/repository/web-scene-execute",
-                        component: WebExecuteTestPage,
                     },
                     {
                         path: "/repository/web-scene-instance-single",
@@ -258,10 +237,6 @@ const routers =  [
                     {
                         path: "/repository/app-scene-instance",
                         component: AppSceneInstanceList,
-                    },
-                    {
-                        path: "/repository/app-scene-execute",
-                        component: AppExecuteTestPage,
                     },
                     {
                         path: "/repository/app-scene-instance-single",

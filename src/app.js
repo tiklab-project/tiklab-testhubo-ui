@@ -3,6 +3,8 @@ import { renderRoutes  } from "react-router-config";
 
 import './common/styles/base.scss';
 import './common/styles/global.scss';
+import "./test/common/styles/testcaseStyle.scss"
+
 import './common/language/i18n';
 import "./assets/iconfont/iconfont";
 import "./assets/iconfont/iconfont.css";

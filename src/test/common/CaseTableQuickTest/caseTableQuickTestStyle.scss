@@ -1,0 +1,17 @@
+.case-quick{
+    position: relative;
+    cursor: pointer;
+
+    .case-toggle-title{
+        padding: 20px;
+        position: absolute;
+        top: 20px;
+        right: 0;
+        background: var(--pi-bg-grey-100);
+        width: 320px;
+        z-index: 1;
+        border-radius: 5px;
+        box-shadow: 0 3px 11px rgb(140 149 159 / 50%);
+    }
+
+}

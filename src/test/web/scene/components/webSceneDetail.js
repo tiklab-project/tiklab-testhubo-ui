@@ -6,7 +6,6 @@ import {Form} from "antd";
 import CaseContentCommon from "../../../common/CaseContentCommon";
 import DetailCommon from "../../../../common/caseCommon/DetailCommon";
 import VariableTable from "../../../common/Variable/components/VariableTable";
-import "../../../common/styles/testcaseStyle.scss"
 import "../../../common/styles/caseContantStyle.scss"
 import "../../../common/styles/unitcase.scss"
 

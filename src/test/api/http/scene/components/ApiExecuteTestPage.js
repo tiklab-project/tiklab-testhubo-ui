@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
 import apiSceneTestDispatchStore from "../store/apiSceneTestDispatchStore";
 import {TextMethodType} from "../../common/methodType";
-import {Drawer, Spin, Tag} from "antd";
+import {Drawer, Form, Select, Spin, Tag, Tooltip} from "antd";
 import {processResHeader} from "../../common/response/testResponseFnCommon";
 import EmptyTip from "../../common/instance/emptyTip";
 import CaseBread from "../../../../../common/CaseBread";
@@ -11,21 +11,22 @@ import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IfInstance from "../../../../common/ifJudgment/components/ifInstance";
 import ResponseCommon from "../../common/response/responseCommon/responseCommon";
 import {LoadingOutlined} from "@ant-design/icons";
-
+import CaseTableQuickTest from "../../../../common/CaseTableQuickTest/CaseTableQuickTest";
+const {Option} = Select
 const { apiSceneExecute } = apiSceneTestDispatchStore;
 
 const ApiExecuteTestPage = (props) =>{
-    const { apiEnvStore,stepNum} = props;
-    const { envUrl } =apiEnvStore;
+    const { apiEnvStore,stepNum,type,apiSceneId} = props;
+    const {findApiEnvList,apiEnvList,getTestEnvUrl,envUrl} = apiEnvStore;
 
     const repositoryId = sessionStorage.getItem("repositoryId")
-    const apiSceneId = sessionStorage.getItem('apiSceneId')
     const [allData, setAllData] = useState();
     const [stepList, setStepList] = useState([]);
     const [selected, setSelected] = useState();
     const [selectedStepData, setSelectedStepData] = useState();
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
+    const [form] = Form.useForm();
 
     const showDrawer = async () => {
         if(stepNum===0){
@@ -77,7 +78,6 @@ const ApiExecuteTestPage = (props) =>{
 
         setSelectedStepData(stepList.find((item,listIndex)=>listIndex=== index))
     }
-
 
     const showResult = (result) =>{
         if(result===0){
@@ -152,8 +152,6 @@ const ApiExecuteTestPage = (props) =>{
         })
     }
 
-
-
     /**
      * 右侧类容
      * @returns {JSX.Element}
@@ -226,15 +224,64 @@ const ApiExecuteTestPage = (props) =>{
         }
     }
 
+    const findEnv = () =>{
+        findApiEnvList(sessionStorage.getItem("repositoryId"))
+        form.setFieldsValue({
+            host:envUrl
+        })
+    }
+
+    const showEnv = () =>{
+        return  <Form.Item
+            label="接口环境"
+            rules={[{ required: true, message:"请选择环境"}]}
+            name="host"
+        >
+            <Select
+                bordered={false}
+                className={"quartz-select-box"}
+                placeholder={"未设置环境"}
+                style={{width:"280px"}}
+                dropdownStyle={{zIndex:1800}}
+                onSelect={(value)=>getTestEnvUrl(value)}
+                onClick={(e) => e.stopPropagation()}
+            >
+                {
+                   apiEnvList&&apiEnvList.map(item=>{
+                       return (
+                           <Option key={item.id} value={item.preUrl}>
+                              <Tooltip placement="leftTop" title={item.preUrl}> {item.name} </Tooltip>
+                           </Option>
+                      )
+                   })
+               }
+            </Select>
+        </Form.Item>
+    }
+
+    const showIcon=() =>{
+        if(type==="quick"){
+            return <CaseTableQuickTest
+                form={form}
+                findEnv={findEnv}
+                clickTest={showDrawer}
+                envSelect={showEnv}
+            />
+        }
+
+        return<a onClick={showDrawer}>
+            <IconBtn
+                className="important-btn"
+                icon={"fasong-copy"}
+                name={"测试"}
+            />
+        </a>;
+    }
+
+
     return(
         <>
-            <a onClick={showDrawer}>
-                <IconBtn
-                    className="important-btn"
-                    icon={"fasong-copy"}
-                    name={"测试"}
-                />
-            </a>
+            {showIcon()}
             <Drawer
                 placement="right"
                 onClose={onClose}

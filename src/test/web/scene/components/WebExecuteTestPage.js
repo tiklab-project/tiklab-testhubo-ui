@@ -2,17 +2,16 @@ import React, {useEffect, useRef, useState} from "react";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../common/CaseBread";
 import UIResultCommon from "../../../common/UIResultCommon";
-import {Col, Drawer, Empty, Form, List, Row, Tag} from "antd";
+import {Col, Drawer, Empty, List, Row, Tag} from "antd";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import emptyImg from "../../../../assets/img/empty.png";
 import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
+import {PlayCircleOutlined} from "@ant-design/icons";
 
 const WebExecuteTestPage = (props) =>{
-    const {webSceneStore,stepNum} = props;
+    const {webSceneStore,stepNum,type,webSceneId} = props;
     const {webSceneTestDispatch,webSceneTestResult} = webSceneStore;
-
-    const webSceneId = sessionStorage.getItem("webSceneId")
 
     const repositoryId = sessionStorage.getItem('repositoryId')
     const ref = useRef();
@@ -207,16 +206,26 @@ const WebExecuteTestPage = (props) =>{
         }
     }
 
+    const showIcon=() =>{
+        if(type==="quick"){
+            return <PlayCircleOutlined
+                style={{fontSize:"18px"}}
+                onClick={showDrawer}
+            />
+        }
+
+        return<a onClick={showDrawer}>
+            <IconBtn
+                className="important-btn"
+                icon={"fasong-copy"}
+                name={"测试"}
+            />
+        </a>;
+    }
 
     return(
         <>
-            <a onClick={showDrawer}>
-                <IconBtn
-                    className="important-btn"
-                    icon={"fasong-copy"}
-                    name={"测试"}
-                />
-            </a>
+            {showIcon()}
             <Drawer
                 placement="right"
                 onClose={onClose}

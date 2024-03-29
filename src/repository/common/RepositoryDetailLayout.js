@@ -2,7 +2,6 @@ import React from "react";
 import LeftNav from "./LeftNav";
 import "./repositoryDetailStyle.scss"
 import "../../common/commonStyle.scss";
-import "../../test/common/styles/testcaseStyle.scss";
 import "../../test/common/styles/caseContantStyle.scss";
 import "../../test/common/styles/unitcase.scss";
 import "../../testplan/plan/components/testPlanStyle.scss"

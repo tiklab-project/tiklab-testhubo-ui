@@ -1,24 +1,26 @@
 import React, {useEffect, useRef, useState} from "react";
 import CaseBread from "../../../../common/CaseBread";
 import UIResultCommon from "../../../common/UIResultCommon";
-import {Col, Drawer, Empty, List, Row, Tag} from "antd";
+import {Col, Drawer, Empty, Form, List, Row, Select, Tag, Tooltip} from "antd";
 import appSceneStore from "../store/appSceneStore";
 import {inject, observer} from "mobx-react";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import emptyImg from "../../../../assets/img/empty.png";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
-
+import CaseTableQuickTest from "../../../common/CaseTableQuickTest/CaseTableQuickTest";
+const {Option} = Select
 
 const AppExecuteTestPage =(props)=>{
-    const {appEnvStore,appSceneId,stepNum} = props
+    const {appEnvStore,appSceneId,stepNum,type} = props
     const {appSceneTestDispatch,appSceneTestResult} = appSceneStore;
-    const {appEnv} = appEnvStore
+    const {findAppEnvList,appEnvList,getAppEnv,appEnv} = appEnvStore;
     const [spinning, setSpinning] = useState(true);
     const [appStepList, setAppStepList] = useState([]);
     const [open, setOpen] = useState(false);
     const ref = useRef();
     const [start, setStart] = useState(false);
     const [instanceInfo, setInstanceInfo] = useState();
+    const [form] = Form.useForm();
 
     useEffect( ()=>{
         if(start){
@@ -215,17 +217,63 @@ const AppExecuteTestPage =(props)=>{
         }
     }
 
+    const findEnv = () =>{
+        findAppEnvList(sessionStorage.getItem("repositoryId"))
+        form.setFieldsValue({
+            appEnv:appEnv
+        })
+    }
+    const showEnv = () =>{
+        return  <Form.Item
+            label="APP环境"
+            rules={[{ required: true, message:"请选择环境"}]}
+            name="host"
+        >
+            <Select
+                bordered={false}
+                className={"quartz-select-box"}
+                placeholder={"未设置环境"}
+                style={{width:"280px"}}
+                dropdownStyle={{zIndex:1800}}
+                onSelect={(value)=>getAppEnv(value)}
+                onClick={(e) => e.stopPropagation()}
+            >
+                {
+                    appEnvList&&appEnvList.map(item=>{
+                        return (
+                            <Option key={item.id} value={item.id}>
+                                <Tooltip placement="leftTop" title={item.id}> {item.name} </Tooltip>
+                            </Option>
+                        )
+                    })
+                }
+            </Select>
+        </Form.Item>
+    }
+
+    const showIcon=() =>{
+        if(type==="quick"){
+            return <CaseTableQuickTest
+                form={form}
+                findEnv={findEnv}
+                clickTest={showDrawer}
+                envSelect={showEnv}
+            />
+        }
+
+        return<a onClick={showDrawer}>
+            <IconBtn
+                className="important-btn"
+                icon={"fasong-copy"}
+                name={"测试"}
+            />
+        </a>;
+    }
 
 
     return (
         <>
-            <a onClick={showDrawer}>
-                <IconBtn
-                    className="important-btn"
-                    icon={"fasong-copy"}
-                    name={"测试"}
-                />
-            </a>
+            {showIcon()}
             <Drawer
                 placement="right"
                 onClose={onClose}

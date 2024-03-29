@@ -4,14 +4,17 @@ import {processResHeader} from "../../common/response/testResponseFnCommon";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../../common/CaseBread";
 import apiUnitTestDispatchStore from "../store/apiUnitTestDispatchStore";
-import {Drawer, Form, Spin} from "antd";
+import {Drawer, Form, Select, Spin, Tooltip} from "antd";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
+import CaseTableQuickTest from "../../../../common/CaseTableQuickTest/CaseTableQuickTest";
+
+const {Option} = Select
 
 const ApiUnitExecuteTest = (props) =>{
-    const {apiEnvStore,apiUnitId } = props;
+    const {apiEnvStore,apiUnitId,type } = props;
     const {apiUnitExecute} = apiUnitTestDispatchStore;
-    const { envUrl } = apiEnvStore;
+    const {findApiEnvList,apiEnvList,getTestEnvUrl,envUrl} = apiEnvStore;
 
     const [spinning, setSpinning] = useState(true);
     const [data, setData] = useState();
@@ -19,8 +22,6 @@ const ApiUnitExecuteTest = (props) =>{
     const [form] = Form.useForm();
 
     const showDrawer = async () => {
-        setOpen(true);
-        setSpinning(true)
 
         let values = await form.validateFields()
 
@@ -28,6 +29,11 @@ const ApiUnitExecuteTest = (props) =>{
         if(!envUrl&&!values.host){
             return messageFn("error","请填写测试地址")
         }
+        setTimeout(()=>{
+            setOpen(true);
+        },500)
+
+        setSpinning(true)
 
         //执行测试
         let res = await apiUnitExecute(apiUnitId,envUrl?envUrl:values.host)
@@ -95,15 +101,64 @@ const ApiUnitExecuteTest = (props) =>{
     }
 
 
+    const findEnv = () =>{
+        findApiEnvList(sessionStorage.getItem("repositoryId"))
+        form.setFieldsValue({
+            host:envUrl
+        })
+    }
+
+    const showEnv = () =>{
+        return  <Form.Item
+            label="接口环境"
+            rules={[{ required: true, message:"请选择环境"}]}
+            name="host"
+        >
+            <Select
+                bordered={false}
+                className={"quartz-select-box"}
+                placeholder={"未设置环境"}
+                style={{width:"280px"}}
+                dropdownStyle={{zIndex:1800}}
+                onSelect={(value)=>getTestEnvUrl(value)}
+                onClick={(e) => e.stopPropagation()}
+            >
+                {
+                    apiEnvList&&apiEnvList.map(item=>{
+                        return (
+                            <Option key={item.id} value={item.preUrl}>
+                                <Tooltip placement="leftTop" title={item.preUrl}> {item.name} </Tooltip>
+                            </Option>
+                        )
+                    })
+                }
+            </Select>
+        </Form.Item>
+    }
+
+    const showIcon=() =>{
+        if(type==="quick"){
+            return <CaseTableQuickTest
+                form={form}
+                findEnv={findEnv}
+                clickTest={showDrawer}
+                envSelect={showEnv}
+            />
+        }
+
+        return<a onClick={showDrawer}>
+            <IconBtn
+                className="important-btn"
+                icon={"fasong-copy"}
+                name={"测试"}
+            />
+        </a>;
+    }
+
+
     return(
         <>
-            <a onClick={showDrawer}>
-                <IconBtn
-                    className="important-btn"
-                    icon={"fasong-copy"}
-                    name={"测试"}
-                />
-            </a>
+            {showIcon()}
             <Drawer
                 placement="right"
                 onClose={onClose}
@@ -136,3 +191,4 @@ const ApiUnitExecuteTest = (props) =>{
 }
 
 export default inject("apiEnvStore",)(observer(ApiUnitExecuteTest));
+

@@ -1,18 +1,20 @@
 import React, {useEffect, useRef, useState} from "react";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../../common/CaseBread";
-import {Drawer, Empty, Spin, Table} from "antd";
+import {Drawer, Empty, Form, Select, Spin, Table, Tooltip} from "antd";
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiPerfTestDispatchStore from "../store/apiPerfTestDispatchStore";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import {LoadingOutlined} from "@ant-design/icons";
+import CaseTableQuickTest from "../../../../common/CaseTableQuickTest/CaseTableQuickTest";
+const {Option} = Select
 
 const ApiPerfExecuteTestPage = (props) =>{
-    const {apiEnvStore,apiPerfId} = props;
+    const {type,apiEnvStore,apiPerfId} = props;
 
     const {apiPerfExecute,exeResult} = apiPerfTestDispatchStore;
-    const {envUrl} = apiEnvStore;
+    const {findApiEnvList,apiEnvList,getTestEnvUrl,envUrl} = apiEnvStore;
 
     let ref = useRef(null)
     const [spinning, setSpinning] = useState(true);
@@ -20,6 +22,7 @@ const ApiPerfExecuteTestPage = (props) =>{
     const [stepList, setStepList] = useState([]);
     const [start, setStart] = useState(false)
     const [open, setOpen] = useState(false);
+    const [form] = Form.useForm();
 
     let columns= [
         {
@@ -96,7 +99,7 @@ const ApiPerfExecuteTestPage = (props) =>{
             setTimeout(()=>{
                 setOpen(true);
                 setStart(true);
-            }, 1000);
+            }, 500);
 
             let res = await apiPerfExecute(apiPerfId,envUrl)
             if(res.code!==0) {
@@ -128,15 +131,65 @@ const ApiPerfExecuteTestPage = (props) =>{
         setOpen(false);
     };
 
+
+    const findEnv = () =>{
+        findApiEnvList(sessionStorage.getItem("repositoryId"))
+        form.setFieldsValue({
+            host:envUrl
+        })
+    }
+
+    const showEnv = () =>{
+        return  <Form.Item
+            label="接口环境"
+            rules={[{ required: true, message:"请选择环境"}]}
+            name="host"
+        >
+            <Select
+                bordered={false}
+                className={"quartz-select-box"}
+                placeholder={"未设置环境"}
+                style={{width:"280px"}}
+                dropdownStyle={{zIndex:1800}}
+                onSelect={(value)=>getTestEnvUrl(value)}
+                onClick={(e) => e.stopPropagation()}
+            >
+                {
+                    apiEnvList&&apiEnvList.map(item=>{
+                        return (
+                            <Option key={item.id} value={item.preUrl}>
+                                <Tooltip placement="leftTop" title={item.preUrl}> {item.name} </Tooltip>
+                            </Option>
+                        )
+                    })
+                }
+            </Select>
+        </Form.Item>
+    }
+
+    const showIcon=() =>{
+        if(type==="quick"){
+            return <CaseTableQuickTest
+                form={form}
+                findEnv={findEnv}
+                clickTest={showDrawer}
+                envSelect={showEnv}
+            />
+        }
+
+        return<a onClick={showDrawer}>
+            <IconBtn
+                className="important-btn"
+                icon={"fasong-copy"}
+                name={"测试"}
+            />
+        </a>;
+    }
+
+
     return(
         <>
-            <a onClick={showDrawer}>
-                <IconBtn
-                    className="important-btn"
-                    icon={"fasong-copy"}
-                    name={"测试"}
-                />
-            </a>
+            {showIcon()}
             <Drawer
                 placement="right"
                 onClose={onClose}

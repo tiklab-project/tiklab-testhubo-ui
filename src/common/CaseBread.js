@@ -25,7 +25,7 @@ const CaseBread = (props) =>{
                 icon={"fanhui3"}
                 className="icon-l"
                 style={{
-                    cursor:"pointer"
+                    cursor:"pointer",
                 }}
                 onClick={()=>history.push(router)}
             />
@@ -37,7 +37,7 @@ const CaseBread = (props) =>{
 
     const showBreadItem = (breadItem) =>{
         return breadItem.map((item,index)=>{
-            return <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>
+            return <Breadcrumb.Item key={index} style={{fontSize:"16px"}}>{item}</Breadcrumb.Item>
         })
     }
 

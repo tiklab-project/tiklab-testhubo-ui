@@ -4,7 +4,6 @@ import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {inject, observer} from "mobx-react";
 import moment from "moment";
 import DeletePlanModal from "./DeletePlanModal";
-import ApiEnvSelect from "../../support/environment/components/apiEnvSelect";
 
 const { Panel } = Collapse;
 const {Option} = Select;

@@ -24,6 +24,7 @@ const ToggleCase = (props) =>{
     let repositoryId = sessionStorage.getItem("repositoryId")
     let history = useHistory()
     const caseToggleRef = useRef(null);
+    const [spinning, setSpinning] = useState(true);
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -44,7 +45,7 @@ const ToggleCase = (props) =>{
     const toggle = () =>{
         setVisible(!visible)
         findPage()
-
+        setSpinning(false)
     }
 
     const findPage = (params) =>{
@@ -125,7 +126,14 @@ const ToggleCase = (props) =>{
         <div className={"case-toggle"} ref={caseToggleRef}>
             <div
                 onClick={toggle}
-                style={{cursor:"pointer",margin:"5px 0 0"}}
+                style={{
+                    cursor:"pointer",
+                    padding:"5px",
+                    background: "#f5f5f5",
+                    width: "26px",
+                    height: "26px",
+                    borderRadius: "4px"
+                }}
             >
                 <IconCommon
                     className={"icon-s"}
@@ -134,31 +142,36 @@ const ToggleCase = (props) =>{
             </div>
 
             <div className={`case-toggle-title ${visible === false ? 'teston-hide' : 'teston-show'}`}>
-                {
-                    caseList&&caseList.map((item,index)=>{
-                        return(
-                            <div
-                                key={item.id}
-                                className={`
-                            display-flex-between 
-                            toggle-case-item 
-                            ${caseId=== item.id ? 'toggle-case-item-selected' : ''}
-                            `}
-                                onClick={()=>switchCaseType(item)}
-                            >
-                                <span className={"text-ellipsis"}>{item.name}</span>
-                                {
-                                    showCaseTypeInList(item.caseType)
-                                }
-                            </div>
-                        )
-                    })
-                }
-                <PaginationCommon
-                    currentPage={currentPage}
-                    totalPage={totalPage}
-                    changePage={onTableChange}
-                />
+                <Spin spinning={spinning}>
+                    <div style={{minHeight:"200px"}}>
+                        {
+                            caseList&&caseList.map((item,index)=>{
+                                return(
+                                    <div
+                                        key={item.id}
+                                        className={`
+                                    display-flex-between 
+                                    toggle-case-item 
+                                    ${caseId=== item.id ? 'toggle-case-item-selected' : ''}
+                                `}
+                                        onClick={()=>switchCaseType(item)}
+                                    >
+                                        <span className={"text-ellipsis"}>{item.name}</span>
+                                        {
+                                            showCaseTypeInList(item.caseType)
+                                        }
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+
+                    <PaginationCommon
+                        currentPage={currentPage}
+                        totalPage={totalPage}
+                        changePage={onTableChange}
+                    />
+                </Spin>
             </div>
 
 

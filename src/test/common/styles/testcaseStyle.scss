@@ -473,3 +473,13 @@
 
 
 }
+
+.popconfirm-form{
+    .ant-form-item{
+        margin:10px;
+    }
+}
+
+.popconfirm-form > .ant-popover-message-title {
+    background: #df5000;
+}

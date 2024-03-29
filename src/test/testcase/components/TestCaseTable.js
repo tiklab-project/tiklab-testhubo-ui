@@ -6,7 +6,6 @@ import { showCaseTypeTable, showCaseTypeView} from "../../../common/caseCommon/C
 import {SearchOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router";
 import DropdownAdd from "./DropdownAdd";
-import "../../common/styles/testcaseStyle.scss"
 import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
 import {getUser} from "thoughtware-core-ui";
@@ -17,6 +16,11 @@ import CaseTypeSelect from "./CaseTypeSelect";
 import HideDelete from "../../../common/hideDelete/HideDelete";
 import {messageFn} from "../../../common/messageCommon/MessageCommon";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
+import WebExecuteTestPage from "../../web/scene/components/WebExecuteTestPage";
+import ApiUnitExecuteTest from "../../api/http/unit/components/apiUnitExecuteTest";
+import ApiExecuteTestPage from "../../api/http/scene/components/ApiExecuteTestPage";
+import ApiPerfExecuteTestPage from "../../api/http/perf/components/ApiPerfExecuteTestPage";
+import AppExecuteTestPage from "../../app/scene/components/AppExecuteTestPage";
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -87,6 +91,9 @@ const TestCaseTable = (props) => {
             width: 50,
             render: (text, record) => (
                 <Space size="middle">
+                    {
+                        showQuickExe(record)
+                    }
                     <HideDelete
                         deleteFn={() =>deleteFn(record)}
                     />
@@ -305,6 +312,23 @@ const TestCaseTable = (props) => {
             testCase:{id:record.id},
         }
         testCaseRecent(params)
+    }
+
+    const showQuickExe = (record)=>{
+        switch (record.caseType) {
+            case CASE_TYPE.API_UNIT:
+                return <ApiUnitExecuteTest type={"quick"} apiUnitId={record.id}/>
+            case CASE_TYPE.API_SCENE:
+                return <ApiExecuteTestPage type={"quick"} apiSceneId={record.id} />
+            case CASE_TYPE.API_PERFORM:
+                return <ApiPerfExecuteTestPage type={"quick"} apiPerfId={record.id} />
+            case CASE_TYPE.WEB_SCENE:
+                return <WebExecuteTestPage type={"quick"} webSceneId={record.id}/>
+            case CASE_TYPE.APP_SCENE:
+                return <AppExecuteTestPage type={"quick"} appSceneId={record.id}/>
+            default:
+                return <div style={{width:"18px"}}/>
+        }
     }
 
     return(

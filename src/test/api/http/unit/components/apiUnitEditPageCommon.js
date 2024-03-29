@@ -3,9 +3,8 @@ import { observer, inject } from 'mobx-react';
 import {Col, Form, Input, Row, Select, Tag, TreeSelect} from 'antd';
 import Request from './request';
 import {dictionary} from "../../../../../common/dictionary/dictionary";
-import MethodType, {TextMethodType} from "../../common/methodType";
+import {TextMethodType} from "../../common/methodType";
 import Response from "./response";
-import "../../../../common/styles/testcaseStyle.scss"
 import "../../../../common/styles/caseContantStyle.scss"
 import "../../../../common/styles/unitcase.scss"
 import {showCaseTypeInList} from "../../../../../common/caseCommon/CaseCommonFn";

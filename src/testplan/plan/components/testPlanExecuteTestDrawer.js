@@ -63,8 +63,6 @@ const TestPlanExecuteTestDrawer = (props) =>{
     useEffect(()=>{
         if (start) {
             ref.current =  setInterval(()=>{
-                // setSpinning(true)
-
                 let param = new FormData()
                 param.append("testPlanId", testPlanId)
                 Axios.post("/testPlanTestDispatch/exeResult",param).then(res=>{
@@ -102,7 +100,6 @@ const TestPlanExecuteTestDrawer = (props) =>{
                         }else {
                             errorMsg="执行失败"
                         }
-
 
                         return messageFn("error",errorMsg)
                     }
