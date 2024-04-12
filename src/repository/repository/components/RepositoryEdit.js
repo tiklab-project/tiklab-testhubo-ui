@@ -34,12 +34,8 @@ const RepositoryEdit = (props) => {
      * 弹框展示
      */
     useEffect( async () => {
-
-        let param ={ }
-
-        let res = await Axios.post('/user/user/findUserList',param);
+        let res = await Axios.post('/user/user/findUserList',{});
         if(res.code===0){
-
             setMemberList(res.data)
         }
     },[])
@@ -57,7 +53,7 @@ const RepositoryEdit = (props) => {
         }
         repositoryRecent(params)
 
-        props.history.push(`/repository/detail/${id}`);
+        props.history.push(`/repository/testcase/${id}`);
     }
 
     /**

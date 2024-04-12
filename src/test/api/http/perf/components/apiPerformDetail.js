@@ -65,7 +65,6 @@ const ApiPerformDetail = (props) =>{
             label:"详细信息",
             key:"1",
             children:<DetailCommon
-                type={true}
                 detailInfo={caseInfo}
                 updateCase={updateCase}
                 form={form}
@@ -73,7 +72,7 @@ const ApiPerformDetail = (props) =>{
         },{
             label:"场景配置",
             key:"2",
-            children:<ApiPerfStepList type={true} {...props} apiPerfId={apiPerfId}/>
+            children:<ApiPerfStepList type={!!props.planType} {...props} apiPerfId={apiPerfId}/>
         },{
             label:"压力配置",
             key:"3",

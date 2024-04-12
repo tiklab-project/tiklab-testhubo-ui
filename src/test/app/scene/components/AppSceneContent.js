@@ -28,7 +28,7 @@ const AppSceneContent = (props) =>{
                 breadItem={[testCaseInfo?.name]}
                 toggleCase={<ToggleCase  caseId={appSceneId}/>}
                 style={{borderBottom:"none"}}
-                router={"/repository/testcase"}
+                router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
                 right={
                     <Space>
                         <AppEnvSelect />

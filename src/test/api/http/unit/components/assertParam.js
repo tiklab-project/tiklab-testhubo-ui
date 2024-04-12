@@ -8,6 +8,7 @@ import { Space,  Select, Popconfirm } from 'antd';
 import {ExTable}from '../../../../../common/EditTable';
 import IconCommon from "../../../../../common/IconCommon";
 import assertParamStore from "../store/assertParamStore";
+import {assertCompare} from "../../../../../common/dictionary/dictionary";
 const { Option } = Select;
 
 
@@ -55,13 +56,26 @@ const AssertParam = ({apiUnitId}) =>{
             width: '32%',
             editable: true,
         },
-        // {
-        //     title: '比较符',
-        //     width: '10%',
-        //     dataIndex: 'comparator',
-        //     render:()=>(<span>=</span>)
-        //
-        // },
+        {
+            title: '比较符',
+            width: '10%',
+            dataIndex: 'comparator',
+            render:(text,record) =>  (
+                <Select
+                    defaultValue={text}
+                    bordered={false}
+                    style={{'width':"100%"}}
+                    onSelect= {(e) => onSelectCompare(e,record)}
+                >
+                    <Option value={assertCompare.EQUAL}> = </Option>
+                    <Option value={assertCompare.NOT_EQUAL}> != </Option>
+                    <Option value={assertCompare.LESS_THAN}> &lt; </Option>
+                    <Option value={assertCompare.LESS_THAN_OR_EQUAL}> &lt;= </Option>
+                    <Option value={assertCompare.GREATER_THAN}> &gt; </Option>
+                    <Option value={assertCompare.GREATER_THAN_OR_EQUAL}> &gt;= </Option>
+                </Select>
+            )
+        },
         {
             title: '值',
             width: '32%',
@@ -85,6 +99,18 @@ const AssertParam = ({apiUnitId}) =>{
         handleSave(data);
 
         setNewRowAction(true)
+    }
+
+    /**
+     * compare
+     */
+    const onSelectCompare = (value, row) => {
+        const data = {
+            ...row,
+            comparator: value
+        }
+        handleSave(data);
+
     }
 
     //取消

@@ -12,7 +12,7 @@ const HeaderContent = props => {
 
     //去往系统设置页
     const toSystem = () =>{
-        props.history.push("/setting/systemRole")
+        props.history.push("/setting/home")
     }
 
     return(
@@ -40,7 +40,6 @@ const HeaderContent = props => {
                 <div >
                     {props.AvatarLink}
                 </div>
-
             </div>
         </div>
     )

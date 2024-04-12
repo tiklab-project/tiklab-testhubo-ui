@@ -28,7 +28,7 @@ const WebSceneContent = (props) =>{
                breadItem={[testCaseInfo?.name]}
                toggleCase={<ToggleCase  caseId={webSceneId}/>}
                style={{borderBottom:"none"}}
-               router={"/repository/testcase"}
+               router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
                right={
                    <Space>
                        <IconBtn

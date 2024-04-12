@@ -15,7 +15,7 @@ import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import CaseTypeSelect from "../../../test/testcase/components/CaseTypeSelect";
 
 const TestPlanBindCaseList = (props) =>{
-    const {findBindTestCasePage,testPlanDetailList,deleteTestPlanDetail,findTestCasePage} = testPlanDetailStore;
+    const {findBindTestCasePage,testPlanDetailList,deleteTestPlanDetail,findTestCasePage,getTestTypeNum} = testPlanDetailStore;
 
     //列表头
     const columns = [
@@ -107,9 +107,16 @@ const TestPlanBindCaseList = (props) =>{
         }
     })
 
+    const [diffTestTypeNum, setDiffTestTypeNum] = useState();
+
     useEffect(()=>{
         findPage()
     },[pageParam,testPlanId])
+
+    useEffect(async ()=>{
+        let info = await getTestTypeNum(testPlanId)
+        setDiffTestTypeNum(info)
+    },[])
 
     const findPage = (params) =>{
         const param = {
@@ -200,26 +207,27 @@ const TestPlanBindCaseList = (props) =>{
 
     const items = [
         {
-            title: '所有',
+            title: `所有 (${diffTestTypeNum?.all||0})`,
             key: `all`,
         },
         {
-            title: '功能',
+            title: `功能 (${diffTestTypeNum?.function||0})`,
             key: `function`,
         },
         {
-            title: '接口',
+            title: `接口 (${diffTestTypeNum?.api||0})`,
             key: `api`,
         },
         {
-            title: 'UI',
+            title: `UI (${diffTestTypeNum?.ui||0})`,
             key: `ui`,
         },
         {
-            title: '性能',
+            title: `性能 (${diffTestTypeNum?.perform||0})`,
             key: `perform`,
         }
     ];
+
 
     //点击测试类型筛选项查找
     const selectKeyFun = (item)=>{
@@ -263,7 +271,7 @@ const TestPlanBindCaseList = (props) =>{
                         menuItems={items}
                         selectFn={selectKeyFun}
                         selected={selectItem}
-                        style={{width: "300px"}}
+                        style={{width: "400px"}}
                     />
 
                     <Space>

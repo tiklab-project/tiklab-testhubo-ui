@@ -24,7 +24,7 @@ const FunctionContent = (props) =>{
     return(
         <div className={"content-box-center"}>
             <CaseBread
-                router={"/repository/testcase"}
+                router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
                 breadItem={[testCaseInfo?.name]}
                 toggleCase={<ToggleCase caseId={functionId}/>}
                 style={{borderBottom:"none"}}

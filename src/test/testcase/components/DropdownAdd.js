@@ -26,14 +26,14 @@ const DropdownAdd = (props) =>{
             <Menu.ItemGroup  title="接口" key={"api-add"}>
                 <Menu.Item key={"api-unit-add"}>
                     <ApiUnitEdit
-                        name={"添加接口单元"}
+                        name={"添加接口单元用例"}
                         type={"add"}
                         {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"api-scene-add"}>
                     <ApiSceneEdit
-                        name={"添加接口场景"}
+                        name={"添加接口场景用例"}
                         type={"add"}
                         {...props}
                     />
@@ -45,14 +45,14 @@ const DropdownAdd = (props) =>{
             <Menu.ItemGroup  title="UI" key={"ui-add"}>
                 <Menu.Item key={"web-scene-add"}>
                     <WebSceneEdit
-                        name={"添加Web用例"}
+                        name={"添加WEB用例"}
                         type={"add"}
                         {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"app-scene-add"}>
                     <AppSceneEdit
-                        name={"添加App用例"}
+                        name={"添加APP用例"}
                         type={"add"}
                         {...props}
                     />
@@ -61,7 +61,7 @@ const DropdownAdd = (props) =>{
             <Menu.ItemGroup  title="性能" key={"perform-add"}>
                 <Menu.Item key={"api-perf-add"}>
                     <ApiPerfEdit
-                        name={"添加接口性能"}
+                        name={"添加接口性能用例"}
                         type={"add"}
                         {...props}
                     />

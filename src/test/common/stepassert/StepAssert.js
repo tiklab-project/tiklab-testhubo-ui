@@ -6,6 +6,7 @@ import {observer} from "mobx-react";
 import stepAssertCommonStore from "../stepAssertCommon/StepAssertCommonStore";
 import AssertList from "./AssertList";
 import "./stepAssertStyle.scss"
+import {assertCompare} from "../../../common/dictionary/dictionary";
 
 
 const {Option} = Select
@@ -239,12 +240,12 @@ const StepAssertCommon = (props) =>{
                                     <Col span={4}>
                                         <Form.Item  name="compare">
                                             <Select>
-                                                <Option value={1}>等于</Option>
-                                                <Option value={2}>不等于</Option>
-                                                <Option value={3}>小于</Option>
-                                                <Option value={4}>小于等于</Option>
-                                                <Option value={5}>大于</Option>
-                                                <Option value={6}>大于等于</Option>
+                                                <Option value={assertCompare.EQUAL}>等于</Option>
+                                                <Option value={assertCompare.NOT_EQUAL}>不等于</Option>
+                                                <Option value={assertCompare.LESS_THAN}>小于</Option>
+                                                <Option value={assertCompare.LESS_THAN_OR_EQUAL}>小于等于</Option>
+                                                <Option value={assertCompare.GREATER_THAN}>大于</Option>
+                                                <Option value={assertCompare.GREATER_THAN_OR_EQUAL}>大于等于</Option>
                                             </Select>
                                         </Form.Item>
                                     </Col>

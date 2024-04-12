@@ -29,7 +29,7 @@ const ApiUnitContent = (props) =>{
             <CaseBread
                 toggleCase={<ToggleCase  caseId={id}/>}
                 breadItem={[testCaseInfo?.name]}
-                router={"/repository/testcase"}
+                router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
                 right={
                     <Space>
                         <ApiEnvDropDownSelect />

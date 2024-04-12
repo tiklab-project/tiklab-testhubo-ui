@@ -20,6 +20,7 @@ import PlanToApiPerfInstance from "./testplan/instance/components/PlanToApiPerfI
 import PlanToWebSceneInstance from "./testplan/instance/components/PlanToWebSceneInstance";
 import PlanToAppSceneInstance from "./testplan/instance/components/PlanToAppSceneInstance";
 
+
 //---内部
 let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
 let LoginOut = LazyComponent(() => import("./home/header/LoginOut"));
@@ -93,6 +94,7 @@ let EnvContent = LazyComponent(() => import("./support/environment/components/en
 let AgentConfigList = LazyComponent(() => import("./support/agent/components/AgentConfigList"));
 let WorkspaceBindList = LazyComponent(() => import("./integrated/common/integratedPage"));
 
+let SystemHome = LazyComponent(() => import( "./setting/system/SystemHome"));
 let SystemContent = LazyComponent(() => import("./setting/system/SystemContent"));
 let Version = LazyComponent(() => import("./setting/version/Version"));
 let DomainRole = LazyComponent(() => import("./repository/setting/DomainRole"));
@@ -118,10 +120,14 @@ const routers =  [
         key:'logout',
     },
     {
-        path:"/index/404",
-        render:(props)=>{
-            return <NotFound {...props}/>
-        }
+        exact: true,
+        path: '/404',
+        render: props => <NotFound {...props} homePath={'/'}/>
+    },
+    {
+        exact: true,
+        path: '/noaccess',
+        render: props => <NotFound {...props} homePath={'/'} type='noaccess'/>
     },
     {
         path:"/no-auth",
@@ -160,7 +166,7 @@ const routers =  [
                         component: RepositoryDetailPage,
                     },
                     {
-                        path: "/repository/testcase",
+                        path: "/repository/testcase/:id",
                         component: TestCaseTable,
                     },
                     {
@@ -361,7 +367,7 @@ const routers =  [
                         path:"/repository",
                         exact: true,
                         key:'ridapitest',
-                        component: ()=><Redirect to='/repository/detail'/>,
+                        component: ()=><Redirect to='/repository/testcase/:id'/>,
                     },
                 ]
             },
@@ -447,9 +453,14 @@ const routers =  [
                 key:'systemManagement',
                 component:SystemContent,
                 routes:[
+                    {
+                        path:'/setting/home',
+                        exact: true,
+                        component:SystemHome,
+                    },
                     //成员与部门
                     {
-                        path: "/setting/org",
+                        path: "/setting/orga",
                         key:'org',
                         exact: true,
                         render:(props)=> <Orga {...props} bgroup={'teston'}/>
@@ -461,7 +472,7 @@ const routers =  [
                             return <User {...props} bgroup={'teston'}/>
                         }
                     },{
-                        path: "/setting/authConfig",
+                        path: "/setting/dir",
                         key:'authConfig',
                         exact: true,
                         render: () => <Directory isPortal={false}/>,

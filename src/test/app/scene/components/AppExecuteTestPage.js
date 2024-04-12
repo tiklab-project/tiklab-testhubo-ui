@@ -8,6 +8,7 @@ import IconBtn from "../../../../common/iconBtn/IconBtn";
 import emptyImg from "../../../../assets/img/empty.png";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import CaseTableQuickTest from "../../../common/CaseTableQuickTest/CaseTableQuickTest";
+import {testExecuteStatus} from "../../../../common/dictionary/dictionary";
 const {Option} = Select
 
 const AppExecuteTestPage =(props)=>{
@@ -39,7 +40,7 @@ const AppExecuteTestPage =(props)=>{
 
                     setSpinning(false)
 
-                    if(data.status===0){
+                    if(data?.appSceneInstance?.status !==testExecuteStatus.TEST_STATUS_START){
                         clearInterval(ref.current);
                         setStart(false);
                         messageFn("success", "执行完成");

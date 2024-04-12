@@ -27,30 +27,30 @@ const RepositorySettingMenu = (props) =>{
     const items=[
         {
             title: '项目信息',
-            key: '/repository/setting/detail',
+            id: '/repository/setting/detail',
             // icon: 'icon-setting',
         }, {
             title: '模块',
             // icon: 'icon-modular',
-            key: '/repository/setting/category',
+            id: '/repository/setting/category',
         },
         {
             title: '环境',
             // icon: 'icon-modular',
-            key: '/repository/setting/envMana',
+            id: '/repository/setting/envMana',
         },
         {
             title: '系统集成',
             // icon: 'icon-modular',
-            key: '/repository/setting/workspace',
+            id: '/repository/setting/workspace',
         },
         {
             title: '成员',
-            key: '/repository/setting/role',
+            id: '/repository/setting/role',
             // icon: 'icon-chengyuan',
         },{
             title: '权限',
-            key: '/repository/setting/privilege',
+            id: '/repository/setting/privilege',
             // icon: 'icon-quanxian',
         }
     ]
@@ -62,10 +62,10 @@ const RepositorySettingMenu = (props) =>{
     const renderList = (data) => {
         return  data && data.map(Item=> {
             return (
-                <li key={Item.key} style={{  margin:"0 auto"}} >
-                    <div className={`ws-menu-li ${Item.key === selected ? "ws-menu-li-action" : null}`}
-                         key={Item.key}
-                         onClick={()=>selectKeyFun(Item.key)}
+                <li key={Item.id} style={{  margin:"0 auto"}} >
+                    <div className={`ws-menu-li ${Item.id === selected ? "ws-menu-li-action" : null}`}
+                         key={Item.id}
+                         onClick={()=>selectKeyFun(Item.id)}
                     >
                         <span >
                             {Item.title}
@@ -84,6 +84,7 @@ const RepositorySettingMenu = (props) =>{
             domainId={repositoryId} // 项目id
             projectRouters={items} // 菜单
             outerPath={`/repository/setting`} // 项目设置Layout路径
+            noFoundPath={"/noaccess"}
         >
             <div className={"repository-setting-box"}>
                 <ul className="ws-menu-ul" style={{background: "#f5f5f5"}}>

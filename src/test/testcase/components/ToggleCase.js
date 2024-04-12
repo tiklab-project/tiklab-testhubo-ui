@@ -5,8 +5,9 @@ import PaginationCommon from "../../../common/pagination/Page";
 import {getUser} from "thoughtware-core-ui";
 import {useHistory} from "react-router";
 import IconCommon from "../../../common/IconCommon";
-import {Spin} from "antd";
+import {Input, Spin} from "antd";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
+import {SearchOutlined} from "@ant-design/icons";
 
 const ToggleCase = (props) =>{
     const {testcaseStore,caseId} = props
@@ -78,6 +79,14 @@ const ToggleCase = (props) =>{
         findPage(param)
     }
 
+    //搜索
+    const onSearch = (e) =>{
+        setCurrentPage(1)
+        let param = {name: e.target.value}
+
+        findPage(param)
+    }
+
     //再根据不同的用例类型跳到不同的页面
     const switchCaseType = (record)=>{
         switch (record.caseType) {
@@ -120,8 +129,6 @@ const ToggleCase = (props) =>{
         setVisible(!visible)
     }
 
-
-
     return(
         <div className={"case-toggle"} ref={caseToggleRef}>
             <div
@@ -144,16 +151,24 @@ const ToggleCase = (props) =>{
             <div className={`case-toggle-title ${visible === false ? 'teston-hide' : 'teston-show'}`}>
                 <Spin spinning={spinning}>
                     <div style={{minHeight:"200px"}}>
+                        <div className={"header-title"} style={{padding:"8px 5px 10px"}} >切换用例</div>
+                        <Input
+                            placeholder={`搜索用例名`}
+                            onPressEnter={onSearch}
+                            style={{
+                                margin:"0 0 10px",
+                                borderColor: "#e8e8e8",
+                                height: "36px",
+                            }}
+                            prefix={<SearchOutlined />}
+                        />
+
                         {
                             caseList&&caseList.map((item,index)=>{
                                 return(
                                     <div
                                         key={item.id}
-                                        className={`
-                                    display-flex-between 
-                                    toggle-case-item 
-                                    ${caseId=== item.id ? 'toggle-case-item-selected' : ''}
-                                `}
+                                        className={` display-flex-between  toggle-case-item  ${caseId=== item.id ? 'toggle-case-item-selected' : ''}`}
                                         onClick={()=>switchCaseType(item)}
                                     >
                                         <span className={"text-ellipsis"}>{item.name}</span>
@@ -173,8 +188,6 @@ const ToggleCase = (props) =>{
                     />
                 </Spin>
             </div>
-
-
         </div>
     )
 }

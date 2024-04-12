@@ -62,6 +62,7 @@ const ApiUnitInstanceSinglePage = (props) =>{
                 maskStyle={{background:"transparent"}}
                 contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
+                className={"api-unit-drawer"}
             >
                 <CaseBread
                     breadItem={["历史详情"]}

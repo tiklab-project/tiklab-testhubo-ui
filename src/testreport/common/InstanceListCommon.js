@@ -89,6 +89,7 @@ const InstanceListCommon = (props) =>{
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(15);
     const [currentPage, setCurrentPage] = useState(1);
+    const [tableLoading,setTableLoading] = useState(true);
 
     useEffect(async ()=>{
         await findPage()
@@ -120,6 +121,7 @@ const InstanceListCommon = (props) =>{
         let res = await findInstancePage(param)
         if(res.code===0){
             setTotalPage(res.data.totalPage)
+            setTableLoading(false)
         }
     }
 
@@ -131,6 +133,7 @@ const InstanceListCommon = (props) =>{
                 pageSize: pageSize,
                 currentPage: current
             },
+            type:selectItem==="test-plan"||selectItem==="api-perform"?selectItem:null
         }
 
         await findPage(newParams)
@@ -395,15 +398,31 @@ const InstanceListCommon = (props) =>{
     const selectFn = async (item)=>{
         let key= item.key
         setSelectItem(key)
+        setCurrentPage(1)
 
-        let param
+        let param={
+            typeList:[],
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: 1
+            },
+        }
         if(key!=="all"){
             if(key==="api"){
-                param = {"typeList":["api-scene","api-unit"]};
+                param = {
+                    ...param,
+                    typeList:["api-scene","api-unit"]
+                };
             }else if(key==="ui"){
-                param = {"typeList":["app-scene","web-scene"]};
+                param = {
+                    ...param,
+                    typeList:["app-scene","web-scene"]
+                };
             }else {
-                param = {"type":key};
+                param = {
+                    "type":key,
+                    ...param
+                };
             }
             setTypeList(param.typeList)
         }else {
@@ -508,6 +527,7 @@ const InstanceListCommon = (props) =>{
                     dataSource={instanceList}
                     rowKey={record => record.id}
                     pagination={false}
+                    loading={tableLoading}
                     locale={{
                         emptyText: <Empty
                             imageStyle={{height: 120}}

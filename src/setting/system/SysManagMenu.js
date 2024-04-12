@@ -6,6 +6,8 @@ import { PrivilegeButton,SystemNav } from "thoughtware-privilege-ui";
 import {useSelector} from 'thoughtware-plugin-core-ui'
 
 import './sysMana.scss'
+import {getUser} from "thoughtware-core-ui";
+import IconCommon from "../../common/IconCommon";
 
 const { Sider, Content } = Layout;
 
@@ -14,14 +16,14 @@ const SystemManagement = (props) => {
 
     const pluginStore = useSelector(store => store.pluginStore)
     const routers = props.route.routes
-
     const [selectKey,setSelectKey] = useState('/setting/systemRole')
-
     const [menuRouter,setMenuRouter] = useState();
+    const authConfig = JSON.parse(localStorage.getItem("authConfig"))
+    const curRouter =  window.location.hash.substr(1)
 
     useEffect(() => {
         //设置左侧导航哪个选中
-        setSelectKey(window.location.hash.substr(1))
+        setSelectKey(curRouter)
 
         let data = pluginStore.filter(item=>item.point==="settingMenu").filter(item => item.menuTitle);
 
@@ -41,13 +43,42 @@ const SystemManagement = (props) => {
         }else {
             setMenuRouter(settingMenu);
         }
-    }, [])
+    }, [curRouter])
 
+
+    const specialKeys = [
+        "/setting/orga",
+        "/setting/user",
+        "/setting/dir",
+        "/setting/userGroup"
+    ];
 
     const select = (key)=>{
+        if (!authConfig.authType) {
+            if (specialKeys.includes(key)) {
+                let authServiceUrl = authConfig.authServiceUrl
+                let ticket = getUser().ticket
+                let url = authServiceUrl +"#"+key+"?ticket="+ticket
+
+                window.open(url, "_blank");
+                return;
+            }
+        }
+
         setSelectKey(key)
         props.history.push(key)
     }
+
+
+    const showOpenNewPage = (key) => {
+        if (!authConfig.authType) {
+            if (specialKeys.includes(key)) {
+                return <IconCommon icon={"dakaixinyemian"}  className="icon-s"/>
+            }
+        }
+    }
+
+
 
     // 树的展开与闭合
     const [expandedTree, setExpandedTree] = useState(["/setting/system"])
@@ -64,7 +95,9 @@ const SystemManagement = (props) => {
         }
     }
 
-    // 无子级菜单处理
+    /**
+     * 无子级菜单渲染
+     */
     const renderMenu = (data,deep,isFirst)=> {
         if(data.purviewCode){
             return (
@@ -76,16 +109,20 @@ const SystemManagement = (props) => {
                         style={{paddingLeft:`${deep*20}px`}}
                     >
                         <div className={'aside-li'} >
+                            <div>
+                                {
+                                    isFirst
+                                        ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
+                                            <use xlinkHref= {`#icon-${data.icon}`} />
+                                        </svg>
+                                        :null
+                                }
+                                {data.title}
+                            </div>
                             {
-                                isFirst
-                                    ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
-                                        <use xlinkHref= {`#icon-${data.icon}`} />
-                                    </svg>
-                                    :null
+                                showOpenNewPage(data.id)
                             }
 
-
-                            {data.title}
                         </div>
                     </li>
                 </PrivilegeButton>
@@ -98,15 +135,19 @@ const SystemManagement = (props) => {
                 style={{paddingLeft:`${deep*20}px`}}
             >
                 <div className={'aside-li'} >
+                    <div>
+                        {
+                            isFirst
+                                ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
+                                    <use xlinkHref= {`#icon-${data.icon}`} />
+                                </svg>
+                                :null
+                        }
+                        {data.title}
+                    </div>
                     {
-                        isFirst
-                            ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
-                                <use xlinkHref= {`#icon-${data.icon}`} />
-                            </svg>
-                            :null
+                        showOpenNewPage(data.id)
                     }
-
-                    {data.title}
                 </div>
             </li>
         }
@@ -210,6 +251,7 @@ const SystemManagement = (props) => {
             setExpandedTree={setExpandedTree} // 树的展开和闭合(非必传)
             applicationRouters={menuRouter} // 菜单
             outerPath={"/setting"} // 系统设置Layout路径
+            notFoundPath={"/noaccess"}
         >
             <Layout className = 'sysmana-layout'>
                 <Sider

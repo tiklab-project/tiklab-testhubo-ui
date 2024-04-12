@@ -55,9 +55,6 @@ const ResponseCommon = (props) =>{
                             </TabPane>
                         </>
                 }
-
-
-
             </Tabs>
         </div>
     )

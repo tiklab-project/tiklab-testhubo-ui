@@ -5,7 +5,7 @@ import UIResultCommon from "../../../common/UIResultCommon";
 import {Col, Drawer, Empty, List, Row, Tag} from "antd";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import emptyImg from "../../../../assets/img/empty.png";
-import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
+import {CASE_TYPE, testExecuteStatus} from "../../../../common/dictionary/dictionary";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import {PlayCircleOutlined} from "@ant-design/icons";
 
@@ -34,7 +34,7 @@ const WebExecuteTestPage = (props) =>{
 
                     setSpinning(false)
 
-                    if (data.status === 0) {
+                    if (data?.webSceneInstance?.status !== testExecuteStatus.TEST_STATUS_START) {
                         clearInterval(ref.current);
                         setStart(false);
                         messageFn("success", "执行完成");

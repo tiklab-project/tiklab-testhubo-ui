@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Avatar, Empty, Input, Space, Table, TreeSelect} from "antd";
+import {Avatar, Empty, Input, Space, Table, Tag, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
 import { showCaseTypeTable, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined} from "@ant-design/icons";
-import {useHistory} from "react-router";
+import {useHistory, useParams} from "react-router";
 import DropdownAdd from "./DropdownAdd";
 import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
@@ -43,7 +43,7 @@ const TestCaseTable = (props) => {
             title:`名称`,
             dataIndex: 'name',
             key: "name",
-            width:"30%",
+            width:"25%",
             render: (text,record) =>(
                 <Space className={"case-table-name"}>
                     <>{showCaseTypeView(record.caseType)}</>
@@ -64,6 +64,12 @@ const TestCaseTable = (props) => {
             key: "recentInstance",
             width:"10%",
             render:(text,record)=>(<CaseInstanceSingleDrawer caseData={record} {...props}/>)
+        }, {
+            title: `状态`,
+            dataIndex: "status",
+            key: "status",
+            width:"10%",
+            render:(text,record)=>showStatus(text)
         },
         {
             title: `模块`,
@@ -72,17 +78,17 @@ const TestCaseTable = (props) => {
             width:"15%",
         },
         {
-            title: `创建人`,
-            dataIndex:  ["createUser","name"],
+            title: `负责人`,
+            dataIndex:  ["director","name"],
             key: "user",
-            width:"15%",
-            render: (text, record) => (showCreateUser(record.createUser))
+            width:"10%",
+            render: (text, record) => (showCreateUser(record.director))
         },
         {
             title: `创建时间`,
             dataIndex: 'createTime',
             key: "createTime",
-            width:"15%",
+            width:"10%",
         },
         {
             title: '操作',
@@ -109,11 +115,14 @@ const TestCaseTable = (props) => {
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
     const [diffTypeCaseNum, setDiffTypeCaseNum] = useState();
+    let {id} = useParams()
     let repositoryId = sessionStorage.getItem("repositoryId")
-
     let history = useHistory();
 
     useEffect(()=>{
+        //获取路由id存入
+        sessionStorage.setItem('repositoryId',id);
+
         findPage()
     },[])
 
@@ -155,15 +164,15 @@ const TestCaseTable = (props) => {
 
         switch (record.caseType) {
             case CASE_TYPE.API_UNIT:
-                isBind = isApiUnitBind(record.id);
+                isBind = await isApiUnitBind(record.id);
                 bindMsg = "该用例已被接口场景或测试计划绑定，无法删除！";
                 break;
             case CASE_TYPE.API_SCENE:
-                isBind = isApiSceneBind(record.id);
+                isBind = await isApiSceneBind(record.id);
                 bindMsg = "该用例已被接口性能或测试计划绑定，无法删除！";
                 break;
             default:
-                isBind = isCaseExist(record.id);
+                isBind = await isCaseExist(record.id);
                 bindMsg = "该用例已被测试计划绑定，无法删除！";
                 break;
         }
@@ -176,14 +185,29 @@ const TestCaseTable = (props) => {
         }
     }
 
-    const showCreateUser = (createUser) =>{
-        if(createUser&&createUser.nickname){
+    const showStatus = (status)=>{
+        switch (status) {
+            case 0:
+                return <Tag color="cyan">未开始</Tag>;
+            case 1:
+                return <Tag color="processing">进行中</Tag>;
+            case 2:
+                return <Tag color="success">结束</Tag>;
+            default:
+                return <Tag color="cyan">未开始</Tag>;
+        }
+    }
+
+    const showCreateUser = (director) =>{
+        if(director&&director.nickname){
             return <div className={"ws-user-item"}>
                 <Space>
-                    <Avatar style={{width:"20px",height:"20px",lineHeight:"20px"}}>{createUser?.nickname[0]}</Avatar>
-                    <span >{createUser?.nickname} </span>
+                    <Avatar style={{width:"20px",height:"20px",lineHeight:"20px",verticalAlign: 'middle',}}>{director?.nickname[0]}</Avatar>
+                    <span >{director?.nickname} </span>
                 </Space>
             </div>
+        }else {
+            return "未设置"
         }
     }
 
@@ -191,10 +215,19 @@ const TestCaseTable = (props) => {
     const selectKeyFun = (item)=>{
         let key = item.key
         setMenuCaseType(key)
+        setCurrentPage(1)
 
-        let param
+        let param={
+            pageParam: {
+                pageSize: pageSize,
+                currentPage:1
+            },
+        }
         if(key!=="all"){
-            param={testType:key}
+            param={
+                testType:key,
+                ...param
+            }
         }
 
         findPage(param)
@@ -231,6 +264,7 @@ const TestCaseTable = (props) => {
                 pageSize: pageSize,
                 currentPage:current
             },
+            testType:selectCaseType==="all"?null:selectCaseType
         }
 
         findPage(param)
@@ -327,7 +361,7 @@ const TestCaseTable = (props) => {
             case CASE_TYPE.APP_SCENE:
                 return <AppExecuteTestPage type={"quick"} appSceneId={record.id}/>
             default:
-                return <div style={{width:"18px"}}/>
+                return;
         }
     }
 

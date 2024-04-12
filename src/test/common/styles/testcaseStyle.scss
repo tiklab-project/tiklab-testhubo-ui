@@ -483,3 +483,9 @@
 .popconfirm-form > .ant-popover-message-title {
     background: #df5000;
 }
+
+.api-unit-drawer{
+    .ant-tabs{
+        height: unset;
+    }
+}

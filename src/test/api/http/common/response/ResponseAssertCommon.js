@@ -1,5 +1,6 @@
 import React from "react";
 import {Select, Table, Tag} from "antd";
+import {assertCompare} from "../../../../../common/dictionary/dictionary";
 
 const { Option } = Select;
 
@@ -11,7 +12,7 @@ const ResponseAssertCommon = (props) => {
         {
             title: '来源',
             dataIndex: 'source',
-            width: '20%',
+            width: '15%',
             render:(text,record) =>  (
                 <Select
                     defaultValue={record.source}
@@ -29,13 +30,19 @@ const ResponseAssertCommon = (props) => {
         },{
             title: '属性',
             dataIndex: 'propertyName',
-            width: '30%',
+            width: '25%',
             editable: true,
         },
         {
             title: '期望值',
             width: '20%',
             dataIndex: 'value',
+        },
+        {
+            title: '比较',
+            width: '10%',
+            dataIndex: 'comparator',
+            render:(text,record)=> showCompare(text)
         },
         {
             title: '实际值',
@@ -57,6 +64,23 @@ const ResponseAssertCommon = (props) => {
             )
         }
     ]
+
+    const showCompare = (comparator) =>{
+        switch (comparator) {
+            case assertCompare.EQUAL:
+                return "等于";
+            case assertCompare.NOT_EQUAL:
+                return "不等于";
+            case assertCompare.LESS_THAN:
+                return "小于";
+            case assertCompare.LESS_THAN_OR_EQUAL:
+                return "小于等于";
+            case assertCompare.GREATER_THAN:
+                return "大于"
+            case assertCompare.GREATER_THAN_OR_EQUAL:
+                return "大于等于"
+        }
+    }
 
 
     return(

@@ -92,6 +92,23 @@ const CASE_TYPE={
     TEST_REPORT:"test-report"
 }
 
+//断言大小对比
+const assertCompare = {
+    EQUAL:1,
+    NOT_EQUAL:2,
+    LESS_THAN:3,
+    LESS_THAN_OR_EQUAL:4,
+    GREATER_THAN :5,
+    GREATER_THAN_OR_EQUAL:6
+}
+
+//执行状态
+const testExecuteStatus = {
+    TEST_STATUS_START:"start",
+    TEST_STATUS_SUCCESS: "success",
+    TEST_STATUS_FAIL:"fail"
+}
+
 
 export {
     headerParamDictionary,
@@ -100,5 +117,7 @@ export {
     week,
     day,
     functionalTestResult,
-    CASE_TYPE
+    CASE_TYPE,
+    assertCompare,
+    testExecuteStatus
 }

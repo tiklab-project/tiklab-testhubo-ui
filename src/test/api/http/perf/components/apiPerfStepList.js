@@ -19,7 +19,7 @@ const ApiPerfStepList = (props) =>{
             key: 'name',
             width: "30%",
             render: (text, record) => (
-                props.type ? <a onClick={() => setSessionStorage(record.apiScene.id)}>{text}</a>:<span>{text}</span>
+                props.type ? <span>{text}</span>:<a onClick={() => setSessionStorage(record.apiScene.id)}>{text}</a>
             )
         },
         {

@@ -5,7 +5,6 @@ import {Empty, Space, Table, Tooltip,Avatar} from 'antd';
 import {getUser} from "thoughtware-core-ui";
 import emptyImg  from "../../../assets/img/empty.png"
 import repositoryFollowStore from "../store/RepositoryFollowStore";
-import {UserOutlined} from "@ant-design/icons";
 import RepositoryIcon from "../../../common/RepositoryIcon";
 
 
@@ -15,7 +14,6 @@ import RepositoryIcon from "../../../common/RepositoryIcon";
 const RepositoryList = (props) => {
     const { repositoryStore ,findList,selectItem } = props;
     const { repositoryList,repositoryRecent } = repositoryStore;
-
     const {createRepositoryFollow,deleteRepositoryFollow} = repositoryFollowStore;
 
     let userId=getUser().userId
@@ -46,7 +44,6 @@ const RepositoryList = (props) => {
                         <span style={{fontSize:"13px"}}>{record?.user?.nickname} </span>
                     </Space>
                 </div>
-
             )
         },{
             title: `可见范围`,
@@ -61,7 +58,6 @@ const RepositoryList = (props) => {
                             :showVisibility("私密","jiesuo")
                     }
                 </>
-
             )
         },
         {
@@ -106,13 +102,10 @@ const RepositoryList = (props) => {
      * 跳往成员页面
      */
     const toRepositoryRole = (id) => {
-
         toRepositoryConfig(id);
 
         //给左侧导航设置一个选择项
         localStorage.setItem("leftRouter","/repository/setting");
-
-
         props.history.push('/repository/setting/role');
     }
 
@@ -122,13 +115,11 @@ const RepositoryList = (props) => {
      */
 
     const toRepositoryDetail = (id) => {
-
         toRepositoryConfig(id);
 
         //给左侧导航设置一个选择项
-        localStorage.setItem("leftRouter","/repository/detail")
-
-        props.history.push(`/repository/detail/${id}`);
+        localStorage.setItem("leftRouter","/repository/testcase")
+        props.history.push(`/repository/testcase/${id}`);
     }
 
     /**

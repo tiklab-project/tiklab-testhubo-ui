@@ -13,7 +13,7 @@ const UIResultCommon = (props) =>{
                         <div className={"history-detail-all-box"}>
                             <div className={"history-detail-all-item"}>
                                 {
-                                    instanceInfo?.instance?.status==="start"
+                                    instanceInfo?.status==="start"
                                         ? <>
                                             <div>状态</div>
                                             <Spin indicator={<LoadingOutlined style={{fontSize: 24,margin:"15px 40px"}} spin/>} />
@@ -23,10 +23,10 @@ const UIResultCommon = (props) =>{
                                             <div>测试结果</div>
                                             <div className={"history-detail-all-item-value"}>
                                                 {
-                                                    instanceInfo?.instance?.status==="success"&&"成功"
+                                                    instanceInfo?.status==="success"&&"成功"
                                                 }
                                                 {
-                                                    instanceInfo?.instance?.status==="fail"&&"失败"
+                                                    instanceInfo?.status==="fail"&&"失败"
                                                 }
                                             </div>
                                         </>

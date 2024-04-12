@@ -55,8 +55,6 @@ const ApiUnitExecuteTest = (props) =>{
             }
             return messageFn("error",errorMsg)
         }
-
-
     };
 
     const onClose = () => {
@@ -168,6 +166,7 @@ const ApiUnitExecuteTest = (props) =>{
                 maskStyle={{background:"transparent"}}
                 contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
+                className={"api-unit-drawer"}
             >
                 <Spin spinning={spinning}>
                     <CaseBread

@@ -59,6 +59,18 @@ export class TestPlanDetailStore {
         }
     }
 
+    @action
+    getTestTypeNum = async (id) =>{
+        const param = new FormData();
+        param.append('testPlanId', id)
+
+        const res = await Axios.post("/testPlanCase/getTestTypeNum",param)
+        if(res.code === 0) {
+            return res.data
+        }
+    }
+
+
 }
 
 let testPlanDetailStore = new TestPlanDetailStore();
