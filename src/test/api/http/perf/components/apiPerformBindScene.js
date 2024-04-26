@@ -105,7 +105,7 @@ const ApiPerformBindScene = (props) =>{
                 onClick={showModal}
             />
             <Modal
-                title="关联"
+                title="未关联场景"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}

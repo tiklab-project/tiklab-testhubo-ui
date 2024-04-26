@@ -105,7 +105,7 @@ const ApiSceneBindUnit =(props) =>{
         <>
             <a onClick={showModal}>关联用例</a>
             <Modal
-                title="关联"
+                title="未关联接口单元"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}

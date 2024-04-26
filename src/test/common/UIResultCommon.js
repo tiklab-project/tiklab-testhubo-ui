@@ -6,7 +6,7 @@ const UIResultCommon = (props) =>{
     const {spinning,instanceInfo,showList} = props
 
     return(
-        <div style={{height:"calc(100% - 50px)"}}>
+        <div style={{height:"calc(100% - 64px)"}}>
             <Spin spinning={spinning}>
                 <div className={"unit-instance-detail"}>
                     <div style={{padding:"10px 0 "}}>
@@ -53,7 +53,7 @@ const UIResultCommon = (props) =>{
 
                     </div>
                     <div className={"header-item"}>步骤列表</div>
-                    <div className='table-list-box' style={{margin:"10px"}}>
+                    <div className='table-list-box test-step-box'>
                         {showList()}
                     </div>
                 </div>

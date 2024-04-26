@@ -66,8 +66,10 @@ const RepositoryEdit = (props) => {
         values.iconUrl=iconRandom();
 
         createRepository(values).then((res)=> {
-            toRepositoryConfig(res.data)
-            findList({}, selectItem)
+            if(res.code===0){
+                toRepositoryConfig(res.data)
+                findList({}, selectItem)
+            }
         });
     };
 
@@ -97,7 +99,7 @@ const RepositoryEdit = (props) => {
     const showOption = (list) =>{
         return  list&&list.map((item) => <Option key={item.id} value={item.id}>
                 <div className={"ws-edit-box-select"}>
-                    {item.name}
+                    {item.nickname}
                 </div>
             </Option>
         )
@@ -107,8 +109,8 @@ const RepositoryEdit = (props) => {
     const selectChange = (memberList) =>{
         if(memberList&&memberList.length>0){
             let newList=memberList.map(item=>({
-                id:item,
-                adminRole:item === "111111"     //如果是等于true 管理员，false 普通成员
+                userId:item,
+                roleType:0
             }))
             setMemberSelectList(newList)
         }

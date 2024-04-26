@@ -84,7 +84,7 @@ const RepositorySettingMenu = (props) =>{
             domainId={repositoryId} // 项目id
             projectRouters={items} // 菜单
             outerPath={`/repository/setting`} // 项目设置Layout路径
-            noFoundPath={"/noaccess"}
+            noAccessPath={"/noaccess"}
         >
             <div className={"repository-setting-box"}>
                 <ul className="ws-menu-ul" style={{background: "#f5f5f5"}}>
@@ -99,7 +99,7 @@ const RepositorySettingMenu = (props) =>{
                     }
                 </ul>
 
-                <div className={"repository-setting-right"}>
+                <div className={"repository-setting-right padding-left-right padding-top-bottom"}>
                     {
                         renderRoutes(routes)
                     }

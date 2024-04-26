@@ -207,7 +207,7 @@ const WebSceneStepDrawer = ({name,stepId,findList}) =>{
                                 },
                             ]}
                         />
-                        <div style={{position: "absolute", bottom: "10px",right: "30px"}}>
+                        <div style={{position: "absolute", bottom: "10px",left: "30px"}}>
                         <Space>
                             <Button
                                 className={"important-btn"}

@@ -55,11 +55,16 @@ const SystemContent = (props) =>{
                     purviewCode: "MSG_Notice",
                 },
             ],
-        },
-        {
-            title: 'Agent配置',
-            id: '/setting/agent',
-            icon: 'jiqun-mianxing',
+        },{
+            title: '项目配置',
+            id: 'project',
+            icon: 'xiangmu1',
+            children: [
+                {
+                    title: 'Agent配置',
+                    id: '/setting/agent',
+                }
+            ]
         },
         {
             title: '插件',
@@ -81,7 +86,6 @@ const SystemContent = (props) =>{
                 {
                     title: "备份与恢复",
                     id: '/setting/backups',
-
                 },
             ],
         },
@@ -119,6 +123,10 @@ const SystemContent = (props) =>{
                     title: '项目功能管理',
                     icon: 'modular',
                     id: '/setting/privilege',
+                },{
+                    title: '虚拟角色',
+                    icon: 'modular',
+                    id: '/setting/virtual-role',
                 }, {
                     title: '项目权限',
                     icon: 'modular',

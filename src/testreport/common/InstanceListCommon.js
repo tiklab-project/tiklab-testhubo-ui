@@ -51,7 +51,7 @@ const InstanceListCommon = (props) =>{
     ]
     const column = [
         {
-            title: '概要详情',
+            title: '报告概要',
             dataIndex: "detail",
             key: "detail",
             width: "30%",

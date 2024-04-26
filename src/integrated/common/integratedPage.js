@@ -3,10 +3,8 @@ import { observer} from "mobx-react";
 import WorkspaceFindList from "../postin/workspaceBind/components/WorkspaceFindList";
 import "./intergatedStyle.scss"
 import workspaceBindStore from "../postin/workspaceBind/store/WorkspaceBindStore";
-import {Button, Collapse, Form, Input} from "antd";
+import {Button, Col,Row, Collapse, Form, Input} from "antd";
 import integratedUrlStore from "../postin/postinUrl/store/IntegratedUrlStore";
-import {messageFn} from "../../common/messageCommon/MessageCommon";
-import IconCommon from "../../common/IconCommon";
 const { Panel } = Collapse;
 
 const IntegratedPage = (props) =>{
@@ -125,7 +123,16 @@ const IntegratedPage = (props) =>{
 
 
     return(
-        <div className={"content-box-center"}>
+        <Row>
+            <Col
+                xs={{ span: "24" }}
+                sm={{ span: "24" }}
+                md={{ span: "24" }}
+                lg={{ span: "24" }}
+                xl={{ span: "20", offset: "2" }}
+                xxl={{ span: "18", offset: "3" }}
+            >
+
             <div  className={"header-box-space-between"} >
                 <div className={'header-box-title'}>系统集成</div>
             </div>
@@ -182,8 +189,8 @@ const IntegratedPage = (props) =>{
                     </div>
                 </Panel>
             </Collapse>
-
-        </div>
+            </Col>
+        </Row>
     )
 }
 

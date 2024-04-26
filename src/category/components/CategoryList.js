@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { observer, inject } from "mobx-react";
-import {Table, Space, Popconfirm, Empty} from 'antd';
+import {Table, Space,Col,Row, Popconfirm, Empty} from 'antd';
 import CategoryEdit from './CategoryEdit';
 import  { useTranslation } from 'react-i18next'
 import emptyImg from "../../assets/img/empty.png";
@@ -85,29 +85,38 @@ const CategoryList = (props) => {
 
 
     return(
-        <div className={"content-box-center"}>
-            <div  className={"header-box-space-between"} >
-                <div className={'header-box-title'}>模块列表</div>
-                <CategoryEdit name={`添加模块`} findList={findList}/>
-            </div>
-            <div className={"table-list-box"}>
-                 <Table
-                    columns={columns}
-                    dataSource={categoryTableList}
-                    rowKey={record => record.id}
-                    // expandable={{defaultExpandAllRows: true}}
-                    loading={tableLoading}
-                    pagination={false}
-                    locale={{
-                        emptyText: <Empty
-                            imageStyle={{ height: 120 }}
-                            description={<span>暂无模块</span>}
-                            image={emptyImg}
-                        />,
-                    }}
-                 />
-            </div>
-        </div>
+        <Row>
+            <Col
+                xs={{ span: "24" }}
+                sm={{ span: "24" }}
+                md={{ span: "24" }}
+                lg={{ span: "24" }}
+                xl={{ span: "20", offset: "2" }}
+                xxl={{ span: "18", offset: "3" }}
+            >
+                <div  className={"header-box-space-between"} >
+                    <div className={'header-box-title'}>模块列表</div>
+                    <CategoryEdit name={`添加模块`} findList={findList}/>
+                </div>
+                <div className={"table-list-box"}>
+                         <Table
+                            columns={columns}
+                            dataSource={categoryTableList}
+                            rowKey={record => record.id}
+                            // expandable={{defaultExpandAllRows: true}}
+                            loading={tableLoading}
+                            pagination={false}
+                            locale={{
+                                emptyText: <Empty
+                                    imageStyle={{ height: 120 }}
+                                    description={<span>暂无模块</span>}
+                                    image={emptyImg}
+                                />,
+                            }}
+                         />
+                    </div>
+            </Col>
+        </Row>
     )
 }
 

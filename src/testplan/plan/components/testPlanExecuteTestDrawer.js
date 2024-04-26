@@ -167,13 +167,13 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 visible={testDrawerVisible}
                 width={900}
                 destroyOnClose={true}
-                contentWrapperStyle={{top:48,height:"calc(100% - 48px)"}}
+                maskStyle={{background:"transparent"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
                 <Spin spinning={spinning}>
-                    <CaseBread breadItem={["测试"]} icon={"ceshi"}/>
-                    <div className={"unit-instance-detail"}>
-                        <div className={"header-item"}>测试详情</div>
+                    <CaseBread breadItem={["计划测试"]} icon={"jihua"}/>
+                    <div style={{height: "calc(100% - 44px)"}}>
                         <div className={"history-detail-all-box"}>
                             <div className={"history-detail-all-item"}>
                                 <div>测试结果</div>
@@ -211,7 +211,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
                             </div>
                         </div>
                         <div className={"header-item"}>用例列表</div>
-                        <div className='table-list-box' style={{margin: "10px"}}>
+                        <div className='table-list-box test-step-box'>
                             <Table
                                 columns={columns}
                                 dataSource={caseList}

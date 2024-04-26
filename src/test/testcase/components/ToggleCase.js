@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
-import {showCaseTypeInList} from "../../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeInList, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {inject, observer} from "mobx-react";
 import PaginationCommon from "../../../common/pagination/Page";
 import {getUser} from "thoughtware-core-ui";
 import {useHistory} from "react-router";
 import IconCommon from "../../../common/IconCommon";
-import {Input, Spin} from "antd";
+import {Input, Space, Spin, Tooltip} from "antd";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
-import {SearchOutlined} from "@ant-design/icons";
+import {CaretDownOutlined, SearchOutlined} from "@ant-design/icons";
 
 const ToggleCase = (props) =>{
     const {testcaseStore,caseId} = props
@@ -131,22 +131,19 @@ const ToggleCase = (props) =>{
 
     return(
         <div className={"case-toggle"} ref={caseToggleRef}>
+            <Tooltip placement="top" title={"切换用例"}>
             <div
                 onClick={toggle}
                 style={{
-                    cursor:"pointer",
-                    padding:"5px",
-                    background: "#f5f5f5",
-                    width: "26px",
-                    height: "26px",
-                    borderRadius: "4px"
+                    cursor: "pointer",
+                    width: "20px",
+                    height: "28px",
+                    fontSize: "18px"
                 }}
             >
-                <IconCommon
-                    className={"icon-s"}
-                    icon={"xiala"}
-                />
+                <CaretDownOutlined />
             </div>
+            </Tooltip>
 
             <div className={`case-toggle-title ${visible === false ? 'teston-hide' : 'teston-show'}`}>
                 <Spin spinning={spinning}>
@@ -171,7 +168,10 @@ const ToggleCase = (props) =>{
                                         className={` display-flex-between  toggle-case-item  ${caseId=== item.id ? 'toggle-case-item-selected' : ''}`}
                                         onClick={()=>switchCaseType(item)}
                                     >
-                                        <span className={"text-ellipsis"}>{item.name}</span>
+                                        <Space className={"case-table-name"}>
+                                            <>{showCaseTypeView(item.caseType)}</>
+                                            <span className={"text-ellipsis"}>{item.name}</span>
+                                        </Space>
                                         {
                                             showCaseTypeInList(item.caseType)
                                         }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import {Form, Modal, Button, Radio, Checkbox, Row, Col, TimePicker} from 'antd';
 import IconCommon from "../../../common/IconCommon";
 import quartzPlanStore from "../store/quartzPlanStore";
@@ -40,19 +40,17 @@ const QuartzPlanEdit = (props) => {
         values.repositoryId=repositoryId
         values.time=values.time.format("HH:mm")
 
-        if(type==="add"){
-            await createQuartzPlan(values)
-        }else {
+        if(type==="edit"){
             values.id=quartzPlanId;
             await updateQuartzPlan(values)
+        }else {
+            await createQuartzPlan(values)
         }
         await findList()
         setVisible(false);
     };
 
     const onCancel = () => { setVisible(false) };
-
-
 
 
     return (

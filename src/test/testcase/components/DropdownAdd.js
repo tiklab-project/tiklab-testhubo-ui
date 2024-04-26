@@ -66,21 +66,6 @@ const DropdownAdd = (props) =>{
                         {...props}
                     />
                 </Menu.Item>
-
-                {/*<Menu.Item key={"web-perf-add"}>*/}
-                {/*    <WebPerfEdit*/}
-                {/*        name={"添加Web性能"}*/}
-                {/*        type={"add"}*/}
-                {/*        {...props}*/}
-                {/*    />*/}
-                {/*</Menu.Item>*/}
-                {/*<Menu.Item key={"app-perf-add"}>*/}
-                {/*    <AppPerfEdit*/}
-                {/*        name={"添加App性能"}*/}
-                {/*        type={"add"}*/}
-                {/*        {...props}*/}
-                {/*    />*/}
-                {/*</Menu.Item>*/}
             </Menu.ItemGroup >
         </Menu>
     )

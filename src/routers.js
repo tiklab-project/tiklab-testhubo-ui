@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Redirect} from "react-router";
 
 
 
 //---平台
 import {Directory, Orga, UserGroup, User,} from "thoughtware-user-ui";
-import { NotFound, ProjectFeature, ProjectRole, SystemFeature, SystemRole} from "thoughtware-privilege-ui"
-import {ExcludeProductUser} from "thoughtware-eam-ui";
+import { NoAccess, ProjectFeature, ProjectRole, SystemFeature, SystemRole,ProjectVirtualRole} from "thoughtware-privilege-ui"
+import {ExcludeProductUser, NotFound} from "thoughtware-eam-ui";
 import {BackupRestore, LogTemplate, LogType, MyLog} from "thoughtware-security-ui";
 import {PluginDetail, Plugin} from "thoughtware-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "thoughtware-message-ui";
@@ -127,7 +127,7 @@ const routers =  [
     {
         exact: true,
         path: '/noaccess',
-        render: props => <NotFound {...props} homePath={'/'} type='noaccess'/>
+        render: props => <NoAccess {...props} homePath={'/'} />
     },
     {
         path:"/no-auth",
@@ -517,13 +517,7 @@ const routers =  [
                         exact: true,
                         render:()=> <ProductAuth  />
                     },
-                    //代办
-                    // {
-                    //     path: "/setting/myTodo",
-                    //     key:'myTodo',
-                    //     exact: true,
-                    //     render:(props)=> <MyTodoTask {...props} bgroup={"teston"}/>
-                    // },
+
                     //插件
                     {
                         path: "/setting/plugin",
@@ -577,6 +571,12 @@ const routers =  [
                         render: (props) => <ProjectFeature isBase={true} {...props} bgroup={"teston"}/>,
                     },
                     {
+                        path: "/setting/virtual-role",
+                        key:'ProjectRole',
+                        exact: true,
+                        render: (props) => <ProjectVirtualRole {...props}/>,
+                    },
+                    {
                         path: "/setting/role",
                         key:'ProjectRole',
                         exact: true,
@@ -627,6 +627,11 @@ const routers =  [
                 key:'tohome',
                 exact: true,
                 render: () => <Redirect to={"/home"}/>,
+            },
+
+            {
+                path: "*",
+                render: () => <Redirect to={"/404"}/>,
             },
         ]
     },

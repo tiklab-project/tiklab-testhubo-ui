@@ -8,6 +8,7 @@ import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import {LoadingOutlined} from "@ant-design/icons";
 import CaseTableQuickTest from "../../../../common/CaseTableQuickTest/CaseTableQuickTest";
+import {testExecuteStatus} from "../../../../../common/dictionary/dictionary";
 const {Option} = Select
 
 const ApiPerfExecuteTestPage = (props) =>{
@@ -74,7 +75,7 @@ const ApiPerfExecuteTestPage = (props) =>{
 
                     setSpinning(false)
 
-                    if (data.status === 0) {
+                    if (data?.apiPerfInstance?.status !== testExecuteStatus.TEST_STATUS_START) {
                         clearInterval(ref.current);
                         setStart(false);
                         messageFn("success", "执行完成");
@@ -200,29 +201,29 @@ const ApiPerfExecuteTestPage = (props) =>{
                 contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
-                <div className={"content-box-center"}>
-                    <CaseBread
-                        breadItem={["接口性能测试"]}
-                        icon={"api1"}
-                        setOpen={setOpen}
-                    />
-                    <div  className={"result-spin-box"}>
+
+                <CaseBread
+                    breadItem={["接口性能测试"]}
+                    icon={"api1"}
+                    setOpen={setOpen}
+                />
+                <div style={{height:"calc(100% - 50px)"}}>
                     <Spin spinning={spinning}>
                         <div className={"history-detail history-detail-box"}>
                             <div className={"history-detail-all"}>
                                 <div className={"history-detail-all-box"}>
                                     <div className={"history-detail-all-item"}>
                                         {
-                                             start
+                                            start
                                                 ? <>
-                                                     <div>状态</div>
-                                                     <Spin indicator={<LoadingOutlined style={{fontSize: 24,margin:"15px 40px"}} spin/>} />
-                                                 </>
+                                                    <div>状态</div>
+                                                    <Spin indicator={<LoadingOutlined style={{fontSize: 24,margin:"15px 40px"}} spin/>} />
+                                                </>
 
                                                 : <>
-                                                     <div>总数</div>
-                                                     <div className={"history-detail-all-item-value"}>{result?.total}</div>
-                                                 </>
+                                                    <div>总数</div>
+                                                    <div className={"history-detail-all-item-value"}>{result?.total}</div>
+                                                </>
                                         }
 
                                     </div>
@@ -244,28 +245,27 @@ const ApiPerfExecuteTestPage = (props) =>{
                                     </div>
                                 </div>
                             </div>
-                            <div className={"history-detail-all"}>
-                                <div style={{fontWeight:"bold",padding:"6px"}}>场景列表</div>
-                                <div className='table-list-box' style={{margin: "10px"}}>
-                                    <Table
-                                        columns={columns}
-                                        dataSource={stepList}
-                                        rowKey={(record, index) => index}
-                                        pagination={false}
-                                        locale={{
-                                            emptyText: <Empty
-                                                imageStyle={{ height: 120}}
-                                                description={<span>暂无测试步骤</span>}
-                                                image={emptyImg}
-                                            />,
-                                        }}
-                                    />
-                                </div>
+
+                            <div style={{fontWeight:"bold",padding:"6px"}}>场景列表</div>
+                            <div className='table-list-box  test-step-box'>
+                                <Table
+                                    columns={columns}
+                                    dataSource={stepList}
+                                    rowKey={(record, index) => index}
+                                    pagination={false}
+                                    locale={{
+                                        emptyText: <Empty
+                                            imageStyle={{ height: 120}}
+                                            description={<span>暂无测试步骤</span>}
+                                            image={emptyImg}
+                                        />,
+                                    }}
+                                />
                             </div>
                         </div>
                     </Spin>
                 </div>
-                </div>
+
             </Drawer>
         </>
     )

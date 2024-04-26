@@ -5,14 +5,14 @@
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Modal, Table, Space, Select, Row, Col, Input, Avatar,} from 'antd';
-import {showCaseTypeTable} from "../../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
 import testPlanDetailStore from "../store/testPlanDetailStore";
 import {SearchOutlined} from "@ant-design/icons";
 import PaginationCommon from "../../../common/pagination/Page";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 
 // 添加与编辑
-const TestPlanBindCase = (props) => {
+const TestPlanBindCaseModal = (props) => {
     const {testPlanId,findBindCasePage} = props;
     const {planBindCase} = testPlanDetailStore;
     const {findTestCasePage,testCaseList} = testPlanDetailStore;
@@ -22,7 +22,13 @@ const TestPlanBindCase = (props) => {
             title:`名称`,
             dataIndex: "name",
             key: "name",
-            width:'40%'
+            width:'40%',
+            render: (text,record) =>(
+                <div className={"display-flex-gap"}>
+                    <>{showCaseTypeView(record.caseType)}</>
+                    <span className={"link-text"} >{text}</span>
+                </div>
+            )
         },
         {
             title: `用例类型`,
@@ -30,18 +36,17 @@ const TestPlanBindCase = (props) => {
             key: "caseType",
             width:"10%",
             render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
+        },{
+            title: `状态`,
+            dataIndex: "status",
+            key: "status",
+            width:"10%",
+            render: (text)=><div className={"case-table-status"}>{showStatus(text)}</div>
         }, {
             title: `模块`,
             dataIndex: ["category","name"],
             key: "category",
             width:"10%",
-        },
-        {
-            title: `创建人`,
-            dataIndex:  ["createUser","name"],
-            key: "user",
-            width:"15%",
-            render: (text, record) => (showCreateUser(record.createUser))
         },
         {
             title: `创建时间`,
@@ -51,7 +56,7 @@ const TestPlanBindCase = (props) => {
         },
     ]
 
-    let repositoryId = sessionStorage.getItem("repositoryId")
+    const repositoryId = sessionStorage.getItem("repositoryId")
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
@@ -80,17 +85,6 @@ const TestPlanBindCase = (props) => {
         })
     }
 
-    const showCreateUser = (createUser) =>{
-        if(createUser&&createUser.nickname){
-            return <div className={"ws-user-item"}>
-                <Space>
-                    <Avatar style={{width:"20px",height:"20px",lineHeight:"20px"}}>{createUser?.nickname[0]}</Avatar>
-                    <span >{createUser?.nickname} </span>
-                </Space>
-            </div>
-        }
-    }
-
     //测试类型筛选
     const testTypeFn = (type)=>{
         let params = {
@@ -99,8 +93,8 @@ const TestPlanBindCase = (props) => {
         findPage(params)
     }
 
-    const onSearch = (value) =>{
-        let param = {name:value}
+    const onSearch = (e) =>{
+        let param = {name:e.target.value}
         findPage(param)
     }
 
@@ -140,7 +134,7 @@ const TestPlanBindCase = (props) => {
                 name={"关联用例"}
             />
             <Modal
-                title="关联"
+                title="未关联用例"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
@@ -213,4 +207,4 @@ const TestPlanBindCase = (props) => {
     );
 };
 
-export default inject("testcaseStore")(observer(TestPlanBindCase));
+export default inject("testcaseStore")(observer(TestPlanBindCaseModal));

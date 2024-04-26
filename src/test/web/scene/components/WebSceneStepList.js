@@ -8,9 +8,9 @@ import WebSceneStepDrawer from "./WebSceneStepDrawer";
 import {Button, Col, Dropdown, Menu, Row, Tag} from "antd";
 import stepCommonStore from "../../../common/stepcommon/store/StepCommonStore";
 import {CASE_TYPE} from "../../../../common/dictionary/dictionary";
-import IfJudgmentDrawer from "../../../common/ifJudgment/components/IfJudgmentDrawer";
 import IfJudgmentEdit from "../../../common/ifJudgment/components/IfJudgmentEdit";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
+import {IfStep} from "../../../common/caseCommonFn";
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
@@ -48,6 +48,90 @@ const WebSceneStepList = (props) => {
         updateStepCommon(param).then(()=>findList())
     };
 
+    const caseStep = (item,provided)=>{
+        const step =  item?.webSceneStep
+
+        return(<WebSceneStepDrawer
+            name={
+                <Row
+                    // gutter={[10,0]}
+                    className={"step-item-content"}
+                >
+                    <Col span={1}>
+                        <div
+                            {...provided.dragHandleProps}
+                            className={"step-item-box-icon"}
+                        >
+                            <MenuOutlined />
+                        </div>
+                    </Col>
+                    <Col span={1}>
+                        <div>{item.sort}</div>
+                    </Col>
+                    <Col span={4}>
+                        <div>{step?.name}</div>
+                    </Col>
+                    <Col span={15}>
+                        {step?.actionType
+                            ?<div className={"display-flex-gap"}>
+                                <div style={{fontSize:"12px",color:"#aaa" }}>操作: </div>
+                                <div >{step?.actionType}</div>
+
+                                {
+                                    step?.parameter
+                                        ?<>
+                                            <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
+                                            <div>{step?.parameter}</div>
+                                        </>
+                                        :null
+                                }
+
+                            </div>
+                            :null
+
+                        }
+                        {step?.location
+                            ?<div className={"display-flex-gap "}>
+                                <div style={{fontSize:"12px",color:"#aaa" }}>定位: </div>
+                                <div>{step?.location}</div>
+                                {
+                                    step?.locationValue
+                                        ?<>
+                                            <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
+                                            <div>{step?.locationValue}</div>
+                                        </>
+                                        :null
+                                }
+                            </div>
+                            :null
+                        }
+
+                    </Col>
+                    <Col style={{marginLeft: "auto",height:"20px"}}>
+                        <IconCommon
+                            className={"icon-s edit-icon"}
+                            icon={"shanchu3"}
+                            onClick={(e)=> {
+                                deleteStepFn(item.id)
+                                e.stopPropagation()
+                            }}
+                        />
+                    </Col>
+
+                </Row>
+            }
+            stepId={item.id}
+            findList={findList}
+        />)
+    }
+
+    const deleteStepFn = (id)=>{
+        deleteStepCommon(id, CASE_TYPE.WEB_SCENE).then(async () => {
+            await findList()
+            await findWebScene(webSceneId)
+        })
+    }
+
     /**
      * 步骤
      */
@@ -68,122 +152,9 @@ const WebSceneStepList = (props) => {
                         >
                             {
                                 item.type==="if"
-                                    ?<IfJudgmentDrawer
-                                        name={
-                                            <Row
-                                                // gutter={[10,0]}
-                                                className={"step-item-content"}
-                                            >
-                                                <Col span={1}>
-                                                    <div
-                                                        {...provided.dragHandleProps}
-                                                        className={"step-item-box-icon"}
-                                                    >
-                                                        <MenuOutlined />
-                                                    </div>
-                                                </Col>
-                                                <Col span={1}>
-                                                    <div>{item.sort}</div>
-                                                </Col>
-                                                <Col span={4}>
-                                                    <Tag color={"processing"}>if 条件判断</Tag>
-                                                </Col>
-                                                <Col style={{marginLeft: "auto",height:"20px"}}>
-                                                    <IconCommon
-                                                        className={"icon-s edit-icon"}
-                                                        icon={"shanchu3"}
-                                                        onClick={(e)=> {
-                                                            deleteStepCommon(item.id, CASE_TYPE.WEB_SCENE).then(async () => {
-                                                                await findList()
-                                                                await findWebScene(webSceneId)
-                                                            })
-                                                            e.stopPropagation()
-                                                        }}
-                                                    />
-                                                </Col>
-                                            </Row>
-                                        }
-                                        stepId={item.id}
-                                        findList={findList}
-                                    />
-                                    :<WebSceneStepDrawer
-                                        name={
-                                            <Row
-                                                // gutter={[10,0]}
-                                                className={"step-item-content"}
-                                            >
-                                                <Col span={1}>
-                                                    <div
-                                                        {...provided.dragHandleProps}
-                                                        className={"step-item-box-icon"}
-                                                    >
-                                                        <MenuOutlined />
-                                                    </div>
-                                                </Col>
-                                                <Col span={1}>
-                                                    <div>{item.sort}</div>
-                                                </Col>
-                                                <Col span={4}>
-                                                    <div>{item?.webSceneStep?.name}</div>
-                                                </Col>
-                                                <Col span={15}>
-                                                    {item?.webSceneStep?.actionType
-                                                        ?<div className={"display-flex-gap"}>
-                                                            <div style={{fontSize:"12px",color:"#aaa" }}>操作: </div>
-                                                            <div >{item?.webSceneStep?.actionType}</div>
-
-                                                            {
-                                                                item?.webSceneStep?.parameter
-                                                                    ?<>
-                                                                        <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
-                                                                        <div>{item?.webSceneStep?.parameter}</div>
-                                                                    </>
-                                                                    :null
-                                                            }
-
-                                                        </div>
-                                                        :null
-
-                                                    }
-                                                    {item?.webSceneStep?.location
-                                                        ?<div className={"display-flex-gap "}>
-                                                            <div style={{fontSize:"12px",color:"#aaa" }}>定位: </div>
-                                                            <div>{item?.webSceneStep?.location}</div>
-                                                            {
-                                                                item?.webSceneStep?.locationValue
-                                                                    ?<>
-                                                                        <div style={{fontSize:"12px",color:"#aaa" }}>参数: </div>
-                                                                        <div>{item?.webSceneStep?.locationValue}</div>
-                                                                    </>
-                                                                    :null
-                                                            }
-                                                        </div>
-                                                        :null
-                                                    }
-
-                                                </Col>
-                                                <Col style={{marginLeft: "auto",height:"20px"}}>
-                                                    <IconCommon
-                                                        className={"icon-s edit-icon"}
-                                                        icon={"shanchu3"}
-                                                        onClick={(e)=> {
-                                                            deleteStepCommon(item.id, CASE_TYPE.WEB_SCENE).then(async () => {
-                                                                await findList()
-                                                                await findWebScene(webSceneId)
-                                                            })
-                                                            e.stopPropagation()
-                                                        }}
-                                                    />
-                                                </Col>
-
-                                            </Row>
-                                        }
-                                        stepId={item.id}
-                                        findList={findList}
-                                    />
+                                    ?<IfStep item={item} provided={provided} deleteStepFn={deleteStepFn} findStepList={findList} />
+                                    :caseStep(item,provided)
                             }
-
-
                         </div>
                     </>
                 )}
@@ -195,8 +166,12 @@ const WebSceneStepList = (props) => {
     //添加步骤
     const menu = (
         <Menu>
-            <Menu.Item><WebSceneStepEdit findList={findList}  /></Menu.Item>
-            <Menu.Item><IfJudgmentEdit caseId={webSceneId} findList={findList}/> </Menu.Item>
+            <Menu.ItemGroup  title="用例步骤" key={"case-Group"}>
+                <Menu.Item><WebSceneStepEdit findList={findList}  /></Menu.Item>
+            </Menu.ItemGroup>
+            <Menu.ItemGroup  title="逻辑步骤" key={"other-Group"}>
+                <Menu.Item><IfJudgmentEdit caseId={webSceneId} findList={findList}/> </Menu.Item>
+            </Menu.ItemGroup>
         </Menu>
     );
 
@@ -205,10 +180,11 @@ const WebSceneStepList = (props) => {
             <div className={"table-list-box"}>
                   <div className={"display-flex-between"} style={{margin: "10px 0"}}>
                      <div> 共 {stepList.length} 个步骤</div>
-                     <Dropdown
-                        overlay={menu}
-                        placement="bottom"
-                     >
+                      <Dropdown
+                          overlay={menu}
+                          placement="bottomRight"
+                          overlayStyle={{width:"150px"}}
+                      >
                          <div>
                              <IconBtn
                                  className="pi-icon-btn-grey"

@@ -136,7 +136,7 @@ const DefectSelect = (props) =>{
                 onClick={showModal}
             />
             <Modal
-                title="关联"
+                title="关联缺陷"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}

@@ -67,18 +67,18 @@ const ResponseAssertCommon = (props) => {
 
     const showCompare = (comparator) =>{
         switch (comparator) {
-            case assertCompare.EQUAL:
-                return "等于";
-            case assertCompare.NOT_EQUAL:
-                return "不等于";
-            case assertCompare.LESS_THAN:
-                return "小于";
-            case assertCompare.LESS_THAN_OR_EQUAL:
-                return "小于等于";
-            case assertCompare.GREATER_THAN:
-                return "大于"
-            case assertCompare.GREATER_THAN_OR_EQUAL:
-                return "大于等于"
+            case assertCompare.EQUAL.value:
+                return assertCompare.EQUAL.name;
+            case assertCompare.NOT_EQUAL.value:
+                return assertCompare.NOT_EQUAL.name;
+            case assertCompare.LESS_THAN.value:
+                return assertCompare.LESS_THAN.name;
+            case assertCompare.LESS_THAN_OR_EQUAL.value:
+                return assertCompare.LESS_THAN_OR_EQUAL.name;
+            case assertCompare.GREATER_THAN.value:
+                return assertCompare.GREATER_THAN.name
+            case assertCompare.GREATER_THAN_OR_EQUAL.value:
+                return assertCompare.GREATER_THAN_OR_EQUAL.name
         }
     }
 

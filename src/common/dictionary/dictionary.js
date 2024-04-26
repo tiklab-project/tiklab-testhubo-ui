@@ -94,12 +94,30 @@ const CASE_TYPE={
 
 //断言大小对比
 const assertCompare = {
-    EQUAL:1,
-    NOT_EQUAL:2,
-    LESS_THAN:3,
-    LESS_THAN_OR_EQUAL:4,
-    GREATER_THAN :5,
-    GREATER_THAN_OR_EQUAL:6
+    EQUAL: {
+        value:1,
+        name:"="
+    },
+    NOT_EQUAL: {
+        value:2,
+        name:"!="
+    },
+    LESS_THAN: {
+        value:3,
+        name:"<"
+    },
+    LESS_THAN_OR_EQUAL: {
+        value:4,
+        name:"<="
+    },
+    GREATER_THAN : {
+        value:5,
+        name:">"
+    },
+    GREATER_THAN_OR_EQUAL: {
+        value:6,
+        name:">="
+    }
 }
 
 //执行状态

@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Avatar, Empty, Input, Popconfirm, Space, Table} from "antd";
 import IconCommon from "../../../common/IconCommon";
-import { showCaseTypeTable} from "../../../common/caseCommon/CaseCommonFn";
+import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
 import emptyImg from "../../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
-import TestPlanBindCase from "./testPlanBindCase";
+import TestPlanBindCase from "./testPlanBindCaseModal";
 import PaginationCommon from "../../../common/pagination/Page";
 import {useHistory} from "react-router";
 import TestPlanENVModal from "./testPlanENVModal";
@@ -24,21 +24,25 @@ const TestPlanBindCaseList = (props) =>{
             dataIndex: "name",
             key: "name",
             width:"30%",
-            render:(text,record)=>(
-                <span
-                    className={"link-text"}
-                    onClick={()=>toDiffCase(record)}
-                >
-                    {text}
-                </span>
+            render: (text,record) =>(
+                <div className={"display-flex-gap"}>
+                    <>{showCaseTypeView(record.caseType)}</>
+                    <span className={"link-text"}  onClick={()=>toDiffCase(record)}>{text}</span>
+                </div>
             )
         },
         {
             title:`用例类型`,
             dataIndex:"caseType",
             key: "type",
-            width:"15%",
+            width:"10%",
             render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
+        },{
+            title: `状态`,
+            dataIndex: "status",
+            key: "status",
+            width:"10%",
+            render:(text,record)=><div className={"case-table-status"}>{showStatus(text)}</div>
         },
         {
             title: `模块`,
@@ -90,8 +94,8 @@ const TestPlanBindCaseList = (props) =>{
                 </Space>
             ),
         },
-
     ]
+
     const repositoryId = sessionStorage.getItem("repositoryId")
     const testPlanId = sessionStorage.getItem('testPlanId')
     const history = useHistory();
@@ -120,6 +124,7 @@ const TestPlanBindCaseList = (props) =>{
 
     const findPage = (params) =>{
         const param = {
+            repositoryId:repositoryId,
             testPlanId:testPlanId,
             ...pageParam,
             ...params

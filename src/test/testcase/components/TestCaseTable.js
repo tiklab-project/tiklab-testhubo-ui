@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Avatar, Empty, Input, Space, Table, Tag, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
-import { showCaseTypeTable, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
-import {SearchOutlined} from "@ant-design/icons";
+import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
+import {SearchOutlined, UserOutlined} from "@ant-design/icons";
 import {useHistory, useParams} from "react-router";
 import DropdownAdd from "./DropdownAdd";
 import "../../common/styles/caseContantStyle.scss"
@@ -69,7 +69,7 @@ const TestCaseTable = (props) => {
             dataIndex: "status",
             key: "status",
             width:"10%",
-            render:(text,record)=>showStatus(text)
+            render:(text,record)=><div className={"case-table-status"}>{showStatus(text)}</div>
         },
         {
             title: `模块`,
@@ -81,7 +81,7 @@ const TestCaseTable = (props) => {
             title: `负责人`,
             dataIndex:  ["director","name"],
             key: "user",
-            width:"10%",
+            width:"15%",
             render: (text, record) => (showCreateUser(record.director))
         },
         {
@@ -115,26 +115,29 @@ const TestCaseTable = (props) => {
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
     const [diffTypeCaseNum, setDiffTypeCaseNum] = useState();
+    let history = useHistory();
     let {id} = useParams()
     let repositoryId = sessionStorage.getItem("repositoryId")
-    let history = useHistory();
+    // let repositoryId = id
+
+    // useEffect(()=>{
+        //获取路由id存入
+        // sessionStorage.setItem('repositoryId',id);
+    // },[])
 
     useEffect(()=>{
-        //获取路由id存入
-        sessionStorage.setItem('repositoryId',id);
-
         findPage()
-    },[])
+    },[repositoryId])
 
     useEffect(()=>{
         findCategoryListTreeTable(repositoryId)
-    },[])
+    },[repositoryId])
 
     useEffect(()=>{
         findDiffTypeCaseNum(repositoryId).then(res=>{
             setDiffTypeCaseNum(res)
         })
-    },[])
+    },[repositoryId])
 
     const findPage = (params) =>{
         let param = {
@@ -142,7 +145,7 @@ const TestCaseTable = (props) => {
                 pageSize: pageSize,
                 currentPage:1
             },
-            testType:testType,
+            testType:testType==="all"?null:testType,
             repositoryId:repositoryId,
             categoryId:selectCategory,
             ...params
@@ -185,29 +188,20 @@ const TestCaseTable = (props) => {
         }
     }
 
-    const showStatus = (status)=>{
-        switch (status) {
-            case 0:
-                return <Tag color="cyan">未开始</Tag>;
-            case 1:
-                return <Tag color="processing">进行中</Tag>;
-            case 2:
-                return <Tag color="success">结束</Tag>;
-            default:
-                return <Tag color="cyan">未开始</Tag>;
-        }
-    }
 
     const showCreateUser = (director) =>{
         if(director&&director.nickname){
             return <div className={"ws-user-item"}>
                 <Space>
-                    <Avatar style={{width:"20px",height:"20px",lineHeight:"20px",verticalAlign: 'middle',}}>{director?.nickname[0]}</Avatar>
+                    <Avatar style={{width:"24px",height:"24px",lineHeight:"24px",verticalAlign: 'middle',}}>{director?.nickname[0]}</Avatar>
                     <span >{director?.nickname} </span>
                 </Space>
             </div>
         }else {
-            return "未设置"
+            return <div className={"display-flex-gap"}>
+                <Avatar size="small" icon={<UserOutlined />} />
+                <span> 未设置 </span>
+            </div>
         }
     }
 
@@ -235,20 +229,17 @@ const TestCaseTable = (props) => {
 
     //模块赛选
     const changeCategory=(categoryId)=> {
-        let param = {
-            testType:selectCaseType
-        }
+        let param;
         if(categoryId==="null"){
             setSelectCategory(null)
             param = {
                 categoryId:null,
-                ...param
+
             }
         }else {
             setSelectCategory(categoryId)
             param = {
-                categoryId:categoryId,
-                ...param
+                categoryId:categoryId
             }
         }
 

@@ -67,12 +67,13 @@ const AssertParam = ({apiUnitId}) =>{
                     style={{'width':"100%"}}
                     onSelect= {(e) => onSelectCompare(e,record)}
                 >
-                    <Option value={assertCompare.EQUAL}> = </Option>
-                    <Option value={assertCompare.NOT_EQUAL}> != </Option>
-                    <Option value={assertCompare.LESS_THAN}> &lt; </Option>
-                    <Option value={assertCompare.LESS_THAN_OR_EQUAL}> &lt;= </Option>
-                    <Option value={assertCompare.GREATER_THAN}> &gt; </Option>
-                    <Option value={assertCompare.GREATER_THAN_OR_EQUAL}> &gt;= </Option>
+                    <Option value={assertCompare.EQUAL.value}>{assertCompare.EQUAL.name}</Option>
+                    <Option value={assertCompare.NOT_EQUAL.value}>{assertCompare.NOT_EQUAL.name}</Option>
+                    <Option value={assertCompare.LESS_THAN.value}>{assertCompare.LESS_THAN.name}</Option>
+                    <Option value={assertCompare.LESS_THAN_OR_EQUAL.value}>{assertCompare.LESS_THAN_OR_EQUAL.name}</Option>
+                    <Option value={assertCompare.GREATER_THAN.value}>{assertCompare.GREATER_THAN.name}</Option>
+                    <Option value={assertCompare.GREATER_THAN_OR_EQUAL.value}>{assertCompare.GREATER_THAN_OR_EQUAL.name}</Option>
+
                 </Select>
             )
         },

@@ -285,14 +285,12 @@ const AppExecuteTestPage =(props)=>{
                 contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
-                <div className={"content-box-center"}>
-                    <CaseBread breadItem={["APP场景测试"]}/>
-                    <UIResultCommon
-                        spinning={spinning}
-                        instanceInfo={instanceInfo}
-                        showList={showStepListView}
-                    />
-                </div>
+                <CaseBread breadItem={["APP场景测试"]} icon={"shouji1"}/>
+                <UIResultCommon
+                    spinning={spinning}
+                    instanceInfo={instanceInfo}
+                    showList={showStepListView}
+                />
             </Drawer>
         </>
     );

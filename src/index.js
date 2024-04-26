@@ -7,13 +7,13 @@ import App from './app';
 
 import { orgStores } from 'thoughtware-user-ui/es/store';
 import { privilegeStores } from "thoughtware-privilege-ui/es/store";
-import {enableAxiosCE} from "thoughtware-core-ui"
+import {enableAxios} from "thoughtware-core-ui"
 
 import { stores } from './stores';
 import routes from './routers';
 import {Spin} from "antd";
 
-enableAxiosCE();
+enableAxios();
 
 const Entry =()=> {
 

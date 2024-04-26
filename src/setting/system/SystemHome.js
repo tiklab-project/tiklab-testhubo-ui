@@ -101,7 +101,7 @@ const SystemHome = () => {
                         : <InfoBox title="用户与权限" data={userAndRole} onClick={handleClick} />
                 }
                 <InfoBox title="消息" data={message} onClick={handleClick} />
-                <InfoBox title="Agent配置" data={agent} onClick={handleClick} />
+                <InfoBox title="项目配置" data={agent} onClick={handleClick} />
                 <InfoBox title="插件" data={plugin} onClick={handleClick} />
                 <InfoBox title="安全" data={security} onClick={handleClick} />
                 <InfoBox title="应用" data={application} onClick={handleClick} />

@@ -240,12 +240,12 @@ const StepAssertCommon = (props) =>{
                                     <Col span={4}>
                                         <Form.Item  name="compare">
                                             <Select>
-                                                <Option value={assertCompare.EQUAL}>等于</Option>
-                                                <Option value={assertCompare.NOT_EQUAL}>不等于</Option>
-                                                <Option value={assertCompare.LESS_THAN}>小于</Option>
-                                                <Option value={assertCompare.LESS_THAN_OR_EQUAL}>小于等于</Option>
-                                                <Option value={assertCompare.GREATER_THAN}>大于</Option>
-                                                <Option value={assertCompare.GREATER_THAN_OR_EQUAL}>大于等于</Option>
+                                                <Option value={assertCompare.EQUAL.value}>{assertCompare.EQUAL.name}</Option>
+                                                <Option value={assertCompare.NOT_EQUAL.value}>{assertCompare.NOT_EQUAL.name}</Option>
+                                                <Option value={assertCompare.LESS_THAN.value}>{assertCompare.LESS_THAN.name}</Option>
+                                                <Option value={assertCompare.LESS_THAN_OR_EQUAL.value}>{assertCompare.LESS_THAN_OR_EQUAL.name}</Option>
+                                                <Option value={assertCompare.GREATER_THAN.value}>{assertCompare.GREATER_THAN.name}</Option>
+                                                <Option value={assertCompare.GREATER_THAN_OR_EQUAL.value}>{assertCompare.GREATER_THAN_OR_EQUAL.name}</Option>
                                             </Select>
                                         </Form.Item>
                                     </Col>

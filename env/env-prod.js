@@ -13,7 +13,7 @@ const userProduction = true;
 
 const appKey =  JSON.stringify('tiklab');
 const appSecret = JSON.stringify('tiklab');
-const version = JSON.stringify('ce');
+const version = JSON.stringify('ee');
 const client = JSON.stringify('web');
 
 module.exports = {

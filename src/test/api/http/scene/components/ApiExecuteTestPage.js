@@ -118,7 +118,6 @@ const ApiExecuteTestPage = (props) =>{
                             <div  style={{overflow: "hidden",textOverflow: "ellipsis"}}>{apiUnitInstance?.apiUnit?.path}</div>
                             <div>
                                 <TextMethodType type={apiUnitInstance?.requestInstance?.requestType} />
-                                {/*<span style={{margin:" 0 10px 0 0"}}>{item?.requestInstance?.requestType}</span>*/}
                                 {
                                     apiUnitInstance?.requestInstance?.elapsedTime
                                         ?<span>{apiUnitInstance?.requestInstance?.elapsedTime}ms</span>
@@ -203,16 +202,14 @@ const ApiExecuteTestPage = (props) =>{
 
             if(selectedStepData?.type==="api-scene"){
                 return (
-                    <div style={{margin:"0 10px",overflow: "auto",height: "calc( 100% - 48px )"}}>
-                        <ResponseCommon
-                            detail={showDetail(detail)}
-                            resBody={apiUnitInstance?.responseInstance?.responseBody}
-                            resHeader={processResHeader(apiUnitInstance?.responseInstance?.responseHeader)}
-                            assertList={apiUnitInstance?.responseInstance?.assertInstanceList}
-                            reqHeader={processResHeader(apiUnitInstance?.requestInstance?.requestHeader)}
-                            error={apiUnitInstance?.errMessage}
-                        />
-                    </div>
+                    <ResponseCommon
+                        detail={showDetail(detail)}
+                        resBody={apiUnitInstance?.responseInstance?.responseBody}
+                        resHeader={processResHeader(apiUnitInstance?.responseInstance?.responseHeader)}
+                        assertList={apiUnitInstance?.responseInstance?.assertInstanceList}
+                        reqHeader={processResHeader(apiUnitInstance?.requestInstance?.requestHeader)}
+                        error={apiUnitInstance?.errMessage}
+                    />
                 )
             }
 
@@ -289,7 +286,7 @@ const ApiExecuteTestPage = (props) =>{
                 width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 40px)"}}
                 closable={false}
             >
                 <div style={{height: "calc(100% - 35px)"}}>

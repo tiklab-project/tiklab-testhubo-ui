@@ -294,10 +294,6 @@
 .history-detail{
     flex: 1;
     height: 100%;
-
-    .history-detail-all{
-        //height: 180px;
-    }
 }
 
 .test-data-name{
@@ -487,5 +483,12 @@
 .api-unit-drawer{
     .ant-tabs{
         height: unset;
+    }
+}
+
+.case-table-status{
+    .ant-tag{
+        border-radius: 5px;
+        font-size: 10px;
     }
 }

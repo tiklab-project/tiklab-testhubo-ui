@@ -236,18 +236,16 @@ const WebExecuteTestPage = (props) =>{
                 contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
-                <div className={"content-box-center"}>
-                    <CaseBread
-                        breadItem={["WEB场景测试"]}
-                        icon={"api1"}
-                        setOpen={setOpen}
-                    />
-                    <UIResultCommon
-                        spinning={spinning}
-                        instanceInfo={instanceInfo}
-                        showList={showStepListView}
-                    />
-                </div>
+                <CaseBread
+                    breadItem={["WEB场景测试"]}
+                    icon={"diannao1"}
+                    setOpen={setOpen}
+                />
+                <UIResultCommon
+                    spinning={spinning}
+                    instanceInfo={instanceInfo}
+                    showList={showStepListView}
+                />
             </Drawer>
         </>
     )

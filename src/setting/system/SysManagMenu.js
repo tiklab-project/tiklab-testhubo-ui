@@ -251,7 +251,7 @@ const SystemManagement = (props) => {
             setExpandedTree={setExpandedTree} // 树的展开和闭合(非必传)
             applicationRouters={menuRouter} // 菜单
             outerPath={"/setting"} // 系统设置Layout路径
-            notFoundPath={"/noaccess"}
+            noAccessPath={"/noaccess"}
         >
             <Layout className = 'sysmana-layout'>
                 <Sider

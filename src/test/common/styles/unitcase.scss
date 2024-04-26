@@ -455,6 +455,7 @@ $backgroud-color: #fff;
 }
 
 .unit-instance-detail{
+    height: 100%;
     flex: 1;
 }
 
@@ -605,4 +606,10 @@ $backgroud-color: #fff;
     }
 
 
+}
+
+.test-step-box{
+    padding: 10px;
+    overflow: auto;
+    height: calc(100% - 175px);
 }

@@ -1,14 +1,13 @@
 import React, { useState} from "react";
-import {Col, Drawer, Form, Radio, Row, Select} from "antd";
+import {Col, Drawer, Form, Radio, Row} from "antd";
 import {observer} from "mobx-react";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import IconCommon from "../../../../common/IconCommon";
 import ifJudgmentStore from "../store/IfJudgmentStore";
 import IfVariableTable from "./IfVariableTable";
 
-const {Option} = Select
 
-const IfJudgmentDrawer = ({name,stepId,findList}) =>{
+const IfJudgmentDrawer = ({name,stepId,findStepList}) =>{
     const {updateIfJudgment,findIfJudgment} = ifJudgmentStore
 
     const [open, setOpen] = useState(false);
@@ -38,7 +37,7 @@ const IfJudgmentDrawer = ({name,stepId,findList}) =>{
 
         updateIfJudgment(param).then((res)=>{
             if(res.code===0){
-                findList();
+                findStepList();
                 messageFn("success","保存成功")
             }else {
                 messageFn("error","保存失败")
@@ -95,7 +94,7 @@ const IfJudgmentDrawer = ({name,stepId,findList}) =>{
                                 </Col>
                             </Row>
                         </Form>
-                        <IfVariableTable stepId={stepId} />
+                        <IfVariableTable stepId={stepId} findStepList={findStepList}/>
                     </div>
                 </div>
 

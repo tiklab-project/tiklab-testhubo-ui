@@ -21,6 +21,22 @@ export const showTestTypeView = (type)=>{
 }
 
 /**
+ * 用例状态
+ */
+export const showStatus = (status)=>{
+    switch (status) {
+        case 0:
+            return <Tag color="#bfc4c6">未开始</Tag>;
+        case 1:
+            return <Tag color="#76b6f1">进行中</Tag>;
+        case 2:
+            return <Tag color="#f29e9ee8">结束</Tag>;
+        default:
+            return <Tag color="#bfc4c6">未开始</Tag>;
+    }
+}
+
+/**
  * 表格中用例类型展示
  */
 export const showCaseTypeView = (type)=>{

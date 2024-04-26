@@ -3,7 +3,8 @@ import HeaderMenu from "./HeaderMenu";
 import logo from "../../assets/img/testonheader.png";
 import { SettingOutlined} from "@ant-design/icons";
 import MessageDrawer from "../../setting/message/MessageDrawer";
-
+import {productImg} from "thoughtware-core-ui"
+import {productTitle} from "thoughtware-core-ui/es/utils/product";
 
 /**
  * 页面头部
@@ -22,8 +23,9 @@ const HeaderContent = props => {
                     {props.AppLink}
                 </div>
                 <div className={'frame-header-logo'}>
-                    {logo && <img src={logo} alt='logo' />}
+                     <img src={productImg.teston} alt='logo' />
                 </div>
+                <div className={"productName"}>{productTitle.teston}</div>
                 <HeaderMenu {...props}/>
             </div>
 

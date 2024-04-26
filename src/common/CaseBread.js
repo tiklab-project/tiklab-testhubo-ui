@@ -1,7 +1,7 @@
 import React from "react";
 import IconCommon from "./IconCommon";
 import {showCaseTypeInList} from "./caseCommon/CaseCommonFn";
-import {ArrowLeftOutlined} from "@ant-design/icons";
+import {ArrowLeftOutlined, LeftOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router";
 import {Breadcrumb} from "antd";
 import ToggleCase from "../test/testcase/components/ToggleCase";
@@ -21,16 +21,7 @@ const CaseBread = (props) =>{
                 />
             )
         }else {
-            return<IconCommon
-                icon={"fanhui3"}
-                className="icon-l"
-                style={{
-                    cursor:"pointer",
-                }}
-                onClick={()=>history.push(router)}
-            />
-
-
+            return <LeftOutlined style={{fontSize:"20px"}} onClick={()=>history.push(router)}/>
         }
 
     }

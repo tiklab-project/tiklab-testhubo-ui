@@ -75,9 +75,9 @@ const DetailCommon = (props) =>{
                         <Col span={9}>
                             <Form.Item label={"状态"} name="status" >
                                 <Select placeholder={"未设置"}>
-                                    <Option value={0}><Tag color="cyan">未开始</Tag></Option>
-                                    <Option value={1}><Tag color="processing">进行中</Tag></Option>
-                                    <Option value={2}><Tag color="success">结束</Tag></Option>
+                                    <Option value={0}><Tag color="#bfc4c6">未开始</Tag></Option>
+                                    <Option value={1}><Tag color="#76b6f1">进行中</Tag></Option>
+                                    <Option value={2}><Tag color="#f29e9ee8">结束</Tag></Option>
                                 </Select>
                             </Form.Item>
                         </Col>

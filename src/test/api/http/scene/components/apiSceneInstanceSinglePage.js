@@ -33,7 +33,7 @@ const ApiSceneInstanceSinglePage = (props) =>{
                 width={1000}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
+                contentWrapperStyle={{top:48,height:"calc(100% - 40px)"}}
                 closable={false}
             >
                 <div style={{height: "calc(100% - 52px)"}}>

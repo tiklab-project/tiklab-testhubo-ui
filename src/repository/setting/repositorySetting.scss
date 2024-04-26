@@ -5,8 +5,6 @@
 
 .repository-setting-right{
     flex: 1;
-    padding: 0 5px;
-
     overflow: auto;
 }
 
@@ -16,15 +14,7 @@
 }
 
 .ws-setting-flex{
-    //padding:0 var(--thoughtware-padding-item);
-
-    .ws-setting-box{
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: var(--pi-page-padding);
-        min-width: 800px;
-    }
-
+    padding: 20px;
 }
 
 

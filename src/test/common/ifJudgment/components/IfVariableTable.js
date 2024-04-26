@@ -7,7 +7,7 @@ import {observer} from "mobx-react";
 const {Option} = Select
 
 const IfVariableTable = (props) =>{
-    const {stepId} = props
+    const {stepId,findStepList} = props
     const {
         findIfVariableList,
         ifVariableList,
@@ -83,7 +83,10 @@ const IfVariableTable = (props) =>{
                 }
                 <Popconfirm
                     title="确定删除？"
-                    onConfirm={() => deleteIfVariable(record.id).then(()=>findList())}
+                    onConfirm={() => deleteIfVariable(record.id).then(()=> {
+                        findList()
+                        findStepList()
+                    })}
                     okText='确定'
                     cancelText='取消'
                     style={{
@@ -134,7 +137,10 @@ const IfVariableTable = (props) =>{
      */
 
     const upData = (value) => {
-        updateIfVariable(value).then(()=>findList())
+        updateIfVariable(value).then(()=> {
+            findList()
+            findStepList()
+        })
     }
 
     /**
@@ -145,7 +151,10 @@ const IfVariableTable = (props) =>{
             // 创建新行的时候自带一个id，所以删了，后台会自行创建id
             delete values.id;
             values.stepId=stepId;
-            createIfVariable(values).then(()=>findList())
+            createIfVariable(values).then(()=> {
+                findList()
+                findStepList()
+            })
 
         }
     }

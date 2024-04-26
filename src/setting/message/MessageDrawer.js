@@ -153,7 +153,7 @@ const MessageDrawer = (props) =>{
             pageParam: {
                 pageSize: 10,
                 currentPage:1
-            }
+            },
         }
         findList(params).then(res=>{
             setData(res.dataList);
@@ -170,8 +170,9 @@ const MessageDrawer = (props) =>{
     const readFn = async (item)=>{
         const updateParams = {
             id:item.id,
-            message:{  id: item.message.id  },
-            status:1
+            message:{id: item.message.id },
+            status:1,
+            bgroup:"teston"
         }
         const res =  await Axios.post('/message/messageItem/updateMessageItem', updateParams);
         if(res.code===0){
