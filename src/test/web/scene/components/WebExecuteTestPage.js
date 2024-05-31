@@ -8,9 +8,10 @@ import emptyImg from "../../../../assets/img/empty.png";
 import {CASE_TYPE, testExecuteStatus} from "../../../../common/dictionary/dictionary";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import {PlayCircleOutlined} from "@ant-design/icons";
+import webSceneStore from "../store/webSceneStore";
 
 const WebExecuteTestPage = (props) =>{
-    const {webSceneStore,stepNum,type,webSceneId} = props;
+    const {stepNum,type,webSceneId} = props;
     const {webSceneTestDispatch,webSceneTestResult} = webSceneStore;
 
     const repositoryId = sessionStorage.getItem('repositoryId')
@@ -251,4 +252,4 @@ const WebExecuteTestPage = (props) =>{
     )
 }
 
-export default inject('webSceneStore')(observer(WebExecuteTestPage))
+export default observer(WebExecuteTestPage)

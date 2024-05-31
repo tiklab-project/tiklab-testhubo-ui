@@ -9,10 +9,11 @@ import emptyImg from "../../../../assets/img/empty.png";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import CaseTableQuickTest from "../../../common/CaseTableQuickTest/CaseTableQuickTest";
 import {testExecuteStatus} from "../../../../common/dictionary/dictionary";
+import appEnvStore from "../../../../support/environment/store/appEnvStore";
 const {Option} = Select
 
 const AppExecuteTestPage =(props)=>{
-    const {appEnvStore,appSceneId,stepNum,type} = props
+    const {appSceneId,stepNum,type} = props
     const {appSceneTestDispatch,appSceneTestResult} = appSceneStore;
     const {findAppEnvList,appEnvList,getAppEnv,appEnv} = appEnvStore;
     const [spinning, setSpinning] = useState(true);
@@ -296,4 +297,4 @@ const AppExecuteTestPage =(props)=>{
     );
 }
 
-export default inject("appEnvStore")(observer(AppExecuteTestPage));
+export default observer(AppExecuteTestPage);

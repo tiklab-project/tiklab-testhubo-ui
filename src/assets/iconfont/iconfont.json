@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "3435341",
+      "name": "企业版套餐钻石",
+      "font_class": "version-ee",
+      "unicode": "e784",
+      "unicode_decimal": 59268
+    },
+    {
       "icon_id": "32740762",
       "name": "打开新页面",
       "font_class": "dakaixinyemian",
@@ -39,13 +46,6 @@
       "font_class": "icon_level1",
       "unicode": "e6a3",
       "unicode_decimal": 59043
-    },
-    {
-      "icon_id": "14930294",
-      "name": "Left向左 (9)",
-      "font_class": "Leftxiangzuo9",
-      "unicode": "e700",
-      "unicode_decimal": 59136
     },
     {
       "icon_id": "3759642",

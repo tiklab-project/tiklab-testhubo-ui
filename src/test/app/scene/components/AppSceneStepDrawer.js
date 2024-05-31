@@ -7,7 +7,7 @@ import IconBtn from "../../../../common/iconBtn/IconBtn";
 import ScriptEdit from "../../../common/ScriptEdit";
 import {Axios} from "thoughtware-core-ui";
 import appSceneStepStore from "../store/appSceneStepStore";
-import StepAssertApp from "./StepAssertWeb";
+import StepAssertCommon from "../../../common/stepassert/StepAssertCommon";
 
 let {Option}  =  Select;
 
@@ -203,7 +203,7 @@ const AppSceneStepDrawer = ({name,stepId,findList}) =>{
                                 },,{
                                     label: `断言`,
                                     key: '3',
-                                    children: <StepAssertApp stepId={stepId}/>
+                                    children: <StepAssertCommon stepId={stepId}/>
                                 },
                             ]}
                         />

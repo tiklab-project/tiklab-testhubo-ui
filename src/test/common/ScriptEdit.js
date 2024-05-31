@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import ReactMonacoEditor from "../../common/ReactMonacoEditor";
-import {Button, Space} from "antd";
+
 
 const ScriptEdit = (props) =>{
     const {script,changeScript} = props

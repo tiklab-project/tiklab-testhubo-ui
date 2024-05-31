@@ -4,7 +4,7 @@ import {Axios} from "thoughtware-core-ui";
 /**
  * 模块
  */
-class CategoryStore{
+export class CategoryStore{
     @observable categoryList = [];
     @observable categoryTableList=[]
 
@@ -84,5 +84,5 @@ class CategoryStore{
 
 }
 
-
-export default  new CategoryStore();
+const categoryStore =  new CategoryStore();
+export default categoryStore;

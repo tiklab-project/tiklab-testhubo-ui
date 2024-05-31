@@ -4,7 +4,6 @@ import {inject, observer} from "mobx-react";
 import PaginationCommon from "../../../common/pagination/Page";
 import {getUser} from "thoughtware-core-ui";
 import {useHistory} from "react-router";
-import IconCommon from "../../../common/IconCommon";
 import {Input, Space, Spin, Tooltip} from "antd";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {CaretDownOutlined, SearchOutlined} from "@ant-design/icons";
@@ -137,8 +136,9 @@ const ToggleCase = (props) =>{
                 style={{
                     cursor: "pointer",
                     width: "20px",
-                    height: "28px",
-                    fontSize: "18px"
+                    height: "23px",
+                    color: "#a3a3a3",
+                    fontSize: "15px"
                 }}
             >
                 <CaretDownOutlined />

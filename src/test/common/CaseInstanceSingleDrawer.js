@@ -2,16 +2,15 @@ import React from "react";
 import LazyComponent from "../../common/Lazy";
 import {CheckCircleTwoTone, CloseCircleTwoTone} from "@ant-design/icons";
 import {CASE_TYPE} from "../../common/dictionary/dictionary";
+import ExtensionCommon from "../../common/ExtensionCommon";
 
 let ApiUnitInstanceSinglePage = LazyComponent(() => import("../api/http/unit/components/apiUnitInstanceSinglePage"));
 let ApiSceneInstanceSinglePage = LazyComponent(() => import("../api/http/scene/components/apiSceneInstanceSinglePage"));
 let ApiPerfInstanceSinglePage = LazyComponent(() => import("../api/http/perf/components/ApiPerfInstanceSinglePage"));
-let WebSceneInstanceSinglePage = LazyComponent(() => import("../web/scene/components/WebSceneInstanceSinglePage"));
-let AppSceneInstanceSinglePage = LazyComponent(() => import("../app/scene/components/AppSceneInstanceSinglePage"));
 
 
 const CaseInstanceSingleDrawer = (props) =>{
-    const {caseData} = props
+    const {caseData,WebSceneInstanceSinglePage,AppSceneInstanceSinglePage} = props
 
     //再根据不同的用例类型跳到不同的页面
     const switchInstance = (record)=>{
@@ -40,17 +39,28 @@ const CaseInstanceSingleDrawer = (props) =>{
                         name={showRecent(recentInstance)}
                     />
             case CASE_TYPE.WEB_SCENE:
-                return <WebSceneInstanceSinglePage
-                    webSceneInstanceId={recentInstance.instanceId}
+                return <ExtensionCommon
                     name={showRecent(recentInstance)}
+                    isHideIcon={true}
+                    extension={
+                        WebSceneInstanceSinglePage&&<WebSceneInstanceSinglePage
+                            webSceneInstanceId={recentInstance.instanceId}
+                            name={showRecent(recentInstance)}
+                        />
+                    }
                 />
 
             case CASE_TYPE.APP_SCENE:
-                return   <AppSceneInstanceSinglePage
-                    appSceneInstanceId={recentInstance.instanceId}
+                return  <ExtensionCommon
+                    extension={
+                        AppSceneInstanceSinglePage&&<AppSceneInstanceSinglePage
+                            appSceneInstanceId={recentInstance.instanceId}
+                            name={showRecent(recentInstance)}
+                        />
+                    }
                     name={showRecent(recentInstance)}
+                    isHideIcon={true}
                 />
-
         }
     }
 

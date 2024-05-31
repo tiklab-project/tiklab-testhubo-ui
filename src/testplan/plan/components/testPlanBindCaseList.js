@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {Avatar, Empty, Input, Popconfirm, Space, Table} from "antd";
-import IconCommon from "../../../common/IconCommon";
+import {Empty, Input,  Space, Table} from "antd";
 import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
 import emptyImg from "../../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
@@ -13,6 +12,10 @@ import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import {SearchOutlined} from "@ant-design/icons";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import CaseTypeSelect from "../../../test/testcase/components/CaseTypeSelect";
+import {CASE_TYPE} from "../../../common/dictionary/dictionary";
+import ExtensionCommon from "../../../common/ExtensionCommon";
+import {getVersionInfo} from "thoughtware-core-ui";
+import {rowStyle, showCreateUser, ShowDeleteView} from "../../../test/testcase/components/testCaseTableFn";
 
 const TestPlanBindCaseList = (props) =>{
     const {findBindTestCasePage,testPlanDetailList,deleteTestPlanDetail,findTestCasePage,getTestTypeNum} = testPlanDetailStore;
@@ -27,7 +30,7 @@ const TestPlanBindCaseList = (props) =>{
             render: (text,record) =>(
                 <div className={"display-flex-gap"}>
                     <>{showCaseTypeView(record.caseType)}</>
-                    <span className={"link-text"}  onClick={()=>toDiffCase(record)}>{text}</span>
+                    {switchCaseTypeView(record)}
                 </div>
             )
         },
@@ -67,31 +70,7 @@ const TestPlanBindCaseList = (props) =>{
             key: "action",
             width: 150,
             render: (text, record) => (
-                <Space size="middle">
-                    <Popconfirm
-                        title="确定删除？"
-                        onConfirm={() =>deleteTestPlanDetail(record.planCaseId).then(async ()=> {
-                            findPage()
-
-                            let param = {
-                                pageParam: {
-                                    pageSize: 20,
-                                    currentPage:1
-                                },
-                                repositoryId:repositoryId,
-                                testPlanId:testPlanId,
-                            }
-                           await findTestCasePage(param)
-                        })}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <IconCommon
-                            className={"icon-s edit-icon"}
-                            icon={"shanchu3"}
-                        />
-                    </Popconfirm>
-                </Space>
+                <ShowDeleteView record={record} deleteFn={deleteFn} />
             ),
         },
     ]
@@ -149,55 +128,75 @@ const TestPlanBindCaseList = (props) =>{
         setPageParam(newParams)
     }
 
-    const showCreateUser = (createUser) =>{
-        if(createUser&&createUser.nickname){
-            return <div className={"ws-user-item"}>
-                <Space>
-                    <Avatar style={{width:"20px",height:"20px",lineHeight:"20px"}}>{createUser?.nickname[0]}</Avatar>
-                    <span >{createUser?.nickname} </span>
-                </Space>
-            </div>
-        }
+    //删除
+    const deleteFn=(record) => {
+        deleteTestPlanDetail(record.planCaseId).then(async () => {
+            findPage()
+            let param = {
+                pageParam: {
+                    pageSize: 20,
+                    currentPage: 1
+                },
+                repositoryId: repositoryId,
+                testPlanId: testPlanId,
+            }
+            await findTestCasePage(param)
+        })
     }
 
 
     //再根据不同的用例类型跳到不同的页面
-    const toDiffCase = (record)=>{
-        switch (record.caseType) {
-            case "api-unit":
-                toDetailAddRouterCommon("apiUnitId",record)
-                break;
-            case "api-scene":
-                toDetailAddRouterCommon("apiSceneId",record)
-                break;
-            case "api-perform":
-                toDetailAddRouterCommon("apiPerfId",record)
-                break;
+    const switchCaseTypeView = (record) =>{
+        const toDiffCase = (record)=>{
+            switch (record.caseType) {
+                case "function":
+                    toDetailAddRouterCommon("functionId",record)
+                    break
 
-            case "web-scene":
-                toDetailAddRouterCommon("webSceneId",record)
-                break;
-            case "web-perform":
-                toDetailAddRouterCommon("webPerfId",record)
-                break;
+                case "api-unit":
+                    toDetailAddRouterCommon("apiUnitId",record)
+                    break;
+                case "api-scene":
+                    toDetailAddRouterCommon("apiSceneId",record)
+                    break;
+                case "api-perform":
+                    toDetailAddRouterCommon("apiPerfId",record)
+                    break;
 
-            case "app-scene":
-                toDetailAddRouterCommon("appSceneId",record)
-                break;
+                case "web-scene":
+                    toDetailAddRouterCommon("webSceneId",record)
+                    break;
 
-            case "app-perform":
-                toDetailAddRouterCommon("appPerfId",record)
-                break;
-            case "function":
-                toDetailAddRouterCommon("functionId",record)
-                break
+                case "app-scene":
+                    toDetailAddRouterCommon("appSceneId",record)
+                    break;
+
+            }
         }
-    }
 
-    //跳转路由
-    const toDetailAddRouterCommon = (setId,record)=>{
-        sessionStorage.setItem(`${setId}`,record.id);
-        history.push(`/plan/plan-to-${record.caseType}`)
+        //跳转路由
+        const toDetailAddRouterCommon = (setId,record)=>{
+            sessionStorage.setItem(`${setId}`,record.id);
+            history.push(`/plan/plan-to-${record.caseType}`)
+        }
+
+
+        switch (record.caseType) {
+            case CASE_TYPE.FUNCTION:
+            case CASE_TYPE.API_UNIT:
+            case CASE_TYPE.API_SCENE:
+            case CASE_TYPE.API_PERFORM:
+                return <span className={"link-text"}  onClick={()=>toDiffCase(record)}>{record.name}</span>
+            case CASE_TYPE.WEB_SCENE:
+            case CASE_TYPE.APP_SCENE:
+                if(getVersionInfo().expired===false){
+                    return <span className={"link-text"}  onClick={()=>toDiffCase(record)}>{record.name}</span>
+                }else {
+                    return <ExtensionCommon name={record.name} />
+                }
+            default:
+                return null
+        }
     }
 
 
@@ -301,6 +300,7 @@ const TestPlanBindCaseList = (props) =>{
                         rowKey={record => record.id}
                         pagination={false}
                         loading={tableLoading}
+                        onRow={(record) => ({style: rowStyle(record.caseType)})}
                         locale={{
                             emptyText: <Empty
                                 imageStyle={{height: 120}}
@@ -319,6 +319,7 @@ const TestPlanBindCaseList = (props) =>{
         </div>
     )
 }
+
 
 
 export default inject("testPlanStore")(observer(TestPlanBindCaseList));

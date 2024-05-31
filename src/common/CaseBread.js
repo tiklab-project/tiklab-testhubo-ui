@@ -21,7 +21,7 @@ const CaseBread = (props) =>{
                 />
             )
         }else {
-            return <LeftOutlined style={{fontSize:"20px"}} onClick={()=>history.push(router)}/>
+            return <LeftOutlined style={{fontSize:"16px"}} onClick={()=>history.push(router)}/>
         }
 
     }

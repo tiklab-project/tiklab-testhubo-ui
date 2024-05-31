@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 import {Button, Col, Form, Input, Row, Select, Space} from "antd";
 import {Axios} from "thoughtware-core-ui";
@@ -30,6 +30,10 @@ const StepAssertCommon = (props) =>{
     const [elementType, setElementType] = useState(1);
     const [form] = Form.useForm();
 
+    useEffect(async ()=>{
+        let params={stepId:stepId}
+        await findStepAssertCommonList(params)
+    },[])
 
     //定位器下拉选择框渲染
     const locationView = (data) => {

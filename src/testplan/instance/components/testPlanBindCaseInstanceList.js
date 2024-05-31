@@ -10,7 +10,7 @@ const TestPlanBindCaseInstanceList = (props) =>{
                 router={"/plan/instance"}
                 breadItem={["测试历史","历史详情"]}
             />
-            <TestPlanBindCaseInstanceTable />
+            <TestPlanBindCaseInstanceTable {...props} />
         </div>
     )
 }

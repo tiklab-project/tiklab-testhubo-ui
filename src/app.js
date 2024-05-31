@@ -9,8 +9,6 @@ import './common/language/i18n';
 import "./assets/iconfont/iconfont";
 import "./assets/iconfont/iconfont.css";
 import {useTranslation} from "react-i18next";
-import { PluginProvider,pluginLoader} from 'thoughtware-plugin-core-ui';
-
 import resources from './common/language/resource';
 
 import "./assets/index"
@@ -20,26 +18,12 @@ import "./assets/index"
 
      const {i18n} = useTranslation();
 
-     const [pluginData,setPluginData] = useState({
-         routes:routers,
-         pluginStore:[],
-         languageStore:[]
-     });
-
-     useEffect(() => {
-         pluginLoader( routers, resources,i18n).then(res => {
-             setPluginData(res)
-         })
-
-     }, []);
-
-
      return(
-         <PluginProvider store={pluginData}>
+         <>
              {
-                 renderRoutes(pluginData.routes)
+                 renderRoutes(routers)
              }
-         </PluginProvider>
+         </>
     )
 }
 

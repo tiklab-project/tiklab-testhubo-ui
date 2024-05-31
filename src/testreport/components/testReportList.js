@@ -7,7 +7,7 @@ const TestReportList = (props) =>{
 
     return(
         <div className={"content-box-center"}>
-            <InstanceListCommon type={CASE_TYPE.TEST_REPORT} />
+            <InstanceListCommon type={CASE_TYPE.TEST_REPORT} {...props} />
         </div>
     )
 }

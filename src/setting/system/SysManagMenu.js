@@ -3,7 +3,6 @@ import { renderRoutes } from "react-router-config";
 import { Layout } from 'antd';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
 import { PrivilegeButton,SystemNav } from "thoughtware-privilege-ui";
-import {useSelector} from 'thoughtware-plugin-core-ui'
 
 import './sysMana.scss'
 import {getUser} from "thoughtware-core-ui";
@@ -14,7 +13,6 @@ const { Sider, Content } = Layout;
 const SystemManagement = (props) => {
     const {settingMenu} = props;
 
-    const pluginStore = useSelector(store => store.pluginStore)
     const routers = props.route.routes
     const [selectKey,setSelectKey] = useState('/setting/systemRole')
     const [menuRouter,setMenuRouter] = useState();
@@ -25,24 +23,7 @@ const SystemManagement = (props) => {
         //设置左侧导航哪个选中
         setSelectKey(curRouter)
 
-        let data = pluginStore.filter(item=>item.point==="settingMenu").filter(item => item.menuTitle);
-
-        if(data.length > 0){
-            let newRouter;
-            data&&data.map(item => {
-                return newRouter = item.menuTitle.map((routerItem)=> {
-                    return {
-                        title: routerItem.menuTitle,
-                        icon: 'laptop',
-                        id: '/'+routerItem.mount + routerItem.router
-                    }
-                })
-            })
-
-            setMenuRouter(settingMenu.concat(newRouter));
-        }else {
-            setMenuRouter(settingMenu);
-        }
+        setMenuRouter(settingMenu);
     }, [curRouter])
 
 
@@ -77,8 +58,6 @@ const SystemManagement = (props) => {
             }
         }
     }
-
-
 
     // 树的展开与闭合
     const [expandedTree, setExpandedTree] = useState(["/setting/system"])

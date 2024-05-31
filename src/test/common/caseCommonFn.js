@@ -1,4 +1,4 @@
-import {assertCompare, CASE_TYPE} from "../../common/dictionary/dictionary";
+import {assertCompare} from "../../common/dictionary/dictionary";
 import React from "react";
 import IfJudgmentDrawer from "./ifJudgment/components/IfJudgmentDrawer";
 import {Col, Row, Tag} from "antd";

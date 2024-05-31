@@ -492,3 +492,8 @@
         font-size: 10px;
     }
 }
+
+.disabled-row {
+    pointer-events: none;
+    //opacity: 0.5;
+}

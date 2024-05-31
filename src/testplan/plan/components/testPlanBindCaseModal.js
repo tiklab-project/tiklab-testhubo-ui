@@ -10,6 +10,10 @@ import testPlanDetailStore from "../store/testPlanDetailStore";
 import {SearchOutlined} from "@ant-design/icons";
 import PaginationCommon from "../../../common/pagination/Page";
 import IconBtn from "../../../common/iconBtn/IconBtn";
+import {CASE_TYPE} from "../../../common/dictionary/dictionary";
+import {getVersionInfo} from "thoughtware-core-ui";
+import ExtensionCommon from "../../../common/ExtensionCommon";
+import {rowStyle} from "../../../test/testcase/components/testCaseTableFn";
 
 // 添加与编辑
 const TestPlanBindCaseModal = (props) => {
@@ -26,7 +30,7 @@ const TestPlanBindCaseModal = (props) => {
             render: (text,record) =>(
                 <div className={"display-flex-gap"}>
                     <>{showCaseTypeView(record.caseType)}</>
-                    <span className={"link-text"} >{text}</span>
+                    {switchCaseTypeView(record)}
                 </div>
             )
         },
@@ -126,6 +130,26 @@ const TestPlanBindCaseModal = (props) => {
         findPage(param)
     }
 
+    const switchCaseTypeView = (record) =>{
+        switch (record.caseType) {
+            case CASE_TYPE.FUNCTION:
+            case CASE_TYPE.API_UNIT:
+            case CASE_TYPE.API_SCENE:
+            case CASE_TYPE.API_PERFORM:
+                return <span className={"link-text"} >{record.name}</span>
+            case CASE_TYPE.WEB_SCENE:
+            case CASE_TYPE.APP_SCENE:
+                if(getVersionInfo().expired===false){
+                    return <span className={"link-text"}  >{record.name}</span>
+                }else {
+                    return <ExtensionCommon name={record.name} />
+                }
+            default:
+                return null
+        }
+    }
+
+
     return (
         <>
             <IconBtn
@@ -187,10 +211,11 @@ const TestPlanBindCaseModal = (props) => {
                             columns={columns}
                             dataSource={testCaseList}
                             rowKey = {record => record.id}
+
                             onRow={(record) => {
                                 return {
                                     onClick: () => {onFinish(record.id)},
-                                    style: {cursor: 'pointer'}
+                                    style: {cursor: 'pointer',...rowStyle(record,{pointerEvents: "none"})}
                                 };
                             }}
                             pagination={false}

@@ -4,23 +4,17 @@ import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
 import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
 import {SearchOutlined, UserOutlined} from "@ant-design/icons";
-import {useHistory, useParams} from "react-router";
 import DropdownAdd from "./DropdownAdd";
 import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
-import {getUser} from "thoughtware-core-ui";
 import CaseInstanceSingleDrawer from "../../common/CaseInstanceSingleDrawer";
 import PaginationCommon from "../../../common/pagination/Page";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import CaseTypeSelect from "./CaseTypeSelect";
-import HideDelete from "../../../common/hideDelete/HideDelete";
 import {messageFn} from "../../../common/messageCommon/MessageCommon";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
-import WebExecuteTestPage from "../../web/scene/components/WebExecuteTestPage";
-import ApiUnitExecuteTest from "../../api/http/unit/components/apiUnitExecuteTest";
-import ApiExecuteTestPage from "../../api/http/scene/components/ApiExecuteTestPage";
-import ApiPerfExecuteTestPage from "../../api/http/perf/components/ApiPerfExecuteTestPage";
-import AppExecuteTestPage from "../../app/scene/components/AppExecuteTestPage";
+import {rowStyle, showCreateUser, ShowDeleteView, ShowQuickExe, SwitchCaseTypeView} from "./testCaseTableFn";
+
 
 const TestCaseTable = (props) => {
     const {testcaseStore,categoryStore} = props;
@@ -37,7 +31,6 @@ const TestCaseTable = (props) => {
         isApiSceneBind
     }=testcaseStore;
 
-
     const column = [
         {
             title:`名称`,
@@ -47,7 +40,7 @@ const TestCaseTable = (props) => {
             render: (text,record) =>(
                 <Space className={"case-table-name"}>
                     <>{showCaseTypeView(record.caseType)}</>
-                    <span className={"link-text"}  onClick={()=>switchCaseType(record)}>{text}</span>
+                    <SwitchCaseTypeView record={record} testCaseRecent={testCaseRecent} repositoryId={repositoryId} />
                 </Space>
             )
         },
@@ -97,12 +90,8 @@ const TestCaseTable = (props) => {
             width: 50,
             render: (text, record) => (
                 <Space size="middle">
-                    {
-                        showQuickExe(record)
-                    }
-                    <HideDelete
-                        deleteFn={() =>deleteFn(record)}
-                    />
+                    <ShowQuickExe record={record} {...props}/>
+                    <ShowDeleteView record={record} deleteFn={deleteFn} />
                 </Space>
             )
         },
@@ -115,15 +104,7 @@ const TestCaseTable = (props) => {
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
     const [diffTypeCaseNum, setDiffTypeCaseNum] = useState();
-    let history = useHistory();
-    let {id} = useParams()
     let repositoryId = sessionStorage.getItem("repositoryId")
-    // let repositoryId = id
-
-    // useEffect(()=>{
-        //获取路由id存入
-        // sessionStorage.setItem('repositoryId',id);
-    // },[])
 
     useEffect(()=>{
         findPage()
@@ -156,6 +137,7 @@ const TestCaseTable = (props) => {
         })
     }
 
+
     /**
      * 删除用例
      * @param record
@@ -185,23 +167,6 @@ const TestCaseTable = (props) => {
         } else {
             await deleteTestCase(record.id, record.caseType);
             await findPage();
-        }
-    }
-
-
-    const showCreateUser = (director) =>{
-        if(director&&director.nickname){
-            return <div className={"ws-user-item"}>
-                <Space>
-                    <Avatar style={{width:"24px",height:"24px",lineHeight:"24px",verticalAlign: 'middle',}}>{director?.nickname[0]}</Avatar>
-                    <span >{director?.nickname} </span>
-                </Space>
-            </div>
-        }else {
-            return <div className={"display-flex-gap"}>
-                <Avatar size="small" icon={<UserOutlined />} />
-                <span> 未设置 </span>
-            </div>
         }
     }
 
@@ -301,69 +266,14 @@ const TestCaseTable = (props) => {
         findPage(param)
     }
 
-    //再根据不同的用例类型跳到不同的页面
-    const switchCaseType = (record)=>{
-        switch (record.caseType) {
-            case CASE_TYPE.API_UNIT:
-                toCaseDetail("apiUnitId",record)
-                break;
-            case CASE_TYPE.API_SCENE:
-                toCaseDetail("apiSceneId",record)
-                break;
-            case CASE_TYPE.API_PERFORM:
-                toCaseDetail("apiPerfId",record)
-                break;
-            case CASE_TYPE.WEB_SCENE:
-                toCaseDetail("webSceneId",record)
-                break;
-            case CASE_TYPE.APP_SCENE:
-                toCaseDetail("appSceneId",record)
-                break;
-            case CASE_TYPE.FUNCTION:
-                toCaseDetail("functionId",record)
-                break;
-        }
-    }
-
-    //跳转路由
-    const toCaseDetail = (setId,record)=>{
-        sessionStorage.setItem(`${setId}`,record.id);
-        history.push(`/repository/${record.caseType}/${record.id}`)
-
-        //最近访问
-        let params = {
-            repository:{id:repositoryId},
-            user:{id:getUser().userId},
-            testCase:{id:record.id},
-        }
-        testCaseRecent(params)
-    }
-
-    const showQuickExe = (record)=>{
-        switch (record.caseType) {
-            case CASE_TYPE.API_UNIT:
-                return <ApiUnitExecuteTest type={"quick"} apiUnitId={record.id}/>
-            case CASE_TYPE.API_SCENE:
-                return <ApiExecuteTestPage type={"quick"} apiSceneId={record.id} />
-            case CASE_TYPE.API_PERFORM:
-                return <ApiPerfExecuteTestPage type={"quick"} apiPerfId={record.id} />
-            case CASE_TYPE.WEB_SCENE:
-                return <WebExecuteTestPage type={"quick"} webSceneId={record.id}/>
-            case CASE_TYPE.APP_SCENE:
-                return <AppExecuteTestPage type={"quick"} appSceneId={record.id}/>
-            default:
-                return;
-        }
-    }
-
     return(
-        <>
-            <div className={"content-box-center"} >
+        <><div className={"content-box-center"} >
                 <div  className={"header-box-space-between"} >
                     <div className={'header-box-title'}>测试用例</div>
                     <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
                         <DropdownAdd
                             findPage={findPage}
+                            categoryStore={categoryStore}
                             {...props}
                         />
                     </div>
@@ -413,6 +323,7 @@ const TestCaseTable = (props) => {
                         rowKey = {record => record.id}
                         pagination={false}
                         loading={tableLoading}
+                        onRow={(record) => ({style: rowStyle(record.caseType)})}
                         locale={{
                             emptyText: <Empty
                                 imageStyle={{height: 120}}

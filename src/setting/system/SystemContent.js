@@ -67,11 +67,6 @@ const SystemContent = (props) =>{
             ]
         },
         {
-            title: '插件',
-            icon: 'plugin',
-            id: '/setting/plugin',
-            purviewCode: "plugin",
-        },{
             title: "安全",
             icon: 'anquan',
             id: '/setting/log',

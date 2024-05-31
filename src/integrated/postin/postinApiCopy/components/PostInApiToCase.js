@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import {Modal, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
-import MethodType from "../../../../test/api/http/common/methodType";
+import {TextMethodType} from "../../../../test/api/http/common/methodType";
 import postInApiToCaseStore from "../store/PostinApiToCaseStore";
 import workspaceBindStore from "../../workspaceBind/store/WorkspaceBindStore";
 
@@ -18,14 +18,14 @@ const PostInApiToCase = (props) => {
             title:`接口名`,
             dataIndex: "name",
             key: "postInApiName",
-            width:"45%",
+            width:"30%",
             // align:"center",
-            render: (text,record) => (
-                <Space size={"middle"}>
-                    <MethodType type={record.methodType}/>
-                    <span >{text}</span>
-                </Space>
-            )
+            render: (text,record) => <span >{record?.node?.name}</span>
+        },{
+            title: '方法',
+            dataIndex: 'type',
+            width: '20%',
+            render: (text,record) => <TextMethodType type={record?.node?.methodType}/>
         },
         {
             title: '地址',
@@ -93,21 +93,21 @@ const PostInApiToCase = (props) => {
                 okText="提交"
                 cancelText="取消"
                 centered
-                width={600}
+                width={700}
             >
+                <div style={{minHeight:"300px"}}>
+                    <div style={{display:"flex","alignItems":"center",padding:"0 0 15px"}}>
+                        <div>项目 :  {workspaceName}</div>
+                    </div>
 
-                <div style={{display:"flex","alignItems":"center",padding:"0 0 15px"}}>
-                    <div>项目 :  {workspaceName}</div>
+                    <Table
+                        columns={columns}
+                        dataSource={postInApiList}
+                        rowKey = {record => record.id}
+                        rowSelection={{...rowSelection}}
+                        pagination={false}
+                    />
                 </div>
-
-                <Table
-                    columns={columns}
-                    dataSource={postInApiList}
-                    rowKey = {record => record.id}
-                    rowSelection={{...rowSelection}}
-                    pagination={false}
-                />
-
             </Modal>
         </>
     )

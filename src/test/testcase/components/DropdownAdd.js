@@ -4,13 +4,12 @@ import FuncUnitEdit from "../../function/components/funcUnitEdit";
 import ApiUnitEdit from "../../api/http/unit/components/apiUnitEdit";
 import ApiSceneEdit from "../../api/http/scene/components/apiSceneEdit";
 import PostInApiToCase from "../../../integrated/postin/postinApiCopy/components/PostInApiToCase";
-import WebSceneEdit from "../../web/scene/components/webSceneEdit";
-import AppSceneEdit from "../../app/scene/components/appSceneEdit";
 import ApiPerfEdit from "../../api/http/perf/components/apiPerfEdit";
 import IconCommon from "../../../common/IconCommon";
+import ExtensionCommon from "../../../common/ExtensionCommon";
 
 const DropdownAdd = (props) =>{
-    const {icon} = props;
+    const {icon,AppSceneEdit,WebSceneEdit,categoryStore} = props;
 
     const addMenu =(
         <Menu>
@@ -44,17 +43,17 @@ const DropdownAdd = (props) =>{
             </Menu.ItemGroup >
             <Menu.ItemGroup  title="UI" key={"ui-add"}>
                 <Menu.Item key={"web-scene-add"}>
-                    <WebSceneEdit
+
+                    <ExtensionCommon
+                        extension={WebSceneEdit&&<WebSceneEdit name={"添加WEB用例"} categoryStore={categoryStore} {...props} />}
                         name={"添加WEB用例"}
-                        type={"add"}
-                        {...props}
                     />
                 </Menu.Item>
                 <Menu.Item key={"app-scene-add"}>
-                    <AppSceneEdit
+
+                    <ExtensionCommon
+                        extension={AppSceneEdit&&<AppSceneEdit  name={"添加APP用例"} categoryStore={categoryStore}  {...props}/>}
                         name={"添加APP用例"}
-                        type={"add"}
-                        {...props}
                     />
                 </Menu.Item>
             </Menu.ItemGroup >

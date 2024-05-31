@@ -1,25 +1,14 @@
 import React from 'react'
 import {Redirect} from "react-router";
-
-
+import LazyComponent from "./common/Lazy";
 
 //---平台
 import {Directory, Orga, UserGroup, User,} from "thoughtware-user-ui";
-import { NoAccess, ProjectFeature, ProjectRole, SystemFeature, SystemRole,ProjectVirtualRole} from "thoughtware-privilege-ui"
+import {NoAccess, ProjectFeature, ProjectRole, SystemFeature, SystemRole,ProjectVirtualRole} from "thoughtware-privilege-ui"
 import {ExcludeProductUser, NotFound} from "thoughtware-eam-ui";
 import {BackupRestore, LogTemplate, LogType, MyLog} from "thoughtware-security-ui";
-import {PluginDetail, Plugin} from "thoughtware-plugin-manager-ui";
 import {MessageNotice, MessageSendType, MessageType} from "thoughtware-message-ui";
-import Demo from "./demo";
 import {ProductAuth} from "thoughtware-licence-ui";
-import LazyComponent from "./common/Lazy";
-import TestPlanInstance from "./testplan/instance/components/TestPlanInstance";
-import PlanToApiUnitInstance from "./testplan/instance/components/PlanToApiUnitInstance";
-import PlanToApiSceneInstance from "./testplan/instance/components/PlanToApiSceneInstance";
-import PlanToApiPerfInstance from "./testplan/instance/components/PlanToApiPerfInstance";
-import PlanToWebSceneInstance from "./testplan/instance/components/PlanToWebSceneInstance";
-import PlanToAppSceneInstance from "./testplan/instance/components/PlanToAppSceneInstance";
-
 
 //---内部
 let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
@@ -50,22 +39,6 @@ let ApiPerfInstanceList = LazyComponent(() => import("./test/api/http/perf/compo
 let ApiPerformToScenePage = LazyComponent(() => import("./test/api/http/perf/components/apiPerformToScenePage"));
 let ApiPerfInstanceSinglePage = LazyComponent(() => import( "./test/api/http/perf/components/ApiPerfInstanceSinglePage"));
 
-let WebSceneContent = LazyComponent(() => import("./test/web/scene/components/WebSceneContent"));
-let WebSceneInstanceList = LazyComponent(() => import("./test/web/scene/components/webSceneInstanceList"));
-let WebSceneInstanceSinglePage  = LazyComponent(() => import( "./test/web/scene/components/WebSceneInstanceSinglePage"));
-
-let WebPerformDetail = LazyComponent(() => import("./test/web/perf/components/webPerformDetail"));
-let WebPerfInstanceList = LazyComponent(() => import("./test/web/perf/components/webPerfInstanceList"));
-let WebPerformToScenePage = LazyComponent(() => import("./test/web/perf/components/webPerformToScenePage"));
-
-let AppSceneContent = LazyComponent(() => import("./test/app/scene/components/AppSceneContent"));
-let AppSceneInstanceList = LazyComponent(() => import("./test/app/scene/components/appSceneInstanceList"));
-let AppSceneInstanceSinglePage = LazyComponent(() => import( "./test/app/scene/components/AppSceneInstanceSinglePage"));
-
-let AppPerformDetail = LazyComponent(() => import("./test/app/perf/components/appPerformDetail"));
-let AppPerfInstanceList = LazyComponent(() => import("./test/app/perf/components/appPerfInstanceList"));
-let AppPerformToScenePage = LazyComponent(() => import("./test/app/perf/components/appPerformToScenePage"));
-
 let FuncUnitDetail = LazyComponent(() => import("./test/function/components/FunctionContent"));
 
 let PlanDetailContent = LazyComponent(()=>import("./testplan/common/PlanDetailContent"))
@@ -73,7 +46,6 @@ let TestPlan = LazyComponent(() => import("./testplan/plan/components/testPlan")
 let TestPlanDetail = LazyComponent(() => import("./testplan/plan/components/testPlanDetail"));
 let TestPlanBindCaseList = LazyComponent(() => import("./testplan/plan/components/testPlanBindCaseList"));
 let TestPlanInstanceList = LazyComponent(() => import("./testplan/plan/components/testPlanInstanceList"));
-
 
 let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/instance/components/testPlanBindCaseInstanceList"));
 let PlanToApiUnitPage = LazyComponent(() => import("./testplan/common/planToCase/planToApiUnitPage"));
@@ -86,6 +58,13 @@ let PlanToAppPerformPage = LazyComponent(() => import("./testplan/common/planToC
 let PlanToAppScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToAppScenePage"));
 let PlanSetting = LazyComponent(() => import( "./testplan/setting/PlanSetting"));
 let QuartzPlanList = LazyComponent(() => import( "./testplan/quartz/components/QuartzPlanList"));
+
+let TestPlanInstance  = LazyComponent(() => import( "./testplan/instance/components/TestPlanInstance"));
+let PlanToApiUnitInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToApiUnitInstance"));
+let PlanToApiSceneInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToApiSceneInstance"));
+let PlanToApiPerfInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToApiPerfInstance"));
+let PlanToWebSceneInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToWebSceneInstance"));
+let PlanToAppSceneInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToAppSceneInstance"));
 
 let TestReportList = LazyComponent(() => import("./testreport/components/testReportList"));
 let TestReportDetail = LazyComponent(() => import("./testreport/components/testReportDetail"));
@@ -104,12 +83,6 @@ const routers =  [
     {
         path: "/login",
         component: LoginContent,
-        exact: true,
-        key:'LoginContent',
-    },
-    {
-        path: "/demo",
-        component: Demo,
         exact: true,
         key:'LoginContent',
     },
@@ -211,56 +184,27 @@ const routers =  [
                         component: ApiPerfInstanceSinglePage,
                     },
 
-                    {
-                        path: "/repository/web-scene/:id",
-                        component: WebSceneContent,
-                    },{
-                        path: "/repository/web-scene-instance",
-                        component: WebSceneInstanceList,
-                    },
-                    {
-                        path: "/repository/web-scene-instance-single",
-                        component: WebSceneInstanceSinglePage,
-                    },
+                    // {
+                    //     path: "/repository/web-scene/:id",
+                    //     component: WebSceneContent,
+                    // },{
+                    //     path: "/repository/web-scene-instance",
+                    //     component: WebSceneInstanceList,
+                    // },
+                    // {
+                    //     path: "/repository/web-scene-instance-single",
+                    //     component: WebSceneInstanceSinglePage,
+                    // },
 
-                    {
-                        path: "/repository/web-perform/:id",
-                        component:WebPerformDetail,
-                    },
-                    {
-                        path: "/repository/web-perform-to-scene",
-                        component: WebPerformToScenePage ,
-                    },
-                    {
-                        path: "/repository/web-perform-instance",
-                        component: WebPerfInstanceList,
-                    },
+                    // {
+                    //     path: "/repository/app-scene/:id",
+                    //     component: AppSceneContent,
+                    // },
+                    // {
+                    //     path: "/repository/app-scene-instance",
+                    //     component: AppSceneInstanceList,
+                    // },
 
-                    {
-                        path: "/repository/app-scene/:id",
-                        component: AppSceneContent,
-                    },
-                    {
-                        path: "/repository/app-scene-instance",
-                        component: AppSceneInstanceList,
-                    },
-                    {
-                        path: "/repository/app-scene-instance-single",
-                        component: AppSceneInstanceSinglePage,
-                    },
-
-                    {
-                        path: "/repository/app-perform/:id",
-                        component:AppPerformDetail,
-                    },
-                    {
-                        path: "/repository/app-perform-to-scene",
-                        component: AppPerformToScenePage ,
-                    },
-                    {
-                        path: "/repository/app-perform-instance",
-                        component: AppPerfInstanceList,
-                    },
 
                     {
                         path: "/repository/function/:id",
@@ -443,7 +387,6 @@ const routers =  [
                         exact: true,
                         component: TestPlanBindCaseInstanceList,
                     },
-
                 ]
             },
 
@@ -475,7 +418,7 @@ const routers =  [
                         path: "/setting/dir",
                         key:'authConfig',
                         exact: true,
-                        render: () => <Directory isPortal={false}/>,
+                        render: () => <Directory isPortal={false} bgroup={"teston"}/>,
                     },{
                         path: "/setting/userGroup",
                         key:'authConfig',
@@ -518,18 +461,6 @@ const routers =  [
                         render:()=> <ProductAuth  />
                     },
 
-                    //插件
-                    {
-                        path: "/setting/plugin",
-                        key:'plugin',
-                        render:(props)=> <Plugin {...props}  detailRouter={"/setting/plugindetail"}/>,
-                    },
-                    {
-                        path: "/setting/plugindetail",
-                        key:'plugindetail',
-                        exact: true,
-                        render:()=> <PluginDetail  pluginsRoute={"/setting/plugin"}/>,
-                    },
                     //日志
                     {
                         path: "/setting/log",

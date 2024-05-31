@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
-import {inject, observer} from "mobx-react";
-import {Button, Form, Select, Space, Spin, Tooltip} from "antd";
+import {observer} from "mobx-react";
+import {Button, Form, Space} from "antd";
 import {PlayCircleOutlined} from "@ant-design/icons";
 import "./caseTableQuickTestStyle.scss"
-const {Option} = Select
 
 const CaseTableQuickTest = (props) =>{
     const {form,findEnv,clickTest,envSelect} = props
@@ -62,4 +61,4 @@ const CaseTableQuickTest = (props) =>{
     )
 }
 
-export default inject("testcaseStore")(observer(CaseTableQuickTest));
+export default observer(CaseTableQuickTest);
