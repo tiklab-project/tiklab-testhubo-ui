@@ -85,7 +85,7 @@ const WorkItemAdd = (props) =>{
                 >
                     <Form.Item
                         label="项目"
-                        rules={[{ required: true, }]}
+                        rules={[{ required: true, message:"请选择项目" }]}
                         name="project"
                     >
                         <ProjectSelect
@@ -95,7 +95,7 @@ const WorkItemAdd = (props) =>{
                     </Form.Item>
                     <Form.Item
                         label="缺陷标题"
-                        rules={[{ required: true, }]}
+                        rules={[{ required: true,  message: '请输入名称!' }]}
                         name="name"
                     >
                         <Input />

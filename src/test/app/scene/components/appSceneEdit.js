@@ -88,7 +88,7 @@ const AppSceneEdit = (props) => {
                 >
                     <Form.Item
                         label="名称"
-                        rules={[{ required: true, }]}
+                        rules={[{ required: true, message: '请输入名称!' }]}
                         name="name"
                     >
                         <Input />

@@ -84,14 +84,14 @@ const VariableEdit = (props) => {
                 >
                     <Form.Item
                         label="名称"
-                        rules={[{ required: true, message:'名称未添加'}]}
+                        rules={[{ required: true, message:"请添加名称" }]}
                         name="name"
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         label="值"
-                        rules={[{ required: true, message:'值'}]}
+                        rules={[{ required: true, message:"请添加值数据" }]}
                         name="value"
                     >
                         <Input />

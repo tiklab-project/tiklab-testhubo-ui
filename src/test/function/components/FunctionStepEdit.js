@@ -65,7 +65,7 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
                 >
                     <Form.Item
                         label="描述"
-                        rules={[{ required: true, message:'名称未添加'}]}
+                        rules={[{ required: true, message:"请添加名称" }]}
                         name="described"
                     >
                         <TextArea

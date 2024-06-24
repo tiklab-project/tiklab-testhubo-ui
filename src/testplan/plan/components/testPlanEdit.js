@@ -92,7 +92,7 @@ const TestPlanEdit = (props) => {
                 >
                     <Form.Item
                         label="名称"
-                        rules={[{ required: true, message:'名称未添加'}]}
+                        rules={[{ required: true, message:"请添加名称" }]}
                         name="name"
                     >
                         <Input />
@@ -101,7 +101,7 @@ const TestPlanEdit = (props) => {
                         props.type === "add"
                             &&<Form.Item
                                 label="类型"
-                                rules={[{ required: true, message:'类型选择'}]}
+                                rules={[{ required: true, message:'请选择类型'}]}
                                 name="type"
                             >
                                 <Radio.Group >

@@ -87,7 +87,7 @@ const FuncUnitEdit = (props) => {
                 >
                     <Form.Item
                         label="名称"
-                        rules={[{ required: true, }]}
+                        rules={[{ required: true, message:"请添加名称"  }]}
                         name="name"
                     >
                         <Input />

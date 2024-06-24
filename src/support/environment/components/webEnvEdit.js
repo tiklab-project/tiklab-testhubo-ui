@@ -95,7 +95,7 @@ const WebEnvEdit = (props) => {
                 </Form.Item>
                 <Form.Item
                     label="WebDriver"
-                    rules={[{ required: true, message: '选择WebDriver' }]}
+                    rules={[{ required: true, message: '请选择WebDriver' }]}
                     name="webDriver"
                 >
                      <Select>

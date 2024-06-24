@@ -79,7 +79,7 @@ const RepositorySetting = (props) =>{
                                 >
                                     <Form.Item
                                         label="应用名称"
-                                        rules={[{ required: true, message: '添加目录名称!' }]}
+                                        rules={[{ required: true, message: '添加应用名称!' }]}
                                         name="name"
                                     >
                                         <Input style={{height:40}}/>

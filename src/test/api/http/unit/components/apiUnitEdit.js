@@ -87,14 +87,14 @@ const ApiUnitEdit = (props) => {
                 >
                     <Form.Item
                         label="名称"
-                        rules={[{ required: true, }]}
+                        rules={[{ required: true,  message:"请添加名称" }]}
                         name="name"
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         label="类型"
-                        rules={[{ required: true, }]}
+                        rules={[{ required: true, message:"请添加名称" }]}
                         name="methodType"
                     >
                         <Select>
@@ -104,7 +104,7 @@ const ApiUnitEdit = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="地址"
-                        rules={[{ required: true }]}
+                        rules={[{ required: true, message:"请添加地址" }]}
                         name="path"
                     >
                         <Input />

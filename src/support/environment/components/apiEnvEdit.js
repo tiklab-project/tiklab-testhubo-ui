@@ -89,14 +89,14 @@ const ApiEnvEdit = (props) => {
             >
                 <Form.Item
                     label="环境名称"
-                    rules={[{ required: true, message: '环境名' }]}
+                    rules={[{ required: true, message: '请添加环境名' }]}
                     name="name"
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
                     label="环境地址"
-                    rules={[{ required: true, message: '环境地址' }]}
+                    rules={[{ required: true, message: '请添加环境地址' }]}
                     name="preUrl"
                 >
                      <Input />

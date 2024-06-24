@@ -150,7 +150,7 @@ const RepositoryEdit = (props) => {
                             <div className={"ws-edit-form-input"}>
                                 <Form.Item
                                     label="项目名称"
-                                    rules={[{ required: true, message: '添加目录名称!' }]}
+                                    rules={[{ required: true, message: '添加项目名称!' }]}
                                     name="name"
                                 >
                                     <Input  placeholder="项目名称"/>
