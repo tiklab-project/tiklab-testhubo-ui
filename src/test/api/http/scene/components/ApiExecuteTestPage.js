@@ -118,17 +118,10 @@ const ApiExecuteTestPage = (props) =>{
                             clickFindInstance(index)
                         }}
                     >
-                        {showResult(item.result)}
-                        <div className='history-item-detail'>
-                            <div  style={{overflow: "hidden",textOverflow: "ellipsis"}}>{apiUnitInstance?.apiUnit?.path}</div>
-                            <div>
-                                <TextMethodType type={apiUnitInstance?.requestInstance?.requestType} />
-                                {
-                                    apiUnitInstance?.requestInstance?.elapsedTime
-                                        ?<span>{apiUnitInstance?.requestInstance?.elapsedTime}ms</span>
-                                        :null
-                                }
-                            </div>
+                        <div>{showResult(item.result)}</div>
+                        <TextMethodType type={apiUnitInstance?.requestInstance?.requestType} />
+                        <div  style={{overflow: "hidden",textOverflow: "ellipsis"}}>
+                            {apiUnitInstance?.apiUnit?.path}
                         </div>
                     </div>
                 )
@@ -144,7 +137,7 @@ const ApiExecuteTestPage = (props) =>{
                             clickFindInstance(index)
                         }}
                     >
-                        {showResult(item.result)}
+                        <div>{showResult(item.result)}</div>
                         <div className='history-item-detail'>
                             <div  style={{overflow: "hidden",textOverflow: "ellipsis"}}>
                                 <Tag color={"processing"}>if 条件判断</Tag>
@@ -190,7 +183,7 @@ const ApiExecuteTestPage = (props) =>{
                 return data.map(item=>{
                     return(
                         <div key={item.key} className={"history-detail-item-box"}>
-                            <div style={{width:"70px",fontSize:13,color:"#a3a3a3"}}>
+                            <div style={{width:"72px",fontSize:13,color:"#a3a3a3"}}>
                                 <span className={"history-detail-item-box-title"}>{item.title}</span>
                             </div>
 

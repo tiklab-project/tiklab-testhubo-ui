@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import IconCommon from "../../../common/IconCommon";
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import FunctionStepEdit from "./FunctionStepEdit";
 import FunctionStepDrawer from "./FunctionStepDrawer";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
@@ -11,8 +11,8 @@ import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 
 const {findStepCommonList,updateStepCommon,deleteStepCommon} = stepCommonStore
 
-const FunctionStepList = ({functionId}) => {
-
+const FunctionStepList = ({functionId,funcUnitStore}) => {
+    const {findFuncUnit} = funcUnitStore
     const [stepList, setStepList] = useState([]);
 
     useEffect(async ()=> {
@@ -87,7 +87,7 @@ const FunctionStepList = ({functionId}) => {
                                                 className={"icon-s edit-icon"}
                                                 icon={"shanchu3"}
                                                 onClick={(e)=> {
-                                                    deleteStepCommon(item.id, CASE_TYPE.FUNCTION).then(() => findList())
+                                                    deleteFn(item)
                                                     e.stopPropagation()
                                                 }}
                                             />
@@ -105,6 +105,12 @@ const FunctionStepList = ({functionId}) => {
         });
     };
 
+    const deleteFn = async (item) =>{
+        await deleteStepCommon(item.id, CASE_TYPE.FUNCTION)
+        await findList()
+        await findFuncUnit(functionId)
+    }
+
 
 
     return (
@@ -113,7 +119,10 @@ const FunctionStepList = ({functionId}) => {
                 <div className={"display-flex-between"} style={{margin: "10px 0"}}>
                      <div> 共 {stepList.length} 个步骤</div>
 
-                     <FunctionStepEdit findList={findList} type={"add"}/>
+                     <FunctionStepEdit
+                         findList={findList}
+                         type={"add"}
+                     />
                 </div>
 
                 <DragDropContext onDragEnd={onDragEnd}>
@@ -162,4 +171,4 @@ const FunctionStepList = ({functionId}) => {
 };
 
 
-export default observer(FunctionStepList);
+export default inject("funcUnitStore")(observer(FunctionStepList));

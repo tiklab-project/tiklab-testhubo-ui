@@ -96,7 +96,7 @@ const ApiSceneInstanceDetail = (props) =>{
                             clickFindStep(item)
                         }}
                     >
-                        {showResult(item.result)}
+                        <div>{showResult(item.result)}</div>
                         <TextMethodType type={apiUnitInstance.apiUnit?.methodType} />
                         <div style={{overflow: "hidden",textOverflow: "ellipsis"}}>{apiUnitInstance.apiUnit?.path}</div>
                     </div>
@@ -114,7 +114,7 @@ const ApiSceneInstanceDetail = (props) =>{
                             clickFindStep(item)
                         }}
                     >
-                        {showResult(item.result)}
+                        <div>{showResult(item.result)}</div>
                         <div className='history-item-detail'>
                             <div  style={{overflow: "hidden",textOverflow: "ellipsis"}}>
                                 <Tag color={"processing"}>if 条件判断</Tag>

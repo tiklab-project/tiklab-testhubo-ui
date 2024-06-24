@@ -391,6 +391,11 @@
 
     &-value{
         font-size: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        white-space: nowrap;
+
     }
 }
 

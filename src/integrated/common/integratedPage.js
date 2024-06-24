@@ -168,7 +168,7 @@ const IntegratedPage = (props) =>{
 
 
                 </Panel>
-                <Panel header={<><span style={{padding:"0 5px"}}>TEAMWIRE集成</span></>} key="2">
+                <Panel header={<><span style={{padding:"0 5px"}}>KANASS集成</span></>} key="2">
                     <div className={"url-config-box"}>
                         <Form
                             form={form}
@@ -177,7 +177,7 @@ const IntegratedPage = (props) =>{
                             onFinish={(e)=>setUrl(e,"teamwire",teamWireCurData)}
                         >
                             <Form.Item
-                                label="TEAMWIRE服务端地址"
+                                label="KANASS服务端地址"
                                 name="teamWireUrl"
                             >
                                 <Input />

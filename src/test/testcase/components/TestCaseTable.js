@@ -30,7 +30,7 @@ const TestCaseTable = (props) => {
         isCaseExist,
         isApiSceneBind,
         setTestType
-    }=testcaseStore;
+    } = testcaseStore;
 
     const column = [
         {

@@ -27,7 +27,7 @@ const ApiUnitExecuteTest = (props) =>{
 
         //测试环境为空提示
         if(!envUrl&&!values.host){
-            return messageFn("error","请填写测试地址")
+            return messageFn("error","请选择测试环境")
         }
         setTimeout(()=>{
             setOpen(true);
@@ -79,6 +79,10 @@ const ApiUnitExecuteTest = (props) =>{
             title:"测试结果:",
             value:data?.result ? '成功' : '失败',
             key:"result"
+        },{
+            title:"",
+            value:'',
+            key:"none"
         },
     ]
 

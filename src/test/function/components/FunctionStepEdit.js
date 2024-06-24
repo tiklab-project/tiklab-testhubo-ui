@@ -1,6 +1,6 @@
 import React from 'react';
-import { observer } from "mobx-react";
-import {Form,  Button, Input, Space,Modal} from 'antd';
+import {inject, observer} from "mobx-react";
+import {Form, Input, Modal} from 'antd';
 import funcUnitStepStore from "../store/funcUnitStepStore";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 
@@ -9,11 +9,14 @@ const { TextArea } = Input;
 /**
  * 添加
  */
-const FunctionStepEdit = ({findList,type,stepId}) => {
+const FunctionStepEdit = (props) => {
+    const {findList,type,funcUnitStore} = props
     const {createFuncUnitStep} = funcUnitStepStore;
+    const {findFuncUnit} = funcUnitStore
 
     const [form] = Form.useForm();
     const [visible, setVisible] = React.useState(false);
+    const functionId = sessionStorage.getItem('functionId')
 
     /**
      * 展示添加项
@@ -21,8 +24,6 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
     const showModal = async () => {
         setVisible(true)
     };
-
-    const functionId = sessionStorage.getItem('functionId')
 
     /**
      * 提交
@@ -33,6 +34,7 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
 
         await createFuncUnitStep(values)
         await findList();
+        await findFuncUnit(functionId)
 
         setVisible(false)
     };
@@ -98,4 +100,4 @@ const FunctionStepEdit = ({findList,type,stepId}) => {
     );
 };
 
-export default observer(FunctionStepEdit);
+export default inject("funcUnitStore")(observer(FunctionStepEdit));

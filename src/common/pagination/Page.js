@@ -17,7 +17,7 @@ const PaginationCommon = props =>{
                     <LeftOutlined/>
                 </span>
                 <span className="pagination-box-current">{currentPage}</span>
-                <span> / {totalPage && totalPage}</span>
+                <span> / {totalPage ? totalPage:1}</span>
                 <span
                     className={`${currentPage===totalPage?"pagination-box-ban":"pagination-box-allow"}`}
                     onClick={()=>currentPage===totalPage?null:changePage(currentPage + 1)}

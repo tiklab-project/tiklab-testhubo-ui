@@ -140,9 +140,7 @@
         }
     }
 }
-.content-box-center{
-    height: 100%;
-}
+
 
 
 .case-title_weight{
@@ -461,6 +459,13 @@
         &:hover{
             background: var(--pi-hover-color);
         }
+
+        .toggle-case-item-title{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
     }
 
     .toggle-case-item-selected{
@@ -482,8 +487,9 @@
 
 .api-unit-drawer{
     .ant-tabs{
-        height: unset;
+        height: calc(100% - 180px);
     }
+
 }
 
 .case-table-status{

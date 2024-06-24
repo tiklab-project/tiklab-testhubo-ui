@@ -8,15 +8,13 @@ import {useHistory} from "react-router";
 // 添加与编辑
 const FuncUnitEdit = (props) => {
     const { funcUnitStore,categoryStore,findPage} = props;
-    const {createFuncUnit} = funcUnitStore
+    const {createFuncUnit,} = funcUnitStore
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
-    let history = useHistory()
+    const history = useHistory()
     const [form] = Form.useForm();
-
     const [visible, setVisible] = React.useState(false);
     const [categoryId, setCategoryId] = useState();
-
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     // 弹框展示
@@ -26,32 +24,27 @@ const FuncUnitEdit = (props) => {
         setVisible(true);
     };
 
-
     // 提交
     const onFinish = async () => {
         let values = await form.validateFields();
-
-
-        if(props.type==="add"){
-            values.testCase={
-                category:{id:categoryId},
-                repositoryId:repositoryId,
-                name:values.name,
-                testType:"function",
-                caseType:"function",
-                desc:values.desc
-            }
-            delete values.name
-            delete values.desc
-
-            createFuncUnit(values).then((res)=> {
-                if(res.code===0){
-                    findPage&&findPage()
-                    sessionStorage.setItem(`functionId`,res.data);
-                    history.push(`/repository/function/${res.data}`)
-                }
-            })
+        values.testCase={
+            category:{id:categoryId},
+            repositoryId:repositoryId,
+            name:values.name,
+            testType:"function",
+            caseType:"function",
+            desc:values.desc
         }
+        delete values.name
+        delete values.desc
+
+        createFuncUnit(values).then((res)=> {
+            if(res.code===0){
+                findPage&&findPage()
+                sessionStorage.setItem(`functionId`,res.data);
+                history.push(`/repository/function/${res.data}`)
+            }
+        })
 
         setVisible(false);
     };

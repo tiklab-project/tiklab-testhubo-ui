@@ -60,7 +60,7 @@ const ResponseBodyCommon = (props) => {
             <ReactMonacoEditor
                 value={dataSource}
                 language={language}
-                height={height?height:"400px"}
+                height={height?height:"100%"}
                 width={"100%"}
                 readOnly={true}
             />

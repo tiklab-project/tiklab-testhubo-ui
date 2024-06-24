@@ -30,7 +30,6 @@ const AssertParam = ({apiUnitId}) =>{
         findAssertParamList(apiUnitId).then(res => setDataSource(res));
     },[dataLength])
 
-    //更新
     //表头
     let columns= [
         {
@@ -53,7 +52,7 @@ const AssertParam = ({apiUnitId}) =>{
         {
             title: '属性',
             dataIndex: 'propertyName',
-            width: '32%',
+            width: '30%',
             editable: true,
         },
         {
@@ -79,13 +78,13 @@ const AssertParam = ({apiUnitId}) =>{
         },
         {
             title: '值',
-            width: '32%',
+            width: '30%',
             dataIndex: 'value',
             editable: true,
         },
         {
             title: '操作',
-            width: 150,
+            width: 200,
             dataIndex: 'operation',
             render: (text, record,index) =>(operation(record,dataSource))
         }
@@ -111,7 +110,6 @@ const AssertParam = ({apiUnitId}) =>{
             comparator: value
         }
         handleSave(data);
-
     }
 
     //取消

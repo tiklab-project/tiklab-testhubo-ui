@@ -302,6 +302,7 @@ table .icon{
 }
 
 .content-box-center{
+    height: calc(100% - 10px);
     min-width: 760px;
     max-width: 1440px;
     margin: 0 auto;

@@ -4,6 +4,7 @@ import { observer, inject } from "mobx-react";
 import {Table, Space, Popconfirm, Drawer, Modal} from 'antd';
 import {ExTable} from "../../../common/EditTable";
 import apiEnvStore from "../store/apiEnvStore";
+import IconCommon from "../../../common/IconCommon";
 /**
  * 环境管理
  */
@@ -88,7 +89,12 @@ const ApiEnvModel = (props) => {
                             item.name === record.name
                             && item.preUrl === record.preUrl
                                 ? null
-                                : <a onClick={() => upData(record)}>更新</a>
+                                :  <IconCommon
+                                    icon={"btn_confirm"}
+                                    className="icon-s"
+                                    style={{ cursor: "pointer"}}
+                                    onClick={() => upData(record)}
+                                />
                         }
                     </>
                     :null
@@ -99,7 +105,6 @@ const ApiEnvModel = (props) => {
     /**
      * 更新
      */
-
     const upData = (value) => {
         updateApiEnv(value).then(()=>{
             findApiEnvList(repositoryId).then(res=>setDataSource(res));

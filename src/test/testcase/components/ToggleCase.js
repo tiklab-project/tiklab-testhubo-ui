@@ -168,10 +168,10 @@ const ToggleCase = (props) =>{
                                         className={` display-flex-between  toggle-case-item  ${caseId=== item.id ? 'toggle-case-item-selected' : ''}`}
                                         onClick={()=>switchCaseType(item)}
                                     >
-                                        <Space className={"case-table-name"}>
-                                            <>{showCaseTypeView(item.caseType)}</>
+                                        <div className={"display-flex-gap toggle-case-item-title"}>
+                                            <div>{showCaseTypeView(item.caseType)}</div>
                                             <span className={"text-ellipsis"}>{item.name}</span>
-                                        </Space>
+                                        </div>
                                         {
                                             showCaseTypeInList(item.caseType)
                                         }
@@ -181,11 +181,7 @@ const ToggleCase = (props) =>{
                         }
                     </div>
 
-                    <PaginationCommon
-                        currentPage={currentPage}
-                        totalPage={totalPage}
-                        changePage={onTableChange}
-                    />
+
                 </Spin>
             </div>
         </div>
