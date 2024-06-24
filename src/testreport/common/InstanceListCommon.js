@@ -22,7 +22,9 @@ const InstanceListCommon = (props) =>{
     const {
         findInstancePage,
         instanceList,
-        deleteInstance
+        deleteInstance,
+        totalPage,
+        tableLoading
     } = instanceStore;
 
 
@@ -73,7 +75,7 @@ const InstanceListCommon = (props) =>{
             dataIndex: 'operation',
             key: 'operation',
             width: "10%",
-            render: (text, record) => (<ShowDeleteView record={record} deleteFn={deleteFn} />)
+            render: (text, record) => (<ShowDeleteView record={record} deleteFn={()=>deleteFn(record)} />)
         },
     ]
 
@@ -81,14 +83,8 @@ const InstanceListCommon = (props) =>{
     const history = useHistory()
     const repositoryId = sessionStorage.getItem("repositoryId")
     const [typeList, setTypeList] = useState([]);
-    const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(15);
     const [currentPage, setCurrentPage] = useState(1);
-    const [tableLoading,setTableLoading] = useState(true);
-
-    useEffect(async ()=>{
-        await findPage()
-    },[])
 
     const findPage = async (params) => {
         let param={
@@ -103,6 +99,7 @@ const InstanceListCommon = (props) =>{
         if(type===CASE_TYPE.TEST_REPORT){
             param = {
                 repositoryId:repositoryId,
+                type:selectItem==="test-plan"||selectItem==="api-perform"?selectItem:null,
                 ...param
             }
         }else {
@@ -113,15 +110,11 @@ const InstanceListCommon = (props) =>{
             }
         }
 
-        let res = await findInstancePage(param)
-        if(res.code===0){
-            setTotalPage(res.data.totalPage)
-            setTableLoading(false)
-        }
+        await findInstancePage(param)
     }
 
     const deleteFn = (record) => {
-        deleteInstance(record.id, record.caseType).then(() => findPage())
+        deleteInstance(record.id, record.type).then(() => findPage())
     }
 
     // 分页
@@ -380,11 +373,13 @@ const InstanceListCommon = (props) =>{
             if(key==="api"){
                 param = {
                     ...param,
+                    type:null,
                     typeList:["api-scene","api-unit"]
                 };
             }else if(key==="ui"){
                 param = {
                     ...param,
+                    type:null,
                     typeList:["app-scene","web-scene"]
                 };
             }else {

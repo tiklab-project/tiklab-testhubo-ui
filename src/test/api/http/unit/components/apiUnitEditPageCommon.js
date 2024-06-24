@@ -22,7 +22,7 @@ const ApiUnitEditPageCommon = (props) => {
     const { findApiUnit,updateApiUnit } = apiUnitStore;
     const {findCategoryListTreeTable,categoryTableList} = categoryStore;
 
-    const apiUnitId = sessionStorage.getItem('apiUnitId');
+    const apiUnitId = props.stepId||sessionStorage.getItem('apiUnitId');
     const repositoryId = sessionStorage.getItem("repositoryId")
     const [form] = Form.useForm()
     const [apiUnitData, setApiUnitData] = useState();

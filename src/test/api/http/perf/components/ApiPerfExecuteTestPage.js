@@ -68,6 +68,7 @@ const ApiPerfExecuteTestPage = (props) =>{
             ref.current =  setInterval(async ()=>{
                 //获取结果
                 let res = await exeResult(apiPerfId,envUrl)
+
                 if(res.code===0){
                     let data = res.data
                     setResult(data.apiPerfInstance)
@@ -97,27 +98,18 @@ const ApiPerfExecuteTestPage = (props) =>{
 
     const showDrawer = async () => {
         if(envUrl){
-            setTimeout(()=>{
-                setOpen(true);
-                setStart(true);
-            }, 500);
-
             let res = await apiPerfExecute(apiPerfId,envUrl)
-            if(res.code!==0) {
-                let msg = res.msg
-                let errorMsg
-                if(msg) {
-                    errorMsg = msg.split(":")[1]
-                    if (errorMsg.includes("Could not connect")) {
-                        errorMsg = "无法连接agent"
-                    } else {
-                        errorMsg = "执行异常"
-                    }
-                }else {
-                    errorMsg = "执行异常"
-                }
-                messageFn("error",errorMsg)
+            if(res.code===10000){
+                messageFn("error", "Agent is not found. check the agent");
+                return;
             }
+            if(res.code===10001){
+                messageFn("error", "Agent execute test failed");
+                return;
+            }
+
+            setOpen(true);
+            setStart(true);
         }else {
             messageFn("error","请选择环境")
         }

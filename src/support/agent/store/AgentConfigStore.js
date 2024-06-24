@@ -8,7 +8,7 @@ export class AgentConfigStore {
 	findAgentConfigList = async (param) => {
 		const params = {
 			orderParams: [{
-				name:'createTime',
+				name:'name',
 				orderType:'desc'
 			}],
 			...param

@@ -4,7 +4,6 @@ import {useHistory, useParams} from "react-router";
 import ApiSceneDetail from "./ApiSceneDetail";
 import CaseBread from "../../../../../common/CaseBread";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
-import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiExecuteTestPage from "./ApiExecuteTestPage";
 import {Space} from "antd";
 import ToggleCase from "../../../../testcase/components/ToggleCase";
@@ -34,12 +33,6 @@ const ApiSceneContent = (props) => {
                 right={
                     <Space>
                         <ApiEnvDropDownSelect />
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            icon={"lishi"}
-                            onClick={()=>history.push("/repository/api-scene-instance")}
-                            name={"历史"}
-                        />
                         <ApiExecuteTestPage apiSceneId={apiSceneId} stepNum={apiSceneInfo?.stepNum||0}/>
                     </Space>
                 }

@@ -49,6 +49,7 @@ const FormParam = ({apiUnitId}) =>{
                     handleSave={handleSave}
                     rowData={record}
                     setNewRowAction={setNewRowAction}
+                    width={"100%"}
                 />
             )
         },
@@ -70,7 +71,7 @@ const FormParam = ({apiUnitId}) =>{
         let data = {
             id:"InitNewRowId",
             "paramName":null,
-            "dataType":null,
+            "dataType":"text",
             "value":null
         }
         handleSave(data)
@@ -152,7 +153,9 @@ const FormParam = ({apiUnitId}) =>{
         }else {
             // 创建新行的时候自带一个id，所以删了，后台会自行创建id
             delete values.id;
-            values.apiUnit= {id:apiUnitId},
+            values.apiUnit= {id:apiUnitId}
+            values.dataType = values.dataType || "text";
+
             createFormParam(values).then(()=>{
                 findFormParamList(apiUnitId).then(res => setDataSource(res));
             })

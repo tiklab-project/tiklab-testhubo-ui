@@ -10,13 +10,13 @@ export const messageFn = (type,content) =>{
     let successOptions = {
         content:content||"保存成功",
         className:"pi-message-success",
-        duration: 1,
+        duration: 1.5,
     }
 
     let errorOptions = {
         content:content||"保存失败",
         className:"pi-message-error",
-        duration: 1,
+        duration: 1.5,
     }
 
     const switchMessage = (type) =>{

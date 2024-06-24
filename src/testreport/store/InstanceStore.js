@@ -3,6 +3,8 @@ import {Axios} from "thoughtware-core-ui";
 
 export class InstanceStore {
     @observable instanceList = [];
+    @observable totalPage;
+    @observable tableLoading=true;
 
     @action
     findInstancePage = async (value) => {
@@ -12,6 +14,8 @@ export class InstanceStore {
         const res = await Axios.post("/instance/findInstancePage",params);
         if(res.code === 0) {
             this.instanceList = res.data.dataList;
+            this.totalPage= res.data.totalPage;
+            this.tableLoading=false
         }
 
         return res

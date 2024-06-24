@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form, Modal, Button, Input, DatePicker, Select} from 'antd';
+import {Form, Modal, Button, Input, DatePicker, Select, Radio} from 'antd';
 import moment from "moment";
 import IconCommon from "../../../common/IconCommon";
 
 const { RangePicker } = DatePicker;
+const {Option} =Select;
 
 
 // 添加与编辑
@@ -17,9 +18,7 @@ const TestPlanEdit = (props) => {
     const [form] = Form.useForm();
 
     const [visible, setVisible] = React.useState(false);
-    const [rangeTime, setRangeTime] = useState();
-    const [endTime, setEndTime] = useState();
-    const [principal,setPrincipal] = useState('')
+
     const repositoryId = sessionStorage.getItem('repositoryId')
 
     // 弹框展示
@@ -29,6 +28,7 @@ const TestPlanEdit = (props) => {
                 // setPrincipal(res.principal)
                 form.setFieldsValue({
                     name: res.name,
+                    type: res.type,
                     rangeTime:[moment(res.startTime,'YYYY-MM-DD'),moment(res.endTime,'YYYY-MM-DD')],
                 })
             })
@@ -43,7 +43,7 @@ const TestPlanEdit = (props) => {
 
         values.startTime=values.rangeTime[0];
         values.endTime=values.rangeTime[1];
-        values.repository= {id:repositoryId};
+        values.repositoryId= repositoryId;
         // values.principal = {id:userSelectId?userSelectId:principal};
         if(props.type === "add" ){
             createTestPlan(values).then(()=>{
@@ -59,11 +59,6 @@ const TestPlanEdit = (props) => {
     };
 
     const onCancel = () => { setVisible(false) };
-
-
-    const changeRangeTime = (data,dataString) =>{
-        setRangeTime(dataString)
-    }
 
 
     return (
@@ -93,6 +88,7 @@ const TestPlanEdit = (props) => {
                     form={form}
                     preserve={false}
                     layout={"vertical"}
+                    initialValues={{ type: "function" }}
                 >
                     <Form.Item
                         label="名称"
@@ -101,6 +97,20 @@ const TestPlanEdit = (props) => {
                     >
                         <Input />
                     </Form.Item>
+                    {
+                        props.type === "add"
+                            &&<Form.Item
+                                label="类型"
+                                rules={[{ required: true, message:'类型选择'}]}
+                                name="type"
+                            >
+                                <Radio.Group >
+                                    <Radio value={"function"}>功能</Radio>
+                                    <Radio value={"auto"}>自动化</Radio>
+                                </Radio.Group>
+                            </Form.Item>
+
+                    }
                     <Form.Item
                         label="日期范围"
                         name="rangeTime"
@@ -110,10 +120,7 @@ const TestPlanEdit = (props) => {
                             span: 24,
                         }}
                     >
-                        <RangePicker
-                            format={'YYYY-MM-DD'}
-                            onChange={changeRangeTime}
-                        />
+                        <RangePicker format={'YYYY-MM-DD'}/>
                     </Form.Item>
                 </Form>
             </Modal>

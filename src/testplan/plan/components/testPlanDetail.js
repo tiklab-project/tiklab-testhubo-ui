@@ -7,7 +7,7 @@ import EdiText from "react-editext";
 import {CaretDownOutlined} from "@ant-design/icons";
 import {useParams} from "react-router";
 import CaseBread from "../../../common/CaseBread";
-import TestPlanInstanceList from "./testPlanInstanceList";
+import TestPlanInstanceList from "../../instance/components/testPlanInstanceList";
 
 const {Option} = Select;
 

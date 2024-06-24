@@ -45,7 +45,7 @@ let PlanDetailContent = LazyComponent(()=>import("./testplan/common/PlanDetailCo
 let TestPlan = LazyComponent(() => import("./testplan/plan/components/testPlan"));
 let TestPlanDetail = LazyComponent(() => import("./testplan/plan/components/testPlanDetail"));
 let TestPlanBindCaseList = LazyComponent(() => import("./testplan/plan/components/testPlanBindCaseList"));
-let TestPlanInstanceList = LazyComponent(() => import("./testplan/plan/components/testPlanInstanceList"));
+let TestPlanInstanceList = LazyComponent(() => import("./testplan/instance/components/testPlanInstanceList"));
 
 let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/instance/components/testPlanBindCaseInstanceList"));
 let PlanToApiUnitPage = LazyComponent(() => import("./testplan/common/planToCase/planToApiUnitPage"));

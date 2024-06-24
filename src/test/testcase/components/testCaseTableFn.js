@@ -140,12 +140,7 @@ export  const ShowDeleteView = ({record,deleteFn}) =>{
             if( getVersionInfo().expired===false){
                 return <HideDelete deleteFn={() =>deleteFn(record)}/>
             }else {
-                return <ExtensionCommon icon={
-                    <IconCommon
-                        icon={"more"}
-                        className={"icon-s edit-icon"}
-                    />
-                } />
+                return <ExtensionCommon  icon={<IconCommon icon={"more"} className={"icon-s edit-icon"}/>} />
             }
         default:
             return null

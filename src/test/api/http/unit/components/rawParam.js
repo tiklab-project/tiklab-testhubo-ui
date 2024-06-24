@@ -40,19 +40,14 @@ const RawParam = ({apiUnitId}) => {
     // 提交保存
     const onFinish = async () => {
         let values = await form.validateFields();
+        let param = {
+            id:apiUnitId,
+            apiUnitId:apiUnitId,
+            ...dataSource,
+            ...values
 
-        if(dataSource){
-            let param = {
-                ...dataSource,
-                ...values
-            }
-
-            await updateRawParam(param)
-        }else{
-            values.apiUnit=apiUnitId;
-            values.id =apiUnitId;
-            await createRawParam(values)
         }
+        await updateRawParam(param)
 
         setFocus(false)
     }

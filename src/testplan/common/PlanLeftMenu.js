@@ -11,7 +11,7 @@ import "../plan/components/testPlanStyle.scss"
 const PlanLeftMenu = (props) =>{
     const {findTestPlanPage,testPlanList} = testPlanStore;
 
-    const menuData = [
+    const autoLeftMenu = [
         {
             "icon":"test-case-group",
             "name":"测试用例",
@@ -30,8 +30,18 @@ const PlanLeftMenu = (props) =>{
         }
     ]
 
+    const functionLeftMenu=[
+        {
+            "icon":"test-case-group",
+            "name":"测试用例",
+            "key":"plan",
+            "router":"/plan/case"
+        }
+    ]
+
     const history = useHistory()
     const repositoryId = sessionStorage.getItem('repositoryId')
+    const testPlanType = localStorage.getItem('testPlanType')
     const [visible, setVisible] = useState(false);
 
     useEffect(async ()=>{
@@ -144,7 +154,7 @@ const PlanLeftMenu = (props) =>{
 
     return(
         <LeftNavCommon
-            menuData={menuData}
+            menuData={testPlanType==="auto"?autoLeftMenu:functionLeftMenu}
             clickAddRouter={clickAddRouter}
             clickSetting={clickSetting}
             diffHeader={showTogglePlan}

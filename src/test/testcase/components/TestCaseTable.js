@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Avatar, Empty, Input, Space, Table, Tag, TreeSelect} from "antd";
+import {Empty, Input, Space, Table, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
 import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
-import {SearchOutlined, UserOutlined} from "@ant-design/icons";
+import {SearchOutlined} from "@ant-design/icons";
 import DropdownAdd from "./DropdownAdd";
 import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
@@ -28,7 +28,8 @@ const TestCaseTable = (props) => {
         findDiffTypeCaseNum,
         isApiUnitBind,
         isCaseExist,
-        isApiSceneBind
+        isApiSceneBind,
+        setTestType
     }=testcaseStore;
 
     const column = [
@@ -98,7 +99,6 @@ const TestCaseTable = (props) => {
     ]
 
     const [tableLoading,setTableLoading] = useState(true);
-    const [selectCaseType, setMenuCaseType] = useState("all");
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(20);
@@ -108,7 +108,7 @@ const TestCaseTable = (props) => {
 
     useEffect(()=>{
         findPage()
-    },[repositoryId])
+    },[repositoryId,testType])
 
     useEffect(()=>{
         findCategoryListTreeTable(repositoryId)
@@ -144,8 +144,8 @@ const TestCaseTable = (props) => {
      * @returns {Promise<void>}
      */
     const deleteFn =async (record) =>{
-        let isBind = false;
-        let bindMsg = '';
+        let isBind;
+        let bindMsg;
 
         switch (record.caseType) {
             case CASE_TYPE.API_UNIT:
@@ -173,23 +173,8 @@ const TestCaseTable = (props) => {
     //点击测试类型筛选项查找
     const selectKeyFun = (item)=>{
         let key = item.key
-        setMenuCaseType(key)
+        setTestType(key)
         setCurrentPage(1)
-
-        let param={
-            pageParam: {
-                pageSize: pageSize,
-                currentPage:1
-            },
-        }
-        if(key!=="all"){
-            param={
-                testType:key,
-                ...param
-            }
-        }
-
-        findPage(param)
     }
 
     //模块赛选
@@ -199,7 +184,6 @@ const TestCaseTable = (props) => {
             setSelectCategory(null)
             param = {
                 categoryId:null,
-
             }
         }else {
             setSelectCategory(categoryId)
@@ -220,7 +204,7 @@ const TestCaseTable = (props) => {
                 pageSize: pageSize,
                 currentPage:current
             },
-            testType:selectCaseType==="all"?null:selectCaseType
+            testType:testType==="all"?null:testType
         }
 
         findPage(param)
@@ -259,7 +243,7 @@ const TestCaseTable = (props) => {
 
     const caseSelectPage = (value) =>{
         let param = {
-            testType:selectCaseType,
+            testType:testType,
             caseTypeList:value
         }
 
@@ -283,15 +267,15 @@ const TestCaseTable = (props) => {
                     <MenuSelect
                         menuItems={items}
                         selectFn={selectKeyFun}
-                        selected={selectCaseType}
+                        selected={testType}
                         style={{width: "400px"}}
                     />
 
                     <Space>
                         <>
                             {
-                                selectCaseType==="api"||selectCaseType==="ui"
-                                    ?<CaseTypeSelect findPage={caseSelectPage} testType={selectCaseType}/>
+                                testType==="api"||testType==="ui"
+                                    ?<CaseTypeSelect findPage={caseSelectPage} testType={testType}/>
                                     :null
                             }
                         </>

@@ -1,21 +1,19 @@
-import React from "react";
-import CaseBread from "../../../../../common/CaseBread";
+import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import InstanceListCommon from "../../../../../testreport/common/InstanceListCommon";
 import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
+import {findCaseInstancePage} from "../../../../../testreport/common/instanceCommonFn";
 
 const ApiPerfInstanceList = (props) =>{
-    const {apiPerfStore} = props;
-    const {testCaseInfo} = apiPerfStore
+
     const apiPerfId = sessionStorage.getItem("apiPerfId")
 
+    useEffect(async()=>{
+        await findCaseInstancePage(apiPerfId,CASE_TYPE.API_PERFORM)
+    },[])
 
     return(
         <div className={"content-box-center"}>
-            <CaseBread
-                breadItem={[testCaseInfo?.name,"历史"]}
-                router={`/repository/api-perform/${apiPerfId}`}
-            />
             <InstanceListCommon belongId={apiPerfId} type={CASE_TYPE.API_PERFORM}/>
         </div>
     )

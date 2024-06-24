@@ -101,7 +101,7 @@ const ApiSceneStepList = (props) => {
                         </Col>
                     </Row>
                 }
-                stepId={item.id}
+                stepId={item.apiSceneStep?.apiUnit?.id}
                 findList={findList}
             />
         )

@@ -33,9 +33,9 @@ const TestPlan = (props) => {
             title:`计划名称`,
             dataIndex: "name",
             key: "name",
-            width: "30%",
+            width: "20%",
             render: (text,record) =>(
-                <span className={"link-text"} onClick={()=>toPlanDetail(record.id)}>{text}</span>
+                <span className={"link-text"} onClick={()=>toPlanDetail(record)}>{text}</span>
             )
         },
         {
@@ -46,7 +46,15 @@ const TestPlan = (props) => {
             render:(text,record)=>(
                 <span>{record.startTime} ~ {record.endTime}</span>
             )
-        },{
+        },
+        {
+            title: `类型`,
+            dataIndex: "type",
+            key: "type",
+            width: "10%",
+            render:(text,record)=>text==="function"?<span>功能</span>:<span>自动化</span>
+        },
+        {
             title: `最近执行`,
             dataIndex: "recentInstance",
             key: "principal",
@@ -72,11 +80,6 @@ const TestPlan = (props) => {
             render: (text,record) =>(showState(record.state))
         },
 
-        // {
-        //     title: `描述`,
-        //     dataIndex: "desc",
-        //     key: "desc",
-        // },
         {
             title: ` ${t('tcoperation')}`,
             key: "action",
@@ -127,8 +130,9 @@ const TestPlan = (props) => {
     }
 
     // 去往详情页
-    const toPlanDetail = (id) => {
-        sessionStorage.setItem('testPlanId',id);
+    const toPlanDetail = (record) => {
+        sessionStorage.setItem('testPlanId',record.id);
+        localStorage.setItem("testPlanType",record.type)
         localStorage.setItem("leftRouter","/plan/case");
         props.history.push(`/plan/case`);
     };

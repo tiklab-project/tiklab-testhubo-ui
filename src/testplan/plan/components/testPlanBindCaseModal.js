@@ -4,7 +4,7 @@
  */
 import React, {useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Modal, Table, Space, Select, Row, Col, Input, Avatar,} from 'antd';
+import {Modal, Table, Select, Row, Col, Input} from 'antd';
 import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
 import testPlanDetailStore from "../store/testPlanDetailStore";
 import {SearchOutlined} from "@ant-design/icons";
@@ -14,6 +14,7 @@ import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {getVersionInfo} from "thoughtware-core-ui";
 import ExtensionCommon from "../../../common/ExtensionCommon";
 import {rowStyle} from "../../../test/testcase/components/testCaseTableFn";
+import MenuSelect from "../../../common/menuSelect/MenuSelect";
 
 // 添加与编辑
 const TestPlanBindCaseModal = (props) => {
@@ -38,19 +39,19 @@ const TestPlanBindCaseModal = (props) => {
             title: `用例类型`,
             dataIndex: "caseType",
             key: "caseType",
-            width:"10%",
+            width:"12%",
             render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
         },{
             title: `状态`,
             dataIndex: "status",
             key: "status",
-            width:"10%",
+            width:"12%",
             render: (text)=><div className={"case-table-status"}>{showStatus(text)}</div>
         }, {
             title: `模块`,
             dataIndex: ["category","name"],
             key: "category",
-            width:"10%",
+            width:"15%",
         },
         {
             title: `创建时间`,
@@ -64,8 +65,11 @@ const TestPlanBindCaseModal = (props) => {
     const [totalPage, setTotalPage] = useState();
     const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
-
+    const [selectItem, setSelectItem] = useState("all");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+
     const showModal = () => {
         findPage()
         setIsModalOpen(true);
@@ -90,13 +94,17 @@ const TestPlanBindCaseModal = (props) => {
     }
 
     //测试类型筛选
-    const testTypeFn = (type)=>{
-        let params = {
-            testType:type,
-        }
-        findPage(params)
-    }
+    const selectKeyFun = (item)=>{
+        let key = item.key
+        setSelectItem(key)
 
+        let param
+        if(key!=="all"){
+            param={testType:key}
+        }
+
+        findPage(param)
+    }
     const onSearch = (e) =>{
         let param = {name:e.target.value}
         findPage(param)
@@ -150,6 +158,7 @@ const TestPlanBindCaseModal = (props) => {
     }
 
 
+
     return (
         <>
             <IconBtn
@@ -163,11 +172,37 @@ const TestPlanBindCaseModal = (props) => {
                 onOk={handleOk}
                 onCancel={handleCancel}
                 width={800}
-                footer={false}
+                okText={"确定"}
+                cancelText={"取消"}
             >
                 <div style={{padding:"0 0 15px"}}>
-                    <Row gutter={16}>
-                        <Col className="gutter-row" span={8}>
+                    <Row gutter={16} align={"middle"}>
+                        <Col className="gutter-row"  span={10}>
+                            <MenuSelect
+                                menuItems={[
+                                    {
+                                        title: `所有`,
+                                        key: `all`,
+                                    },
+                                    {
+                                        title: `接口`,
+                                        key: `api`,
+                                    },
+                                    {
+                                        title: `UI`,
+                                        key: `ui`,
+                                    },
+                                    {
+                                        title: `性能`,
+                                        key: `perform`,
+                                    }
+                                ]}
+                                selectFn={selectKeyFun}
+                                selected={selectItem}
+                                style={{width: `320px`}}
+                            />
+                        </Col>
+                        <Col className="gutter-row" span={6}  offset={8}>
                             <Input
                                 placeholder={`搜索名称`}
                                 onPressEnter={onSearch}
@@ -176,33 +211,7 @@ const TestPlanBindCaseModal = (props) => {
                                 prefix={<SearchOutlined />}
                             />
                         </Col>
-                        <Col className="gutter-row" span={6}>
-                            <Select
-                                // defaultValue={null}
-                                placeholder={"测试类型"}
-                                className={"bind-case-select"}
-                                onChange={testTypeFn}
-                                options={[
-                                    {
-                                        value: null,
-                                        label: '所有',
-                                    },{
-                                        value: 'api',
-                                        label: '接口',
-                                    },{
-                                        value: 'ui',
-                                        label: 'UI',
-                                    },
-                                    {
-                                        value: 'perform',
-                                        label: '性能',
-                                    },{
-                                        value: 'function',
-                                        label: '功能',
-                                    },
-                                ]}
-                            />
-                        </Col>
+
                     </Row>
                 </div>
                 <div style={{"overflow": "auto","height": "calc(100% - 38px)"}}>
@@ -211,13 +220,14 @@ const TestPlanBindCaseModal = (props) => {
                             columns={columns}
                             dataSource={testCaseList}
                             rowKey = {record => record.id}
-
-                            onRow={(record) => {
-                                return {
-                                    onClick: () => {onFinish(record.id)},
-                                    style: {cursor: 'pointer',...rowStyle(record,{pointerEvents: "none"})}
-                                };
+                            rowSelection={{
+                                selectedRowKeys,
+                                onChange: (newSelectedRowKeys) => {
+                                    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+                                    setSelectedRowKeys(newSelectedRowKeys);
+                                }
                             }}
+
                             pagination={false}
                         />
                         <PaginationCommon

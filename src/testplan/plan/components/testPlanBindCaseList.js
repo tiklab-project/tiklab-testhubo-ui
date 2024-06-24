@@ -77,6 +77,7 @@ const TestPlanBindCaseList = (props) =>{
 
     const repositoryId = sessionStorage.getItem("repositoryId")
     const testPlanId = sessionStorage.getItem('testPlanId')
+    const testPlanType = localStorage.getItem('testPlanType')
     const history = useHistory();
     const [tableLoading,setTableLoading] = useState(true);
     const [totalPage, setTotalPage] = useState();
@@ -170,9 +171,9 @@ const TestPlanBindCaseList = (props) =>{
                 case "app-scene":
                     toDetailAddRouterCommon("appSceneId",record)
                     break;
-
             }
         }
+
 
         //跳转路由
         const toDetailAddRouterCommon = (setId,record)=>{
@@ -209,14 +210,10 @@ const TestPlanBindCaseList = (props) =>{
     }
 
 
-    const items = [
+    const autoTypeMenu = [
         {
             title: `所有 (${diffTestTypeNum?.all||0})`,
             key: `all`,
-        },
-        {
-            title: `功能 (${diffTestTypeNum?.function||0})`,
-            key: `function`,
         },
         {
             title: `接口 (${diffTestTypeNum?.api||0})`,
@@ -231,6 +228,18 @@ const TestPlanBindCaseList = (props) =>{
             key: `perform`,
         }
     ];
+
+
+    const functionTypeMenu=[
+        {
+            title: `所有 (${diffTestTypeNum?.all||0})`,
+            key: `all`,
+        },
+        {
+            title: `功能 (${diffTestTypeNum?.function||0})`,
+            key: `function`,
+        },
+    ]
 
 
     //点击测试类型筛选项查找
@@ -261,8 +270,13 @@ const TestPlanBindCaseList = (props) =>{
             <div className='header-box-space-between'>
                 <div className={'header-box-title'}>测试用例</div>
                 <Space>
-                    <TestPlanENVModal {...props}/>
-                    <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
+                    {
+                        testPlanType==="auto"
+                            &&<>
+                                <TestPlanENVModal {...props}/>
+                                <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
+                            </>
+                    }
                     <TestPlanBindCase
                         testPlanId={testPlanId}
                         findBindCasePage={findPage}
@@ -272,10 +286,10 @@ const TestPlanBindCaseList = (props) =>{
             <div style={{margin:"10px 0",height:"100%"}}>
                 <div className='display-flex-between'>
                     <MenuSelect
-                        menuItems={items}
+                        menuItems={testPlanType==="auto"?autoTypeMenu:functionTypeMenu}
                         selectFn={selectKeyFun}
                         selected={selectItem}
-                        style={{width: "400px"}}
+                        style={{width: `${testPlanType==="auto"?"320px":"160px"}`}}
                     />
 
                     <Space>

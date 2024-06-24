@@ -7,6 +7,7 @@ import {inject, observer} from "mobx-react";
 import VariableTable from "../../../../common/Variable/components/VariableTable";
 import "../../../../common/styles/caseContantStyle.scss"
 import "../../../../common/styles/unitcase.scss"
+import ApiSceneInstanceList from "./apiSceneInstanceList";
 
 const ApiSceneDetail = (props) =>{
     const {apiSceneStore,apiSceneId} = props;
@@ -62,13 +63,20 @@ const ApiSceneDetail = (props) =>{
                 updateCase={updateCase}
                 form={form}
             />
-        },{
+        },
+        {
             label: `测试步骤 (${apiSceneInfo?.stepNum||0})`,
             key: '2',
             children: <ApiSceneStepList apiSceneId={apiSceneId}/>
-        },{
-            label: `环境变量 (${apiSceneInfo?.variableNum||0})`,
+        },
+        {
+            label: `历史 (${apiSceneInfo?.instanceNum||0})`,
             key: '3',
+            children: <ApiSceneInstanceList/>
+        },
+        {
+            label: `环境变量 (${apiSceneInfo?.variableNum||0})`,
+            key: '4',
             children: <VariableTable belongId={repositoryId}/>
         }
     ]

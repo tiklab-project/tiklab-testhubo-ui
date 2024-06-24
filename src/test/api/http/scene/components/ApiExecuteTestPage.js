@@ -12,13 +12,15 @@ import IfInstance from "../../../../common/ifJudgment/components/ifInstance";
 import ResponseCommon from "../../common/response/responseCommon/responseCommon";
 import {LoadingOutlined} from "@ant-design/icons";
 import CaseTableQuickTest from "../../../../common/CaseTableQuickTest/CaseTableQuickTest";
+import {findCaseInstancePage} from "../../../../../testreport/common/instanceCommonFn";
+import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
 const {Option} = Select
 const { apiSceneExecute } = apiSceneTestDispatchStore;
 
 const ApiExecuteTestPage = (props) =>{
-    const { apiEnvStore,stepNum,type,apiSceneId} = props;
+    const { apiEnvStore,stepNum,type,apiSceneId,apiSceneStore} = props;
     const {findApiEnvList,apiEnvList,getTestEnvUrl,envUrl} = apiEnvStore;
-
+    const {findApiScene} = apiSceneStore;
     const repositoryId = sessionStorage.getItem("repositoryId")
     const [allData, setAllData] = useState();
     const [stepList, setStepList] = useState([]);
@@ -48,6 +50,9 @@ const ApiExecuteTestPage = (props) =>{
 
                     setLoading(false);
                     setOpen(true);
+
+                    findApiScene(apiSceneId)
+                    findCaseInstancePage(apiSceneId,CASE_TYPE.API_SCENE)
                 }else {
                     let msg = res.msg
                     let errorMsg
@@ -365,4 +370,4 @@ const ApiExecuteTestPage = (props) =>{
     )
 }
 
-export default inject("apiEnvStore")(observer(ApiExecuteTestPage))
+export default inject("apiEnvStore","apiSceneStore")(observer(ApiExecuteTestPage))

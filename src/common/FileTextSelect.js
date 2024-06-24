@@ -8,7 +8,7 @@ const {Option} = Select;
  * formdata会用到
  */
 const FileTextSelect = (props) => {
-    const {defaultValue,handleSave,rowData,setNewRowAction} = props;
+    const {defaultValue,handleSave,rowData,setNewRowAction,width} = props;
 
     const selectChange = (e) =>{
         let newData = {
@@ -23,8 +23,8 @@ const FileTextSelect = (props) => {
 
     return(
         <Select
-            style={{width:120}}
-            defaultValue={defaultValue}
+            style={{width:width?width:120}}
+            defaultValue={defaultValue?defaultValue:"text"}
             onChange={(e)=>selectChange(e)}
             bordered={false}
         >

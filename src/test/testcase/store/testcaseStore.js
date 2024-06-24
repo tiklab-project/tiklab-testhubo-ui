@@ -5,7 +5,7 @@ import {Axios} from "thoughtware-core-ui";
 export class TestCaseStore {
     @observable testcaseList = [];
     @observable tabList = [];
-    @observable testType;
+    @observable testType="all";
     @observable caseType;
 
     @action
