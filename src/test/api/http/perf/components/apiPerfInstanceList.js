@@ -4,13 +4,15 @@ import InstanceListCommon from "../../../../../testreport/common/InstanceListCom
 import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
 import {findCaseInstancePage} from "../../../../../testreport/common/instanceCommonFn";
 
-const ApiPerfInstanceList = (props) =>{
+const ApiPerfInstanceList = ({actionTap}) =>{
 
     const apiPerfId = sessionStorage.getItem("apiPerfId")
 
     useEffect(async()=>{
-        await findCaseInstancePage(apiPerfId,CASE_TYPE.API_PERFORM)
-    },[])
+        if(actionTap==="history"){
+            await findCaseInstancePage(apiPerfId,CASE_TYPE.API_PERFORM)
+        }
+    },[apiPerfId,actionTap])
 
     return(
         <div className={"content-box-center"}>

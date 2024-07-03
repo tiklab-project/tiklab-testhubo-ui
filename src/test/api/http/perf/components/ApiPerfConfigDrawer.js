@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {InputNumber, Radio, Form, Popconfirm, Drawer, Tooltip} from "antd";
+import {InputNumber, Radio, Form, Drawer, Tooltip} from "antd";
 import {observer} from "mobx-react";
 import {useHistory} from "react-router";
 import apiPerfStepStore from "../store/apiPerfStepStore";
@@ -24,29 +24,52 @@ const ApiPerfConfigDrawer = (props) =>{
 
     useEffect(() => {
         if (open) {
-            findApiPerfStep(apiPerfStepId).then(res => {
-                form.setFieldsValue({
-                    threadCount: res.threadCount,
-                    executeType: res.executeType,
-                    executeCount: res.executeCount
-                });
-                setExeMode(res.executeType);
-
-            });
+            findApiPerfStepFn(apiPerfStepId)
         }
     }, [open, apiPerfStepId]);
 
-    const handleUpdate = async (field, value) => {
-        if(field === "executeType"){
-            setExeMode(value)
-        }
+    const findApiPerfStepFn=(id)=>{
+        findApiPerfStep(id).then(res => {
+            form.setFieldsValue({
+                threadCount: res.threadCount,
+                executeType: res.executeType,
+                executeCount: res.executeCount,
+                timeType:res.timeType,
+                timeCount:res.timeCount
 
-        const param = {
+            });
+            setExeMode(res.executeType);
+        });
+    }
+
+    const handleUpdate = async (field, value) => {
+        let param = {
             id: apiPerfStepId,
             [field]: value
         };
+
+        if(field === "executeType"){
+            setExeMode(value)
+
+            if(value===2){
+                param={
+                    ...param,
+                    timeType:"second",
+                    timeCount:1
+                }
+            }
+        }
+
+        if(field === "timeType"){
+            param={
+                ...param,
+                timeCount:1
+            }
+        }
+
         await updateApiPerfStep(param);
         await findApiPerfStepList(apiPerfId)
+        await findApiPerfStepFn(apiPerfStepId)
     };
 
     const toAgentPage = () => {
@@ -102,40 +125,61 @@ const ApiPerfConfigDrawer = (props) =>{
                             <Radio.Group
                                 onChange={e => handleUpdate('executeType', e.target.value)}
                                 value={exeMode}
+                                buttonStyle="solid"
                             >
-                                <Radio value={1}>次数</Radio>
-                                {/*<Radio value={2}>时间</Radio>*/}
+                                <Radio.Button value={1}>次数</Radio.Button>
+                                <Radio.Button value={2}>时间</Radio.Button>
                             </Radio.Group>
                         </Form.Item>
                         {
                             exeMode===1
-                                &&<Form.Item label="执行次数" name="executeCount">
-                                <InputNumber
-                                    min={1}
-                                    max={100000}
-                                    onChange={value => handleUpdate('executeCount', value)}
-                                />
-                            </Form.Item>
+                                ?<Form.Item label="执行次数" name="executeCount">
+                                    <InputNumber
+                                        min={1}
+                                        max={100000}
+                                        onChange={value => handleUpdate('executeCount', value)}
+                                    />
+                                </Form.Item>
+                                :<>
+                                    <Form.Item label="时间单位" name="timeType">
+                                        <Radio.Group
+                                            onChange={e => handleUpdate('timeType', e.target.value)}
+                                            // value={exeMode}
+                                            buttonStyle="solid"
+                                        >
+                                            <Radio.Button value={"hour"}>时</Radio.Button>
+                                            <Radio.Button value={"minute"}>分</Radio.Button>
+                                            <Radio.Button value={"second"}>秒</Radio.Button>
+                                        </Radio.Group>
+                                    </Form.Item>
+                                    <Form.Item label="时间数" name="timeCount">
+                                        <InputNumber
+                                            min={1}
+                                            max={10000}
+                                            onChange={value => handleUpdate('timeCount', value)}
+                                        />
+                                    </Form.Item>
+                                </>
                         }
 
-                        <Form.Item
-                            label="节点"
-                            name="executeCount"
-                        >
-                            <Popconfirm
-                                title="确定离开？"
-                                onConfirm={toAgentPage}
-                                okText='确定'
-                                cancelText='取消'
-                            >
-                                <div style={{
-                                    width: "140px",
-                                    color:"#0078d6",
-                                    cursor:"pointer"
-                                }}>前往Agent管理页管理</div>
-                            </Popconfirm>
+                        {/*<Form.Item*/}
+                        {/*    label="节点"*/}
+                        {/*    name="executeCount"*/}
+                        {/*>*/}
+                        {/*    <Popconfirm*/}
+                        {/*        title="确定离开？"*/}
+                        {/*        onConfirm={toAgentPage}*/}
+                        {/*        okText='确定'*/}
+                        {/*        cancelText='取消'*/}
+                        {/*    >*/}
+                        {/*        <div style={{*/}
+                        {/*            width: "140px",*/}
+                        {/*            color:"#0078d6",*/}
+                        {/*            cursor:"pointer"*/}
+                        {/*        }}>前往Agent管理页管理</div>*/}
+                        {/*    </Popconfirm>*/}
 
-                        </Form.Item>
+                        {/*</Form.Item>*/}
 
                     </Form>
                 </div>

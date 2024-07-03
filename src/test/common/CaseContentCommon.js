@@ -2,7 +2,7 @@ import React from "react";
 import {Tabs} from "antd";
 
 const CaseContentCommon = (props) =>{
-    const {breadcrumb,tabBarExtraContent,tabItem} = props
+    const {breadcrumb,tabBarExtraContent,tabItem,changeTap} = props
 
     return(
         <>
@@ -19,6 +19,7 @@ const CaseContentCommon = (props) =>{
                     defaultActiveKey="1"
                     items={tabItem}
                     tabBarExtraContent={tabBarExtraContent}
+                    onChange={changeTap}
                 />
             </div>
         </>

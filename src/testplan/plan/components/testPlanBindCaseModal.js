@@ -13,7 +13,6 @@ import IconBtn from "../../../common/iconBtn/IconBtn";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {getVersionInfo} from "thoughtware-core-ui";
 import ExtensionCommon from "../../../common/ExtensionCommon";
-import {rowStyle} from "../../../test/testcase/components/testCaseTableFn";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 
 // 添加与编辑
@@ -68,7 +67,6 @@ const TestPlanBindCaseModal = (props) => {
     const [selectItem, setSelectItem] = useState("all");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
 
     const showModal = () => {
         findPage()
@@ -166,8 +164,6 @@ const TestPlanBindCaseModal = (props) => {
                 return null
         }
     }
-
-
 
     return (
         <>

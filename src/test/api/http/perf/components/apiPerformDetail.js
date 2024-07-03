@@ -15,6 +15,8 @@ const ApiPerformDetail = (props) =>{
 
     const [form] = Form.useForm()
     const [caseInfo,setCaseInfo]=useState();
+    const [actionTap, setActionTap] = useState();
+
     useEffect(()=>{
         findApiPerf(apiPerfId).then(res=>{
             setCaseInfo(res);
@@ -33,9 +35,6 @@ const ApiPerformDetail = (props) =>{
         })
 
     },[apiPerfId])
-
-
-
 
     const updateCase = async () =>{
         let newData = await form.getFieldsValue()
@@ -74,15 +73,13 @@ const ApiPerformDetail = (props) =>{
             children:<ApiPerfStepList type={!!props.planType} {...props} apiPerfId={apiPerfId}/>
         },{
             label: `历史`,
-            key: '5',
-            children: <ApiPerfInstanceList />
+            key: 'history',
+            children: <ApiPerfInstanceList actionTap={actionTap}/>
         }
     ]
 
     return(
-
-        <CaseContentCommon tabItem={tabItem}/>
-
+        <CaseContentCommon tabItem={tabItem} changeTap={(actionKey)=>setActionTap(actionKey)}/>
     )
 }
 

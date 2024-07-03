@@ -1,5 +1,5 @@
 import React from "react";
-import {Drawer, Empty, Spin, Table} from "antd";
+import {Empty, Spin, Table} from "antd";
 import { observer} from "mobx-react";
 import emptyImg from "../../../../../assets/img/empty.png";
 const ApiPerfInstanceDetail = (props) =>{

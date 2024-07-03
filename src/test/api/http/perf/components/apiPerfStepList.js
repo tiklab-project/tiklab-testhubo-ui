@@ -49,7 +49,12 @@ const ApiPerfStepList = (props) =>{
                 >
                     <div>并行用户数: {record.threadCount}</div>
                     <div> / </div>
-                    <div>执行次数: {record.executeCount}</div>
+                    {
+                        record.executeType===1
+                            ?<div>执行次数: {record.executeCount}</div>
+                            :<div>{record.timeCount} {record.timeType[0]}</div>
+                    }
+
                 </div>
             )
         },

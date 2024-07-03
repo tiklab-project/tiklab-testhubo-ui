@@ -22,7 +22,6 @@ const TestPlanDetail = (props) =>{
     let {id} = useParams()
     const testPlanId = sessionStorage.getItem('testPlanId') || id
 
-
     useEffect(()=>{
         //获取路由id存入
         sessionStorage.setItem('testPlanId',id);
@@ -36,8 +35,6 @@ const TestPlanDetail = (props) =>{
             })
         })
     },[testPlanId]);
-
-
 
     const changeStartTime = (data,dataString) =>{
         const param={
