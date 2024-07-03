@@ -27,39 +27,59 @@ const ApiPerfExecuteTestPage = (props) =>{
 
     let columns= [
         {
-            title: '步骤数',
-            width: '18%',
-            dataIndex: 'testNumber',
-        },
-        {
-            title: '通过数',
-            width: '18%',
-            dataIndex: 'passNumber',
-        },
-        {
-            title: '失败数',
-            dataIndex: 'failNumber',
-            width: '18%',
-        }, {
-            title: '通过率',
-            dataIndex: 'passRate',
-            width: '18%',
-        },
-        {
-            title: '耗时',
-            dataIndex: 'elapsedTime',
-            width: '18%',
-            render: (text, record) => (<div>{text}ms</div>)
-        },
-        {
-            title: '是否通过',
+            title: '名称',
+            dataIndex: 'name',
             width: '10%',
-            dataIndex: 'result',
-            render: (text, record) => (
-                text===1
-                    ?<div className={"history-item-result isSucceed"} style={{margin:0}}>通过</div>
-                    :<div className={"history-item-result isFailed"} style={{margin:0}}>未通过</div>
-            )
+        },
+        {
+            title: '总次数',
+            width: '5%',
+            dataIndex: 'totalRequests',
+        },
+        {
+            title: '总耗时(s)',
+            dataIndex: 'totalElapsedTime',
+            width: '5%',
+        },
+        {
+            title: 'Max(ms)',
+            dataIndex: 'maxElapsedTime',
+            width: '5%',
+        },
+        {
+            title: 'Min(ms)',
+            dataIndex: 'minElapsedTime',
+            width: '5%',
+        },
+        {
+            title: 'Avg(ms)',
+            dataIndex: 'avgElapsedTime',
+            width: '5%',
+        },
+        {
+            title: 'TPS',
+            dataIndex: 'tps',
+            width: '5%',
+        },
+        {
+            title: '90%',
+            dataIndex: 'percentile90',
+            width: '5%',
+        },{
+            title: '95%',
+            dataIndex: 'percentile95',
+            width: '5%',
+        },
+        {
+            title: '99%',
+            dataIndex: 'percentile99',
+            width: '5%',
+        },
+        {
+            title: '错误率(%)',
+            dataIndex: 'errorRate',
+            width: '5%',
+            render: (text, record) => (<span>{text}%</span>)
         },
     ]
 
@@ -72,7 +92,7 @@ const ApiPerfExecuteTestPage = (props) =>{
                 if(res.code===0){
                     let data = res.data
                     setResult(data.apiPerfInstance)
-                    setStepList(data.apiSceneInstanceList)
+                    setStepList(data.apiPerfStepUnitCalcList)
 
                     setSpinning(false)
 
@@ -123,7 +143,6 @@ const ApiPerfExecuteTestPage = (props) =>{
         setSpinning(true)
         setOpen(false);
     };
-
 
     const findEnv = () =>{
         findApiEnvList(sessionStorage.getItem("repositoryId"))
@@ -178,7 +197,6 @@ const ApiPerfExecuteTestPage = (props) =>{
             />
         </a>;
     }
-
 
     return(
         <>
@@ -238,7 +256,7 @@ const ApiPerfExecuteTestPage = (props) =>{
                                 </div>
                             </div>
 
-                            <div style={{fontWeight:"bold",padding:"6px"}}>场景列表</div>
+                            <div style={{fontWeight:"bold",padding:"6px"}}>接口列表</div>
                             <div className='table-list-box  test-step-box'>
                                 <Table
                                     columns={columns}

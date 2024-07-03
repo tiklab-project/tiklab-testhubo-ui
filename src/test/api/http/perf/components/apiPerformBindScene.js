@@ -5,6 +5,8 @@ import {Col, Input, Modal, Row, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import PaginationCommon from "../../../../../common/pagination/Page";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
+import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
+import {getVersionInfo} from "thoughtware-core-ui";
 
 const ApiPerformBindScene = (props) =>{
     const {bindApiScene,findApiPerfStepList,findApiPerfStepWillBindCasePage,apiPerfStepWillBindCaseData} = apiPerfStepStore;
@@ -40,15 +42,14 @@ const ApiPerformBindScene = (props) =>{
     const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedRows, setSelectedRows] = useState([]);
 
     const showModal = () => {
         setIsModalOpen(true);
         findPage()
 
     };
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
+
     const handleCancel = () => {
         setIsModalOpen(false);
     };
@@ -68,19 +69,31 @@ const ApiPerformBindScene = (props) =>{
         })
     }
 
-
     // 弹框展示
     const onSearch = (e) => {
         findPage({name:e.target.value})
     };
 
-
     // 提交
-    const onFinish = async (id) => {
-        bindApiScene([id]).then(()=> {
+    const onFinish = async () => {
+        let bindCaseItems = [];
+        const bindItems = (data) => {
+            data.forEach((item) => {
+                bindCaseItems.push({
+                    apiPerfId: apiPerfId,
+                    caseId: item.id,
+                    caseType:item.caseType
+                });
+            });
+        }
+        bindItems(selectedRows);
+
+        bindApiScene(bindCaseItems).then(()=> {
             findApiPerfStepList(apiPerfId)
             findPage()
         });
+
+        setIsModalOpen(false);
     };
 
     // 分页
@@ -101,16 +114,17 @@ const ApiPerformBindScene = (props) =>{
         <>
             <IconBtn
                 className="pi-icon-btn-grey"
-                name={"关联场景"}
+                name={"关联用例"}
                 onClick={showModal}
             />
             <Modal
                 title="未关联场景"
                 open={isModalOpen}
-                onOk={handleOk}
+                onOk={onFinish}
                 onCancel={handleCancel}
                 width={700}
-                footer={false}
+                okText={"确定"}
+                cancelText={"取消"}
             >
                 <div style={{padding:"0 0 15px"}}>
                     <Row gutter={16}>
@@ -131,11 +145,10 @@ const ApiPerformBindScene = (props) =>{
                             columns={column}
                             dataSource={apiPerfStepWillBindCaseData?.dataList}
                             rowKey = {record => record.id}
-                            onRow={(record) => {
-                                return {
-                                    onClick: () => {onFinish(record.id)},
-                                    style: {cursor: 'pointer'}
-                                };
+                            rowSelection={{
+                                onChange: (newSelectedRowKeys,selectRow) => {
+                                    setSelectedRows(selectRow);
+                                },
                             }}
                             pagination={false}
                         />

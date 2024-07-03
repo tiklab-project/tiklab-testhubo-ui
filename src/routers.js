@@ -36,6 +36,8 @@ let ApiSceneInstanceSinglePage = LazyComponent(() => import( "./test/api/http/sc
 let ApiSceneInstanceList = LazyComponent(() => import("./test/api/http/scene/components/apiSceneInstanceList"));
 let ApiPerfContent = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfContent"));
 let ApiPerfInstanceList = LazyComponent(() => import("./test/api/http/perf/components/apiPerfInstanceList"));
+let ApiPerformToUnitPage =LazyComponent(() => import( "./test/api/http/perf/components/apiPerformToUnitPage"));
+
 let ApiPerformToScenePage = LazyComponent(() => import("./test/api/http/perf/components/apiPerformToScenePage"));
 let ApiPerfInstanceSinglePage = LazyComponent(() => import( "./test/api/http/perf/components/ApiPerfInstanceSinglePage"));
 
@@ -170,6 +172,10 @@ const routers =  [
                     {
                         path: "/repository/api-perform/:id",
                         component: ApiPerfContent,
+                    },
+                    {
+                        path: "/repository/api-perform-to-unit",
+                        component: ApiPerformToUnitPage ,
                     },
                     {
                         path: "/repository/api-perform-to-scene",

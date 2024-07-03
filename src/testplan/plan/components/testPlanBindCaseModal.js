@@ -74,23 +74,33 @@ const TestPlanBindCaseModal = (props) => {
         findPage()
         setIsModalOpen(true);
     };
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
+
     const handleCancel = () => {
         setIsModalOpen(false);
     };
 
     //提交
     const onFinish = (id) => {
-        let obj={
-            testPlan:{id: testPlanId},
-            testCase: {id:id}
+        let bindCaseItems = [];
+
+        const bindItems = (data) => {
+            data.forEach((item) => {
+                bindCaseItems.push({
+                    testPlan: { id: testPlanId },
+                    testCase: { id: item }
+                });
+            });
         }
-        planBindCase([obj]).then(()=> {
+
+        bindItems(selectedRowKeys);
+
+        planBindCase(bindCaseItems).then(()=> {
             findBindCasePage()
             findPage()
         })
+
+        setSelectedRowKeys([])
+        setIsModalOpen(false);
     }
 
     //测试类型筛选
@@ -147,10 +157,10 @@ const TestPlanBindCaseModal = (props) => {
                 return <span className={"link-text"} >{record.name}</span>
             case CASE_TYPE.WEB_SCENE:
             case CASE_TYPE.APP_SCENE:
-                if(getVersionInfo().expired===false){
-                    return <span className={"link-text"}  >{record.name}</span>
-                }else {
+                if(getVersionInfo().expired){
                     return <ExtensionCommon name={record.name} />
+                }else {
+                    return <span className={"link-text"}  >{record.name}</span>
                 }
             default:
                 return null
@@ -169,7 +179,7 @@ const TestPlanBindCaseModal = (props) => {
             <Modal
                 title="未关联用例"
                 open={isModalOpen}
-                onOk={handleOk}
+                onOk={onFinish}
                 onCancel={handleCancel}
                 width={800}
                 okText={"确定"}
@@ -225,7 +235,12 @@ const TestPlanBindCaseModal = (props) => {
                                 onChange: (newSelectedRowKeys) => {
                                     console.log('selectedRowKeys changed: ', newSelectedRowKeys);
                                     setSelectedRowKeys(newSelectedRowKeys);
-                                }
+                                },
+                                getCheckboxProps: (record) => ({
+                                    disabled: record.caseType === CASE_TYPE.WEB_SCENE || record.caseType === CASE_TYPE.APP_SCENE
+                                        ?  !!getVersionInfo().expired
+                                        : false
+                                }),
                             }}
 
                             pagination={false}

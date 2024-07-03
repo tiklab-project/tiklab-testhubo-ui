@@ -8,10 +8,10 @@ export class ApiPerfTestDispatchStore {
     @observable totalRecord ;
 
     @action
-    apiPerfExecute = async (id,url) => {
+    apiPerfExecute = async (apiPerfId,url) => {
 
         const param = {
-            apiPerfCase:{id:id},
+            apiPerfId:apiPerfId,
             apiEnv:url
         }
 
@@ -23,9 +23,9 @@ export class ApiPerfTestDispatchStore {
     }
 
     @action
-    exeResult = async (id,url)=>{
+    exeResult = async (apiPerfId,url)=>{
         const param = {
-            apiPerfCase:{id:id},
+            apiPerfId:apiPerfId,
             apiEnv:url
         }
 

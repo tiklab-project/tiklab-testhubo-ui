@@ -127,7 +127,7 @@ const RepositoryEdit = (props) => {
 
 
     return (
-        <div className="ws-edit-modal" style={{height:"calc(100% - 40px)",overflow:"auto"}}>
+        <div className="ws-edit-modal" style={{height:"calc(100% - 50px)",overflow:"auto"}}>
             <Row>
                 <Col
                     lg={{ span: "18", offset: "3" }}

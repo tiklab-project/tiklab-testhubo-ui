@@ -61,7 +61,7 @@ const PostInApiToCase = (props) => {
             const param = {
                 repositoryId:repositoryId,
                 pageParam: {
-                    pageSize: 12,
+                    pageSize: 20,
                     currentPage: 1
                 }
             }

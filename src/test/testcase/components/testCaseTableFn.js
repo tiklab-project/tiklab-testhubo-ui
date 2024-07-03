@@ -150,7 +150,7 @@ export  const ShowDeleteView = ({record,deleteFn}) =>{
 export const rowStyle = (caseType,style)=>{
     if(getVersionInfo().expired===true){
         if(caseType===CASE_TYPE.WEB_SCENE||caseType===CASE_TYPE.APP_SCENE){
-            return {cursor: 'not-allowed', opacity: 0.6,...style}
+            return {...style}
         }else {
             return {}
         }

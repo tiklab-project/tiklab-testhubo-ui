@@ -8,7 +8,7 @@ import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
 import {csvParse} from 'd3-dsv';
 
 const ApiPerfTestDataDetail = (props) =>{
-    const {apiPerfId,findPage,type,testDataId} = props;
+    const {stepId,findPage,type,testDataId} = props;
     const {
         createApiPerfTestData,
         updateApiPerfTestData,
@@ -81,7 +81,7 @@ const ApiPerfTestDataDetail = (props) =>{
         let param ={
             name:name||"数据名称",
             type:"csv",
-            caseId:apiPerfId,
+            stepId:stepId,
             testData:testDataValue
         }
 

@@ -67,48 +67,39 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 param.append("testPlanId", testPlanId)
                 Axios.post("/testPlanTestDispatch/exeResult",param).then(res=>{
                     if(res.code===0){
-                        if (res.data.status === 0) {
-                            messageFn("success","执行完毕")
+                        let data = res.data
+                        if (data.status === 0) {
                             clearInterval(ref.current)
                             setStart(false)
+                            messageFn("success","执行完毕")
 
                             //最后一次执行清楚后端缓存数据
                             Axios.post("/testPlanTestDispatch/cleanUpExecutionData",param)
                         }
 
                         setSpinning(false)
-                        setTestPlanInstanceInfo(res.data.testPlanInstance)
-                        setResult(res.data)
-                        setCaseList(res.data.testPlanCaseInstanceList)
+                        setTestPlanInstanceInfo(data.testPlanInstance)
+                        setResult(data)
+                        setCaseList(data.testPlanCaseInstanceList)
                     }else {
-                        setTestDrawerVisible(false)
                         setStart(false)
+                        setTestDrawerVisible(false)
                         clearInterval(ref.current)
+                        messageFn("error", "执行失败");
+
                         //最后一次执行清楚后端缓存数据
                         Axios.post("/testPlanTestDispatch/cleanUpExecutionData",param)
-
-                        let msg = res.msg
-                        let errorMsg;
-                        if(msg){
-                            if(msg.includes("Could not connect")){
-                                errorMsg="无法连接agent"
-                            }
-
-                            if(msg.includes("配置agent")){
-                                errorMsg="不是内嵌agent，请到设置中配置agent"
-                            }
-                        }else {
-                            errorMsg="执行失败"
-                        }
-
-                        return messageFn("error",errorMsg)
                     }
                 })
-            },1000);
+            },2000);
 
             setSpinning(true)
         }
-        return () => ref.current = null
+        return () => {
+            if (ref.current) {
+                clearInterval(ref.current); // 清理定时器
+            }
+        };
     },[start])
 
     const showModal =  () =>{

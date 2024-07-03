@@ -4,12 +4,8 @@ import {Form} from "antd";
 import DetailCommon from "../../../../../common/caseCommon/DetailCommon";
 import CaseContentCommon from "../../../../common/CaseContentCommon";
 import ApiPerfStepList from "./apiPerfStepList";
-import ApiPerfTestDataPage from "./ApiPerfTestDataPage";
-import ApiPerformConfig from "./apiPerfConfig";
 import "../../../../common/styles/caseContantStyle.scss"
 import "../../../../common/styles/unitcase.scss"
-import InstanceListCommon from "../../../../../testreport/common/InstanceListCommon";
-import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
 import ApiPerfInstanceList from "./apiPerfInstanceList";
 
 const ApiPerformDetail = (props) =>{
@@ -76,14 +72,6 @@ const ApiPerformDetail = (props) =>{
             label:"场景配置",
             key:"2",
             children:<ApiPerfStepList type={!!props.planType} {...props} apiPerfId={apiPerfId}/>
-        },{
-            label:"压力配置",
-            key:"3",
-            children: <ApiPerformConfig {...props} apiPerfId={apiPerfId}/>
-        },{
-            label:"测试数据",
-            key:"4",
-            children: <ApiPerfTestDataPage apiPerfId={apiPerfId} />
         },{
             label: `历史`,
             key: '5',

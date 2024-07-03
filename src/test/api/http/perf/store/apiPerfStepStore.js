@@ -9,16 +9,9 @@ export class ApiPerfStepStore {
     @observable apiPerfStepWillBindCaseData;
 
     @action
-    bindApiScene = async (selectItem) => {
-        let bindList = [];
-        for (let i=0;i<selectItem.length;i++){
-            bindList.push({
-                apiPerf: {id: this.apiPerfId},
-                apiScene: {id:selectItem[i]}
-            });
-        }
+    bindApiScene = async (bindCaseItems) => {
 
-        await Axios.post("/apiPerfStep/bindApiScene",bindList)
+        await Axios.post("/apiPerfStep/bindApiScene",bindCaseItems)
     }
 
     @action

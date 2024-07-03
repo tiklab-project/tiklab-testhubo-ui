@@ -1,39 +1,67 @@
 import React from "react";
-import {Drawer, Spin} from "antd";
+import {Drawer, Empty, Spin, Table} from "antd";
 import { observer} from "mobx-react";
-import PerformInstanceCommon from "../../../../../common/caseCommon/PerformInstanceCommon";
+import emptyImg from "../../../../../assets/img/empty.png";
 const ApiPerfInstanceDetail = (props) =>{
     const {result,loading} =props
 
-    let option = {
-
-        tooltip: {
-            trigger: 'item'
+    let columns= [
+        {
+            title: '名称',
+            dataIndex: 'name',
+            width: '10%',
         },
-        legend: {
-            orient: 'vertical',
-            left: 'left'
+        {
+            title: '总次数',
+            width: '5%',
+            dataIndex: 'totalRequests',
         },
-        series: [
-            {
-                name: 'Access From',
-                type: 'pie',
-                radius: '50%',
-                data: [
-                    {name:"通过率",value:result?.passNum},
-                    {name:"失败率",value:result?.failNum},
-                ],
-                emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    };
-
+        {
+            title: '总耗时(s)',
+            dataIndex: 'totalElapsedTime',
+            width: '5%',
+        },
+        {
+            title: 'Max(ms)',
+            dataIndex: 'maxElapsedTime',
+            width: '5%',
+        },
+        {
+            title: 'Min(ms)',
+            dataIndex: 'minElapsedTime',
+            width: '5%',
+        },
+        {
+            title: 'Avg(ms)',
+            dataIndex: 'avgElapsedTime',
+            width: '5%',
+        },
+        {
+            title: 'TPS',
+            dataIndex: 'tps',
+            width: '5%',
+        },
+        {
+            title: '90%',
+            dataIndex: 'percentile90',
+            width: '5%',
+        },{
+            title: '95%',
+            dataIndex: 'percentile95',
+            width: '5%',
+        },
+        {
+            title: '99%',
+            dataIndex: 'percentile99',
+            width: '5%',
+        },
+        {
+            title: '错误率',
+            dataIndex: 'errorRate',
+            width: '5%',
+            render: (text, record) => (<span>{text}%</span>)
+        },
+    ]
     return(
         <Spin spinning={loading}>
             <div className={"history-detail history-detail-box"}>
@@ -62,9 +90,21 @@ const ApiPerfInstanceDetail = (props) =>{
                         </div>
                     </div>
                 </div>
-                <div style={{width: "100%", height: "100%"}} >
-
-                    <PerformInstanceCommon option={option} data={result}/>
+                <div style={{fontWeight:"bold",padding:"6px"}}>接口列表</div>
+                <div className='table-list-box  test-step-box'>
+                    <Table
+                        columns={columns}
+                        dataSource={result?.apiPerfStepUnitCalcList}
+                        rowKey={(record, index) => index}
+                        pagination={false}
+                        locale={{
+                            emptyText: <Empty
+                                imageStyle={{ height: 120}}
+                                description={<span>暂无测试接口</span>}
+                                image={emptyImg}
+                            />,
+                        }}
+                    />
                 </div>
             </div>
         </Spin>

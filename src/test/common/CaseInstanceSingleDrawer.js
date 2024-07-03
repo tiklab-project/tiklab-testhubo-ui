@@ -70,7 +70,9 @@ const CaseInstanceSingleDrawer = (props) =>{
     const showRecent=(recentInstance)=>{
         switch (recentInstance.result) {
             case 0:
+            case "fail":
                 return <><CloseCircleTwoTone twoToneColor={"red"}/> #{recentInstance.executeNumber}</>
+            case "success":
             case 1:
                 return <><CheckCircleTwoTone twoToneColor={"#52c41a"}/> #{recentInstance.executeNumber}</>
             default:
