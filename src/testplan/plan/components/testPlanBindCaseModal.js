@@ -197,15 +197,11 @@ const TestPlanBindCaseModal = (props) => {
                                     {
                                         title: `UI`,
                                         key: `ui`,
-                                    },
-                                    {
-                                        title: `性能`,
-                                        key: `perform`,
                                     }
                                 ]}
                                 selectFn={selectKeyFun}
                                 selected={selectItem}
-                                style={{width: `320px`}}
+                                style={{width: `240px`}}
                             />
                         </Col>
                         <Col className="gutter-row" span={6}  offset={8}>

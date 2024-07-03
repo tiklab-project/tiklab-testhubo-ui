@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../../common/CaseBread";
-import {Drawer, Empty, Form, Select, Spin, Table, Tooltip} from "antd";
+import {Button, Drawer, Empty, Form, Select, Spin, Table, Tooltip} from "antd";
 import emptyImg from "../../../../../assets/img/empty.png";
 import apiPerfTestDispatchStore from "../store/apiPerfTestDispatchStore";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
@@ -14,7 +14,7 @@ const {Option} = Select
 const ApiPerfExecuteTestPage = (props) =>{
     const {type,apiEnvStore,apiPerfId} = props;
 
-    const {apiPerfExecute,exeResult} = apiPerfTestDispatchStore;
+    const {apiPerfExecute,exeResult,apiPerfStopTest} = apiPerfTestDispatchStore;
     const {findApiEnvList,apiEnvList,getTestEnvUrl,envUrl} = apiEnvStore;
 
     let ref = useRef(null)
@@ -23,6 +23,7 @@ const ApiPerfExecuteTestPage = (props) =>{
     const [stepList, setStepList] = useState([]);
     const [start, setStart] = useState(false)
     const [open, setOpen] = useState(false);
+    const [stopBtn, setStopBtn] = useState(false);
     const [form] = Form.useForm();
 
     let columns= [
@@ -142,6 +143,7 @@ const ApiPerfExecuteTestPage = (props) =>{
 
         setSpinning(true)
         setOpen(false);
+        setStopBtn(false)
     };
 
     const findEnv = () =>{
@@ -149,6 +151,11 @@ const ApiPerfExecuteTestPage = (props) =>{
         form.setFieldsValue({
             host:envUrl
         })
+    }
+
+    const stopTest = async ()=>{
+        await apiPerfStopTest(apiPerfId)
+        setStopBtn(true)
     }
 
     const showEnv = () =>{
@@ -255,8 +262,19 @@ const ApiPerfExecuteTestPage = (props) =>{
                                     </div>
                                 </div>
                             </div>
+                            <div className={"display-flex-between"}>
+                                <div style={{fontWeight:"bold",padding:"6px"}}>接口列表</div>
+                                <Button
+                                    danger
+                                    onClick={stopTest}
+                                    style={{margin:"0 10px"}}
+                                    disabled={stopBtn}
+                                >
+                                    停止
+                                </Button>
+                            </div>
 
-                            <div style={{fontWeight:"bold",padding:"6px"}}>接口列表</div>
+
                             <div className='table-list-box  test-step-box'>
                                 <Table
                                     columns={columns}

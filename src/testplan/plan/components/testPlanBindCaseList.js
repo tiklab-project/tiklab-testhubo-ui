@@ -223,10 +223,6 @@ const TestPlanBindCaseList = (props) =>{
             title: `UI (${diffTestTypeNum?.ui||0})`,
             key: `ui`,
         },
-        {
-            title: `性能 (${diffTestTypeNum?.perform||0})`,
-            key: `perform`,
-        }
     ];
 
 
@@ -289,7 +285,7 @@ const TestPlanBindCaseList = (props) =>{
                         menuItems={testPlanType==="auto"?autoTypeMenu:functionTypeMenu}
                         selectFn={selectKeyFun}
                         selected={selectItem}
-                        style={{width: `${testPlanType==="auto"?"320px":"160px"}`}}
+                        style={{width: `${testPlanType==="auto"?"240px":"160px"}`}}
                     />
 
                     <Space>

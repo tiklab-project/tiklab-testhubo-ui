@@ -33,7 +33,11 @@ export class ApiPerfTestDispatchStore {
     }
 
     @action
-    apiPerfTestStatus = async ()=> await Axios.post("/apiPerfTestDispatch/status");
+    apiPerfStopTest= async (apiPerfId)=> {
+        let param = new FormData()
+        param.append("apiPerfId",apiPerfId)
+        await Axios.post("/apiPerfTestDispatch/stop",param)
+    };
 
 
 }
