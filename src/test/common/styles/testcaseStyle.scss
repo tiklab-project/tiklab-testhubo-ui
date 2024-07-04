@@ -436,6 +436,21 @@
     }
 }
 
+.perform-test-table{
+    margin: 0 0 20px 0;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    border-bottom: none;
+
+    .ant-table{
+        background: #f8f8f8;
+
+        .ant-table-row{
+            height: 40px;
+        }
+    }
+}
+
 .case-toggle{
     position: relative;
 

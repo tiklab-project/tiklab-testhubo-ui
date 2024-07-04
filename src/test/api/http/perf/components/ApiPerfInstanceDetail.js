@@ -92,19 +92,28 @@ const ApiPerfInstanceDetail = (props) =>{
                 </div>
                 <div style={{fontWeight:"bold",padding:"6px"}}>接口列表</div>
                 <div className='table-list-box  test-step-box'>
-                    <Table
-                        columns={columns}
-                        dataSource={result?.apiPerfStepUnitCalcList}
-                        rowKey={(record, index) => index}
-                        pagination={false}
-                        locale={{
-                            emptyText: <Empty
-                                imageStyle={{ height: 120}}
-                                description={<span>暂无测试接口</span>}
-                                image={emptyImg}
-                            />,
-                        }}
-                    />
+                    {
+                        result?.apiPerfStepInstanceList&&result?.apiPerfStepInstanceList.map((item,index)=>{
+                            return(
+                                <div className={"perform-test-table"}>
+                                    <Table
+                                        columns={columns}
+                                        dataSource={item?.apiPerfStepUnitCalcList}
+                                        rowKey={(record, index) => index}
+                                        pagination={false}
+                                        locale={{
+                                            emptyText: <Empty
+                                                imageStyle={{ height: 120}}
+                                                description={<span>暂无测试步骤</span>}
+                                                image={emptyImg}
+                                            />,
+                                        }}
+                                        showHeader={index === 0}
+                                    />
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
         </Spin>

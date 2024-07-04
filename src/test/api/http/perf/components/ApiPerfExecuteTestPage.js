@@ -93,13 +93,14 @@ const ApiPerfExecuteTestPage = (props) =>{
                 if(res.code===0){
                     let data = res.data
                     setResult(data.apiPerfInstance)
-                    setStepList(data.apiPerfStepUnitCalcList)
+                    setStepList(data.apiPerfStepInstanceList)
 
                     setSpinning(false)
 
                     if (data?.apiPerfInstance?.status !== testExecuteStatus.TEST_STATUS_START) {
                         clearInterval(ref.current);
                         setStart(false);
+                        setStopBtn(true)
                         messageFn("success", "执行完成");
                     }
                 } else {
@@ -275,20 +276,31 @@ const ApiPerfExecuteTestPage = (props) =>{
                             </div>
 
 
-                            <div className='table-list-box  test-step-box'>
-                                <Table
-                                    columns={columns}
-                                    dataSource={stepList}
-                                    rowKey={(record, index) => index}
-                                    pagination={false}
-                                    locale={{
-                                        emptyText: <Empty
-                                            imageStyle={{ height: 120}}
-                                            description={<span>暂无测试步骤</span>}
-                                            image={emptyImg}
-                                        />,
-                                    }}
-                                />
+                            <div className='table-list-box  test-step-box '>
+
+                                {
+                                    stepList&&stepList.map((item,index)=>{
+                                        return(
+                                            <div className={"perform-test-table"}>
+                                                <Table
+                                                    columns={columns}
+                                                    dataSource={item?.apiPerfStepUnitCalcList}
+                                                    rowKey={(record, index) => index}
+                                                    pagination={false}
+                                                    locale={{
+                                                        emptyText: <Empty
+                                                            imageStyle={{ height: 120}}
+                                                            description={<span>暂无测试步骤</span>}
+                                                            image={emptyImg}
+                                                        />,
+                                                    }}
+                                                    showHeader={index === 0}
+                                                />
+                                            </div>
+                                        )
+                                    })
+                                }
+
                             </div>
                         </div>
                     </Spin>
