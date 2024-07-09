@@ -20,7 +20,6 @@ const ApiPerfExecuteTestPage = (props) =>{
     let ref = useRef(null)
     const [spinning, setSpinning] = useState(true);
     const [result, setResult] = useState();
-    const [stepList, setStepList] = useState([]);
     const [start, setStart] = useState(false)
     const [open, setOpen] = useState(false);
     const [stopBtn, setStopBtn] = useState(false);
@@ -88,16 +87,15 @@ const ApiPerfExecuteTestPage = (props) =>{
         if (start) {
             ref.current =  setInterval(async ()=>{
                 //获取结果
-                let res = await exeResult(apiPerfId,envUrl)
+                let res = await exeResult(apiPerfId)
 
                 if(res.code===0){
                     let data = res.data
-                    setResult(data.apiPerfInstance)
-                    setStepList(data.apiPerfStepInstanceList)
+                    setResult(data)
 
                     setSpinning(false)
 
-                    if (data?.apiPerfInstance?.status !== testExecuteStatus.TEST_STATUS_START) {
+                    if (data?.status !== testExecuteStatus.TEST_STATUS_START) {
                         clearInterval(ref.current);
                         setStart(false);
                         setStopBtn(true)
@@ -119,8 +117,18 @@ const ApiPerfExecuteTestPage = (props) =>{
     },[start])
 
     const showDrawer = async () => {
+        let agentId = sessionStorage.getItem("agentSelect")
+        if(!agentId){
+            messageFn("error","请选择Agent")
+        }
+
         if(envUrl){
-            let res = await apiPerfExecute(apiPerfId,envUrl)
+            let param = {
+                apiPerfId:apiPerfId,
+                apiEnv:envUrl,
+                agentId:agentId
+            }
+            let res = await apiPerfExecute(param)
             if(res.code===10000){
                 messageFn("error", "Agent is not found. check the agent");
                 return;
@@ -139,7 +147,6 @@ const ApiPerfExecuteTestPage = (props) =>{
     };
 
     const onClose = () => {
-        setStepList([]);
         setResult(null)
 
         setSpinning(true)
@@ -279,7 +286,7 @@ const ApiPerfExecuteTestPage = (props) =>{
                             <div className='table-list-box  test-step-box '>
 
                                 {
-                                    stepList&&stepList.map((item,index)=>{
+                                    result?.apiPerfStepInstanceList&&result?.apiPerfStepInstanceList.map((item,index)=>{
                                         return(
                                             <div className={"perform-test-table"}>
                                                 <Table

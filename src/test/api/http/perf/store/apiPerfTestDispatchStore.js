@@ -8,13 +8,7 @@ export class ApiPerfTestDispatchStore {
     @observable totalRecord ;
 
     @action
-    apiPerfExecute = async (apiPerfId,url) => {
-
-        const param = {
-            apiPerfId:apiPerfId,
-            apiEnv:url
-        }
-
+    apiPerfExecute = async (param) => {
         const res = await Axios.post("/apiPerfTestDispatch/execute",param);
         if(res.code === 0) {
             this.apiPerfTestResult = res.data;
@@ -23,12 +17,9 @@ export class ApiPerfTestDispatchStore {
     }
 
     @action
-    exeResult = async (apiPerfId,url)=>{
-        const param = {
-            apiPerfId:apiPerfId,
-            apiEnv:url
-        }
-
+    exeResult = async (apiPerfId)=>{
+        let param = new FormData()
+        param.append("apiPerfId",apiPerfId)
         return  await Axios.post("/apiPerfTestDispatch/result",param);
     }
 

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {InputNumber, Radio, Form, Drawer, Tooltip} from "antd";
+import {InputNumber, Radio, Form, Drawer, Tooltip, Select} from "antd";
 import {observer} from "mobx-react";
-import {useHistory} from "react-router";
 import apiPerfStepStore from "../store/apiPerfStepStore";
 import IconCommon from "../../../../../common/IconCommon";
 import CaseBread from "../../../../../common/CaseBread";
@@ -18,15 +17,14 @@ const ApiPerfConfigDrawer = (props) =>{
 
     const [form] = Form.useForm();
     const [exeMode, setExeMode] = useState();
-    let history = useHistory()
     const [open, setOpen] = useState(false);
-
 
     useEffect(() => {
         if (open) {
             findApiPerfStepFn(apiPerfStepId)
         }
     }, [open, apiPerfStepId]);
+
 
     const findApiPerfStepFn=(id)=>{
         findApiPerfStep(id).then(res => {
@@ -72,10 +70,6 @@ const ApiPerfConfigDrawer = (props) =>{
         await findApiPerfStepFn(apiPerfStepId)
     };
 
-    const toAgentPage = () => {
-        history.push("/setting/agent");
-    };
-
     const showDrawer = () => setOpen(true);
     const onClose = () => setOpen(false);
 
@@ -114,6 +108,7 @@ const ApiPerfConfigDrawer = (props) =>{
                         {...layout}
                         labelAlign={"left"}
                     >
+
                         <Form.Item label="并发数" name="threadCount">
                             <InputNumber
                                 min={1}
@@ -161,26 +156,6 @@ const ApiPerfConfigDrawer = (props) =>{
                                     </Form.Item>
                                 </>
                         }
-
-                        {/*<Form.Item*/}
-                        {/*    label="节点"*/}
-                        {/*    name="executeCount"*/}
-                        {/*>*/}
-                        {/*    <Popconfirm*/}
-                        {/*        title="确定离开？"*/}
-                        {/*        onConfirm={toAgentPage}*/}
-                        {/*        okText='确定'*/}
-                        {/*        cancelText='取消'*/}
-                        {/*    >*/}
-                        {/*        <div style={{*/}
-                        {/*            width: "140px",*/}
-                        {/*            color:"#0078d6",*/}
-                        {/*            cursor:"pointer"*/}
-                        {/*        }}>前往Agent管理页管理</div>*/}
-                        {/*    </Popconfirm>*/}
-
-                        {/*</Form.Item>*/}
-
                     </Form>
                 </div>
             </Drawer>

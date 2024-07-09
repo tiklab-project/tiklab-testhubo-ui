@@ -37,7 +37,6 @@ let ApiSceneInstanceList = LazyComponent(() => import("./test/api/http/scene/com
 let ApiPerfContent = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfContent"));
 let ApiPerfInstanceList = LazyComponent(() => import("./test/api/http/perf/components/apiPerfInstanceList"));
 let ApiPerformToUnitPage =LazyComponent(() => import( "./test/api/http/perf/components/apiPerformToUnitPage"));
-
 let ApiPerformToScenePage = LazyComponent(() => import("./test/api/http/perf/components/apiPerformToScenePage"));
 let ApiPerfInstanceSinglePage = LazyComponent(() => import( "./test/api/http/perf/components/ApiPerfInstanceSinglePage"));
 

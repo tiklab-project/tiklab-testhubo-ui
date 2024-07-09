@@ -5,7 +5,7 @@
  */
 import React, { useEffect } from 'react';
 import { observer } from "mobx-react";
-import {Popconfirm, Space, Table,Switch} from "antd";
+import {Popconfirm, Space, Table, Switch, Badge} from "antd";
 import IconCommon from "../../../common/IconCommon";
 import agentConfigStore from "../store/AgentConfigStore";
 import {CheckCircleTwoTone, CloseCircleTwoTone} from "@ant-design/icons";
@@ -25,6 +25,11 @@ const AgentConfigList = (props) => {
             dataIndex: 'name',
             key: 'name',
             width: "20%",
+            render: (text, record) => (
+                record.id==="agent-default_localhost"
+                    ?"默认Agent"
+                    : text
+            )
         },{
             title: '地址',
             dataIndex: 'address',
@@ -37,13 +42,16 @@ const AgentConfigList = (props) => {
             key: 'status',
             width: "20%",
             render: (text, record) => (
-                <div>
-                    {
-                        record.status === "online"
-                            ? <CheckCircleTwoTone twoToneColor={"green"}/>
-                            : <CloseCircleTwoTone twoToneColor={"red"}/>
-                    }
-                </div>
+                record.status === "online"
+                    ? <Space>
+                        <Badge status="processing" />
+                        <span>运行中</span>
+                    </Space>
+
+                    : <Space>
+                        <Badge status="error" />
+                        <span>断开</span>
+                    </Space>
             )
         },
         {

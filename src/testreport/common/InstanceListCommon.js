@@ -337,10 +337,12 @@ const InstanceListCommon = (props) =>{
     const showResult = (status)=>{
         switch (status) {
             case 0:
+            case "complete":
             case "success":
                 return <CheckCircleTwoTone twoToneColor={"#52c41a"}/>
             case "fail": return <CloseCircleTwoTone twoToneColor={"red"}/>
             case "start": return <LoadingOutlined twoToneColor={"blue"} />
+
             default: return <LoadingOutlined twoToneColor={"blue"} />
         }
     }

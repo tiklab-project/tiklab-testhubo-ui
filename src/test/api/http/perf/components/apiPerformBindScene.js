@@ -7,6 +7,7 @@ import PaginationCommon from "../../../../../common/pagination/Page";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
 import {getVersionInfo} from "thoughtware-core-ui";
+import {showCaseTypeTable} from "../../../../../common/caseCommon/CaseCommonFn";
 
 const ApiPerformBindScene = (props) =>{
     const {bindApiScene,findApiPerfStepList,findApiPerfStepWillBindCasePage,apiPerfStepWillBindCaseData} = apiPerfStepStore;
@@ -22,6 +23,7 @@ const ApiPerformBindScene = (props) =>{
             dataIndex:'caseType',
             key: 'testType',
             width: "15%",
+            render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
         },{
             title: `创建人`,
             dataIndex: ['createUser', 'nickname'],
