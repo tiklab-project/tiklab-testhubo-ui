@@ -1,9 +1,9 @@
 .sysmana-layout{
-    height: var(--pi-calc-content);
+    height: 100%;
+    display: flex;
+    gap: 10px;
 
-    .site-layout-background {
-        background-color: var(--pi-bg-color);
-    }
+
     .search-add{
         display: flex;
         justify-content: space-between;
@@ -16,8 +16,9 @@
 
     .thoughtware-orga-aside {
         height: 100%;
+        width: 240px;
         border-right: 1px solid var(--pi-border-color);
-        background: var(--pi-greyf9-color);
+        //background: var(--pi-greyf9-color);
         overflow: auto;
 
         ul,li {
@@ -72,7 +73,7 @@
 
 .sysmana-sider{
     width: 200px;
-    background-color: var(--pi-bg-color);
+    //background-color: var(--pi-bg-color);
     height: 100%;
 }
 
@@ -85,6 +86,7 @@
     height: 100%;
     background-color: var(--pi-bg-color);
     //padding: 0 10px;
+    flex: 1;
 }
 
 

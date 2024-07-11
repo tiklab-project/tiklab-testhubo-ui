@@ -5,6 +5,11 @@ import {inject, observer} from "mobx-react";
 import {getUser} from "thoughtware-core-ui";
 import { SYSTEM_ROLE_STORE } from 'thoughtware-privilege-ui/es/store';
 import './portalStyle.scss'
+import {Layout} from "antd"
+import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
+import {useHistory} from "react-router";
+
+const {Content } = Layout;
 
 /**
  * 整个页面
@@ -12,8 +17,16 @@ import './portalStyle.scss'
  const  PageContent =(props)=> {
 
      const router = props.route.routes;
-
      const user = getUser();
+     const history = useHistory()
+    console.log(history)
+
+
+    useEffect(()=>{
+        //给左侧导航设置一个选择项
+        localStorage.setItem("leftRouter","/home")
+    },[])
+
      useEffect(() => {
          if (user.userId) {
              props.systemRoleStore.getSystemPermissions(user.userId,"teston")
@@ -32,6 +45,47 @@ import './portalStyle.scss'
         })
     }
 
+    const menuData = [
+        {
+            name:"主页",
+            icon: "home",
+            key:"home",
+            router:"/home"
+        },
+        {
+            name: "项目",
+            icon: "xiangmu1",
+            key: "project",
+            router:"/project"
+        },
+        {
+            name: "设置",
+            icon: "setting",
+            key: "setting",
+            router:"/setting/home"
+        }
+    ]
+
+
+    const clickAddRouter = (item) => {
+        props.history.push(item.router)
+
+        //点击左侧导航，设置选择项,用于刷新后还能选择。
+        localStorage.setItem("leftRouter",item.router);
+    };
+
+    const showMainMenu = ()=>{
+        let pathname =  history.location.pathname;
+        if(pathname.startsWith("/home")||pathname.startsWith("/project")||pathname.startsWith("/setting")){
+            return<div className={"ws-detail-left"} style={{padding:"20px 0 10px"}}>
+                <LeftNavCommon
+                    menuData={menuData}
+                    clickAddRouter={clickAddRouter}
+                    HelpLink={props.HelpLink}
+                />
+            </div>
+        }
+    }
 
     return(
         <div style={{height:"100%"}}>
@@ -39,11 +93,15 @@ import './portalStyle.scss'
                 logout={Logout}
                 {...props}
             />
-            {
-                renderRoutes(router)
-            }
+            <div className={"ws-detail-main-content"} >
+                {showMainMenu()}
+                <div style={{height:"100%",flex: 1}}>
+                    {
+                        renderRoutes(router)
+                    }
+                </div>
+            </div>
         </div>
-
     )
 }
 

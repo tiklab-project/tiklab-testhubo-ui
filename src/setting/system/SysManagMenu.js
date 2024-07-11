@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import { renderRoutes } from "react-router-config";
-import { Layout } from 'antd';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
 import { PrivilegeButton,SystemNav } from "thoughtware-privilege-ui";
 
@@ -8,7 +7,6 @@ import './sysMana.scss'
 import {getUser} from "thoughtware-core-ui";
 import IconCommon from "../../common/IconCommon";
 
-const { Sider, Content } = Layout;
 
 const SystemManagement = (props) => {
     const {settingMenu} = props;
@@ -89,13 +87,13 @@ const SystemManagement = (props) => {
                     >
                         <div className={'aside-li'} >
                             <div>
-                                {
-                                    isFirst
-                                        ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
-                                            <use xlinkHref= {`#icon-${data.icon}`} />
-                                        </svg>
-                                        :null
-                                }
+                                {/*{*/}
+                                {/*    isFirst*/}
+                                {/*        ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">*/}
+                                {/*            <use xlinkHref= {`#icon-${data.icon}`} />*/}
+                                {/*        </svg>*/}
+                                {/*        :null*/}
+                                {/*}*/}
                                 {data.title}
                             </div>
                             {
@@ -115,13 +113,13 @@ const SystemManagement = (props) => {
             >
                 <div className={'aside-li'} >
                     <div>
-                        {
-                            isFirst
-                                ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
-                                    <use xlinkHref= {`#icon-${data.icon}`} />
-                                </svg>
-                                :null
-                        }
+                        {/*{*/}
+                        {/*    isFirst*/}
+                        {/*        ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">*/}
+                        {/*            <use xlinkHref= {`#icon-${data.icon}`} />*/}
+                        {/*        </svg>*/}
+                        {/*        :null*/}
+                        {/*}*/}
                         {data.title}
                     </div>
                     {
@@ -144,9 +142,9 @@ const SystemManagement = (props) => {
                              style={{paddingLeft:`${deep*20}px`}}
                         >
                             <div className={"menu-name-icon"}>
-                                <svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
-                                    <use xlinkHref= {`#icon-${icon}`} />
-                                </svg>
+                                {/*<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">*/}
+                                {/*    <use xlinkHref= {`#icon-${icon}`} />*/}
+                                {/*</svg>*/}
                                 <span key={id}> {title}</span>
                             </div>
                             <div className="orga-aside-item-icon">
@@ -181,9 +179,9 @@ const SystemManagement = (props) => {
                          style={{paddingLeft:`${deep*20}px`}}
                     >
                         <div className={"menu-name-icon"}>
-                            <svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">
-                                <use xlinkHref= {`#icon-${icon}`} />
-                            </svg>
+                            {/*<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">*/}
+                            {/*    <use xlinkHref= {`#icon-${icon}`} />*/}
+                            {/*</svg>*/}
                             <span key={id}>{title}</span>
                         </div>
                         <div className="orga-aside-item-icon">
@@ -232,24 +230,24 @@ const SystemManagement = (props) => {
             outerPath={"/setting"} // 系统设置Layout路径
             noAccessPath={"/noaccess"}
         >
-            <Layout className = 'sysmana-layout'>
-                <Sider
-                    className = 'sysmana-sider'
-                    width={240}
-                    theme={'light'}
-                >
-                    <div className="thoughtware-orga-aside">
-                        <ul style={{padding: 0}} >
-                            {
-                                showUlView(menuRouter)
-                            }
-                        </ul>
-                    </div>
-                </Sider>
-                <Content className='sysmana-content'>
+            <div className = 'sysmana-layout'>
+                <div className="thoughtware-orga-aside">
+                    <ul style={{padding: 0}} >
+                        <li style={{
+                            borderBottom:"1px solid #e4e4e4",
+                            padding:"10px 28px",
+                            fontWeight:"bold",
+                        }}
+                        >系统设置</li>
+                        {
+                            showUlView(menuRouter)
+                        }
+                    </ul>
+                </div>
+                <div className='sysmana-content'>
                     {renderRoutes(routers)}
-                </Content>
-            </Layout>
+                </div>
+            </div>
         </SystemNav>
     )
 }

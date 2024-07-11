@@ -322,6 +322,26 @@ table .icon{
     display: none;
 }
 
+.ws-detail-main-content{
+    height: calc(100% - 48px);
+    display: flex;
+}
+.ws-detail-contant{
+    height: 100%;
+    display: flex;
+}
+.ws-detail-left{
+    width: 80px;
+    height: 100%;
+    position:relative;
+    background: var(--pi-bg-grey-100);
+    box-shadow: 3px 0 5px -5px rgb(0 0 0 / 30%);
+}
+
+.ws-detail-right{
+    width: calc(100% - 80px);
+    overflow: auto;
+}
 
 .link-text{
 

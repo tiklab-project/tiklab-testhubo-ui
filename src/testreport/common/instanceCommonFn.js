@@ -13,7 +13,7 @@ export const findCaseInstancePage =async (belongId,type,params) =>{
         ...params
     };
 
-    await findInstancePage(param)
+    return await findInstancePage(param)
 }
 
 export const cleanCaseInstanceData = () =>{

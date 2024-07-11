@@ -121,13 +121,13 @@ const RepositoryEdit = (props) => {
      * 关闭
      */
     const onCancel = () => {
-        props.history.push("/repository-page")
+        props.history.push("/project")
     };
 
 
 
     return (
-        <div className="ws-edit-modal" style={{height:"calc(100% - 50px)",overflow:"auto"}}>
+        <div className="ws-edit-modal" style={{overflow:"auto"}}>
             <Row>
                 <Col
                     lg={{ span: "18", offset: "3" }}

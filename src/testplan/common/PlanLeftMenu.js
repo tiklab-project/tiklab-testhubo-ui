@@ -133,7 +133,10 @@ const PlanLeftMenu = (props) =>{
             </li>
             <li
                 className={`ws-detail-left-nav-item `}
-                style={{ borderBottom: "1px solid #e4e4e4"}}
+                style={{
+                    borderBottom: "1px solid #e4e4e4",
+                    margin: "0 0 20px 0"
+                }}
                 onClick={()=> {
                     history.push("/repository/plan")
                     localStorage.setItem("leftRouter","/repository/plan");
@@ -141,7 +144,7 @@ const PlanLeftMenu = (props) =>{
             >
                 <div className={`ws-detail-left-nav-item-box`}>
                     <div className={"ws-detail-left-nav-item-detail"}>
-                        <LeftCircleOutlined />
+                        <LeftCircleOutlined style={{fontSize:"16px"}}/>
                     </div>
                     <div  className={"ws-detail-left-nav-item-detail"}>
                         返回项目

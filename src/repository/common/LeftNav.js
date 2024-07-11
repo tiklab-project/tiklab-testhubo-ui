@@ -7,6 +7,7 @@ import {useHistory} from "react-router";
 import "./repositoryDetailStyle.scss"
 import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
 import RepositoryIcon from "../../common/RepositoryIcon";
+import {LeftCircleOutlined} from "@ant-design/icons";
 
 /**
  * 左侧导航展示
@@ -131,7 +132,7 @@ const LeftNav = (props) =>{
             </div>
 
 
-            <a className={"ws-toggle-repository_more"} onClick={()=>history.push("/repository-page")}>查看更多</a>
+            <a className={"ws-toggle-repository_more"} onClick={()=>history.push("/project")}>查看更多</a>
         </div>
     )
 
@@ -170,27 +171,49 @@ const LeftNav = (props) =>{
 
 
     const showToggleRepository = ()=> (
-        <li className={`ws-detail-left-nav-item-repository `} >
-            <Tooltip placement="right" title={repositoryInfo?.name}>
-                <Dropdown
-                    overlay={toggleRepositorys}
-                    trigger={['click']}
-                    visible={visible}
-                    onOpenChange={openToggleWorkspace}
-                >
-                    <div className={"ws-icon-box"}>
+        <>
+            <li className={`ws-detail-left-nav-item-repository `} >
+                <Tooltip placement="right" title={repositoryInfo?.name}>
+                    <Dropdown
+                        overlay={toggleRepositorys}
+                        trigger={['click']}
+                        visible={visible}
+                        onOpenChange={openToggleWorkspace}
+                    >
+                        <div className={"ws-icon-box"}>
                         <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
                              <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={"repository-icon"}/>
                         </span>
-                        <IconCommon
-                            style={{"cursor":"pointer"}}
-                            className={"icon-s"}
-                            icon={"xiala"}
-                        />
+                            <IconCommon
+                                style={{"cursor":"pointer"}}
+                                className={"icon-s"}
+                                icon={"xiala"}
+                            />
+                        </div>
+                    </Dropdown>
+                </Tooltip>
+            </li>
+            <li
+                className={`ws-detail-left-nav-item `}
+                style={{
+                    borderBottom: "1px solid #e4e4e4",
+                    margin: "0 0 20px 0"
+                }}
+                onClick={()=> {
+                    history.push("/home")
+                    localStorage.setItem("leftRouter","/home");
+                }}
+            >
+                <div className={`ws-detail-left-nav-item-box`}>
+                    <div className={"ws-detail-left-nav-item-detail"}>
+                        <LeftCircleOutlined style={{fontSize:"16px"}}/>
                     </div>
-                </Dropdown>
-            </Tooltip>
-        </li>
+                    <div  className={"ws-detail-left-nav-item-detail"}>
+                        返回主页
+                    </div>
+                </div>
+            </li>
+        </>
     )
 
     return(

@@ -18,7 +18,7 @@ export class InstanceStore {
             this.tableLoading=false
         }
 
-        return res
+        return res.data
     }
 
     @action

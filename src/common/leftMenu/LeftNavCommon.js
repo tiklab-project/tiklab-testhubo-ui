@@ -1,6 +1,7 @@
 import React from "react";
-import IconCommon from "../../common/IconCommon";
 import "./LeftNavMenuStyle.scss"
+import {Tooltip} from "antd";
+import {SettingOutlined} from "@ant-design/icons";
 
 /**
  * 左侧导航展示
@@ -50,17 +51,20 @@ const LeftNavCommon = (props) =>{
             </div>
 
             <div className={"ws-nav-setting"}>
-                <div className={`ws-detail-left-nav-item`} onClick={clickSetting}>
-                    <div className={`ws-detail-left-nav-item-box  ws-detail-left-nav-item-setting`}>
-                        <div className={"ws-detail-left-nav-item-detail"}>
-                            <IconCommon
-                                className={"icon-s"}
-                                icon={"setting"}
-                            />
-                        </div>
-                        <div  className={"ws-detail-left-nav-item-detail"}>设置</div>
+                {props.HelpLink}
+
+                {
+                    clickSetting&& <div className={`ws-detail-left-nav-item`} onClick={clickSetting} style={{margin:"10px 0"}}>
+                        <Tooltip title="设置"  placement="right" >
+                            <div className={`ws-detail-left-nav-item-box  ws-detail-left-nav-item-setting`}>
+                                <div className={"ws-detail-left-nav-item-detail"}>
+                                    <SettingOutlined style={{fontSize:"20px"}}/>
+                                </div>
+                            </div>
+                        </Tooltip>
                     </div>
-                </div>
+                }
+
             </div>
         </ul>
     )

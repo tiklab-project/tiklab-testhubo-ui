@@ -121,12 +121,12 @@ const routers =  [
                 key:'Home',
             },
             {
-                path: "/repository-page",
+                path: "/project",
                 component: Repository,
                 key:'repository'
             },
             {
-                path: "/repository-edit",
+                path: "/project-edit",
                 component: RepositoryEdit,
                 key:'RepositoryEdit'
             },

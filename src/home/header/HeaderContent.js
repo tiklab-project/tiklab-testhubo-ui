@@ -1,7 +1,4 @@
 import React from 'react';
-import HeaderMenu from "./HeaderMenu";
-import logo from "../../assets/img/testonheader.png";
-import { SettingOutlined} from "@ant-design/icons";
 import MessageDrawer from "../../setting/message/MessageDrawer";
 import {productImg} from "thoughtware-core-ui"
 import {productTitle} from "thoughtware-core-ui/es/utils/product";
@@ -11,33 +8,29 @@ import {productTitle} from "thoughtware-core-ui/es/utils/product";
  */
 const HeaderContent = props => {
 
-    //去往系统设置页
-    const toSystem = () =>{
-        props.history.push("/setting/home")
+    //去往主页
+    const goHome = () =>{
+        props.history.push("/home")
+        //点击左侧导航，设置选择项,用于刷新后还能选择。
+        localStorage.setItem("leftRouter","/home");
     }
 
     return(
         <div className="frame-header">
             <div className={"pi-header-left"}>
-                <div  className={"recovery-item"}>
-                    {props.AppLink}
+                {props.AppLink}
+                <div className={"display-flex-gap"} style={{margin:"0 20px"}}>
+                    <div className={'frame-header-logo'} onClick={goHome} style={{cursor:"pointer"}}>
+                        <img src={productImg.teston} alt='logo' />
+                    </div>
+                    <div className={"productName"} onClick={goHome} style={{cursor:"pointer"}}>{productTitle.teston}</div>
                 </div>
-                <div className={'frame-header-logo'}>
-                     <img src={productImg.teston} alt='logo' />
-                </div>
-                <div className={"productName"}>{productTitle.teston}</div>
-                <HeaderMenu {...props}/>
+
             </div>
 
             <div className={'frame-header-right-box'}>
-                <div className={"header-right-item"}  data-title-bottom={"设置"}>
-                    <SettingOutlined className={"header-icon-item"} onClick={toSystem}/>
-                </div>
                 <div className={"header-right-item"} data-title-bottom={"消息"}>
                     <MessageDrawer />
-                </div>
-                <div className={"recovery-item"}>
-                    {props.HelpLink}
                 </div>
                 <div >
                     {props.AvatarLink}

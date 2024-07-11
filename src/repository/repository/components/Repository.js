@@ -103,12 +103,12 @@ const Repository = (props)=> {
     }
 
     const toRepositoryPage = () =>{
-        props.history.push("/repository-edit")
+        props.history.push("/project-edit")
     }
 
 
     return(
-        <div style={{"height":"var(--pi-calc-content)",overflow:"auto"}}>
+        <div style={{"height":"100%",overflow:"auto"}}>
             <div className='ws-layout'>
                 <div className={"display-flex-between"}>
                     <div>

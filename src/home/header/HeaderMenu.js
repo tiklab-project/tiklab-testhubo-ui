@@ -12,7 +12,7 @@ const HeaderMenu = (props) =>{
         },
         {
             label:'项目',
-            key: '/repository-page'
+            key: '/project'
         }
     ]
 

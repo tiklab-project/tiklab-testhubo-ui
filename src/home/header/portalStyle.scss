@@ -118,7 +118,7 @@
 
 
 .frame-header{
-    padding: 0 10px 0 28px;
+    padding: 0 10px 0 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -200,6 +200,20 @@
         display: flex;
         align-items: center;
         gap: 15px;
+
+
+        .licence_dropdown{
+            width: 32px;
+            height: 32px;
+            text-align: center;
+
+            .licence_dropdown_block_item{
+                flex: 1;
+            }
+            .licence_dropdown_block_icon{
+                font-size: unset;
+            }
+        }
     }
 
 
