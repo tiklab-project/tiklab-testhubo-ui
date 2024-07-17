@@ -48,7 +48,7 @@ export const getPieDoughnutOption = (results) => {
                     text: `${results.total}\n\n总数`,
                     textAlign: 'center',
                     fill: '#000',
-                    fontSize: 12
+                    fontSize: 13
                 }
             }
         ]
@@ -60,7 +60,7 @@ export const CaseTestPieDoughnut = ({totalRefs}) =>{
 
     return(
         <Col span={12}>
-            <Card title={"总数/状态数"} bordered={false} className={"case-test-item"}>
+            <Card title={"用例总数/状态数"} bordered={false} className={"case-test-item"}>
                 <div
                     ref={totalRefs}
                     style={{ width: '100%', height: '200px' }}

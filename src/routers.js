@@ -236,15 +236,15 @@ const routers =  [
                     },
 
                     {
-                        path: "/repository/statistics",
+                        path: "/repository/homestatistics",
                         component: StatisticsMenu,
                         routes: [
                             {
-                                path: "/repository/statistics/new-create",
+                                path: "/repository/homestatistics/new-create",
                                 exact: true,
                                 component: NewCreateCaseStatistics,
                             },{
-                                path: "/repository/statistics/test",
+                                path: "/repository/homestatistics/test",
                                 exact: true,
                                 component: CaseTestStatistics,
                             },

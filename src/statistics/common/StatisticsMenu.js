@@ -6,10 +6,10 @@ import "./statisticsStyle.scss"
 const items=[
     {
         title: '新增用例统计',
-        id: '/repository/statistics/new-create',
+        id: '/repository/homestatistics/new-create',
     }, {
         title: '用例测试统计',
-        id: '/repository/statistics/test',
+        id: '/repository/homestatistics/test',
     }
 ]
 
