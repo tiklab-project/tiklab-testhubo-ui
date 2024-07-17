@@ -238,7 +238,7 @@ const SystemManagement = (props) => {
                             padding:"10px 28px",
                             fontWeight:"bold",
                         }}
-                        >系统设置</li>
+                        >设置</li>
                         {
                             showUlView(menuRouter)
                         }

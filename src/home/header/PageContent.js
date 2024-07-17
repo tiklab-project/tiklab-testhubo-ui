@@ -5,11 +5,8 @@ import {inject, observer} from "mobx-react";
 import {getUser} from "thoughtware-core-ui";
 import { SYSTEM_ROLE_STORE } from 'thoughtware-privilege-ui/es/store';
 import './portalStyle.scss'
-import {Layout} from "antd"
 import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
 import {useHistory} from "react-router";
-
-const {Content } = Layout;
 
 /**
  * 整个页面
@@ -58,12 +55,12 @@ const {Content } = Layout;
             key: "project",
             router:"/project"
         },
-        {
-            name: "设置",
-            icon: "setting",
-            key: "setting",
-            router:"/setting/home"
-        }
+        // {
+        //     name: "设置",
+        //     icon: "setting",
+        //     key: "setting",
+        //     router:"/setting/home"
+        // }
     ]
 
 
@@ -74,14 +71,19 @@ const {Content } = Layout;
         localStorage.setItem("leftRouter",item.router);
     };
 
+    const clickSetting =  () => {
+        props.history.push("/setting/home")
+        localStorage.setItem("leftRouter","/setting/home");
+    }
+
     const showMainMenu = ()=>{
         let pathname =  history.location.pathname;
         if(pathname.startsWith("/home")||pathname.startsWith("/project")||pathname.startsWith("/setting")){
-            return<div className={"ws-detail-left"} style={{padding:"20px 0 10px"}}>
+            return<div className={"ws-detail-left"} style={{padding:"10px 0"}}>
                 <LeftNavCommon
                     menuData={menuData}
                     clickAddRouter={clickAddRouter}
-                    HelpLink={props.HelpLink}
+                    clickSetting={clickSetting}
                 />
             </div>
         }

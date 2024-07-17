@@ -40,6 +40,11 @@ const LeftNav = (props) =>{
             "name":"测试报告",
             "key":"report",
             "router":"/repository/report"
+        },{
+            "icon":"tongji9",
+            "name":"统计",
+            "key":"statistics",
+            "router":"/repository/statistics/new-create"
         }
     ]
 
@@ -197,7 +202,7 @@ const LeftNav = (props) =>{
                 className={`ws-detail-left-nav-item `}
                 style={{
                     borderBottom: "1px solid #e4e4e4",
-                    margin: "0 0 20px 0"
+                    margin: "0 0 10px 0"
                 }}
                 onClick={()=> {
                     history.push("/home")

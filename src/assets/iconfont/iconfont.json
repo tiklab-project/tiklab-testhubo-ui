@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "37763778",
+      "name": "第三方测试报告",
+      "font_class": "baogao",
+      "unicode": "e7c3",
+      "unicode_decimal": 59331
+    },
+    {
+      "icon_id": "782236",
+      "name": "统计9",
+      "font_class": "tongji9",
+      "unicode": "e6d4",
+      "unicode_decimal": 59092
+    },
+    {
       "icon_id": "3435341",
       "name": "企业版套餐钻石",
       "font_class": "version-ee",
@@ -90,13 +104,6 @@
       "unicode_decimal": 58894
     },
     {
-      "icon_id": "11810655",
-      "name": "报告",
-      "font_class": "baogao",
-      "unicode": "e62d",
-      "unicode_decimal": 58925
-    },
-    {
       "icon_id": "8605740",
       "name": "角色权限",
       "font_class": "jiaosequanxian",
@@ -132,25 +139,11 @@
       "unicode_decimal": 59574
     },
     {
-      "icon_id": "15838481",
-      "name": "folder-close",
-      "font_class": "folder-close",
-      "unicode": "e671",
-      "unicode_decimal": 58993
-    },
-    {
       "icon_id": "15838485",
       "name": "home",
       "font_class": "home",
       "unicode": "e674",
       "unicode_decimal": 58996
-    },
-    {
-      "icon_id": "15838487",
-      "name": "file-open",
-      "font_class": "file-open",
-      "unicode": "e670",
-      "unicode_decimal": 58992
     },
     {
       "icon_id": "15838505",
@@ -305,27 +298,6 @@
       "font_class": "xiangmu1",
       "unicode": "e60a",
       "unicode_decimal": 58890
-    },
-    {
-      "icon_id": "425606",
-      "name": "编辑",
-      "font_class": "bianji1",
-      "unicode": "e613",
-      "unicode_decimal": 58899
-    },
-    {
-      "icon_id": "435893",
-      "name": "编辑",
-      "font_class": "bianji2",
-      "unicode": "e795",
-      "unicode_decimal": 59285
-    },
-    {
-      "icon_id": "7817213",
-      "name": "编辑",
-      "font_class": "bianji3",
-      "unicode": "e610",
-      "unicode_decimal": 58896
     },
     {
       "icon_id": "82754",
@@ -606,20 +578,6 @@
       "font_class": "Solid-right",
       "unicode": "e609",
       "unicode_decimal": 58889
-    },
-    {
-      "icon_id": "2076191",
-      "name": "分享",
-      "font_class": "fenxiang",
-      "unicode": "e86e",
-      "unicode_decimal": 59502
-    },
-    {
-      "icon_id": "7274124",
-      "name": "分享",
-      "font_class": "fenxiang1",
-      "unicode": "e627",
-      "unicode_decimal": 58919
     },
     {
       "icon_id": "17816849",

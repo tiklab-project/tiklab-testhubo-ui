@@ -2,6 +2,7 @@ import React from 'react';
 import MessageDrawer from "../../setting/message/MessageDrawer";
 import {productImg} from "thoughtware-core-ui"
 import {productTitle} from "thoughtware-core-ui/es/utils/product";
+import EnterPriseEdition from "./enterpriseEdition/EnterPriseEdition";
 
 /**
  * 页面头部
@@ -31,6 +32,10 @@ const HeaderContent = props => {
             <div className={'frame-header-right-box'}>
                 <div className={"header-right-item"} data-title-bottom={"消息"}>
                     <MessageDrawer />
+                </div>
+                {props.HelpLink}
+                <div className={"recovery-item"}>
+                    <EnterPriseEdition />
                 </div>
                 <div >
                     {props.AvatarLink}

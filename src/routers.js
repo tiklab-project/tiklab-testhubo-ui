@@ -70,6 +70,10 @@ let PlanToAppSceneInstance  = LazyComponent(() => import(  "./testplan/instance/
 let TestReportList = LazyComponent(() => import("./testreport/components/testReportList"));
 let TestReportDetail = LazyComponent(() => import("./testreport/components/testReportDetail"));
 
+let StatisticsMenu = LazyComponent(() => import( "./statistics/common/StatisticsMenu"));
+let NewCreateCaseStatistics = LazyComponent(() => import( "./statistics/newcreatecase/NewCreateCaseStatistics"));
+let CaseTestStatistics = LazyComponent(() => import( "./statistics/casetest/CaseTestStatistics"));
+
 let EnvContent = LazyComponent(() => import("./support/environment/components/envContent"));
 let AgentConfigList = LazyComponent(() => import("./support/agent/components/AgentConfigList"));
 let WorkspaceBindList = LazyComponent(() => import("./integrated/common/integratedPage"));
@@ -188,36 +192,11 @@ const routers =  [
                         path: "/repository/api-perform-instance-single",
                         component: ApiPerfInstanceSinglePage,
                     },
-
-                    // {
-                    //     path: "/repository/web-scene/:id",
-                    //     component: WebSceneContent,
-                    // },{
-                    //     path: "/repository/web-scene-instance",
-                    //     component: WebSceneInstanceList,
-                    // },
-                    // {
-                    //     path: "/repository/web-scene-instance-single",
-                    //     component: WebSceneInstanceSinglePage,
-                    // },
-
-                    // {
-                    //     path: "/repository/app-scene/:id",
-                    //     component: AppSceneContent,
-                    // },
-                    // {
-                    //     path: "/repository/app-scene-instance",
-                    //     component: AppSceneInstanceList,
-                    // },
-
-
                     {
                         path: "/repository/function/:id",
                         exact: true,
                         component: FuncUnitDetail,
                     },
-
-
 
                     {
                         path: "/repository/plan",
@@ -255,6 +234,25 @@ const routers =  [
                         exact: true,
                         component: TestReportDetail,
                     },
+
+                    {
+                        path: "/repository/statistics",
+                        component: StatisticsMenu,
+                        routes: [
+                            {
+                                path: "/repository/statistics/new-create",
+                                exact: true,
+                                component: NewCreateCaseStatistics,
+                            },{
+                                path: "/repository/statistics/test",
+                                exact: true,
+                                component: CaseTestStatistics,
+                            },
+                        ]
+                    },
+
+
+
 
                     {
                         path: "/repository/setting",

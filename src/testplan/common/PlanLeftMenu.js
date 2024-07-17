@@ -135,7 +135,7 @@ const PlanLeftMenu = (props) =>{
                 className={`ws-detail-left-nav-item `}
                 style={{
                     borderBottom: "1px solid #e4e4e4",
-                    margin: "0 0 20px 0"
+                    margin: "0 0 10px 0"
                 }}
                 onClick={()=> {
                     history.push("/repository/plan")
