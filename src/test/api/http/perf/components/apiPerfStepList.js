@@ -84,8 +84,6 @@ const ApiPerfStepList = (props) =>{
                         />
                     </Popconfirm>
                 </Space>
-
-
             )
         },
     ]
@@ -98,12 +96,22 @@ const ApiPerfStepList = (props) =>{
     const setSessionStorage = (record) =>{
         if(record.caseType==="api-unit"){
             sessionStorage.setItem("apiUnitId",record.apiUnitCase.id);
-            history.push("/repository/api-perform-to-unit")
+            let caseView = localStorage.getItem("CASE_VIEW")
+            if(caseView==="list"){
+                history.push(`/repository/testcase-list/api-perform-to-unit`)
+            }else {
+                history.push("/repository/api-perform-to-unit")
+            }
         }else {
             sessionStorage.setItem("apiSceneId",record.apiScene.id);
-            history.push("/repository/api-perform-to-scene")
-        }
 
+            let caseView = localStorage.getItem("CASE_VIEW")
+            if(caseView==="list"){
+                history.push(`/repository/testcase-list/api-perform-to-scene`)
+            }else {
+                history.push("/repository/api-perform-to-scene")
+            }
+        }
     }
 
     return(

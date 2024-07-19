@@ -1,15 +1,14 @@
 import React,{useEffect} from 'react';
-import { inject,observer } from 'mobx-react';
-import {useHistory, useParams} from "react-router";
-import ApiSceneDetail from "./ApiSceneDetail";
-import CaseBread from "../../../../../common/CaseBread";
-import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
-import ApiExecuteTestPage from "./ApiExecuteTestPage";
+import {inject,observer } from 'mobx-react';
+import {useParams} from "react-router";
 import {Space} from "antd";
-import ToggleCase from "../../../../testcase/components/ToggleCase";
+import CaseBread from "../../../../../../common/CaseBread";
+import ApiEnvDropDownSelect from "../../../../../../support/environment/components/apiEnvDropDownSelect";
+import ApiExecuteTestPage from "../ApiExecuteTestPage";
+import ApiSceneDetail from "../ApiSceneDetail";
 
 
-const ApiSceneContent = (props) => {
+const ApiSceneContentListView = (props) => {
     const {apiSceneStore} = props;
     const {testCaseInfo,apiSceneInfo} = apiSceneStore
 
@@ -25,10 +24,8 @@ const ApiSceneContent = (props) => {
     return(
         <div className={"content-box-center"}>
             <CaseBread
+                icon={"api1"}
                 breadItem={[testCaseInfo?.name]}
-                router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
-                style={{borderBottom:"none"}}
-                toggleCase={<ToggleCase  caseId={apiSceneId}/>}
                 right={
                     <Space>
                         <ApiEnvDropDownSelect />
@@ -39,8 +36,6 @@ const ApiSceneContent = (props) => {
             <ApiSceneDetail apiSceneId={apiSceneId}/>
         </div>
     )
-
-
 }
 
-export default inject('apiSceneStore')(observer(ApiSceneContent));
+export default inject('apiSceneStore')(observer(ApiSceneContentListView));

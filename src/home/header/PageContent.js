@@ -16,7 +16,6 @@ import {useHistory} from "react-router";
      const router = props.route.routes;
      const user = getUser();
      const history = useHistory()
-    console.log(history)
 
 
     useEffect(()=>{

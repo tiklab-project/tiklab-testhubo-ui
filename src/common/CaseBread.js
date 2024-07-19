@@ -16,11 +16,11 @@ const CaseBread = (props) =>{
             return(
                 <IconCommon
                     icon={icon}
-                    className="icon-s "
+                    className="icon-m"
                     style={{margin: "3px 5px 0"}}
                 />
             )
-        }else {
+        }else{
             return <LeftOutlined style={{fontSize:"16px"}} onClick={()=>history.push(router)}/>
         }
 

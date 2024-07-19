@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Input, Space, Table, TreeSelect} from "antd";
+import {Empty, Input, Space, Table, Tooltip, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
 import emptyImg from "../../../assets/img/empty.png"
 import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
@@ -14,6 +14,8 @@ import CaseTypeSelect from "./CaseTypeSelect";
 import {messageFn} from "../../../common/messageCommon/MessageCommon";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {rowStyle, showCreateUser, ShowDeleteView, ShowQuickExe, SwitchCaseTypeView} from "./testCaseTableFn";
+import IconCommon from "../../../common/IconCommon";
+import {useHistory} from "react-router";
 
 
 const TestCaseTable = (props) => {
@@ -98,6 +100,7 @@ const TestCaseTable = (props) => {
         },
     ]
 
+    const history = useHistory()
     const [tableLoading,setTableLoading] = useState(true);
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalPage, setTotalPage] = useState();
@@ -298,6 +301,19 @@ const TestCaseTable = (props) => {
                             className='search-input-common'
                             prefix={<SearchOutlined />}
                         />
+
+                        <Tooltip title={"切换表格视图"} placement={"top"}>
+                            <div>
+                                <IconCommon
+                                    className={"icon-m edit-icon"}
+                                    icon={"shituqiehuan"}
+                                    onClick={()=> {
+                                        localStorage.setItem("CASE_VIEW","list")
+                                        history.push(`/repository/testcase-list`)
+                                    }}
+                                />
+                            </div>
+                        </Tooltip>
                     </Space>
                 </div>
                 <div className={"table-list-box"}>

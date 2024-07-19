@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Dropdown, Menu} from "antd";
+import {Button, Dropdown, Menu, Tooltip} from "antd";
 import FuncUnitEdit from "../../function/components/funcUnitEdit";
 import ApiUnitEdit from "../../api/http/unit/components/apiUnitEdit";
 import ApiSceneEdit from "../../api/http/scene/components/apiSceneEdit";
@@ -72,17 +72,20 @@ const DropdownAdd = (props) =>{
     return(
         <Dropdown
             overlay={addMenu}
-            placement="bottomRight"
+            placement={`${icon?"bottomLeft":"bottomRight"}`}
             overlayStyle={{width:"160px"}}
+            trigger={["click"]}
         >
             {
                 icon
-                    ? <div>
-                        <IconCommon
-                            className={"icon-l edit-icon"}
-                            icon={"tianjia"}
-                        />
-                    </div>
+                    ?<Tooltip title={"添加用例"} >
+                        <div>
+                            <IconCommon
+                                className={"icon-m edit-icon"}
+                                icon={"chuangjiantianjiapiliangtianjia"}
+                            />
+                        </div>
+                    </Tooltip>
                     : <Button className={"important-btn"}>添加用例</Button>
             }
 

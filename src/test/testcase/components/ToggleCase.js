@@ -7,13 +7,13 @@ import {useHistory} from "react-router";
 import {Input, Space, Spin, Tooltip} from "antd";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {CaretDownOutlined, SearchOutlined} from "@ant-design/icons";
+import {switchCaseTypeFn} from "./testCaseTableFn";
 
 const ToggleCase = (props) =>{
     const {testcaseStore,caseId} = props
     const [visible, setVisible] = useState(false);
     const {
         findTestCaseList,
-        testcaseList,
         testCaseRecent
     }=testcaseStore;
 
@@ -86,47 +86,6 @@ const ToggleCase = (props) =>{
         findPage(param)
     }
 
-    //再根据不同的用例类型跳到不同的页面
-    const switchCaseType = (record)=>{
-        switch (record.caseType) {
-            case CASE_TYPE.API_UNIT:
-                toCaseDetail("apiUnitId",record)
-                break;
-            case CASE_TYPE.API_SCENE:
-                toCaseDetail("apiSceneId",record)
-                break;
-            case CASE_TYPE.API_PERFORM:
-                toCaseDetail("apiPerfId",record)
-                break;
-            case CASE_TYPE.WEB_SCENE:
-                toCaseDetail("webSceneId",record)
-                break;
-
-            case CASE_TYPE.APP_SCENE:
-                toCaseDetail("appSceneId",record)
-                break;
-
-            case CASE_TYPE.FUNCTION:
-                toCaseDetail("functionId",record)
-                break;
-        }
-    }
-
-    //跳转路由
-    const toCaseDetail = (setId,record)=>{
-
-        //最近访问
-        let params = {
-            repository:{id:repositoryId},
-            user:{id:getUser().userId},
-            testCase:{id:record.id},
-        }
-        testCaseRecent(params)
-
-        sessionStorage.setItem(`${setId}`,record.id);
-        history.push(`/repository/${record.caseType}/${record.id}`)
-        setVisible(!visible)
-    }
 
     return(
         <div className={"case-toggle"} ref={caseToggleRef}>
@@ -166,7 +125,10 @@ const ToggleCase = (props) =>{
                                     <div
                                         key={item.id}
                                         className={` display-flex-between  toggle-case-item  ${caseId=== item.id ? 'toggle-case-item-selected' : ''}`}
-                                        onClick={()=>switchCaseType(item)}
+                                        onClick={()=> {
+                                            switchCaseTypeFn(item, history)
+                                            setVisible(!visible)
+                                        }}
                                     >
                                         <div className={"display-flex-gap toggle-case-item-title"}>
                                             <div>{showCaseTypeView(item.caseType)}</div>

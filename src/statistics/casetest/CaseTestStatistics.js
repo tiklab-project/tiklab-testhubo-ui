@@ -10,35 +10,61 @@ import {Axios} from "thoughtware-core-ui";
 const CaseTestStatistics = (props) => {
     const totalRefs = useRef(null);
     const chartRefs = useRef({});
+    const chartInstancesRef = useRef({});
     const [statisticsData, setStatisticsData] = useState();
     let repositoryId = sessionStorage.getItem("repositoryId")
 
-
     useEffect(async () => {
+        fetchData();
 
-        let res = await Axios.post("/statistics/getCaseTestStatistics",{repositoryId:repositoryId})
-        let data = res.data
-        setStatisticsData(data)
+        // 添加 resize 事件监听器
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            Object.values(chartInstancesRef.current).forEach(instance => {
+                if (instance) {
+                    instance.dispose();
+                }
+            });
+        };
+    }, []);
+
+    const fetchData = async () => {
+        let res = await Axios.post("/statistics/getCaseTestStatistics", {repositoryId: repositoryId});
+        let data = res.data;
+        setStatisticsData(data);
+
         if (totalRefs.current) {
             const totalInstance = echarts.init(totalRefs.current);
             const option = getPieDoughnutOption(data.status);
             totalInstance.setOption(option);
+            chartInstancesRef.current.total = totalInstance;
         }
 
         Object.keys(CASE_TYPE).forEach((key) => {
             const type = CASE_TYPE[key];
             const item = data.case[type];
             if (!item) return;
-
             const chartRef = chartRefs.current[type];
-
             if (chartRef) {
                 const chartInstance = echarts.init(chartRef);
                 const option = getPieChartOption(item);
                 chartInstance.setOption(option);
+                chartInstancesRef.current[type] = chartInstance;
             }
         });
-    }, []);
+    };
+
+    const handleResize = () => {
+        if (chartInstancesRef.current.total) {
+            chartInstancesRef.current.total.resize();
+        }
+        Object.values(chartInstancesRef.current).forEach(instance => {
+            if (instance && instance !== chartInstancesRef.current.total) {
+                instance.resize();
+            }
+        });
+    };
 
     return (
         <div className={"content-box-center"}>

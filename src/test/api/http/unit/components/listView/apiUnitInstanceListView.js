@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import CaseBread from "../../../../../common/CaseBread";
-import InstanceListCommon from "../../../../../testreport/common/InstanceListCommon";
-import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
-import {findCaseInstancePage} from "../../../../../testreport/common/instanceCommonFn";
+import {findCaseInstancePage} from "../../../../../../testreport/common/instanceCommonFn";
+import {CASE_TYPE} from "../../../../../../common/dictionary/dictionary";
+import CaseBread from "../../../../../../common/CaseBread";
+import InstanceListCommon from "../../../../../../testreport/common/InstanceListCommon";
 
-const ApiUnitInstanceList = (props) =>{
+const ApiUnitInstanceListView = (props) =>{
     const {apiUnitStore} = props
     const {testCaseInfo} = apiUnitStore
 
@@ -19,11 +19,11 @@ const ApiUnitInstanceList = (props) =>{
         <div className={"content-box-center"}>
             <CaseBread
                 breadItem={[testCaseInfo?.name, "历史"]}
-                router={`/repository/api-unit/${apiUnitId}`}
+                router={`/repository/testcase-list/api-unit/${apiUnitId}`}
             />
             <InstanceListCommon belongId={apiUnitId} type={CASE_TYPE.API_UNIT}/>
         </div>
     )
 }
 
-export default inject("apiUnitStore")(observer(ApiUnitInstanceList));
+export default inject("apiUnitStore")(observer(ApiUnitInstanceListView));

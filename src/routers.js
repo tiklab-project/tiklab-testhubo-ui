@@ -26,21 +26,25 @@ let RepositorySetting = LazyComponent(() => import("./repository/setting/Reposit
 let CategoryList = LazyComponent(() => import("./category/components/CategoryList"));
 
 let TestCaseTable = LazyComponent(() => import("./test/testcase/components/TestCaseTable"));
+let TestcaseListMain = LazyComponent(() => import( "./test/testcase/components/testcaseListView/TestcaseListMain"));
 
 let ApiUnitContent = LazyComponent(() => import("./test/api/http/unit/components/apiUnitContent"));
 let ApiUnitInstanceList = LazyComponent(() => import("./test/api/http/unit/components/apiUnitInstanceList"));
-let ApiUnitInstanceSinglePage = LazyComponent(() => import( "./test/api/http/unit/components/apiUnitInstanceSinglePage"));
+let ApiUnitContentListView  = LazyComponent(() => import( "./test/api/http/unit/components/listView/ApiUnitContentListView"));
+let ApiUnitInstanceListView = LazyComponent(() => import( "./test/api/http/unit/components/listView/apiUnitInstanceListView"));
 
 let ApiSceneContent = LazyComponent(() => import("./test/api/http/scene/components/apiSceneContent"));
-let ApiSceneInstanceSinglePage = LazyComponent(() => import( "./test/api/http/scene/components/apiSceneInstanceSinglePage"));
-let ApiSceneInstanceList = LazyComponent(() => import("./test/api/http/scene/components/apiSceneInstanceList"));
+let ApiSceneContentListView = LazyComponent(() => import("./test/api/http/scene/components/listView/apiSceneContentListView"));
+
 let ApiPerfContent = LazyComponent(() => import("./test/api/http/perf/components/ApiPerfContent"));
-let ApiPerfInstanceList = LazyComponent(() => import("./test/api/http/perf/components/apiPerfInstanceList"));
 let ApiPerformToUnitPage =LazyComponent(() => import( "./test/api/http/perf/components/apiPerformToUnitPage"));
 let ApiPerformToScenePage = LazyComponent(() => import("./test/api/http/perf/components/apiPerformToScenePage"));
-let ApiPerfInstanceSinglePage = LazyComponent(() => import( "./test/api/http/perf/components/ApiPerfInstanceSinglePage"));
+let ApiPerfContentListView = LazyComponent(() => import( "./test/api/http/perf/components/listView/ApiPerfContentListView"));;
+let ApiPerformToUnitPageListView = LazyComponent(() => import( "./test/api/http/perf/components/listView/ApiPerformToUnitPageListView"));
+let ApiPerformToScenePageListView = LazyComponent(() => import( "./test/api/http/perf/components/listView/apiPerformToScenePageListView"));
 
 let FuncUnitDetail = LazyComponent(() => import("./test/function/components/FunctionContent"));
+let FunctionContentListView = LazyComponent(() => import("./test/function/components/listView/FunctionContentListView"));
 
 let PlanDetailContent = LazyComponent(()=>import("./testplan/common/PlanDetailContent"))
 let TestPlan = LazyComponent(() => import("./testplan/plan/components/testPlan"));
@@ -155,23 +159,12 @@ const routers =  [
                         path: "/repository/api-unit-instance",
                         component: ApiUnitInstanceList,
                     },
-                    {
-                        path: "/repository/api-unit-instance-single",
-                        component: ApiUnitInstanceSinglePage,
-                    },
 
                     {
                         path: "/repository/api-scene/:id",
                         component: ApiSceneContent,
                     },
-                    {
-                        path: "/repository/api-scene-instance",
-                        component: ApiSceneInstanceList,
-                    },
-                    {
-                        path: "/repository/api-scene-instance-single",
-                        component: ApiSceneInstanceSinglePage,
-                    },
+
                     {
                         path: "/repository/api-perform/:id",
                         component: ApiPerfContent,
@@ -184,19 +177,51 @@ const routers =  [
                         path: "/repository/api-perform-to-scene",
                         component: ApiPerformToScenePage ,
                     },
-                    {
-                        path: "/repository/api-perform-instance",
-                        component: ApiPerfInstanceList,
-                    },
-                    {
-                        path: "/repository/api-perform-instance-single",
-                        component: ApiPerfInstanceSinglePage,
-                    },
+
                     {
                         path: "/repository/function/:id",
                         exact: true,
                         component: FuncUnitDetail,
                     },
+
+
+                    {
+                        path: "/repository/testcase-list",
+                        component: TestcaseListMain,
+                        routes: [
+                            {
+                                path: "/repository/testcase-list/api-unit/:id",
+                                component: ApiUnitContentListView,
+                            },
+                            {
+                                path: "/repository/testcase-list/api-unit-instance",
+                                component: ApiUnitInstanceListView,
+                            },
+
+                            {
+                                path: "/repository/testcase-list/api-scene/:id",
+                                component: ApiSceneContentListView,
+                            },
+                            {
+                                path: "/repository/testcase-list/api-perform/:id",
+                                component: ApiPerfContentListView,
+                            },
+                            {
+                                path: "/repository/testcase-list/api-perform-to-unit",
+                                component: ApiPerformToUnitPageListView ,
+                            },
+                            {
+                                path: "/repository/testcase-list/api-perform-to-scene",
+                                component: ApiPerformToScenePageListView ,
+                            },
+
+                            {
+                                path: "/repository/testcase-list/function/:id",
+                                component: FunctionContentListView,
+                            },
+                        ]
+                    },
+
 
                     {
                         path: "/repository/plan",
@@ -223,7 +248,6 @@ const routers =  [
                             }
                         ]
                     },
-
 
                     {
                         path: "/repository/report",

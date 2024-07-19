@@ -5,7 +5,7 @@ import {DatePicker, Radio, Space, Table} from "antd";
 import moment from 'moment';
 const { RangePicker } = DatePicker;
 
-const NewCreateCaseStatistics = (props) =>{
+const NewCreateCaseStatistics = () =>{
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null);
     const [selectedDays, setSelectedDays] = useState(30);
@@ -17,11 +17,18 @@ const NewCreateCaseStatistics = (props) =>{
         chartInstanceRef.current = echarts.init(chartRef.current);
         findStatistics(selectedDays);
 
+        window.addEventListener('resize', handleResize);
         return () => {
             chartInstanceRef.current.dispose();
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 
+    const handleResize = () => {
+        if (chartInstanceRef.current) {
+            chartInstanceRef.current.resize();
+        }
+    };
     /**
      * 查询统计数据
      */
@@ -226,7 +233,7 @@ const NewCreateCaseStatistics = (props) =>{
                     <div>自定义 : </div>
                     <RangePicker onChange={handleRangeChange} defaultValue={[moment().subtract(30, 'days'), moment()]} />
                 </Space>
-                </div>
+            </div>
 
             <div
                 ref={chartRef}
@@ -246,31 +253,37 @@ const NewCreateCaseStatistics = (props) =>{
                                 title: `功能用例`,
                                 dataIndex: "FUNCTION",
                                 key: "FUNCTION",
+                                align:"center"
                             },
                             {
                                 title: `接口单元`,
                                 dataIndex: "API_UNIT",
                                 key: "API_UNIT",
+                                align:"center"
                             },
                             {
                                 title: `接口场景`,
                                 dataIndex: "API_SCENE",
                                 key: "API_SCENE",
+                                align:"center"
                             },
                             {
                                 title: `接口性能`,
                                 dataIndex: "API_PERFORM",
                                 key: "API_PERFORM",
+                                align:"center"
                             },
                             {
                                 title: `WEB场景`,
                                 dataIndex: "WEB_SCENE",
                                 key: "WEB_SCENE",
+                                align:"center"
                             },
                             {
                                 title: `APP场景`,
                                 dataIndex: "APP_SCENE",
                                 key: "APP_SCENE",
+                                align:"center"
                             }
                         ]
                     }

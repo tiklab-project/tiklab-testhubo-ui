@@ -1,11 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import * as echarts from 'echarts';
 import {Axios} from "thoughtware-core-ui";
-import {Col, Radio, Card} from "antd";
+import {Col, Card} from "antd";
 
-const HomeNewCreateCaseStatistics = (props) =>{
+const HomeNewCreateCaseStatistics = () =>{
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null);
+
+    //默认30天
     const [selectedDays, setSelectedDays] = useState(30);
 
     useEffect(() => {
@@ -20,16 +22,17 @@ const HomeNewCreateCaseStatistics = (props) =>{
 
         initChart();
 
+
         return () => {
             if (chartInstanceRef.current) {
                 chartInstanceRef.current.dispose();
             }
+
         };
     }, []);
 
-    const findStatistics = async (days) => {
-        setSelectedDays(days);
 
+    const findStatistics = async (days) => {
         const endTime = new Date();
         const startTime = new Date();
         startTime.setDate(endTime.getDate() - days + 1);
@@ -79,13 +82,11 @@ const HomeNewCreateCaseStatistics = (props) =>{
         appSceneCounts,
         functionCounts
     ) => ({
-
         tooltip: {
             trigger: 'axis'
         },
         legend: {
             data: ['功能','接口单元', '接口场景','接口性能','WEB','APP'],
-            // bottom: 0
         },
         grid: {
             top: '15%',
@@ -188,28 +189,9 @@ const HomeNewCreateCaseStatistics = (props) =>{
         ]
     });
 
-    /**
-     * 选择天数
-     */
-    const handleRadioChange = async (e) => {
-        await findStatistics(e.target.value);
-    };
-
-
     return (
         <Col span={12}>
             <Card title={"最近新增用例"} bordered={false} className={"case-test-item"}>
-                {/*<div className={"statistics-select"}>*/}
-                {/*    <Radio.Group*/}
-                {/*        onChange={handleRadioChange}*/}
-                {/*        value={selectedDays}*/}
-                {/*        size={"small"}*/}
-                {/*    >*/}
-                {/*        <Radio.Button value={7}>7天</Radio.Button>*/}
-                {/*        <Radio.Button value={30}>30天</Radio.Button>*/}
-                {/*        <Radio.Button value={182}>半年</Radio.Button>*/}
-                {/*    </Radio.Group>*/}
-                {/*</div>*/}
                 <div
                     ref={chartRef}
                     className={"home-statistics-new-create-box"}

@@ -75,8 +75,15 @@ const LeftNav = (props) =>{
         //点击左侧导航，设置选择项,用于刷新后还能选择。
         localStorage.setItem("leftRouter",item.router);
 
-        if(item.key==="overview"||item.key==="testcase"){
+        if(item.key==="overview"){
             history.push(`${item.router}/${repositoryId}`)
+        }else if(item.key==="testcase"){
+            let caseView = localStorage.getItem("CASE_VIEW")
+            if(caseView==="list"){
+                history.push(`${item.router}-list/${repositoryId}`)
+            }else {
+                history.push(`${item.router}/${repositoryId}`)
+            }
         }else {
             history.push(item.router)
         }

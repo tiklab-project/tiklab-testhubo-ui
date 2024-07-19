@@ -36,6 +36,41 @@ export const showStatus = (status)=>{
     }
 }
 
+export const showTextStatus = (status)=>{
+    switch (status) {
+        case 0:
+            return <div style={{
+                background:"#e9e9e9",
+                fontSize:"10px",
+                padding:"2px 5px",
+                borderRadius:"5px"
+            }}>未开始</div>
+        case 1:
+            return <div style={{
+                background:"#b3d8fd",
+                fontSize:"10px",
+                padding:"2px  5px",
+                borderRadius:"5px"
+            }}>进行中</div>
+        case 2:
+            return <div style={{
+                background:"#f29e9ee8",
+                fontSize:"10px"
+                ,padding:"2px 5px",
+                borderRadius:"5px"
+            }}>结束</div>
+        default:
+            return <div style={{
+                background:"#e9e9e9",
+                fontSize:"10px",
+                padding:"2px  5px",
+                borderRadius:"5px"
+            }}>未开始</div>
+    }
+}
+
+
+
 /**
  * 表格中用例类型展示
  */

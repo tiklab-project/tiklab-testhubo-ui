@@ -15,6 +15,40 @@ import IconCommon from "../../../common/IconCommon";
 import {Avatar, Space} from "antd";
 
 
+//再根据不同的用例类型跳到不同的页面
+export const switchCaseTypeFn = (record,history)=>{
+
+    //跳转路由
+    const toCaseDetail = (setId,record,history)=>{
+        sessionStorage.setItem(`${setId}`,record.id);
+        history.push(`/repository/testcase-list/${record.caseType}/${record.id}`)
+    }
+
+    switch (record.caseType) {
+        case CASE_TYPE.FUNCTION:
+            toCaseDetail("functionId",record,history)
+            break;
+        case CASE_TYPE.API_UNIT:
+            toCaseDetail("apiUnitId",record,history)
+            break;
+        case CASE_TYPE.API_SCENE:
+            toCaseDetail("apiSceneId",record,history)
+            break;
+        case CASE_TYPE.API_PERFORM:
+            toCaseDetail("apiPerfId",record,history)
+            break;
+
+        case CASE_TYPE.WEB_SCENE:
+            toCaseDetail("webSceneId",record,history)
+            break;
+        case CASE_TYPE.APP_SCENE:
+            toCaseDetail("appSceneId",record,history)
+            break;
+
+    }
+}
+
+
 
 
 export const SwitchCaseTypeView = ({record,testCaseRecent,repositoryId}) =>{

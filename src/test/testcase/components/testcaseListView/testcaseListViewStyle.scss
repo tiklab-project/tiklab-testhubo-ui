@@ -1,0 +1,92 @@
+.case-list-main{
+    display: flex;
+    height: 100%;
+
+    .case-list-left{
+        width: 300px;
+        border-right: 1px solid #e2e2e2;
+
+        .case-list-left-top{
+            padding: 5px 10px 10px;
+            border-bottom: 1px solid #e2e2e2;
+        }
+
+        .case-list-left-list-box{
+            height: calc(100% - 155px);
+            padding: 10px 0;
+
+            .case-list-box{
+                height: 100%;
+                overflow: auto;
+                padding: 5px;
+
+                .case-list-item{
+                    padding: 10px;
+                    margin: 5px 0;
+                    border-radius: 5px;
+                    cursor: pointer;
+
+                    &:hover{
+                        background: var(--pi-hover-color);
+                    }
+
+                    .case-list-item-title{
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        vertical-align: middle;
+                        white-space: nowrap;
+                    }
+
+                    .case-list-item-type{
+                        font-size: 11px;
+                        background: #f4f4f4;
+                        border: 1px solid #e3e3e3;
+                        border-radius: 5px;
+                        padding: 0 5px;
+                    }
+
+                }
+
+                .case-list-item-action{
+                    background: var(--pi-action-color);
+                }
+
+            }
+
+            .case-list-bottom{
+                border-top: 1px solid rgb(227, 227, 227);
+                height: 40px;
+                box-shadow: -3px -1px 8px 0px #e4e4e4;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 10px;
+
+                .case-list-bottom-total{
+                    font-size: 12px;
+                    color: #999;
+                    width: 50px;
+                }
+
+                .pagination-box{
+                    width: unset;
+                    padding: unset;
+                }
+                .case-list-bottom-reload{
+                    width: 50px;
+                    text-align: right;
+                    color: #999;
+                    cursor: pointer;
+                }
+            }
+
+        }
+    }
+
+
+
+    .case-list-right {
+        flex: 1;
+        overflow: auto;
+    }
+}

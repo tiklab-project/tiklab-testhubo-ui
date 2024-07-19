@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "30202565",
+      "name": "视图切换_列表",
+      "font_class": "shituqiehuan",
+      "unicode": "e6bc",
+      "unicode_decimal": 59068
+    },
+    {
       "icon_id": "37763778",
       "name": "第三方测试报告",
       "font_class": "baogao",
@@ -396,20 +403,6 @@
       "font_class": "zuijinfangwen-",
       "unicode": "e696",
       "unicode_decimal": 59030
-    },
-    {
-      "icon_id": "5387586",
-      "name": "箭头_上下切换",
-      "font_class": "jiantou_shangxiaqiehuan",
-      "unicode": "eb09",
-      "unicode_decimal": 60169
-    },
-    {
-      "icon_id": "5387926",
-      "name": "箭头_上下切换_o",
-      "font_class": "jiantou_shangxiaqiehuan_o",
-      "unicode": "eb90",
-      "unicode_decimal": 60304
     },
     {
       "icon_id": "3978386",

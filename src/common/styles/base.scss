@@ -39,11 +39,11 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd{
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
     border: 2px solid white;
-    background-color: rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, .6);
+    background-color: rgba(0, 0, 0, .4);
 }
 
 /*滚动条右下角区域*/
@@ -455,7 +455,7 @@ table .icon{
     .breadcrumb-left{
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: 5px;
     }
 
     .case-header_title{
