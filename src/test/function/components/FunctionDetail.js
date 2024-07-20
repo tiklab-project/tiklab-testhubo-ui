@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Demand from "../../../integrated/teamwire/workItem/components/Demand";
-import WorkItemBindList from "../../../integrated/teamwire/defect/components/WorkItemBindList";
+import WorkItemBindList from "../../../integrated/teamwire/defect/components/CaseBindDefectList";
 import {inject, observer} from "mobx-react";
 import {Form} from "antd";
 import DetailCommon from "../../../common/caseCommon/DetailCommon";

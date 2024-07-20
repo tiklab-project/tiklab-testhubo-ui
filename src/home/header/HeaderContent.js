@@ -1,6 +1,6 @@
 import React from 'react';
 import MessageDrawer from "../../setting/message/MessageDrawer";
-import {productImg} from "thoughtware-core-ui"
+import {productWhiteImg} from "thoughtware-core-ui"
 import {productTitle} from "thoughtware-core-ui/es/utils/product";
 import EnterPriseEdition from "./enterpriseEdition/EnterPriseEdition";
 
@@ -22,7 +22,7 @@ const HeaderContent = props => {
                 {props.AppLink}
                 <div className={"display-flex-gap"} style={{margin:"0 20px"}}>
                     <div className={'frame-header-logo'} onClick={goHome} style={{cursor:"pointer"}}>
-                        <img src={productImg.teston} alt='logo' />
+                        <img src={productWhiteImg.teston} alt='logo' />
                     </div>
                     <div className={"productName"} onClick={goHome} style={{cursor:"pointer"}}>{productTitle.teston}</div>
                 </div>

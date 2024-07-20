@@ -9,10 +9,30 @@
         .case-list-left-top{
             padding: 5px 10px 10px;
             border-bottom: 1px solid #e2e2e2;
+
+            .advanced-filter-box{
+                position: relative;
+
+                .advanced-filter-toggle-box{
+                    padding: 10px;
+                    position: absolute;
+                    top: 20px;
+                    left: 30px;
+                    background: var(--pi-bg-grey-100);
+                    width: 240px;
+                    min-height: 200px;
+                    z-index: 1;
+                    border-radius: 5px;
+                    box-shadow: 0 3px 11px rgb(140 149 159 / 50%);
+                }
+                .advanced-filter-item-title{
+                    padding: 5px 10px;
+                }
+            }
         }
 
         .case-list-left-list-box{
-            height: calc(100% - 155px);
+            height: calc(100% - 163px);
             padding: 10px 0;
 
             .case-list-box{

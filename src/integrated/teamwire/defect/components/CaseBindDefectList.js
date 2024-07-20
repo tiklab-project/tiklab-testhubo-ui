@@ -5,12 +5,11 @@ import IconCommon from "../../../../common/IconCommon";
 import {applyJump} from "thoughtware-core-ui"
 import "./workItemStyle.scss"
 import workItemBindStore from "../store/WorkItemBindStore";
-import IconBtn from "../../../../common/iconBtn/IconBtn";
 import DefectSelect from "./DefectSelect";
 /**
  * 绑定的缺陷列表
  */
-const WorkItemBindList = (props) =>{
+const CaseBindDefectList = (props) =>{
     const {caseId} = props;
     const {findWorkItemBindList,workItemBindList,deleteWorkItemBind} = workItemBindStore
 
@@ -110,4 +109,4 @@ const WorkItemBindList = (props) =>{
     )
 }
 
-export default observer(WorkItemBindList);
+export default observer(CaseBindDefectList);

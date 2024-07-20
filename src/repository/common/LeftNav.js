@@ -40,7 +40,14 @@ const LeftNav = (props) =>{
             "name":"测试报告",
             "key":"report",
             "router":"/repository/report"
-        },{
+        },
+        {
+            "icon":"tongji9",
+            "name":"缺陷",
+            "key":"defect",
+            "router":"/repository/defect"
+        },
+        {
             "icon":"tongji9",
             "name":"统计",
             "key":"homestatistics",

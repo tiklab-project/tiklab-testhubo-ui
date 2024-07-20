@@ -20,7 +20,7 @@ const DefectSelect = (props) =>{
         },
         {
             title: `项目`,
-            dataIndex:["project","name"],
+            dataIndex:["project","projectName"],
             key: "projectName",
             width:"20%",
         },
@@ -68,7 +68,8 @@ const DefectSelect = (props) =>{
 
     const onFinish = (id) => {
         let param = {
-            caseId:caseId,
+            repositoryId:repositoryId,
+            testCase:{id:caseId},
             workItem:{id:id}
         }
         createWorkItemBind(param).then(()=>findWorkItemBindList({caseId:caseId}))

@@ -78,6 +78,8 @@ let StatisticsMenu = LazyComponent(() => import( "./statistics/common/Statistics
 let NewCreateCaseStatistics = LazyComponent(() => import( "./statistics/newcreatecase/NewCreateCaseStatistics"));
 let CaseTestStatistics = LazyComponent(() => import( "./statistics/casetest/CaseTestStatistics"));
 
+let ProjectAllDefectList = LazyComponent(() => import( "./integrated/teamwire/defect/components/ProjectAllDefectList"));
+
 let EnvContent = LazyComponent(() => import("./support/environment/components/envContent"));
 let AgentConfigList = LazyComponent(() => import("./support/agent/components/AgentConfigList"));
 let WorkspaceBindList = LazyComponent(() => import("./integrated/common/integratedPage"));
@@ -258,6 +260,12 @@ const routers =  [
                         exact: true,
                         component: TestReportDetail,
                     },
+                    {
+                        path: "/repository/defect",
+                        exact: true,
+                        component: ProjectAllDefectList,
+                    },
+
 
                     {
                         path: "/repository/homestatistics",

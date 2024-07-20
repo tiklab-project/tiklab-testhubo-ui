@@ -9,6 +9,7 @@ import {inject, observer} from "mobx-react";
 import PaginationCommon from "../../../../common/pagination/Page";
 import {useHistory} from "react-router";
 import {switchCaseTypeFn} from "../testCaseTableFn";
+import AdvancedFilter from "./AdvancedFilter";
 
 const CaseListLeft = (props) =>{
     const {testcaseStore,categoryStore} = props;
@@ -40,13 +41,13 @@ const CaseListLeft = (props) =>{
             key: `api`,
         },
         {
+            title: `性能 `,
+            key: `perform`,
+        },
+        {
             title: `UI `,
             key: `ui`,
         },
-        {
-            title: `性能 `,
-            key: `perform`,
-        }
     ];
 
     const history = useHistory()
@@ -155,15 +156,24 @@ const CaseListLeft = (props) =>{
                     menuItems={items}
                     selectFn={selectKeyFun}
                     selected={testType}
-                    style={{width: "260px"}}
+                    style={{width: "280px"}}
                 />
 
-                <Input
-                    placeholder={`搜索用例名`}
-                    onPressEnter={onSearch}
-                    className='search-input-common'
-                    prefix={<SearchOutlined />}
-                />
+                <div className={"display-flex-between"} style={{padding:"10px 0 0"}}>
+                    <Input
+                        placeholder={`搜索用例名`}
+                        onPressEnter={onSearch}
+                        className='search-input-common'
+                        prefix={<SearchOutlined />}
+                    />
+
+                    <AdvancedFilter
+                        findPage={findPage}
+                        setSelectCategory={setSelectCategory}
+                        testType={testType}
+                    />
+                </div>
+
             </div>
             <div className={"case-list-left-list-box"}>
                 <CaseList
