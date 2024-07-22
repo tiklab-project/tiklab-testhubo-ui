@@ -54,7 +54,6 @@
 .ws-init-box{
     height: 100%;
     overflow: auto;
-    background:var(--pi-bg-grey-100);
 
 }
 
@@ -84,20 +83,17 @@
     .wd-total-box{
         display: flex;
         justify-content: space-between;
-        padding: 20px;
+        padding: 20px 0;
         background: #fff;
-        margin: 0 10px;
     }
     .wd-total{
         background: #fff;
         padding: 15px;
-        border: 1px solid var(--pi-border-color);
-        border-radius: var(--pi-border-radius);
 
 
 
         &-item{
-            width: 200px;
+            width: 260px;
             text-align: center;
             background: var(--pi-bg-grey-100);
             border-radius: 5px;

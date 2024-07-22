@@ -164,14 +164,17 @@ const CaseListLeft = (props) =>{
                         placeholder={`搜索用例名`}
                         onPressEnter={onSearch}
                         className='search-input-common'
+                        width={280}
                         prefix={<SearchOutlined />}
+                        addonAfter={
+                            <AdvancedFilter
+                                findPage={findPage}
+                                setSelectCategory={setSelectCategory}
+                                testType={testType}
+                            />
+                        }
                     />
 
-                    <AdvancedFilter
-                        findPage={findPage}
-                        setSelectCategory={setSelectCategory}
-                        testType={testType}
-                    />
                 </div>
 
             </div>
@@ -183,7 +186,7 @@ const CaseListLeft = (props) =>{
                     setClickItemId={setClickItemId}
                 />
                 <div className={"case-list-bottom"}>
-                    <div className={"case-list-bottom-total"}>总数/{totalRecord||0}</div>
+                    <div className={"case-list-bottom-total"}>共{totalRecord||0}条</div>
                     <PaginationCommon
                         currentPage={currentPage}
                         totalPage={totalPage}

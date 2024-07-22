@@ -22,9 +22,7 @@ const Home =(props)=> {
                             <span>常用项目</span>
                         </div>
                     </div>
-                    <div className={"home-box-item-detail"}>
-                        <RepositoryRecentHome {...props}/>
-                    </div>
+                    <RepositoryRecentHome {...props}/>
                 </div>
                 <div className={"home-box-item-dynamic"}>
                     <div className={"home-item-title-box"}>

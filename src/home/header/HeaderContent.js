@@ -35,7 +35,7 @@ const HeaderContent = props => {
                 </div>
                 {props.HelpLink}
                 <div className={"recovery-item"}>
-                    <EnterPriseEdition />
+                    <EnterPriseEdition featureType={props.featureType}/>
                 </div>
                 <div >
                     {props.AvatarLink}

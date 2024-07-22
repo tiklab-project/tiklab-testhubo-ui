@@ -43,7 +43,7 @@ const CaseList = (props) => {
                             </div>
                             <div className={"display-flex-gap"}>
                                 <div className={"case-list-item-type"}>{showCaseTypeTable(item.caseType)}</div>
-                                <span className={"case-list-item-type text-ellipsis"} style={{width:"90px"}}>模块: {item?.category?.name||"未设置"}</span>
+                                {/*<span className={"case-list-item-type text-ellipsis"} style={{width:"90px"}}>模块: {item?.category?.name||"未设置"}</span>*/}
                             </div>
                         </div>
 

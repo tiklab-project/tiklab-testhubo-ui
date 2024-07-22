@@ -51,7 +51,7 @@ const LeftNav = (props) =>{
             "icon":"tongji9",
             "name":"统计",
             "key":"homestatistics",
-            "router":"/repository/homestatistics/new-create"
+            "router":"/repository/statistics/new-create"
         }
     ]
 

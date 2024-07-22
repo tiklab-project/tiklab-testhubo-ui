@@ -10,6 +10,10 @@
             padding: 5px 10px 10px;
             border-bottom: 1px solid #e2e2e2;
 
+            .search-input-common{
+                width: 280px !important;
+            }
+
             .advanced-filter-box{
                 position: relative;
 
@@ -27,13 +31,14 @@
                 }
                 .advanced-filter-item-title{
                     padding: 5px 10px;
+                    text-align: left;
                 }
             }
         }
 
         .case-list-left-list-box{
             height: calc(100% - 163px);
-            padding: 10px 0;
+            padding: 0 0 10px 0;
 
             .case-list-box{
                 height: 100%;
@@ -41,7 +46,7 @@
                 padding: 5px;
 
                 .case-list-item{
-                    padding: 10px;
+                    padding: 5px 10px;
                     margin: 5px 0;
                     border-radius: 5px;
                     cursor: pointer;
@@ -74,13 +79,12 @@
             }
 
             .case-list-bottom{
-                border-top: 1px solid rgb(227, 227, 227);
                 height: 40px;
-                box-shadow: -3px -1px 8px 0px #e4e4e4;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 padding: 0 10px;
+                background: #f8f8f8;
 
                 .case-list-bottom-total{
                     font-size: 12px;
