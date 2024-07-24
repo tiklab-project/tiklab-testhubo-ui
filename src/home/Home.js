@@ -4,6 +4,7 @@ import RepositoryRecentHome from "./RepositoryRecentHome";
 import {Row} from "antd";
 import TotalAndStatusStatistics from "./homestatistics/TotalAndStatusStatistics";
 import HomeNewCreateCaseStatistics from "./homestatistics/HomeNewCreateCaseStatistics";
+import PageContent from "../common/pageContent/PageContent";
 
 /**
  * 首页
@@ -11,33 +12,29 @@ import HomeNewCreateCaseStatistics from "./homestatistics/HomeNewCreateCaseStati
 const Home =(props)=> {
     return(
         <div className={"home-content"}>
-            <div className={"home-content-box"}>
-                <div className={"home-box-item"}>
-                    <div className={"home-item-title-box"}>
-                        <div className={"home-item-title"}>
-                            {/*<svg className="icon-m home-item-title-icon" aria-hidden="true">*/}
-                            {/*    <use xlinkHref= {`#icon-zuijinfangwen-`} />*/}
-                            {/*</svg>*/}
-                            <span>常用项目</span>
+            <PageContent>
+                <div className={"home-content-box"}>
+                    <div className={"home-box-item"}>
+                        <div className={"home-item-title-box"}>
+                            <div className={"home-item-title"}>
+                                <span>常用项目</span>
+                            </div>
                         </div>
+                        <RepositoryRecentHome {...props}/>
                     </div>
-                    <RepositoryRecentHome {...props}/>
-                </div>
-                <div className={"home-box-item-dynamic"}>
-                    <div className={"home-item-title-box"}>
-                        <div className={"home-item-title"}>
-                            {/*<svg className="icon-m home-item-title-icon" aria-hidden="true">*/}
-                            {/*    <use xlinkHref= {`#icon-rizhijilu`} />*/}
-                            {/*</svg>*/}
-                            <span>统计</span>
+                    <div className={"home-box-item-dynamic"}>
+                        <div className={"home-item-title-box"}>
+                            <div className={"home-item-title"}>
+                                <span>统计</span>
+                            </div>
                         </div>
+                        <Row gutter={20}>
+                            <TotalAndStatusStatistics />
+                            <HomeNewCreateCaseStatistics />
+                        </Row>
                     </div>
-                    <Row gutter={20}>
-                        <TotalAndStatusStatistics />
-                        <HomeNewCreateCaseStatistics />
-                    </Row>
                 </div>
-            </div>
+            </PageContent>
         </div>
     )
 }

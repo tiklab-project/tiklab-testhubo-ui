@@ -1,32 +1,58 @@
 import React, {useEffect, useRef} from "react";
 import * as echarts from 'echarts';
-import {Axios} from "thoughtware-core-ui";
+import {Axios, getUser} from "thoughtware-core-ui";
 import { getPieDoughnutOption} from "../../statistics/casetest/CaseTestPieDoughnut";
-import {Card, Col} from "antd";
+import {Card, Col,Select} from "antd";
+import {inject, observer} from "mobx-react";
+const {Option} = Select
 
-const TotalAndStatusStatistics = () =>{
+const TotalAndStatusStatistics = (props) =>{
+    const {repositoryStore} = props
+    const {findRepositoryJoinList,repositoryList} = repositoryStore;
 
     const chartRef = useRef(null);
+    const chartInstance = useRef(null)
 
     useEffect(async () => {
-        const chartInstance = echarts.init(chartRef.current);
-        let res =  await Axios.post("/statistics/getTotalAndStatusStatistics",{})
-        let data = res.data;
+        chartInstance.current = echarts.init(chartRef.current);
+        await getStatisticsData({repositoryId:null})
 
-        // 创建默认状态映射
-        if (chartRef.current) {
-            const option = getPieDoughnutOption(data);
-            chartInstance.setOption(option);
-        }
+        const handleResize = () => chartInstance.current.resize();
+        window.addEventListener('resize', handleResize);
         return () => {
-            chartInstance.dispose();
+            window.removeEventListener('resize', handleResize);
+            chartInstance.current.dispose();
         };
     }, []);
 
+    const getStatisticsData = async (param) =>{
+        let res =  await Axios.post("/statistics/getTotalAndStatusStatistics",param)
+        let data = res.data
+        const option = getPieDoughnutOption(data);
+        chartInstance.current.setOption(option);
+    }
+
+    useEffect(()=>{
+        findRepositoryJoinList({userId: getUser().userId})
+    },[])
+
+    const selectRepository = async (id) =>{
+        await getStatisticsData({repositoryId:id==="all"?null:id})
+    }
 
     return(
         <Col span={12}>
             <Card title={"用例总数/状态数"} bordered={false} className={"case-test-item"}>
+                <div className={"statistics-status-select"}>
+                    <Select bordered={false} defaultValue={"all"} onSelect={selectRepository} style={{width:"100px"}}>
+                        <Option key={'all'} value={"all"}>所有</Option>
+                        {
+                            repositoryList&&repositoryList.map(item=>{
+                                return <Option key={item.id} value={item.id}>{item.name}</Option>
+                            })
+                        }
+                    </Select>
+                </div>
                 <div
                     ref={chartRef}
                     style={{ width: '100%', height: '400px' }}
@@ -36,4 +62,4 @@ const TotalAndStatusStatistics = () =>{
     )
 }
 
-export default TotalAndStatusStatistics
+export default inject("repositoryStore")(observer(TotalAndStatusStatistics))

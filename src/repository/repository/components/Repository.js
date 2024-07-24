@@ -7,6 +7,7 @@ import RepositoryRecentHome from "../../../home/RepositoryRecentHome";
 import {SearchOutlined} from "@ant-design/icons";
 import RepositoryList from "./RepositoryList";
 import IconBtn from "../../../common/iconBtn/IconBtn";
+import PageContent from "../../../common/pageContent/PageContent";
 
 /**
  * 项目页
@@ -109,46 +110,48 @@ const Repository = (props)=> {
 
     return(
         <div style={{"height":"100%",overflow:"auto"}}>
-            <div className='ws-layout'>
-                <div className={"display-flex-between"}>
+            <PageContent>
+                <div className='ws-layout'>
+                    <div className={"display-flex-between"}>
                     <span style={{
                         fontSize:"16px",
                         fontWeight:"bold",
                     }}>项目</span>
-                    <div>
-                        <IconBtn
-                            className="important-btn"
-                            onClick={toRepositoryPage}
-                            name={"添加项目"}
+                        <div>
+                            <IconBtn
+                                className="important-btn"
+                                onClick={toRepositoryPage}
+                                name={"添加项目"}
+                            />
+                        </div>
+                    </div>
+
+                    <div className={"home-box-item-detail"}>
+                        <div style={{margin:"10px 0 "}}>最近访问</div>
+                        <RepositoryRecentHome {...props}/>
+                    </div>
+
+                    <div className={"ws-header-menu"}>
+                        <div className={"ws-header-menu-left"}>
+                            {showMenu(items)}
+                        </div>
+                        <Input
+                            prefix={<SearchOutlined />}
+                            placeholder={`搜索项目名`}
+                            onPressEnter={onSearch}
+                            className={"search-input-common"}
+                        />
+                    </div>
+
+                    <div className='contant-box' style={{margin:"10px 0 0 0"}}>
+                        <RepositoryList
+                            {...props}
+                            findList={findList}
+                            selectItem={selectItem}
                         />
                     </div>
                 </div>
-
-                <div className={"home-box-item-detail"}>
-                    <div style={{margin:"10px 0 "}}>最近访问</div>
-                    <RepositoryRecentHome {...props}/>
-                </div>
-
-                <div className={"ws-header-menu"}>
-                    <div className={"ws-header-menu-left"}>
-                        {showMenu(items)}
-                    </div>
-                    <Input
-                        prefix={<SearchOutlined />}
-                        placeholder={`搜索项目名`}
-                        onPressEnter={onSearch}
-                        className={"search-input-common"}
-                    />
-                </div>
-
-                <div className='contant-box' style={{margin:"10px 0 0 0"}}>
-                    <RepositoryList
-                        {...props}
-                        findList={findList}
-                        selectItem={selectItem}
-                    />
-                </div>
-            </div>
+            </PageContent>
         </div>
     )
 

@@ -2,28 +2,115 @@ import React, { useEffect, useState, useCallback } from 'react';
 import './sysMana.scss';
 import {Axios, getUser} from 'thoughtware-core-ui';
 import { useHistory } from 'react-router';
+import {Row,Col} from "antd"
+import PageContent from "../../common/pageContent/PageContent";
+import IconCommon from "../../common/IconCommon";
 
 const InfoBox = React.memo(({ title, data, onClick }) => (
-    <div>
+    <div className={"system-module"}>
         <div className="header-title">{title}</div>
         <div className="system-menu-box">
-            {data.map((item) => (
-                <div
-                    key={item.key}
-                    className="system-menu-item"
-                    onClick={() => onClick(item.key)}
-                >
-                    {
-                        item.count === 0||item.count > 0
-                            ?<div>{item.count}</div>
-                            :null
-                        }
-                    <div>{item.title}</div>
-                </div>
-            ))}
+            <Row gutter={20}>
+                    {data.map((item) => (
+                        <Col span={6}>
+                            <div
+                                key={item.key}
+                                className="system-menu-item"
+                                onClick={() => onClick(item.key)}
+                            >
+                                {
+                                    item.count === 0||item.count > 0
+                                        ?<div>{item.count}</div>
+                                        :<IconCommon
+                                            icon={item.icon}
+                                            className={"icon-l"}
+                                        />
+                                }
+                                <div>{item.title}</div>
+                            </div>
+                        </Col>
+                    ))}
+            </Row>
         </div>
     </div>
 ));
+
+const InfoBoxCol12 = React.memo(({ title, data, onClick }) => (
+    <div className={"system-module"}>
+        <div className="header-title">{title}</div>
+        <div className="system-menu-box">
+            <Row gutter={20}>
+                {data.map((item) => (
+                    <Col span={12}>
+                        <div
+                            key={item.key}
+                            className="system-menu-item"
+                            onClick={() => onClick(item.key)}
+                        >
+                            {
+                                item.count === 0||item.count > 0
+                                    ?<div style={{fontSize:"16px",fontWeight:"bold"}}>{item.count}</div>
+                                    :<IconCommon
+                                        icon={item.icon}
+                                        className={"icon-l"}
+                                    />
+                            }
+                            <div>{item.title}</div>
+                        </div>
+                    </Col>
+                ))}
+            </Row>
+        </div>
+    </div>
+));
+
+const showUserBox = (data) =>{
+    if( version==="cloud"){
+        return  <div className={"system-role-module"}>
+            <div className="header-title">权限</div>
+            <div className="system-menu-box">
+                <Row gutter={20}>
+                    {data.map((item) => (
+                        <Col span={6}>
+                            <div
+                                key={item.key}
+                                className="system-menu-role"
+                                onClick={() => onClick(item.key)}
+                            >
+                                {
+                                    item.count === 0||item.count > 0
+                                        ?<div style={{fontSize:"16px",fontWeight:"bold"}}>{item.count}</div>
+                                        :null
+                                }
+                                <div>{item.title}</div>
+                            </div>
+                        </Col>
+                    ))}
+                </Row>
+            </div>
+        </div>
+    }else {
+        return <div className={"system-role-module"}>
+            <div className="header-title">用户与权限</div>
+            <div className="system-role">
+                {data.map((item) => (
+                    <div
+                        key={item.key}
+                        className="system-menu-role"
+                        onClick={() => onClick(item.key)}
+                    >
+                        {
+                            item.count === 0||item.count > 0
+                                ?<div style={{fontSize:"16px",fontWeight:"bold"}}>{item.count}</div>
+                                :null
+                        }
+                        <div>{item.title}</div>
+                    </div>
+                ))}
+            </div>
+        </div>;
+    }
+}
 
 const SystemHome = () => {
     const history = useHistory();
@@ -79,34 +166,37 @@ const SystemHome = () => {
         { title: '消息通知方案', key: '/setting/message-notice', count: countInfo?.msgNoticeCount },
     ];
 
-    const agent = [{ title: 'Agent配置', key: '/setting/agent'}];
-    const plugin = [{ title: '插件', key: '/setting/plugin' }];
+    const agent = [{ title: 'Agent配置', key: '/setting/agent',icon:"jiqun-mianxing"}];
 
-    const security = [
-        { title: '操作日志', key: '/setting/log' },
-        { title: '备份与恢复', key: '/setting/backups' },
-    ];
-
-    const application = [
-        { title: '版本与许可证', key: '/setting/version' },
-        { title: '应用访问权限', key: '/setting/product-auth' },
+    const securityapplication = [
+        { title: '操作日志', key: '/setting/log' ,icon:"caozuorizhi"},
+        { title: '备份与恢复', key: '/setting/backups',icon:"beifenyuhuifu" },
+        { title: '版本与许可证', key: '/setting/version' ,icon:"xukezheng"},
+        { title: '应用访问权限', key: '/setting/product-auth' ,icon:"jiaosequanxian"},
     ];
 
     return (
-        <div className="system-home">
-            <div className="system-content">
-                {
-                    version==="cloud"
-                        ? <InfoBox title="权限" data={role} onClick={handleClick} />
-                        : <InfoBox title="用户与权限" data={userAndRole} onClick={handleClick} />
-                }
-                <InfoBox title="消息" data={message} onClick={handleClick} />
-                <InfoBox title="项目配置" data={agent} onClick={handleClick} />
-                <InfoBox title="插件" data={plugin} onClick={handleClick} />
-                <InfoBox title="安全" data={security} onClick={handleClick} />
-                <InfoBox title="应用" data={application} onClick={handleClick} />
+        <PageContent>
+            <div className="system-home">
+                <div className="system-content">
+                    {showUserBox(version==="cloud"?role:userAndRole)}
+
+                    <Row>
+                        <Col span={12}>
+                            <InfoBoxCol12 title="消息" data={message} onClick={handleClick} />
+                        </Col>
+                        <Col span={12}>
+                            <InfoBoxCol12 title="项目配置" data={agent} onClick={handleClick} />
+                        </Col>
+                    </Row>
+
+                    <InfoBox title="安全/应用" data={securityapplication} onClick={handleClick} />
+
+                </div>
             </div>
-        </div>
+        </PageContent>
+
+
     );
 };
 

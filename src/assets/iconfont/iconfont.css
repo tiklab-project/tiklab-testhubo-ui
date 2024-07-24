@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4299819 */
-  src: url('iconfont.woff2?t=1721355485245') format('woff2'),
-       url('iconfont.woff?t=1721355485245') format('woff'),
-       url('iconfont.ttf?t=1721355485245') format('truetype'),
-       url('iconfont.svg?t=1721355485245#iconfont') format('svg');
+  src: url('iconfont.woff2?t=1721824053181') format('woff2'),
+       url('iconfont.woff?t=1721824053181') format('woff'),
+       url('iconfont.ttf?t=1721824053181') format('truetype'),
+       url('iconfont.svg?t=1721824053181#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,34 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-xiaoxitongzhi:before {
+  content: "\e865";
+}
+
+.icon-caozuorizhi:before {
+  content: "\e612";
+}
+
+.icon-beifenyuhuifu:before {
+  content: "\e6c9";
+}
+
+.icon-xiaoxifasong:before {
+  content: "\e6b6";
+}
+
+.icon-yonghumulu:before {
+  content: "\e600";
+}
+
+.icon-bumen:before {
+  content: "\e686";
+}
+
+.icon-yonghuzuzhijiagou:before {
+  content: "\e610";
 }
 
 .icon-shituqiehuan:before {

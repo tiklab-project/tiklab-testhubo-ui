@@ -36,16 +36,16 @@ const TestPlan = (props) => {
             key: "name",
             width: "20%",
             render: (text,record) =>(
-                <span className={"link-text"} onClick={()=>toPlanDetail(record)}>{text}</span>
+                <span className={"link-text text-ellipsis"} onClick={()=>toPlanDetail(record)}>{text}</span>
             )
         },
         {
             title:`计划时间`,
             dataIndex: "planTime",
             key: "planTime",
-            width: "20%",
+            width: "25%",
             render:(text,record)=>(
-                <span>{record.startTime} ~ {record.endTime}</span>
+                <span className={"text-ellipsis"}>{record.startTime} ~ {record.endTime}</span>
             )
         },
         {
@@ -59,7 +59,7 @@ const TestPlan = (props) => {
             title: `最近执行`,
             dataIndex: "recentInstance",
             key: "principal",
-            width: "15%",
+            width: "12%",
             render:(text,record)=>(
                 <PlanInstanceDrawer instance={record?.recentInstance} {...props} />
             )
@@ -68,7 +68,7 @@ const TestPlan = (props) => {
             title: `用例数`,
             dataIndex: "testCaseNum",
             key: "testCaseNum",
-            width: "15%",
+            width: "12%",
             render:(text)=>(
                 <span style={{color:"#3facff"}}>{text}</span>
             )

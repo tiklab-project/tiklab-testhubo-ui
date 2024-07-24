@@ -22,12 +22,13 @@ const HomeNewCreateCaseStatistics = () =>{
 
         initChart();
 
-
+        const handleResize = () => chartInstanceRef.current.resize();
+        window.addEventListener('resize', handleResize);
         return () => {
             if (chartInstanceRef.current) {
                 chartInstanceRef.current.dispose();
             }
-
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 

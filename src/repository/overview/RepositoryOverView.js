@@ -5,6 +5,8 @@ import DynamicWidget from "../../home/DynamicWidget";
 import {useParams} from "react-router";
 import PageContent from "../../common/pageContent/PageContent";
 import {Row,Col} from "antd";
+import ProjectTotalAndStatusStatistics from "./ProjectTotalAndStatusStatistics";
+import ProjectCaseTestStatistics from "./ProjectCaseTestStatistics";
 
 /**
  * 项目 概况
@@ -33,16 +35,16 @@ const RepositoryOverView = (props) => {
             value:total?.planTotal,
         },
         {
-            title:"分组数",
-            value:total?.categoryTotal,
-        },
-        {
-            title:"用例数",
+            title:"测试用例",
             value:total?.caseTotal,
         },
         {
-            title:"成员",
-            value:total?.memberTotal,
+            title:"测试报告",
+            value:total?.instanceTotal,
+        },
+        {
+            title:"分组",
+            value:total?.categoryTotal,
         }
     ]
 
@@ -69,11 +71,15 @@ const RepositoryOverView = (props) => {
                 <div className={" ws-init-content"}>
                     <div className={"wd-total"}>
                         <div className={"title-bold"}> 概要</div>
+                        <Row gutter={30} style={{width:"100%"}}>
+                            {
+                                showDetailView(items)
+                            }
+                        </Row>
                         <div className={"wd-total-box"}>
                             <Row gutter={30} style={{width:"100%"}}>
-                                {
-                                    showDetailView(items)
-                                }
+                                <ProjectTotalAndStatusStatistics />
+                                <ProjectCaseTestStatistics />
                             </Row>
                         </div>
                     </div>

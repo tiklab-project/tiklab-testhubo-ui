@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "35172156",
+      "name": "消息通知2",
+      "font_class": "xiaoxitongzhi",
+      "unicode": "e865",
+      "unicode_decimal": 59493
+    },
+    {
+      "icon_id": "3642924",
+      "name": "操作日志",
+      "font_class": "caozuorizhi",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "16237641",
+      "name": "备份与恢复",
+      "font_class": "beifenyuhuifu",
+      "unicode": "e6c9",
+      "unicode_decimal": 59081
+    },
+    {
+      "icon_id": "26498831",
+      "name": "消息发送",
+      "font_class": "xiaoxifasong",
+      "unicode": "e6b6",
+      "unicode_decimal": 59062
+    },
+    {
+      "icon_id": "1300101",
+      "name": "用户目录",
+      "font_class": "yonghumulu",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "21053809",
+      "name": "部门",
+      "font_class": "bumen",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "22387409",
+      "name": "用户组织架构",
+      "font_class": "yonghuzuzhijiagou",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
       "icon_id": "30202565",
       "name": "视图切换_列表",
       "font_class": "shituqiehuan",

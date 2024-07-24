@@ -7,8 +7,9 @@ const PageContent = (props) =>{
         <Row style={{height:"100%"}}>
             <Col
                 md={{ span: 24, offset: 0 }}
-                xl={{ span: 22, offset: 1 }}
-                xll={{ span: 18, offset: 3 }}
+                lg={{ span: 20, offset: 2 }}
+                xl={{ span: 18, offset: 3 }}
+                xll={{ span: 16, offset: 4 }}
             >
                 {props.children}
             </Col>

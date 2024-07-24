@@ -73,7 +73,7 @@ const TestCaseTable = (props) => {
             title: `模块`,
             dataIndex: ["category","name"],
             key: "category",
-            width:"12%",
+            width:"11%",
             ellipsis: true,
             render: (text, record) => (text||"未设置")
         },
@@ -81,7 +81,7 @@ const TestCaseTable = (props) => {
             title: `负责人`,
             dataIndex:  ["director","name"],
             key: "user",
-            width:"12%",
+            width:"11%",
             ellipsis: true,
             render: (text, record) => (showCreateUser(record.director))
         },
@@ -89,7 +89,7 @@ const TestCaseTable = (props) => {
             title: `创建时间`,
             dataIndex: 'createTime',
             key: "createTime",
-            width:"10%",
+            width:"11%",
         },
         {
             title: '操作',
@@ -292,7 +292,7 @@ const TestCaseTable = (props) => {
                         menuItems={items}
                         selectFn={selectKeyFun}
                         selected={testType}
-                        style={{width: "400px"}}
+                        style={{width: "330px"}}
                     />
 
                     <Space>

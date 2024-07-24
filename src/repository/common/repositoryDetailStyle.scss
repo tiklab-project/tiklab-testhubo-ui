@@ -85,6 +85,13 @@
         justify-content: space-between;
         padding: 20px 0;
         background: #fff;
+
+
+        .case-test-item{
+            border-radius: 5px;
+            height: 470px;
+            background: #f8f8f8;
+        }
     }
     .wd-total{
         background: #fff;
@@ -92,11 +99,12 @@
 
 
 
-        &-item{
+        .wd-total-item{
             //width: 260px;
             text-align: center;
             background: var(--pi-bg-grey-100);
             border-radius: 5px;
+            padding: 5px 0;
 
             &-title{
                 padding: 5px;

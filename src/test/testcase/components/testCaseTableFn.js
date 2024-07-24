@@ -196,7 +196,7 @@ export const showCreateUser = (director) =>{
         return <div className={"ws-user-item"}>
             <Space>
                 <Avatar style={{width:"24px",height:"24px",lineHeight:"24px",verticalAlign: 'middle',}}>{director?.nickname[0]}</Avatar>
-                <span >{director?.nickname} </span>
+                <span className={"text-ellipsis"}>{director?.nickname} </span>
             </Space>
         </div>
     }else {

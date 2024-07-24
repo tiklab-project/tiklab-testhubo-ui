@@ -7,7 +7,7 @@
     .home-content-box{
         /*width: 800px;*/
         margin: 0 auto;
-        width: 1040px;
+        max-width: 1040px;
         padding: 20px ;
 
         .ant-list-item-meta{
@@ -52,6 +52,14 @@
 
         }
 
+
+        .statistics-status-select{
+            position: absolute;
+            right: 10px;
+            z-index: 10;
+            background: #fff;
+            border-radius: 5px;
+        }
 
         .case-test-item{
             border-radius: 5px;
