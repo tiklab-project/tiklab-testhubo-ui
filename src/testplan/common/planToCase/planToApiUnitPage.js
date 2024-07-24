@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import ApiUnitEditPageCommon from "../../../test/api/http/unit/components/apiUnitEditPageCommon";
 import CaseBread from "../../../common/CaseBread";
+import PageContent from "../../../common/pageContent/PageContent";
 
 
 const PlanToApiUnitPage = (props) =>{
@@ -17,8 +18,7 @@ const PlanToApiUnitPage = (props) =>{
     },[apiUnitId])
 
     return(
-        <>
-
+        <PageContent>
             <div className={"content-box-center"}>
                 <CaseBread
                     caseType={caseInfo?.caseType}
@@ -27,7 +27,7 @@ const PlanToApiUnitPage = (props) =>{
                 />
                 <ApiUnitEditPageCommon {...props} planType={true} apiUnitId={apiUnitId}/>
             </div>
-        </>
+        </PageContent>
     )
 }
 

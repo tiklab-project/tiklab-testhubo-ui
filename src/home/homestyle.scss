@@ -7,7 +7,7 @@
     .home-content-box{
         /*width: 800px;*/
         margin: 0 auto;
-        width: 1080px;
+        width: 1040px;
         padding: 20px ;
 
         .ant-list-item-meta{
@@ -15,15 +15,15 @@
         }
 
         .home-box-item{
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-radius: var(--pi-border-radius);
             background: var(--pi-bg-color);
             overflow: hidden;
         }
 
         .home-item-title-box{
-            padding: 10px;
-            margin: 0 0 5px;
+            //padding: 10px;
+            margin: 0 0 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -55,9 +55,8 @@
 
         .case-test-item{
             border-radius: 5px;
-            border: 1px solid #e4e4e4;
-            box-shadow: var(--pi-box-shadow);
             height: 470px;
+            background: #f8f8f8;
         }
 
         .home-statistics-new-create-box{
@@ -75,15 +74,13 @@
     margin: 0 0 15px 0;
 
     .home-recent-item{
-        height: 95px;
-        width: 235px;
-        border-radius: var(--pi-border-radius) ;
-        margin: 0 3px 0 0;
+        height: 110px;
+        width: 238px;
+        border-radius: var(--pi-border-radius);
         background: var(--pi-bg-grey-100);
-        padding: 10px;
+        padding: 20px;
         cursor: pointer;
-        border-bottom: 2px solid #ffffff00;
-
+        border-bottom: 2px solid rgba(255, 255, 255, 0);
 
         &-left{
             display: flex;
@@ -101,7 +98,7 @@
 
 
         &-num{
-            padding: 15px 0 0 0;
+            padding: 20px 0 0 0;
             display: flex;
             align-items: center;
             font-size: 12px;

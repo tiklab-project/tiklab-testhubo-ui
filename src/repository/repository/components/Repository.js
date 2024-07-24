@@ -111,26 +111,10 @@ const Repository = (props)=> {
         <div style={{"height":"100%",overflow:"auto"}}>
             <div className='ws-layout'>
                 <div className={"display-flex-between"}>
-                    <div>
-                        <span className={"ws-detail-title"}>
-                           <div
-                               style={{
-                                   display:"flex",
-                                   alignItems:"center",
-                                   justifyContent:"space-between",
-                                   width: 55
-                               }}
-                           >
-                                <svg className={"icon-m"} aria-hidden="true" >
-                                    <use xlinkHref= {`#icon-home`} />
-                                </svg>
-                                <span style={{
-                                    fontSize:"16px",
-                                    fontWeight:"bold",
-                                }}>项目</span>
-                           </div>
-                        </span>
-                    </div>
+                    <span style={{
+                        fontSize:"16px",
+                        fontWeight:"bold",
+                    }}>项目</span>
                     <div>
                         <IconBtn
                             className="important-btn"

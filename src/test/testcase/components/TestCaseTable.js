@@ -16,6 +16,7 @@ import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {rowStyle, showCreateUser, ShowDeleteView, ShowQuickExe, SwitchCaseTypeView} from "./testCaseTableFn";
 import IconCommon from "../../../common/IconCommon";
 import {useHistory} from "react-router";
+import PageContent from "../../../common/pageContent/PageContent";
 
 
 const TestCaseTable = (props) => {
@@ -39,7 +40,8 @@ const TestCaseTable = (props) => {
             title:`名称`,
             dataIndex: 'name',
             key: "name",
-            width:"25%",
+            width:"28%",
+            ellipsis: true,
             render: (text,record) =>(
                 <Space className={"case-table-name"}>
                     <>{showCaseTypeView(record.caseType)}</>
@@ -71,13 +73,16 @@ const TestCaseTable = (props) => {
             title: `模块`,
             dataIndex: ["category","name"],
             key: "category",
-            width:"15%",
+            width:"12%",
+            ellipsis: true,
+            render: (text, record) => (text||"未设置")
         },
         {
             title: `负责人`,
             dataIndex:  ["director","name"],
             key: "user",
-            width:"15%",
+            width:"12%",
+            ellipsis: true,
             render: (text, record) => (showCreateUser(record.director))
         },
         {
@@ -223,23 +228,38 @@ const TestCaseTable = (props) => {
 
     const items = [
         {
-            title: `所有 (${diffTypeCaseNum?.all||0})`,
+            title: <span>
+                <span>所有 </span>
+                <span className={"font-12"}>{diffTypeCaseNum?.all||0}</span>
+            </span>,
             key: `all`,
         },
         {
-            title: `功能 (${diffTypeCaseNum?.function||0})`,
+            title: <span>
+                <span>功能 </span>
+                <span className={"font-12"}>{diffTypeCaseNum?.function||0}</span>
+            </span>,
             key: `function`,
         },
         {
-            title: `接口 (${diffTypeCaseNum?.api||0})`,
+            title: <span>
+                <span>接口 </span>
+                <span className={"font-12"}>{diffTypeCaseNum?.api||0}</span>
+            </span>,
             key: `api`,
         },
         {
-            title: `UI (${diffTypeCaseNum?.ui||0})`,
+            title: <span>
+                <span>UI </span>
+                <span className={"font-12"}>{diffTypeCaseNum?.ui||0}</span>
+            </span>,
             key: `ui`,
         },
         {
-            title: `性能 (${diffTypeCaseNum?.perform||0})`,
+            title: <span>
+                <span>性能 </span>
+                <span className={"font-12"}>{diffTypeCaseNum?.perform||0}</span>
+            </span>,
             key: `perform`,
         }
     ];
@@ -254,7 +274,8 @@ const TestCaseTable = (props) => {
     }
 
     return(
-        <><div className={"content-box-center"} >
+        <PageContent>
+            <div className={"content-box-center"} >
                 <div  className={"header-box-space-between"} >
                     <div className={'header-box-title'}>测试用例</div>
                     <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
@@ -302,7 +323,7 @@ const TestCaseTable = (props) => {
                             prefix={<SearchOutlined />}
                         />
 
-                        <Tooltip title={"切换表格视图"} placement={"top"}>
+                        <Tooltip title={"切换列表视图"} placement={"top"}>
                             <div>
                                 <IconCommon
                                     className={"icon-m edit-icon"}
@@ -339,7 +360,7 @@ const TestCaseTable = (props) => {
                     />
                 </div>
             </div>
-        </>
+        </PageContent>
     )
 }
 

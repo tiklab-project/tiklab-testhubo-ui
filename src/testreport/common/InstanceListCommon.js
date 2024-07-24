@@ -74,7 +74,7 @@ const InstanceListCommon = (props) =>{
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            width: "10%",
+            width: "5%",
             render: (text, record) => (<ShowDeleteView record={record} deleteFn={()=>deleteFn(record)} />)
         },
     ]

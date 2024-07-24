@@ -16,6 +16,7 @@ import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import ExtensionCommon from "../../../common/ExtensionCommon";
 import {getVersionInfo} from "thoughtware-core-ui";
 import {rowStyle, showCreateUser, ShowDeleteView} from "../../../test/testcase/components/testCaseTableFn";
+import PageContent from "../../../common/pageContent/PageContent";
 
 const TestPlanBindCaseList = (props) =>{
     const {findBindTestCasePage,testPlanDetailList,deleteTestPlanDetail,findTestCasePage,getTestTypeNum} = testPlanDetailStore;
@@ -100,7 +101,7 @@ const TestPlanBindCaseList = (props) =>{
     useEffect(async ()=>{
         let info = await getTestTypeNum(testPlanId)
         setDiffTestTypeNum(info)
-    },[])
+    },[testPlanDetailList.length])
 
     const findPage = (params) =>{
         const param = {
@@ -212,15 +213,24 @@ const TestPlanBindCaseList = (props) =>{
 
     const autoTypeMenu = [
         {
-            title: `所有 (${diffTestTypeNum?.all||0})`,
+            title: <span>
+                <span>所有 </span>
+                <span className={"font-12"}>{diffTestTypeNum?.all||0}</span>
+            </span>,
             key: `all`,
         },
         {
-            title: `接口 (${diffTestTypeNum?.api||0})`,
+            title: <span>
+                <span>接口 </span>
+                <span className={"font-12"}>{diffTestTypeNum?.api||0}</span>
+            </span>,
             key: `api`,
         },
         {
-            title: `UI (${diffTestTypeNum?.ui||0})`,
+            title: <span>
+                <span>UI </span>
+                <span className={"font-12"}>{diffTestTypeNum?.ui||0}</span>
+            </span>,
             key: `ui`,
         },
     ];
@@ -228,11 +238,17 @@ const TestPlanBindCaseList = (props) =>{
 
     const functionTypeMenu=[
         {
-            title: `所有 (${diffTestTypeNum?.all||0})`,
+            title: <span>
+                <span>所有 </span>
+                <span className={"font-12"}>{diffTestTypeNum?.all||0}</span>
+            </span>,
             key: `all`,
         },
         {
-            title: `功能 (${diffTestTypeNum?.function||0})`,
+            title: <span>
+                <span>功能 </span>
+                <span className={"font-12"}>{diffTestTypeNum?.function||0}</span>
+            </span>,
             key: `function`,
         },
     ]
@@ -262,71 +278,73 @@ const TestPlanBindCaseList = (props) =>{
 
 
     return(
-        <div className={"content-box-center"}>
-            <div className='header-box-space-between'>
-                <div className={'header-box-title'}>测试用例</div>
-                <Space>
-                    {
-                        testPlanType==="auto"
+        <PageContent>
+            <div className={"content-box-center"}>
+                <div className='header-box-space-between'>
+                    <div className={'header-box-title'}>测试用例</div>
+                    <Space>
+                        {
+                            testPlanType==="auto"
                             &&<>
                                 <TestPlanENVModal {...props}/>
                                 <TestPlanExecuteTestDrawer testPlanId={testPlanId} />
                             </>
-                    }
-                    <TestPlanBindCase
-                        testPlanId={testPlanId}
-                        findBindCasePage={findPage}
-                    />
-                </Space>
-            </div>
-            <div style={{margin:"10px 0",height:"100%"}}>
-                <div className='display-flex-between'>
-                    <MenuSelect
-                        menuItems={testPlanType==="auto"?autoTypeMenu:functionTypeMenu}
-                        selectFn={selectKeyFun}
-                        selected={selectItem}
-                        style={{width: `${testPlanType==="auto"?"240px":"160px"}`}}
-                    />
-
-                    <Space>
-                        {
-                            selectItem==="api"||selectItem==="ui"
-                                ?<CaseTypeSelect findPage={caseSelectPage} testType={selectItem}/>
-                                :null
                         }
-                        <Input
-                            placeholder={`搜索用例`}
-                            onPressEnter={onSearch}
-                            className='search-input-common'
-                            prefix={<SearchOutlined />}
+                        <TestPlanBindCase
+                            testPlanId={testPlanId}
+                            findBindCasePage={findPage}
                         />
                     </Space>
                 </div>
-                <div className={"table-list-box"}>
-                    <Table
-                        className="tablelist"
-                        columns={columns}
-                        dataSource={testPlanDetailList}
-                        rowKey={record => record.id}
-                        pagination={false}
-                        loading={tableLoading}
-                        onRow={(record) => ({style: rowStyle(record.caseType)})}
-                        locale={{
-                            emptyText: <Empty
-                                imageStyle={{height: 120}}
-                                description={<span>暂无用例</span>}
-                                image={emptyImg}
-                            />,
-                        }}
-                    />
-                    <PaginationCommon
-                        currentPage={currentPage}
-                        totalPage={totalPage}
-                        changePage={onTableChange}
-                    />
+                <div style={{margin:"10px 0",height:"100%"}}>
+                    <div className='display-flex-between'>
+                        <MenuSelect
+                            menuItems={testPlanType==="auto"?autoTypeMenu:functionTypeMenu}
+                            selectFn={selectKeyFun}
+                            selected={selectItem}
+                            style={{width: `${testPlanType==="auto"?"240px":"160px"}`}}
+                        />
+
+                        <Space>
+                            {
+                                selectItem==="api"||selectItem==="ui"
+                                    ?<CaseTypeSelect findPage={caseSelectPage} testType={selectItem}/>
+                                    :null
+                            }
+                            <Input
+                                placeholder={`搜索用例`}
+                                onPressEnter={onSearch}
+                                className='search-input-common'
+                                prefix={<SearchOutlined />}
+                            />
+                        </Space>
+                    </div>
+                    <div className={"table-list-box"}>
+                        <Table
+                            className="tablelist"
+                            columns={columns}
+                            dataSource={testPlanDetailList}
+                            rowKey={record => record.id}
+                            pagination={false}
+                            loading={tableLoading}
+                            onRow={(record) => ({style: rowStyle(record.caseType)})}
+                            locale={{
+                                emptyText: <Empty
+                                    imageStyle={{height: 120}}
+                                    description={<span>暂无用例</span>}
+                                    image={emptyImg}
+                                />,
+                            }}
+                        />
+                        <PaginationCommon
+                            currentPage={currentPage}
+                            totalPage={totalPage}
+                            changePage={onTableChange}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
+        </PageContent>
     )
 }
 

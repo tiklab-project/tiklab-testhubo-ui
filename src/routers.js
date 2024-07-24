@@ -57,9 +57,7 @@ let PlanToApiUnitPage = LazyComponent(() => import("./testplan/common/planToCase
 let PlanToApiScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToApiScenePage"));
 let PlanToApiPerformPage = LazyComponent(() => import("./testplan/common/planToCase/planToApiPerformPage"));
 let PlanToWebScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToWebScenePage"));
-let planToWebPerformPage = LazyComponent(() => import("./testplan/common/planToCase/planToWebPerformPage"));
 let PlanToFuncUnitPage = LazyComponent(() => import("./testplan/common/planToCase/planToFuncUnitPage"));
-let PlanToAppPerformPage = LazyComponent(() => import("./testplan/common/planToCase/planToAppPerformPage"));
 let PlanToAppScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToAppScenePage"));
 let PlanSetting = LazyComponent(() => import( "./testplan/setting/PlanSetting"));
 let QuartzPlanList = LazyComponent(() => import( "./testplan/quartz/components/QuartzPlanList"));
@@ -385,21 +383,13 @@ const routers =  [
                         exact: true,
                         component: PlanToWebScenePage,
                     },
-                    {
-                        path: "/plan/plan-to-web-perform",
-                        exact: true,
-                        component: planToWebPerformPage,
-                    },
+
                     {
                         path: "/plan/plan-to-app-scene",
                         exact: true,
                         component: PlanToAppScenePage,
                     },
-                    {
-                        path: "/plan/plan-to-app-perform",
-                        exact: true,
-                        component: PlanToAppPerformPage,
-                    },
+
                     {
                         path: "/plan/plan-to-function",
                         exact: true,

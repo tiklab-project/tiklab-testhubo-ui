@@ -4,6 +4,7 @@ import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {inject, observer} from "mobx-react";
 import moment from "moment";
 import DeletePlanModal from "./DeletePlanModal";
+import PageContent from "../../common/pageContent/PageContent";
 
 const { Panel } = Collapse;
 const {Option} = Select;
@@ -64,7 +65,8 @@ const PlanSetting = (props) =>{
     }
 
     return(
-        <div className={"content-box-center"}>
+        <PageContent>
+            <div className={"content-box-center"}>
             <div  className={"header-box-space-between"}>
                 <div className={'header-box-title'}>计划信息</div>
             </div>
@@ -144,6 +146,7 @@ const PlanSetting = (props) =>{
                 </Panel>
             </Collapse>
         </div>
+        </PageContent>
     )
 }
 

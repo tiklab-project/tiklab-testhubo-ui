@@ -8,6 +8,7 @@ import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiUnitExecuteTest from "./apiUnitExecuteTest";
 import {Space} from "antd";
 import ToggleCase from "../../../../testcase/components/ToggleCase";
+import PageContent from "../../../../../common/pageContent/PageContent";
 
 
 const ApiUnitContent = (props) =>{
@@ -25,26 +26,29 @@ const ApiUnitContent = (props) =>{
     },[id,location.pathname])
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread
-                toggleCase={<ToggleCase  caseId={id}/>}
-                breadItem={[testCaseInfo?.name]}
-                router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
-                right={
-                    <Space>
-                        <ApiEnvDropDownSelect />
-                        <IconBtn
-                            className="pi-icon-btn-grey"
-                            icon={"lishi"}
-                            onClick={()=> history.push("/repository/api-unit-instance")}
-                            name={"历史"}
-                        />
-                        <ApiUnitExecuteTest apiUnitId={id}/>
-                    </Space>
-                }
-            />
-            <ApiUnitEditPageCommon apiUnitId={id}/>
-        </div>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <CaseBread
+                    toggleCase={<ToggleCase  caseId={id}/>}
+                    breadItem={[testCaseInfo?.name]}
+                    router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
+                    right={
+                        <Space>
+                            <ApiEnvDropDownSelect />
+                            <IconBtn
+                                className="pi-icon-btn-grey"
+                                icon={"lishi"}
+                                onClick={()=> history.push("/repository/api-unit-instance")}
+                                name={"历史"}
+                            />
+                            <ApiUnitExecuteTest apiUnitId={id}/>
+                        </Space>
+                    }
+                />
+                <ApiUnitEditPageCommon apiUnitId={id}/>
+            </div>
+        </PageContent>
+
     )
 }
 

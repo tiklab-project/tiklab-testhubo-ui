@@ -1,17 +1,20 @@
 import React from "react";
 import TestPlanBindCaseInstanceTable from "./testPlanBindCaseInstanceTable";
 import CaseBread from "../../../common/CaseBread";
+import PageContent from "../../../common/pageContent/PageContent";
 
 const TestPlanBindCaseInstanceList = (props) =>{
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread
-                router={"/plan/instance"}
-                breadItem={["测试历史","历史详情"]}
-            />
-            <TestPlanBindCaseInstanceTable {...props} />
-        </div>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <CaseBread
+                    router={"/plan/instance"}
+                    breadItem={["测试历史","历史详情"]}
+                />
+                <TestPlanBindCaseInstanceTable {...props} />
+            </div>
+        </PageContent>
     )
 }
 

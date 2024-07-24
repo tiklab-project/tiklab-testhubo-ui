@@ -3,6 +3,8 @@ import React, { useEffect, useState} from "react";
 import { observer, inject } from "mobx-react";
 import DynamicWidget from "../../home/DynamicWidget";
 import {useParams} from "react-router";
+import PageContent from "../../common/pageContent/PageContent";
+import {Row,Col} from "antd";
 
 /**
  * 项目 概况
@@ -50,33 +52,39 @@ const RepositoryOverView = (props) => {
     const showDetailView = (data) =>{
         return data.map((item,index)=>{
             return(
-                <div className={"wd-total-item"} key={index}>
-                    <div className={"wd-total-item-title"}>{item.value}</div>
-                    <div className={"wd-total-item-name"}>{item.title}</div>
-                </div>
+                <Col span={6}>
+                    <div className={"wd-total-item"} key={index}>
+                        <div className={"wd-total-item-title"}>{item.value}</div>
+                        <div className={"wd-total-item-name"}>{item.title}</div>
+                    </div>
+                </Col>
             )
         })
     }
 
 
     return (
-        <div className={"ws-init-box"}>
-            <div className={" ws-init-content"}>
-                <div className={"wd-total"}>
-                    <div className={"title-bold"}> 概要</div>
-                    <div className={"wd-total-box"}>
-                        {
-                            showDetailView(items)
-                        }
+        <PageContent>
+            <div className={"ws-init-box"}>
+                <div className={" ws-init-content"}>
+                    <div className={"wd-total"}>
+                        <div className={"title-bold"}> 概要</div>
+                        <div className={"wd-total-box"}>
+                            <Row gutter={30} style={{width:"100%"}}>
+                                {
+                                    showDetailView(items)
+                                }
+                            </Row>
+                        </div>
+                    </div>
+                    <div className={"wd-dynamic-box"}>
+                        <div className={"title-bold"} style={{margin: "0 0 10px 0"}}>最近动态</div>
+
+                        <DynamicWidget screen={{"repositoryId": repositoryId}}/>
                     </div>
                 </div>
-                <div className={"wd-dynamic-box"}>
-                    <div className={"title-bold"} style={{margin: "0 0 10px 0"}}>最近动态</div>
-
-                    <DynamicWidget screen={{"repositoryId": repositoryId}}/>
-                </div>
             </div>
-        </div>
+        </PageContent>
     )
 
 }

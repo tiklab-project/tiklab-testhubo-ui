@@ -14,6 +14,7 @@ import PaginationCommon from "../../../common/pagination/Page";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import HideDelete from "../../../common/hideDelete/HideDelete";
 import PlanInstanceDrawer from "../../instance/components/PlanInstanceDrawer";
+import PageContent from "../../../common/pageContent/PageContent";
 
 
 const TestPlan = (props) => {
@@ -225,57 +226,59 @@ const TestPlan = (props) => {
     ];
 
     return(
-        <div className={"content-box-center"}>
-            <div className='header-box-space-between'>
-                <div className={'header-box-title'}>测试计划</div>
-                <TestPlanEdit
-                    name={`添加计划`}
-                    findPage={findPage}
-                    type={"add"}
-                />
+        <PageContent>
+            <div className={"content-box-center"}>
+                <div className='header-box-space-between'>
+                    <div className={'header-box-title'}>测试计划</div>
+                    <TestPlanEdit
+                        name={`添加计划`}
+                        findPage={findPage}
+                        type={"add"}
+                    />
+                </div>
+
+                <div className={"display-flex-between"} style={{margin:"0 0 10px 0"}}>
+                    <MenuSelect
+                        menuItems={items}
+                        selectFn={selectFn}
+                        selected={selectItem}
+                    />
+
+                    <Input
+                        placeholder={`搜索计划名`}
+                        onPressEnter={onSearch}
+                        className='search-input-common'
+                        prefix={<SearchOutlined />}
+                    />
+                </div>
+
+
+                <div className={"table-list-box"}>
+                    <Table
+                        className="tablelist"
+                        columns={columns}
+                        dataSource={testPlanList}
+                        rowKey={record => record.id}
+                        pagination={false}
+                        loading={tableLoading}
+                        locale={{
+                            emptyText: <Empty
+                                imageStyle={{
+                                    height: 120,
+                                }}
+                                description={<span>暂无计划</span>}
+                                image={emptyImg}
+                            />,
+                        }}
+                    />
+                    <PaginationCommon
+                        currentPage={currentPage}
+                        totalPage={totalPage}
+                        changePage={onTableChange}
+                    />
+                </div>
             </div>
-
-            <div className={"display-flex-between"} style={{margin:"0 0 10px 0"}}>
-                <MenuSelect
-                    menuItems={items}
-                    selectFn={selectFn}
-                    selected={selectItem}
-                />
-
-                <Input
-                    placeholder={`搜索计划名`}
-                    onPressEnter={onSearch}
-                    className='search-input-common'
-                    prefix={<SearchOutlined />}
-                />
-            </div>
-
-
-            <div className={"table-list-box"}>
-                <Table
-                    className="tablelist"
-                    columns={columns}
-                    dataSource={testPlanList}
-                    rowKey={record => record.id}
-                    pagination={false}
-                    loading={tableLoading}
-                    locale={{
-                        emptyText: <Empty
-                            imageStyle={{
-                                height: 120,
-                            }}
-                            description={<span>暂无计划</span>}
-                            image={emptyImg}
-                        />,
-                    }}
-                />
-                <PaginationCommon
-                    currentPage={currentPage}
-                    totalPage={totalPage}
-                    changePage={onTableChange}
-                />
-            </div>
-        </div>
+        </PageContent>
     )
 }
 

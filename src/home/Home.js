@@ -1,8 +1,7 @@
 import React from 'react';
 import './homestyle.scss';
 import RepositoryRecentHome from "./RepositoryRecentHome";
-import TestCaseRecentHome from "./testCaseRecentStore/TestCaseRecentHome";
-import {Space,Row} from "antd";
+import {Row} from "antd";
 import TotalAndStatusStatistics from "./homestatistics/TotalAndStatusStatistics";
 import HomeNewCreateCaseStatistics from "./homestatistics/HomeNewCreateCaseStatistics";
 

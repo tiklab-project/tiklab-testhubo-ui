@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import FunctionDetail from "../../../test/function/components/FunctionDetail";
 import CaseBread from "../../../common/CaseBread";
+import PageContent from "../../../common/pageContent/PageContent";
 
 const PlanToFuncUnitPage = (props) =>{
     const {funcUnitStore} = props;
@@ -17,16 +18,18 @@ const PlanToFuncUnitPage = (props) =>{
     },[])
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread
-                caseType={caseInfo?.caseType}
-                style={{borderBottom:"none"}}
-                router={"/plan/case"}
-                breadItem={[caseInfo?.name]}
-            />
-            <FunctionDetail functionId={functionId}/>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <CaseBread
+                    caseType={caseInfo?.caseType}
+                    style={{borderBottom:"none"}}
+                    router={"/plan/case"}
+                    breadItem={[caseInfo?.name]}
+                />
+                <FunctionDetail functionId={functionId}/>
+            </div>
+        </PageContent>
 
-        </div>
     )
 }
 

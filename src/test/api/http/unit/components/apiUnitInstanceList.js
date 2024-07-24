@@ -4,6 +4,7 @@ import CaseBread from "../../../../../common/CaseBread";
 import InstanceListCommon from "../../../../../testreport/common/InstanceListCommon";
 import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
 import {findCaseInstancePage} from "../../../../../testreport/common/instanceCommonFn";
+import PageContent from "../../../../../common/pageContent/PageContent";
 
 const ApiUnitInstanceList = (props) =>{
     const {apiUnitStore} = props
@@ -16,13 +17,15 @@ const ApiUnitInstanceList = (props) =>{
     },[])
 
     return (
-        <div className={"content-box-center"}>
-            <CaseBread
-                breadItem={[testCaseInfo?.name, "历史"]}
-                router={`/repository/api-unit/${apiUnitId}`}
-            />
-            <InstanceListCommon belongId={apiUnitId} type={CASE_TYPE.API_UNIT}/>
-        </div>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <CaseBread
+                    breadItem={[testCaseInfo?.name, "历史"]}
+                    router={`/repository/api-unit/${apiUnitId}`}
+                />
+                <InstanceListCommon belongId={apiUnitId} type={CASE_TYPE.API_UNIT}/>
+            </div>
+        </PageContent>
     )
 }
 

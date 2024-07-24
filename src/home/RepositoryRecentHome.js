@@ -57,7 +57,7 @@ const RepositoryRecentHome = (props) =>{
                 <div key={item.id} className={"home-recent-item"} onClick={()=>toDetail(item.id)}>
                     <div className={"home-recent-item-left"}>
                         <RepositoryIcon iconUrl={item.iconUrl} className={"repository-icon"}/>
-                        <div className={"home-recent-item-left-name"}>{item.name}</div>
+                        <div className={"home-recent-item-left-name text-ellipsis"}>{item.name}</div>
                     </div>
                     <div style={{display:"flex","justifyContent":"space-between"}}>
                         <div className={"home-recent-item-num"}>

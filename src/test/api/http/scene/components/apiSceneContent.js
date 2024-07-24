@@ -7,6 +7,7 @@ import ApiEnvDropDownSelect from "../../../../../support/environment/components/
 import ApiExecuteTestPage from "./ApiExecuteTestPage";
 import {Space} from "antd";
 import ToggleCase from "../../../../testcase/components/ToggleCase";
+import PageContent from "../../../../../common/pageContent/PageContent";
 
 
 const ApiSceneContent = (props) => {
@@ -23,21 +24,23 @@ const ApiSceneContent = (props) => {
     },[apiSceneId])
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread
-                breadItem={[testCaseInfo?.name]}
-                router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
-                style={{borderBottom:"none"}}
-                toggleCase={<ToggleCase  caseId={apiSceneId}/>}
-                right={
-                    <Space>
-                        <ApiEnvDropDownSelect />
-                        <ApiExecuteTestPage apiSceneId={apiSceneId} stepNum={apiSceneInfo?.stepNum||0}/>
-                    </Space>
-                }
-            />
-            <ApiSceneDetail apiSceneId={apiSceneId}/>
-        </div>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <CaseBread
+                    breadItem={[testCaseInfo?.name]}
+                    router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
+                    style={{borderBottom:"none"}}
+                    toggleCase={<ToggleCase  caseId={apiSceneId}/>}
+                    right={
+                        <Space>
+                            <ApiEnvDropDownSelect />
+                            <ApiExecuteTestPage apiSceneId={apiSceneId} stepNum={apiSceneInfo?.stepNum||0}/>
+                        </Space>
+                    }
+                />
+                <ApiSceneDetail apiSceneId={apiSceneId}/>
+            </div>
+        </PageContent>
     )
 
 

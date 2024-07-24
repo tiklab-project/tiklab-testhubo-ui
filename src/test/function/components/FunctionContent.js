@@ -5,6 +5,7 @@ import {inject, observer} from "mobx-react";
 import CaseBread from "../../../common/CaseBread";
 import "./functionStyle.scss"
 import ToggleCase from "../../testcase/components/ToggleCase";
+import PageContent from "../../../common/pageContent/PageContent";
 
 
 const FunctionContent = (props) =>{
@@ -22,16 +23,17 @@ const FunctionContent = (props) =>{
 
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread
-                router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
-                breadItem={[testCaseInfo?.name]}
-                toggleCase={<ToggleCase caseId={functionId}/>}
-                style={{borderBottom:"none"}}
-            />
-            <FunctionDetail functionId={functionId} />
-
-        </div>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <CaseBread
+                    router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
+                    breadItem={[testCaseInfo?.name]}
+                    toggleCase={<ToggleCase caseId={functionId}/>}
+                    style={{borderBottom:"none"}}
+                />
+                <FunctionDetail functionId={functionId} />
+            </div>
+        </PageContent>
 
 
     )

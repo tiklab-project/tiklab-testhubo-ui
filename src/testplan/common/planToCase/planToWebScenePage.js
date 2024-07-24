@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import WebSceneDetail from "../../../test/web/scene/components/webSceneDetail";
 import CaseBread from "../../../common/CaseBread";
+import PageContent from "../../../common/pageContent/PageContent";
 
 const PlanToWebScenePage = (props) =>{
     const {webSceneStore} = props;
@@ -17,15 +18,18 @@ const PlanToWebScenePage = (props) =>{
     },[])
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread
-                caseType={caseInfo?.caseType}
-                style={{borderBottom:"none"}}
-                router={"/plan/case"}
-                breadItem={[caseInfo?.name]}
-            />
-            <WebSceneDetail planType={true} webSceneId={webSceneId}/>
-        </div>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <CaseBread
+                    caseType={caseInfo?.caseType}
+                    style={{borderBottom:"none"}}
+                    router={"/plan/case"}
+                    breadItem={[caseInfo?.name]}
+                />
+                <WebSceneDetail planType={true} webSceneId={webSceneId}/>
+            </div>
+        </PageContent>
+
     )
 }
 

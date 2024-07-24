@@ -8,6 +8,7 @@ import ApiPerfExecuteTestPage from "./ApiPerfExecuteTestPage";
 import {Select, Space} from "antd";
 import ToggleCase from "../../../../testcase/components/ToggleCase";
 import agentConfigStore from "../../../../../support/agent/store/AgentConfigStore";
+import PageContent from "../../../../../common/pageContent/PageContent";
 
 const {Option} = Select;
 
@@ -47,37 +48,39 @@ const ApiPerfContent = (props) => {
     }
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread
-                router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
-                style={{borderBottom:"none"}}
-                breadItem={[testCaseInfo?.name]}
-                toggleCase={<ToggleCase  caseId={apiPerfId}/>}
-                right={
-                    <Space>
-                        <ApiEnvDropDownSelect />
-                        <Select
-                            className={"api-env-select-box"}
-                            onSelect={changeAgent}
-                            value={agentId||"agent-default_localhost"}
-                            bordered={false}
-                        >
-                            {
-                                agentConfigList.map(item=>{
-                                    return<Option key={item.id} value={item.id}>{
-                                        item.id==="agent-default_localhost"
-                                            ?"默认Agent"
-                                            :item.name
-                                    }</Option>
-                                })
-                            }
-                        </Select>
-                        <ApiPerfExecuteTestPage apiPerfId={apiPerfId}/>
-                    </Space>
-                }
-            />
-            <ApiPerformDetail apiPerfId={apiPerfId}/>
-        </div>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <CaseBread
+                    router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
+                    style={{borderBottom:"none"}}
+                    breadItem={[testCaseInfo?.name]}
+                    toggleCase={<ToggleCase  caseId={apiPerfId}/>}
+                    right={
+                        <Space>
+                            <ApiEnvDropDownSelect />
+                            <Select
+                                className={"api-env-select-box"}
+                                onSelect={changeAgent}
+                                value={agentId||"agent-default_localhost"}
+                                bordered={false}
+                            >
+                                {
+                                    agentConfigList.map(item=>{
+                                        return<Option key={item.id} value={item.id}>{
+                                            item.id==="agent-default_localhost"
+                                                ?"默认Agent"
+                                                :item.name
+                                        }</Option>
+                                    })
+                                }
+                            </Select>
+                            <ApiPerfExecuteTestPage apiPerfId={apiPerfId}/>
+                        </Space>
+                    }
+                />
+                <ApiPerformDetail apiPerfId={apiPerfId}/>
+            </div>
+        </PageContent>
     )
 }
 

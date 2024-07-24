@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import ApiSceneDetail from "../../../test/api/http/scene/components/ApiSceneDetail";
 import CaseBread from "../../../common/CaseBread";
+import PageContent from "../../../common/pageContent/PageContent";
 
 const PlanToApiScenePage = (props) =>{
     const {apiSceneStore} = props;
@@ -17,15 +18,18 @@ const PlanToApiScenePage = (props) =>{
     },[])
 
     return(
-        <div className={"content-box-center"}>
-            <CaseBread
-                style={{borderBottom:"none"}}
-                caseType={caseInfo?.caseType}
-                router={"/plan/case"}
-                breadItem={[caseInfo?.name]}
-            />
-            <ApiSceneDetail planType={true} apiSceneId={apiSceneId}/>
-        </div>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <CaseBread
+                    style={{borderBottom:"none"}}
+                    caseType={caseInfo?.caseType}
+                    router={"/plan/case"}
+                    breadItem={[caseInfo?.name]}
+                />
+                <ApiSceneDetail planType={true} apiSceneId={apiSceneId}/>
+            </div>
+        </PageContent>
+
     )
 }
 
