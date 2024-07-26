@@ -10,16 +10,17 @@ const SystemContent = (props) =>{
             id: 'accountMember',
             children: [
                 {
-                    title: '部门',
-                    id: '/setting/orga',
-                    icon: 'modular',
-                    purviewCode: "orga",
-                },{
                     title: '用户',
                     id: '/setting/user',
                     icon: 'modular',
                     purviewCode: "user",
 
+                },
+                {
+                    title: '部门',
+                    id: '/setting/orga',
+                    icon: 'modular',
+                    purviewCode: "orga",
                 },{
                     title: '用户目录',
                     id: '/setting/dir',

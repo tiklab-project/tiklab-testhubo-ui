@@ -256,8 +256,12 @@ ul{
         }
 
         .ws-edit-form-input{
+            .ant-col-0{
+                display: block;
+            }
             .ant-input{
                 height: 40px;
+                border-radius: var(--pi-border-radius);
             }
 
             .ant-select-multiple .ant-select-selection-placeholder{
@@ -281,9 +285,6 @@ ul{
             }
         }
 
-        .ant-input{
-            border-radius: var(--pi-border-radius);
-        }
     }
 }
 .ws-edit-box-select{
@@ -295,6 +296,7 @@ ul{
         width: 22px;
         height: 22px;
         margin: 0 3px 0  0;
+        background: #94b5ff;
     }
 
 }

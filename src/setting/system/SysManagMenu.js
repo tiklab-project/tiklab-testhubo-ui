@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { renderRoutes } from "react-router-config";
-import { DownOutlined,UpOutlined} from '@ant-design/icons';
+import {DownOutlined, LeftCircleOutlined, UpOutlined} from '@ant-design/icons';
 import { PrivilegeButton,SystemNav } from "thoughtware-privilege-ui";
-
 import './sysMana.scss'
 import {getUser} from "thoughtware-core-ui";
 import IconCommon from "../../common/IconCommon";
@@ -35,10 +34,9 @@ const SystemManagement = (props) => {
     const select = (key)=>{
         if (!authConfig.authType) {
             if (specialKeys.includes(key)) {
-                let value = key.substring(8);
                 let authServiceUrl = authConfig.authServiceUrl
                 let ticket = getUser().ticket
-                let url = `${authServiceUrl}#/user${value}?ticket=${ticket}`;
+                let url = authServiceUrl +"#"+key+"?ticket="+ticket
 
                 window.open(url, "_blank");
                 return;
@@ -48,7 +46,6 @@ const SystemManagement = (props) => {
         setSelectKey(key)
         props.history.push(key)
     }
-
 
     const showOpenNewPage = (key) => {
         if (!authConfig.authType) {
@@ -84,23 +81,24 @@ const SystemManagement = (props) => {
                         key={data.id}
                         className={` orga-aside-li ${data.id=== selectKey ? "orga-aside-select" : null}`}
                         onClick={()=>select(data.id)}
-                        style={{paddingLeft:`${deep*20}px`}}
+                        style={{paddingLeft:`${deep*25}px`}}
                     >
                         <div className={'aside-li'} >
                             <div>
-                                {/*{*/}
-                                {/*    isFirst*/}
-                                {/*        ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">*/}
-                                {/*            <use xlinkHref= {`#icon-${data.icon}`} />*/}
-                                {/*        </svg>*/}
-                                {/*        :null*/}
-                                {/*}*/}
+                                {
+                                    isFirst
+                                        ?<IconCommon
+                                            icon={data.icon}
+                                            className={"icon-m"}
+                                            style={{margin:"0 5px 0 0"}}
+                                        />
+                                        :null
+                                }
                                 {data.title}
                             </div>
                             {
                                 showOpenNewPage(data.id)
                             }
-
                         </div>
                     </li>
                 </PrivilegeButton>
@@ -110,17 +108,19 @@ const SystemManagement = (props) => {
                 key={data.id}
                 className={` orga-aside-li ${data.id=== selectKey ? "orga-aside-select" : null}`}
                 onClick={()=>select(data.id)}
-                style={{paddingLeft:`${deep*20}px`}}
+                style={{paddingLeft:`${deep*25}px`}}
             >
                 <div className={'aside-li'} >
                     <div>
-                        {/*{*/}
-                        {/*    isFirst*/}
-                        {/*        ?<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">*/}
-                        {/*            <use xlinkHref= {`#icon-${data.icon}`} />*/}
-                        {/*        </svg>*/}
-                        {/*        :null*/}
-                        {/*}*/}
+                        {
+                            isFirst
+                                ?<IconCommon
+                                    icon={data.icon}
+                                    className={"icon-m"}
+                                    style={{margin:"0 5px 0 0"}}
+                                />
+                                :null
+                        }
                         {data.title}
                     </div>
                     {
@@ -143,9 +143,11 @@ const SystemManagement = (props) => {
                              style={{paddingLeft:`${deep*20}px`}}
                         >
                             <div className={"menu-name-icon"}>
-                                {/*<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">*/}
-                                {/*    <use xlinkHref= {`#icon-${icon}`} />*/}
-                                {/*</svg>*/}
+                                <IconCommon
+                                    icon={icon}
+                                    className={"icon-m"}
+                                    style={{margin:"0 5px 0 0"}}
+                                />
                                 <span key={id}> {title}</span>
                             </div>
                             <div className="orga-aside-item-icon">
@@ -180,9 +182,11 @@ const SystemManagement = (props) => {
                          style={{paddingLeft:`${deep*20}px`}}
                     >
                         <div className={"menu-name-icon"}>
-                            {/*<svg style={{width:16,height:16,margin:"0 5px 0 0"}} aria-hidden="true">*/}
-                            {/*    <use xlinkHref= {`#icon-${icon}`} />*/}
-                            {/*</svg>*/}
+                            <IconCommon
+                                icon={icon}
+                                className={"icon-m"}
+                                style={{margin:"0 5px 0 0"}}
+                            />
                             <span key={id}>{title}</span>
                         </div>
                         <div className="orga-aside-item-icon">
@@ -233,13 +237,34 @@ const SystemManagement = (props) => {
         >
             <div className = 'sysmana-layout'>
                 <div className="thoughtware-orga-aside">
+                    <div className={"display-flex-between"}
+                         style={{
+                             borderBottom:"1px solid #e4e4e4",
+                             padding:"10px 15px 10px 30px",
+                         }}
+                    >
+                        <div style={{fontWeight:"bold",display:"flex",gap:"5px",alignItems:"center"}}>
+                            设置
+                        </div>
+                        <div
+                            style={{
+                                display:"flex",
+                                gap:"5px",
+                                alignItems:"center",
+                                cursor:"pointer",
+                                padding: "5px",
+                                borderRadius: "5px",
+                                background: "#ededee"
+                            }}
+                            onClick={()=>props.history.push("/home")}
+                        >
+                            <LeftCircleOutlined style={{fontSize:"18px"}}/>
+                            <span>返回</span>
+                        </div>
+                    </div>
+
                     <ul style={{padding: 0}} >
-                        <li style={{
-                            borderBottom:"1px solid #e4e4e4",
-                            padding:"10px 28px",
-                            fontWeight:"bold",
-                        }}
-                        >设置</li>
+
                         {
                             showUlView(menuRouter)
                         }

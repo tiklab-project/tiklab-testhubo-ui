@@ -82,7 +82,6 @@ let EnvContent = LazyComponent(() => import("./support/environment/components/en
 let AgentConfigList = LazyComponent(() => import("./support/agent/components/AgentConfigList"));
 let WorkspaceBindList = LazyComponent(() => import("./integrated/common/integratedPage"));
 
-let SystemHome = LazyComponent(() => import( "./setting/system/SystemHome"));
 let SystemContent = LazyComponent(() => import("./setting/system/SystemContent"));
 let Version = LazyComponent(() => import("./setting/version/Version"));
 let DomainRole = LazyComponent(() => import("./repository/setting/DomainRole"));
@@ -421,11 +420,6 @@ const routers =  [
                 key:'systemManagement',
                 component:SystemContent,
                 routes:[
-                    {
-                        path:'/setting/home',
-                        exact: true,
-                        component:SystemHome,
-                    },
                     //成员与部门
                     {
                         path: "/setting/orga",

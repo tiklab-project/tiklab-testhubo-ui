@@ -79,7 +79,7 @@ export const CaseTestPie = ({data,chartRefs}) =>{
 
             return (
                 <Col span={12} key={type}>
-                    <Card title={showName(type)} bordered={false} className={"case-test-item"}>
+                    <Card title={showName(type)} bordered={false} className={"statistic-card-item"}>
                         <div
                             ref={(el) => (chartRefs.current[type] = el)}
                             style={{ width: '100%', height: '200px' }}

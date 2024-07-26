@@ -42,7 +42,7 @@ const TotalAndStatusStatistics = (props) =>{
 
     return(
         <Col span={12}>
-            <Card title={"用例总数/状态数"} bordered={false} className={"case-test-item"}>
+            <Card title={"用例总数/状态数"} bordered={false} className={"statistic-card-item"}>
                 <div className={"statistics-status-select"}>
                     <Select bordered={false} defaultValue={"all"} onSelect={selectRepository} style={{width:"100px"}}>
                         <Option key={'all'} value={"all"}>所有</Option>

@@ -7,6 +7,7 @@ import PageContent from "../../common/pageContent/PageContent";
 import {Row,Col} from "antd";
 import ProjectTotalAndStatusStatistics from "./ProjectTotalAndStatusStatistics";
 import ProjectCaseTestStatistics from "./ProjectCaseTestStatistics";
+import CaseTestResultNumberStatistics from "../../statistics/common/CaseTestResultNumberStatistics";
 
 /**
  * 项目 概况
@@ -83,9 +84,13 @@ const RepositoryOverView = (props) => {
                             </Row>
                         </div>
                     </div>
-                    <div className={"wd-dynamic-box"}>
-                        <div className={"title-bold"} style={{margin: "0 0 10px 0"}}>最近动态</div>
+                    <div className={"wd-total"}>
+                        <div className={"title-bold"}>用例执行统计</div>
+                        <CaseTestResultNumberStatistics repositoryId={repositoryId}/>
+                    </div>
 
+                    <div className={"wd-dynamic-box"}>
+                        <div className={"title-bold"} style={{margin: "0 0 25px 0"}}>最近动态</div>
                         <DynamicWidget screen={{"repositoryId": repositoryId}}/>
                     </div>
                 </div>

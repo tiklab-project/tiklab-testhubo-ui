@@ -77,7 +77,7 @@ const HomeNewCreateCaseStatistics = () =>{
     const createOption = (
         dates,
         apiUnitCounts,
-        apiSceneCounts,
+        apiSceneCounts0,
         apiPerfCounts,
         webSceneCounts,
         appSceneCounts,
@@ -192,14 +192,13 @@ const HomeNewCreateCaseStatistics = () =>{
 
     return (
         <Col span={12}>
-            <Card title={"最近新增用例"} bordered={false} className={"case-test-item"}>
+            <Card title={"最近新增用例"} bordered={false} className={"statistic-card-item"}>
                 <div
                     ref={chartRef}
                     className={"home-statistics-new-create-box"}
                 ></div>
             </Card>
         </Col>
-
     );
 }
 

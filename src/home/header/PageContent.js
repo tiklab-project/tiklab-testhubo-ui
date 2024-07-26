@@ -54,12 +54,6 @@ import {useHistory} from "react-router";
             key: "project",
             router:"/project"
         },
-        // {
-        //     name: "设置",
-        //     icon: "setting",
-        //     key: "setting",
-        //     router:"/setting/home"
-        // }
     ]
 
 
@@ -71,13 +65,13 @@ import {useHistory} from "react-router";
     };
 
     const clickSetting =  () => {
-        props.history.push("/setting/home")
-        localStorage.setItem("leftRouter","/setting/home");
+        props.history.push("/setting/version")
+        localStorage.setItem("leftRouter","/setting/version");
     }
 
     const showMainMenu = ()=>{
         let pathname =  history.location.pathname;
-        if(pathname.startsWith("/home")||pathname.startsWith("/project")||pathname.startsWith("/setting")){
+        if(pathname.startsWith("/home")||pathname.startsWith("/project")){
             return<div className={"ws-detail-left"} style={{padding:"10px 0"}}>
                 <LeftNavCommon
                     menuData={menuData}

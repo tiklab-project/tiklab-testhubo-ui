@@ -5,6 +5,8 @@ import {Row} from "antd";
 import TotalAndStatusStatistics from "./homestatistics/TotalAndStatusStatistics";
 import HomeNewCreateCaseStatistics from "./homestatistics/HomeNewCreateCaseStatistics";
 import PageContent from "../common/pageContent/PageContent";
+import CaseNumberStatistics from "./homestatistics/CaseNumberStatistics";
+import CaseTestResultNumberStatistics from "../statistics/common/CaseTestResultNumberStatistics";
 
 /**
  * 首页
@@ -25,13 +27,22 @@ const Home =(props)=> {
                     <div className={"home-box-item-dynamic"}>
                         <div className={"home-item-title-box"}>
                             <div className={"home-item-title"}>
-                                <span>统计</span>
+                                <span>用例统计</span>
                             </div>
                         </div>
+                        <CaseNumberStatistics />
                         <Row gutter={20}>
                             <TotalAndStatusStatistics />
                             <HomeNewCreateCaseStatistics />
                         </Row>
+                    </div>
+                    <div className={"home-box-item-dynamic"}>
+                        <div className={"home-item-title-box"}>
+                            <div className={"home-item-title"}>
+                                <span>用例执行统计</span>
+                            </div>
+                        </div>
+                        <CaseTestResultNumberStatistics />
                     </div>
                 </div>
             </PageContent>

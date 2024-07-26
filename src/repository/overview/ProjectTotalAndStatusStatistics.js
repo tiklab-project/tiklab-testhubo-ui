@@ -34,7 +34,7 @@ const ProjectTotalAndStatusStatistics = () =>{
 
     return(
         <Col span={12}>
-            <Card title={"状态数"} bordered={false} className={"case-test-item"}>
+            <Card title={"状态数"} bordered={false} className={"statistic-card-item"}>
                 <div
                     ref={chartRef}
                     style={{ width: '100%', height: '400px' }}

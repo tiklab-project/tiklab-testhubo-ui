@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Axios, getUser} from "thoughtware-core-ui";
 import {inject, observer} from "mobx-react";
-import DynamicList from "../common/templateList/TemplateList";
+import {Empty, Space, Timeline} from "antd";
+import Profile from "../common/Profile";
+import emptyImg from "../assets/img/empty.png";
 
 /**
  * 首页中动态
@@ -61,8 +63,37 @@ const DynamicWidget = (props) =>{
         return newArr;
     };
 
+    const showTimeLine = (list) =>{
+        return list&&list.map((item,index)=>{
+            const {actionType,action,user,createTime,data} = item
+            return<Timeline.Item key={index}>
+                <div>
+                    <div>{createTime}</div>
+                    <div style={{display:"flex",gap:"10px",alignItems:"center",margin:"15px 0"}}>
+                        <Space>
+                            <Profile userInfo={user}/>
+                            <div style={{color:"#959595"}}>{user?.nickname || user?.name}</div>
+                        </Space>
+                        <div>{actionType?.name}</div>
+                        <div>{action}</div>
+                    </div>
+                </div>
+            </Timeline.Item>
+        })
+    }
+
     return (
-        <DynamicList dynamicList={list}/>
+        <Timeline mode="left">
+            {
+                list
+                    ?showTimeLine(list)
+                    :<Empty
+                        imageStyle={{ height: 120 }}
+                        description={<span>暂无动态</span>}
+                        image={emptyImg}
+                    />
+            }
+        </Timeline>
     );
 }
 
