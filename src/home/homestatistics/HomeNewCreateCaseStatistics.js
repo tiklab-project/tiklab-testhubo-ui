@@ -195,7 +195,7 @@ const HomeNewCreateCaseStatistics = () =>{
             <Card title={"最近新增用例"} bordered={false} className={"statistic-card-item"}>
                 <div
                     ref={chartRef}
-                    className={"home-statistics-new-create-box"}
+                    style={{ width: '100%', height: '400px' }}
                 ></div>
             </Card>
         </Col>

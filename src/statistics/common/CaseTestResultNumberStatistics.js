@@ -89,7 +89,7 @@ const CaseTestResultNumberStatistics = ({repositoryId}) =>{
     const chartPieRef = useRef(null);
     const chartPieInstanceRef = useRef(null);
 
-    const [selectedDays, setSelectedDays] = useState(7);
+    const [selectedDays, setSelectedDays] = useState(1);
     const [dataInfo, setDataInfo] = useState();
 
     const getStatisticsData = async (days) => {
@@ -144,22 +144,22 @@ const CaseTestResultNumberStatistics = ({repositoryId}) =>{
             {
                 title: "总数",
                 value: dataInfo?.total?.total,
-                icon: "icon"
+                color: "#919191"
             },
             {
                 title: "成功",
                 value: dataInfo?.total?.pass,
-                icon: "icon"
+                color: "#a1ca7d"
             },
             {
                 title: "失败",
                 value: dataInfo?.total?.fail,
-                icon: "icon"
+                color: "#efcc6b"
             },
             {
                 title: "异常",
                 value: dataInfo?.total?.error,
-                icon: "icon"
+                color: "#e36363"
             }
         ];
 
@@ -180,7 +180,7 @@ const CaseTestResultNumberStatistics = ({repositoryId}) =>{
                     <div>
                         {item.title}
                     </div>
-                    <div style={{fontSize:"18px",fontWeight:"bold"}}>
+                    <div style={{fontSize:"18px",fontWeight:"bold",color:`${item.color}`}}>
                         {item.value}
                     </div>
                 </div>

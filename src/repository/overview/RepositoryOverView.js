@@ -1,69 +1,21 @@
 
 import React, { useEffect, useState} from "react";
 import { observer, inject } from "mobx-react";
-import DynamicWidget from "../../home/DynamicWidget";
+import DynamicWidget from "./DynamicWidget";
 import {useParams} from "react-router";
 import PageContent from "../../common/pageContent/PageContent";
 import {Row,Col} from "antd";
 import ProjectTotalAndStatusStatistics from "./ProjectTotalAndStatusStatistics";
-import ProjectCaseTestStatistics from "./ProjectCaseTestStatistics";
 import CaseTestResultNumberStatistics from "../../statistics/common/CaseTestResultNumberStatistics";
+import StatisticsCaseTrend from "../../statistics/common/StatisticsCaseTrend";
+import CaseNumberStatistics from "../../home/homestatistics/CaseNumberStatistics";
 
 /**
  * 项目 概况
  */
 const RepositoryOverView = (props) => {
-    const {repositoryStore} = props;
-    const {findRepositoryTotal} = repositoryStore;
-
     let {id} = useParams()
     const repositoryId =  sessionStorage.getItem("repositoryId") || id;
-    const [total, setTotal] = useState();
-
-    useEffect(async ()=>{
-        //获取路由id存入
-        sessionStorage.setItem('repositoryId',id);
-
-        let res = await findRepositoryTotal(repositoryId)
-
-        setTotal(res)
-    },[repositoryId])
-
-    //概要项
-    const items = [
-        {
-            title:"测试计划",
-            value:total?.planTotal,
-        },
-        {
-            title:"测试用例",
-            value:total?.caseTotal,
-        },
-        {
-            title:"测试报告",
-            value:total?.instanceTotal,
-        },
-        {
-            title:"分组",
-            value:total?.categoryTotal,
-        }
-    ]
-
-    /**
-     *   展示概要
-     */
-    const showDetailView = (data) =>{
-        return data.map((item,index)=>{
-            return(
-                <Col span={6}>
-                    <div className={"wd-total-item"} key={index}>
-                        <div className={"wd-total-item-title"}>{item.value}</div>
-                        <div className={"wd-total-item-name"}>{item.title}</div>
-                    </div>
-                </Col>
-            )
-        })
-    }
 
 
     return (
@@ -71,18 +23,13 @@ const RepositoryOverView = (props) => {
             <div className={"ws-init-box"}>
                 <div className={" ws-init-content"}>
                     <div className={"wd-total"}>
-                        <div className={"title-bold"}> 概要</div>
-                        <Row gutter={30} style={{width:"100%"}}>
-                            {
-                                showDetailView(items)
-                            }
+                        <div className={"title-bold"}>用例统计</div>
+                        <CaseNumberStatistics />
+                        <Row gutter={20}>
+                            <StatisticsCaseTrend repositoryId={repositoryId} />
+                            <ProjectTotalAndStatusStatistics />
                         </Row>
-                        <div className={"wd-total-box"}>
-                            <Row gutter={30} style={{width:"100%"}}>
-                                <ProjectTotalAndStatusStatistics />
-                                <ProjectCaseTestStatistics />
-                            </Row>
-                        </div>
+
                     </div>
                     <div className={"wd-total"}>
                         <div className={"title-bold"}>用例执行统计</div>
@@ -99,4 +46,4 @@ const RepositoryOverView = (props) => {
     )
 
 }
-export default inject('repositoryStore')(observer(RepositoryOverView));
+export default observer(RepositoryOverView);

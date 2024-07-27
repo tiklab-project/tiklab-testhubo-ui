@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Row,Col} from "antd";
 import {Axios} from "thoughtware-core-ui";
 
-const CaseNumberStatistics = () =>{
+const CaseNumberStatistics = ({repositoryId}) =>{
 
     const [dataInfo, setDataInfo] = useState({
         total: 0,
@@ -12,7 +12,7 @@ const CaseNumberStatistics = () =>{
     });
 
     const getStatisticsData = async () => {
-        let res = await Axios.post("/statistics/getTotalAndStatusStatistics", {});
+        let res = await Axios.post("/statistics/getTotalAndStatusStatistics", {repositoryId:repositoryId});
         setDataInfo(res.data);
     };
 
@@ -24,22 +24,22 @@ const CaseNumberStatistics = () =>{
         {
             title: "总数",
             value: dataInfo.total,
-            icon: "icon"
+            color: "#919191"
         },
         {
             title: "未开始",
             value: dataInfo.notstarted,
-            icon: "icon"
+            color: "#5e70c2"
         },
         {
             title: "进行中",
             value: dataInfo.inprogress,
-            icon: "icon"
+            color: "#a1ca7d"
         },
         {
             title: "完成",
             value: dataInfo.completed,
-            icon: "icon"
+            color: "#efcc6b"
         }
     ];
 
@@ -61,7 +61,7 @@ const CaseNumberStatistics = () =>{
                     <div>
                         {item.title}
                     </div>
-                    <div style={{fontSize:"18px",fontWeight:"bold"}}>
+                    <div style={{fontSize:"18px",fontWeight:"bold",color:`${item.color}`}}>
                         {item.value}
                     </div>
                 </div>

@@ -1,12 +1,11 @@
 import React from 'react';
 import './homestyle.scss';
 import RepositoryRecentHome from "./RepositoryRecentHome";
-import {Row} from "antd";
+import {Row,Col} from "antd";
 import TotalAndStatusStatistics from "./homestatistics/TotalAndStatusStatistics";
-import HomeNewCreateCaseStatistics from "./homestatistics/HomeNewCreateCaseStatistics";
-import PageContent from "../common/pageContent/PageContent";
 import CaseNumberStatistics from "./homestatistics/CaseNumberStatistics";
 import CaseTestResultNumberStatistics from "../statistics/common/CaseTestResultNumberStatistics";
+import StatisticsCaseTrend from "../statistics/common/StatisticsCaseTrend";
 
 /**
  * 首页
@@ -14,7 +13,13 @@ import CaseTestResultNumberStatistics from "../statistics/common/CaseTestResultN
 const Home =(props)=> {
     return(
         <div className={"home-content"}>
-            <PageContent>
+            <Row style={{height:"100%"}}>
+                <Col
+                    md={{ span: 24, offset: 0 }}
+                    lg={{ span: 20, offset: 2 }}
+                    xl={{ span: 18, offset: 3 }}
+                    xll={{ span: 16, offset: 4 }}
+                >
                 <div className={"home-content-box"}>
                     <div className={"home-box-item"}>
                         <div className={"home-item-title-box"}>
@@ -32,12 +37,12 @@ const Home =(props)=> {
                         </div>
                         <CaseNumberStatistics />
                         <Row gutter={20}>
+                            <StatisticsCaseTrend />
                             <TotalAndStatusStatistics />
-                            <HomeNewCreateCaseStatistics />
                         </Row>
                     </div>
                     <div className={"home-box-item-dynamic"}>
-                        <div className={"home-item-title-box"}>
+                        <div className={"home-item-title-box"} style={{margin: "30px 0 10px"}}>
                             <div className={"home-item-title"}>
                                 <span>用例执行统计</span>
                             </div>
@@ -45,7 +50,8 @@ const Home =(props)=> {
                         <CaseTestResultNumberStatistics />
                     </div>
                 </div>
-            </PageContent>
+                </Col>
+            </Row>
         </div>
     )
 }

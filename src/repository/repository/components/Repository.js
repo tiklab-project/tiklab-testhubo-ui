@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import './repository.scss';
-import {Input} from "antd";
+import {Row,Col, Input} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "thoughtware-core-ui";
 import RepositoryRecentHome from "../../../home/RepositoryRecentHome";
 import {SearchOutlined} from "@ant-design/icons";
 import RepositoryList from "./RepositoryList";
 import IconBtn from "../../../common/iconBtn/IconBtn";
-import PageContent from "../../../common/pageContent/PageContent";
 
 /**
  * 项目页
@@ -110,7 +109,13 @@ const Repository = (props)=> {
 
     return(
         <div style={{"height":"100%",overflow:"auto"}}>
-            <PageContent>
+            <Row style={{height:"100%"}}>
+                <Col
+                    md={{ span: 24, offset: 0 }}
+                    lg={{ span: 20, offset: 2 }}
+                    xl={{ span: 18, offset: 3 }}
+                    xll={{ span: 16, offset: 4 }}
+                >
                 <div className='ws-layout'>
                     <div className={"display-flex-between"}>
                     <span style={{
@@ -151,7 +156,8 @@ const Repository = (props)=> {
                         />
                     </div>
                 </div>
-            </PageContent>
+                </Col>
+            </Row>
         </div>
     )
 

@@ -242,7 +242,13 @@ ul{
 
         .ant-form{
             margin: 10px;
+
+            .ant-col-0{
+                display: block;
+            }
         }
+
+
 
         .ws-edit-box-header{
             display: flex;
@@ -256,9 +262,7 @@ ul{
         }
 
         .ws-edit-form-input{
-            .ant-col-0{
-                display: block;
-            }
+
             .ant-input{
                 height: 40px;
                 border-radius: var(--pi-border-radius);
