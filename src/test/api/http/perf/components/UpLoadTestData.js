@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Empty, Table,} from "antd";
-import emptyImg from "../../../../../assets/img/empty.png";
 
 const UpLoadTestData = (props) =>{
     const {testDataTable} = props;
@@ -35,7 +34,6 @@ const UpLoadTestData = (props) =>{
                         : <Empty
                             imageStyle={{height: 120 }}
                             description={<span>暂无测试数据</span>}
-                            image={emptyImg}
                         />
                 }
             </div>

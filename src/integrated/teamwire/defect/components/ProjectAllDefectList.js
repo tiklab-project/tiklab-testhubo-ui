@@ -4,7 +4,6 @@ import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import "./workItemStyle.scss"
 import workItemBindStore from "../store/WorkItemBindStore";
-import emptyImg from "../../../../assets/img/empty.png";
 import PageContent from "../../../../common/pageContent/PageContent";
 
 /**
@@ -92,7 +91,6 @@ const ProjectAllDefectList = (props) =>{
                             emptyText: <Empty
                                 imageStyle={{height: 120}}
                                 description={<span>暂无缺陷</span>}
-                                image={emptyImg}
                             />,
                         }}
                     />

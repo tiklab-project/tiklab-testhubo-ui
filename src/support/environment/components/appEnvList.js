@@ -4,7 +4,6 @@ import { observer, inject } from "mobx-react";
 import {Table, Space, Popconfirm, Empty} from 'antd';
 import AppEnvEdit from './appEnvEdit';
 import IconCommon from "../../../common/IconCommon";
-import emptyImg from "../../../assets/img/empty.png";
 
 //
 const AppEnvList = (props) => {
@@ -94,7 +93,6 @@ const AppEnvList = (props) => {
                             height: 120,
                         }}
                         description={<span>暂无环境</span>}
-                        image={emptyImg}
                     />,
                 }}
             />

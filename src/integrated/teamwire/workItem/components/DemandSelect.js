@@ -5,6 +5,7 @@ import {inject, observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import PaginationCommon from "../../../../common/pagination/Page";
+import IconCommon from "../../../../common/IconCommon";
 
 const DemandSelect = (props) =>{
     const {workItemStore,caseInfo,updateFn,setDemandInfo,onCancel} = props;
@@ -129,7 +130,10 @@ const DemandSelect = (props) =>{
                             onPressEnter={onSearch}
                             onChange={onSearch}
                             className='demand_project_search'
-                            prefix={<SearchOutlined />}
+                            prefix={<IconCommon
+                                icon={"sousuo"}
+                                className={"icon-m"}
+                            />}
                         />
                     </Col>
                     <Col className="gutter-row" span={6}>

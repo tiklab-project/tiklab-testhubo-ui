@@ -8,6 +8,7 @@ import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
 import {getVersionInfo} from "thoughtware-core-ui";
 import {showCaseTypeTable} from "../../../../../common/caseCommon/CaseCommonFn";
+import IconCommon from "../../../../../common/IconCommon";
 
 const ApiPerformBindScene = (props) =>{
     const {bindApiScene,findApiPerfStepList,findApiPerfStepWillBindCasePage,apiPerfStepWillBindCaseData} = apiPerfStepStore;
@@ -136,7 +137,10 @@ const ApiPerformBindScene = (props) =>{
                                 onPressEnter={onSearch}
                                 onChange={onSearch}
                                 className='demand_project_search'
-                                prefix={<SearchOutlined />}
+                                prefix={<IconCommon
+                                    icon={"sousuo"}
+                                    className={"icon-m"}
+                                />}
                             />
                         </Col>
                     </Row>

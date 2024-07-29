@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Empty, Space, Spin} from "antd";
 import {getUser} from "thoughtware-core-ui";
 import {inject, observer} from "mobx-react";
-import emptyImg from "../assets/img/empty.png";
 import "./homestyle.scss"
 import RepositoryIcon from "../common/RepositoryIcon";
 
@@ -83,10 +82,7 @@ const RepositoryRecentHome = (props) =>{
                 {
                     dataList&&dataList.length>0
                         ?<>{showRecent(dataList)}</>
-                        : <Empty
-                            description={<span>暂无访问</span>}
-                            image={emptyImg}
-                        />
+                        : <Empty description={<span>暂无访问</span>}/>
                 }
             </div>
 

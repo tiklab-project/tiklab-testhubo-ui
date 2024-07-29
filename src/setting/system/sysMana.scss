@@ -16,7 +16,7 @@
 
     .thoughtware-orga-aside {
         height: 100%;
-        width: 240px;
+        width: 220px;
         border-right: 1px solid var(--pi-border-color);
         background: var(--pi-greyf9-color);
         overflow: auto;
@@ -66,7 +66,7 @@
 
         .orga-aside-select {
             background-color: var(--pi-action-color);
-            border-left: 3px solid #1296db;
+            border-left: 3px solid var(--pi-base-color);
         }
     }
 }

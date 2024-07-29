@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import "./Select.scss";
+import IconCommon from "../IconCommon";
+import {DownOutlined} from "@ant-design/icons";
 const SelectSimple = (props) => {
     const {
         onChange,
@@ -133,7 +135,7 @@ const SelectSimple = (props) => {
             }
             <div className="select-view-icon">
                 {
-                    ismult && selectLength > 0 && <div className="select-number">{selectLength}</div>
+                    ismult && <DownOutlined style={{fontSize:"12px",color:"#b7b8b9"}}/>
                 }
                 {
                     suffixIcon && <>

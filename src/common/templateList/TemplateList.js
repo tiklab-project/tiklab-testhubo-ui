@@ -1,7 +1,6 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
 import {Empty} from "antd";
-import emptyImg from "../../assets/img/empty.png";
 import "./templateListStyle.scss"
 import Profile from "../Profile";
 
@@ -85,7 +84,6 @@ const DynamicList = props =>{
                     :<Empty
                         imageStyle={{height: 120}}
                         description={<span>暂无动态</span>}
-                        image={emptyImg}
                     />
 
             }

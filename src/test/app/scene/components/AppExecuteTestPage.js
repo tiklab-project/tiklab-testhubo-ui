@@ -5,7 +5,6 @@ import {Col, Drawer, Empty, Form, List, Row, Select, Tag, Tooltip} from "antd";
 import appSceneStore from "../store/appSceneStore";
 import {inject, observer} from "mobx-react";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
-import emptyImg from "../../../../assets/img/empty.png";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import CaseTableQuickTest from "../../../common/CaseTableQuickTest/CaseTableQuickTest";
 import {testExecuteStatus} from "../../../../common/dictionary/dictionary";
@@ -119,7 +118,6 @@ const AppExecuteTestPage =(props)=>{
                 emptyText: <Empty
                     imageStyle={{ height: 120 }}
                     description={<span>暂无历史步骤</span>}
-                    image={emptyImg}
                 />,
             }}
             renderItem={(item) =>(

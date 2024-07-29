@@ -87,10 +87,10 @@ const RepositorySettingMenu = (props) =>{
             noAccessPath={"/noaccess"}
         >
             <div className={"repository-setting-box"}>
-                <ul className="ws-menu-ul" style={{background: "#f5f5f5"}}>
+                <ul className="ws-menu-ul">
                     <li style={{
                         borderBottom:"1px solid #e4e4e4",
-                        padding:"10px 25px",
+                        padding:"10px 30px",
                         fontWeight:"bold",
                     }}
                     >设置</li>

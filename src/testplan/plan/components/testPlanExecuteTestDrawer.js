@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from "react";
 import {Drawer, Empty, Spin, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import {messageFn} from "../../../common/messageCommon/MessageCommon";
-import emptyImg from "../../../assets/img/empty.png";
 import {showCaseTypeTable,  showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {Axios} from "thoughtware-core-ui";
 import CaseBread from "../../../common/CaseBread";
@@ -212,7 +211,6 @@ const TestPlanExecuteTestDrawer = (props) =>{
                                     emptyText: <Empty
                                         imageStyle={{ height: 120}}
                                         description={<span>暂无测试用例</span>}
-                                        image={emptyImg}
                                     />,
                                 }}
                             />

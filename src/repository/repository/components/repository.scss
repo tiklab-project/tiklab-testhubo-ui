@@ -158,30 +158,6 @@ ul{
     display: none;
 }
 
-// ws左侧导航
-.ws-menu-ul {
-    padding: 0;
-    .ws-menu-li {
-        padding: 0 20px;
-        height: 40px;
-        width: 220px;
-        line-height: 40px;
-        display: block;
-        cursor: pointer;
-        border-radius: var(--pi-border-radius);
-        margin: 5px;
-    }
-
-    .ws-menu-li:hover{
-        background-color:  var(--pi-hover-color);
-        //margin: 5px 20px;
-    }
-    .ws-menu-li-action{
-
-        background-color:  var(--pi-action-color);
-
-    }
-}
 
 
 .ws-menu-icon{

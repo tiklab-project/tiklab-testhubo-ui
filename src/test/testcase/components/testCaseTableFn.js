@@ -7,9 +7,7 @@ import ApiUnitExecuteTest from "../../api/http/unit/components/apiUnitExecuteTes
 import ApiExecuteTestPage from "../../api/http/scene/components/ApiExecuteTestPage";
 import ApiPerfExecuteTestPage from "../../api/http/perf/components/ApiPerfExecuteTestPage";
 import ExtensionCommon from "../../../common/ExtensionCommon";
-import {PlayCircleOutlined, UserOutlined} from "@ant-design/icons";
-import WebExecuteTestPage from "../../web/scene/components/WebExecuteTestPage";
-import AppExecuteTestPage from "../../app/scene/components/AppExecuteTestPage";
+import {CaretRightOutlined, UserOutlined} from "@ant-design/icons";
 import HideDelete from "../../../common/hideDelete/HideDelete";
 import IconCommon from "../../../common/IconCommon";
 import {Avatar, Space} from "antd";
@@ -141,12 +139,18 @@ export const ShowQuickExe = (props)=>{
             case CASE_TYPE.WEB_SCENE:
                 return <ExtensionCommon
                     extension={WebExecuteTestPage&&<WebExecuteTestPage type={"quick"} webSceneId={record.id}/>}
-                    icon={ <PlayCircleOutlined style={{fontSize:"18px"}}/>}
+                    icon={ <IconCommon
+                        icon={"bofang"}
+                        className={"icon-m edit-icon"}
+                    />}
                 />
             case CASE_TYPE.APP_SCENE:
                 return<ExtensionCommon
                     extension={AppExecuteTestPage&&<AppExecuteTestPage type={"quick"} appSceneId={record.id}/>}
-                    icon={<PlayCircleOutlined style={{fontSize:"18px"}}/>}
+                    icon={<IconCommon
+                        icon={"bofang"}
+                        className={"icon-m edit-icon"}
+                    />}
                 />
             default:
                 return null;
@@ -174,7 +178,7 @@ export  const ShowDeleteView = ({record,deleteFn}) =>{
             if( getVersionInfo().expired===false){
                 return <HideDelete deleteFn={() =>deleteFn(record)}/>
             }else {
-                return <ExtensionCommon  icon={<IconCommon icon={"more"} className={"icon-s edit-icon"}/>} />
+                return <ExtensionCommon  icon={<IconCommon icon={"gengduo"} className={"icon-m edit-icon"}/>} />
             }
         default:
             return null

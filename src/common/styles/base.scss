@@ -76,6 +76,22 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd{
     align-items: center;
 }
 
+
+.ant-form .ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+    content: '';
+}
+
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
+    display: inline-block;
+    margin-right: 4px;
+    color: #ff4d4f;
+    font-size: 14px;
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+    content: '*';
+}
+
+
 .bread-cursor{
     cursor: pointer;
 }
@@ -262,14 +278,17 @@ table .icon{
     justify-content: space-between;
     padding: 10px 0;
 
-    .header-box-title{
-        font-weight: bold;
+    .ant-space .ant-input{
+        width: 200px!important;
     }
 }
-
+.header-box-title{
+    font-weight: bold;
+    font-size: 16px;
+}
 //搜索框
 .search-input-common{
-    width: 240px!important;
+    width: 200px!important;
     height: 32px!important;
     border-radius: var(--pi-border-radius)!important;
     border: var(--pi-input-border)!important;
@@ -281,6 +300,7 @@ table .icon{
     color: #f0f0f0!important;
     border-radius: var(--pi-border-radius);
     font-size: var(--pi-font-size-13);
+    font-weight: bold!important;
 }
 
 .content-box-center{
@@ -351,6 +371,7 @@ table .icon{
     }
 }
 
+
 .table-list-box{
 
     .ant-table{
@@ -364,7 +385,8 @@ table .icon{
     .ant-table-thead > tr > th{
         background:var(--pi-bg-color);
         font-weight: 600;
-        font-size: 12px;
+        color: var(--pi-font-color-grey);
+        font-size: 13px;
     }
 
     .ant-table-tbody > tr > td{
@@ -391,7 +413,7 @@ table .icon{
     }
     .ant-form-item-label > label{
         color: rgb(138 138 138 / 85%);
-        font-size: 13px;
+        //font-size: 14px;
     }
 
     .ant-input{
@@ -511,8 +533,8 @@ table .icon{
 
 
 .ant-form-vertical .ant-form-item-label > label{
-    color: #6e6e6e;
-    font-size: 12px;
+    color: var(--pi-font-color-grey);
+    //font-size: 12px;
     font-weight: 600;
 }
 
@@ -539,4 +561,8 @@ table .icon{
 .font-12{
     font-size: 13px;
     color: #8a8a8a;
+}
+
+.ant-space .ant-space-item .ant-select{
+    background: var(--pi-bg-grey-100);
 }

@@ -5,9 +5,11 @@ export class InstanceStore {
     @observable instanceList = [];
     @observable totalPage;
     @observable tableLoading=true;
+    @observable totalRecord
 
     @action
     findInstancePage = async (value) => {
+        this.tableLoading=true;
         const params = {
             ...value,
         }
@@ -15,6 +17,7 @@ export class InstanceStore {
         if(res.code === 0) {
             this.instanceList = res.data.dataList;
             this.totalPage= res.data.totalPage;
+            this.totalRecord= res.data.totalRecord;
             this.tableLoading=false
         }
 
@@ -28,6 +31,8 @@ export class InstanceStore {
         param.append('caseType', caseType);
         await Axios.post("/instance/deleteInstance",param)
     }
+
+
 
 }
 

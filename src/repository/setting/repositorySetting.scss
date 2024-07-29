@@ -1,3 +1,30 @@
+// ws左侧导航
+.ws-menu-ul {
+    padding: 0;
+    background: var(--pi-bg-grey-100);
+    border-right: 1px solid #e3e3e3;
+
+    .ws-menu-li {
+        padding: 0 30px;
+        height: 40px;
+        width: 200px;
+        line-height: 40px;
+        display: block;
+        cursor: pointer;
+        border-radius: var(--pi-border-radius);
+        margin: 5px;
+    }
+
+    .ws-menu-li:hover{
+        background-color:  var(--pi-hover-color);
+        //margin: 5px 20px;
+    }
+    .ws-menu-li-action{
+        background-color:  var(--pi-action-color);
+    }
+}
+
+
 .repository-setting-box{
     display: flex;
     height: 100%;

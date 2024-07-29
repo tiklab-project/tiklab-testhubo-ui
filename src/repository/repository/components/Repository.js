@@ -7,6 +7,7 @@ import RepositoryRecentHome from "../../../home/RepositoryRecentHome";
 import {SearchOutlined} from "@ant-design/icons";
 import RepositoryList from "./RepositoryList";
 import IconBtn from "../../../common/iconBtn/IconBtn";
+import IconCommon from "../../../common/IconCommon";
 
 /**
  * 项目页
@@ -141,7 +142,10 @@ const Repository = (props)=> {
                             {showMenu(items)}
                         </div>
                         <Input
-                            prefix={<SearchOutlined />}
+                            prefix={<IconCommon
+                                icon={"sousuo"}
+                                className={"icon-m"}
+                            />}
                             placeholder={`搜索项目名`}
                             onPressEnter={onSearch}
                             className={"search-input-common"}

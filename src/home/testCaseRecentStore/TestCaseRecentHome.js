@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {getUser} from "thoughtware-core-ui";
 import {observer} from "mobx-react";
 import {Empty, List, Skeleton} from "antd";
-import emptyImg from "../../assets/img/empty.png";
 import IconCommon from "../../common/IconCommon";
 
 import testCaseRecentStore from "./TestCaseRecentStore";
@@ -138,7 +137,6 @@ const TestCaseRecentHome = (props) =>{
                 emptyText: <Empty
                     imageStyle={{ height: 120 }}
                     description={<span>暂无动态</span>}
-                    image={emptyImg}
                 />,
             }}
             renderItem={(item) => (

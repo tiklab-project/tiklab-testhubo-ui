@@ -7,7 +7,6 @@ import { observer, inject } from "mobx-react";
 import {Breadcrumb, Input, Table, Space, Row, Col, Popconfirm, Empty,} from 'antd';
 import ApiEnvEdit from './apiEnvEdit';
 import IconCommon from "../../../common/IconCommon";
-import emptyImg from "../../../assets/img/empty.png";
 
 //
 const ApiEnvList = (props) => {
@@ -69,11 +68,8 @@ const ApiEnvList = (props) => {
                 pagination={false}
                 locale={{
                     emptyText: <Empty
-                        imageStyle={{
-                            height: 120,
-                        }}
+                        imageStyle={{height: 120}}
                         description={<span>暂无环境</span>}
-                        image={emptyImg}
                     />,
                 }}
             />

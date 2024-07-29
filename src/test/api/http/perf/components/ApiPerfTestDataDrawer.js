@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Drawer, Empty, Table, Tooltip} from "antd";
-import emptyImg from "../../../../../assets/img/empty.png";
 import IconCommon from "../../../../../common/IconCommon";
 import apiPerfTestDataStore from "../store/apiPerfTestDataStore"
 import ApiPerfTestDataDetail from "./ApiPerfTestDataDetail";
@@ -112,7 +111,6 @@ const ApiPerfTestDataDrawer = ({stepId}) =>{
                                 emptyText: <Empty
                                     imageStyle={{height: 120 }}
                                     description={<span>暂无测试数据</span>}
-                                    image={emptyImg}
                                 />,
                             }}
                         />

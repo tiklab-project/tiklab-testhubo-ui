@@ -154,8 +154,8 @@ const SystemManagement = (props) => {
                                 {
                                     children ?
                                         (isExpandedTree(id)
-                                                ? <DownOutlined  style={{fontSize: "12px"}}/>
-                                                : <UpOutlined  style={{fontSize: "12px"}}/>
+                                                ? <DownOutlined  style={{fontSize: "10px"}}/>
+                                                : <UpOutlined  style={{fontSize: "10px"}}/>
                                         ): ""
                                 }
                             </div>
@@ -193,8 +193,8 @@ const SystemManagement = (props) => {
                             {
                                 children ?
                                     (isExpandedTree(id)
-                                            ? <DownOutlined  style={{fontSize: "12px"}}/>
-                                            : <UpOutlined  style={{fontSize: "12px"}}/>
+                                            ? <DownOutlined  style={{fontSize: "10px"}}/>
+                                            : <UpOutlined  style={{fontSize: "10px"}}/>
                                     ): ""
                             }
                         </div>
@@ -244,22 +244,8 @@ const SystemManagement = (props) => {
                          }}
                     >
                         <div style={{fontWeight:"bold",display:"flex",gap:"5px",alignItems:"center"}}>
+                            <LeftCircleOutlined style={{fontSize:"20px",cursor:"pointer"}} onClick={()=>props.history.push("/home")}/>
                             设置
-                        </div>
-                        <div
-                            style={{
-                                display:"flex",
-                                gap:"5px",
-                                alignItems:"center",
-                                cursor:"pointer",
-                                padding: "5px",
-                                borderRadius: "5px",
-                                background: "#ededee"
-                            }}
-                            onClick={()=>props.history.push("/home")}
-                        >
-                            <LeftCircleOutlined style={{fontSize:"18px"}}/>
-                            <span>返回</span>
                         </div>
                     </div>
 

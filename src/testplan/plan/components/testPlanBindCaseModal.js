@@ -14,6 +14,7 @@ import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {getVersionInfo} from "thoughtware-core-ui";
 import ExtensionCommon from "../../../common/ExtensionCommon";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
+import IconCommon from "../../../common/IconCommon";
 
 // 添加与编辑
 const TestPlanBindCaseModal = (props) => {
@@ -210,7 +211,10 @@ const TestPlanBindCaseModal = (props) => {
                                 onPressEnter={onSearch}
                                 onChange={onSearch}
                                 className='demand_project_search'
-                                prefix={<SearchOutlined />}
+                                prefix={<IconCommon
+                                    icon={"sousuo"}
+                                    className={"icon-m"}
+                                />}
                             />
                         </Col>
 

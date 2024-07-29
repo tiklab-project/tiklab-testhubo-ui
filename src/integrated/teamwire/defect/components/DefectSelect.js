@@ -6,6 +6,7 @@ import IconBtn from "../../../../common/iconBtn/IconBtn";
 import workItemBindStore from "../store/WorkItemBindStore";
 import ProjectSelect from "../../workItem/components/ProjectSelect";
 import PaginationCommon from "../../../../common/pagination/Page";
+import IconCommon from "../../../../common/IconCommon";
 const {createWorkItemBind,findWorkItemBindList} = workItemBindStore;
 
 const DefectSelect = (props) =>{
@@ -152,7 +153,10 @@ const DefectSelect = (props) =>{
                                 onPressEnter={onSearch}
                                 onChange={onSearch}
                                 className='demand_project_search'
-                                prefix={<SearchOutlined />}
+                                prefix={<IconCommon
+                                    icon={"sousuo"}
+                                    className={"icon-m"}
+                                />}
                             />
                         </Col>
                         <Col className="gutter-row" span={6}>

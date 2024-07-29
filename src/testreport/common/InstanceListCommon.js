@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Empty, Input, Space, Table} from "antd";
 import { observer} from "mobx-react";
 import instanceStore from "../store/InstanceStore";
 import PaginationCommon from "../../common/pagination/Page";
-import emptyImg from "../../assets/img/empty.png"
 import {CASE_TYPE} from "../../common/dictionary/dictionary";
 import ApiUnitInstanceSinglePage from "../../test/api/http/unit/components/apiUnitInstanceSinglePage";
 import ApiSceneInstanceSinglePage from "../../test/api/http/scene/components/apiSceneInstanceSinglePage";
@@ -24,7 +23,8 @@ const InstanceListCommon = (props) =>{
         instanceList,
         deleteInstance,
         totalPage,
-        tableLoading
+        tableLoading,
+        totalRecord
     } = instanceStore;
 
 
@@ -55,7 +55,7 @@ const InstanceListCommon = (props) =>{
             title: '报告概要',
             dataIndex: "detail",
             key: "detail",
-            width: "30%",
+            width: "35%",
             render:(text,record)=>(showDetail(record))
         },
         {
@@ -68,7 +68,7 @@ const InstanceListCommon = (props) =>{
             title: `测试时间`,
             dataIndex: "createTime",
             key: "createTime",
-            width: "15%",
+            width: "10%",
         },
         {
             title: '操作',
@@ -499,7 +499,6 @@ const InstanceListCommon = (props) =>{
                         emptyText: <Empty
                             imageStyle={{height: 120}}
                             description={<span>暂无历史</span>}
-                            image={emptyImg}
                         />,
                     }}
                 />
@@ -507,6 +506,8 @@ const InstanceListCommon = (props) =>{
                     currentPage={currentPage}
                     totalPage={totalPage}
                     changePage={onTableChange}
+                    totalRecord={totalRecord}
+                    findPage={findPage}
                 />
             </div>
         </>

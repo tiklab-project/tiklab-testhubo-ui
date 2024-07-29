@@ -165,7 +165,10 @@ const CaseListLeft = (props) =>{
                         onPressEnter={onSearch}
                         className='search-input-common'
                         width={280}
-                        prefix={<SearchOutlined />}
+                        prefix={<IconCommon
+                            icon={"sousuo"}
+                            className={"icon-m"}
+                        />}
                         addonAfter={
                             <AdvancedFilter
                                 findPage={findPage}

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Empty, Table} from "antd";
 import {observer} from "mobx-react";
-import emptyImg from "../../../assets/img/empty.png";
 import {showCaseTypeTable, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import ApiUnitInstanceDrawer from "../../../test/api/http/unit/components/apiUnitInstanceSinglePage";
 import ApiSceneInstanceDrawer from "../../../test/api/http/scene/components/apiSceneInstanceSinglePage";
@@ -170,7 +169,6 @@ const TestPlanBindCaseInstanceTable = (props) =>{
                         emptyText: <Empty
                             imageStyle={{height: 120 }}
                             description={<span>暂无历史</span>}
-                            image={emptyImg}
                         />,
                     }}
                 />

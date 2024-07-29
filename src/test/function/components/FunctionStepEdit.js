@@ -57,7 +57,7 @@ const FunctionStepEdit = (props) => {
                 okText="提交"
                 cancelText="取消"
                 centered
-                width={500}
+                width={470}
             >
                 <Form
                     form={form}

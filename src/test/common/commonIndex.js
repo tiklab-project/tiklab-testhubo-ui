@@ -5,7 +5,6 @@ import CaseDesc from "../../common/caseCommon/CaseDesc";
 import IconCommon from "../../common/IconCommon";
 import {showCaseTypeView,showCaseTypeInList,showStatus} from "../../common/caseCommon/CaseCommonFn";
 import {CASE_TYPE,testExecuteStatus,assertCompare} from "../../common/dictionary/dictionary";
-import emptyImg from "../../assets/img/empty.png"
 import UIResultCommon from "./UIResultCommon";
 import ScriptEdit from "./ScriptEdit";
 import stepCommonStore from "./stepcommon/store/StepCommonStore";
@@ -26,7 +25,6 @@ export {
     IconCommon,
     showCaseTypeView,showCaseTypeInList,showStatus,
     CASE_TYPE,testExecuteStatus,assertCompare,
-    emptyImg,
     UIResultCommon,
     messageFn,
     IconBtn,

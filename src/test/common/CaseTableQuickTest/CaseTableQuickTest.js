@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react";
 import {Button, Form, Space} from "antd";
-import {PlayCircleOutlined} from "@ant-design/icons";
+import {CaretRightOutlined, PlayCircleOutlined} from "@ant-design/icons";
 import "./caseTableQuickTestStyle.scss"
+import IconCommon from "../../../common/IconCommon";
 
 const CaseTableQuickTest = (props) =>{
     const {form,findEnv,clickTest,envSelect} = props
@@ -35,7 +36,10 @@ const CaseTableQuickTest = (props) =>{
     return(
         <div className={"case-quick"} ref={caseToggleRef}>
             <div onClick={toggle}>
-                <PlayCircleOutlined style={{fontSize:"18px"}}/>
+                <IconCommon
+                    icon={"bofang"}
+                    className={"icon-m edit-icon"}
+                />
             </div>
 
             <div className={`case-toggle-title ${visible === false ? 'teston-hide' : 'teston-show'}`}>

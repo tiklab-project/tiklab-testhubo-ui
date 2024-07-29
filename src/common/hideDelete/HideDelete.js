@@ -28,8 +28,8 @@ const HideDelete = (props) =>{
             <Dropdown overlay={menu} placement="bottomRight">
                 <span>
                      <IconCommon
-                         icon={"more"}
-                         className={"icon-s edit-icon"}
+                         icon={"gengduo"}
+                         className={"icon-m edit-icon"}
                      />
                 </span>
             </Dropdown>

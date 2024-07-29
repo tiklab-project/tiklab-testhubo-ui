@@ -2,14 +2,12 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Empty, Input,  Space, Table} from "antd";
 import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
-import emptyImg from "../../../assets/img/empty.png";
 import testPlanDetailStore from "../store/testPlanDetailStore";
 import TestPlanBindCase from "./testPlanBindCaseModal";
 import PaginationCommon from "../../../common/pagination/Page";
 import {useHistory} from "react-router";
 import TestPlanENVModal from "./testPlanENVModal";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
-import {SearchOutlined} from "@ant-design/icons";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import CaseTypeSelect from "../../../test/testcase/components/CaseTypeSelect";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
@@ -17,6 +15,7 @@ import ExtensionCommon from "../../../common/ExtensionCommon";
 import {getVersionInfo} from "thoughtware-core-ui";
 import {rowStyle, showCreateUser, ShowDeleteView} from "../../../test/testcase/components/testCaseTableFn";
 import PageContent from "../../../common/pageContent/PageContent";
+import IconCommon from "../../../common/IconCommon";
 
 const TestPlanBindCaseList = (props) =>{
     const {findBindTestCasePage,testPlanDetailList,deleteTestPlanDetail,findTestCasePage,getTestTypeNum} = testPlanDetailStore;
@@ -27,7 +26,7 @@ const TestPlanBindCaseList = (props) =>{
             title:`名称`,
             dataIndex: "name",
             key: "name",
-            width:"30%",
+            width:"40%",
             render: (text,record) =>(
                 <div className={"display-flex-gap"}>
                     <>{showCaseTypeView(record.caseType)}</>
@@ -52,7 +51,7 @@ const TestPlanBindCaseList = (props) =>{
             title: `模块`,
             dataIndex: ["category","name"],
             key: "category",
-            width:"15%",
+            width:"10%",
         },{
             title: `创建人`,
             dataIndex:  ["createUser"],
@@ -64,7 +63,7 @@ const TestPlanBindCaseList = (props) =>{
             title: `创建时间`,
             dataIndex:  ["createTime"],
             key: "createTime",
-            width:"15%",
+            width:"10%",
         },
         {
             title: `操作`,
@@ -82,6 +81,7 @@ const TestPlanBindCaseList = (props) =>{
     const history = useHistory();
     const [tableLoading,setTableLoading] = useState(true);
     const [totalPage, setTotalPage] = useState();
+    const [totalRecord, setTotalRecord] = useState();
     const [selectItem, setSelectItem] = useState("all");
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
@@ -104,6 +104,7 @@ const TestPlanBindCaseList = (props) =>{
     },[testPlanDetailList.length])
 
     const findPage = (params) =>{
+        setTableLoading(true)
         const param = {
             repositoryId:repositoryId,
             testPlanId:testPlanId,
@@ -113,6 +114,7 @@ const TestPlanBindCaseList = (props) =>{
         findBindTestCasePage(param).then((res)=>{
             setTotalPage(res.totalPage)
             setTableLoading(false)
+            setTotalRecord(res.totalRecord)
         })
     }
 
@@ -315,7 +317,10 @@ const TestPlanBindCaseList = (props) =>{
                                 placeholder={`搜索用例`}
                                 onPressEnter={onSearch}
                                 className='search-input-common'
-                                prefix={<SearchOutlined />}
+                                prefix={<IconCommon
+                                    icon={"sousuo"}
+                                    className={"icon-m"}
+                                />}
                             />
                         </Space>
                     </div>
@@ -332,7 +337,6 @@ const TestPlanBindCaseList = (props) =>{
                                 emptyText: <Empty
                                     imageStyle={{height: 120}}
                                     description={<span>暂无用例</span>}
-                                    image={emptyImg}
                                 />,
                             }}
                         />
@@ -340,6 +344,8 @@ const TestPlanBindCaseList = (props) =>{
                             currentPage={currentPage}
                             totalPage={totalPage}
                             changePage={onTableChange}
+                            totalRecord={totalRecord}
+                            findPage={findPage}
                         />
                     </div>
                 </div>

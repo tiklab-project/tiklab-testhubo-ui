@@ -76,6 +76,7 @@ const ApiPerfEdit = (props) => {
                 okText="提交"
                 cancelText="取消"
                 centered
+                width={470}
             >
                 <Form
                     form={form}

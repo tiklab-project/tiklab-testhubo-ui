@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Empty, Popconfirm, Space, Table} from "antd";
-import emptyImg from "../../../../assets/img/empty.png";
 
 import variableStore from "../store/VariableStore";
 import IconCommon from "../../../../common/IconCommon";
@@ -134,7 +133,6 @@ const VariableTable = (props) =>{
                     emptyText: <Empty
                         imageStyle={{height: 120 }}
                         description={<span>暂无历史</span>}
-                        image={emptyImg}
                     />,
                 }}
             />

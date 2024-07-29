@@ -112,7 +112,7 @@ const AdvancedFilter = (props) =>{
                         fieldNames={{ label: 'name', value: 'id', children: 'children' }}
                         style={{  width: '220px'}}
                         dropdownStyle={{maxHeight: 400,overflow: 'auto'}}
-                        className={"dynamic-select-box-item"}
+                        className={"filter-select-box-item"}
                         placeholder="模块"
                         allowClear
                         treeDefaultExpandAll

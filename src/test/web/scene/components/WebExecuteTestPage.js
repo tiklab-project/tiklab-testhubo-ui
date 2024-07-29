@@ -4,7 +4,6 @@ import CaseBread from "../../../../common/CaseBread";
 import UIResultCommon from "../../../common/UIResultCommon";
 import {Col, Drawer, Empty, List, Row, Tag} from "antd";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
-import emptyImg from "../../../../assets/img/empty.png";
 import {CASE_TYPE, testExecuteStatus} from "../../../../common/dictionary/dictionary";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import {PlayCircleOutlined} from "@ant-design/icons";
@@ -107,7 +106,6 @@ const WebExecuteTestPage = (props) =>{
                 emptyText: <Empty
                     imageStyle={{ height: 120 }}
                     description={<span>暂无历史步骤</span>}
-                    image={emptyImg}
                 />,
             }}
             renderItem={(item) =>(

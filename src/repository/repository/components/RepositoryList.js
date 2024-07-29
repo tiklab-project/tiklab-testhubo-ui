@@ -162,7 +162,6 @@ const RepositoryList = (props) => {
                             height: 120,
                         }}
                         description={<span>暂无项目</span>}
-                        image={emptyImg}
                     />,
                 }}
             />

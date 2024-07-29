@@ -8,14 +8,10 @@
     }
 
     .pi-icon-btn-grey{
-        background: #eaeaea;
-        border: 1px solid #ffffff00;
+        background: var(--pi-bg-grey-100);
+        border: 1px solid #e5e8ed;
         border-radius: var(--pi-border-radius);
     }
 
-    .pi-icon-btn-grey:hover{
-        border: 1px solid #ffffff00;
-        background: var(--pi-hover-color);
-        color: black;
-    }
+
 }

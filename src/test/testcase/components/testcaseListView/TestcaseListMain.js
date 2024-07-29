@@ -2,7 +2,6 @@ import React from "react";
 import "./testcaseListViewStyle.scss";
 import CaseListLeft from "./CaseListLeft";
 import {renderRoutes} from "react-router-config";
-import emptyImg from "../../../../assets/img/empty.png";
 
 const TestcaseListMain = (props) =>{
 

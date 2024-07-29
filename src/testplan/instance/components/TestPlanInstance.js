@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import CaseBread from "../../../common/CaseBread";
 import {Empty, Table} from "antd";
-import emptyImg from "../../../assets/img/empty.png";
 import PaginationCommon from "../../../common/pagination/Page";
 import {showCaseTypeTable, showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import testPlanBindCaseInstanceStore from "../store/testPlanBindCaseInstanceStore";
@@ -173,7 +172,6 @@ const TestPlanInstance = (props) =>{
                         emptyText: <Empty
                             imageStyle={{height: 120 }}
                             description={<span>暂无历史</span>}
-                            image={emptyImg}
                         />,
                     }}
                 />

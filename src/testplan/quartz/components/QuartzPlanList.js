@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Empty, Popconfirm, Space, Table, Tag} from "antd";
-import emptyImg from "../../../assets/img/empty.png";
 import {inject, observer} from "mobx-react";
 import quartzPlanStore from "../store/quartzPlanStore";
 import QuartzPlanEdit from "./QuartzPlanEdit";
@@ -127,7 +126,6 @@ const QuartzPlanList = (props) =>{
                         emptyText: <Empty
                             imageStyle={{height: 120}}
                             description={<span>暂无定时任务</span>}
-                            image={emptyImg}
                         />
                     }}
                 />

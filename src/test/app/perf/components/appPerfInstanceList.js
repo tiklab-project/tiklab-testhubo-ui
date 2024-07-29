@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb, Empty, Popconfirm, Space, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
-import emptyImg from "../../../../assets/img/empty.png";
 import appPerfInstanceStore from "../store/appPerfInstanceStore";
 import {useHistory} from "react-router";
 import {DrawerCloseIcon} from "../../../common/BreadcrumbCommon";
@@ -148,7 +147,6 @@ const AppPerfInstanceList = (props) =>{
                         emptyText: <Empty
                             imageStyle={{height: 120 }}
                             description={<span>暂无历史</span>}
-                            image={emptyImg}
                         />,
                     }}
                 />

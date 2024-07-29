@@ -8,6 +8,7 @@ import {Input, Space, Spin, Tooltip} from "antd";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {CaretDownOutlined, SearchOutlined} from "@ant-design/icons";
 import {switchCaseTypeFn} from "./testCaseTableFn";
+import IconCommon from "../../../common/IconCommon";
 
 const ToggleCase = (props) =>{
     const {testcaseStore,caseId} = props
@@ -116,7 +117,10 @@ const ToggleCase = (props) =>{
                                 borderColor: "#e8e8e8",
                                 height: "36px",
                             }}
-                            prefix={<SearchOutlined />}
+                            prefix={<IconCommon
+                                icon={"sousuo"}
+                                className={"icon-m"}
+                            />}
                         />
 
                         {

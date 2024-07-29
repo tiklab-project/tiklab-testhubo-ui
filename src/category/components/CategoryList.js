@@ -3,7 +3,6 @@ import { observer, inject } from "mobx-react";
 import {Table, Space,Col,Row, Popconfirm, Empty} from 'antd';
 import CategoryEdit from './CategoryEdit';
 import  { useTranslation } from 'react-i18next'
-import emptyImg from "../../assets/img/empty.png";
 import IconCommon from "../../common/IconCommon";
 
 /**
@@ -110,7 +109,6 @@ const CategoryList = (props) => {
                                 emptyText: <Empty
                                     imageStyle={{ height: 120 }}
                                     description={<span>暂无模块</span>}
-                                    image={emptyImg}
                                 />,
                             }}
                          />

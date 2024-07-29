@@ -4,6 +4,7 @@ import apiSceneStepStore from "../store/apiSceneStepStore";
 import {Col, Input, Modal, Row, Table} from "antd"
 import {SearchOutlined} from "@ant-design/icons";
 import PaginationCommon from "../../../../../common/pagination/Page";
+import IconCommon from "../../../../../common/IconCommon";
 
 const ApiSceneBindUnit =(props) =>{
     const {findList,apiSceneId,apiSceneStore} = props;
@@ -120,7 +121,10 @@ const ApiSceneBindUnit =(props) =>{
                                 onPressEnter={onSearch}
                                 onChange={onSearch}
                                 className='demand_project_search'
-                                prefix={<SearchOutlined />}
+                                prefix={<IconCommon
+                                    icon={"sousuo"}
+                                    className={"icon-m"}
+                                />}
                             />
                         </Col>
                     </Row>

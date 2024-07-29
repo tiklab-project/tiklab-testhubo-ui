@@ -3,7 +3,6 @@ import {Axios} from "thoughtware-core-ui";
 import {observer} from "mobx-react";
 import {Empty} from "antd";
 import Profile from "../../common/Profile";
-import emptyImg from "../../assets/img/empty.png";
 import moment from "moment";
 import "./DynamicList.scss"
 import {useHistory} from "react-router";
@@ -150,7 +149,6 @@ const DynamicWidget = (props) =>{
                     :<Empty
                         imageStyle={{ height: 120 }}
                         description={<span>暂无动态</span>}
-                        image={emptyImg}
                     />
             }
             {

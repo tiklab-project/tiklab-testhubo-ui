@@ -2,7 +2,6 @@ import React from "react";
 import {Col, Empty,  List, Row, Tag} from "antd";
 import {observer} from "mobx-react";
 import UIResultCommon from "../../../common/UIResultCommon";
-import emptyImg from "../../../../assets/img/empty.png";
 
 
 const AppSceneInstanceDetail =({spinning,appStepList,instanceInfo})=>{
@@ -17,7 +16,6 @@ const AppSceneInstanceDetail =({spinning,appStepList,instanceInfo})=>{
                 emptyText: <Empty
                     imageStyle={{ height: 120 }}
                     description={<span>暂无历史步骤</span>}
-                    image={emptyImg}
                 />,
             }}
             renderItem={(item) =>(

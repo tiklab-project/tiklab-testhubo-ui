@@ -36,35 +36,47 @@ export const showStatus = (status)=>{
     }
 }
 
-export const showTextStatus = (status)=>{
+export const showTextStatus = (status,size)=>{
     switch (status) {
         case 0:
             return <div style={{
-                background:"#e9e9e9",
-                fontSize:"10px",
+                textAlign:"center",
+                background:"#f8f8f8",
+                fontSize:`${size||"10px"}`,
                 padding:"2px 5px",
-                borderRadius:"5px"
+                borderRadius:"5px",
+                width: "48px",
+                border: "1px solid #e4e7ee"
             }}>未开始</div>
         case 1:
             return <div style={{
-                background:"#b3d8fd",
-                fontSize:"10px",
+                textAlign:"center",
+                background:"#d6eaff",
+                fontSize:`${size||"10px"}`,
                 padding:"2px  5px",
-                borderRadius:"5px"
+                borderRadius:"5px",
+                width: "48px",
+                border: "1px solid #e4e7ee"
             }}>进行中</div>
         case 2:
             return <div style={{
-                background:"#f29e9ee8",
-                fontSize:"10px"
-                ,padding:"2px 5px",
-                borderRadius:"5px"
+                textAlign:"center",
+                background:"#ffdfdf",
+                fontSize:`${size||"10px"}`,
+                padding:"2px 5px",
+                borderRadius:"5px",
+                width: "48px",
+                border: "1px solid #e4e7ee"
             }}>结束</div>
         default:
             return <div style={{
-                background:"#e9e9e9",
-                fontSize:"10px",
+                textAlign:"center",
+                background:"#f8f8f8",
+                fontSize:`${size||"10px"}`,
                 padding:"2px  5px",
-                borderRadius:"5px"
+                borderRadius:"5px",
+                width: "48px",
+                border: "1px solid #e4e7ee"
             }}>未开始</div>
     }
 }

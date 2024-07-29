@@ -3,7 +3,6 @@ import { observer, inject } from "mobx-react";
 import {Empty, Popconfirm, Space, Table,} from 'antd';
 import WebEnvEdit from './webEnvEdit';
 import IconCommon from "../../../common/IconCommon";
-import emptyImg from "../../../assets/img/empty.png";
 
 const WebEnvList = (props) => {
     const { webEnvStore } = props;
@@ -67,7 +66,6 @@ const WebEnvList = (props) => {
                             height: 120,
                         }}
                         description={<span>暂无环境</span>}
-                        image={emptyImg}
                     />,
                 }}
             />

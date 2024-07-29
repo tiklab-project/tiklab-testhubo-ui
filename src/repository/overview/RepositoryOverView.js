@@ -23,7 +23,7 @@ const RepositoryOverView = (props) => {
             <div className={"ws-init-box"}>
                 <div className={" ws-init-content"}>
                     <div className={"wd-total"}>
-                        <div className={"title-bold"}>用例统计</div>
+                        <div className={"header-box-title title-bold"}>用例统计</div>
                         <CaseNumberStatistics />
                         <Row gutter={20}>
                             <StatisticsCaseTrend repositoryId={repositoryId} />
@@ -32,12 +32,12 @@ const RepositoryOverView = (props) => {
 
                     </div>
                     <div className={"wd-total"}>
-                        <div className={"title-bold"}>用例执行统计</div>
+                        <div className={"header-box-title title-bold"}>用例执行统计</div>
                         <CaseTestResultNumberStatistics repositoryId={repositoryId}/>
                     </div>
 
                     <div className={"wd-dynamic-box"}>
-                        <div className={"title-bold"} style={{margin: "0 0 25px 0"}}>最近动态</div>
+                        <div className={"header-box-title title-bold"} style={{margin: "0 0 25px 0"}}>最近动态</div>
                         <DynamicWidget screen={{"repositoryId": repositoryId}}/>
                     </div>
                 </div>

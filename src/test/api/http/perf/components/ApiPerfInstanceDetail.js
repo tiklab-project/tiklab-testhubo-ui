@@ -1,7 +1,7 @@
 import React from "react";
 import {Empty, Spin, Table} from "antd";
 import { observer} from "mobx-react";
-import emptyImg from "../../../../../assets/img/empty.png";
+
 const ApiPerfInstanceDetail = (props) =>{
     const {result,loading} =props
 
@@ -105,7 +105,6 @@ const ApiPerfInstanceDetail = (props) =>{
                                             emptyText: <Empty
                                                 imageStyle={{ height: 120}}
                                                 description={<span>暂无测试步骤</span>}
-                                                image={emptyImg}
                                             />,
                                         }}
                                         showHeader={index === 0}

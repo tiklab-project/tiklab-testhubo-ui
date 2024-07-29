@@ -4,6 +4,7 @@ import {Table, Input, Col,Row} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../common/iconBtn/IconBtn";
 import PaginationCommon from "../../common/pagination/Page";
+import IconCommon from "../../common/IconCommon";
 const ConnectSelectCommon = (props) =>{
     const {
         setVisible,
@@ -27,7 +28,10 @@ const ConnectSelectCommon = (props) =>{
                             onPressEnter={onSearch}
                             onChange={onSearch}
                             className='demand_project_search'
-                            prefix={<SearchOutlined />}
+                            prefix={<IconCommon
+                                icon={"sousuo"}
+                                className={"icon-m"}
+                            />}
                         />
                     </Col>
 

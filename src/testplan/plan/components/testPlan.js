@@ -8,13 +8,12 @@ import {Input, Table, Space, Empty, Tag} from 'antd';
 import TestPlanEdit from './testPlanEdit';
 import  { useTranslation } from 'react-i18next'
 import "./testPlanStyle.scss"
-import emptyImg from "../../../assets/img/empty.png";
-import {SearchOutlined} from "@ant-design/icons";
 import PaginationCommon from "../../../common/pagination/Page";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import HideDelete from "../../../common/hideDelete/HideDelete";
 import PlanInstanceDrawer from "../../instance/components/PlanInstanceDrawer";
 import PageContent from "../../../common/pageContent/PageContent";
+import IconCommon from "../../../common/IconCommon";
 
 
 const TestPlan = (props) => {
@@ -34,7 +33,7 @@ const TestPlan = (props) => {
             title:`计划名称`,
             dataIndex: "name",
             key: "name",
-            width: "20%",
+            width: "25%",
             render: (text,record) =>(
                 <span className={"link-text text-ellipsis"} onClick={()=>toPlanDetail(record)}>{text}</span>
             )
@@ -43,7 +42,7 @@ const TestPlan = (props) => {
             title:`计划时间`,
             dataIndex: "planTime",
             key: "planTime",
-            width: "25%",
+            width: "28%",
             render:(text,record)=>(
                 <span className={"text-ellipsis"}>{record.startTime} ~ {record.endTime}</span>
             )
@@ -59,7 +58,7 @@ const TestPlan = (props) => {
             title: `最近执行`,
             dataIndex: "recentInstance",
             key: "principal",
-            width: "12%",
+            width: "10%",
             render:(text,record)=>(
                 <PlanInstanceDrawer instance={record?.recentInstance} {...props} />
             )
@@ -68,7 +67,7 @@ const TestPlan = (props) => {
             title: `用例数`,
             dataIndex: "testCaseNum",
             key: "testCaseNum",
-            width: "12%",
+            width: "7%",
             render:(text)=>(
                 <span style={{color:"#3facff"}}>{text}</span>
             )
@@ -105,6 +104,7 @@ const TestPlan = (props) => {
     const [selectItem, setSelectItem] = useState("all");
     const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
+    const [totalRecord, setTotalRecord] = useState();
     const [pageParam, setPageParam] = useState({
         pageParam: {
             pageSize: pageSize,
@@ -174,12 +174,14 @@ const TestPlan = (props) => {
     }
 
     const findPage = ()=>{
+        setTableLoading(true)
         let param={
             repositoryId:repositoryId,
             pageParam,
         }
-        findTestPlanPage(param).then(()=>{
+        findTestPlanPage(param).then((res)=>{
             setTableLoading(false)
+            setTotalRecord(res.totalRecord)
         });
     }
 
@@ -248,7 +250,10 @@ const TestPlan = (props) => {
                         placeholder={`搜索计划名`}
                         onPressEnter={onSearch}
                         className='search-input-common'
-                        prefix={<SearchOutlined />}
+                        prefix={<IconCommon
+                            icon={"sousuo"}
+                            className={"icon-m"}
+                        />}
                     />
                 </div>
 
@@ -267,7 +272,6 @@ const TestPlan = (props) => {
                                     height: 120,
                                 }}
                                 description={<span>暂无计划</span>}
-                                image={emptyImg}
                             />,
                         }}
                     />
@@ -275,6 +279,8 @@ const TestPlan = (props) => {
                         currentPage={currentPage}
                         totalPage={totalPage}
                         changePage={onTableChange}
+                        totalRecord={totalRecord}
+                        findPage={findPage}
                     />
                 </div>
             </div>

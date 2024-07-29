@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Empty, Input, Space, Table, Tooltip, TreeSelect} from "antd";
 import {inject, observer} from "mobx-react";
-import emptyImg from "../../../assets/img/empty.png"
-import {showCaseTypeTable, showCaseTypeView, showStatus} from "../../../common/caseCommon/CaseCommonFn";
-import {SearchOutlined} from "@ant-design/icons";
+import {showCaseTypeTable, showCaseTypeView, showTextStatus} from "../../../common/caseCommon/CaseCommonFn";
 import DropdownAdd from "./DropdownAdd";
 import "../../common/styles/caseContantStyle.scss"
 import "../../common/styles/unitcase.scss"
@@ -67,7 +65,7 @@ const TestCaseTable = (props) => {
             dataIndex: "status",
             key: "status",
             width:"10%",
-            render:(text,record)=><div className={"case-table-status"}>{showStatus(text)}</div>
+            render:(text)=><div className={"case-table-status"}>{showTextStatus(text,"12px")}</div>
         },
         {
             title: `模块`,
@@ -75,7 +73,7 @@ const TestCaseTable = (props) => {
             key: "category",
             width:"11%",
             ellipsis: true,
-            render: (text, record) => (text||"未设置")
+            render: (text) => (text||"未设置")
         },
         {
             title: `负责人`,
@@ -97,7 +95,7 @@ const TestCaseTable = (props) => {
             key: 'operation',
             width: 50,
             render: (text, record) => (
-                <Space size="middle">
+                <Space size="small">
                     <ShowQuickExe record={record} {...props}/>
                     <ShowDeleteView record={record} deleteFn={deleteFn} />
                 </Space>
@@ -109,6 +107,7 @@ const TestCaseTable = (props) => {
     const [tableLoading,setTableLoading] = useState(true);
     const [selectCategory, setSelectCategory] = useState(null);
     const [totalPage, setTotalPage] = useState();
+    const [totalRecord, setTotalRecord] = useState();
     const [pageSize] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
     const [diffTypeCaseNum, setDiffTypeCaseNum] = useState();
@@ -129,6 +128,7 @@ const TestCaseTable = (props) => {
     },[repositoryId])
 
     const findPage = (params) =>{
+        setTableLoading(true)
         let param = {
             pageParam: {
                 pageSize: pageSize,
@@ -141,6 +141,7 @@ const TestCaseTable = (props) => {
         }
         findTestCaseList(param).then((res)=>{
             setTotalPage(res.totalPage);
+            setTotalRecord(res.totalRecord)
             setTableLoading(false)
         })
     }
@@ -292,7 +293,7 @@ const TestCaseTable = (props) => {
                         menuItems={items}
                         selectFn={selectKeyFun}
                         selected={testType}
-                        style={{width: "330px"}}
+                        style={{width: "310px"}}
                     />
 
                     <Space>
@@ -304,11 +305,20 @@ const TestCaseTable = (props) => {
                             }
                         </>
 
+                        <Input
+                            placeholder={`搜索用例名`}
+                            onPressEnter={onSearch}
+                            className='search-input-common'
+                            prefix={<IconCommon
+                                icon={"sousuo"}
+                                className={"icon-m"}
+                            />}
+                        />
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
                             style={{  width: '150px'}}
                             dropdownStyle={{maxHeight: 400,overflow: 'auto'}}
-                            className={"dynamic-select-box-item"}
+                            className={"filter-select-box-item"}
                             placeholder="模块"
                             allowClear
                             treeDefaultExpandAll
@@ -316,15 +326,9 @@ const TestCaseTable = (props) => {
                             treeData={[{name:"所有",id:"null"},...categoryTableList]}
                         />
 
-                        <Input
-                            placeholder={`搜索用例名`}
-                            onPressEnter={onSearch}
-                            className='search-input-common'
-                            prefix={<SearchOutlined />}
-                        />
 
                         <Tooltip title={"切换列表视图"} placement={"top"}>
-                            <div>
+                            <div style={{background:"#f8f8f8", padding:"0 5px",border: "1px solid #f6efef"}}>
                                 <IconCommon
                                     className={"icon-m edit-icon"}
                                     icon={"shituqiehuan"}
@@ -349,7 +353,6 @@ const TestCaseTable = (props) => {
                             emptyText: <Empty
                                 imageStyle={{height: 120}}
                                 description={<span>暂无用例</span>}
-                                image={emptyImg}
                             />,
                         }}
                     />
@@ -357,6 +360,8 @@ const TestCaseTable = (props) => {
                         currentPage={currentPage}
                         totalPage={totalPage}
                         changePage={onTableChange}
+                        totalRecord={totalRecord}
+                        findPage={findPage}
                     />
                 </div>
             </div>

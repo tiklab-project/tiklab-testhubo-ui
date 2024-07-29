@@ -37,7 +37,7 @@ const ApiUnitContent = (props) =>{
                             <ApiEnvDropDownSelect />
                             <IconBtn
                                 className="pi-icon-btn-grey"
-                                icon={"lishi"}
+                                // icon={"lishi"}
                                 onClick={()=> history.push("/repository/api-unit-instance")}
                                 name={"历史"}
                             />
