@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import {Modal, Space, Table} from "antd";
+import {Empty, Modal, Space, Table} from "antd";
 import {inject, observer} from "mobx-react";
 import {TextMethodType} from "../../../../test/api/http/common/methodType";
 import postInApiToCaseStore from "../store/PostinApiToCaseStore";
@@ -95,18 +95,25 @@ const PostInApiToCase = (props) => {
                 centered
                 width={700}
             >
-                <div style={{minHeight:"300px"}}>
+                <div style={{minHeight:"260px"}}>
                     <div style={{display:"flex","alignItems":"center",padding:"0 0 15px"}}>
                         <div>项目 :  {workspaceName}</div>
                     </div>
-
+                    <div className={"table-list-box"}>
                     <Table
                         columns={columns}
                         dataSource={postInApiList}
                         rowKey = {record => record.id}
                         rowSelection={{...rowSelection}}
                         pagination={false}
+                        locale={{
+                            emptyText: <Empty
+                                imageStyle={{height: 100}}
+                                description={<span>暂无用例</span>}
+                            />,
+                        }}
                     />
+                    </div>
                 </div>
             </Modal>
         </>

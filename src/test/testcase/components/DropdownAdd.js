@@ -86,7 +86,7 @@ const DropdownAdd = (props) =>{
                             />
                         </div>
                     </Tooltip>
-                    : <Button className={"important-btn"}>添加用例</Button>
+                    : <Button className={"important-btn"} type="primary">添加用例</Button>
             }
 
         </Dropdown>

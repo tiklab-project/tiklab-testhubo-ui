@@ -8,6 +8,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import RepositoryList from "./RepositoryList";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 import IconCommon from "../../../common/IconCommon";
+import {debounce} from "../../../common/utils/commonFn";
 
 /**
  * 项目页
@@ -128,6 +129,7 @@ const Repository = (props)=> {
                                 className="important-btn"
                                 onClick={toRepositoryPage}
                                 name={"添加项目"}
+                                type="primary"
                             />
                         </div>
                     </div>
@@ -144,11 +146,13 @@ const Repository = (props)=> {
                         <Input
                             prefix={<IconCommon
                                 icon={"sousuo"}
-                                className={"icon-m"}
+                                className={"icon-s"}
                             />}
                             placeholder={`搜索项目名`}
                             onPressEnter={onSearch}
                             className={"search-input-common"}
+                            onChange={debounce(onSearch,500) }
+                            allowClear
                         />
                     </div>
 

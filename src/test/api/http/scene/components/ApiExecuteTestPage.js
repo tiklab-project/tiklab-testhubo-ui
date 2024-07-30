@@ -267,7 +267,7 @@ const ApiExecuteTestPage = (props) =>{
         return<a onClick={showDrawer}>
             <IconBtn
                 className="important-btn"
-                // icon={"fasong-copy"}
+                type="primary"
                 name={"测试"}
             />
         </a>;

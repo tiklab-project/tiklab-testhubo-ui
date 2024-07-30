@@ -90,7 +90,7 @@ const AppEnvList = (props) => {
                 locale={{
                     emptyText: <Empty
                         imageStyle={{
-                            height: 120,
+                            height: 100,
                         }}
                         description={<span>暂无环境</span>}
                     />,

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Popconfirm, Space, Table} from "antd";
+import {Empty, Popconfirm, Space, Table} from "antd";
 import { observer} from "mobx-react";
 import IconCommon from "../../../../../common/IconCommon";
 import apiPerfStepStore from "../store/apiPerfStepStore";
@@ -123,6 +123,12 @@ const ApiPerfStepList = (props) =>{
                 dataSource={apiPerfStepList}
                 rowKey = {record => record.id}
                 pagination={false}
+                locale={{
+                    emptyText: <Empty
+                        imageStyle={{height: 100}}
+                        description={<span>暂无用例</span>}
+                    />,
+                }}
             />
             </div>
         </div>

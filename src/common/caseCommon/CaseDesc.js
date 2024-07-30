@@ -29,6 +29,7 @@ const CaseDesc = ({form,updateCase}) =>{
                         setIsFocus(false)
                     }}
                     className={"important-btn"}
+                    type="primary"
                     style={{marginRight:"10px"}}
                 >
                     保存

@@ -212,6 +212,7 @@ const AppSceneStepDrawer = ({name,stepId,findList}) =>{
                             <Button
                                 className={"important-btn"}
                                 onClick={save}
+                                type="primary"
                             >
                                 保存
                             </Button>

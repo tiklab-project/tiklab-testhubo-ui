@@ -135,7 +135,7 @@ const TestCaseRecentHome = (props) =>{
             dataSource={dataList}
             locale={{
                 emptyText: <Empty
-                    imageStyle={{ height: 120 }}
+                    imageStyle={{ height: 100 }}
                     description={<span>暂无动态</span>}
                 />,
             }}

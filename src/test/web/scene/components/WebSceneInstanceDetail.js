@@ -17,7 +17,7 @@ const WebSceneInstanceDetail =(props)=>{
             dataSource={webStepList}
             locale={{
                 emptyText: <Empty
-                    imageStyle={{ height: 120 }}
+                    imageStyle={{ height: 100 }}
                     description={<span>暂无历史步骤</span>}
                 />,
             }}

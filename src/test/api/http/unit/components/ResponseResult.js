@@ -92,7 +92,7 @@ const ResponseResult = ({apiUnitId}) =>{
         if(dataValue?.dataType==="raw"&&isTrue){
             return <Space>
                 <Button  onClick={cancelRawText}>取消</Button>
-                <Button className={"important-btn"} onClick={saveRawText}>保存</Button>
+                <Button className={"important-btn"} type="primary" onClick={saveRawText}>保存</Button>
             </Space>
         }
     }

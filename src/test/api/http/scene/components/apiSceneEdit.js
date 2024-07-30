@@ -90,7 +90,7 @@ const ApiSceneEdit = (props) => {
                         rules={[{ required: true,  message:"请添加名称" }]}
                         name="name"
                     >
-                        <Input />
+                        <Input placeholder="请输入名称"/>
                     </Form.Item>
                     <Form.Item
                         label="模块"

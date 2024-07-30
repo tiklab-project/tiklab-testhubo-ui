@@ -16,6 +16,7 @@ import {getVersionInfo} from "thoughtware-core-ui";
 import {rowStyle, showCreateUser, ShowDeleteView} from "../../../test/testcase/components/testCaseTableFn";
 import PageContent from "../../../common/pageContent/PageContent";
 import IconCommon from "../../../common/IconCommon";
+import {debounce} from "../../../common/utils/commonFn";
 
 const TestPlanBindCaseList = (props) =>{
     const {findBindTestCasePage,testPlanDetailList,deleteTestPlanDetail,findTestCasePage,getTestTypeNum} = testPlanDetailStore;
@@ -304,7 +305,7 @@ const TestPlanBindCaseList = (props) =>{
                             menuItems={testPlanType==="auto"?autoTypeMenu:functionTypeMenu}
                             selectFn={selectKeyFun}
                             selected={selectItem}
-                            style={{width: `${testPlanType==="auto"?"240px":"160px"}`}}
+                            style={{width: `${testPlanType==="auto"?"180px":"120px"}`}}
                         />
 
                         <Space>
@@ -319,8 +320,10 @@ const TestPlanBindCaseList = (props) =>{
                                 className='search-input-common'
                                 prefix={<IconCommon
                                     icon={"sousuo"}
-                                    className={"icon-m"}
+                                    className={"icon-s"}
                                 />}
+                                onChange={debounce(onSearch,500) }
+                                allowClear
                             />
                         </Space>
                     </div>
@@ -335,7 +338,7 @@ const TestPlanBindCaseList = (props) =>{
                             onRow={(record) => ({style: rowStyle(record.caseType)})}
                             locale={{
                                 emptyText: <Empty
-                                    imageStyle={{height: 120}}
+                                    imageStyle={{height: 100}}
                                     description={<span>暂无用例</span>}
                                 />,
                             }}

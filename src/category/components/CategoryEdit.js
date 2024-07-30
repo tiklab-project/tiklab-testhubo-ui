@@ -97,6 +97,7 @@ const CategoryEdit =(props)=>{
             <Button
                 className={"important-btn"}
                 onClick={showModal}
+                type="primary"
             >
                 {props.name}
             </Button>
@@ -127,6 +128,7 @@ const CategoryEdit =(props)=>{
                         label="目录名称"
                         name="name"
                         rules={[{ required: true, message: '请输入目录名称!' }]}
+                        placeholder="请输入名称"
                     >
                         <Input />
                     </Form.Item>

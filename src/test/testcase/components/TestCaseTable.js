@@ -15,6 +15,7 @@ import {rowStyle, showCreateUser, ShowDeleteView, ShowQuickExe, SwitchCaseTypeVi
 import IconCommon from "../../../common/IconCommon";
 import {useHistory} from "react-router";
 import PageContent from "../../../common/pageContent/PageContent";
+import {debounce} from "../../../common/utils/commonFn";
 
 
 const TestCaseTable = (props) => {
@@ -293,7 +294,7 @@ const TestCaseTable = (props) => {
                         menuItems={items}
                         selectFn={selectKeyFun}
                         selected={testType}
-                        style={{width: "310px"}}
+                        style={{width: "320px"}}
                     />
 
                     <Space>
@@ -311,8 +312,10 @@ const TestCaseTable = (props) => {
                             className='search-input-common'
                             prefix={<IconCommon
                                 icon={"sousuo"}
-                                className={"icon-m"}
+                                className={"icon-s"}
                             />}
+                            onChange={debounce(onSearch,500) }
+                            allowClear
                         />
                         <TreeSelect
                             fieldNames={{ label: 'name', value: 'id', children: 'children' }}
@@ -351,7 +354,7 @@ const TestCaseTable = (props) => {
                         onRow={(record) => ({style: rowStyle(record.caseType)})}
                         locale={{
                             emptyText: <Empty
-                                imageStyle={{height: 120}}
+                                imageStyle={{height: 100}}
                                 description={<span>暂无用例</span>}
                             />,
                         }}

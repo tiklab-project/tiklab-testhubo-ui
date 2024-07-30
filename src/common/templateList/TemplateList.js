@@ -82,7 +82,7 @@ const DynamicList = props =>{
                         }
                     })
                     :<Empty
-                        imageStyle={{height: 120}}
+                        imageStyle={{height: 100}}
                         description={<span>暂无动态</span>}
                     />
 

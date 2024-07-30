@@ -7,6 +7,7 @@ import workItemBindStore from "../store/WorkItemBindStore";
 import ProjectSelect from "../../workItem/components/ProjectSelect";
 import PaginationCommon from "../../../../common/pagination/Page";
 import IconCommon from "../../../../common/IconCommon";
+import {debounce} from "../../../../common/utils/commonFn";
 const {createWorkItemBind,findWorkItemBindList} = workItemBindStore;
 
 const DefectSelect = (props) =>{
@@ -151,12 +152,13 @@ const DefectSelect = (props) =>{
                             <Input
                                 placeholder={`搜索缺陷名称`}
                                 onPressEnter={onSearch}
-                                onChange={onSearch}
                                 className='demand_project_search'
                                 prefix={<IconCommon
                                     icon={"sousuo"}
-                                    className={"icon-m"}
+                                    className={"icon-s"}
                                 />}
+                                onChange={debounce(onSearch,500) }
+                                allowClear
                             />
                         </Col>
                         <Col className="gutter-row" span={6}>

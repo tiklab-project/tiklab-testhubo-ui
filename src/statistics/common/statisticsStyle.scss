@@ -3,13 +3,13 @@
     height: 100%;
 
     .left-menu{
-        width: 240px;
+        width: 190px;
         background: #f5f5f5;
 
         .menu-li {
-            padding: 0 20px;
+            padding: 0 10px;
             height: 40px;
-            width: 220px;
+            width: 180px;
             line-height: 40px;
             display: block;
             cursor: pointer;
@@ -49,9 +49,9 @@
         }
     }
 }
-
-.statistic-card-item{
-    border-radius: 5px;
-    height: 470px;
-    background: #f8f8f8;
+.content-box-center{
+    .statistic-card-item{
+        border-radius: 5px;
+        background: #f8f8f8;
+    }
 }

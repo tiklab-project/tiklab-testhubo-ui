@@ -1,7 +1,7 @@
 .select-menu-box{
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     width: 300px;
 
     .select-menu-item{
@@ -9,18 +9,18 @@
         flex: 1;
         text-align: center;
         cursor: pointer;
-        border-bottom: 3px solid #ffffff00;
+        border-bottom: 2px solid #ffffff00;
 
     }
 
     .select-menu-item:hover{
-        border-bottom:3px solid  var(--pi-base-color);
+        border-bottom:2px solid  var(--pi-base-color);
         color:  var(--pi-base-color);
     }
 
     .select-menu-item-selected{
         color:  var(--pi-base-color);
-        border-bottom:3px solid  var(--pi-base-color);
+        border-bottom:2px solid  var(--pi-base-color);
     }
 }
 

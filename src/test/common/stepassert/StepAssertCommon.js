@@ -305,6 +305,7 @@ const StepAssertCommon = (props) =>{
                                 <Button
                                     className={"important-btn"}
                                     onClick={onFinish}
+                                    type="primary"
                                 >
                                     保存
                                 </Button>

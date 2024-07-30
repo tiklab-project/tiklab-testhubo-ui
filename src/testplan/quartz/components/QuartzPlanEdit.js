@@ -57,7 +57,7 @@ const QuartzPlanEdit = (props) => {
         <>
             {
                 type === "add"
-                    ? <Button className="important-btn" onClick={showModal}>{name}</Button>
+                    ? <Button className="important-btn" type="primary" onClick={showModal}>{name}</Button>
                     : <IconCommon
                         icon={"bianji11"}
                         className={"icon-s edit-icon"}

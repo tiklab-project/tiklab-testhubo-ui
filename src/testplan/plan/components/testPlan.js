@@ -14,6 +14,7 @@ import HideDelete from "../../../common/hideDelete/HideDelete";
 import PlanInstanceDrawer from "../../instance/components/PlanInstanceDrawer";
 import PageContent from "../../../common/pageContent/PageContent";
 import IconCommon from "../../../common/IconCommon";
+import {debounce} from "../../../common/utils/commonFn";
 
 
 const TestPlan = (props) => {
@@ -170,14 +171,15 @@ const TestPlan = (props) => {
                 name:e.target.value,
             }
         }
-        setPageParam(newParams)
+        findPage(newParams)
     }
 
-    const findPage = ()=>{
+    const findPage = (params)=>{
         setTableLoading(true)
         let param={
             repositoryId:repositoryId,
             pageParam,
+            ...params
         }
         findTestPlanPage(param).then((res)=>{
             setTableLoading(false)
@@ -244,6 +246,7 @@ const TestPlan = (props) => {
                         menuItems={items}
                         selectFn={selectFn}
                         selected={selectItem}
+                        style={{width: `240px`}}
                     />
 
                     <Input
@@ -252,8 +255,10 @@ const TestPlan = (props) => {
                         className='search-input-common'
                         prefix={<IconCommon
                             icon={"sousuo"}
-                            className={"icon-m"}
+                            className={"icon-s"}
                         />}
+                        onChange={debounce(onSearch,500) }
+                        allowClear
                     />
                 </div>
 
@@ -268,9 +273,7 @@ const TestPlan = (props) => {
                         loading={tableLoading}
                         locale={{
                             emptyText: <Empty
-                                imageStyle={{
-                                    height: 120,
-                                }}
+                                imageStyle={{height: 100}}
                                 description={<span>暂无计划</span>}
                             />,
                         }}

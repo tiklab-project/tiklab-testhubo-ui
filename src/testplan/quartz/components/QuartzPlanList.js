@@ -124,7 +124,7 @@ const QuartzPlanList = (props) =>{
                     loading={tableLoading}
                     locale={{
                         emptyText: <Empty
-                            imageStyle={{height: 120}}
+                            imageStyle={{height: 100}}
                             description={<span>暂无定时任务</span>}
                         />
                     }}

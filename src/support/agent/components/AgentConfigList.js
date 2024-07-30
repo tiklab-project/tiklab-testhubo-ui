@@ -9,6 +9,7 @@ import {Popconfirm, Space, Table, Switch, Badge} from "antd";
 import IconCommon from "../../../common/IconCommon";
 import agentConfigStore from "../store/AgentConfigStore";
 import {CheckCircleTwoTone, CloseCircleTwoTone} from "@ant-design/icons";
+import PageContent from "../../../common/pageContent/PageContent";
 
 //
 const AgentConfigList = (props) => {
@@ -114,20 +115,23 @@ const AgentConfigList = (props) => {
 
 
     return(
-        <div className={"content-box-center"}>
-            <div  className={"header-box-space-between"} >
-                <div className={'header-box-title'}>Agent配置</div>
+        <PageContent>
+            <div className={"content-box-center"}>
+                <div  className={"header-box-space-between"} >
+                    <div className={'header-box-title'}>Agent配置</div>
+                </div>
+                <div className={"table-list-box"}>
+                    <Table
+                        className="tablelist"
+                        columns={columns}
+                        dataSource={agentConfigList}
+                        rowKey={record => record.id}
+                        pagination={false}
+                    />
+                </div>
             </div>
-            <div className={"table-list-box"}>
-                <Table
-                    className="tablelist"
-                    columns={columns}
-                    dataSource={agentConfigList}
-                    rowKey={record => record.id}
-                    pagination={false}
-                />
-            </div>
-        </div>
+        </PageContent>
+
     )
 }
 

@@ -86,17 +86,11 @@
         padding: 20px 0;
         background: #fff;
 
-
-        .statistic-card-item{
-            border-radius: 5px;
-            height: 470px;
-            background: #f8f8f8;
-        }
     }
+
     .wd-total{
         background: #fff;
         padding: 15px;
-
 
 
         .wd-total-item{
@@ -114,6 +108,12 @@
             &-name{
                 padding: 5px;
             }
+        }
+
+        .statistic-card-item{
+            border-radius: 5px;
+            height: 470px;
+            background: #f8f8f8;
         }
 
     }

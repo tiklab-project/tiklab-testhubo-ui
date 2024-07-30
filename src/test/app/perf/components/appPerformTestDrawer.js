@@ -84,7 +84,7 @@ const AppPerformTestDrawer = (props) =>{
 
     return(
         <>
-            <Button className={"important-btn"} onClick={showDrawer}>测试</Button>
+            <Button className={"important-btn"} onClick={showDrawer} type="primary">测试</Button>
             <Drawer
                 title="测试结果"
                 placement={"right"}

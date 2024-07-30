@@ -206,7 +206,7 @@ const ApiPerfExecuteTestPage = (props) =>{
         return<a onClick={showDrawer}>
             <IconBtn
                 className="important-btn"
-                // icon={"fasong-copy"}
+                type="primary"
                 name={"测试"}
             />
         </a>;
@@ -295,7 +295,7 @@ const ApiPerfExecuteTestPage = (props) =>{
                                                     pagination={false}
                                                     locale={{
                                                         emptyText: <Empty
-                                                            imageStyle={{ height: 120}}
+                                                            imageStyle={{ height: 100}}
                                                             description={<span>暂无测试步骤</span>}
                                                         />,
                                                     }}

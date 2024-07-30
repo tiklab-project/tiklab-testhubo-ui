@@ -109,7 +109,7 @@ const ApiPerfTestDataDrawer = ({stepId}) =>{
                             pagination={false}
                             locale={{
                                 emptyText: <Empty
-                                    imageStyle={{height: 120 }}
+                                    imageStyle={{height: 100 }}
                                     description={<span>暂无测试数据</span>}
                                 />,
                             }}

@@ -65,7 +65,7 @@ const TestPlanEdit = (props) => {
         <>
             {
                 props.name === "添加计划"
-                    ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
+                    ? <Button className="important-btn" type="primary" onClick={showModal}>{props.name}</Button>
                     : <IconCommon
                         icon={"bianji11"}
                         className={"icon-s edit-icon"}
@@ -82,7 +82,7 @@ const TestPlanEdit = (props) => {
                 okText="提交"
                 cancelText="取消"
                 centered
-                width={500}
+                width={470}
             >
                 <Form
                     form={form}
@@ -95,7 +95,7 @@ const TestPlanEdit = (props) => {
                         rules={[{ required: true, message:"请添加名称" }]}
                         name="name"
                     >
-                        <Input />
+                        <Input placeholder="请输入名称"/>
                     </Form.Item>
                     {
                         props.type === "add"
@@ -120,7 +120,7 @@ const TestPlanEdit = (props) => {
                             span: 24,
                         }}
                     >
-                        <RangePicker format={'YYYY-MM-DD'}/>
+                        <RangePicker format={'YYYY-MM-DD'} style={{width:"420px"}}/>
                     </Form.Item>
                 </Form>
             </Modal>

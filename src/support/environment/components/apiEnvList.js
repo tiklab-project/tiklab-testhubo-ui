@@ -68,7 +68,7 @@ const ApiEnvList = (props) => {
                 pagination={false}
                 locale={{
                     emptyText: <Empty
-                        imageStyle={{height: 120}}
+                        imageStyle={{height: 100}}
                         description={<span>暂无环境</span>}
                     />,
                 }}

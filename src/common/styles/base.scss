@@ -296,12 +296,20 @@ table .icon{
 
 //按钮颜色
 .important-btn{
-    background: var(--pi-base-color)!important;
     color: #f0f0f0!important;
     border-radius: var(--pi-border-radius);
     font-size: var(--pi-font-size-13);
+}
+.ant-btn-primary{
+    background: var(--pi-base-color)!important;
     font-weight: bold!important;
 }
+.ant-btn-default{
+    background: var(--pi-bg-grey-100)!important;
+    font-weight: bold!important;
+    color:#888!important;
+}
+
 
 .content-box-center{
     height: calc(100% - 18px);
@@ -403,6 +411,11 @@ table .icon{
 
     .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before{
         content: none;
+    }
+
+    //空状态
+    .ant-empty{
+        margin: 20px;
     }
 }
 
@@ -565,4 +578,19 @@ table .icon{
 
 .ant-space .ant-space-item .ant-select{
     background: var(--pi-bg-grey-100);
+}
+
+//去除对话框中的横线
+.ant-modal-content {
+    .ant-modal-body{
+        padding: 10px 24px;
+    }
+    .ant-modal-header{
+        border: none;
+    }
+
+    .ant-modal-footer{
+        border: none;
+        padding:  10px 24px;
+    }
 }

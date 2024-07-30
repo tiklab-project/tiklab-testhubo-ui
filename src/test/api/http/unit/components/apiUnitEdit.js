@@ -85,13 +85,14 @@ const ApiUnitEdit = (props) => {
                     form={form}
                     preserve={false}
                     layout={"vertical"}
+                    initialValues={{ methodType: "get" }}
                 >
                     <Form.Item
                         label="名称"
                         rules={[{ required: true,  message:"请添加名称" }]}
                         name="name"
                     >
-                        <Input />
+                        <Input placeholder="请输入名称" />
                     </Form.Item>
                     <Form.Item
                         label="类型"
@@ -108,7 +109,7 @@ const ApiUnitEdit = (props) => {
                         rules={[{ required: true, message:"请添加地址" }]}
                         name="path"
                     >
-                        <Input />
+                        <Input placeholder="请输入地址"/>
                     </Form.Item>
                     <Form.Item
                         label="模块"

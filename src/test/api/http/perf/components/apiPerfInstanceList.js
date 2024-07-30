@@ -15,7 +15,7 @@ const ApiPerfInstanceList = ({actionTap}) =>{
     },[apiPerfId,actionTap])
 
     return(
-        <div className={"content-box-center"}>
+        <div style={{margin:"15px 0"}}>
             <InstanceListCommon belongId={apiPerfId} type={CASE_TYPE.API_PERFORM}/>
         </div>
     )

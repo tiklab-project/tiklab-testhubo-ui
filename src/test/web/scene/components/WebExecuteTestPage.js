@@ -104,7 +104,7 @@ const WebExecuteTestPage = (props) =>{
             dataSource={webStepList}
             locale={{
                 emptyText: <Empty
-                    imageStyle={{ height: 120 }}
+                    imageStyle={{ height: 100 }}
                     description={<span>暂无历史步骤</span>}
                 />,
             }}
@@ -216,7 +216,7 @@ const WebExecuteTestPage = (props) =>{
         return<a onClick={showDrawer}>
             <IconBtn
                 className="important-btn"
-                icon={"fasong-copy"}
+                type="primary"
                 name={"测试"}
             />
         </a>;

@@ -9,6 +9,7 @@ import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {CaretDownOutlined, SearchOutlined} from "@ant-design/icons";
 import {switchCaseTypeFn} from "./testCaseTableFn";
 import IconCommon from "../../../common/IconCommon";
+import {debounce} from "../../../common/utils/commonFn";
 
 const ToggleCase = (props) =>{
     const {testcaseStore,caseId} = props
@@ -119,8 +120,10 @@ const ToggleCase = (props) =>{
                             }}
                             prefix={<IconCommon
                                 icon={"sousuo"}
-                                className={"icon-m"}
+                                className={"icon-s"}
                             />}
+                            onChange={debounce(onSearch,500) }
+                            allowClear
                         />
 
                         {

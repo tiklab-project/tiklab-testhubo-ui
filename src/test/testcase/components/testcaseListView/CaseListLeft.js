@@ -10,6 +10,7 @@ import PaginationCommon from "../../../../common/pagination/Page";
 import {useHistory} from "react-router";
 import {switchCaseTypeFn} from "../testCaseTableFn";
 import AdvancedFilter from "./AdvancedFilter";
+import {debounce} from "../../../../common/utils/commonFn";
 
 const CaseListLeft = (props) =>{
     const {testcaseStore,categoryStore} = props;
@@ -167,7 +168,7 @@ const CaseListLeft = (props) =>{
                         width={280}
                         prefix={<IconCommon
                             icon={"sousuo"}
-                            className={"icon-m"}
+                            className={"icon-s"}
                         />}
                         addonAfter={
                             <AdvancedFilter
@@ -176,6 +177,8 @@ const CaseListLeft = (props) =>{
                                 testType={testType}
                             />
                         }
+                        onChange={debounce(onSearch,500) }
+                        allowClear
                     />
 
                 </div>

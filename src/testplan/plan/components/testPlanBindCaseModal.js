@@ -15,6 +15,7 @@ import {getVersionInfo} from "thoughtware-core-ui";
 import ExtensionCommon from "../../../common/ExtensionCommon";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import IconCommon from "../../../common/IconCommon";
+import {debounce} from "../../../common/utils/commonFn";
 
 // 添加与编辑
 const TestPlanBindCaseModal = (props) => {
@@ -209,12 +210,13 @@ const TestPlanBindCaseModal = (props) => {
                             <Input
                                 placeholder={`搜索名称`}
                                 onPressEnter={onSearch}
-                                onChange={onSearch}
                                 className='demand_project_search'
                                 prefix={<IconCommon
                                     icon={"sousuo"}
-                                    className={"icon-m"}
+                                    className={"icon-s"}
                                 />}
+                                onChange={debounce(onSearch,500) }
+                                allowClear
                             />
                         </Col>
 

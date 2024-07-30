@@ -49,7 +49,7 @@ const AgentConfigEdit = (props) => {
         <>
             {
                 props.type === "add"
-                    ? <Button className="important-btn" onClick={showModal}>{props.name}</Button>
+                    ? <Button className="important-btn" type="primary" onClick={showModal}>{props.name}</Button>
                     : <IconCommon
                         icon={"bianji11"}
                         className={"icon-s edit-icon"}

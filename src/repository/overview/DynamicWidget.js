@@ -147,7 +147,7 @@ const DynamicWidget = (props) =>{
                 list && list.length>0
                     ? processList(list)
                     :<Empty
-                        imageStyle={{ height: 120 }}
+                        imageStyle={{ height: 100 }}
                         description={<span>暂无动态</span>}
                     />
             }

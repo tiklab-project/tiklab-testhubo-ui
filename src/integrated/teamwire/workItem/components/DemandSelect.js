@@ -6,6 +6,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import IconBtn from "../../../../common/iconBtn/IconBtn";
 import PaginationCommon from "../../../../common/pagination/Page";
 import IconCommon from "../../../../common/IconCommon";
+import {debounce} from "../../../../common/utils/commonFn";
 
 const DemandSelect = (props) =>{
     const {workItemStore,caseInfo,updateFn,setDemandInfo,onCancel} = props;
@@ -132,8 +133,10 @@ const DemandSelect = (props) =>{
                             className='demand_project_search'
                             prefix={<IconCommon
                                 icon={"sousuo"}
-                                className={"icon-m"}
+                                className={"icon-s"}
                             />}
+                            onChange={debounce(onSearch,500) }
+                            allowClear
                         />
                     </Col>
                     <Col className="gutter-row" span={6}>

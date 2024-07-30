@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
 import {Input, Modal, Table} from "antd";
 import userSelectStore from "../store/UserSelectStore";
+import {debounce} from "../../utils/commonFn";
 
 const columns = [
     {
@@ -123,6 +124,8 @@ const UserSelect =(props) =>{
                     placeholder={`搜索`}
                     onPressEnter={onSearch}
                     className='search-input'
+                    onChange={debounce(onSearch,500) }
+                    allowClear
                 />
                 <Table
                     className="tablelist"

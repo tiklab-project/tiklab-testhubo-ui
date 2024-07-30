@@ -150,7 +150,7 @@ const WebPerfInstanceList = (props) =>{
 
                     locale={{
                         emptyText: <Empty
-                            imageStyle={{height: 120 }}
+                            imageStyle={{height: 100 }}
                             description={<span>暂无历史</span>}
                         />,
                     }}

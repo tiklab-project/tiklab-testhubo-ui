@@ -14,7 +14,7 @@ const AppSceneInstanceDetail =({spinning,appStepList,instanceInfo})=>{
             dataSource={appStepList}
             locale={{
                 emptyText: <Empty
-                    imageStyle={{ height: 120 }}
+                    imageStyle={{ height: 100 }}
                     description={<span>暂无历史步骤</span>}
                 />,
             }}

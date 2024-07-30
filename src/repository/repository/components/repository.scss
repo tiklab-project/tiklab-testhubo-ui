@@ -114,7 +114,7 @@ ul{
         padding: 10px;
         margin: 0 15px 0 0;
         cursor: pointer;
-        border-bottom: 3px solid #ffffff00;
+        border-bottom: 2px solid #ffffff00;
 
         span{
             font-size: var(--pi-font-size-14);
@@ -123,13 +123,13 @@ ul{
     }
 
     .ws-header-menu-item:hover{
-        border-bottom:3px solid  var(--pi-base-color);
+        border-bottom:2px solid  var(--pi-base-color);
         color:  var(--pi-base-color);
     }
 
     .ws-header-menu-item-selected{
         color:  var(--pi-base-color);
-        border-bottom:3px solid  var(--pi-base-color);
+        border-bottom:2px solid  var(--pi-base-color);
     }
 
 }

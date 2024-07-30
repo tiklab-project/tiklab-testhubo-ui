@@ -158,6 +158,7 @@ const TestPlanENVModal = (props) => {
                 className="important-btn"
                 name={"测试"}
                 onClick={showModal}
+                type="primary"
             />
             <Modal
                 destroyOnClose={true}
@@ -188,7 +189,7 @@ const TestPlanENVModal = (props) => {
                         showAppEnv||showApiEnv
                             ?null
                             :<Empty
-                                imageStyle={{height: 120}}
+                                imageStyle={{height: 100}}
                                 description={<span> WEB用例直接执行</span>}
                                 image={webImg}
                             />

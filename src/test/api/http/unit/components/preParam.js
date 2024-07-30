@@ -73,7 +73,7 @@ const PreParam = ({apiUnitId}) => {
                 </div>
                 <div className={`action-btn-box ${showBtn?"teston-show":"teston-hide"}`}>
                     <Button onClick={()=>setShowBtn(false)} style={{marginRight:"10px"}}> 取消</Button>
-                    <Button onClick={onFinish} className={"important-btn"}> 保存</Button>
+                    <Button onClick={onFinish} className={"important-btn"} type="primary"> 保存</Button>
                 </div>
             </div>
         </div>

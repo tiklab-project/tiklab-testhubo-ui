@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Popconfirm, Table} from "antd";
+import {Empty, Popconfirm, Table} from "antd";
 import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import {applyJump} from "thoughtware-core-ui"
@@ -102,6 +102,12 @@ const CaseBindDefectList = (props) =>{
                     dataSource={workItemBindList}
                     rowKey={record => record.id}
                     pagination={false}
+                    locale={{
+                        emptyText: <Empty
+                            imageStyle={{height: 100}}
+                            description={<span>暂无缺陷</span>}
+                        />,
+                    }}
                 />
             </div>
         </div>

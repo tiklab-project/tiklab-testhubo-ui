@@ -9,6 +9,7 @@ import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
 import {getVersionInfo} from "thoughtware-core-ui";
 import {showCaseTypeTable} from "../../../../../common/caseCommon/CaseCommonFn";
 import IconCommon from "../../../../../common/IconCommon";
+import {debounce} from "../../../../../common/utils/commonFn";
 
 const ApiPerformBindScene = (props) =>{
     const {bindApiScene,findApiPerfStepList,findApiPerfStepWillBindCasePage,apiPerfStepWillBindCaseData} = apiPerfStepStore;
@@ -135,12 +136,13 @@ const ApiPerformBindScene = (props) =>{
                             <Input
                                 placeholder={`搜索名称`}
                                 onPressEnter={onSearch}
-                                onChange={onSearch}
                                 className='demand_project_search'
                                 prefix={<IconCommon
                                     icon={"sousuo"}
-                                    className={"icon-m"}
+                                    className={"icon-s"}
                                 />}
+                                onChange={debounce(onSearch,500) }
+                                allowClear
                             />
                         </Col>
                     </Row>

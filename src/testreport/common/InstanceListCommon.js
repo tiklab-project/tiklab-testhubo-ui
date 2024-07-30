@@ -15,6 +15,8 @@ import {TextMethodType} from "../../test/api/http/common/methodType";
 import "./instanceListStyle.scss"
 import ExtensionCommon from "../../common/ExtensionCommon";
 import {rowStyle, ShowDeleteView} from "../../test/testcase/components/testCaseTableFn";
+import IconCommon from "../../common/IconCommon";
+import {debounce} from "../../common/utils/commonFn";
 
 const InstanceListCommon = (props) =>{
     const {belongId,type,WebSceneInstanceSinglePage,AppSceneInstanceSinglePage} = props;
@@ -478,7 +480,12 @@ const InstanceListCommon = (props) =>{
                                     placeholder={`搜索用例名`}
                                     onPressEnter={onSearch}
                                     className='search-input-common'
-                                    prefix={<SearchOutlined/>}
+                                    prefix={<IconCommon
+                                        icon={"sousuo"}
+                                        className={"icon-s"}
+                                    />}
+                                    onChange={debounce(onSearch,500) }
+                                    allowClear
                                 />
                             </Space>
 
@@ -497,7 +504,7 @@ const InstanceListCommon = (props) =>{
                     onRow={(record) => ({style: rowStyle(record.type)})}
                     locale={{
                         emptyText: <Empty
-                            imageStyle={{height: 120}}
+                            imageStyle={{height: 100}}
                             description={<span>暂无历史</span>}
                         />,
                     }}
