@@ -1,10 +1,10 @@
 
-import React, { useEffect, useState} from "react";
-import { observer, inject } from "mobx-react";
+import React from "react";
+import { observer } from "mobx-react";
 import DynamicWidget from "./DynamicWidget";
 import {useParams} from "react-router";
 import PageContent from "../../common/pageContent/PageContent";
-import {Row,Col} from "antd";
+import {Row} from "antd";
 import ProjectTotalAndStatusStatistics from "./ProjectTotalAndStatusStatistics";
 import CaseTestResultNumberStatistics from "../../statistics/common/CaseTestResultNumberStatistics";
 import StatisticsCaseTrend from "../../statistics/common/StatisticsCaseTrend";

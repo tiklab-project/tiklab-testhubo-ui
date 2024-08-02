@@ -55,6 +55,18 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,li,dt,dd{
 //    background-color: rgba(0, 0, 0, .2);
 //}
 
+//theme
+.theme-default{
+    background: var(--thoughtware-theme-default)!important;
+}
+.theme-black{
+    background: var(--thoughtware-theme-black)!important;
+    color: white!important;
+}
+.theme-blue{
+    background: var(--thoughtware-theme-blue)!important;
+    color: white!important;
+}
 
 
 //面包屑
@@ -350,16 +362,13 @@ table .icon{
     display: none;
 }
 
-.ws-detail-main-content{
-    height: calc(100% - 48px);
-    display: flex;
-}
+
 .ws-detail-contant{
     height: 100%;
     display: flex;
 }
+
 .ws-detail-left{
-    width: 80px;
     height: 100%;
     position:relative;
     background: var(--pi-bg-grey-100);
@@ -367,7 +376,7 @@ table .icon{
 }
 
 .ws-detail-right{
-    width: calc(100% - 80px);
+    width: calc(100% - 74px);
     overflow: auto;
 }
 
@@ -380,22 +389,35 @@ table .icon{
 }
 
 
-.table-list-box{
-
-    .ant-table{
-        border-bottom: 1px solid var(--pi-border-color);
-    }
-
-    .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
-        padding: 8px;
-    }
-
+.ant-table {
     .ant-table-thead > tr > th{
         background:var(--pi-bg-color);
         font-weight: 600;
         color: var(--pi-font-color-grey);
         font-size: 13px;
     }
+
+    .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before{
+        content: none;
+    }
+
+    .ant-table-tbody > tr > td{
+        border-bottom: 0;
+    }
+}
+
+
+.ant-table{
+    border-bottom: 1px solid var(--pi-border-color);
+}
+
+.table-list-box{
+
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
+        padding: 8px;
+    }
+
+
 
     .ant-table-tbody > tr > td{
         border-bottom: 0;
@@ -407,10 +429,6 @@ table .icon{
 
     .ant-table-tbody>tr>td,  .ant-table tfoot>tr>td, .ant-table tfoot>tr>th{
         padding: 8px ;
-    }
-
-    .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before{
-        content: none;
     }
 
     //空状态
@@ -592,5 +610,23 @@ table .icon{
     .ant-modal-footer{
         border: none;
         padding:  10px 24px;
+    }
+}
+
+.product-logo-box{
+    display: flex;
+    align-items: center;
+    padding: 15px 21px;
+    gap: 10px;
+    cursor:pointer;
+
+    .product-logo{
+        width: var(--pi-icon-x);
+        height: var(--pi-icon-x);
+    }
+
+    .productName{
+        font-size: 20px;
+        font-weight: 600;
     }
 }

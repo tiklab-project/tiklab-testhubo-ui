@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Badge, Drawer} from "antd";
-import {BellOutlined} from "@ant-design/icons";
+import {Badge, Drawer, Tooltip} from "antd";
+import {BellOutlined, QuestionCircleOutlined} from "@ant-design/icons";
 import {Axios, getUser} from "thoughtware-core-ui";
 import "./messageStyle.scss"
 import TemplateList from "../../common/templateList/TemplateList";
 
-const MessageDrawer = (props) =>{
+const MessageDrawer = ({isExpanded,themeColor}) =>{
 
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -93,7 +93,6 @@ const MessageDrawer = (props) =>{
         }
     }
 
-
     //是否展示 加载更多
     const loadMore =()=>{
        return  count<totalPage&&!initLoading && !loading ? (
@@ -164,8 +163,6 @@ const MessageDrawer = (props) =>{
         setSelectItem(item.key)
     }
 
-
-
     //点击以后未读改为已读
     const readFn = async (item)=>{
         const updateParams = {
@@ -191,19 +188,33 @@ const MessageDrawer = (props) =>{
 
 
     return (
-        <div>
-            <Badge count={length}>
-                <BellOutlined className={"header-icon-item"}  onClick={showDrawer}/>
-            </Badge>
+        <>
+
+            {isExpanded
+                ? <div className={`message-icon-box message-icon-${themeColor}`} onClick={showDrawer}>
+                    <Badge count={length}>
+                        <BellOutlined className={"header-icon-item"}/>
+                    </Badge>
+                    <div>消息</div>
+                </div>
+                : <Tooltip placement="right" title={"消息"}>
+                    <div className={`message-icon-box  message-icon-${themeColor} message-icon-box-not-isExpanded`} onClick={showDrawer}>
+                        <Badge count={length}>
+                            <BellOutlined className={"header-icon-item"}/>
+                        </Badge>
+                    </div>
+                </Tooltip>
+            }
+
             <Drawer
                 title="消息"
-                placement="right"
+                placement="left"
                 onClose={onClose}
                 visible={open}
-                mask={false}
+                // mask={false}
                 width={360}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
+                contentWrapperStyle={{left:isExpanded?201:75}}
                 extra={
                     <div className={"msg-select-box"}>
                         {
@@ -218,7 +229,7 @@ const MessageDrawer = (props) =>{
                     loadMore()
                 }
             </Drawer>
-        </div>
+        </>
     );
 }
 

@@ -158,7 +158,7 @@ const TestPlanExecuteTestDrawer = (props) =>{
                 width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
+                //contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
                 <Spin spinning={spinning}>

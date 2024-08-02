@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7737772",
+      "name": "九宫格",
+      "font_class": "jiugongge",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "41323677",
+      "name": "九宫格",
+      "font_class": "jiugongge1",
+      "unicode": "ec3b",
+      "unicode_decimal": 60475
+    },
+    {
+      "icon_id": "5810453",
+      "name": "有缺陷",
+      "font_class": "quexian",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "4388098",
+      "name": "统计报表",
+      "font_class": "tongji9",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "27438071",
+      "name": "更换皮肤",
+      "font_class": "genghuanpifu",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
       "icon_id": "5282526",
       "name": "搜索",
       "font_class": "sousuo",
@@ -81,13 +116,6 @@
       "font_class": "baogao",
       "unicode": "e7c3",
       "unicode_decimal": 59331
-    },
-    {
-      "icon_id": "782236",
-      "name": "统计9",
-      "font_class": "tongji9",
-      "unicode": "e6d4",
-      "unicode_decimal": 59092
     },
     {
       "icon_id": "3435341",

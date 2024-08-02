@@ -69,7 +69,7 @@ const AppPerformInstanceDrawer = (props) =>{
                 width={960}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
+                //contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
             >
                 <div  className={"result-spin-box"}>
                     <Spin spinning={loading}>

@@ -5,7 +5,7 @@ import FunctionStepEdit from "./FunctionStepEdit";
 import FunctionStepDrawer from "./FunctionStepDrawer";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
-import {Row, Col} from "antd";
+import {Row, Col, Empty} from "antd";
 import stepCommonStore from "../../common/stepcommon/store/StepCommonStore";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 
@@ -44,8 +44,8 @@ const FunctionStepList = ({functionId,funcUnitStore}) => {
         updateStepCommon(param).then(()=>findList())
     };
 
-    const renderItems = () => {
-        return stepList.map((item, index) => {
+    const renderItems = (list) => {
+        return list.map((item, index) => {
             let step = item.funcUnitStep
             return <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
@@ -74,13 +74,13 @@ const FunctionStepList = ({functionId,funcUnitStore}) => {
                                             <div>{item.sort}</div>
                                         </Col>
                                         <Col span={7}>
-                                            <div>{step?.described}</div>
+                                            <div className={"text-ellipsis"}>{step?.described}</div>
                                         </Col>
                                         <Col span={6}>
-                                            {step?.expect?<div>{step?.expect}</div>:null}
+                                            {step?.expect?<div className={"text-ellipsis"}>{step?.expect}</div>:null}
                                         </Col>
                                         <Col span={6}>
-                                            {step?.actual?<div>{step?.actual}</div>:null}
+                                            {step?.actual?<div className={"text-ellipsis"}>{step?.actual}</div>:null}
                                         </Col>
                                         <Col style={{marginLeft: "auto",height:"20px"}}>
                                             <IconCommon
@@ -145,11 +145,11 @@ const FunctionStepList = ({functionId,funcUnitStore}) => {
                                         <Col span={1}>
                                             <MenuOutlined />
                                         </Col>
-                                        <Col span={1}>序号</Col>
-                                        <Col span={7}>描述</Col>
-                                        <Col span={6}>期望</Col>
-                                        <Col span={6}>结果</Col>
-                                        <Col style={{marginLeft: "auto",height:"20px"}}>操作</Col>
+                                        <Col span={1} className={"case-step-header-title"}>序号</Col>
+                                        <Col span={7} className={"case-step-header-title"}>描述</Col>
+                                        <Col span={6} className={"case-step-header-title"}>期望</Col>
+                                        <Col span={6} className={"case-step-header-title"}>结果</Col>
+                                        <Col style={{marginLeft: "auto",height:"20px"}} className={"case-step-header-title"}>操作</Col>
                                     </Row>
                                 </div>
                                 <div
@@ -158,7 +158,11 @@ const FunctionStepList = ({functionId,funcUnitStore}) => {
                                         borderTop: "1px solid #e4e4e4",
                                     }}
                                 >
-                                    {renderItems()}
+                                    {
+                                        stepList&& stepList.length>0
+                                            ?renderItems(stepList)
+                                            :<Empty description={<span>暂无步骤</span>}/>
+                                    }
                                 </div>
                                 {provided.placeholder}
                             </div>

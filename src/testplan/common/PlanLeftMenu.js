@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router";
-import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
 import { LeftCircleOutlined} from "@ant-design/icons";
 import {Dropdown} from "antd";
 import IconCommon from "../../common/IconCommon";
 import planImg from "../../assets/img/plan.png"
 import testPlanStore from "../plan/store/testPlanStore";
 import "../plan/components/testPlanStyle.scss"
+import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
+import {observer} from "mobx-react";
 
 const PlanLeftMenu = (props) =>{
-    const {findTestPlanPage,testPlanList} = testPlanStore;
+    const {findTestPlanPage,testPlanList,findTestPlan,testPlanInfo} = testPlanStore;
 
     const autoLeftMenu = [
         {
@@ -41,8 +42,13 @@ const PlanLeftMenu = (props) =>{
 
     const history = useHistory()
     const repositoryId = sessionStorage.getItem('repositoryId')
+    const testPlanId = sessionStorage.getItem('testPlanId')
     const testPlanType = localStorage.getItem('testPlanType')
     const [visible, setVisible] = useState(false);
+
+    useEffect(()=>{
+        findTestPlan(testPlanId)
+    },[])
 
     useEffect(async ()=>{
         let param={
@@ -56,31 +62,10 @@ const PlanLeftMenu = (props) =>{
     },[])
 
     /**
-     * 点击左侧导航事件
-     */
-    const clickAddRouter = (item) =>{
-        //点击左侧导航，设置选择项,用于刷新后还能选择。
-        localStorage.setItem("leftRouter",item.router);
-
-        history.push(item.router)
-    }
-
-
-    /**
-     * 点击设置
-     */
-    const clickSetting = ()=>{
-        //点击左侧导航，设置选择项,用于刷新后还能选择。
-        localStorage.setItem("leftRouter","setting");
-
-        history.push("/plan/setting");
-    }
-
-    /**
      * 展示切换的计划
      */
-    const togglePlan = (
-        <div className={"ws-hover-box"}>
+    const togglePlan =(isExpanded)=>  (
+        <div className={"ws-hover-box"} style={{left:`${isExpanded?"200px":"75px"}`}}>
             <div style={{ padding: "10px"}}>
                 <div className={"ws-hover-box-title"}>切换计划</div>
                 <div style={{height:"169px"}}>
@@ -110,19 +95,22 @@ const PlanLeftMenu = (props) =>{
     )
 
 
-    const showTogglePlan = ()=> (
+    const showTogglePlan = (isExpanded,themeColor)=> (
         <>
-            <li className={`ws-detail-left-nav-item-repository `} >
+            <li className={`menu-box-nav-item-repository `} >
                 <Dropdown
-                    overlay={togglePlan}
+                    overlay={()=>togglePlan(isExpanded)}
                     trigger={['click']}
                     visible={visible}
                     onOpenChange={()=>setVisible(!visible)}
                 >
-                    <div className={"ws-icon-box"}>
-                    <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
-                         <img src={planImg} alt={"icon"} className={"repository-icon"}/>
-                    </span>
+                    <div style={{padding:`15px 0 15px 24px`}}  className={`ws-icon-box  ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
+                        <div style={{"cursor":"pointer"}}>
+                             <img src={planImg} alt={"icon"} className={"repository-icon"}/>
+                        </div>
+                        {
+                            isExpanded&& <div>{testPlanInfo?.name}</div>
+                        }
                         <IconCommon
                             style={{"cursor":"pointer"}}
                             className={"icon-s"}
@@ -132,21 +120,23 @@ const PlanLeftMenu = (props) =>{
                 </Dropdown>
             </li>
             <li
-                className={`ws-detail-left-nav-item `}
+                className={`menu-box-nav-item`}
                 style={{
-                    borderBottom: "1px solid #e4e4e4",
-                    margin: "0 0 10px 0"
+                    borderBottom:themeColor==="theme-default"?"1px solid #e3e3e3":"",
+                    margin: themeColor==="theme-default"?"0 0 10px 0":""
                 }}
                 onClick={()=> {
                     history.push("/repository/plan")
                     localStorage.setItem("leftRouter","/repository/plan");
                 }}
             >
-                <div className={`ws-detail-left-nav-item-box`}>
-                    <div className={"ws-detail-left-nav-item-detail"}>
-                        <LeftCircleOutlined style={{fontSize:"16px"}}/>
+                <div className={`menu-box-nav-item-box
+                 ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}
+                `}>
+                    <div className={"menu-box-nav-item-detail"}>
+                        <LeftCircleOutlined style={{fontSize:"18px",margin:"0 5px 0 8px"}}/>
                     </div>
-                    <div  className={"ws-detail-left-nav-item-detail"}>
+                    <div  className={"menu-box-nav-item-detail"}>
                         返回项目
                     </div>
                 </div>
@@ -156,13 +146,12 @@ const PlanLeftMenu = (props) =>{
 
 
     return(
-        <LeftNavCommon
+        <LeftMenuCommon
             menuData={testPlanType==="auto"?autoLeftMenu:functionLeftMenu}
-            clickAddRouter={clickAddRouter}
-            clickSetting={clickSetting}
             diffHeader={showTogglePlan}
+            settingRouter={"/plan/setting"}
         />
     )
 }
 
-export default PlanLeftMenu;
+export default observer(PlanLeftMenu);

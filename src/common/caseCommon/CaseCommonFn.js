@@ -42,40 +42,40 @@ export const showTextStatus = (status,size)=>{
             return <div style={{
                 textAlign:"center",
                 background:"#f8f8f8",
-                fontSize:`${size||"10px"}`,
+                fontSize:`${size||"12px"}`,
                 padding:"2px 5px",
                 borderRadius:"5px",
-                width: "48px",
+                width: "55px",
                 border: "1px solid #e4e7ee"
             }}>未开始</div>
         case 1:
             return <div style={{
                 textAlign:"center",
                 background:"#d6eaff",
-                fontSize:`${size||"10px"}`,
+                fontSize:`${size||"12px"}`,
                 padding:"2px  5px",
                 borderRadius:"5px",
-                width: "48px",
+                width: "55px",
                 border: "1px solid #e4e7ee"
             }}>进行中</div>
         case 2:
             return <div style={{
                 textAlign:"center",
                 background:"#ffdfdf",
-                fontSize:`${size||"10px"}`,
+                fontSize:`${size||"12px"}`,
                 padding:"2px 5px",
                 borderRadius:"5px",
-                width: "48px",
+                width: "55px",
                 border: "1px solid #e4e7ee"
             }}>结束</div>
         default:
             return <div style={{
                 textAlign:"center",
                 background:"#f8f8f8",
-                fontSize:`${size||"10px"}`,
+                fontSize:`${size||"12px"}`,
                 padding:"2px  5px",
                 borderRadius:"5px",
-                width: "48px",
+                width: "55px",
                 border: "1px solid #e4e7ee"
             }}>未开始</div>
     }

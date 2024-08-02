@@ -10,14 +10,13 @@ export const Page = (props)=>{
 
     return(
         <PageContent
-            AppLink={<AppLink/>}
-            HelpLink={<HelpLink/>}
-            AvatarLink={<AvatarLink {...props}/>}
+            AppLink={AppLink}
+            HelpLink={HelpLink}
+            AvatarLink={AvatarLink}
             {...props}
         />
     )
 }
-
 
 /**
  * 再把对象，使用平台高阶组件传递给verifyUser，验证用户

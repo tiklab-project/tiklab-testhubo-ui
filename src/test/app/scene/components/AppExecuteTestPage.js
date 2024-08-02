@@ -281,7 +281,7 @@ const AppExecuteTestPage =(props)=>{
                 width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
+                //contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
                 <CaseBread breadItem={["APP场景测试"]} icon={"shouji1"}/>

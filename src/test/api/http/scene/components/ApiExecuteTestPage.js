@@ -284,7 +284,7 @@ const ApiExecuteTestPage = (props) =>{
                 width={900}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 40px)"}}
+                //contentWrapperStyle={{top:48,height:"calc(100% - 40px)"}}
                 closable={false}
             >
                 <div style={{height: "calc(100% - 35px)"}}>

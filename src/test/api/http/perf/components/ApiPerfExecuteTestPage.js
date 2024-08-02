@@ -222,7 +222,7 @@ const ApiPerfExecuteTestPage = (props) =>{
                 width={1000}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
+                //contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
 

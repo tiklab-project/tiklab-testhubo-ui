@@ -10,7 +10,7 @@ const LeftNavCommon = (props) =>{
     const {
         menuData,
         diffHeader,
-        clickAddRouter,
+        clickToPage,
         clickSetting
     } = props;
 
@@ -22,7 +22,7 @@ const LeftNavCommon = (props) =>{
                 <li
                     key={item.key}
                     className={`ws-detail-left-nav-item `}
-                    onClick={()=>clickAddRouter(item)}
+                    onClick={()=>clickToPage(item.router)}
                 >
                     <div className={`ws-detail-left-nav-item-box ${leftRouter===item.router?"selectlink":null}`}>
                         <div className={"ws-detail-left-nav-item-detail"}>

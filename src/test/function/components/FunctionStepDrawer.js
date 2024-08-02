@@ -61,7 +61,7 @@ const FunctionStepDrawer = ({name,stepId,findList}) =>{
                 width={700}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
+                //contentWrapperStyle={{top:48,height:"calc(100% - 50px)"}}
                 closable={false}
             >
                 <div style={{padding:"0 10px"}}>

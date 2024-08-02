@@ -149,24 +149,22 @@ const RepositoryList = (props) => {
 
 
     return(
-        <div className={"pi-list-box"}>
-            <Table
-                className="tablelist"
-                columns={columns}
-                dataSource={repositoryList}
-                rowKey={record => record.id}
-                pagination={false}
-                locale={{
-                    emptyText: <Empty
-                        imageStyle={{
-                            height: 100,
-                        }}
-                        description={<span>暂无项目</span>}
-                    />,
-                }}
-            />
-        </div>
 
+        <Table
+            className="tablelist"
+            columns={columns}
+            dataSource={repositoryList}
+            rowKey={record => record.id}
+            pagination={false}
+            locale={{
+                emptyText: <Empty
+                    imageStyle={{
+                        height: 100,
+                    }}
+                    description={<span>暂无项目</span>}
+                />,
+            }}
+        />
     )
 }
 

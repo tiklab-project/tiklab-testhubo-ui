@@ -90,7 +90,7 @@ const RepositorySettingMenu = (props) =>{
                 <ul className="ws-menu-ul">
                     <li style={{
                         borderBottom:"1px solid #e4e4e4",
-                        padding:"10px 20px",
+                        padding:"10px 25px",
                         fontWeight:"bold",
                     }}
                     >设置</li>

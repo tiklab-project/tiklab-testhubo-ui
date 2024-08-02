@@ -5,9 +5,9 @@ import {getUser} from "thoughtware-core-ui";
 import IconCommon from "../../common/IconCommon";
 import {useHistory} from "react-router";
 import "./repositoryDetailStyle.scss"
-import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
 import RepositoryIcon from "../../common/RepositoryIcon";
 import {LeftCircleOutlined} from "@ant-design/icons";
+import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
 
 /**
  * 左侧导航展示
@@ -42,7 +42,7 @@ const LeftNav = (props) =>{
             "router":"/repository/report"
         },
         {
-            "icon":"tongji9",
+            "icon":"quexian",
             "name":"缺陷",
             "key":"defect",
             "router":"/repository/defect"
@@ -52,7 +52,7 @@ const LeftNav = (props) =>{
             "name":"统计",
             "key":"homestatistics",
             "router":"/repository/statistics/new-create"
-        }
+        },
     ]
 
     const [visible, setVisible] = useState(false);
@@ -70,31 +70,6 @@ const LeftNav = (props) =>{
 
         systemRoleStore.getInitProjectPermissions(userId, repositoryId)
     },[repositoryId])
-
-
-    /**
-     * 点击左侧导航事件
-     */
-    const clickAddRouter = (item) =>{
-        //设置用例列表筛选项
-        setTestType(null)
-
-        //点击左侧导航，设置选择项,用于刷新后还能选择。
-        localStorage.setItem("leftRouter",item.router);
-
-        if(item.key==="overview"){
-            history.push(`${item.router}/${repositoryId}`)
-        }else if(item.key==="testcase"){
-            let caseView = localStorage.getItem("CASE_VIEW")
-            if(caseView==="list"){
-                history.push(`${item.router}-list/${repositoryId}`)
-            }else {
-                history.push(`${item.router}/${repositoryId}`)
-            }
-        }else {
-            history.push(item.router)
-        }
-    }
 
 
     const openToggleWorkspace = async () =>{
@@ -117,15 +92,14 @@ const LeftNav = (props) =>{
         // 如果超过 5 个，保留最新的 5 个项目
         recentList = recentList.slice(-5);
 
-
         setRecentList(recentList)
     }
 
     /**
      * 展示切换的项目
      */
-    const toggleRepositorys = (
-        <div className={"ws-hover-box"}>
+    const toggleRepositorys =(isExpanded)=> (
+        <div className={"ws-hover-box"} style={{left:`${isExpanded?"200px":"75px"}`}}>
             <div style={{ padding: "10px"}}>
                 <div className={"ws-hover-box-title"}>切换项目</div>
                 <div style={{height:"210px"}}>
@@ -177,32 +151,25 @@ const LeftNav = (props) =>{
         setVisible(false)
     }
 
-    /**
-     * 点击设置
-     */
-    const clickSetting = ()=>{
-        //点击左侧导航，设置选择项,用于刷新后还能选择。
-        localStorage.setItem("leftRouter","setting");
 
-        props.history.push("/repository/setting/detail");
-    }
-
-
-
-    const showToggleRepository = ()=> (
+    const showToggleRepository = (isExpanded,themeColor)=> (
         <>
-            <li className={`ws-detail-left-nav-item-repository `} >
+            <li className={`menu-box-nav-item-repository `} >
                 <Tooltip placement="right" title={repositoryInfo?.name}>
                     <Dropdown
-                        overlay={toggleRepositorys}
+                        overlay={()=>toggleRepositorys(isExpanded)}
                         trigger={['click']}
                         visible={visible}
                         onOpenChange={openToggleWorkspace}
                     >
-                        <div className={"ws-icon-box"}>
-                        <span style={{"cursor":"pointer",margin:" 0 0 0 16px"}}>
-                             <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={"repository-icon"}/>
-                        </span>
+                        <div style={{padding:`15px  0 15px 21px`}} className={`ws-icon-box ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
+                            <div style={{"cursor":"pointer"}}>
+                                 <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={"icon-x"}/>
+                            </div>
+                            {
+                                isExpanded&& <div className={"text-ellipsis"} style={{maxWidth:"100px"}}>{repositoryInfo?.name}</div>
+                            }
+
                             <IconCommon
                                 style={{"cursor":"pointer"}}
                                 className={"icon-s"}
@@ -213,21 +180,24 @@ const LeftNav = (props) =>{
                 </Tooltip>
             </li>
             <li
-                className={`ws-detail-left-nav-item `}
+                className={`menu-box-nav-item`}
                 style={{
-                    borderBottom: "1px solid #e4e4e4",
-                    margin: "0 0 10px 0"
+                    borderBottom:themeColor==="theme-default"?"1px solid #e3e3e3":"",
+                    margin: themeColor==="theme-default"?"0 0 10px 0":""
                 }}
                 onClick={()=> {
                     history.push("/home")
                     localStorage.setItem("leftRouter","/home");
                 }}
             >
-                <div className={`ws-detail-left-nav-item-box`}>
-                    <div className={"ws-detail-left-nav-item-detail"}>
-                        <LeftCircleOutlined style={{fontSize:"16px"}}/>
+                <div className={`
+                    menu-box-nav-item-box
+                  ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}
+                `}>
+                    <div className={"menu-box-nav-item-detail"}>
+                        <LeftCircleOutlined style={{fontSize:"18px",margin:"0 5px 0 8px"}}/>
                     </div>
-                    <div  className={"ws-detail-left-nav-item-detail"}>
+                    <div  className={"menu-box-nav-item-detail"}>
                         返回主页
                     </div>
                 </div>
@@ -236,11 +206,11 @@ const LeftNav = (props) =>{
     )
 
     return(
-        <LeftNavCommon
+        <LeftMenuCommon
             menuData={menuData}
-            clickAddRouter={clickAddRouter}
-            clickSetting={clickSetting}
             diffHeader={showToggleRepository}
+            repositoryId={repositoryId}
+            settingRouter={"/repository/setting"}
         />
     )
 }

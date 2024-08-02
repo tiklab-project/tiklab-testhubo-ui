@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4299819 */
-  src: url('iconfont.woff2?t=1722303874159') format('woff2'),
-       url('iconfont.woff?t=1722303874159') format('woff'),
-       url('iconfont.ttf?t=1722303874159') format('truetype'),
-       url('iconfont.svg?t=1722303874159#iconfont') format('svg');
+  src: url('iconfont.woff2?t=1722587169970') format('woff2'),
+       url('iconfont.woff?t=1722587169970') format('woff'),
+       url('iconfont.ttf?t=1722587169970') format('truetype'),
+       url('iconfont.svg?t=1722587169970#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,26 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-jiugongge:before {
+  content: "\e617";
+}
+
+.icon-jiugongge1:before {
+  content: "\ec3b";
+}
+
+.icon-quexian:before {
+  content: "\e665";
+}
+
+.icon-tongji9:before {
+  content: "\e61a";
+}
+
+.icon-genghuanpifu:before {
+  content: "\e616";
 }
 
 .icon-sousuo:before {
@@ -56,10 +76,6 @@
 
 .icon-baogao:before {
   content: "\e7c3";
-}
-
-.icon-tongji9:before {
-  content: "\e6d4";
 }
 
 .icon-version-ee:before {

@@ -95,11 +95,13 @@ const CaseTestResultNumberStatistics = ({repositoryId}) =>{
     const getStatisticsData = async (days) => {
         setSelectedDays(days)
 
-        let startTime = new Date();
         let endTime = new Date();
         endTime.setDate(endTime.getDate()+1)
 
-        startTime.setDate(endTime.getDate() - days)
+        let tempStartDate = new Date(endTime);
+        tempStartDate.setDate(endTime.getDate() - days);
+        let startTime = new Date(tempStartDate); // 更新startTime
+
         const param = {
             startTime: startTime.toISOString().split('T')[0],
             endTime: endTime.toISOString().split('T')[0],

@@ -156,7 +156,7 @@ const Repository = (props)=> {
                         />
                     </div>
 
-                    <div className='contant-box' style={{margin:"10px 0 0 0"}}>
+                    <div className='contant-box table-list-box' style={{margin:"10px 0 0 0"}}>
                         <RepositoryList
                             {...props}
                             findList={findList}

@@ -3,8 +3,9 @@ import { renderRoutes } from "react-router-config";
 import {DownOutlined, LeftCircleOutlined, UpOutlined} from '@ant-design/icons';
 import { PrivilegeButton,SystemNav } from "thoughtware-privilege-ui";
 import './sysMana.scss'
-import {getUser} from "thoughtware-core-ui";
+import {getUser, productWhiteImg} from "thoughtware-core-ui";
 import IconCommon from "../../common/IconCommon";
+import {productTitle} from "thoughtware-core-ui/es/utils/product";
 
 
 const SystemManagement = (props) => {
@@ -237,6 +238,10 @@ const SystemManagement = (props) => {
         >
             <div className = 'sysmana-layout'>
                 <div className="thoughtware-orga-aside">
+                    <div className={'product-logo-box'} onClick={()=>props.history.push("/home")}>
+                        <img src={productWhiteImg.teston} alt='logo' className={"product-logo"}/>
+                        <div className={"productName"} >{productTitle.teston}</div>
+                    </div>
                     <div className={"display-flex-between"}
                          style={{
                              borderBottom:"1px solid #e4e4e4",

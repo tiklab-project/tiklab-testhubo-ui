@@ -37,8 +37,9 @@ const StatisticsCaseTrend = ({repositoryId}) =>{
         const endTime = new Date();
         endTime.setDate(endTime.getDate()-1)
 
-        const startTime = new Date();
-        startTime.setDate(endTime.getDate() - days + 1);
+        let tempStartDate = new Date(endTime);
+        tempStartDate.setDate(endTime.getDate() - days);
+        let startTime = new Date(tempStartDate); // 更新startTime
 
         const param = {
             startTime: startTime.toISOString().split('T')[0],

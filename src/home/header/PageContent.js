@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
-import HeaderContent from "./HeaderContent";
 import {renderRoutes} from "react-router-config";
 import {inject, observer} from "mobx-react";
 import {getUser} from "thoughtware-core-ui";
 import { SYSTEM_ROLE_STORE } from 'thoughtware-privilege-ui/es/store';
 import './portalStyle.scss'
-import LeftNavCommon from "../../common/leftMenu/LeftNavCommon";
 import {useHistory} from "react-router";
+import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
 
 /**
  * 整个页面
@@ -16,7 +15,7 @@ import {useHistory} from "react-router";
      const router = props.route.routes;
      const user = getUser();
      const history = useHistory()
-
+    let pathname =  history.location.pathname;
 
     useEffect(()=>{
         //给左侧导航设置一个选择项
@@ -28,18 +27,6 @@ import {useHistory} from "react-router";
              props.systemRoleStore.getSystemPermissions(user.userId,"teston")
          }
      }, [user])
-
-    /**
-     * 头部退出方法跳往退出页
-     */
-    const Logout = () => {
-        props.history.push({
-            pathname: '/logout',
-            state:{
-                preRoute: props.location.pathname
-            }
-        })
-    }
 
     const menuData = [
         {
@@ -54,47 +41,30 @@ import {useHistory} from "react-router";
             key: "project",
             router:"/project"
         },
+        {
+            name: "设置",
+            icon: "setting",
+            key: "setting",
+            router:"/setting/version"
+        },
     ]
 
 
-    const clickAddRouter = (item) => {
-        props.history.push(item.router)
-
-        //点击左侧导航，设置选择项,用于刷新后还能选择。
-        localStorage.setItem("leftRouter",item.router);
-    };
-
-    const clickSetting =  () => {
-        props.history.push("/setting/version")
-        localStorage.setItem("leftRouter","/setting/version");
-    }
-
-    const showMainMenu = ()=>{
-        let pathname =  history.location.pathname;
+    const showMenu = ()=>{
         if(pathname.startsWith("/home")||pathname.startsWith("/project")){
-            return<div className={"ws-detail-left"} style={{padding:"10px 0"}}>
-                <LeftNavCommon
-                    menuData={menuData}
-                    clickAddRouter={clickAddRouter}
-                    clickSetting={clickSetting}
-                />
-            </div>
+            return<LeftMenuCommon
+                menuData={menuData}
+                isFirst={true}
+                {...props}
+            />
         }
     }
 
     return(
-        <div style={{height:"100%"}}>
-            <HeaderContent
-                logout={Logout}
-                {...props}
-            />
-            <div className={"ws-detail-main-content"} >
-                {showMainMenu()}
-                <div style={{height:"100%",flex: 1}}>
-                    {
-                        renderRoutes(router)
-                    }
-                </div>
+        <div className={"main-content"} >
+            {showMenu()}
+            <div style={{height:"100%",flex: 1}}>
+                {renderRoutes(router)}
             </div>
         </div>
     )
