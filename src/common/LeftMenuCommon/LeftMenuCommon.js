@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {productImg, productWhiteImg} from "thoughtware-core-ui";
+import {productWhiteImg, productWhitePureImg} from "thoughtware-core-ui";
 import {useHistory} from "react-router";
 import {productTitle} from "thoughtware-core-ui/es/utils/product";
 import "./LeftMenuCommonStyle.scss"
@@ -9,6 +9,8 @@ import {Dropdown, Tooltip} from "antd";
 import IconCommon from "../IconCommon";
 import {Profile} from 'thoughtware-licence-ui/es/commons'
 import {useTheme} from "../hooks/useTheme";
+import {useMenuExpanded} from "../hooks/useMenuExpanded";
+import {useMenuSelected} from "../hooks/useMenuSelected";
 
 
 const LeftMenuCommon = (props) =>{
@@ -21,12 +23,13 @@ const LeftMenuCommon = (props) =>{
         HelpLink,AppLink,AvatarLink
     } = props
     const history = useHistory()
-    const leftRouter = localStorage.getItem("leftRouter")
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [menuSelected, setMenuSelected] = useMenuSelected()
+    const [isExpanded, setIsExpanded] = useMenuExpanded();
     const [moreMenu, setMoreMenu] = useState([]);
     const [visibleMenuItems, setVisibleMenuItems] = useState([]);
     const [visible, setVisible] = useState(false);
     const [themeColor, setThemeColor] = useTheme();
+    const THEME_DEFAULT = "theme-default";
 
     const resizeUpdate = () => {
         const documentHeight = window.innerHeight;
@@ -56,7 +59,7 @@ const LeftMenuCommon = (props) =>{
      */
     const clickToPage = (item) => {
         history.push(item.router)
-        localStorage.setItem("leftRouter",item.router);
+        setMenuSelected(item.router)
 
         if(item.key==="overview"){
             history.push(`${item.router}/${repositoryId}`)
@@ -85,7 +88,7 @@ const LeftMenuCommon = (props) =>{
                 >
                     <div
                         className={`menu-box-nav-item-${themeColor}
-                            ${leftRouter===item.router?`select-link-${themeColor}`:""}
+                            ${menuSelected===item.router?`select-link-${themeColor}`:""}
                             ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}
                         `}>
                         <div className={"menu-box-nav-item-detail"}>
@@ -111,7 +114,7 @@ const LeftMenuCommon = (props) =>{
                 moreMenu.map(item=>{
                     return(
                         <div
-                            className={`more-menu-box-item ${leftRouter===item.router?"more-menu-box-item-action":""}`}
+                            className={`more-menu-box-item ${menuSelected===item.router?"more-menu-box-item-action":""}`}
                             onClick={()=>clickToPage(item)}
                         >
                             <div >
@@ -145,12 +148,15 @@ const LeftMenuCommon = (props) =>{
                 placement="top"
             >
                 <div
-                    className={`menu-box-nav-item-box ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
+                    className={`menu-box-nav-item-${themeColor} ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
                     <div className={"menu-box-nav-item-detail"}>
-                        <svg className="icon-m" aria-hidden="true">
-                            <use xlinkHref= {`#icon-gengduo`}/>
+                        <svg className="icon" aria-hidden="true">
+                            <use xlinkHref= {`#icon-${themeColor===THEME_DEFAULT?"gengduo":"gengduo1"}`}/>
                         </svg>
                     </div>
+                    {
+                        isExpanded&&<div className={"menu-box-nav-item-detail"}>更多</div>
+                    }
                 </div>
             </Dropdown>
         </li>
@@ -174,7 +180,7 @@ const LeftMenuCommon = (props) =>{
         <div className={`menu-box ${isExpanded?"menu-box-expended":"menu-box-not-expended"} ${themeColor}`}>
             {
                 isFirst&&<div style={{width:`${isExpanded&&"200px"}`}} className={'product-logo-box'} onClick={()=>clickToPage({router:"/home"})}>
-                    <img src={themeColor==="theme-default"?productWhiteImg.teston:productImg.teston} alt='logo' className={"product-logo"}/>
+                    <img src={themeColor===THEME_DEFAULT?productWhiteImg.teston:productWhitePureImg?.teston} alt='logo' className={"product-logo"}/>
                     {
                         isExpanded&&<div className={"productName"} >{productTitle.teston}</div>
                     }
@@ -241,7 +247,7 @@ const LeftMenuCommon = (props) =>{
                                 isExpanded
                                     ?<div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item`}>
                                         <IconCommon
-                                            icon={`${themeColor==="theme-default"?"jiugongge":"jiugongge1"}`}
+                                            icon={`${themeColor===THEME_DEFAULT?"jiugongge":"jiugongge1"}`}
                                             className={"icon-s"}
                                         />
                                         {isExpanded && <div>应用导航</div>}
@@ -249,7 +255,7 @@ const LeftMenuCommon = (props) =>{
                                     : <Tooltip placement="right" title={"应用导航"}>
                                         <div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item menu-box-bottom-item-not-isExpanded`}>
                                             <IconCommon
-                                                icon={`${themeColor==="theme-default"?"jiugongge":"jiugongge1"}`}
+                                                icon={`${themeColor===THEME_DEFAULT?"jiugongge":"jiugongge1"}`}
                                                 className={"icon-s"}
                                             />
                                         </div>
@@ -261,7 +267,7 @@ const LeftMenuCommon = (props) =>{
                         AvatarLink&&<AvatarLink
                             changeTheme={changeTheme}
                             iconComponent={
-                                <div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item`} style={{padding:"10px 21px"}}>
+                                <div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item`} style={{padding:"10px 20px"}}>
                                     <Profile />
                                     {isExpanded && <div >个人中心</div>}
                                 </div>

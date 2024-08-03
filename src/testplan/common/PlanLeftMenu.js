@@ -112,8 +112,12 @@ const PlanLeftMenu = (props) =>{
                             isExpanded&& <div>{testPlanInfo?.name}</div>
                         }
                         <IconCommon
-                            style={{"cursor":"pointer"}}
-                            className={"icon-s"}
+                            style={{
+                                "cursor":"pointer",
+                                width:"12px",
+                                height:"12px",
+                                marginLeft:"3px"
+                            }}
                             icon={"xiala"}
                         />
                     </div>
@@ -122,8 +126,8 @@ const PlanLeftMenu = (props) =>{
             <li
                 className={`menu-box-nav-item`}
                 style={{
-                    borderBottom:themeColor==="theme-default"?"1px solid #e3e3e3":"",
-                    margin: themeColor==="theme-default"?"0 0 10px 0":""
+                    borderBottom:themeColor==="theme-default"?"1px solid #e3e3e3":"1px solid #f6f7f81a",
+                    margin: "0 0 10px 0"
                 }}
                 onClick={()=> {
                     history.push("/repository/plan")

@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11811527",
+      "name": "更多",
+      "font_class": "gengduo",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "41326760",
+      "name": "更多",
+      "font_class": "gengduo1",
+      "unicode": "ec3c",
+      "unicode_decimal": 60476
+    },
+    {
+      "icon_id": "13868594",
+      "name": "定时任务",
+      "font_class": "dingshi",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "3933844",
+      "name": "下拉",
+      "font_class": "xiala",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
       "icon_id": "7737772",
       "name": "九宫格",
       "font_class": "jiugongge",
@@ -349,25 +377,11 @@
       "unicode_decimal": 58921
     },
     {
-      "icon_id": "3020037",
-      "name": "二级-定时任务",
-      "font_class": "erji-dingshirenwu",
-      "unicode": "eaae",
-      "unicode_decimal": 60078
-    },
-    {
       "icon_id": "6527112",
       "name": "计划",
       "font_class": "jihua",
       "unicode": "e643",
       "unicode_decimal": 58947
-    },
-    {
-      "icon_id": "9121576",
-      "name": "定时",
-      "font_class": "dingshi",
-      "unicode": "e645",
-      "unicode_decimal": 58949
     },
     {
       "icon_id": "9874532",
@@ -524,13 +538,6 @@
       "unicode_decimal": 59718
     },
     {
-      "icon_id": "630083",
-      "name": "下拉",
-      "font_class": "xiala",
-      "unicode": "e65c",
-      "unicode_decimal": 58972
-    },
-    {
       "icon_id": "1505660",
       "name": "排序-降序",
       "font_class": "paixu-jiangxu",
@@ -550,13 +557,6 @@
       "font_class": "icon-",
       "unicode": "e62e",
       "unicode_decimal": 58926
-    },
-    {
-      "icon_id": "159969",
-      "name": "more",
-      "font_class": "gengduo",
-      "unicode": "e605",
-      "unicode_decimal": 58885
     },
     {
       "icon_id": "548390",

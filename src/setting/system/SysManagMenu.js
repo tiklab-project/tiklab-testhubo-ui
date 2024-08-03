@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { renderRoutes } from "react-router-config";
-import {DownOutlined, LeftCircleOutlined, UpOutlined} from '@ant-design/icons';
+import {DownOutlined, HomeOutlined,UpOutlined} from '@ant-design/icons';
 import { PrivilegeButton,SystemNav } from "thoughtware-privilege-ui";
 import './sysMana.scss'
-import {getUser, productWhiteImg} from "thoughtware-core-ui";
+import {getUser} from "thoughtware-core-ui";
 import IconCommon from "../../common/IconCommon";
-import {productTitle} from "thoughtware-core-ui/es/utils/product";
-
 
 const SystemManagement = (props) => {
     const {settingMenu} = props;
@@ -82,7 +80,7 @@ const SystemManagement = (props) => {
                         key={data.id}
                         className={` orga-aside-li ${data.id=== selectKey ? "orga-aside-select" : null}`}
                         onClick={()=>select(data.id)}
-                        style={{paddingLeft:`${deep*25}px`}}
+                        style={{paddingLeft:`${deep*30}px`}}
                     >
                         <div className={'aside-li'} >
                             <div>
@@ -91,7 +89,6 @@ const SystemManagement = (props) => {
                                         ?<IconCommon
                                             icon={data.icon}
                                             className={"icon-m"}
-                                            style={{margin:"0 5px 0 0"}}
                                         />
                                         :null
                                 }
@@ -109,7 +106,7 @@ const SystemManagement = (props) => {
                 key={data.id}
                 className={` orga-aside-li ${data.id=== selectKey ? "orga-aside-select" : null}`}
                 onClick={()=>select(data.id)}
-                style={{paddingLeft:`${deep*25}px`}}
+                style={{paddingLeft:`${deep*30}px`}}
             >
                 <div className={'aside-li'} >
                     <div>
@@ -118,7 +115,6 @@ const SystemManagement = (props) => {
                                 ?<IconCommon
                                     icon={data.icon}
                                     className={"icon-m"}
-                                    style={{margin:"0 5px 0 0"}}
                                 />
                                 :null
                         }
@@ -147,7 +143,6 @@ const SystemManagement = (props) => {
                                 <IconCommon
                                     icon={icon}
                                     className={"icon-m"}
-                                    style={{margin:"0 5px 0 0"}}
                                 />
                                 <span key={id}> {title}</span>
                             </div>
@@ -186,7 +181,6 @@ const SystemManagement = (props) => {
                             <IconCommon
                                 icon={icon}
                                 className={"icon-m"}
-                                style={{margin:"0 5px 0 0"}}
                             />
                             <span key={id}>{title}</span>
                         </div>
@@ -238,27 +232,20 @@ const SystemManagement = (props) => {
         >
             <div className = 'sysmana-layout'>
                 <div className="thoughtware-orga-aside">
-                    <div className={'product-logo-box'} onClick={()=>props.history.push("/home")}>
-                        <img src={productWhiteImg.teston} alt='logo' className={"product-logo"}/>
-                        <div className={"productName"} >{productTitle.teston}</div>
-                    </div>
-                    <div className={"display-flex-between"}
-                         style={{
-                             borderBottom:"1px solid #e4e4e4",
-                             padding:"10px 15px 10px 30px",
-                         }}
-                    >
-                        <div style={{fontWeight:"bold",display:"flex",gap:"5px",alignItems:"center"}}>
-                            <LeftCircleOutlined style={{fontSize:"20px",cursor:"pointer"}} onClick={()=>props.history.push("/home")}/>
+                    <div className={"system-header"}>
+                        <div className={"system-header-title system-header-item"}>
                             设置
                         </div>
+                        <div className={"system-header-back-home system-header-item"} onClick={()=> {
+                            localStorage.setItem("leftRouter","/home");
+                            props.history.push("/home")
+                        }}>
+                            <HomeOutlined  style={{fontSize:"18px",cursor:"pointer"}}/>
+                            返回首页
+                        </div>
                     </div>
-
                     <ul style={{padding: 0}} >
-
-                        {
-                            showUlView(menuRouter)
-                        }
+                        {showUlView(menuRouter)}
                     </ul>
                 </div>
                 <div className='sysmana-content'>

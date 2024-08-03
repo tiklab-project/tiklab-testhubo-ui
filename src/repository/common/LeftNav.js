@@ -13,10 +13,8 @@ import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
  * 左侧导航展示
  */
 const LeftNav = (props) =>{
-    const {repositoryStore,systemRoleStore,testcaseStore} = props;
+    const {repositoryStore,systemRoleStore} = props;
     const {findRepository,repositoryRecent,findRepositoryRecentList,findRepositoryJoinList} = repositoryStore;
-
-    const {setTestType} = testcaseStore;
 
     const menuData = [
         {
@@ -171,8 +169,12 @@ const LeftNav = (props) =>{
                             }
 
                             <IconCommon
-                                style={{"cursor":"pointer"}}
-                                className={"icon-s"}
+                                style={{
+                                    "cursor":"pointer",
+                                    width:"12px",
+                                    height:"12px",
+                                    marginLeft:"3px"
+                                }}
                                 icon={"xiala"}
                             />
                         </div>
@@ -182,8 +184,8 @@ const LeftNav = (props) =>{
             <li
                 className={`menu-box-nav-item`}
                 style={{
-                    borderBottom:themeColor==="theme-default"?"1px solid #e3e3e3":"",
-                    margin: themeColor==="theme-default"?"0 0 10px 0":""
+                    borderBottom:themeColor==="theme-default"?"1px solid #e3e3e3":"1px solid #f6f7f81a",
+                    margin: "0 0 10px 0"
                 }}
                 onClick={()=> {
                     history.push("/home")

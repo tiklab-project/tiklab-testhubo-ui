@@ -211,10 +211,9 @@ const MessageDrawer = ({isExpanded,themeColor}) =>{
                 placement="left"
                 onClose={onClose}
                 visible={open}
-                // mask={false}
                 width={360}
                 maskStyle={{background:"transparent"}}
-                contentWrapperStyle={{left:isExpanded?201:75}}
+                contentWrapperStyle={{transform:isExpanded?"translateX(200px)":"translateX(75px)"}}
                 extra={
                     <div className={"msg-select-box"}>
                         {

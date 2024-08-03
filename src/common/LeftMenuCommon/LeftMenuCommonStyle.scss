@@ -44,19 +44,19 @@
 
         .select-link-theme-black{
             background-color: #eef5ff42;
-            border-left: 3px solid #eef5ff00;
+            border-left: 3px solid #eef5ff;
         }
 
         .menu-box-nav-item-theme-blue{
-            border-left: 3px solid #abc2e800;
+            border-left: 3px solid #E9F2FF00;
             &:hover{
-                background-color: #abc2e866;
+                background-color: #e9f2ff2e;
             }
         }
 
         .select-link-theme-blue{
-            background-color: #abc2e866;
-            border-left: 3px solid #abc2e800;
+            background-color: #e9f2ff2e;
+            border-left: 3px solid #fff;
         }
 
 
@@ -69,13 +69,13 @@
         }
 
         .menu-box-nav-item-not-isExpanded{
-            padding: 8px ;
+            padding: 8px 6px;
         }
 
         .menu-box-nav-item-detail{
             display: flex;
             justify-content: center;
-            font-size: 13px;
+            font-size: 14px;
         }
         .menu-box-nav-item-title{
             margin:4px 0 0 0;
@@ -102,7 +102,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 27px;
+            padding: 10px 29px;
             width: 100%;
         }
 
@@ -137,7 +137,6 @@
         display: flex;
         align-items: center;
     }
-
 
     .menu-box-right-border{
         width: 15px;
