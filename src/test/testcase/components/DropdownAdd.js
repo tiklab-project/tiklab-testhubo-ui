@@ -78,14 +78,11 @@ const DropdownAdd = (props) =>{
         >
             {
                 icon
-                    ?<Tooltip title={"添加用例"} >
-                        <div>
-                            <IconCommon
-                                className={"icon-m edit-icon"}
-                                icon={"chuangjiantianjiapiliangtianjia"}
-                            />
-                        </div>
-                    </Tooltip>
+                    ? <IconCommon
+                        className={"icon-m edit-icon"}
+                        icon={"chuangjiantianjiapiliangtianjia"}
+                    />
+
                     : <Button className={"important-btn"} type="primary">添加用例</Button>
             }
 

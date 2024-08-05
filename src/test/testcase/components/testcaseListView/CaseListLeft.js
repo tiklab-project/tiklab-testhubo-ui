@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {Input, Space, Tooltip} from "antd";
+import {Input, Space, Tooltip,Select} from "antd";
 import DropdownAdd from "../DropdownAdd";
 import IconCommon from "../../../../common/IconCommon";
-import MenuSelect from "../../../../common/menuSelect/MenuSelect";
-import {RedoOutlined, SearchOutlined} from "@ant-design/icons";
+import {RedoOutlined} from "@ant-design/icons";
 import CaseList from "./CaseList";
 import {inject, observer} from "mobx-react";
 import PaginationCommon from "../../../../common/pagination/Page";
@@ -11,6 +10,8 @@ import {useHistory} from "react-router";
 import {switchCaseTypeFn} from "../testCaseTableFn";
 import AdvancedFilter from "./AdvancedFilter";
 import {debounce} from "../../../../common/utils/commonFn";
+
+const {Option} = Select;
 
 const CaseListLeft = (props) =>{
     const {testcaseStore,categoryStore} = props;
@@ -71,8 +72,7 @@ const CaseListLeft = (props) =>{
 
 
     //点击测试类型筛选项查找
-    const selectKeyFun = (item)=>{
-        let key = item.key
+    const selectKeyFun = (key)=>{
         setTestType(key)
         setCurrentPage(1)
     }
@@ -132,14 +132,15 @@ const CaseListLeft = (props) =>{
                 <div className={"display-flex-between"}>
                     <div style={{fontSize:"16px",fontWeight:"600"}}>用例</div>
                     <Space>
+                        <div className={"icon-bg-grey"} >
                         <DropdownAdd
                             icon={true}
                             findPage={findPage}
                             categoryStore={categoryStore}
                             {...props}
                         />
-
-                        <Tooltip title={"切换表格视图"} placement={"right"}>
+                        </div>
+                        <div className={"icon-bg-grey"} >
                             <div>
                                 <IconCommon
                                     className={"icon-m edit-icon"}
@@ -150,15 +151,27 @@ const CaseListLeft = (props) =>{
                                     }}
                                 />
                             </div>
-                        </Tooltip>
+                        </div>
                     </Space>
                 </div>
-                <MenuSelect
-                    menuItems={items}
-                    selectFn={selectKeyFun}
-                    selected={testType}
-                    style={{width: "280px"}}
-                />
+                <div className={"filter-box"}>
+                    <Select bordered={false} className={"select-testcase-box"} value={testType} onSelect={selectKeyFun}>
+                        {
+                            items.map(item=>{
+                                return<Option value={item.key}>{item.title}</Option>
+                            })
+                        }
+                    </Select>
+
+                    <div className={"icon-bg-grey"} >
+                        <AdvancedFilter
+                            findPage={findPage}
+                            setSelectCategory={setSelectCategory}
+                            testType={testType}
+                        />
+                    </div>
+                </div>
+
 
                 <div className={"display-flex-between"} style={{padding:"10px 0 0"}}>
                     <Input
@@ -170,13 +183,7 @@ const CaseListLeft = (props) =>{
                             icon={"sousuo"}
                             className={"icon-s"}
                         />}
-                        addonAfter={
-                            <AdvancedFilter
-                                findPage={findPage}
-                                setSelectCategory={setSelectCategory}
-                                testType={testType}
-                            />
-                        }
+
                         onChange={debounce(onSearch,500) }
                         allowClear
                     />

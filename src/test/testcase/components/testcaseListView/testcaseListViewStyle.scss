@@ -1,17 +1,42 @@
+
 .case-list-main{
     display: flex;
     height: 100%;
 
+    .icon-bg-grey{
+        background:#f8f8f8;
+        padding:0 5px;
+        border: 1px solid #f6efef
+    }
+
     .case-list-left{
         width: 300px;
         border-right: 1px solid #e2e2e2;
+        //background: var(--pi-bg-grey-100);
 
         .case-list-left-top{
             padding: 15px 10px 10px;
             border-bottom: 1px solid #e2e2e2;
 
+            .filter-box{
+                margin: 10px 0 0px;
+                display: flex;
+                justify-content: space-between;
+                gap: 5px;
+
+                .select-testcase-box{
+                    background: var(--pi-bg-grey-100);
+                    border-radius: var(--pi-border-radius);
+                    width: 240px;
+                    //border: 1px solid #eaeaea;
+                    border:0;
+                }
+            }
+
             .search-input-common{
                 width: 280px !important;
+                border-radius: var(--pi-border-radius)!important;
+                background: var(--pi-bg-grey-100);
             }
 
             .advanced-filter-box{

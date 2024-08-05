@@ -43,7 +43,7 @@ const ApiEnvDropDownSelect = (props) =>{
     return(
         <Select
             bordered={false}
-            className={"api-env-select-box"}
+            className={"select-box"}
             placeholder={"未设置环境"}
             onSelect={(value)=> onSelectChange(value)}
             defaultValue={envUrl}

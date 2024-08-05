@@ -193,7 +193,7 @@ const LeftNav = (props) =>{
                 }}
             >
                 <div className={`
-                    menu-box-nav-item-box
+                    menu-box-nav-item-${themeColor}
                   ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}
                 `}>
                     <div className={"menu-box-nav-item-detail"}>

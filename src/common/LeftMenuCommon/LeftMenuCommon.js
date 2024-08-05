@@ -96,7 +96,7 @@ const LeftMenuCommon = (props) =>{
                                 <use xlinkHref= {`#icon-${item.icon}`}/>
                             </svg>
                         </div>
-                        <div  className={"menu-box-nav-item-detail menu-box-nav-item-title"}>
+                        <div  className={`menu-box-nav-item-detail ${isExpanded?"":"menu-box-nav-item-title"}`}>
                             {item.name}
                         </div>
                     </div>
@@ -180,7 +180,8 @@ const LeftMenuCommon = (props) =>{
         <div className={`menu-box ${isExpanded?"menu-box-expended":"menu-box-not-expended"} ${themeColor}`}>
             {
                 isFirst&&<div style={{width:`${isExpanded&&"200px"}`}} className={'product-logo-box'} onClick={()=>clickToPage({router:"/home"})}>
-                    <img src={themeColor===THEME_DEFAULT?productWhiteImg.teston:productWhitePureImg?.teston} alt='logo' className={"product-logo"}/>
+
+                    <img src={themeColor===THEME_DEFAULT?productWhiteImg.teston:productWhitePureImg?.teston} alt='logo' className={`${isExpanded?"product-logo-expanded":"product-logo"}`}/>
                     {
                         isExpanded&&<div className={"productName"} >{productTitle.teston}</div>
                     }
@@ -267,7 +268,7 @@ const LeftMenuCommon = (props) =>{
                         AvatarLink&&<AvatarLink
                             changeTheme={changeTheme}
                             iconComponent={
-                                <div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item`} style={{padding:"10px 20px"}}>
+                                <div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item`} style={{padding:`${isExpanded?"10px 14px":"10px 20px"}`}}>
                                     <Profile />
                                     {isExpanded && <div >个人中心</div>}
                                 </div>

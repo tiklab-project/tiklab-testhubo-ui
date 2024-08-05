@@ -59,7 +59,7 @@ const ApiPerfContent = (props) => {
                         <Space>
                             <ApiEnvDropDownSelect />
                             <Select
-                                className={"api-env-select-box"}
+                                className={"select-box"}
                                 onSelect={changeAgent}
                                 value={agentId||"agent-default_localhost"}
                                 bordered={false}

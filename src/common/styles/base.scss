@@ -300,10 +300,15 @@ table .icon{
 }
 //搜索框
 .search-input-common{
-    width: 200px!important;
+    width: 180px!important;
     height: 32px!important;
     border-radius: var(--pi-border-radius)!important;
-    border: var(--pi-input-border)!important;
+    border: 0 !important;
+    background: var(--pi-bg-grey-100) !important;
+
+    .ant-input{
+        background: var(--pi-bg-grey-100);
+    }
 }
 
 //按钮颜色
@@ -623,6 +628,11 @@ table .icon{
     .product-logo{
         width: var(--pi-icon-x);
         height: var(--pi-icon-x);
+    }
+
+    .product-logo-expanded{
+        width: var(--pi-icon-l);
+        height: var(--pi-icon-l);
     }
 
     .productName{

@@ -32,10 +32,20 @@ const CaseList = (props) => {
             return(
                 <div
                     key={item.id}
-                    className={` display-flex-between case-list-item ${item.id===clickItemId?"case-list-item-action":""}`}
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                        alignItems: "center"
+                    }}
+                    className={`case-list-item ${item.id===clickItemId?"case-list-item-action":""}`}
                     onClick={()=>clickItem(item)}
                 >
-                    <div className={` display-flex-gap`}>
+                    <div style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center"
+                    }}>
                         <div>{showCaseTypeView(item.caseType)}</div>
                         <div style={{width:"158px"}}>
                             <div className={"text-ellipsis"} style={{padding: "0 0 5px 0"}}>
@@ -48,7 +58,7 @@ const CaseList = (props) => {
                         </div>
 
                     </div>
-                    {showTextStatus(item.status)}
+                    {showTextStatus(item.status,"11px")}
                 </div>
             )
         })

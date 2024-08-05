@@ -134,7 +134,7 @@ const PlanLeftMenu = (props) =>{
                     localStorage.setItem("leftRouter","/repository/plan");
                 }}
             >
-                <div className={`menu-box-nav-item-box
+                <div className={`menu-box-nav-item-${themeColor}
                  ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}
                 `}>
                     <div className={"menu-box-nav-item-detail"}>
