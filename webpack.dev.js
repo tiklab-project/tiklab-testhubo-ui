@@ -1,66 +1,54 @@
-
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const path = require('path');
 const baseWebpackConfig = require('./webpack.base');
+const TerserPlugin = require('terser-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const PORT = 3000;
 
 module.exports = merge(baseWebpackConfig, {
-    devtool: 'source-map',
-    mode:'development',
+    devtool: 'eval-cheap-module-source-map', // 更快的 source map 生成
+    mode: 'development',
     entry: [
         'react-hot-loader/patch',
         `webpack-dev-server/client?http://0.0.0.0:${PORT}/`,
         path.resolve(__dirname, './src/index.js')
     ],
-    optimization:{
-        namedModules: true,
-        namedChunks: true,
-        runtimeChunk: {
-            name: 'runtime'
-        },
-        splitChunks:{
-            name: false,
+    optimization: {
+        minimizer: [new TerserPlugin({ parallel: true })],
+        splitChunks: {
             chunks: 'all',
-            minChunks: 1,
-            cacheGroups:{
-                default: false,
-                vendors:{
-                    name: 'common',
-                    chunks: 'all',
-                    minChunks: 2,
-                    test: /node_modules/
+            maxInitialRequests: Infinity,
+            minSize: 20000,
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name(module) {
+                        const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+                        return `npm.${packageName.replace('@', '')}`;
+                    },
                 },
-                styles:{
-                    name: 'common',
-                    chunks: 'all',
-                    minChunks: 2,
-                    test: /\.(css|less|scss|stylus)$/,
-                    enforce: true,
-                    priority: 50
-                }
-            }
-        }
+            },
+        },
     },
-
     devServer: {
-        contentBase: path.join(__dirname, 'plugin'), //开发服务运行时的文件根目录
-        port:PORT,//端口
+        contentBase: path.join(__dirname, 'plugin'),
+        port: PORT,
         inline: true,
-        hot: true,//热更新
+        hot: true,
         host: '0.0.0.0',
-        hotOnly:true,
-        open:false,//自动打开浏览器
+        hotOnly: true,
+        open: false,
         historyApiFallback: true,
         disableHostCheck: true,
-        proxy:{
-            "/local-proxy":{
-                target:"http://127.0.0.1:3009"
-            },
-        }
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+            reportFilename: 'bundle-report.html',
+        }),
     ]
 });

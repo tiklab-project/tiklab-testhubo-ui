@@ -43,7 +43,7 @@ const TestCaseTable = (props) => {
             ellipsis: true,
             render: (text,record) =>(
                 <Space className={"case-table-name"}>
-                    <>{showCaseTypeView(record.caseType)}</>
+                    <div>{showCaseTypeView(record.caseType)}</div>
                     <SwitchCaseTypeView record={record} testCaseRecent={testCaseRecent} repositoryId={repositoryId} />
                 </Space>
             )

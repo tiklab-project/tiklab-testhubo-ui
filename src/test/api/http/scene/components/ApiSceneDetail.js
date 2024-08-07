@@ -65,17 +65,17 @@ const ApiSceneDetail = (props) =>{
             />
         },
         {
-            label: `测试步骤 (${apiSceneInfo?.stepNum||0})`,
+            label: <span>测试步骤 <span className={"font-12"}>{apiSceneInfo?.stepNum||0}</span></span>,
             key: '2',
             children: <ApiSceneStepList apiSceneId={apiSceneId}/>
         },
         {
-            label: `历史 (${apiSceneInfo?.instanceNum||0})`,
+            label: <span>历史 <span className={"font-12"}>{apiSceneInfo?.instanceNum||0}</span></span>,
             key: '3',
             children: <ApiSceneInstanceList/>
         },
         {
-            label: `环境变量 (${apiSceneInfo?.variableNum||0})`,
+            label: <span>环境变量 <span className={"font-12"}>{apiSceneInfo?.variableNum||0}</span></span>,
             key: '4',
             children: <VariableTable belongId={repositoryId}/>
         }

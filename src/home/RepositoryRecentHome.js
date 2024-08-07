@@ -21,7 +21,7 @@ const RepositoryRecentHome = (props) =>{
         let list = await findRepositoryRecentList(userId)
 
         let newList
-        if(list&&list.length>5){
+        if(list&&list.length>4){
             newList = list.slice(0,4);
         }else {
             newList=list;

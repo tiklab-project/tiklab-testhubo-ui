@@ -1,0 +1,32 @@
+.mf-listname-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: black;
+
+    &-mar{
+        margin-right: 10px;
+    }
+}
+
+.mf-icon{
+    &-0{
+        background: #f3caca;
+    }
+    &-1{
+        background: #cadbf3;
+    }
+    &-2{
+        background: #e8eaf6;
+    }
+    &-3{
+        background: #ffebee;
+    }
+    &-4{
+        background: #deedd7;
+    }
+    &-5{
+        background: #caf3ef;
+    }
+}

@@ -29,29 +29,6 @@ const CaseListLeft = (props) =>{
     } = testcaseStore;
 
 
-    const items = [
-        {
-            title: `所有 `,
-            key: `all`,
-        },
-        {
-            title: `功能 `,
-            key: `function`,
-        },
-        {
-            title: `接口 `,
-            key: `api`,
-        },
-        {
-            title: `性能 `,
-            key: `perform`,
-        },
-        {
-            title: `UI `,
-            key: `ui`,
-        },
-    ];
-
     const history = useHistory()
     let repositoryId = sessionStorage.getItem("repositoryId")
     const [loading, setLoading] = useState(true);
@@ -61,6 +38,7 @@ const CaseListLeft = (props) =>{
     const [currentPage, setCurrentPage] = useState(1);
     const [selectCategory, setSelectCategory] = useState(null);
     const [clickItemId, setClickItemId] = useState();
+    const [diffTypeCaseNum, setDiffTypeCaseNum] = useState();
 
     useEffect(async ()=>{
         let list = await findPage()
@@ -70,12 +48,12 @@ const CaseListLeft = (props) =>{
         }
     },[repositoryId,testType])
 
+    useEffect(()=>{
+        findDiffTypeCaseNum(repositoryId).then(res=>{
+            setDiffTypeCaseNum(res)
+        })
+    },[repositoryId])
 
-    //点击测试类型筛选项查找
-    const selectKeyFun = (key)=>{
-        setTestType(key)
-        setCurrentPage(1)
-    }
 
     const findPage = async (params) =>{
         setLoading(true)
@@ -108,6 +86,22 @@ const CaseListLeft = (props) =>{
         findPage(param)
     }
 
+    //点击测试类型筛选项查找
+    const selectKeyFun = (key)=>{
+        setTestType(key)
+        setCurrentPage(1)
+    }
+
+    /**
+     * 状态搜索
+     */
+    const selectStatus = (key)=>{
+        setCurrentPage(1)
+        let param = {status: key}
+        findPage(param)
+    }
+
+
     /**
      * 分页
      */
@@ -125,6 +119,34 @@ const CaseListLeft = (props) =>{
         findPage(param)
     }
 
+
+    const items = [
+        {
+            title: `全部`,
+            key: `all`,
+            number:diffTypeCaseNum?.all||0
+        },
+        {
+            title: `功能 `,
+            key: `function`,
+            number:diffTypeCaseNum?.function||0
+        },
+        {
+            title: `接口 `,
+            key: `api`,
+            number:diffTypeCaseNum?.api||0
+        },
+        {
+            title: `性能 `,
+            key: `perform`,
+            number:diffTypeCaseNum?.perform||0
+        },
+        {
+            title: `UI `,
+            key: `ui`,
+            number:diffTypeCaseNum?.ui||0
+        },
+    ];
 
     return(
         <>
@@ -154,42 +176,62 @@ const CaseListLeft = (props) =>{
                         </div>
                     </Space>
                 </div>
-                <div className={"filter-box"}>
-                    <Select bordered={false} className={"select-testcase-box"} value={testType} onSelect={selectKeyFun}>
-                        {
-                            items.map(item=>{
-                                return<Option value={item.key}>{item.title}</Option>
-                            })
-                        }
-                    </Select>
-
-                    <div className={"icon-bg-grey"} >
-                        <AdvancedFilter
-                            findPage={findPage}
-                            setSelectCategory={setSelectCategory}
-                            testType={testType}
-                        />
-                    </div>
-                </div>
-
-
                 <div className={"display-flex-between"} style={{padding:"10px 0 0"}}>
                     <Input
                         placeholder={`搜索用例名`}
                         onPressEnter={onSearch}
-                        className='search-input-common'
+                        className='case-search-input'
                         width={280}
                         prefix={<IconCommon
                             icon={"sousuo"}
                             className={"icon-s"}
                         />}
-
+                        addonAfter={<AdvancedFilter
+                            findPage={findPage}
+                            setSelectCategory={setSelectCategory}
+                            testType={testType}
+                        />}
                         onChange={debounce(onSearch,500) }
                         allowClear
                     />
 
                 </div>
 
+                <div className={"filter-box"}>
+                    <Select
+                        placeholder={"用例类型"}
+                        bordered={false}
+                        className={"select-testcase-box"}
+                        onSelect={selectKeyFun}
+                        optionLabelProp="label"
+                    >
+
+                        {
+                            items.map(item=>{
+                                return<Option
+                                    key={item.key}
+                                    value={item.key}
+                                    label={item.title}
+                                    className={"select-testcase-content"}
+                                >
+                                    {item.title}
+                                    <span className={"font-12"}> {item.number}</span>
+                                </Option>
+                            })
+                        }
+                    </Select>
+                    <Select
+                        bordered={false}
+                        className={"select-testcase-box"}
+                        placeholder={"状态"}
+                        onSelect={selectStatus}
+                    >
+                        <Option value={null}>全部</Option>
+                        <Option value={0}>未开始</Option>
+                        <Option value={1}>进行中</Option>
+                        <Option value={2}>结束</Option>
+                    </Select>
+                </div>
             </div>
             <div className={"case-list-left-list-box"}>
                 <CaseList

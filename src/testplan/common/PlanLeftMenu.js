@@ -8,6 +8,7 @@ import testPlanStore from "../plan/store/testPlanStore";
 import "../plan/components/testPlanStyle.scss"
 import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
 import {observer} from "mobx-react";
+import ListIcon from "../../common/ListIcon/ListIcon";
 
 const PlanLeftMenu = (props) =>{
     const {findTestPlanPage,testPlanList,findTestPlan,testPlanInfo} = testPlanStore;
@@ -106,7 +107,7 @@ const PlanLeftMenu = (props) =>{
                 >
                     <div style={{padding:`15px 0 15px 24px`}}  className={`ws-icon-box  ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
                         <div style={{"cursor":"pointer"}}>
-                             <img src={planImg} alt={"icon"} className={"repository-icon"}/>
+                            <ListIcon text={testPlanInfo?.name} isMar={false} className={`${isExpanded?"icon-l":"icon-x"}`}/>
                         </div>
                         {
                             isExpanded&& <div>{testPlanInfo?.name}</div>

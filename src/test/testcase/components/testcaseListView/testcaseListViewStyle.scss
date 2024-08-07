@@ -6,47 +6,79 @@
     .icon-bg-grey{
         background:#f8f8f8;
         padding:0 5px;
-        border: 1px solid #f6efef
+        border: 1px solid #f6efef;
+        border-radius: 5px;
     }
 
     .case-list-left{
         width: 300px;
         border-right: 1px solid #e2e2e2;
-        //background: var(--pi-bg-grey-100);
+        background: #fafbfc;
 
         .case-list-left-top{
             padding: 15px 10px 10px;
-            border-bottom: 1px solid #e2e2e2;
+            //border-bottom: 1px solid #e2e2e2;
+            //background: var(--pi-bg-grey-100);
 
             .filter-box{
-                margin: 10px 0 0px;
+                margin: 12px 0 0px;
                 display: flex;
                 justify-content: space-between;
                 gap: 5px;
 
                 .select-testcase-box{
-                    background: var(--pi-bg-grey-100);
+                    background: #e3e8f094;
                     border-radius: var(--pi-border-radius);
-                    width: 240px;
+                    width: 135px;
                     //border: 1px solid #eaeaea;
                     border:0;
                 }
             }
 
-            .search-input-common{
+            .case-search-input{
                 width: 280px !important;
                 border-radius: var(--pi-border-radius)!important;
                 background: var(--pi-bg-grey-100);
+                border: 1px solid #f4f2f2;
+
+                .ant-input-affix-wrapper{
+                    border: 0;
+                }
+
+                .ant-input{
+                    background: white;
+                }
+
+                .ant-input-group-addon{
+                    padding: 0 0 0 11px;
+                    border: 0;
+                    background: white;
+                }
             }
 
             .advanced-filter-box{
                 position: relative;
 
+                .advanced-filter-btn{
+                    cursor: pointer;
+                     width: 30px;
+                    height: 30px;
+                    color: #a3a3a3;
+                    font-size: 12px;
+                    background: white;
+                    padding: 0px 5px;
+                    display: flex;
+                    align-items: center;
+                    gap:5px;
+                    border-radius: 5px;
+                    //border: 1px solid #f6efef;
+                }
+
                 .advanced-filter-toggle-box{
                     padding: 10px;
                     position: absolute;
-                    top: 20px;
-                    left: 30px;
+                    top: 31px;
+                    left: 0px;
                     background: var(--pi-bg-grey-100);
                     width: 240px;
                     min-height: 200px;
@@ -68,7 +100,7 @@
             .case-list-box{
                 height: 100%;
                 overflow: auto;
-                padding: 5px;
+                padding: 5px 5px 5px 10px;
 
                 .case-list-item{
                     padding: 5px 10px;
@@ -109,7 +141,7 @@
                 align-items: center;
                 justify-content: space-between;
                 padding: 0 10px;
-                background: #f8f8f8;
+                //background: #f8f8f8;
 
                 .case-list-bottom-total{
                     font-size: 12px;
@@ -137,5 +169,17 @@
     .case-list-right {
         flex: 1;
         overflow: auto;
+    }
+}
+
+.select-testcase-content{
+    .ant-select-item-option-content{
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+    .ant-select-item-option-state{
+        display: none;
     }
 }

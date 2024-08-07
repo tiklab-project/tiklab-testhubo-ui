@@ -86,53 +86,40 @@ export const showTextStatus = (status,size)=>{
 /**
  * 表格中用例类型展示
  */
-export const showCaseTypeView = (type)=>{
+export const showCaseTypeView = (type) => {
+    let iconComponent;
+
     switch (type) {
         case "api-unit":
-            return  <IconCommon
-                icon={"api1"}
-                className="icon-l"
-            />
-
         case "api-scene":
-            return  <IconCommon
-                icon={"api1"}
-                className="icon-l"
-            />
         case "api-perform":
-            return  <IconCommon
-                icon={"api1"}
-                className="icon-l"
-            />
+            iconComponent = <IconCommon icon={"api1"} className="icon-m" />;
+            break;
 
         case "web-scene":
-            return <IconCommon
-                icon={"diannao1"}
-                className="icon-l"
-            />
-        case "web-perform":
-            return <IconCommon
-                icon={"diannao1"}
-                className="icon-l"
-            />
+            iconComponent = <IconCommon icon={"diannao1"} className="icon-m" />;
+            break;
 
         case "app-scene":
-            return <IconCommon
-                icon={"shouji1"}
-                className="icon-l"
-            />
-        case "app-perform":
-            return <IconCommon
-                icon={"shouji1"}
-                className="icon-l"
-            />
-        default :
-            return <IconCommon
-                icon={"gongneng1"}
-                className="icon-l"
-            />
+            iconComponent = <IconCommon icon={"shouji1"} className="icon-m" />;
+            break;
+
+        default:
+            iconComponent = <IconCommon icon={"gongneng1"} className="icon-m" />;
+            break;
     }
-}
+
+    return (
+         <div style={{
+            borderRadius: "5px",
+            width: "20px",
+            height: "20px",
+            overflow: "hidden"
+        }}>
+            {iconComponent}
+        </div>
+    );
+};
 
 /**
  * 左列表右详情中用例类型展示

@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "13648315",
+      "name": "其他功能.svg",
+      "font_class": "gongneng1",
+      "unicode": "e69d",
+      "unicode_decimal": 59037
+    },
+    {
+      "icon_id": "20450896",
+      "name": "接口测试",
+      "font_class": "api1",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "31196933",
+      "name": "电脑",
+      "font_class": "diannao1",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "31196940",
+      "name": "手机",
+      "font_class": "shouji1",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
       "icon_id": "11811527",
       "name": "更多",
       "font_class": "gengduo",
@@ -186,34 +214,6 @@
       "font_class": "icon_level1",
       "unicode": "e6a3",
       "unicode_decimal": 59043
-    },
-    {
-      "icon_id": "3759642",
-      "name": "电脑",
-      "font_class": "diannao1",
-      "unicode": "e69b",
-      "unicode_decimal": 59035
-    },
-    {
-      "icon_id": "3759643",
-      "name": "手机",
-      "font_class": "shouji1",
-      "unicode": "e69c",
-      "unicode_decimal": 59036
-    },
-    {
-      "icon_id": "36243325",
-      "name": "010_全部功能",
-      "font_class": "gongneng1",
-      "unicode": "e631",
-      "unicode_decimal": 58929
-    },
-    {
-      "icon_id": "1601491",
-      "name": "api",
-      "font_class": "api1",
-      "unicode": "e618",
-      "unicode_decimal": 58904
     },
     {
       "icon_id": "24599696",

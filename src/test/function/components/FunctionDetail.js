@@ -92,11 +92,11 @@ const FunctionDetail = (props) =>{
                 />
             </>
         },{
-            label: `测试步骤 (${funcUnitInfo?.stepNum||0})`,
+            label: <span>测试步骤 <span className={"font-12"}>{funcUnitInfo?.stepNum||0}</span></span>,
             key: '2',
             children: <FuncUnitStepTable functionId={functionId}/>
         },{
-            label: `关联缺陷 (${funcUnitInfo?.defectNum||0})`,
+            label: <span>关联缺陷 <span className={"font-12"}>{funcUnitInfo?.defectNum||0}</span></span>,
             key: '3',
             children: <WorkItemBindList caseId={functionId} />
         }

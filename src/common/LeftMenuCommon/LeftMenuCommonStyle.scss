@@ -1,7 +1,6 @@
 .menu-box{
     position:relative;
     height: 100%;
-    background: var(--pi-bg-grey-100);
     box-shadow: 3px 0 5px -5px rgb(0 0 0 / 30%);
 
     .menu-box-flex{
@@ -23,15 +22,15 @@
 
 
         .menu-box-nav-item-theme-default{
-            border-left: 3px solid var(--pi-bg-grey-100);
+            border-left: 3px solid #e7e7e7;
 
             &:hover{
-                background-color: var(--pi-hover-color);
+                background-color: #d9dee27d
             }
         }
 
         .select-link-theme-default{
-            background-color: var(--pi-action-color);
+            background-color: #d9dee27d;
             border-left: 3px solid var(--pi-base-color);
         }
 

@@ -160,9 +160,9 @@ const LeftNav = (props) =>{
                         visible={visible}
                         onOpenChange={openToggleWorkspace}
                     >
-                        <div style={{padding:`15px  0 15px 21px`}} className={`ws-icon-box ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
+                        <div style={{padding:`15px  0 15px 24px`}} className={`ws-icon-box ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
                             <div style={{"cursor":"pointer"}}>
-                                 <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={"icon-x"}/>
+                                 <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={`${isExpanded?"icon-l":"icon-x"}`}/>
                             </div>
                             {
                                 isExpanded&& <div className={"text-ellipsis"} style={{maxWidth:"100px"}}>{repositoryInfo?.name}</div>

@@ -90,18 +90,13 @@ const AdvancedFilter = (props) =>{
             <Tooltip placement="right" title={"高级筛选"}>
                 <div
                     onClick={toggle}
-                    style={{
-                        cursor: "pointer",
-                        width: "20px",
-                        height: "23px",
-                        color: "#a3a3a3",
-                        fontSize: "15px"
-                    }}
+                    className={"advanced-filter-btn"}
                 >
                     <IconCommon
                         icon={"shaixuan"}
-                        className={"icon-s edit-icon"}
+                        className={"icon-s"}
                     />
+                    {/*高级筛选*/}
                 </div>
             </Tooltip>
 

@@ -63,7 +63,10 @@ const DynamicWidget = (props) =>{
                         const {actionType,action,user,createTime,data,id} = logItem
                         const dataObj = data && JSON.parse(data)
                         return (
-                            <div key={id} className='dynamic-item-log mf-user-avatar display-flex-between' >
+                            <div key={id} className='dynamic-item-log mf-user-avatar' >
+                                <div className='dynamic-item-log-time'>
+                                    {moment(createTime).format("HH:mm")}
+                                </div>
                                 <div className={" display-flex-gap"}>
                                     <Profile userInfo={user}/>
                                     <div className='dynamic-item-log-info'>
@@ -77,9 +80,7 @@ const DynamicWidget = (props) =>{
                                     </div>
                                 </div>
 
-                                <div className='dynamic-item-log-time'>
-                                    {moment(createTime).format("HH:mm")}
-                                </div>
+
                             </div>
                         )
                     })

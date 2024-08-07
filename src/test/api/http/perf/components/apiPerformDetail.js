@@ -10,7 +10,7 @@ import ApiPerfInstanceList from "./apiPerfInstanceList";
 
 const ApiPerformDetail = (props) =>{
     const {apiPerfStore,apiEnvStore,apiPerfId} = props;
-    const {findApiPerf,updateApiPerf} = apiPerfStore;
+    const {findApiPerf,updateApiPerf,apiPerfInfo} = apiPerfStore;
     const { envUrl } =apiEnvStore;
 
     const [form] = Form.useForm()
@@ -68,11 +68,11 @@ const ApiPerformDetail = (props) =>{
                 form={form}
             />
         },{
-            label:"场景配置",
+            label:  <span>测试步骤 <span className={"font-12"}>{apiPerfInfo?.stepNum||0}</span></span>,
             key:"2",
             children:<ApiPerfStepList type={!!props.planType} {...props} apiPerfId={apiPerfId}/>
         },{
-            label: `历史`,
+            label:  <span>历史 <span className={"font-12"}>{apiPerfInfo?.instanceNum||0}</span></span>,
             key: 'history',
             children: <ApiPerfInstanceList actionTap={actionTap}/>
         }
