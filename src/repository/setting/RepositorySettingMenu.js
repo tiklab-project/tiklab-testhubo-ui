@@ -27,30 +27,30 @@ const RepositorySettingMenu = (props) =>{
     const items=[
         {
             title: '项目信息',
-            id: '/repository/setting/detail',
+            id: `/project/${repositoryId}/setting/info`,
             // icon: 'icon-setting',
         }, {
             title: '模块',
             // icon: 'icon-modular',
-            id: '/repository/setting/category',
+            id: `/project/${repositoryId}/setting/category`,
         },
         {
             title: '环境',
             // icon: 'icon-modular',
-            id: '/repository/setting/envMana',
+            id: `/project/${repositoryId}/setting/envMana`,
         },
         {
             title: '系统集成',
             // icon: 'icon-modular',
-            id: '/repository/setting/workspace',
+            id: `/project/${repositoryId}/setting/workspace`,
         },
         {
             title: '成员',
-            id: '/repository/setting/role',
+            id: `/project/${repositoryId}/setting/role`,
             // icon: 'icon-chengyuan',
         },{
             title: '权限',
-            id: '/repository/setting/privilege',
+            id: `/project/${repositoryId}/setting/privilege`,
             // icon: 'icon-quanxian',
         }
     ]
@@ -83,7 +83,7 @@ const RepositorySettingMenu = (props) =>{
             {...props}
             domainId={repositoryId} // 项目id
             projectRouters={items} // 菜单
-            outerPath={`/repository/setting`} // 项目设置Layout路径
+            outerPath={`/project/${repositoryId}/setting`} // 项目设置Layout路径
             noAccessPath={"/noaccess"}
         >
             <div className={"repository-setting-box"}>

@@ -13,7 +13,7 @@ const ApiPerformToUnitPage = (props) =>{
             <div className={"content-box-center"}>
                 <CaseBread
                     breadItem={["接口性能","接口单元"]}
-                    router={`/repository/api-perform/${apiPerfId}`}
+                    router={`/project/${apiPerfId}/apiPerform`}
                 />
                 <ApiUnitEditPageCommon {...props} apiUnitId={apiUnitId}/>
             </div>

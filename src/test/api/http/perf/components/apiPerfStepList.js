@@ -7,7 +7,7 @@ import {useHistory} from "react-router";
 import ApiPerformBindScene from "./apiPerformBindScene";
 import {showCaseTypeTable} from "../../../../../common/caseCommon/CaseCommonFn";
 import ApiPerfConfigDrawer from "./ApiPerfConfigDrawer";
-import ApiPerfTestDataDrawer from "./ApiPerfTestDataDrawer";
+import ApiPerfTestDataDrawer from "./testdata/ApiPerfTestDataDrawer";
 
 const ApiPerfStepList = (props) =>{
     const {apiPerfId} = props
@@ -88,6 +88,7 @@ const ApiPerfStepList = (props) =>{
         },
     ]
 
+    const repositoryId = sessionStorage.getItem("repositoryId")
     let history = useHistory()
     useEffect(async ()=>{
         await findApiPerfStepList(apiPerfId)
@@ -98,18 +99,18 @@ const ApiPerfStepList = (props) =>{
             sessionStorage.setItem("apiUnitId",record.apiUnitCase.id);
             let caseView = localStorage.getItem("CASE_VIEW")
             if(caseView==="list"){
-                history.push(`/repository/testcase-list/api-perform-to-unit`)
+                history.push(`/project/${repositoryId}/testcaseList/performToUnit`)
             }else {
-                history.push("/repository/api-perform-to-unit")
+                history.push(`/project/${repositoryId}/performToUnit`)
             }
         }else {
             sessionStorage.setItem("apiSceneId",record.apiScene.id);
 
             let caseView = localStorage.getItem("CASE_VIEW")
             if(caseView==="list"){
-                history.push(`/repository/testcase-list/api-perform-to-scene`)
+                history.push(`/project/${repositoryId}/testcaseList/performToScene`)
             }else {
-                history.push("/repository/api-perform-to-scene")
+                history.push(`/project/${repositoryId}/performToScene`)
             }
         }
     }

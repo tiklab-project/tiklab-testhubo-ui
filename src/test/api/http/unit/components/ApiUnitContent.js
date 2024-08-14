@@ -31,14 +31,14 @@ const ApiUnitContent = (props) =>{
                 <CaseBread
                     toggleCase={<ToggleCase  caseId={id}/>}
                     breadItem={[testCaseInfo?.name]}
-                    router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
+                    router={`/project/${sessionStorage.getItem("repositoryId")}/testcase`}
                     right={
                         <Space>
                             <ApiEnvDropDownSelect />
                             <IconBtn
                                 className="pi-icon-btn-grey"
                                 // icon={"lishi"}
-                                onClick={()=> history.push("/repository/api-unit-instance")}
+                                onClick={()=> history.push("/project/apiUnitInstance")}
                                 name={"历史"}
                             />
                             <ApiUnitExecuteTest apiUnitId={id}/>

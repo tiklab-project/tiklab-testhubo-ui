@@ -19,7 +19,7 @@ import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
 
     useEffect(()=>{
         //给左侧导航设置一个选择项
-        localStorage.setItem("leftRouter","/home")
+        localStorage.setItem("leftRouter","/index")
     },[])
 
      useEffect(() => {
@@ -33,7 +33,7 @@ import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
             name:"主页",
             icon: "home",
             key:"home",
-            router:"/home"
+            router:"/index"
         },
         {
             name: "项目",
@@ -51,7 +51,7 @@ import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
 
 
     const showMenu = ()=>{
-        if(pathname.startsWith("/home")||pathname.startsWith("/project")){
+        if(pathname==="/index"||pathname==="/project"||pathname==="/projectAdd"){
             return<LeftMenuCommon
                 menuData={menuData}
                 isFirst={true}

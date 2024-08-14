@@ -52,7 +52,7 @@ const SystemContent = (props) =>{
                 },{
                     title: "消息通知方案",
                     icon: 'rizhijilu',
-                    id: '/setting/message-notice',
+                    id: '/setting/messageNotice',
                     purviewCode: "MSG_Notice",
                 },
             ],
@@ -95,7 +95,7 @@ const SystemContent = (props) =>{
                     id: '/setting/version',
                 },{
                     title: "应用访问权限",
-                    id: '/setting/product-auth',
+                    id: '/setting/productAuth',
                 }
             ],
         },

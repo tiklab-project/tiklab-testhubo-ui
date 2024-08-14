@@ -13,15 +13,9 @@ const ApiUnitContentListView = (props) =>{
     const {apiUnitStore} = props
     const {testCaseInfo} = apiUnitStore
     const history = useHistory()
-    let {id} = useParams()
-    const apiUnitId = sessionStorage.getItem('apiUnitId') || id;
 
-    useEffect(()=>{
-        //获取路由id存入
-        sessionStorage.setItem('apiUnitId',id);
-
-    },[apiUnitId])
-
+    const apiUnitId = sessionStorage.getItem('apiUnitId') ;
+    const repositoryId = sessionStorage.getItem("repositoryId");
 
     return(
         <div className={"content-box-center"}>
@@ -34,7 +28,7 @@ const ApiUnitContentListView = (props) =>{
                         <IconBtn
                             className="pi-icon-btn-grey"
                             icon={"lishi"}
-                            onClick={()=> history.push("/repository/testcase-list/api-unit-instance")}
+                            onClick={()=> history.push(`/project/${repositoryId}/testcaseList/apiUnitInstance`)}
                             name={"历史"}
                         />
                         <ApiUnitExecuteTest apiUnitId={apiUnitId}/>

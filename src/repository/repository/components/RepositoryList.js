@@ -17,6 +17,7 @@ const RepositoryList = (props) => {
     const {createRepositoryFollow,deleteRepositoryFollow} = repositoryFollowStore;
 
     let userId=getUser().userId
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     const columns = [
         {
@@ -105,8 +106,8 @@ const RepositoryList = (props) => {
         toRepositoryConfig(id);
 
         //给左侧导航设置一个选择项
-        localStorage.setItem("leftRouter","/repository/setting");
-        props.history.push('/repository/setting/role');
+        localStorage.setItem("leftRouter",`/project/${repositoryId}/testcase`);
+        props.history.push(`/project/${repositoryId}/setting/role`);
     }
 
 
@@ -118,8 +119,8 @@ const RepositoryList = (props) => {
         toRepositoryConfig(id);
 
         //给左侧导航设置一个选择项
-        localStorage.setItem("leftRouter","/repository/testcase")
-        props.history.push(`/repository/testcase/${id}`);
+        localStorage.setItem("leftRouter",`/project/${repositoryId}/testcase`)
+        props.history.push(`/project/${id}/testcase`);
     }
 
     /**

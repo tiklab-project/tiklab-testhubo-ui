@@ -44,7 +44,7 @@ const AppPerfEdit = (props) => {
                 if(res.code===0){
                     findPage&&findPage()
                     sessionStorage.setItem(`appPerfId`,res.data);
-                    props.history.push(`/repository/app-perform/${res.data}`)
+                    props.history.push(`/project/app-perform/${res.data}`)
                 }
             })
         }

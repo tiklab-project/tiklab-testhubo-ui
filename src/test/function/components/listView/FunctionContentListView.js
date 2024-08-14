@@ -1,5 +1,4 @@
-import React, {useEffect} from "react";
-import {useParams} from "react-router";
+import React from "react";
 import {inject, observer} from "mobx-react";
 import "../functionStyle.scss"
 import CaseBread from "../../../../common/CaseBread";
@@ -9,16 +8,7 @@ import FunctionDetail from "../FunctionDetail";
 const FunctionContentListView = (props) =>{
     const {funcUnitStore} = props;
     const {testCaseInfo} = funcUnitStore
-
-    let {id} = useParams()
-    const functionId = sessionStorage.getItem('functionId') || id;
-
-    useEffect(()=> {
-        //获取路由id存入
-        sessionStorage.setItem('functionId',id);
-
-    },[functionId])
-
+    const functionId = sessionStorage.getItem('functionId');
 
     return(
         <div className={"content-box-center"}>

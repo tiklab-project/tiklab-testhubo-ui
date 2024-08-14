@@ -28,13 +28,13 @@ const WebSceneContent = (props) =>{
                breadItem={[testCaseInfo?.name]}
                toggleCase={<ToggleCase  caseId={webSceneId}/>}
                style={{borderBottom:"none"}}
-               router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
+               router={`/project/${sessionStorage.getItem("repositoryId")}/testcase`}
                right={
                    <Space>
                        <IconBtn
                            className="pi-icon-btn-grey"
                            icon={"lishi"}
-                           onClick={()=>history.push("/repository/web-scene-instance")}
+                           onClick={()=>history.push("/project/web-scene-instance")}
                            name={"历史"}
                        />
                        <WebExecuteTestPage webSceneId={webSceneId} stepNum={webSceneInfo?.stepNum||0}/>

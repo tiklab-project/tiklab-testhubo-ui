@@ -47,7 +47,7 @@ const ApiUnitEdit = (props) => {
                 if(res.code===0){
                     findPage&&findPage()
                     sessionStorage.setItem(`apiUnitId`,res.data);
-                    props.history.push(`/repository/api-unit/${res.data}`)
+                    props.history.push(`/project/${res.data}/apiUnit`)
                 }else {
                     messageFn("error",'创建失败');
                 }

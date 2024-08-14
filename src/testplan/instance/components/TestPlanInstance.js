@@ -6,7 +6,7 @@ import {showCaseTypeTable, showTestTypeView} from "../../../common/caseCommon/Ca
 import testPlanBindCaseInstanceStore from "../store/testPlanBindCaseInstanceStore";
 import testPlanInstanceStore from "../store/testPlanInstanceStore";
 import {useHistory} from "react-router";
-import {CASE_TYPE} from "../../../common/dictionary/dictionary";
+import {CASE_TYPE, caseTypeToRouter} from "../../../common/dictionary/dictionary";
 
 const TestPlanInstance = (props) =>{
     const {
@@ -109,7 +109,7 @@ const TestPlanInstance = (props) =>{
 
     const toCaseDetail = (setId,record)=> {
         sessionStorage.setItem(`${setId}`, record.caseInstanceId);
-        history.push(`/repository/plan/${record.caseType}`)
+        history.push(`/project/plan/${caseTypeToRouter[record.caseType]}`)
     }
 
         // 分页

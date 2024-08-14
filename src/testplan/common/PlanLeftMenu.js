@@ -107,7 +107,7 @@ const PlanLeftMenu = (props) =>{
                 >
                     <div style={{padding:`15px 0 15px 24px`}}  className={`ws-icon-box  ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
                         <div style={{"cursor":"pointer"}}>
-                            <ListIcon text={testPlanInfo?.name} isMar={false} className={`${isExpanded?"icon-l":"icon-x"}`}/>
+                            <ListIcon colors={1} text={testPlanInfo?.name} isMar={false} className={`${isExpanded?"icon-l":"icon-x"}`}/>
                         </div>
                         {
                             isExpanded&& <div>{testPlanInfo?.name}</div>
@@ -131,8 +131,8 @@ const PlanLeftMenu = (props) =>{
                     margin: "0 0 10px 0"
                 }}
                 onClick={()=> {
-                    history.push("/repository/plan")
-                    localStorage.setItem("leftRouter","/repository/plan");
+                    history.push(`/project/${repositoryId}/plan`)
+                    localStorage.setItem("leftRouter",`/project/${repositoryId}/plan`);
                 }}
             >
                 <div className={`menu-box-nav-item-${themeColor}

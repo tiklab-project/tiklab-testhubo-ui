@@ -4,15 +4,13 @@ import CaseBread from "../../../../../../common/CaseBread";
 import ApiSceneDetail from "../../../scene/components/ApiSceneDetail";
 
 const ApiPerformToScenePageListView = (props) =>{
-
-
     const apiSceneId = sessionStorage.getItem("apiSceneId")
-    const apiPerfId = sessionStorage.getItem("apiPerfId")
+    const repositoryId = sessionStorage.getItem("repositoryId")
     return(
         <div className={"content-box-center"}>
             <CaseBread
                 breadItem={["接口性能","接口场景"]}
-                router={`/repository/testcase-list/api-perform/${apiPerfId}`}
+                router={`/project/${repositoryId}/testcaseList/apiPerform`}
             />
             <ApiSceneDetail apiSceneId={apiSceneId} />
         </div>

@@ -15,7 +15,7 @@ import PlanInstanceDrawer from "../../instance/components/PlanInstanceDrawer";
 import PageContent from "../../../common/pageContent/PageContent";
 import IconCommon from "../../../common/IconCommon";
 import {debounce} from "../../../common/utils/commonFn";
-
+import ListIcon from "../../../common/ListIcon/ListIcon";
 
 const TestPlan = (props) => {
     const { testPlanStore } = props;
@@ -35,8 +35,16 @@ const TestPlan = (props) => {
             dataIndex: "name",
             key: "name",
             width: "25%",
-            render: (text,record) =>(
-                <span className={"link-text text-ellipsis"} onClick={()=>toPlanDetail(record)}>{text}</span>
+            render: (text,record,index) =>(
+                <div className={"display-flex-gap"}>
+                    <ListIcon
+                        text={text}
+                        isMar={false}
+                        colors={index+1 % 7}
+                        className={`icon-l`}
+                    />
+                    <span className={"link-text text-ellipsis"} onClick={()=>toPlanDetail(record)}>{text}</span>
+                </div>
             )
         },
         {
@@ -118,7 +126,6 @@ const TestPlan = (props) => {
     useEffect(()=> {
         findPage()
     },[pageParam])
-
 
     const showState = (type)=>{
         switch (type){

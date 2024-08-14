@@ -91,6 +91,18 @@ const CASE_TYPE={
     TEST_PLAN:"test-plan",
     TEST_REPORT:"test-report"
 }
+//router 转换
+const caseTypeToRouter ={
+    "api-unit":"apiUnit",
+    "api-scene":"apiScene",
+    "api-perform":"apiPerform",
+    "web-scene":"webScene",
+    "app-scene":"appScene",
+    "function":"function",
+    "test-plan":"testPlan",
+    "test-report":"testReport"
+}
+
 
 //断言大小对比
 const assertCompare = {
@@ -136,6 +148,7 @@ export {
     day,
     functionalTestResult,
     CASE_TYPE,
+    caseTypeToRouter,
     assertCompare,
     testExecuteStatus
 }

@@ -54,7 +54,7 @@ const RepositoryEdit = (props) => {
         }
         repositoryRecent(params)
 
-        props.history.push(`/repository/testcase/${id}`);
+        props.history.push(`/project/${id}/testcase`);
     }
 
     /**

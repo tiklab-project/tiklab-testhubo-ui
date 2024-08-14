@@ -20,7 +20,7 @@ const PlanToApiPerfInstance = () =>{
         <>
             <CaseBread
                 breadItem={["历史详情","接口性能"]}
-                router={"/repository/plan/instance"}
+                router={"/project/plan/instance"}
             />
             <ApiPerfInstanceDetail
                 result={allData}

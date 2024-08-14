@@ -8,7 +8,7 @@ export const DrawerCloseIcon = () =>{
         <IconCommon
             className={"icon-s edit-icon"}
             icon={"shanchu2"}
-            // onClick={()=>history.push("/repository/testcase")}
+            // onClick={()=>history.push("/project/testcase")}
         />
     )
 }

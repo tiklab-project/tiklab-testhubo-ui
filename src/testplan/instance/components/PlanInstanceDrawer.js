@@ -12,7 +12,7 @@ const PlanInstanceDrawer = (props) =>{
 
     const showDrawer = async () => {
         sessionStorage.setItem("testPlanInstanceId",instance.instanceId)
-        history.push("/repository/plan/instance")
+        history.push("/project/plan/instance")
         setOpen(true);
     }
 

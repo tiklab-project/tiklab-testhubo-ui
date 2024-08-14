@@ -14,7 +14,7 @@ const ApiPerformToScenePage = (props) =>{
         <div className={"content-box-center"}>
             <CaseBread
                 breadItem={["接口性能","接口场景"]}
-                router={`/repository/api-perform/${apiPerfId}`}
+                router={`/project/${apiPerfId}/apiPerform`}
             />
             <ApiSceneDetail apiSceneId={apiSceneId} />
         </div>

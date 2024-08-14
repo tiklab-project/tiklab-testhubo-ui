@@ -15,49 +15,50 @@ import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
 const LeftNav = (props) =>{
     const {repositoryStore,systemRoleStore} = props;
     const {findRepository,repositoryRecent,findRepositoryRecentList,findRepositoryJoinList} = repositoryStore;
+    let userId = getUser().userId
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     const menuData = [
         {
             "icon":"layers",
             "name":"概况",
             "key":"overview",
-            "router":"/repository/detail"
+            "router":`/project/${repositoryId}/overview`
         }, {
             "icon":"test-case-group",
             "name":"测试用例",
             "key":"testcase",
-            "router":"/repository/testcase"
+            "router":`/project/${repositoryId}/testcase`
         },
         {
             "icon":"jihua",
             "name":"测试计划",
             "key":"testplan",
-            "router":"/repository/plan"
+            "router":`/project/${repositoryId}/plan`
         },{
             "icon":"baogao",
             "name":"测试报告",
             "key":"report",
-            "router":"/repository/report"
+            "router":`/project/${repositoryId}/report`
         },
         {
             "icon":"quexian",
             "name":"缺陷",
             "key":"defect",
-            "router":"/repository/defect"
+            "router":`/project/${repositoryId}/defect`
         },
         {
             "icon":"tongji9",
             "name":"统计",
             "key":"homestatistics",
-            "router":"/repository/statistics/new-create"
+            "router":`/project/${repositoryId}/statistics/newAdd`
         },
     ]
 
     const [visible, setVisible] = useState(false);
     const [repositoryInfo, setRepositoryInfo] = useState();
     const [recentList, setRecentList] = useState([]);
-    let userId = getUser().userId
-    const repositoryId = sessionStorage.getItem("repositoryId")
+
     const history = useHistory()
 
 
@@ -123,7 +124,10 @@ const LeftNav = (props) =>{
             </div>
 
 
-            <a className={"ws-toggle-repository_more"} onClick={()=>history.push("/project")}>查看更多</a>
+            <a className={"ws-toggle-repository_more"} onClick={()=> {
+                history.push("/project")
+                localStorage.setItem("leftRouter",`/project`)
+            }}>查看更多</a>
         </div>
     )
 
@@ -135,7 +139,7 @@ const LeftNav = (props) =>{
         sessionStorage.setItem("repositoryId",repositoryId);
 
         //给左侧导航设置一个选择项
-        localStorage.setItem("leftRouter","/repository/testcase")
+        localStorage.setItem("leftRouter",`/project/${repositoryId}/testcase`)
 
         //最近项目
         let params = {
@@ -144,7 +148,7 @@ const LeftNav = (props) =>{
         }
         repositoryRecent(params)
 
-        props.history.push(`/repository/testcase/${repositoryId}`);
+        props.history.push(`/project/${repositoryId}/testcase`);
 
         setVisible(false)
     }
@@ -188,8 +192,8 @@ const LeftNav = (props) =>{
                     margin: "0 0 10px 0"
                 }}
                 onClick={()=> {
-                    history.push("/home")
-                    localStorage.setItem("leftRouter","/home");
+                    history.push("/index")
+                    localStorage.setItem("leftRouter","/index");
                 }}
             >
                 <div className={`
@@ -212,7 +216,7 @@ const LeftNav = (props) =>{
             menuData={menuData}
             diffHeader={showToggleRepository}
             repositoryId={repositoryId}
-            settingRouter={"/repository/setting"}
+            settingRouter={`/project/${repositoryId}/setting`}
         />
     )
 }

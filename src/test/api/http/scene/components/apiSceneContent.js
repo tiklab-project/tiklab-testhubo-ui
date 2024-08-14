@@ -28,7 +28,7 @@ const ApiSceneContent = (props) => {
             <div className={"content-box-center"}>
                 <CaseBread
                     breadItem={[testCaseInfo?.name]}
-                    router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
+                    router={`/project/${sessionStorage.getItem("repositoryId")}/testcase`}
                     style={{borderBottom:"none"}}
                     toggleCase={<ToggleCase  caseId={apiSceneId}/>}
                     right={

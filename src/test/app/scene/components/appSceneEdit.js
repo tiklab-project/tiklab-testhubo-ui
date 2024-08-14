@@ -48,7 +48,7 @@ const AppSceneEdit = (props) => {
                 if(res.code===0){
                     findPage&&findPage()
                     sessionStorage.setItem(`appSceneId`,res.data);
-                    props.history.push(`/repository/app-scene/${res.data}`)
+                    props.history.push(`/project/app-scene/${res.data}`)
                 }
             })
         }

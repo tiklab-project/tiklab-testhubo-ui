@@ -17,7 +17,7 @@ const TestCaseDrawer = (props) =>{
     let pathname = useLocation().pathname;
 
     useEffect(()=>{
-        if(open&&pathname==="/repository/testcase"){
+        if(open&&pathname==="/project/testcase"){
             setOpen(false)
         }
     },[pathname,open])
@@ -28,7 +28,7 @@ const TestCaseDrawer = (props) =>{
     };
 
     const onClose = () => {
-        history.push("/repository/testcase")
+        history.push("/project/testcase")
         setOpen(false);
     };
 
@@ -62,7 +62,7 @@ const TestCaseDrawer = (props) =>{
     //跳转路由
     const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        history.push(`/repository/${record.caseType}/${record.id}`)
+        history.push(`/project/${record.id}/${record.caseType}`)
     }
 
     //设置最近打开的接口

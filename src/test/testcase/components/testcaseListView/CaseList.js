@@ -14,6 +14,7 @@ import {getVersionInfo} from "thoughtware-core-ui";
 const CaseList = (props) => {
     const {testcaseList,loading,clickItemId,setClickItemId} = props;
     const history = useHistory()
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const clickItem = (item)=>{
         let versionInfo = getVersionInfo()
@@ -48,12 +49,13 @@ const CaseList = (props) => {
                     }}>
                         <div>{showCaseTypeView(item.caseType)}</div>
                         <div style={{width:"158px"}}>
-                            <div className={"text-ellipsis"} style={{padding: "0 0 5px 0"}}>
+                            <div className={"text-ellipsis"}>
                                 {item.name}
                             </div>
                             <div className={"display-flex-gap"}>
-                                <div className={"case-list-item-type"}>{showCaseTypeTable(item.caseType)}</div>
-                                {/*<span className={"case-list-item-type text-ellipsis"} style={{width:"90px"}}>模块: {item?.category?.name||"未设置"}</span>*/}
+                                <div style={{color: "#999", fontSize: "12px"}}>
+                                    {showCaseTypeTable(item.caseType)}
+                                </div>
                             </div>
                         </div>
 
@@ -64,8 +66,6 @@ const CaseList = (props) => {
         })
     }
 
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const handleOk = () => {
         setIsModalOpen(false);
 
@@ -77,7 +77,6 @@ const CaseList = (props) => {
     };
 
     const handleCancel = () =>  setIsModalOpen(false);
-
 
     return(
         <Spin spinning={loading}>

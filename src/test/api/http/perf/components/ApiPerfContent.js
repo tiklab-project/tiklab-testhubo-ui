@@ -51,7 +51,7 @@ const ApiPerfContent = (props) => {
         <PageContent>
             <div className={"content-box-center"}>
                 <CaseBread
-                    router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
+                    router={`/project/${sessionStorage.getItem("repositoryId")}/testcase`}
                     style={{borderBottom:"none"}}
                     breadItem={[testCaseInfo?.name]}
                     toggleCase={<ToggleCase  caseId={apiPerfId}/>}

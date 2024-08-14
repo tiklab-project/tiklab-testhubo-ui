@@ -4,7 +4,6 @@ import {Row,Col, Input} from "antd";
 import {inject, observer} from "mobx-react";
 import {getUser} from "thoughtware-core-ui";
 import RepositoryRecentHome from "../../../home/RepositoryRecentHome";
-import {SearchOutlined} from "@ant-design/icons";
 import RepositoryList from "./RepositoryList";
 import IconBtn from "../../../common/iconBtn/IconBtn";
 import IconCommon from "../../../common/IconCommon";
@@ -105,7 +104,7 @@ const Repository = (props)=> {
     }
 
     const toRepositoryPage = () =>{
-        props.history.push("/project-edit")
+        props.history.push("/projectAdd")
     }
 
 

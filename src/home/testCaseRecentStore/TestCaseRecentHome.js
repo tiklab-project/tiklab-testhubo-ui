@@ -5,7 +5,7 @@ import {Empty, List, Skeleton} from "antd";
 import IconCommon from "../../common/IconCommon";
 
 import testCaseRecentStore from "./TestCaseRecentStore";
-import {CASE_TYPE} from "../../common/dictionary/dictionary";
+import {CASE_TYPE, caseTypeToRouter} from "../../common/dictionary/dictionary";
 
 /**
  * 最近访问的项目
@@ -72,7 +72,7 @@ const TestCaseRecentHome = (props) =>{
     //跳转路由
     const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        props.history.push(`/repository/${record.caseType}/${record.id}`)
+        props.history.push(`/project/${record.id}/${caseTypeToRouter[record.caseType]}`)
     }
 
     /**

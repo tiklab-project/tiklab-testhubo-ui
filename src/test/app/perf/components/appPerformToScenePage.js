@@ -21,7 +21,7 @@ const AppPerformToScenePage = (props) =>{
     },[appPerfId])
 
     const toAppScene = () =>{
-        props.history.push(`/repository/app-perform/${appSceneId}`)
+        props.history.push(`/project/app-perform/${appSceneId}`)
     }
 
     return(

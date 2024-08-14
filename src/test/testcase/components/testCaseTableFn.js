@@ -1,5 +1,5 @@
 import React from "react";
-import {CASE_TYPE} from "../../../common/dictionary/dictionary";
+import {CASE_TYPE, caseTypeToRouter} from "../../../common/dictionary/dictionary";
 import {getUser} from "thoughtware-core-ui";
 import {getVersionInfo} from "thoughtware-core-ui";
 import {useHistory} from "react-router";
@@ -15,11 +15,12 @@ import {Avatar, Space} from "antd";
 
 //再根据不同的用例类型跳到不同的页面
 export const switchCaseTypeFn = (record,history)=>{
+    const repositoryId = sessionStorage.getItem("repositoryId")
 
     //跳转路由
     const toCaseDetail = (setId,record,history)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        history.push(`/repository/testcase-list/${record.caseType}/${record.id}`)
+        history.push(`/project/${repositoryId}/testcaseList/${caseTypeToRouter[record.caseType]}`)
     }
 
     switch (record.caseType) {
@@ -100,7 +101,7 @@ export const SwitchCaseTypeView = ({record,testCaseRecent,repositoryId}) =>{
     //跳转路由
     const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        history.push(`/repository/${record.caseType}/${record.id}`)
+        history.push(`/project/${record.id}/${caseTypeToRouter[record.caseType]}`)
 
         //最近访问
         let params = {

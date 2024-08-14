@@ -15,15 +15,8 @@ const ApiPerfContentListView = (props) => {
     const {testCaseInfo} = apiPerfStore
     const {findAgentConfigList,agentConfigList} = agentConfigStore
 
-    let {id} = useParams()
-    const apiPerfId = sessionStorage.getItem('apiPerfId') || id;
+    const apiPerfId = sessionStorage.getItem('apiPerfId');
     const [agentId, setAgentId] = useState();
-
-    useEffect(()=>{
-        //获取路由id存入
-        sessionStorage.setItem('apiPerfId',id);
-    },[apiPerfId])
-
 
     useEffect(()=>{
         findAgentConfigList({

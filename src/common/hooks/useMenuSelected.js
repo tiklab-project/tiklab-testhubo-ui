@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 export const useMenuSelected = () => {
     const [menuSelected, setMenuSelected] = useState(() => {
         const storedValue = localStorage.getItem("leftRouter");
-        return storedValue || "/home";
+        return storedValue || "/index";
     });
 
     useEffect(() => {

@@ -54,8 +54,8 @@ const PlanSetting = (props) =>{
      */
     const deleteFn = () =>{
         deleteTestPlan(testPlanId).then(()=>{
-            props.history.push("/repository/plan")
-            localStorage.setItem("leftRouter","/repository/plan");
+            props.history.push(`/project/${repositoryId}/plan`)
+            localStorage.setItem("leftRouter",`/project/${repositoryId}/plan`);
         })
     }
 

@@ -21,7 +21,7 @@ const ApiUnitInstanceList = (props) =>{
             <div className={"content-box-center"}>
                 <CaseBread
                     breadItem={[testCaseInfo?.name, "历史"]}
-                    router={`/repository/api-unit/${apiUnitId}`}
+                    router={`/project/${apiUnitId}/apiUnit`}
                 />
                 <InstanceListCommon belongId={apiUnitId} type={CASE_TYPE.API_UNIT}/>
             </div>

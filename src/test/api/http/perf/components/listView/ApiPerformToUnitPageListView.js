@@ -4,14 +4,13 @@ import CaseBread from "../../../../../../common/CaseBread";
 import ApiUnitEditPageCommon from "../../../unit/components/apiUnitEditPageCommon";
 
 const ApiPerformToUnitPageListView = (props) =>{
-
+    const repositoryId = sessionStorage.getItem("repositoryId")
     const apiUnitId = sessionStorage.getItem("apiUnitId")
-    const apiPerfId = sessionStorage.getItem("apiPerfId")
     return(
         <div className={"content-box-center"}>
             <CaseBread
                 breadItem={["接口性能","接口单元"]}
-                router={`/repository/testcase-list/api-perform/${apiPerfId}`}
+                router={`/project/${repositoryId}/testcaseList/apiPerform`}
             />
             <ApiUnitEditPageCommon {...props} apiUnitId={apiUnitId}/>
         </div>

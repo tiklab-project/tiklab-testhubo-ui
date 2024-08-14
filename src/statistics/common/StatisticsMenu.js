@@ -3,20 +3,22 @@ import {renderRoutes} from "react-router-config";
 import {useLocation} from "react-router";
 import "./statisticsStyle.scss"
 
-const items=[
-    {
-        title: '新增用例统计',
-        id: '/repository/statistics/new-create',
-    }, {
-        title: '用例测试统计',
-        id: '/repository/statistics/test',
-    }
-]
 
 
 const StatisticsMenu = (props)=>{
     const location = useLocation();
     const [selected, setSelected] = useState(location.pathname);
+    const repositoryId = sessionStorage.getItem("repositoryId")
+
+    const items=[
+        {
+            title: '新增用例统计',
+            id: `/project/${repositoryId}/statistics/newAdd`,
+        }, {
+            title: '用例测试统计',
+            id: `/project/${repositoryId}/statistics/test`,
+        }
+    ]
 
     const selectKeyFun = (key)=>{
         setSelected(key)
@@ -49,15 +51,11 @@ const StatisticsMenu = (props)=>{
                     fontWeight:"bold",
                 }}
                 >统计</li>
-                {
-                    renderList(items)
-                }
+                {renderList(items)}
             </ul>
 
             <div className={"right-content padding-left-right padding-top-bottom"}>
-                {
-                    renderRoutes(props.route.routes)
-                }
+                {renderRoutes(props.route.routes)}
             </div>
         </div>
     )

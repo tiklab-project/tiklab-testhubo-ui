@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
-import apiPerfTestDataStore from "../store/apiPerfTestDataStore"
+import apiPerfTestDataStore from "../../store/apiPerfTestDataStore"
 import {Row, Input, Col, Modal, Upload, Button} from "antd";
 import {observer} from "mobx-react";
-import IconBtn from "../../../../../common/iconBtn/IconBtn";
-import UpLoadTestData from "./UpLoadTestData";
-import {messageFn} from "../../../../../common/messageCommon/MessageCommon";
+import IconBtn from "../../../../../../common/iconBtn/IconBtn";
+import {messageFn} from "../../../../../../common/messageCommon/MessageCommon";
 import {csvParse} from 'd3-dsv';
 
 const ApiPerfTestDataDetail = (props) =>{
@@ -19,7 +18,6 @@ const ApiPerfTestDataDetail = (props) =>{
     const [name, setName] = useState();
     const [testDataInfo, setTestDataInfo] = useState();
     const [testDataValue, setTestDataValue] = useState();
-    const [testDataTable, setTestDataTable] = useState([]);
     const [visible, setVisible] = React.useState(false);
 
     const showModal = async () => {
@@ -27,11 +25,6 @@ const ApiPerfTestDataDetail = (props) =>{
             let info =  await findApiPerfTestData(testDataId)
             setTestDataInfo(info)
             setName(info.name)
-            if(info){
-                setTestDataTable(csvParse(info?.testData))
-            }else {
-                setTestDataTable([])
-            }
         }
 
         setVisible(true);
@@ -56,13 +49,12 @@ const ApiPerfTestDataDetail = (props) =>{
                 return;
             }
 
+            const fileNameWithoutExtension = file.name.replace(/\.csv$/, '');
+            setName(fileNameWithoutExtension)
             const reader = new FileReader();
             reader.onload = async (event) => {
                 const text = event.target.result;
-                let list = csvParse(text)
-
                 setTestDataValue(text)
-                setTestDataTable(list)
             };
 
             reader.readAsText(file);
@@ -101,23 +93,13 @@ const ApiPerfTestDataDetail = (props) =>{
         setVisible(false);
     }
 
-
-    const showBtn = ()=>{
-        if(type==="edit"){
-            return  <a onClick={showModal}>{props.name}</a>
-        }else {
-            return <IconBtn
+    return(
+        <>
+            <IconBtn
                 className="pi-icon-btn-grey"
                 onClick={showModal}
                 name={props.name}
             />
-        }
-    }
-
-
-    return(
-        <>
-            {showBtn()}
             <Modal
                 destroyOnClose={true}
                 title={props.name}
@@ -129,14 +111,6 @@ const ApiPerfTestDataDetail = (props) =>{
                 centered
             >
                 <Row gutter={10} >
-                    <Col span={20}>
-                        <Input
-                            value={name}
-                            onChange={(e)=>setName(e.target.value)}
-                            placeholder={"未设置测试数据名"}
-                            className={"test-data-name"}
-                        />
-                    </Col>
                     <Col span={4} >
                         <Upload beforeUpload={beforeUpload} showUploadList={false}>
                             <IconBtn
@@ -145,8 +119,15 @@ const ApiPerfTestDataDetail = (props) =>{
                             />
                         </Upload>
                     </Col>
+                    <Col span={20}>
+                        <Input
+                            value={name}
+                            onChange={(e)=>setName(e.target.value)}
+                            placeholder={"未设置测试数据名"}
+                            className={"test-data-name"}
+                        />
+                    </Col>
                 </Row>
-                <UpLoadTestData testDataTable={testDataTable}/>
             </Modal>
         </>
 

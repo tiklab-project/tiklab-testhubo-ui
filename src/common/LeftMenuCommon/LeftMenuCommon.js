@@ -61,14 +61,12 @@ const LeftMenuCommon = (props) =>{
         history.push(item.router)
         setMenuSelected(item.router)
 
-        if(item.key==="overview"){
-            history.push(`${item.router}/${repositoryId}`)
-        }else if(item.key==="testcase"){
+        if(item.key==="testcase"){
             let caseView = localStorage.getItem("CASE_VIEW")
             if(caseView==="list"){
-                history.push(`${item.router}-list/${repositoryId}`)
+                history.push(`/project/${repositoryId}/testcaseList`)
             }else {
-                history.push(`${item.router}/${repositoryId}`)
+                history.push(item.router)
             }
         }else {
             history.push(item.router)
@@ -179,7 +177,7 @@ const LeftMenuCommon = (props) =>{
     return(
         <div className={`menu-box ${isExpanded?"menu-box-expended":"menu-box-not-expended"} ${themeColor}`}>
             {
-                isFirst&&<div style={{width:`${isExpanded&&"200px"}`}} className={'product-logo-box'} onClick={()=>clickToPage({router:"/home"})}>
+                isFirst&&<div style={{width:`${isExpanded&&"200px"}`}} className={'product-logo-box'} onClick={()=>clickToPage({router:"/index"})}>
 
                     <img src={themeColor===THEME_DEFAULT?productImg.teston:productFrameImg?.teston} alt='logo' className={`${isExpanded?"product-logo-expanded":"product-logo"}`}/>
                     {

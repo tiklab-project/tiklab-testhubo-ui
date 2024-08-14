@@ -122,317 +122,33 @@ const routers =  [
         path: '/',
         routes:[
             {
-                path: "/home",
+                path: "/index",
                 component: Home,
                 exact: true,
-                key:'Home',
             },
             {
                 path: "/project",
                 component: Repository,
-                key:'repository'
+                exact: true,
             },
             {
-                path: "/project-edit",
+                path: "/projectAdd",
                 component: RepositoryEdit,
-                key:'RepositoryEdit'
+                exact: true,
             },
-            {
-                path:'/repository',
-                component:RepositoryDetailLayout,
-                routes:[
-                    {
-                        path: "/repository/detail/:id",
-                        exact: true,
-                        component: RepositoryDetailPage,
-                    },
-                    {
-                        path: "/repository/testcase/:id",
-                        component: TestCaseTable,
-                    },
-                    {
-                        path: "/repository/api-unit/:id",
-                        component: ApiUnitContent,
-                    },
-                    {
-                        path: "/repository/api-unit-instance",
-                        component: ApiUnitInstanceList,
-                    },
-
-                    {
-                        path: "/repository/api-scene/:id",
-                        component: ApiSceneContent,
-                    },
-
-                    {
-                        path: "/repository/api-perform/:id",
-                        component: ApiPerfContent,
-                    },
-                    {
-                        path: "/repository/api-perform-to-unit",
-                        component: ApiPerformToUnitPage ,
-                    },
-                    {
-                        path: "/repository/api-perform-to-scene",
-                        component: ApiPerformToScenePage ,
-                    },
-
-                    {
-                        path: "/repository/function/:id",
-                        exact: true,
-                        component: FuncUnitDetail,
-                    },
-
-
-                    {
-                        path: "/repository/testcase-list",
-                        component: TestcaseListMain,
-                        routes: [
-                            {
-                                path: "/repository/testcase-list/api-unit/:id",
-                                component: ApiUnitContentListView,
-                            },
-                            {
-                                path: "/repository/testcase-list/api-unit-instance",
-                                component: ApiUnitInstanceListView,
-                            },
-
-                            {
-                                path: "/repository/testcase-list/api-scene/:id",
-                                component: ApiSceneContentListView,
-                            },
-                            {
-                                path: "/repository/testcase-list/api-perform/:id",
-                                component: ApiPerfContentListView,
-                            },
-                            {
-                                path: "/repository/testcase-list/api-perform-to-unit",
-                                component: ApiPerformToUnitPageListView ,
-                            },
-                            {
-                                path: "/repository/testcase-list/api-perform-to-scene",
-                                component: ApiPerformToScenePageListView ,
-                            },
-
-                            {
-                                path: "/repository/testcase-list/function/:id",
-                                component: FunctionContentListView,
-                            },
-                        ]
-                    },
-
-
-                    {
-                        path: "/repository/plan",
-                        component:TestPlan ,
-                        routes: [
-                            {
-                                path: "/repository/plan/instance",
-                                component: TestPlanInstance,
-                            },{
-                                path: "/repository/plan/api-unit",
-                                component: PlanToApiUnitInstance,
-                            },{
-                                path: "/repository/plan/api-scene",
-                                component: PlanToApiSceneInstance,
-                            },{
-                                path: "/repository/plan/api-perform",
-                                component: PlanToApiPerfInstance,
-                            },{
-                                path: "/repository/plan/web-scene",
-                                component: PlanToWebSceneInstance,
-                            },{
-                                path: "/repository/plan/app-scene",
-                                component: PlanToAppSceneInstance,
-                            }
-                        ]
-                    },
-
-                    {
-                        path: "/repository/report",
-                        exact: true,
-                        component: TestReportList,
-                    },{
-                        path: "/repository/report/:id",
-                        exact: true,
-                        component: TestReportDetail,
-                    },
-                    {
-                        path: "/repository/defect",
-                        exact: true,
-                        component: ProjectAllDefectList,
-                    },
-
-
-                    {
-                        path: "/repository/statistics",
-                        component: StatisticsMenu,
-                        routes: [
-                            {
-                                path: "/repository/statistics/new-create",
-                                exact: true,
-                                component: NewCreateCaseStatistics,
-                            },{
-                                path: "/repository/statistics/test",
-                                exact: true,
-                                component: CaseTestStatistics,
-                            },
-                        ]
-                    },
-
-
-
-
-                    {
-                        path: "/repository/setting",
-                        component: RepositorySettingMenu,
-                        routes:[
-                            {
-                                path: "/repository/setting/detail",
-                                key:'env',
-                                exact: true,
-                                component: RepositorySetting,
-                            },
-                            {
-                                path: "/repository/setting/category",
-                                key:'category',
-                                exact: true,
-                                component: CategoryList,
-                            },
-                            {
-                                path: "/repository/setting/envMana",
-                                key:'env',
-                                exact: true,
-                                component: EnvContent,
-                            },
-                            {
-                                path: "/repository/setting/workspace",
-                                key:'agent',
-                                exact: true,
-                                component: WorkspaceBindList
-                            },
-                            {
-                                path: "/repository/setting/role",
-                                key:'domainRole',
-                                exact: true,
-                                component: DomainRole
-                            },
-                            {
-                                path: "/repository/setting/privilege",
-                                key:'domainPrivilege',
-                                exact: true,
-                                component: DomainPrivilege
-                            },
-                            // {
-                            //     path:"/repository/setting",
-                            //     exact: true,
-                            //     key:'ridapitest',
-                            //     component: ()=><Redirect to='/repository/setting/envMana'/>,
-                            // },
-                        ]
-                    },
-
-                    {
-                        path: "/repository/category",
-                        exact: true,
-                        key:'category',
-                        component: CategoryList,
-                    },
-
-                    {
-                        path:"/repository",
-                        exact: true,
-                        key:'ridapitest',
-                        component: ()=><Redirect to='/repository/testcase/:id'/>,
-                    },
-                ]
-            },
-            {
-                path:"/plan",
-                component: PlanDetailContent,
-                routes: [
-                    {
-                        path: "/plan/case",
-                        exact: true,
-                        component: TestPlanBindCaseList,
-                    },
-
-                    {
-                        path: "/plan/plan-detail/:id",
-                        exact: true,
-                        component: TestPlanDetail,
-                    },
-                    {
-                        path: "/plan/plan-to-api-unit",
-                        exact: true,
-                        component: PlanToApiUnitPage,
-                    },
-                    {
-                        path: "/plan/plan-to-api-scene",
-                        exact: true,
-                        component: PlanToApiScenePage,
-                    },
-                    {
-                        path: "/plan/plan-to-api-perform",
-                        exact: true,
-                        component: PlanToApiPerformPage,
-                    },
-                    {
-                        path: "/plan/plan-to-web-scene",
-                        exact: true,
-                        component: PlanToWebScenePage,
-                    },
-
-                    {
-                        path: "/plan/plan-to-app-scene",
-                        exact: true,
-                        component: PlanToAppScenePage,
-                    },
-
-                    {
-                        path: "/plan/plan-to-function",
-                        exact: true,
-                        component: PlanToFuncUnitPage,
-                    },{
-                        path: "/plan/instance",
-                        exact: true,
-                        component: TestPlanInstanceList,
-                    },{
-                        path: "/plan/quartz",
-                        exact: true,
-                        component: QuartzPlanList,
-                    },{
-                        path: "/plan/setting",
-                        exact: true,
-                        component: PlanSetting,
-                    },
-                    {
-                        path: "/plan/:id",
-                        exact: true,
-                        component: TestPlanBindCaseInstanceList,
-                    },
-                ]
-            },
-
-
             {
                 path:'/setting',
-                key:'systemManagement',
                 component:SystemContent,
                 routes:[
                     //成员与部门
                     {
                         path: "/setting/orga",
-                        key:'org',
                         exact: true,
                         render:(props)=> <Orga {...props} bgroup={'teston'}/>
                     },{
                         path: "/setting/user",
-                        key:'user',
                         exact: true,
-                        render:(props)=>{
-                            return <User {...props} bgroup={'teston'}/>
-                        }
+                        render:(props)=> <User {...props} bgroup={'teston'}/>
                     },{
                         path: "/setting/dir",
                         key:'authConfig',
@@ -465,7 +181,7 @@ const routers =  [
 
                     },
                     {
-                        path: "/setting/message-notice",
+                        path: "/setting/messageNotice",
                         key:'MessageType',
                         exact: true,
                         render:()=> <MessageNotice bgroup={"teston"} />
@@ -475,7 +191,7 @@ const routers =  [
                         exact: true,
                         render:()=> <BackupRestore />
                     },{
-                        path: "/setting/product-auth",
+                        path: "/setting/productAuth",
                         exact: true,
                         render:()=> <ProductAuth  />
                     },
@@ -570,13 +286,282 @@ const routers =  [
                     },
                 ]
             },
+            {
+                path:"/plan",
+                component: PlanDetailContent,
+                routes: [
+                    {
+                        path: "/plan/case",
+                        exact: true,
+                        component: TestPlanBindCaseList,
+                    },
 
+                    {
+                        path: "/plan/plan-detail/:id",
+                        exact: true,
+                        component: TestPlanDetail,
+                    },
+                    {
+                        path: "/plan/apiUnit",
+                        exact: true,
+                        component: PlanToApiUnitPage,
+                    },
+                    {
+                        path: "/plan/apiScene",
+                        exact: true,
+                        component: PlanToApiScenePage,
+                    },
+                    {
+                        path: "/plan/apiPerform",
+                        exact: true,
+                        component: PlanToApiPerformPage,
+                    },
+                    {
+                        path: "/plan/webScene",
+                        exact: true,
+                        component: PlanToWebScenePage,
+                    },
+                    {
+                        path: "/plan/appScene",
+                        exact: true,
+                        component: PlanToAppScenePage,
+                    },
+
+                    {
+                        path: "/plan/function",
+                        exact: true,
+                        component: PlanToFuncUnitPage,
+                    },{
+                        path: "/plan/instance",
+                        exact: true,
+                        component: TestPlanInstanceList,
+                    },{
+                        path: "/plan/quartz",
+                        exact: true,
+                        component: QuartzPlanList,
+                    },{
+                        path: "/plan/setting",
+                        exact: true,
+                        component: PlanSetting,
+                    },
+                    {
+                        path: "/plan/:id",
+                        exact: true,
+                        component: TestPlanBindCaseInstanceList,
+                    },
+                ]
+            },
+            {
+                component:RepositoryDetailLayout,
+                routes:[
+                    {
+                        path: "/project/:id/overview",
+                        exact: true,
+                        component: RepositoryDetailPage,
+                    },
+                    {
+                        path: "/project/:id/testcase",
+                        component: TestCaseTable,
+                    },
+                    {
+                        path: "/project/:id/apiUnit",
+                        component: ApiUnitContent,
+                    },
+                    {
+                        path: "/project/apiUnitInstance",
+                        component: ApiUnitInstanceList,
+                    },
+
+                    {
+                        path: "/project/:id/apiScene",
+                        component: ApiSceneContent,
+                    },
+
+                    {
+                        path: "/project/:id/apiPerform",
+                        component: ApiPerfContent,
+                    },
+                    {
+                        path: "/project/performToUnit",
+                        component: ApiPerformToUnitPage ,
+                    },
+                    {
+                        path: "/project/performToScene",
+                        component: ApiPerformToScenePage ,
+                    },
+
+                    {
+                        path: "/project/:id/function",
+                        exact: true,
+                        component: FuncUnitDetail,
+                    },
+
+
+                    {
+                        path: "/project/:id/testcaseList",
+                        component: TestcaseListMain,
+                        routes: [
+                            {
+                                path: "/project/:id/testcaseList/apiUnit",
+                                component: ApiUnitContentListView,
+                            },
+                            {
+                                path: "/project/:id/testcaseList/apiUnitInstance",
+                                component: ApiUnitInstanceListView,
+                            },
+
+                            {
+                                path: "/project/:id/testcaseList/apiScene",
+                                component: ApiSceneContentListView,
+                            },
+                            {
+                                path: "/project/:id/testcaseList/apiPerform",
+                                component: ApiPerfContentListView,
+                            },
+                            {
+                                path: "/project/:id/testcaseList/performToUnit",
+                                component: ApiPerformToUnitPageListView ,
+                            },
+                            {
+                                path: "/project/:id/testcaseList/performToScene",
+                                component: ApiPerformToScenePageListView ,
+                            },
+
+                            {
+                                path: "/project/:id/testcaseList/function",
+                                component: FunctionContentListView,
+                            },
+                        ]
+                    },
+
+
+                    {
+                        path: "/project/:id/plan",
+                        component:TestPlan ,
+                        routes: [
+                            {
+                                path: "/project/plan/instance",
+                                component: TestPlanInstance,
+                            },{
+                                path: "/project/plan/apiUnit",
+                                component: PlanToApiUnitInstance,
+                            },{
+                                path: "/project/plan/apiScene",
+                                component: PlanToApiSceneInstance,
+                            },{
+                                path: "/project/plan/apiPerform",
+                                component: PlanToApiPerfInstance,
+                            },{
+                                path: "/project/plan/webScene",
+                                component: PlanToWebSceneInstance,
+                            },{
+                                path: "/project/plan/appScene",
+                                component: PlanToAppSceneInstance,
+                            }
+                        ]
+                    },
+
+                    {
+                        path: "/project/:id/report",
+                        exact: true,
+                        component: TestReportList,
+                    },{
+                        path: "/project/:id/reportInfo",
+                        exact: true,
+                        component: TestReportDetail,
+                    },
+                    {
+                        path: "/project/:id/defect",
+                        exact: true,
+                        component: ProjectAllDefectList,
+                    },
+
+
+                    {
+                        path: "/project/:id/statistics",
+                        component: StatisticsMenu,
+                        routes: [
+                            {
+                                path: "/project/:id/statistics/newAdd",
+                                exact: true,
+                                component: NewCreateCaseStatistics,
+                            },{
+                                path: "/project/:id/statistics/test",
+                                exact: true,
+                                component: CaseTestStatistics,
+                            },
+                        ]
+                    },
+
+                    {
+                        path: "/project/:id/setting",
+                        component: RepositorySettingMenu,
+                        routes:[
+                            {
+                                path: "/project/:id/setting/info",
+                                key:'env',
+                                exact: true,
+                                component: RepositorySetting,
+                            },
+                            {
+                                path: "/project/:id/setting/category",
+                                key:'category',
+                                exact: true,
+                                component: CategoryList,
+                            },
+                            {
+                                path: "/project/:id/setting/envMana",
+                                key:'env',
+                                exact: true,
+                                component: EnvContent,
+                            },
+                            {
+                                path: "/project/:id/setting/workspace",
+                                key:'agent',
+                                exact: true,
+                                component: WorkspaceBindList
+                            },
+                            {
+                                path: "/project/:id/setting/role",
+                                key:'domainRole',
+                                exact: true,
+                                component: DomainRole
+                            },
+                            {
+                                path: "/project/:id/setting/privilege",
+                                key:'domainPrivilege',
+                                exact: true,
+                                component: DomainPrivilege
+                            },
+                            // {
+                            //     path:"/project/setting",
+                            //     exact: true,
+                            //     key:'ridapitest',
+                            //     component: ()=><Redirect to='/repository/setting/envMana'/>,
+                            // },
+                        ]
+                    },
+
+                    {
+                        path: "/project/category",
+                        exact: true,
+                        key:'category',
+                        component: CategoryList,
+                    },
+
+                    {
+                        path:"/project/testcase",
+                        exact: true,
+                        key:'ridapitest',
+                        component: ()=><Redirect to='/project/:id/testcase'/>,
+                    },
+                ]
+            },
 
             {
                 path: "/",
-                key:'tohome',
                 exact: true,
-                render: () => <Redirect to={"/home"}/>,
+                render: () => <Redirect to={"/index"}/>,
             },
 
             {

@@ -337,7 +337,7 @@ const TestCaseTable = (props) => {
                                     icon={"shituqiehuan"}
                                     onClick={()=> {
                                         localStorage.setItem("CASE_VIEW","list")
-                                        history.push(`/repository/testcase-list`)
+                                        history.push(`/project/${repositoryId}/testcaseList`)
                                     }}
                                 />
                             </div>

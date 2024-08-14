@@ -48,7 +48,7 @@ const WebPerfEdit = (props) => {
                 if(res.code===0){
                     findPage&&findPage()
                     sessionStorage.setItem(`webPerfId`,res.data);
-                    props.history.push(`/repository/web-perform/${res.data}`)
+                    props.history.push(`/project/web-perform/${res.data}`)
                 }
 
             })

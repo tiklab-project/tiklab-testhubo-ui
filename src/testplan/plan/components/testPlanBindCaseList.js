@@ -10,7 +10,7 @@ import TestPlanENVModal from "./testPlanENVModal";
 import TestPlanExecuteTestDrawer from "./testPlanExecuteTestDrawer";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import CaseTypeSelect from "../../../test/testcase/components/CaseTypeSelect";
-import {CASE_TYPE} from "../../../common/dictionary/dictionary";
+import {CASE_TYPE, caseTypeToRouter} from "../../../common/dictionary/dictionary";
 import ExtensionCommon from "../../../common/ExtensionCommon";
 import {getVersionInfo} from "thoughtware-core-ui";
 import {rowStyle, showCreateUser, ShowDeleteView} from "../../../test/testcase/components/testCaseTableFn";
@@ -182,7 +182,7 @@ const TestPlanBindCaseList = (props) =>{
         //跳转路由
         const toDetailAddRouterCommon = (setId,record)=>{
             sessionStorage.setItem(`${setId}`,record.id);
-            history.push(`/plan/plan-to-${record.caseType}`)
+            history.push(`/plan/${caseTypeToRouter[record.caseType]}`)
         }
 
 

@@ -18,7 +18,7 @@ const PlanToApiSceneInstance = () =>{
         <>
             <CaseBread
                 breadItem={["历史详情","接口场景"]}
-                router={"/repository/plan/instance"}
+                router={"/project/plan/instance"}
             />
             <ApiSceneInstanceDetail  allData={allData}/>
         </>

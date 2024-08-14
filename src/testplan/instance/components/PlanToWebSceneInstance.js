@@ -25,7 +25,7 @@ const PlanToWebSceneInstance = () =>{
         <>
             <CaseBread
                 breadItem={["历史详情","WEB场景"]}
-                router={"/repository/plan/instance"}
+                router={"/project/plan/instance"}
             />
             <WebSceneInstanceDetail
                 spinning={spinning}

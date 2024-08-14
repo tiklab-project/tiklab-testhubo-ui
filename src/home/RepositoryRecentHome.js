@@ -36,7 +36,7 @@ const RepositoryRecentHome = (props) =>{
     const toDetail = (repositoryId) => {
         sessionStorage.setItem("repositoryId",repositoryId)
         //给左侧导航设置一个选择项
-        localStorage.setItem("leftRouter","/repository/testcase")
+        localStorage.setItem("leftRouter",`/project/${repositoryId}/testcase`)
 
         let params = {
             repository: {id:repositoryId},
@@ -44,7 +44,7 @@ const RepositoryRecentHome = (props) =>{
         }
         repositoryRecent(params);
 
-        props.history.push(`/repository/testcase/${repositoryId}`);
+        props.history.push(`/project/${repositoryId}/testcase`);
     }
 
     /**

@@ -75,9 +75,6 @@ const AppPerfConfig = (props) =>{
     }
 
 
-    const toAgentPage = ()=>{
-        props.history.push("/repository/setting/agent")
-    }
 
     const showClient = (data)=>{
         return data&&data.map(item=>{
@@ -147,18 +144,7 @@ const AppPerfConfig = (props) =>{
                     {/*{*/}
                     {/*    showClient(agentConfigList)*/}
                     {/*}*/}
-                    <Popconfirm
-                        title="确定离开？"
-                        onConfirm={toAgentPage}
-                        okText='确定'
-                        cancelText='取消'
-                    >
-                        <div style={{
-                            width: "140px",
-                            color:"#0078d6",
-                            cursor:"pointer"
-                        }}>前往Agent管理页管理</div>
-                    </Popconfirm>
+
                 </Form.Item>
             </Form>
         </div>

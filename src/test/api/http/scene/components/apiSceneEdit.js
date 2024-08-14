@@ -47,7 +47,7 @@ const ApiSceneEdit = (props) => {
                 if(res.code===0){
                     findPage&&findPage()
                     sessionStorage.setItem(`apiSceneId`,res.data);
-                    props.history.push(`/repository/api-scene/${res.data}`)
+                    props.history.push(`/project/${res.data}/apiScene`)
                 }
             })
         }

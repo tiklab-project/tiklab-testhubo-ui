@@ -11,15 +11,7 @@ import ApiSceneDetail from "../ApiSceneDetail";
 const ApiSceneContentListView = (props) => {
     const {apiSceneStore} = props;
     const {testCaseInfo,apiSceneInfo} = apiSceneStore
-
-    let {id} = useParams()
-    const apiSceneId = sessionStorage.getItem('apiSceneId') || id;
-
-    useEffect(()=>{
-        //获取路由id存入
-        sessionStorage.setItem('apiSceneId',id);
-
-    },[apiSceneId])
+    const apiSceneId = sessionStorage.getItem('apiSceneId') ;
 
     return(
         <div className={"content-box-center"}>

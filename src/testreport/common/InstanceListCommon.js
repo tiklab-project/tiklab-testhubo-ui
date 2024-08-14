@@ -184,7 +184,7 @@ const InstanceListCommon = (props) =>{
                         className={"link-text"}
                         onClick={() => {
                             sessionStorage.setItem("testPlanInstanceId",record.id)
-                            history.push(`/repository/report/${record.id}`)
+                            history.push(`/project/${record.id}/reportInfo`)
                         }}
                     >
                         {text}  {executeNumber?'':`#${record.executeNumber}`}
@@ -229,29 +229,31 @@ const InstanceListCommon = (props) =>{
         }
     }
 
+    const processTime = (ms) => {
+        if (ms < 1000) {
+            return `${ms} ms`;
+        } else {
+            const seconds = (ms / 1000).toFixed(2);
+            return `${seconds} s`;
+        }
+    };
     const apiUnitContent = (content,record) => (
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div>
                 <div className={"display-flex-gap"}>
-                    <TextMethodType type={content.requestType}/>
+                    {/*<TextMethodType type={content.requestType}/>*/}
+                    {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                    {/*{*/}
+                    {/*    content.statusCode*/}
+                    {/*        ? <>*/}
+                    {/*            <div>{content.statusCode}</div>*/}
+                    {/*        </>*/}
+                    {/*        :null*/}
+                    {/*}*/}
+                    <div>{content.statusCode|| "--"}</div>
                     <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                    {
-                        content.statusCode
-                            ? <>
-                                <div>{content.statusCode}</div>
-                            </>
-                            :null
-                    }
-                    <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                    {
-                        content.elapsedTime
-                            ? <>
-                                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 时间:</div>*/}
-                                <div>{content.elapsedTime} ms</div>
-                            </>
-                            :null
-                    }
+                    <div>{processTime(content.elapsedTime||0)}</div>
 
                 </div>
             </div>
@@ -262,17 +264,20 @@ const InstanceListCommon = (props) =>{
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div className={"display-flex-gap"}>
-                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>*/}
-                <div>{content.testNumber}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 耗时:</div>*/}
-                <div>{content.elapsedTime} ms</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>*/}
-                <div className={"instance-green"}>{content.passNumber}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>*/}
                 <div className={"instance-green"}>{content.passRate}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                <div>{processTime(content.elapsedTime||0)}</div>
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 总数:</div>*/}
+                {/*<div>{content.testNumber}</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 耗时:</div>*/}
+
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过数:</div>*/}
+                {/*<div className={"instance-green"}>{content.passNumber}</div>*/}
+
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> 通过率:</div>*/}
+
             </div>
 
         </div>
@@ -282,11 +287,14 @@ const InstanceListCommon = (props) =>{
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div className={"display-flex-gap"}>
-                <div>{content.total}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                <div className={"instance-green"}>{content.passNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}} > /</div>
                 <div className={"instance-green"}>{content.passRate}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                <div>{processTime(content.elapsedTime||0)}</div>
+                {/*<div>{content.total}</div>*/}
+
+                {/*<div className={"instance-green"}>{content.passNum}</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}} > /</div>*/}
+
             </div>
         </div>
     )
@@ -295,13 +303,16 @@ const InstanceListCommon = (props) =>{
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div className={"display-flex-gap"}>
-                <div>{content.stepNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                <div>{content.totalDuration} ms</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                <div className={"instance-green"}>{content.passNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
                 <div className={"instance-green"}>{content.passRate}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                <div>{processTime(content.elapsedTime||0)}</div>
+                {/*<div>{content.stepNum}</div>*/}
+
+                {/*<div>{content.totalDuration} ms</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                {/*<div className={"instance-green"}>{content.passNum}</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+
             </div>
         </div>
     )
@@ -310,11 +321,14 @@ const InstanceListCommon = (props) =>{
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
             <div className={"display-flex-gap"}>
-                <div>{content.stepNum}</div>
-                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
                 <div className={"instance-green"}>{content.passRate}</div>
                 <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                <div className={"instance-green"}>{content.passNum}</div>
+                <div>{processTime(content.elapsedTime||0)}</div>
+                {/*<div>{content.stepNum}</div>*/}
+
+
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+                {/*<div className={"instance-green"}>{content.passNum}</div>*/}
             </div>
         </div>
     )
@@ -322,17 +336,18 @@ const InstanceListCommon = (props) =>{
     const testPlanContent = (content,record) =>(
         <div className={"display-flex-gap"}>
             {showResult(record.status)}
-            <div>
-                <div className={"display-flex-gap"}>
-                    <div>{content.executableCaseNum}</div>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                    <div className={"instance-green"}>{content.passNum}</div>
-                    <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
-                    <div className={"instance-green"}>{content.passRate}</div>
 
-                </div>
+            <div className={"display-flex-gap"}>
+                <div className={"instance-green"}>{content.passRate}</div>
+                <div style={{fontSize: "12px", color: "#aaa"}}> /</div>
+                <div>{processTime(content.elapsedTime||0)}</div>
+                {/*<div>{content.executableCaseNum}</div>*/}
+
+                {/*<div className={"instance-green"}>{content.passNum}</div>*/}
+                {/*<div style={{fontSize: "12px", color: "#aaa"}}> /</div>*/}
+
+
             </div>
-
         </div>
     )
 

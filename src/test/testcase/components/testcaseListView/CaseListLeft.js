@@ -169,7 +169,7 @@ const CaseListLeft = (props) =>{
                                     icon={"shituqiehuan"}
                                     onClick={()=> {
                                         localStorage.setItem("CASE_VIEW","table")
-                                        history.push(`/repository/testcase/${repositoryId}`)
+                                        history.push(`/project/${repositoryId}/testcase`)
                                     }}
                                 />
                             </div>

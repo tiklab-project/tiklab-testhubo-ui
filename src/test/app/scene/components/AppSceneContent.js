@@ -28,14 +28,14 @@ const AppSceneContent = (props) =>{
                 breadItem={[testCaseInfo?.name]}
                 toggleCase={<ToggleCase  caseId={appSceneId}/>}
                 style={{borderBottom:"none"}}
-                router={`/repository/testcase/${sessionStorage.getItem("repositoryId")}`}
+                router={`/project/${sessionStorage.getItem("repositoryId")}/testcase`}
                 right={
                     <Space>
                         <AppEnvSelect />
                         <IconBtn
                             className="pi-icon-btn-grey"
                             icon={"lishi"}
-                            onClick={()=>history.push("/repository/app-scene-instance")}
+                            onClick={()=>history.push("/project/app-scene-instance")}
                             name={"历史"}
                         />
                         <AppExecuteTestPage appSceneId={appSceneId} stepNum={appSceneInfo?.stepNum||0}/>
