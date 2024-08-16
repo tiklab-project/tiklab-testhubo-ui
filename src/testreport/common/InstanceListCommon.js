@@ -9,9 +9,8 @@ import ApiSceneInstanceSinglePage from "../../test/api/http/scene/components/api
 import ApiPerfInstanceSinglePage from "../../test/api/http/perf/components/ApiPerfInstanceSinglePage";
 import {useHistory} from "react-router";
 import MenuSelect from "../../common/menuSelect/MenuSelect";
-import {CheckCircleTwoTone, CloseCircleTwoTone, LoadingOutlined, SearchOutlined} from "@ant-design/icons";
+import {CheckCircleTwoTone, CloseCircleTwoTone, LoadingOutlined} from "@ant-design/icons";
 import CaseTypeSelect from "../../test/testcase/components/CaseTypeSelect";
-import {TextMethodType} from "../../test/api/http/common/methodType";
 import "./instanceListStyle.scss"
 import ExtensionCommon from "../../common/ExtensionCommon";
 import {rowStyle, ShowDeleteView} from "../../test/testcase/components/testCaseTableFn";
@@ -35,6 +34,7 @@ const InstanceListCommon = (props) =>{
         dataIndex: 'executeNumber',
         key: "executeNumber",
         width: "20%",
+        ellipsis: true,
         render:(text,record)=>(showTitle(text,record,"executeNumber"))
     }
     const nameColumn =[
@@ -43,6 +43,7 @@ const InstanceListCommon = (props) =>{
             dataIndex: 'name',
             key: "name",
             width: "25%",
+            ellipsis: true,
             render:(text,record)=>(showTitle(text,record))
         },{
             title: '类型',
@@ -57,7 +58,8 @@ const InstanceListCommon = (props) =>{
             title: '报告概要',
             dataIndex: "detail",
             key: "detail",
-            width: "35%",
+            width: "30%",
+            ellipsis: true,
             render:(text,record)=>(showDetail(record))
         },
         {
@@ -65,12 +67,14 @@ const InstanceListCommon = (props) =>{
             dataIndex: ["createUser","nickname"],
             key: "name",
             width: "10%",
+            ellipsis: true,
         },
         {
             title: `测试时间`,
             dataIndex: "createTime",
             key: "createTime",
-            width: "10%",
+            width: "15%",
+            ellipsis: true,
         },
         {
             title: '操作',
@@ -154,7 +158,6 @@ const InstanceListCommon = (props) =>{
     }
 
 
-
     /**
      * 根据类型展示不同的界面
      */
@@ -184,7 +187,7 @@ const InstanceListCommon = (props) =>{
                         className={"link-text"}
                         onClick={() => {
                             sessionStorage.setItem("testPlanInstanceId",record.id)
-                            history.push(`/project/${record.id}/reportInfo`)
+                            history.push(`/project/${sessionStorage.getItem("repositoryId")}/reportInfo`)
                         }}
                     >
                         {text}  {executeNumber?'':`#${record.executeNumber}`}
@@ -194,7 +197,7 @@ const InstanceListCommon = (props) =>{
                         className={"link-text"}
                         onClick={() => {
                             sessionStorage.setItem("testPlanInstanceId",record.id)
-                            history.push(`/plan/${record.id}`)
+                            history.push(`/plan/${sessionStorage.getItem("testPlanId")}/instanceInfo`)
                         }}
                     >
                         {text}

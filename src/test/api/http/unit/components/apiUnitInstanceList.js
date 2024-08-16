@@ -11,7 +11,7 @@ const ApiUnitInstanceList = (props) =>{
     const {testCaseInfo} = apiUnitStore
 
     const apiUnitId = sessionStorage.getItem("apiUnitId")
-
+    const repositoryId = sessionStorage.getItem("repositoryId")
     useEffect(async()=>{
         await findCaseInstancePage(apiUnitId,CASE_TYPE.API_UNIT)
     },[])
@@ -21,7 +21,7 @@ const ApiUnitInstanceList = (props) =>{
             <div className={"content-box-center"}>
                 <CaseBread
                     breadItem={[testCaseInfo?.name, "历史"]}
-                    router={`/project/${apiUnitId}/apiUnit`}
+                    router={`/project/${repositoryId}/testcase/apiUnit/${apiUnitId}`}
                 />
                 <InstanceListCommon belongId={apiUnitId} type={CASE_TYPE.API_UNIT}/>
             </div>

@@ -101,7 +101,7 @@ const ApiPerfStepList = (props) =>{
             if(caseView==="list"){
                 history.push(`/project/${repositoryId}/testcaseList/performToUnit`)
             }else {
-                history.push(`/project/${repositoryId}/performToUnit`)
+                history.push(`/project/${repositoryId}/testcase/performToUnit`)
             }
         }else {
             sessionStorage.setItem("apiSceneId",record.apiScene.id);
@@ -110,7 +110,7 @@ const ApiPerfStepList = (props) =>{
             if(caseView==="list"){
                 history.push(`/project/${repositoryId}/testcaseList/performToScene`)
             }else {
-                history.push(`/project/${repositoryId}/performToScene`)
+                history.push(`/project/${repositoryId}/testcase/performToScene`)
             }
         }
     }

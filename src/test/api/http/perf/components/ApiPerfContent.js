@@ -17,13 +17,13 @@ const ApiPerfContent = (props) => {
     const {testCaseInfo} = apiPerfStore
     const {findAgentConfigList,agentConfigList} = agentConfigStore
 
-    let {id} = useParams()
-    const apiPerfId = sessionStorage.getItem('apiPerfId') || id;
+    let {caseId} = useParams()
+    const apiPerfId = sessionStorage.getItem('apiPerfId') || caseId;
     const [agentId, setAgentId] = useState();
 
     useEffect(()=>{
         //获取路由id存入
-        sessionStorage.setItem('apiPerfId',id);
+        sessionStorage.setItem('apiPerfId',caseId);
     },[apiPerfId])
 
 

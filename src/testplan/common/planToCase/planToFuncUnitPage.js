@@ -10,7 +10,7 @@ const PlanToFuncUnitPage = (props) =>{
 
     const [caseInfo, setCaseInfo] = useState();
     const functionId = sessionStorage.getItem('functionId');
-
+    const testPlanId = sessionStorage.getItem('testPlanId')
     useEffect(()=>{
         findFuncUnit(functionId).then(res=>{
             setCaseInfo(res.testCase);
@@ -23,7 +23,7 @@ const PlanToFuncUnitPage = (props) =>{
                 <CaseBread
                     caseType={caseInfo?.caseType}
                     style={{borderBottom:"none"}}
-                    router={"/plan/case"}
+                    router={`/plan/${testPlanId}/case`}
                     breadItem={[caseInfo?.name]}
                 />
                 <FunctionDetail functionId={functionId}/>

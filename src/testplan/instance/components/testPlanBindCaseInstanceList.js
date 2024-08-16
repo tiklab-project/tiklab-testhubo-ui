@@ -9,7 +9,7 @@ const TestPlanBindCaseInstanceList = (props) =>{
         <PageContent>
             <div className={"content-box-center"}>
                 <CaseBread
-                    router={"/plan/instance"}
+                    router={`/plan/${sessionStorage.getItem("testPlanId")}/instance`}
                     breadItem={["测试历史","历史详情"]}
                 />
                 <TestPlanBindCaseInstanceTable {...props} />

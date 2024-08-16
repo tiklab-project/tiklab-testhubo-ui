@@ -9,12 +9,13 @@ const ApiPerformToScenePage = (props) =>{
 
     const apiSceneId = sessionStorage.getItem("apiSceneId")
     const apiPerfId = sessionStorage.getItem("apiPerfId")
+    const repositoryId = sessionStorage.getItem("repositoryId")
     return(
         <PageContent>
         <div className={"content-box-center"}>
             <CaseBread
                 breadItem={["接口性能","接口场景"]}
-                router={`/project/${apiPerfId}/apiPerform`}
+                router={`/project/${repositoryId}/testcase/apiPerform/${apiPerfId}`}
             />
             <ApiSceneDetail apiSceneId={apiSceneId} />
         </div>

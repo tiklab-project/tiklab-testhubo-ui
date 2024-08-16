@@ -45,7 +45,7 @@ const LeftNav = (props) =>{
             "icon":"quexian",
             "name":"缺陷",
             "key":"defect",
-            "router":`/project/${repositoryId}/defect`
+            "router":`/project/${repositoryId}/issue`
         },
         {
             "icon":"tongji9",

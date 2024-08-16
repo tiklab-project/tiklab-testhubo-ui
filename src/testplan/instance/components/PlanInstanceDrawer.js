@@ -12,7 +12,7 @@ const PlanInstanceDrawer = (props) =>{
 
     const showDrawer = async () => {
         sessionStorage.setItem("testPlanInstanceId",instance.instanceId)
-        history.push("/project/plan/instance")
+        history.push(`/plan/${sessionStorage.getItem("testPlanId")}/instanceInfo`)
         setOpen(true);
     }
 
@@ -46,7 +46,7 @@ const PlanInstanceDrawer = (props) =>{
                 placement="right"
                 onClose={onClose}
                 open={open}
-                width={900}
+                width={800}
                 destroyOnClose={true}
                 maskStyle={{background:"transparent"}}
                 //contentWrapperStyle={{top:48,height:"calc(100% - 52px)"}}

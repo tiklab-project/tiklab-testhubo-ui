@@ -11,6 +11,7 @@ const PlanToApiUnitPage = (props) =>{
 
     const [caseInfo, setCaseInfo] = useState();
     const apiUnitId = sessionStorage.getItem('apiUnitId');
+    const testPlanId = sessionStorage.getItem('testPlanId')
 
     useEffect(async ()=>{
         let res = await findApiUnit(apiUnitId)
@@ -22,7 +23,7 @@ const PlanToApiUnitPage = (props) =>{
             <div className={"content-box-center"}>
                 <CaseBread
                     caseType={caseInfo?.caseType}
-                    router={"/plan/case"}
+                    router={`/plan/${testPlanId}/case`}
                     breadItem={[caseInfo?.name]}
                 />
                 <ApiUnitEditPageCommon {...props} planType={true} apiUnitId={apiUnitId}/>

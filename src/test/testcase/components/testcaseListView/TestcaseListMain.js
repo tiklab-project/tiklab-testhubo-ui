@@ -11,14 +11,7 @@ const TestcaseListMain = (props) =>{
             <div className={"case-list-left"}>
                 <CaseListLeft />
             </div>
-            <div
-                className={"case-list-right"}
-                // style={{
-                //     backgroundImage: `url(${emptyImg})`,
-                //     backgroundPosition: "center",
-                //     backgroundRepeat: "no-repeat"
-                // }}
-            >
+            <div className={"case-list-right"}>
                 {
                     renderRoutes(props.route.routes)
                 }

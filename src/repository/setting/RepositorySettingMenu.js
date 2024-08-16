@@ -46,7 +46,7 @@ const RepositorySettingMenu = (props) =>{
         },
         {
             title: '成员',
-            id: `/project/${repositoryId}/setting/role`,
+            id: `/project/${repositoryId}/setting/member`,
             // icon: 'icon-chengyuan',
         },{
             title: '权限',

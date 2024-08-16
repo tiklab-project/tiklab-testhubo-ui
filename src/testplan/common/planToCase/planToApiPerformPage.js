@@ -10,6 +10,7 @@ const PlanToApiPerformPage = (props) =>{
 
     const [caseInfo, setCaseInfo] = useState();
     const apiPerfId = sessionStorage.getItem('apiPerfId');
+    const testPlanId = sessionStorage.getItem('testPlanId')
 
     useEffect(()=>{
         findApiPerf(apiPerfId).then(res=>{
@@ -23,7 +24,7 @@ const PlanToApiPerformPage = (props) =>{
                 <CaseBread
                     caseType={caseInfo?.caseType}
                     style={{borderBottom:"none"}}
-                    router={"/plan/case"}
+                    router={`/plan/${testPlanId}/case`}
                     breadItem={[caseInfo?.name]}
                 />
                 <ApiPerformDetail planType={true} apiPerfId={apiPerfId}/>

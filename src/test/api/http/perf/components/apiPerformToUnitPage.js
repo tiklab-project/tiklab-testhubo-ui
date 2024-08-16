@@ -8,12 +8,13 @@ const ApiPerformToUnitPage = (props) =>{
 
     const apiUnitId = sessionStorage.getItem("apiUnitId")
     const apiPerfId = sessionStorage.getItem("apiPerfId")
+    const repositoryId = sessionStorage.getItem("repositoryId")
     return(
         <PageContent>
             <div className={"content-box-center"}>
                 <CaseBread
                     breadItem={["接口性能","接口单元"]}
-                    router={`/project/${apiPerfId}/apiPerform`}
+                    router={`/project/${repositoryId}/testcase/apiPerform/${apiPerfId}`}
                 />
                 <ApiUnitEditPageCommon {...props} apiUnitId={apiUnitId}/>
             </div>

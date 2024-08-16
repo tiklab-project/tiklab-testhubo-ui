@@ -16,36 +16,37 @@ const ApiUnitContent = (props) =>{
     const {testCaseInfo} = apiUnitStore
 
     const history = useHistory()
-    let {id} = useParams()
+    let {caseId} = useParams()
     const location = useLocation();
-
+    const apiUnitId = sessionStorage.getItem('apiUnitId') || caseId;
+    const repositoryId = sessionStorage.getItem("repositoryId")
     useEffect(async ()=>{
         //获取路由id存入
-        sessionStorage.setItem('apiUnitId',id);
+        sessionStorage.setItem('apiUnitId',caseId);
 
-    },[id,location.pathname])
+    },[apiUnitId,location.pathname])
 
     return(
         <PageContent>
             <div className={"content-box-center"}>
                 <CaseBread
-                    toggleCase={<ToggleCase  caseId={id}/>}
+                    toggleCase={<ToggleCase  caseId={apiUnitId}/>}
                     breadItem={[testCaseInfo?.name]}
-                    router={`/project/${sessionStorage.getItem("repositoryId")}/testcase`}
+                    router={`/project/${repositoryId}/testcase`}
                     right={
                         <Space>
                             <ApiEnvDropDownSelect />
                             <IconBtn
                                 className="pi-icon-btn-grey"
                                 // icon={"lishi"}
-                                onClick={()=> history.push("/project/apiUnitInstance")}
+                                onClick={()=> history.push(`/project/${repositoryId}/testcase/apiUnitInstance`)}
                                 name={"历史"}
                             />
-                            <ApiUnitExecuteTest apiUnitId={id}/>
+                            <ApiUnitExecuteTest apiUnitId={apiUnitId}/>
                         </Space>
                     }
                 />
-                <ApiUnitEditPageCommon apiUnitId={id}/>
+                <ApiUnitEditPageCommon apiUnitId={apiUnitId}/>
             </div>
         </PageContent>
 

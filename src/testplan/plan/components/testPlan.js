@@ -35,6 +35,7 @@ const TestPlan = (props) => {
             dataIndex: "name",
             key: "name",
             width: "25%",
+            ellipsis: true,
             render: (text,record,index) =>(
                 <div className={"display-flex-gap"}>
                     <ListIcon
@@ -52,6 +53,7 @@ const TestPlan = (props) => {
             dataIndex: "planTime",
             key: "planTime",
             width: "28%",
+            ellipsis: true,
             render:(text,record)=>(
                 <span className={"text-ellipsis"}>{record.startTime} ~ {record.endTime}</span>
             )
@@ -61,6 +63,7 @@ const TestPlan = (props) => {
             dataIndex: "type",
             key: "type",
             width: "10%",
+            ellipsis: true,
             render:(text,record)=>text==="function"?<span>功能</span>:<span>自动化</span>
         },
         {
@@ -68,6 +71,7 @@ const TestPlan = (props) => {
             dataIndex: "recentInstance",
             key: "principal",
             width: "10%",
+            ellipsis: true,
             render:(text,record)=>(
                 <PlanInstanceDrawer instance={record?.recentInstance} {...props} />
             )
@@ -77,22 +81,20 @@ const TestPlan = (props) => {
             dataIndex: "testCaseNum",
             key: "testCaseNum",
             width: "7%",
-            render:(text)=>(
-                <span style={{color:"#3facff"}}>{text}</span>
-            )
         },
         {
             title: `状态`,
             dataIndex: "state",
             key: "state",
             width: "10%",
+            ellipsis: true,
             render: (text,record) =>(showState(record.state))
         },
 
         {
             title: ` ${t('tcoperation')}`,
             key: "action",
-            width:150,
+            width:70,
             render: (text, record) => (
                 <Space size="middle">
                     <TestPlanEdit
@@ -142,8 +144,8 @@ const TestPlan = (props) => {
     const toPlanDetail = (record) => {
         sessionStorage.setItem('testPlanId',record.id);
         localStorage.setItem("testPlanType",record.type)
-        localStorage.setItem("leftRouter","/plan/case");
-        props.history.push(`/plan/case`);
+        localStorage.setItem("leftRouter",`/plan/${record.id}/case`);
+        props.history.push(`/plan/${record.id}/case`);
     };
 
     // 分页

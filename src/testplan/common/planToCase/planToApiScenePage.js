@@ -10,6 +10,7 @@ const PlanToApiScenePage = (props) =>{
 
     const [caseInfo, setCaseInfo] = useState();
     const apiSceneId = sessionStorage.getItem('apiSceneId');
+    const testPlanId = sessionStorage.getItem('testPlanId')
 
     useEffect(()=>{
         findApiScene(apiSceneId).then(res=>{
@@ -23,7 +24,7 @@ const PlanToApiScenePage = (props) =>{
                 <CaseBread
                     style={{borderBottom:"none"}}
                     caseType={caseInfo?.caseType}
-                    router={"/plan/case"}
+                    router={`/plan/${testPlanId}/case`}
                     breadItem={[caseInfo?.name]}
                 />
                 <ApiSceneDetail planType={true} apiSceneId={apiSceneId}/>

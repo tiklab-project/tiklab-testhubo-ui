@@ -20,7 +20,7 @@ export const switchCaseTypeFn = (record,history)=>{
     //跳转路由
     const toCaseDetail = (setId,record,history)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        history.push(`/project/${repositoryId}/testcaseList/${caseTypeToRouter[record.caseType]}`)
+        history.push(`/project/${repositoryId}/testcaseList/${caseTypeToRouter[record.caseType]}/${record.id}`)
     }
 
     switch (record.caseType) {
@@ -101,7 +101,7 @@ export const SwitchCaseTypeView = ({record,testCaseRecent,repositoryId}) =>{
     //跳转路由
     const toCaseDetail = (setId,record)=>{
         sessionStorage.setItem(`${setId}`,record.id);
-        history.push(`/project/${record.id}/${caseTypeToRouter[record.caseType]}`)
+        history.push(`/project/${repositoryId}/testcase/${caseTypeToRouter[record.caseType]}/${record.id}`)
 
         //最近访问
         let params = {
@@ -205,9 +205,11 @@ export const showCreateUser = (director) =>{
             </Space>
         </div>
     }else {
-        return <div className={"display-flex-gap"}>
-            <Avatar size="small" icon={<UserOutlined />} />
-            <span> 未设置 </span>
+        return <div className={"ws-user-item"}>
+            <div className={"display-flex-gap"}>
+                <Avatar  style={{flex:"none"}} size="small" icon={<UserOutlined />} />
+                <span> 未设置 </span>
+            </div>
         </div>
     }
 }

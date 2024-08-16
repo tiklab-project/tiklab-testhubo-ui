@@ -27,7 +27,8 @@ const TestPlanBindCaseList = (props) =>{
             title:`名称`,
             dataIndex: "name",
             key: "name",
-            width:"40%",
+            width:"35%",
+            ellipsis: true,
             render: (text,record) =>(
                 <div className={"display-flex-gap"}>
                     <>{showCaseTypeView(record.caseType)}</>
@@ -39,37 +40,40 @@ const TestPlanBindCaseList = (props) =>{
             title:`用例类型`,
             dataIndex:"caseType",
             key: "type",
-            width:"10%",
+            width:"12%",
             render: (text) =>(<div className={"case-table-case-type"}>{showCaseTypeTable(text)}</div>)
         },{
             title: `状态`,
             dataIndex: "status",
             key: "status",
-            width:"10%",
+            width:"12%",
             render:(text,record)=><div className={"case-table-status"}>{showStatus(text)}</div>
         },
         {
             title: `模块`,
             dataIndex: ["category","name"],
             key: "category",
-            width:"10%",
+            width:"12%",
+            ellipsis: true,
         },{
             title: `创建人`,
             dataIndex:  ["createUser"],
             key: "user",
-            width:"15%",
+            width:"12%",
+            ellipsis: true,
             render: (text, record) => (showCreateUser(record.createUser))
         },
         {
             title: `创建时间`,
             dataIndex:  ["createTime"],
             key: "createTime",
-            width:"10%",
+            width:"12%",
+            ellipsis: true,
         },
         {
             title: `操作`,
             key: "action",
-            width: 150,
+            width: 70,
             render: (text, record) => (
                 <ShowDeleteView record={record} deleteFn={deleteFn} />
             ),
@@ -182,7 +186,7 @@ const TestPlanBindCaseList = (props) =>{
         //跳转路由
         const toDetailAddRouterCommon = (setId,record)=>{
             sessionStorage.setItem(`${setId}`,record.id);
-            history.push(`/plan/${caseTypeToRouter[record.caseType]}`)
+            history.push(`/plan/${testPlanId}/${caseTypeToRouter[record.caseType]}`)
         }
 
 

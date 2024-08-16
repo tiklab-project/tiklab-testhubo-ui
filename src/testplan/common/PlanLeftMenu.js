@@ -12,23 +12,28 @@ import ListIcon from "../../common/ListIcon/ListIcon";
 
 const PlanLeftMenu = (props) =>{
     const {findTestPlanPage,testPlanList,findTestPlan,testPlanInfo} = testPlanStore;
+    const history = useHistory()
+    const repositoryId = sessionStorage.getItem('repositoryId')
+    const testPlanId = sessionStorage.getItem('testPlanId')
+    const testPlanType = localStorage.getItem('testPlanType')
+    const [visible, setVisible] = useState(false);
 
     const autoLeftMenu = [
         {
             "icon":"test-case-group",
             "name":"测试用例",
             "key":"plan",
-            "router":"/plan/case"
+            "router":`/plan/${testPlanId}/case`
         },{
             "icon":"baogao",
             "name":"测试历史",
             "key":"instance",
-            "router":"/plan/instance"
+            "router":`/plan/${testPlanId}/instance`
         },{
             "icon":"dingshi",
             "name":"定时任务",
             "key":"quartz",
-            "router":"/plan/quartz"
+            "router":`/plan/${testPlanId}/quartz`
         }
     ]
 
@@ -37,15 +42,10 @@ const PlanLeftMenu = (props) =>{
             "icon":"test-case-group",
             "name":"测试用例",
             "key":"plan",
-            "router":"/plan/case"
+            "router":`/plan/${testPlanId}/case`
         }
     ]
 
-    const history = useHistory()
-    const repositoryId = sessionStorage.getItem('repositoryId')
-    const testPlanId = sessionStorage.getItem('testPlanId')
-    const testPlanType = localStorage.getItem('testPlanType')
-    const [visible, setVisible] = useState(false);
 
     useEffect(()=>{
         findTestPlan(testPlanId)
@@ -154,7 +154,7 @@ const PlanLeftMenu = (props) =>{
         <LeftMenuCommon
             menuData={testPlanType==="auto"?autoLeftMenu:functionLeftMenu}
             diffHeader={showTogglePlan}
-            settingRouter={"/plan/setting"}
+            settingRouter={`/plan/${testPlanId}/setting`}
         />
     )
 }

@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react';
-import { inject,observer } from 'mobx-react';
-import {useHistory, useParams} from "react-router";
+import {inject,observer } from 'mobx-react';
+import {useParams} from "react-router";
 import ApiSceneDetail from "./ApiSceneDetail";
 import CaseBread from "../../../../../common/CaseBread";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
@@ -14,12 +14,12 @@ const ApiSceneContent = (props) => {
     const {apiSceneStore} = props;
     const {testCaseInfo,apiSceneInfo} = apiSceneStore
 
-    let {id} = useParams()
-    const apiSceneId = sessionStorage.getItem('apiSceneId') || id;
+    let {caseId} = useParams()
+    const apiSceneId = sessionStorage.getItem('apiSceneId') || caseId;
 
     useEffect(()=>{
         //获取路由id存入
-        sessionStorage.setItem('apiSceneId',id);
+        sessionStorage.setItem('apiSceneId',caseId);
 
     },[apiSceneId])
 

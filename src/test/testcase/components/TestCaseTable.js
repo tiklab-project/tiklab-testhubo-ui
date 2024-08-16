@@ -89,6 +89,7 @@ const TestCaseTable = (props) => {
             dataIndex: 'createTime',
             key: "createTime",
             width:"11%",
+            ellipsis: true,
         },
         {
             title: '操作',

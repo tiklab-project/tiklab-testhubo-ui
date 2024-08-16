@@ -12,12 +12,12 @@ const FunctionContent = (props) =>{
     const {funcUnitStore} = props;
     const {testCaseInfo} = funcUnitStore
 
-    let {id} = useParams()
-    const functionId = sessionStorage.getItem('functionId') || id;
+    let {caseId} = useParams()
+    const functionId = sessionStorage.getItem('functionId') || caseId;
 
     useEffect(()=> {
         //获取路由id存入
-        sessionStorage.setItem('functionId',id);
+        sessionStorage.setItem('functionId',caseId);
 
     },[functionId])
 

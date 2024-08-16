@@ -48,7 +48,6 @@ let FunctionContentListView = LazyComponent(() => import("./test/function/compon
 
 let PlanDetailContent = LazyComponent(()=>import("./testplan/common/PlanDetailContent"))
 let TestPlan = LazyComponent(() => import("./testplan/plan/components/testPlan"));
-let TestPlanDetail = LazyComponent(() => import("./testplan/plan/components/testPlanDetail"));
 let TestPlanBindCaseList = LazyComponent(() => import("./testplan/plan/components/testPlanBindCaseList"));
 let TestPlanInstanceList = LazyComponent(() => import("./testplan/instance/components/testPlanInstanceList"));
 
@@ -56,18 +55,9 @@ let TestPlanBindCaseInstanceList = LazyComponent(() => import("./testplan/instan
 let PlanToApiUnitPage = LazyComponent(() => import("./testplan/common/planToCase/planToApiUnitPage"));
 let PlanToApiScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToApiScenePage"));
 let PlanToApiPerformPage = LazyComponent(() => import("./testplan/common/planToCase/planToApiPerformPage"));
-let PlanToWebScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToWebScenePage"));
 let PlanToFuncUnitPage = LazyComponent(() => import("./testplan/common/planToCase/planToFuncUnitPage"));
-let PlanToAppScenePage = LazyComponent(() => import("./testplan/common/planToCase/planToAppScenePage"));
 let PlanSetting = LazyComponent(() => import( "./testplan/setting/PlanSetting"));
 let QuartzPlanList = LazyComponent(() => import( "./testplan/quartz/components/QuartzPlanList"));
-
-let TestPlanInstance  = LazyComponent(() => import( "./testplan/instance/components/TestPlanInstance"));
-let PlanToApiUnitInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToApiUnitInstance"));
-let PlanToApiSceneInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToApiSceneInstance"));
-let PlanToApiPerfInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToApiPerfInstance"));
-let PlanToWebSceneInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToWebSceneInstance"));
-let PlanToAppSceneInstance  = LazyComponent(() => import(  "./testplan/instance/components/PlanToAppSceneInstance"));
 
 let TestReportList = LazyComponent(() => import("./testreport/components/testReportList"));
 let TestReportDetail = LazyComponent(() => import("./testreport/components/testReportDetail"));
@@ -88,6 +78,11 @@ let DomainRole = LazyComponent(() => import("./repository/setting/DomainRole"));
 let DomainPrivilege = LazyComponent(() => import("./repository/setting/DomainPrivilege"));
 
 const routers =  [
+    {
+        path: "/",
+        exact: true,
+        render: () => <Redirect to={"/index"}/>,
+    },
     {
         path: "/login",
         component: LoginContent,
@@ -291,61 +286,48 @@ const routers =  [
                 component: PlanDetailContent,
                 routes: [
                     {
-                        path: "/plan/case",
+                        path: "/plan/:id/case",
                         exact: true,
                         component: TestPlanBindCaseList,
                     },
-
                     {
-                        path: "/plan/plan-detail/:id",
-                        exact: true,
-                        component: TestPlanDetail,
-                    },
-                    {
-                        path: "/plan/apiUnit",
+                        path: "/plan/:id/apiUnit",
                         exact: true,
                         component: PlanToApiUnitPage,
                     },
                     {
-                        path: "/plan/apiScene",
+                        path: "/plan/:id/apiScene",
                         exact: true,
                         component: PlanToApiScenePage,
                     },
                     {
-                        path: "/plan/apiPerform",
+                        path: "/plan/:id/apiPerform",
                         exact: true,
                         component: PlanToApiPerformPage,
                     },
                     {
-                        path: "/plan/webScene",
+                        path: "/plan/:id/function",
                         exact: true,
-                        component: PlanToWebScenePage,
-                    },
-                    {
-                        path: "/plan/appScene",
-                        exact: true,
-                        component: PlanToAppScenePage,
+                        component: PlanToFuncUnitPage,
                     },
 
                     {
-                        path: "/plan/function",
-                        exact: true,
-                        component: PlanToFuncUnitPage,
-                    },{
-                        path: "/plan/instance",
-                        exact: true,
-                        component: TestPlanInstanceList,
-                    },{
-                        path: "/plan/quartz",
+                        path: "/plan/:id/quartz",
                         exact: true,
                         component: QuartzPlanList,
-                    },{
-                        path: "/plan/setting",
+                    },
+                    {
+                        path: "/plan/:id/setting",
                         exact: true,
                         component: PlanSetting,
                     },
                     {
-                        path: "/plan/:id",
+                        path: "/plan/:id/instance",
+                        exact: true,
+                        component: TestPlanInstanceList,
+                    },
+                    {
+                        path: "/plan/:id/instanceInfo",
                         exact: true,
                         component: TestPlanBindCaseInstanceList,
                     },
@@ -361,106 +343,97 @@ const routers =  [
                     },
                     {
                         path: "/project/:id/testcase",
+                        exact: true,
                         component: TestCaseTable,
                     },
                     {
-                        path: "/project/:id/apiUnit",
+                        path: "/project/:projectId/testcase/apiUnit/:caseId",
+                        exact: true,
                         component: ApiUnitContent,
                     },
                     {
-                        path: "/project/apiUnitInstance",
+                        path: "/project/:projectId/testcase/apiUnitInstance",
+                        exact: true,
                         component: ApiUnitInstanceList,
                     },
 
                     {
-                        path: "/project/:id/apiScene",
+                        path: "/project/:projectId/testcase/apiScene/:caseId",
+                        exact: true,
                         component: ApiSceneContent,
                     },
 
                     {
-                        path: "/project/:id/apiPerform",
+                        path: "/project/:projectId/testcase/apiPerform/:caseId",
+                        exact: true,
                         component: ApiPerfContent,
                     },
                     {
-                        path: "/project/performToUnit",
+                        path: "/project/:projectId/testcase/performToUnit",
+                        exact: true,
                         component: ApiPerformToUnitPage ,
                     },
                     {
-                        path: "/project/performToScene",
+                        path: "/project/:projectId/testcase/performToScene",
+                        exact: true,
                         component: ApiPerformToScenePage ,
                     },
-
                     {
-                        path: "/project/:id/function",
+                        path: "/project/:projectId/testcase/function/:caseId",
                         exact: true,
                         component: FuncUnitDetail,
                     },
 
 
                     {
-                        path: "/project/:id/testcaseList",
+                        path: "/project/:projectId/testcaseList",
                         component: TestcaseListMain,
                         routes: [
                             {
-                                path: "/project/:id/testcaseList/apiUnit",
+                                path: "/project/:projectId/testcaseList/apiUnit/:caseId",
+                                exact: true,
                                 component: ApiUnitContentListView,
                             },
                             {
-                                path: "/project/:id/testcaseList/apiUnitInstance",
+                                path: "/project/:projectId/testcaseList/apiUnitInstance",
+                                exact: true,
                                 component: ApiUnitInstanceListView,
                             },
 
                             {
-                                path: "/project/:id/testcaseList/apiScene",
+                                path: "/project/:projectId/testcaseList/apiScene/:caseId",
+                                exact: true,
                                 component: ApiSceneContentListView,
                             },
                             {
-                                path: "/project/:id/testcaseList/apiPerform",
+                                path: "/project/:projectId/testcaseList/apiPerform/:caseId",
+                                exact: true,
                                 component: ApiPerfContentListView,
                             },
                             {
-                                path: "/project/:id/testcaseList/performToUnit",
+                                path: "/project/:projectId/testcaseList/performToUnit",
+                                exact: true,
                                 component: ApiPerformToUnitPageListView ,
                             },
                             {
-                                path: "/project/:id/testcaseList/performToScene",
+                                path: "/project/:projectId/testcaseList/performToScene",
+                                exact: true,
                                 component: ApiPerformToScenePageListView ,
                             },
 
                             {
-                                path: "/project/:id/testcaseList/function",
+                                path: "/project/:projectId/testcaseList/function/:caseId",
+                                exact: true,
                                 component: FunctionContentListView,
                             },
                         ]
                     },
 
-
                     {
                         path: "/project/:id/plan",
+                        exact: true,
                         component:TestPlan ,
-                        routes: [
-                            {
-                                path: "/project/plan/instance",
-                                component: TestPlanInstance,
-                            },{
-                                path: "/project/plan/apiUnit",
-                                component: PlanToApiUnitInstance,
-                            },{
-                                path: "/project/plan/apiScene",
-                                component: PlanToApiSceneInstance,
-                            },{
-                                path: "/project/plan/apiPerform",
-                                component: PlanToApiPerfInstance,
-                            },{
-                                path: "/project/plan/webScene",
-                                component: PlanToWebSceneInstance,
-                            },{
-                                path: "/project/plan/appScene",
-                                component: PlanToAppSceneInstance,
-                            }
-                        ]
                     },
-
                     {
                         path: "/project/:id/report",
                         exact: true,
@@ -471,7 +444,7 @@ const routers =  [
                         component: TestReportDetail,
                     },
                     {
-                        path: "/project/:id/defect",
+                        path: "/project/:id/issue",
                         exact: true,
                         component: ProjectAllDefectList,
                     },
@@ -522,7 +495,7 @@ const routers =  [
                                 component: WorkspaceBindList
                             },
                             {
-                                path: "/project/:id/setting/role",
+                                path: "/project/:id/setting/member",
                                 key:'domainRole',
                                 exact: true,
                                 component: DomainRole
@@ -543,13 +516,6 @@ const routers =  [
                     },
 
                     {
-                        path: "/project/category",
-                        exact: true,
-                        key:'category',
-                        component: CategoryList,
-                    },
-
-                    {
                         path:"/project/testcase",
                         exact: true,
                         key:'ridapitest',
@@ -557,13 +523,6 @@ const routers =  [
                     },
                 ]
             },
-
-            {
-                path: "/",
-                exact: true,
-                render: () => <Redirect to={"/index"}/>,
-            },
-
             {
                 path: "*",
                 render: () => <Redirect to={"/404"}/>,

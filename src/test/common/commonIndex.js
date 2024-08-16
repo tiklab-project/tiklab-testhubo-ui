@@ -17,6 +17,7 @@ import ToggleCase from "../testcase/components/ToggleCase";
 import StepAssertCommon from "./stepassert/StepAssertCommon";
 import InstanceListCommon from "../../testreport/common/InstanceListCommon";
 import categoryStore from "../../category/store/CategoryStore";
+
 export {
     VariableTable,
     CaseContentCommon,
@@ -36,5 +37,5 @@ export {
     ToggleCase,
     StepAssertCommon,
     InstanceListCommon,
-    categoryStore,
+    categoryStore
 }
