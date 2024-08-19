@@ -46,13 +46,14 @@ const DetailCommon = (props) =>{
                     {...tailLayout}
                 >
                     <Row gutter={[0,10]}>
+
                         <Col span={9}>
-                            <Form.Item label={"名称"} name="name" labelCol={{span:6}}>
+                            <Form.Item label={"名称"} name="name" >
                                 <Input placeholder={"名称"} />
                             </Form.Item>
                         </Col>
                         <Col span={9}>
-                            <Form.Item label={"用例类型"} labelCol={{span:6}}>
+                            <Form.Item label={"用例类型"} >
                                 <div style={{margin:"0 0 0 10px"}}>{showCaseTypeInList(detailInfo?.testCase?.caseType)}</div>
                             </Form.Item>
                         </Col>

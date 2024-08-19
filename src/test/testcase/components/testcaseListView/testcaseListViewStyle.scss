@@ -17,23 +17,6 @@
 
         .case-list-left-top{
             padding: 15px 10px 10px;
-            //border-bottom: 1px solid #e2e2e2;
-            //background: var(--pi-bg-grey-100);
-
-            .filter-box{
-                margin: 12px 0 0px;
-                display: flex;
-                justify-content: space-between;
-                gap: 5px;
-
-                .select-testcase-box{
-                    background: #e3e8f094;
-                    border-radius: var(--pi-border-radius);
-                    width: 135px;
-                    //border: 1px solid #eaeaea;
-                    border:0;
-                }
-            }
 
             .case-search-input{
                 width: 280px !important;
@@ -93,13 +76,30 @@
             }
         }
 
+
         .case-list-left-list-box{
-            height: calc(100% - 173px);
+            height: calc(100% - 138px);
             padding: 0 0 10px 0;
+            overflow: auto;
+
+            .filter-box{
+                margin: 0 6px 0 10px;
+                display: flex;
+                justify-content: space-between;
+                gap: 5px;
+
+                .select-testcase-box{
+                    background: #e3e8f094;
+                    border-radius: var(--pi-border-radius);
+                    width: 135px;
+                    //border: 1px solid #eaeaea;
+                    border:0;
+                }
+            }
 
             .case-list-box{
                 height: 100%;
-                overflow: auto;
+
                 padding: 5px 5px 5px 10px;
 
                 .case-list-item{
@@ -135,33 +135,34 @@
 
             }
 
-            .case-list-bottom{
-                height: 40px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0 10px;
-                //background: #f8f8f8;
+        }
 
-                .case-list-bottom-total{
-                    font-size: 12px;
-                    color: #999;
-                    width: 50px;
-                }
+        .case-list-bottom{
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            //background: #f8f8f8;
 
-                .pagination-box{
-                    width: unset;
-                    padding: unset;
-                }
-                .case-list-bottom-reload{
-                    width: 50px;
-                    text-align: right;
-                    color: #999;
-                    cursor: pointer;
-                }
+            .case-list-bottom-total{
+                font-size: 12px;
+                color: #999;
+                width: 50px;
             }
 
+            .pagination-box{
+                width: unset;
+                padding: unset;
+            }
+            .case-list-bottom-reload{
+                width: 50px;
+                text-align: right;
+                color: #999;
+                cursor: pointer;
+            }
         }
+
     }
 
 

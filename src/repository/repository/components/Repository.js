@@ -112,6 +112,8 @@ const Repository = (props)=> {
         <div style={{"height":"100%",overflow:"auto"}}>
             <Row style={{height:"100%"}}>
                 <Col
+                    xs={{ span: 24 }}
+                    sm={{ span: 24 }}
                     md={{ span: 24, offset: 0 }}
                     lg={{ span: 20, offset: 2 }}
                     xl={{ span: 18, offset: 3 }}

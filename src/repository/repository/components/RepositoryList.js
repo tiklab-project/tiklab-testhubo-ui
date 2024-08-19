@@ -25,7 +25,7 @@ const RepositoryList = (props) => {
             dataIndex: "name",
             key: "name",
             width:"50%",
-            // align:"center",
+            ellipsis: true,
             render: (text,record) =>(
                 <Space>
                     <RepositoryIcon iconUrl={record.iconUrl} className={"ws-img-icon"}/>
@@ -38,6 +38,7 @@ const RepositoryList = (props) => {
             dataIndex: ["user","name"],
             key: "user",
             width:"20%",
+            ellipsis: true,
             render: (text, record) => (
                 <div className={"ws-user-item"}>
                     <Space>

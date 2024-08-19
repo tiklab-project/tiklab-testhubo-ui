@@ -43,9 +43,9 @@ export const showTextStatus = (status,size)=>{
                 textAlign:"center",
                 background:"#f8f8f8",
                 fontSize:`${size||"12px"}`,
-                padding:"2px 5px",
                 borderRadius:"5px",
-                width: "55px",
+                width: "fit-content",
+                padding: "0 3px",
                 border: "1px solid #e4e7ee"
             }}>未开始</div>
         case 1:
@@ -53,9 +53,9 @@ export const showTextStatus = (status,size)=>{
                 textAlign:"center",
                 background:"#d6eaff",
                 fontSize:`${size||"12px"}`,
-                padding:"2px  5px",
                 borderRadius:"5px",
-                width: "55px",
+                width: "fit-content",
+                padding: "0 3px",
                 border: "1px solid #e4e7ee"
             }}>进行中</div>
         case 2:
@@ -63,9 +63,9 @@ export const showTextStatus = (status,size)=>{
                 textAlign:"center",
                 background:"#ffdfdf",
                 fontSize:`${size||"12px"}`,
-                padding:"2px 5px",
                 borderRadius:"5px",
-                width: "55px",
+                width: "fit-content",
+                padding: "0 3px",
                 border: "1px solid #e4e7ee"
             }}>结束</div>
         default:
@@ -73,9 +73,9 @@ export const showTextStatus = (status,size)=>{
                 textAlign:"center",
                 background:"#f8f8f8",
                 fontSize:`${size||"12px"}`,
-                padding:"2px  5px",
                 borderRadius:"5px",
-                width: "55px",
+                width: "fit-content",
+                padding: "0 3px",
                 border: "1px solid #e4e7ee"
             }}>未开始</div>
     }

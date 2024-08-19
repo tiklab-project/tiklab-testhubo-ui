@@ -1,64 +1,86 @@
-import React from "react";
-import MonacoEditor  from "react-monaco-editor"
+import React, { useEffect, useRef } from "react";
+import * as monaco from "monaco-editor";
 import beautify from "js-beautify";
+import 'monaco-editor/esm/vs/basic-languages/monaco.contribution';
 
 /**
  * React monaco文本编辑器
  */
 const ReactMonacoEditor = (props) =>{
-    const {value,editorChange,language,readOnly,width,height} = props
+    const { value, editorChange, language, readOnly, width, height } = props;
+    const editorRef = useRef(null);
+    const monacoRef = useRef(null);
 
     const options = {
+        value: value,
+        language: language,
         selectOnLineNumbers: true,
-        minimap: { enabled: false }, // 小地图
-        automaticLayout: true, // 自动布局,
-        autoClosingBrackets: 'always', // 是否自动添加结束括号(包括中括号) "always" | "languageDefined" | "beforeWhitespace" | "never"
+        minimap: { enabled: false },
+        automaticLayout: true,
+        autoClosingBrackets: "always",
         codeLens: true,
-        wordWrap: 'on', // 启用自动换行
+        wordWrap: "on",
         colorDecorators: true,
         contextmenu: false,
-        readOnly: readOnly, //是否只读
+        readOnly: readOnly,
         formatOnPaste: true,
         formatOnType: true,
-        folding: true, // 是否启用代码折叠
-        overviewRulerBorder: false, // 滚动条的边框
+        folding: true,
+        overviewRulerBorder: false,
         scrollBeyondLastLine: true,
-        theme: 'vs', // 主题
-        fontSize: 13, // 字体
-        tabSize: 4, // tab缩进长度，
+        theme: "vs",
+        fontSize: 12,
+        tabSize: 4,
     };
 
-    let beautifyCode = (code) => beautify(code, {
-        indent_size: 2,//缩进两个空格
-        space_in_empty_paren: true,
-    });
-
-    const editorDidMount = (editor, monaco) => {
-        // editor.focus();
+    const beautifyCode = async (code) => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(
+                    beautify(code, {
+                        indent_size: 2,
+                        space_in_empty_paren: true,
+                    })
+                );
+            }, 0);
+        });
     };
 
+    useEffect(() => {
+        // 初始化 Monaco Editor
+        if (editorRef.current) {
+            monacoRef.current = monaco.editor.create(editorRef.current, options);
 
-    const handleEditorBlur = (editor, event) => {
-        // 获取 Monaco 编辑器中的值
-        const value = editor.getValue();
+            // 当编辑器失去焦点时，触发 change 事件
+            monacoRef.current.onDidBlurEditorText(() => {
+                const currentValue = monacoRef.current.getValue();
+                editorChange(currentValue);
+            });
+        }
 
-        editorChange(value)
-    }
+        return () => {
+            if (monacoRef.current) {
+                monacoRef.current.dispose();  // 清理 Monaco Editor 实例
+            }
+        };
+    }, [language]);
 
+    useEffect(() => {
+        const formatCode = async () => {
+            const beautified = await beautifyCode(value);
+            if (monacoRef.current) {
+                monacoRef.current.setValue(beautified);
+            }
+        };
+        formatCode();
+    }, [value]);
 
-    return(
-        <MonacoEditor
-            width={width}
-            height={height}
-            language={language}
-            theme="vs"
-            onBlur={handleEditorBlur}
-            value={value}
-            options={options}
-            onChange={editorChange}
-            editorDidMount={editorDidMount}
+    return (
+        <div
+            ref={editorRef}
+            style={{ width: width || "100%", height: height || "500px" }}
         />
-    )
-}
+    );
+};
 
 export default ReactMonacoEditor;

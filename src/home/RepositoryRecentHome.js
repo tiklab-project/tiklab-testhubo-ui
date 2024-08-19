@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Space, Spin} from "antd";
+import {Col, Empty, Row, Spin} from "antd";
 import {getUser} from "thoughtware-core-ui";
 import {inject, observer} from "mobx-react";
 import "./homestyle.scss"
@@ -53,23 +53,25 @@ const RepositoryRecentHome = (props) =>{
     const showRecent=(list)=>{
         return list&&list.map(item=>{
             return(
-                <div key={item.id} className={"home-recent-item"} onClick={()=>toDetail(item.id)}>
-                    <div className={"home-recent-item-left"}>
-                        <RepositoryIcon iconUrl={item.iconUrl} className={"repository-icon"}/>
-                        <div className={"home-recent-item-left-name text-ellipsis"}>{item.name}</div>
-                    </div>
-                    <div style={{display:"flex","justifyContent":"space-between"}}>
-                        <div className={"home-recent-item-num"}>
-                            <div className={"home-recent-item-num-title"}>测试计划</div>
-                            <div>{item.planNum}</div>
+                <Col span={6}>
+                    <div key={item.id} className={"home-recent-item"} onClick={()=>toDetail(item.id)}>
+                        <div className={"home-recent-item-left"}>
+                            <RepositoryIcon iconUrl={item.iconUrl} className={"repository-icon"}/>
+                            <div className={"home-recent-item-left-name text-ellipsis"}>{item.name}</div>
                         </div>
-                        <div className={"home-recent-item-num"}>
-                            <div className={"home-recent-item-num-title"}>成员数</div>
-                            <div>{item.memberNum}</div>
+                        <div style={{display:"flex","justifyContent":"space-between"}}>
+                            <div className={"home-recent-item-num"}>
+                                <div className={"home-recent-item-num-title"}>测试计划</div>
+                                <div>{item.planNum}</div>
+                            </div>
+                            <div className={"home-recent-item-num"}>
+                                <div className={"home-recent-item-num-title"}>成员数</div>
+                                <div>{item.memberNum}</div>
+                            </div>
                         </div>
                     </div>
+                </Col>
 
-                </div>
             )
         })
     }
@@ -79,11 +81,14 @@ const RepositoryRecentHome = (props) =>{
     return(
         <Spin spinning={spinning}>
             <div className={"home-recent-box"}>
-                {
-                    dataList&&dataList.length>0
-                        ?<>{showRecent(dataList)}</>
-                        : <Empty description={<span>暂无访问</span>}/>
-                }
+                <Row gutter={[20,20]}>
+                    {
+                        dataList&&dataList.length>0
+                            ?<>{showRecent(dataList)}</>
+                            : <Empty description={<span>暂无访问</span>}/>
+                    }
+                </Row>
+
             </div>
 
         </Spin>

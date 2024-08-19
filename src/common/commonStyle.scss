@@ -108,6 +108,7 @@
 
 .detail-box{
     padding: 5px;
+    min-width: 670px;
 
     .detail-header{
         display: flex;
@@ -129,6 +130,12 @@
             white-space: nowrap;
             text-indent: 0;
             font-size: 13px;
+        }
+    }
+
+    @media (max-width: 575px) {
+        .ant-form .ant-form-item .ant-form-item-label, .ant-form .ant-form-item .ant-form-item-control {
+            flex: none;
         }
     }
 }

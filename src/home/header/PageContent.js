@@ -10,11 +10,11 @@ import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
 /**
  * 整个页面
  */
- const  PageContent =(props)=> {
+const  PageContent =(props)=> {
 
-     const router = props.route.routes;
-     const user = getUser();
-     const history = useHistory()
+    const router = props.route.routes;
+    const user = getUser();
+    const history = useHistory()
     let pathname =  history.location.pathname;
 
     useEffect(()=>{
@@ -45,13 +45,14 @@ import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
             name: "设置",
             icon: "setting",
             key: "setting",
-            router:"/setting/version"
+            router:`${version==="cloud"?"/setting/log":"/setting/version"}`
         },
     ]
 
+    const firstPage = pathname==="/index"||pathname==="/project"||pathname==="/projectAdd"
 
     const showMenu = ()=>{
-        if(pathname==="/index"||pathname==="/project"||pathname==="/projectAdd"){
+        if(firstPage){
             return<LeftMenuCommon
                 menuData={menuData}
                 isFirst={true}
@@ -63,7 +64,7 @@ import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
     return(
         <div className={"main-content"} >
             {showMenu()}
-            <div style={{height:"100%",flex: 1}}>
+            <div style={{height:"100%", width:`${firstPage?"calc(100% - 74px)" :"100%"}`}}>
                 {renderRoutes(router)}
             </div>
         </div>

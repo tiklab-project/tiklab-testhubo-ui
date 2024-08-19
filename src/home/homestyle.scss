@@ -8,6 +8,7 @@
         /*width: 800px;*/
         margin: 0 auto;
         max-width: 1040px;
+        min-width: 670px;
         padding: 20px ;
 
         .ant-list-item-meta{
@@ -76,14 +77,11 @@
 }
 
 .home-recent-box{
-    display: flex;
-    align-items: center;
-    gap: 30px;
     margin: 0 0 15px 0;
 
     .home-recent-item{
         height: 110px;
-        width: 238px;
+        min-width: 160px;
         border-radius: var(--pi-border-radius);
         background: var(--pi-bg-grey-100);
         padding: 20px;

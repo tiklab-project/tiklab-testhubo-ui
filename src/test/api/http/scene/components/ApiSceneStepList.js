@@ -198,11 +198,11 @@ const ApiSceneStepList = (props) => {
                                         <Col span={1}>
                                             <MenuOutlined />
                                         </Col>
-                                        <Col span={1}>序号</Col>
-                                        <Col span={4}>名称</Col>
-                                        <Col span={10}>步骤概要</Col>
-                                        <Col span={3}>创建时间</Col>
-                                        <Col style={{marginLeft: "auto",height:"20px"}}>操作</Col>
+                                        <Col span={1} className={"case-step-header-title"}>序号</Col>
+                                        <Col span={4} className={"case-step-header-title"}>名称</Col>
+                                        <Col span={10} className={"case-step-header-title"}>步骤概要</Col>
+                                        <Col span={3} className={"case-step-header-title"}>创建时间</Col>
+                                        <Col style={{marginLeft: "auto",height:"20px"}}  className={"case-step-header-title"}>操作</Col>
                                     </Row>
                                 </div>
                                 <div

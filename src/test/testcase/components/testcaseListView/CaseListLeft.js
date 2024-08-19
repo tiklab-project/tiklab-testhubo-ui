@@ -197,6 +197,9 @@ const CaseListLeft = (props) =>{
 
                 </div>
 
+
+            </div>
+            <div className={"case-list-left-list-box"}>
                 <div className={"filter-box"}>
                     <Select
                         placeholder={"用例类型"}
@@ -232,29 +235,28 @@ const CaseListLeft = (props) =>{
                         <Option value={2}>结束</Option>
                     </Select>
                 </div>
-            </div>
-            <div className={"case-list-left-list-box"}>
+
                 <CaseList
                     testcaseList={testcaseList}
                     loading={loading}
                     clickItemId={clickItemId}
                     setClickItemId={setClickItemId}
                 />
-                <div className={"case-list-bottom"}>
-                    <div className={"case-list-bottom-total"}>共{totalRecord||0}条</div>
-                    <PaginationCommon
-                        currentPage={currentPage}
-                        totalPage={totalPage}
-                        changePage={onTableChange}
-                    />
-                    <div className={"case-list-bottom-reload"}>
-                        <Tooltip title={"刷新列表"} placement={"right"}>
-                            <RedoOutlined onClick={()=> findPage()}/>
-                        </Tooltip>
-
-                    </div>
+            </div>
+            <div className={"case-list-bottom"}>
+                <div className={"case-list-bottom-total"}>共{totalRecord||0}条</div>
+                <PaginationCommon
+                    currentPage={currentPage}
+                    totalPage={totalPage}
+                    changePage={onTableChange}
+                />
+                <div className={"case-list-bottom-reload"}>
+                    <Tooltip title={"刷新列表"} placement={"right"}>
+                        <RedoOutlined onClick={()=> findPage()}/>
+                    </Tooltip>
 
                 </div>
+
             </div>
         </>
     )

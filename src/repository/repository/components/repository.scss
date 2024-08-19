@@ -55,7 +55,8 @@ ul{
 // --workspace--
 
 .ws-layout{
-    //width: 1080px;
+    max-width: 1040px;
+    min-width: 670px;
     padding: 20px;
     margin: 0 auto;
 }
