@@ -3,22 +3,22 @@ import {observer} from "mobx-react";
 import InstanceListCommon from "../common/InstanceListCommon";
 import {CASE_TYPE} from "../../common/dictionary/dictionary";
 import {findCaseInstancePage} from "../common/instanceCommonFn";
-import PageContent from "../../common/pageContent/PageContent";
+import PageCenter from "../../common/pageContent/PageCenter";
 
 const TestReportList = (props) =>{
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     useEffect(async()=>{
-        await findCaseInstancePage(null, null, { repositoryId });
+        await findCaseInstancePage(null, null,  { repositoryId:repositoryId });
     },[])
 
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <InstanceListCommon type={CASE_TYPE.TEST_REPORT} {...props} />
             </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

@@ -3,7 +3,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import DynamicWidget from "./DynamicWidget";
 import {useParams} from "react-router";
-import PageContent from "../../common/pageContent/PageContent";
+import PageCenter from "../../common/pageContent/PageCenter";
 import {Row} from "antd";
 import ProjectTotalAndStatusStatistics from "./ProjectTotalAndStatusStatistics";
 import CaseTestResultNumberStatistics from "../../statistics/common/CaseTestResultNumberStatistics";
@@ -19,7 +19,7 @@ const RepositoryOverView = (props) => {
 
 
     return (
-        <PageContent>
+        <PageCenter>
             <div className={"ws-init-box"}>
                 <div className={" ws-init-content"}>
                     <div className={"wd-total"}>
@@ -42,7 +42,7 @@ const RepositoryOverView = (props) => {
                     </div>
                 </div>
             </div>
-        </PageContent>
+        </PageCenter>
     )
 
 }

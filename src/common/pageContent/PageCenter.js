@@ -1,7 +1,7 @@
 import React from "react";
 import {Row,Col} from "antd";
 
-const PageContent = (props) =>{
+const PageCenter = (props) =>{
 
     return(
         <Row style={{height:"100%"}}>
@@ -17,4 +17,4 @@ const PageContent = (props) =>{
     )
 }
 
-export default PageContent
+export default PageCenter

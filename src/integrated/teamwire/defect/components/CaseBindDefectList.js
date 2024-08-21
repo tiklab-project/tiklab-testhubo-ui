@@ -89,7 +89,7 @@ const CaseBindDefectList = (props) =>{
         <div style={{padding: "0 0 20px"}}>
             <div style={{margin:'10px 0'}}>
                 <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                    <div>共 {workItemBindList.length} 个缺陷</div>
+                    <div className={"list-size-title"}>共{workItemBindList.length}个</div>
                     <DefectSelect
                         caseId={caseId}
                     />

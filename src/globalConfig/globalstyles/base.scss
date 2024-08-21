@@ -344,7 +344,7 @@ table .icon{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .display-flex-gap{
@@ -599,10 +599,6 @@ table .icon{
     color: #8a8a8a;
 }
 
-.ant-space .ant-space-item .ant-select{
-    background: var(--pi-bg-grey-100);
-}
-
 //去除对话框中的横线
 .ant-modal-content {
     .ant-modal-body{
@@ -639,4 +635,9 @@ table .icon{
         font-size: 20px;
         font-weight: 600;
     }
+}
+
+.list-size-title{
+    color: #999;
+    font-size: 13px;
 }

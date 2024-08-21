@@ -117,7 +117,7 @@ const FunctionStepList = ({functionId,funcUnitStore}) => {
         <>
             <div className={"table-list-box"}>
                 <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                     <div> 共 {stepList.length} 个步骤</div>
+                     <div className={"list-size-title"}> 共{stepList.length}个</div>
 
                      <FunctionStepEdit
                          findList={findList}

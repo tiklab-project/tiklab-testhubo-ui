@@ -1,12 +1,12 @@
 import React from "react";
 import TestPlanBindCaseInstanceTable from "./testPlanBindCaseInstanceTable";
 import CaseBread from "../../../common/CaseBread";
-import PageContent from "../../../common/pageContent/PageContent";
+import PageCenter from "../../../common/pageContent/PageCenter";
 
 const TestPlanBindCaseInstanceList = (props) =>{
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <CaseBread
                     router={`/plan/${sessionStorage.getItem("testPlanId")}/instance`}
@@ -14,7 +14,7 @@ const TestPlanBindCaseInstanceList = (props) =>{
                 />
                 <TestPlanBindCaseInstanceTable {...props} />
             </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 import InstanceListCommon from "../../../testreport/common/InstanceListCommon";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {findCaseInstancePage} from "../../../testreport/common/instanceCommonFn";
-import PageContent from "../../../common/pageContent/PageContent";
+import PageCenter from "../../../common/pageContent/PageCenter";
 
 const TestPlanInstanceList = (props) =>{
     const testPlanId = sessionStorage.getItem("testPlanId")
@@ -13,7 +13,7 @@ const TestPlanInstanceList = (props) =>{
     },[])
 
     return(
-        <PageContent>
+        <PageCenter>
         <div className={"content-box-center"}>
             <div  className={"header-box-space-between"} >
                 <div className={'header-box-title'}>测试历史</div>
@@ -21,7 +21,7 @@ const TestPlanInstanceList = (props) =>{
             </div>
             <InstanceListCommon belongId={testPlanId} type={CASE_TYPE.TEST_PLAN}/>
         </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

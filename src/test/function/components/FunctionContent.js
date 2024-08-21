@@ -5,8 +5,7 @@ import {inject, observer} from "mobx-react";
 import CaseBread from "../../../common/CaseBread";
 import "./functionStyle.scss"
 import ToggleCase from "../../testcase/components/ToggleCase";
-import PageContent from "../../../common/pageContent/PageContent";
-
+import PageCenter from "../../../common/pageContent/PageCenter";
 
 const FunctionContent = (props) =>{
     const {funcUnitStore} = props;
@@ -23,7 +22,7 @@ const FunctionContent = (props) =>{
 
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <CaseBread
                     router={`/project/${sessionStorage.getItem("repositoryId")}/testcase`}
@@ -33,9 +32,7 @@ const FunctionContent = (props) =>{
                 />
                 <FunctionDetail functionId={functionId} />
             </div>
-        </PageContent>
-
-
+        </PageCenter>
     )
 }
 

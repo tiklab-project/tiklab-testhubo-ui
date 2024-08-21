@@ -1,13 +1,13 @@
 import React from "react";
 import TestPlanBindCaseInstanceTable from "../../testplan/instance/components/testPlanBindCaseInstanceTable";
 import CaseBread from "../../common/CaseBread";
-import PageContent from "../../common/pageContent/PageContent";
+import PageCenter from "../../common/pageContent/PageCenter";
 
 const TestReportDetail = (props) =>{
     const repositoryId = sessionStorage.getItem("repositoryId")
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <CaseBread
                     router={`/project/${repositoryId}/report`}
@@ -15,7 +15,7 @@ const TestReportDetail = (props) =>{
                 />
                 <TestPlanBindCaseInstanceTable />
             </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

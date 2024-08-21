@@ -2,7 +2,7 @@ import instanceStore from "../store/InstanceStore";
 let {findInstancePage,instanceList,tableLoading,totalPage} = instanceStore;
 
 
-export const findCaseInstancePage =async (belongId,type,params) =>{
+export const findCaseInstancePage =async (belongId,type, params) =>{
     let param={
         pageParam: {
             pageSize: 15,

@@ -8,7 +8,7 @@ import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import ApiUnitExecuteTest from "./apiUnitExecuteTest";
 import {Space} from "antd";
 import ToggleCase from "../../../../testcase/components/ToggleCase";
-import PageContent from "../../../../../common/pageContent/PageContent";
+import PageCenter from "../../../../../common/pageContent/PageCenter";
 
 
 const ApiUnitContent = (props) =>{
@@ -27,7 +27,7 @@ const ApiUnitContent = (props) =>{
     },[apiUnitId,location.pathname])
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <CaseBread
                     toggleCase={<ToggleCase  caseId={apiUnitId}/>}
@@ -48,7 +48,7 @@ const ApiUnitContent = (props) =>{
                 />
                 <ApiUnitEditPageCommon apiUnitId={apiUnitId}/>
             </div>
-        </PageContent>
+        </PageCenter>
 
     )
 }

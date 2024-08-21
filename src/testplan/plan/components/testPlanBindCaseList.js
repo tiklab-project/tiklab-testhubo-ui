@@ -14,7 +14,7 @@ import {CASE_TYPE, caseTypeToRouter} from "../../../common/dictionary/dictionary
 import ExtensionCommon from "../../../common/ExtensionCommon";
 import {getVersionInfo} from "thoughtware-core-ui";
 import {rowStyle, showCreateUser, ShowDeleteView} from "../../../test/testcase/components/testCaseTableFn";
-import PageContent from "../../../common/pageContent/PageContent";
+import PageCenter from "../../../common/pageContent/PageCenter";
 import IconCommon from "../../../common/IconCommon";
 import {debounce} from "../../../common/utils/commonFn";
 
@@ -285,7 +285,7 @@ const TestPlanBindCaseList = (props) =>{
 
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <div className='header-box-space-between'>
                     <div className={'header-box-title'}>测试用例</div>
@@ -357,7 +357,7 @@ const TestPlanBindCaseList = (props) =>{
                     </div>
                 </div>
             </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

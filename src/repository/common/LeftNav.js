@@ -5,6 +5,7 @@ import {getUser} from "thoughtware-core-ui";
 import IconCommon from "../../common/IconCommon";
 import {useHistory} from "react-router";
 import "./repositoryDetailStyle.scss"
+import "../../test/common/styles/testcaseStyle.scss"
 import RepositoryIcon from "../../common/RepositoryIcon";
 import {LeftCircleOutlined} from "@ant-design/icons";
 import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";

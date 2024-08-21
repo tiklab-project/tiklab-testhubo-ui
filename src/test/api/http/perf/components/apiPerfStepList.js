@@ -117,20 +117,23 @@ const ApiPerfStepList = (props) =>{
 
     return(
         <div style={{margin:"10px 0",height:"100%"}}>
-            <ApiPerformBindScene />
+            <div className={"display-flex-between"} style={{margin: "10px 0"}}>
+                <div className={"list-size-title"}>共{apiPerfStepList.length}个</div>
+                 <ApiPerformBindScene />
+            </div>
             <div className={"table-list-box"}>
-            <Table
-                columns={column}
-                dataSource={apiPerfStepList}
-                rowKey = {record => record.id}
-                pagination={false}
-                locale={{
-                    emptyText: <Empty
-                        imageStyle={{height: 100}}
-                        description={<span>暂无用例</span>}
-                    />,
-                }}
-            />
+                <Table
+                    columns={column}
+                    dataSource={apiPerfStepList}
+                    rowKey = {record => record.id}
+                    pagination={false}
+                    locale={{
+                        emptyText: <Empty
+                            imageStyle={{height: 100}}
+                            description={<span>暂无用例</span>}
+                        />,
+                    }}
+                />
             </div>
         </div>
     )

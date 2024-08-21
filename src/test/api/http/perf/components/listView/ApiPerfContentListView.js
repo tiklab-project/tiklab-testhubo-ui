@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {inject,observer } from 'mobx-react';
-import {useParams} from "react-router";
-import {Select, Space} from "antd";
+import {Select} from "antd";
 import CaseBread from "../../../../../../common/CaseBread";
 import ApiEnvDropDownSelect from "../../../../../../support/environment/components/apiEnvDropDownSelect";
 import ApiPerfExecuteTestPage from "../ApiPerfExecuteTestPage";
@@ -44,7 +43,7 @@ const ApiPerfContentListView = (props) => {
                 icon={"api1"}
                 breadItem={[testCaseInfo?.name]}
                 right={
-                    <Space>
+                    <div className={"display-flex-between header-right-box"}>
                         <ApiEnvDropDownSelect />
                         <Select
                             className={"select-box"}
@@ -55,7 +54,7 @@ const ApiPerfContentListView = (props) => {
                             {
                                 agentConfigList.map(item=>{
                                     return<Option key={item.id} value={item.id}>{
-                                        item.id==="agent-default_localhost"
+                                        item.id==="agent-default_ocalhost"
                                             ?"默认Agent"
                                             :item.name
                                     }</Option>
@@ -63,7 +62,7 @@ const ApiPerfContentListView = (props) => {
                             }
                         </Select>
                         <ApiPerfExecuteTestPage apiPerfId={apiPerfId}/>
-                    </Space>
+                    </div>
                 }
             />
             <ApiPerformDetail apiPerfId={apiPerfId}/>

@@ -4,7 +4,7 @@ import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
 import "./workItemStyle.scss"
 import workItemBindStore from "../store/WorkItemBindStore";
-import PageContent from "../../../../common/pageContent/PageContent";
+import PageCenter from "../../../../common/pageContent/PageCenter";
 
 /**
  * 绑定的缺陷列表
@@ -75,7 +75,7 @@ const ProjectAllDefectList = (props) =>{
     },[repositoryId])
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <div  className={"header-box-space-between"} style={{margin:"10px 8px"}} >
                     <div className={'header-box-title'}>缺陷</div>
@@ -96,7 +96,7 @@ const ProjectAllDefectList = (props) =>{
                     />
                 </div>
             </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

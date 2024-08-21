@@ -522,3 +522,11 @@
     pointer-events: none;
     //opacity: 0.5;
 }
+
+
+.header-right-box{
+    position: absolute;
+    right: 30px;
+    top: 38px;
+    z-index: 10;
+}

@@ -1,7 +1,5 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import {inject,observer } from 'mobx-react';
-import {useParams} from "react-router";
-import {Space} from "antd";
 import CaseBread from "../../../../../../common/CaseBread";
 import ApiEnvDropDownSelect from "../../../../../../support/environment/components/apiEnvDropDownSelect";
 import ApiExecuteTestPage from "../ApiExecuteTestPage";
@@ -19,10 +17,10 @@ const ApiSceneContentListView = (props) => {
                 icon={"api1"}
                 breadItem={[testCaseInfo?.name]}
                 right={
-                    <Space>
+                    <div className={"display-flex-between header-right-box"}>
                         <ApiEnvDropDownSelect />
                         <ApiExecuteTestPage apiSceneId={apiSceneId} stepNum={apiSceneInfo?.stepNum||0}/>
-                    </Space>
+                    </div>
                 }
             />
             <ApiSceneDetail apiSceneId={apiSceneId}/>

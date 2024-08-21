@@ -12,7 +12,7 @@ import PaginationCommon from "../../../common/pagination/Page";
 import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import HideDelete from "../../../common/hideDelete/HideDelete";
 import PlanInstanceDrawer from "../../instance/components/PlanInstanceDrawer";
-import PageContent from "../../../common/pageContent/PageContent";
+import PageCenter from "../../../common/pageContent/PageCenter";
 import IconCommon from "../../../common/IconCommon";
 import {debounce} from "../../../common/utils/commonFn";
 import ListIcon from "../../../common/ListIcon/ListIcon";
@@ -239,7 +239,7 @@ const TestPlan = (props) => {
     ];
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <div className='header-box-space-between'>
                     <div className={'header-box-title'}>测试计划</div>
@@ -296,7 +296,7 @@ const TestPlan = (props) => {
                     />
                 </div>
             </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

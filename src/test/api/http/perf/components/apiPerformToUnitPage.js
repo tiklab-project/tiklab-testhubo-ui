@@ -2,7 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import CaseBread from "../../../../../common/CaseBread";
 import ApiUnitEditPageCommon from "../../unit/components/apiUnitEditPageCommon";
-import PageContent from "../../../../../common/pageContent/PageContent";
+import PageCenter from "../../../../../common/pageContent/PageCenter";
 
 const ApiPerformToUnitPage = (props) =>{
 
@@ -10,7 +10,7 @@ const ApiPerformToUnitPage = (props) =>{
     const apiPerfId = sessionStorage.getItem("apiPerfId")
     const repositoryId = sessionStorage.getItem("repositoryId")
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <CaseBread
                     breadItem={["接口性能","接口单元"]}
@@ -18,7 +18,7 @@ const ApiPerformToUnitPage = (props) =>{
                 />
                 <ApiUnitEditPageCommon {...props} apiUnitId={apiUnitId}/>
             </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

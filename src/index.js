@@ -1,32 +1,11 @@
-
 import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'mobx-react';
 import App from './app';
-import { orgStores } from 'thoughtware-user-ui/es/store';
-import { privilegeStores } from "thoughtware-privilege-ui/es/store";
 import {enableAxios} from "thoughtware-core-ui"
-import { stores } from './stores';
 import routes from './routers';
 import {Spin} from "antd";
 
-
 enableAxios();
-
-const Entry =()=> {
-
-    let allStore = {
-        ...stores,
-        ...privilegeStores,
-        ...orgStores,
-    };
-
-    return (
-        <Provider {...allStore} >
-            <App routers={routes}/>
-        </Provider>
-    )
-}
 
 const Main = () =>{
     return(
@@ -40,7 +19,7 @@ const Main = () =>{
                 <Spin size="large"/>
             </div>
         }>
-            <Entry />
+            <App routers={routes}/>
         </Suspense>
     )
 }

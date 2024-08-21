@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {inject, observer} from "mobx-react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {MenuOutlined} from "@ant-design/icons";
-import {Col, Dropdown, Menu, Row, Tag} from "antd";
+import {Col, Dropdown, Menu, Row} from "antd";
 import IconCommon from "../../../../../common/IconCommon";
 import ApiSceneBindUnit from "./apiSceneBindUnit";
 import ApiSceneStepDrawer from "./ApiSceneStepDrawer";
@@ -164,7 +164,7 @@ const ApiSceneStepList = (props) => {
     return (
         <div className={"table-list-box"}>
             <div className={"display-flex-between"} style={{margin: "10px 0"}}>
-                <div> 共 {stepList.length} 个步骤</div>
+                <div className={"list-size-title"}>共{stepList.length}个</div>
                 <Dropdown
                     overlay={menu}
                     placement="bottomRight"

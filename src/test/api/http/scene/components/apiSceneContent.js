@@ -5,9 +5,8 @@ import ApiSceneDetail from "./ApiSceneDetail";
 import CaseBread from "../../../../../common/CaseBread";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
 import ApiExecuteTestPage from "./ApiExecuteTestPage";
-import {Space} from "antd";
 import ToggleCase from "../../../../testcase/components/ToggleCase";
-import PageContent from "../../../../../common/pageContent/PageContent";
+import PageCenter from "../../../../../common/pageContent/PageCenter";
 
 
 const ApiSceneContent = (props) => {
@@ -24,7 +23,7 @@ const ApiSceneContent = (props) => {
     },[apiSceneId])
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <CaseBread
                     breadItem={[testCaseInfo?.name]}
@@ -32,15 +31,15 @@ const ApiSceneContent = (props) => {
                     style={{borderBottom:"none"}}
                     toggleCase={<ToggleCase  caseId={apiSceneId}/>}
                     right={
-                        <Space>
+                        <div className={"display-flex-between header-right-box"}>
                             <ApiEnvDropDownSelect />
                             <ApiExecuteTestPage apiSceneId={apiSceneId} stepNum={apiSceneInfo?.stepNum||0}/>
-                        </Space>
+                        </div>
                     }
                 />
                 <ApiSceneDetail apiSceneId={apiSceneId}/>
             </div>
-        </PageContent>
+        </PageCenter>
     )
 
 

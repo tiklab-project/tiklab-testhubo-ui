@@ -13,12 +13,25 @@ const SystemManagement = (props) => {
     const [selectKey,setSelectKey] = useState()
     const [menuRouter,setMenuRouter] = useState();
     const authConfig = JSON.parse(localStorage.getItem("authConfig"))
-    const curRouter =  window.location.hash.substr(1)
+    // 树的展开与闭合
+    const [expandedTree, setExpandedTree] = useState([])
 
     useEffect(() => {
         setMenuRouter(settingMenu);
-    }, [curRouter])
+    }, [])
 
+
+    const isExpandedTree = (key) => {
+        return expandedTree.some(item => item ===key)
+    }
+
+    const setOpenOrClose = key => {
+        if (isExpandedTree(key)) {
+            setExpandedTree(expandedTree.filter(item => item !== key))
+        } else {
+            setExpandedTree(expandedTree.concat(key))
+        }
+    }
 
     const specialKeys = [
         "/setting/orga",
@@ -51,20 +64,7 @@ const SystemManagement = (props) => {
         }
     }
 
-    // 树的展开与闭合
-    const [expandedTree, setExpandedTree] = useState(["/setting/system"])
 
-    const isExpandedTree = (key) => {
-        return expandedTree.some(item => item ===key)
-    }
-
-    const setOpenOrClose = key => {
-        if (isExpandedTree(key)) {
-            setExpandedTree(expandedTree.filter(item => item !== key))
-        } else {
-            setExpandedTree(expandedTree.concat(key))
-        }
-    }
 
     /**
      * 无子级菜单渲染
@@ -221,8 +221,6 @@ const SystemManagement = (props) => {
     return (
         <SystemNav
             {...props}
-            expandedTree={expandedTree} // 树的展开和闭合(非必传)
-            setExpandedTree={setExpandedTree} // 树的展开和闭合(非必传)
             applicationRouters={menuRouter} // 菜单
             outerPath={"/setting"} // 系统设置Layout路径
             noAccessPath={"/noaccess"}

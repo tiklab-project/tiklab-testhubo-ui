@@ -1,22 +1,24 @@
-import VariableTable from "./Variable/components/VariableTable";
-import CaseContentCommon from "./CaseContentCommon";
-import DetailCommon from "../../common/caseCommon/DetailCommon";
-import CaseDesc from "../../common/caseCommon/CaseDesc";
-import IconCommon from "../../common/IconCommon";
-import {showCaseTypeView,showCaseTypeInList,showStatus} from "../../common/caseCommon/CaseCommonFn";
-import {CASE_TYPE,testExecuteStatus,assertCompare} from "../../common/dictionary/dictionary";
-import UIResultCommon from "./UIResultCommon";
-import ScriptEdit from "./ScriptEdit";
-import stepCommonStore from "./stepcommon/store/StepCommonStore";
-import IfJudgmentEdit from "./ifJudgment/components/IfJudgmentEdit";
-import IconBtn from "../../common/iconBtn/IconBtn";
-import {IfStep} from "./caseCommonFn";
-import {messageFn} from "../../common/messageCommon/MessageCommon";
-import CaseBread from "../../common/CaseBread";
-import ToggleCase from "../testcase/components/ToggleCase";
-import StepAssertCommon from "./stepassert/StepAssertCommon";
-import InstanceListCommon from "../../testreport/common/InstanceListCommon";
-import categoryStore from "../../category/store/CategoryStore";
+import LazyComponent from "../../common/Lazy";
+
+const VariableTable  = LazyComponent(() => import( "./Variable/components/VariableTable"));
+const CaseContentCommon  = LazyComponent(() => import( "./CaseContentCommon"));
+const DetailCommon  = LazyComponent(() => import( "../../common/caseCommon/DetailCommon"));
+const CaseDesc  = LazyComponent(() => import( "../../common/caseCommon/CaseDesc"));
+const IconCommon  = LazyComponent(() => import( "../../common/IconCommon"));
+const {showCaseTypeView,showCaseTypeInList,showStatus}  = LazyComponent(() => import( "../../common/caseCommon/CaseCommonFn"));
+const {CASE_TYPE,testExecuteStatus,assertCompare}  = LazyComponent(() => import( "../../common/dictionary/dictionary"));
+const UIResultCommon  = LazyComponent(() => import( "./UIResultCommon"));
+const ScriptEdit  = LazyComponent(() => import( "./ScriptEdit"));
+const stepCommonStore  = LazyComponent(() => import( "./stepcommon/store/StepCommonStore"));
+const IfJudgmentEdit  = LazyComponent(() => import( "./ifJudgment/components/IfJudgmentEdit"));
+const IconBtn  = LazyComponent(() => import( "../../common/iconBtn/IconBtn"));
+const {IfStep}  = LazyComponent(() => import( "./caseCommonFn"));
+const {messageFn}  = LazyComponent(() => import( "../../common/messageCommon/MessageCommon"));
+const CaseBread  = LazyComponent(() => import( "../../common/CaseBread"));
+const ToggleCase  = LazyComponent(() => import( "../testcase/components/ToggleCase"));
+const StepAssertCommon  = LazyComponent(() => import( "./stepassert/StepAssertCommon"));
+const InstanceListCommon  = LazyComponent(() => import( "../../testreport/common/InstanceListCommon"));
+const categoryStore  = LazyComponent(() => import( "../../category/store/CategoryStore"));
 
 export {
     VariableTable,

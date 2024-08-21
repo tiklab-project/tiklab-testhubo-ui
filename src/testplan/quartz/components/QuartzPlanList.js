@@ -5,7 +5,7 @@ import quartzPlanStore from "../store/quartzPlanStore";
 import QuartzPlanEdit from "./QuartzPlanEdit";
 import IconCommon from "../../../common/IconCommon";
 import QuartzEnvModal from "./quartzEnvModal";
-import PageContent from "../../../common/pageContent/PageContent";
+import PageCenter from "../../../common/pageContent/PageCenter";
 
 
 const QuartzPlanList = (props) =>{
@@ -98,7 +98,7 @@ const QuartzPlanList = (props) =>{
     }
 
     return(
-        <PageContent>
+        <PageCenter>
         <div className={"content-box-center"}>
             <div  className={"header-box-space-between"} >
                 <div className={'header-box-title'}>定时任务</div>
@@ -131,7 +131,7 @@ const QuartzPlanList = (props) =>{
                 />
             </div>
         </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

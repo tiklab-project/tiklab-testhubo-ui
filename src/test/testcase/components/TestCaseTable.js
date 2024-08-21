@@ -14,7 +14,7 @@ import {CASE_TYPE} from "../../../common/dictionary/dictionary";
 import {rowStyle, showCreateUser, ShowDeleteView, ShowQuickExe, SwitchCaseTypeView} from "./testCaseTableFn";
 import IconCommon from "../../../common/IconCommon";
 import {useHistory} from "react-router";
-import PageContent from "../../../common/pageContent/PageContent";
+import PageCenter from "../../../common/pageContent/PageCenter";
 import {debounce} from "../../../common/utils/commonFn";
 
 
@@ -277,7 +277,7 @@ const TestCaseTable = (props) => {
     }
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"} >
                 <div  className={"header-box-space-between"} >
                     <div className={'header-box-title'}>测试用例</div>
@@ -369,7 +369,7 @@ const TestCaseTable = (props) => {
                     />
                 </div>
             </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

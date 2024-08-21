@@ -5,10 +5,10 @@ import ApiPerformDetail from "./apiPerformDetail";
 import CaseBread from "../../../../../common/CaseBread";
 import ApiEnvDropDownSelect from "../../../../../support/environment/components/apiEnvDropDownSelect";
 import ApiPerfExecuteTestPage from "./ApiPerfExecuteTestPage";
-import {Select, Space} from "antd";
+import {Select} from "antd";
 import ToggleCase from "../../../../testcase/components/ToggleCase";
 import agentConfigStore from "../../../../../support/agent/store/AgentConfigStore";
-import PageContent from "../../../../../common/pageContent/PageContent";
+import PageCenter from "../../../../../common/pageContent/PageCenter";
 
 const {Option} = Select;
 
@@ -48,7 +48,7 @@ const ApiPerfContent = (props) => {
     }
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <CaseBread
                     router={`/project/${sessionStorage.getItem("repositoryId")}/testcase`}
@@ -56,7 +56,7 @@ const ApiPerfContent = (props) => {
                     breadItem={[testCaseInfo?.name]}
                     toggleCase={<ToggleCase  caseId={apiPerfId}/>}
                     right={
-                        <Space>
+                        <div className={"display-flex-between header-right-box"}>
                             <ApiEnvDropDownSelect />
                             <Select
                                 className={"select-box"}
@@ -75,12 +75,12 @@ const ApiPerfContent = (props) => {
                                 }
                             </Select>
                             <ApiPerfExecuteTestPage apiPerfId={apiPerfId}/>
-                        </Space>
+                        </div>
                     }
                 />
                 <ApiPerformDetail apiPerfId={apiPerfId}/>
             </div>
-        </PageContent>
+        </PageCenter>
     )
 }
 

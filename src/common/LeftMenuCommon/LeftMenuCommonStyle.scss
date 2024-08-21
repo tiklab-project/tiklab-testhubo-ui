@@ -22,15 +22,15 @@
 
 
         .menu-box-nav-item-theme-default{
-            border-left: 3px solid #e7e7e7;
+            border-left: 3px solid #f0f3fa;
 
             &:hover{
-                background-color: #d9dee27d
+                background-color: #e3e8f0;
             }
         }
 
         .select-link-theme-default{
-            background-color: #d9dee27d;
+            background-color: #e3e8f0;
             border-left: 3px solid var(--pi-base-color);
         }
 
@@ -165,7 +165,7 @@
 .menu-box-bottom-item-theme-default{
     cursor: pointer;
     &:hover{
-        background-color: var(--pi-hover-color);
+        background-color: #e3e8f0;
     }
 }
 

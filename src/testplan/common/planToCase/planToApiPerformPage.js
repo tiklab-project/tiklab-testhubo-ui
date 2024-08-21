@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import ApiPerformDetail from "../../../test/api/http/perf/components/apiPerformDetail";
 import CaseBread from "../../../common/CaseBread";
-import PageContent from "../../../common/pageContent/PageContent";
+import PageCenter from "../../../common/pageContent/PageCenter";
 
 const PlanToApiPerformPage = (props) =>{
     const {apiPerfStore} = props;
@@ -19,7 +19,7 @@ const PlanToApiPerformPage = (props) =>{
     },[])
 
     return(
-        <PageContent>
+        <PageCenter>
             <div className={"content-box-center"}>
                 <CaseBread
                     caseType={caseInfo?.caseType}
@@ -29,7 +29,7 @@ const PlanToApiPerformPage = (props) =>{
                 />
                 <ApiPerformDetail planType={true} apiPerfId={apiPerfId}/>
             </div>
-        </PageContent>
+        </PageCenter>
 
     )
 }
