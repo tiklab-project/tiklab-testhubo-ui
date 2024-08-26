@@ -521,10 +521,12 @@ const InstanceListCommon = (props) =>{
                     loading={tableLoading}
                     onRow={(record) => ({style: rowStyle(record.type)})}
                     locale={{
-                        emptyText: <Empty
-                            imageStyle={{height: 100}}
-                            description={<span>暂无历史</span>}
-                        />,
+                        emptyText: !tableLoading
+                            ?<Empty
+                                imageStyle={{height: 100}}
+                                description={<span>暂无历史</span>}
+                            />
+                            :<div style={{height: 100}}/>,
                     }}
                 />
                 <PaginationCommon

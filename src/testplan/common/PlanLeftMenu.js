@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router";
-import { LeftCircleOutlined} from "@ant-design/icons";
-import {Dropdown} from "antd";
+import {AppstoreOutlined} from "@ant-design/icons";
+import {Dropdown, Tooltip} from "antd";
 import IconCommon from "../../common/IconCommon";
-import planImg from "../../assets/img/plan.png"
 import testPlanStore from "../plan/store/testPlanStore";
 import "../plan/components/testPlanStyle.scss"
 import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
@@ -110,17 +109,19 @@ const PlanLeftMenu = (props) =>{
                             <ListIcon colors={1} text={testPlanInfo?.name} isMar={false} className={`${isExpanded?"icon-l":"icon-x"}`}/>
                         </div>
                         {
-                            isExpanded&& <div>{testPlanInfo?.name}</div>
+                            isExpanded&& <>
+                                <div>{testPlanInfo?.name}</div>
+                                <IconCommon
+                                    style={{
+                                        "cursor":"pointer",
+                                        width:"12px",
+                                        height:"12px",
+                                        marginLeft:"3px"
+                                    }}
+                                    icon={"xiala"}
+                                />
+                            </>
                         }
-                        <IconCommon
-                            style={{
-                                "cursor":"pointer",
-                                width:"12px",
-                                height:"12px",
-                                marginLeft:"3px"
-                            }}
-                            icon={"xiala"}
-                        />
                     </div>
                 </Dropdown>
             </li>
@@ -135,16 +136,36 @@ const PlanLeftMenu = (props) =>{
                     localStorage.setItem("leftRouter",`/project/${repositoryId}/plan`);
                 }}
             >
-                <div className={`menu-box-nav-item-${themeColor}
-                 ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}
-                `}>
-                    <div className={"menu-box-nav-item-detail"}>
-                        <LeftCircleOutlined style={{fontSize:"18px",margin:"0 5px 0 8px"}}/>
-                    </div>
-                    <div  className={"menu-box-nav-item-detail"}>
-                        返回项目
-                    </div>
-                </div>
+                {
+                    isExpanded
+                        ?<div className={`menu-box-nav-item-${themeColor}  menu-box-nav-item-isExpanded`}>
+                            <div className={"menu-box-nav-item-detail"}>
+                                <AppstoreOutlined
+                                    style={{
+                                        fontSize:`${isExpanded?"18px":"24px"}`,
+                                        margin:"0 5px 0 6px",
+                                        color:"#777"
+                                    }}
+                                />
+                            </div>
+                            <div  className={"menu-box-nav-item-detail"}>
+                                返回项目
+                            </div>
+                        </div>
+                        : <Tooltip placement="right" title={"返回项目"}>
+                            <div className={`menu-box-nav-item-${themeColor} menu-box-nav-item-not-isExpanded`}>
+                                <div className={"menu-box-nav-item-detail"}>
+                                    <AppstoreOutlined
+                                        style={{
+                                            fontSize:`${isExpanded?"18px":"24px"}`,
+                                            margin:"0 5px 0 6px",
+                                            color:"#777"
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </Tooltip>
+                }
             </li>
         </>
     )

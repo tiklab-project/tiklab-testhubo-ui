@@ -31,7 +31,8 @@ const SystemContent = (props) =>{
                     id: '/setting/userGroup',
                     icon: 'modular',
                     // purviewCode: "userGroup",
-                },{
+                },
+                {
                     title: '权限',
                     icon: 'jiaosequanxian',
                     id: '/setting/systemRole',

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Empty, Popconfirm, Table} from "antd";
 import { observer} from "mobx-react";
 import IconCommon from "../../../../common/IconCommon";
@@ -67,11 +67,13 @@ const ProjectAllDefectList = (props) =>{
         },
     ]
 
-
     const repositoryId = sessionStorage.getItem("repositoryId")
+    const [tableLoading,setTableLoading] = useState(true);
 
     useEffect(async ()=>{
+        setTableLoading(true)
         await findWorkItemBindList({repositoryId:repositoryId})
+        setTableLoading(false)
     },[repositoryId])
 
     return(
@@ -87,11 +89,14 @@ const ProjectAllDefectList = (props) =>{
                         dataSource={workItemBindList}
                         rowKey={record => record.id}
                         pagination={false}
+                        loading={tableLoading}
                         locale={{
-                            emptyText: <Empty
-                                imageStyle={{height: 100}}
-                                description={<span>暂无缺陷</span>}
-                            />,
+                            emptyText: !tableLoading
+                                ?<Empty
+                                    imageStyle={{height: 100}}
+                                    description={<span>暂无缺陷</span>}
+                                />
+                                :<div style={{height: 100}}/>,
                         }}
                     />
                 </div>

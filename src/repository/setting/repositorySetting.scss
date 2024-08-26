@@ -1,7 +1,7 @@
 // ws左侧导航
 .ws-menu-ul {
     padding: 0;
-    background: var(--pi-bg-grey-100);
+    background: #f1f3fa69;
     border-right: 1px solid #e3e3e3;
 
     .ws-menu-li {
@@ -35,6 +35,11 @@
     overflow: auto;
 }
 
+.collapse-panel-desc{
+    font-size: 12px;
+    color: #999;
+    margin-left: 24px;
+}
 
 .ws-setting-delete{
     color: var(--pi-error-color);
@@ -76,4 +81,10 @@
 
 .url-config-box{
     width: 400px;
+}
+
+.repository-setting-info{
+    .ant-btn-dangerous.ant-btn-primary{
+        background: #ff4d4f!important;
+    }
 }

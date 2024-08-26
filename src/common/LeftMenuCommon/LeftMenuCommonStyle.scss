@@ -1,7 +1,6 @@
 .menu-box{
     position:relative;
     height: 100%;
-    box-shadow: 3px 0 5px -5px rgb(0 0 0 / 30%);
 
     .menu-box-flex{
         display: flex;
@@ -158,6 +157,8 @@
     .thoughtware-profile{
         .ant-avatar{
             background: #40a9ff;
+            width: 24px;
+            height: 24px;
         }
     }
 }

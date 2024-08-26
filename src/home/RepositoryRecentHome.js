@@ -53,7 +53,7 @@ const RepositoryRecentHome = (props) =>{
     const showRecent=(list)=>{
         return list&&list.map(item=>{
             return(
-                <Col span={6}>
+                <Col span={6} key={item.id}>
                     <div key={item.id} className={"home-recent-item"} onClick={()=>toDetail(item.id)}>
                         <div className={"home-recent-item-left"}>
                             <RepositoryIcon iconUrl={item.iconUrl} className={"repository-icon"}/>
@@ -85,7 +85,9 @@ const RepositoryRecentHome = (props) =>{
                     {
                         dataList&&dataList.length>0
                             ?<>{showRecent(dataList)}</>
-                            : <Empty description={<span>暂无访问</span>}/>
+                            :  !spinning
+                                    ?<Empty description={<span>暂无访问</span>}/>
+                                    :<div style={{height: 110}}/>
                     }
                 </Row>
 

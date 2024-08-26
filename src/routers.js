@@ -17,7 +17,7 @@ let LoginContent = LazyComponent(() => import("./login/LoginContent"));
 let Home = LazyComponent(() => import("./home/Home"));
 
 let Repository = LazyComponent(() => import("./repository/repository/components/Repository"));
-let RepositoryEdit = LazyComponent(() => import("./repository/repository/components/RepositoryEdit"));
+let RepositoryAddPage = LazyComponent(() => import("./repository/repository/components/RepositoryAddPage"));
 let RepositoryDetailPage = LazyComponent(() => import("./repository/overview/RepositoryOverView"));
 let RepositoryDetailLayout = LazyComponent(() => import("./repository/common/RepositoryDetailLayout"));
 let RepositorySettingMenu = LazyComponent(() => import("./repository/setting/RepositorySettingMenu"));
@@ -128,7 +128,7 @@ const routers =  [
             },
             {
                 path: "/projectAdd",
-                component: RepositoryEdit,
+                component: RepositoryAddPage,
                 exact: true,
             },
             {

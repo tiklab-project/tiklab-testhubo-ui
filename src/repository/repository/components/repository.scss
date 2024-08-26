@@ -149,7 +149,17 @@ ul{
 
 // --------------------------------------------
 // --workspaceEdit --
+.ws-add-modal{
+    .ant-modal-content{
+        .ant-modal-body{
+            padding: 0;
+        }
 
+        .ant-modal-header{
+            padding: 15px 22px 0
+        }
+    }
+}
 .ws-edit-modal{
     padding: 0!important;
     margin: 0!important;

@@ -13,7 +13,7 @@
     .case-list-left{
         width: 300px;
         border-right: 1px solid #e2e2e2;
-        background: #f6f7f8;
+        //background: #f6f7f8;
 
         .case-list-left-top{
             padding: 15px 10px 10px;
@@ -21,21 +21,22 @@
             .case-search-input{
                 width: 280px !important;
                 border-radius: var(--pi-border-radius)!important;
-                background: var(--pi-bg-grey-100);
+                background: #f6f7f8;
                 border: 1px solid #f4f2f2;
 
                 .ant-input-affix-wrapper{
                     border: 0;
+                    background: #f6f7f8;
                 }
 
                 .ant-input{
-                    background: white;
+                    background: #f6f7f8;
                 }
 
                 .ant-input-group-addon{
                     padding: 0 0 0 11px;
                     border: 0;
-                    background: white;
+                    background: #f6f7f8;
                 }
             }
 
@@ -48,7 +49,7 @@
                     height: 30px;
                     color: #a3a3a3;
                     font-size: 12px;
-                    background: white;
+                    background: #f6f7f8;
                     padding: 0px 5px;
                     display: flex;
                     align-items: center;
@@ -79,7 +80,7 @@
 
         .case-list-left-list-box{
             height: calc(100% - 138px);
-            padding:10px 0;
+            //padding:10px 0;
             overflow: auto;
             background: white;
 
@@ -110,7 +111,7 @@
                     cursor: pointer;
 
                     &:hover{
-                        background: var(--pi-hover-color);
+                        background: #f6f7f8;
                     }
 
                     .case-list-item-title{
@@ -131,7 +132,7 @@
                 }
 
                 .case-list-item-action{
-                    background: var(--pi-action-color);
+                    background: #f6f7f8;
                 }
 
             }
@@ -144,7 +145,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 10px;
-            //background: #f8f8f8;
+            background: #f6f7f8;
 
             .case-list-bottom-total{
                 font-size: 12px;

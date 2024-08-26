@@ -18,7 +18,8 @@ const Repository = (props)=> {
 
     const userId = getUser().userId;
     const [selectItem, setSelectItem] = useState("all");
-    
+    const [tableLoading,setTableLoading] = useState(true);
+
     //项目筛选列表
     const items = [
         {
@@ -79,28 +80,31 @@ const Repository = (props)=> {
     /**
      * 根据不同的筛选项查找
      */
-    const findList = (name,selectIndex)=>{
-        let uId = {userId:userId}
+    const findList = async (name,selectIndex)=>{
+        setTableLoading(true)
 
+        let uId = {userId:userId}
         switch (selectIndex?selectIndex:selectItem) {
             case "all":
                 let params= {
                     ...uId,
                     ...name
                 }
-                findRepositoryJoinList(params)
+                await findRepositoryJoinList(params)
                 break;
             case "create":
                 let param = {
                     ...uId,
                     ...name
                 }
-                findRepositoryList(param)
+               await findRepositoryList(param)
                 break;
             case "follow":
-                findRepositoryFollowList(uId)
+               await findRepositoryFollowList(uId)
                 break;
         }
+        setTableLoading(false)
+
     }
 
     const toRepositoryPage = () =>{
@@ -162,6 +166,7 @@ const Repository = (props)=> {
                             {...props}
                             findList={findList}
                             selectItem={selectItem}
+                            tableLoading={tableLoading}
                         />
                     </div>
                 </div>

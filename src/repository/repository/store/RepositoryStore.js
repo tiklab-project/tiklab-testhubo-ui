@@ -9,6 +9,7 @@ export class RepositoryStore {
     @observable repositoryInfo = {};
     @observable totalRecord ;
     @observable envUrlId;
+    @observable isAddModalOpen = false;
 
     /**
      * 按分页查询项目列表
@@ -155,6 +156,11 @@ export class RepositoryStore {
         if(res.code === 0 ) {
             return res.data;
         }
+    }
+
+    @action
+    setRepositoryAddModal = (isAddModalOpen) =>{
+        this.isAddModalOpen = isAddModalOpen
     }
 
 }

@@ -106,10 +106,12 @@ const CategoryList = (props) => {
                             loading={tableLoading}
                             pagination={false}
                             locale={{
-                                emptyText: <Empty
-                                    imageStyle={{ height: 100 }}
-                                    description={<span>暂无模块</span>}
-                                />,
+                                emptyText: !tableLoading
+                                    ?<Empty
+                                        imageStyle={{height: 100}}
+                                        description={<span>暂无模块</span>}
+                                    />
+                                    :<div style={{height: 100}}/>,
                             }}
                          />
                     </div>

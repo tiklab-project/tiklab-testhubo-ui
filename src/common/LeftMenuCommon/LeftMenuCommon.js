@@ -11,6 +11,7 @@ import {Profile} from 'thoughtware-licence-ui/es/commons'
 import {useTheme} from "../hooks/useTheme";
 import {useMenuExpanded} from "../hooks/useMenuExpanded";
 import {useMenuSelected} from "../hooks/useMenuSelected";
+import RepositoryAddModal from "../../repository/repository/components/RepositoryAddModel";
 
 
 const LeftMenuCommon = (props) =>{
@@ -194,13 +195,29 @@ const LeftMenuCommon = (props) =>{
                         showMenuItem(visibleMenuItems)
                     }
                     {
+                        isFirst&&<RepositoryAddModal isExpanded={isExpanded} themeColor={themeColor}/>
+                    }
+                    {
                         moreMenu&&moreMenu.length>0
                             &&moreItem()
                     }
                 </ul>
 
                 <div className={`menu-box-bottom`}>
-
+                    {
+                        isExpanded
+                            ?<div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item`} onClick={()=>clickToPage({router:settingRouter})}>
+                                <SettingOutlined style={{fontSize:"18px"}}/>
+                                {isExpanded && <div>设置</div>}
+                            </div>
+                            : <Tooltip placement="right" title={"设置"}>
+                                <div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item menu-box-bottom-item-not-isExpanded`}
+                                     onClick={()=>clickToPage({router:settingRouter})}
+                                >
+                                    <SettingOutlined style={{fontSize:"18px"}}/>
+                                </div>
+                            </Tooltip>
+                    }
                     {
                         isFirst&&<MessageDrawer isExpanded={isExpanded} themeColor={themeColor}/>
                     }
@@ -233,7 +250,7 @@ const LeftMenuCommon = (props) =>{
                                             icon={`${themeColor===THEME_DEFAULT?"jiugongge":"jiugongge1"}`}
                                             className={"icon-s"}
                                         />
-                                        {isExpanded && <div>应用导航</div>}
+                                        <div>应用导航</div>
                                     </div>
                                     : <Tooltip placement="right" title={"应用导航"}>
                                         <div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item menu-box-bottom-item-not-isExpanded`}>
@@ -246,28 +263,11 @@ const LeftMenuCommon = (props) =>{
                             }
                         />
                     }
-
-                    {
-                        isExpanded
-                            ?<div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item`} onClick={()=>clickToPage({router:settingRouter})}>
-                                <SettingOutlined style={{fontSize:"18px"}}/>
-                                {isExpanded && <div>设置</div>}
-                            </div>
-                            : <Tooltip placement="right" title={"设置"}>
-                                <div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item menu-box-bottom-item-not-isExpanded`}
-                                     onClick={()=>clickToPage({router:settingRouter})}
-                                >
-                                    <SettingOutlined style={{fontSize:"18px"}}/>
-                                </div>
-                            </Tooltip>
-                    }
-
-
                     {
                         AvatarLink&&<AvatarLink
                             changeTheme={changeTheme}
                             iconComponent={
-                                <div className={` menu-box-bottom-item`} style={{padding:`${isExpanded?"10px 14px":"10px 20px"}`}}>
+                                <div className={` menu-box-bottom-item ${isExpanded?"":"menu-box-bottom-item-not-isExpanded"}`} >
                                     <Profile />
                                     {isExpanded && <div >{getUser()?.nickname}</div>}
                                 </div>

@@ -7,7 +7,7 @@ import {useHistory} from "react-router";
 import "./repositoryDetailStyle.scss"
 import "../../test/common/styles/testcaseStyle.scss"
 import RepositoryIcon from "../../common/RepositoryIcon";
-import {LeftCircleOutlined} from "@ant-design/icons";
+import {HomeOutlined} from "@ant-design/icons";
 import LeftMenuCommon from "../../common/LeftMenuCommon/LeftMenuCommon";
 
 /**
@@ -124,7 +124,6 @@ const LeftNav = (props) =>{
                 </div>
             </div>
 
-
             <a className={"ws-toggle-repository_more"} onClick={()=> {
                 history.push("/project")
                 localStorage.setItem("leftRouter",`/project`)
@@ -157,35 +156,54 @@ const LeftNav = (props) =>{
 
     const showToggleRepository = (isExpanded,themeColor)=> (
         <>
-            <li className={`menu-box-nav-item-repository `} >
-                <Tooltip placement="right" title={repositoryInfo?.name}>
-                    <Dropdown
+            {
+                isExpanded
+                    ?  <li className={`menu-box-nav-item-repository `} >
+                            <Dropdown
+                                overlay={()=>toggleRepositorys(isExpanded)}
+                                trigger={['click']}
+                                visible={visible}
+                                onOpenChange={openToggleWorkspace}
+                            >
+                                <div style={{padding:`15px  0 15px 24px`}} className={`ws-icon-box menu-box-nav-item-isExpanded`}>
+                                    <div style={{"cursor":"pointer"}}>
+                                        <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={`icon-l`}/>
+                                    </div>
+                                    <div className={"text-ellipsis"} style={{maxWidth:"100px"}}>{repositoryInfo?.name}</div>
+                                    <IconCommon
+                                        style={{
+                                            "cursor":"pointer",
+                                            width:"12px",
+                                            height:"12px",
+                                            marginLeft:"3px"
+                                        }}
+                                        icon={"xiala"}
+                                    />
+                                </div>
+                            </Dropdown>
+                        </li>
+
+                    : <Dropdown
                         overlay={()=>toggleRepositorys(isExpanded)}
                         trigger={['click']}
                         visible={visible}
                         onOpenChange={openToggleWorkspace}
                     >
-                        <div style={{padding:`15px  0 15px 24px`}} className={`ws-icon-box ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
-                            <div style={{"cursor":"pointer"}}>
-                                 <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={`${isExpanded?"icon-l":"icon-x"}`}/>
-                            </div>
-                            {
-                                isExpanded&& <div className={"text-ellipsis"} style={{maxWidth:"100px"}}>{repositoryInfo?.name}</div>
-                            }
-
-                            <IconCommon
-                                style={{
-                                    "cursor":"pointer",
-                                    width:"12px",
-                                    height:"12px",
-                                    marginLeft:"3px"
-                                }}
-                                icon={"xiala"}
-                            />
-                        </div>
+                        <Tooltip
+                            placement="right"
+                            title={repositoryInfo?.name}
+                        >
+                            <li className={`menu-box-nav-item-repository `} >
+                                <div style={{padding:`15px  0 15px 24px`}} className={`ws-icon-box menu-box-nav-item-not-isExpanded`}>
+                                    <div style={{"cursor":"pointer"}}>
+                                        <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={`icon-x`}/>
+                                    </div>
+                                </div>
+                            </li>
+                        </Tooltip>
                     </Dropdown>
-                </Tooltip>
-            </li>
+
+            }
             <li
                 className={`menu-box-nav-item`}
                 style={{
@@ -197,17 +215,36 @@ const LeftNav = (props) =>{
                     localStorage.setItem("leftRouter","/index");
                 }}
             >
-                <div className={`
-                    menu-box-nav-item-${themeColor}
-                  ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}
-                `}>
-                    <div className={"menu-box-nav-item-detail"}>
-                        <LeftCircleOutlined style={{fontSize:"18px",margin:"0 5px 0 8px"}}/>
-                    </div>
-                    <div  className={"menu-box-nav-item-detail"}>
-                        返回主页
-                    </div>
-                </div>
+                {
+                    isExpanded
+                        ?<div className={`menu-box-nav-item-${themeColor}  menu-box-nav-item-isExpanded`}>
+                            <div className={"menu-box-nav-item-detail"}>
+                                <HomeOutlined
+                                    style={{
+                                        fontSize:`${isExpanded?"18px":"24px"}`,
+                                        margin:"0 5px 0 6px",
+                                        color:"#777"
+                                    }}
+                                />
+                            </div>
+                            <div  className={"menu-box-nav-item-detail"}>
+                                返回主页
+                            </div>
+                        </div>
+                        : <Tooltip placement="right" title={"返回主页"}>
+                            <div className={`menu-box-nav-item-${themeColor} menu-box-nav-item-not-isExpanded`}>
+                                <div className={"menu-box-nav-item-detail"}>
+                                    <HomeOutlined
+                                        style={{
+                                            fontSize:`${isExpanded?"18px":"24px"}`,
+                                            margin:"0 5px 0 6px",
+                                            color:"#777"
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </Tooltip>
+                }
             </li>
         </>
     )

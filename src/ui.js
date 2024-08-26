@@ -5,7 +5,7 @@ import PageContent from "./module/home/header/PageContent";
 let Home = LazyComponent(() => import("./module/home/Home"));
 
 let Repository = LazyComponent(() => import("./module/repository/repository/components/Repository"));
-let RepositoryEdit = LazyComponent(() => import("./module/repository/repository/components/RepositoryEdit"));
+let RepositoryEdit = LazyComponent(() => import("./module/repository/repository/components/RepositoryAddPage"));
 let RepositoryDetailPage = LazyComponent(() => import("./module/repository/overview/RepositoryOverView"));
 let RepositoryDetailLayout = LazyComponent(() => import("./module/repository/common/RepositoryDetailLayout"));
 let RepositorySettingMenu = LazyComponent(() => import("./module/repository/setting/RepositorySettingMenu"));
@@ -61,35 +61,34 @@ let Version = LazyComponent(() => import("./module/setting/version/Version"));
 let DomainRole = LazyComponent(() => import("./module/repository/setting/DomainRole"));
 let DomainPrivilege = LazyComponent(() => import("./module/repository/setting/DomainPrivilege"));
 
-
 let SystemContent = LazyComponent(() => import("./module/setting/system/SystemContent"));
 let LoginOut = LazyComponent(() => import("./module/home/header/LoginOut"));
 let AppEnvSelect = LazyComponent(() => import( "./module/support/environment/components/appEnvSelect"));
 let CaseTableQuickTest = LazyComponent(() => import( "./module/test/common/CaseTableQuickTest/CaseTableQuickTest"))
-let appEnvStore = LazyComponent(() => import( "./module/support/environment/store/appEnvStore"))
-let {findCaseInstancePage} = LazyComponent(() => import( "./module/testreport/common/instanceCommonFn"));
-let PageCenter = LazyComponent(() => import(  "./module/common/pageContent/PageCenter"))
 
+let PageCenter = LazyComponent(() => import(  "./module/common/pageContent/PageCenter"))
 const VariableTable  = LazyComponent(() => import( "./module/test/common/Variable/components/VariableTable"));
 const CaseContentCommon  = LazyComponent(() => import( "./module/test/common/CaseContentCommon"));
 const DetailCommon  = LazyComponent(() => import( "./module/common/caseCommon/DetailCommon"));
 const CaseDesc  = LazyComponent(() => import( "./module/common/caseCommon/CaseDesc"));
 const IconCommon  = LazyComponent(() => import( "./module/common/IconCommon"));
-const {showCaseTypeView,showCaseTypeInList,showStatus}  = LazyComponent(() => import( "./module/common/caseCommon/CaseCommonFn"));
-const {CASE_TYPE,testExecuteStatus,assertCompare}  = LazyComponent(() => import( "./module/common/dictionary/dictionary"));
 const UIResultCommon  = LazyComponent(() => import( "./module/test/common/UIResultCommon"));
 const ScriptEdit  = LazyComponent(() => import( "./module/test/common/ScriptEdit"));
-const stepCommonStore  = LazyComponent(() => import( "./module/test/common/stepcommon/store/StepCommonStore"));
 const IfJudgmentEdit  = LazyComponent(() => import( "./module/test/common/ifJudgment/components/IfJudgmentEdit"));
 const IconBtn  = LazyComponent(() => import( "./module/common/iconBtn/IconBtn"));
-const {IfStep}  = LazyComponent(() => import( "./module/test/common/caseCommonFn"));
-const {messageFn}  = LazyComponent(() => import( "./module/common/messageCommon/MessageCommon"));
 const CaseBread  = LazyComponent(() => import( "./module/common/CaseBread"));
 const ToggleCase  = LazyComponent(() => import( "./module/test/testcase/components/ToggleCase"));
 const StepAssertCommon  = LazyComponent(() => import( "./module/test/common/stepassert/StepAssertCommon"));
 const InstanceListCommon  = LazyComponent(() => import( "./module/testreport/common/InstanceListCommon"));
-const categoryStore  = LazyComponent(() => import( "./module/category/store/CategoryStore"));
 
+import {findCaseInstancePage} from "./module/testreport/common/instanceCommonFn";
+import {showCaseTypeView,showCaseTypeInList,showStatus} from "./module/common/caseCommon/CaseCommonFn";
+import {CASE_TYPE,testExecuteStatus,assertCompare} from "./module/common/dictionary/dictionary";
+import {IfStep}  from "./module/test/common/caseCommonFn";
+import {messageFn}  from "./module/common/messageCommon/MessageCommon";
+import appEnvStore from "./module/support/environment/store/appEnvStore"
+import categoryStore  from "./module/category/store/CategoryStore";
+import stepCommonStore  from "./module/test/common/stepcommon/store/StepCommonStore";
 
 export{
     App,

@@ -6,7 +6,7 @@ import pi4 from "../assets/img/pi4.png"
 import pi5 from "../assets/img/pi5.png"
 
 export const RepositoryIcon = (props) => {
-    const {iconUrl,className} = props
+    const {iconUrl,className,...rest} = props
 
     const iconMap = {
         "pi1.png": pi1,
@@ -19,7 +19,7 @@ export const RepositoryIcon = (props) => {
     const showIcon = ()=>{
         for (const key in iconMap) {
             if (iconUrl?.includes(key)) {
-                return <img src={iconMap[key]} alt={"icon"} className={className} {...props}/>;
+                return <img src={iconMap[key]} alt={"icon"} className={className} {...rest}/>;
             }
         }
     }

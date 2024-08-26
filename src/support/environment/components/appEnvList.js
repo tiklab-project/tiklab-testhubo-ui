@@ -19,20 +19,24 @@ const AppEnvList = (props) => {
             title: "环境名称",
             dataIndex: "name",
             key: "name",
+            ellipsis: true,
         },
         {
             title: "platformName",
             dataIndex: "platformName",
             key: "url",
+            ellipsis: true,
         },
         {
             title: "appiumSever",
             dataIndex: "appiumSever",
             key: "appiumSever",
+            ellipsis: true,
         },{
             title: "deviceName",
             dataIndex: "deviceName",
             key: "deviceName",
+            ellipsis: true,
         },
         // {
         //     title: "设备地址",
@@ -43,16 +47,18 @@ const AppEnvList = (props) => {
             title: "appPackage",
             dataIndex: "appPackage",
             key: "appPackage",
+            ellipsis: true,
         },
         {
             title: "appActivity",
             dataIndex: "appActivity",
             key: "appActivity",
+            ellipsis: true,
         },
         {
             title: "操作",
             key: "action",
-            width: 150,
+            width: 80,
             render: (text, record) => (
             <Space size="middle">
                 <AppEnvEdit name="编辑" type='edit' appEnvId={record.id} />

@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { observer, inject } from "mobx-react";
-import {Form,  Button, Input,  Row, Col, Select} from 'antd';
+import {Form,  Button, Input,  Modal, Select} from 'antd';
 import {Axios, getUser} from "thoughtware-core-ui";
 import "./repository.scss"
+import {PlusOutlined} from "@ant-design/icons";
+import {useHistory} from "react-router";
 
 const {TextArea} = Input
 const {Option} = Select;
@@ -19,27 +21,29 @@ const tailLayout = {
 /**
  * 项目 新增
  */
-const RepositoryEdit = (props) => {
-    const { repositoryStore,findList,selectItem } = props;
+const RepositoryAddModal = (props) => {
+    const { themeColor,isExpanded,repositoryStore,findList,selectItem } = props;
     const {
         repositoryRecent,
         createRepository,
     } = repositoryStore;
     const [form] = Form.useForm();
-
+    const history = useHistory()
     const [visibility, setVisibility] = useState(1);
     const [memberList, setMemberList] = useState([]);
     const [memberSelectList, setMemberSelectList] = useState([]);
-
-    /**
-     * 弹框展示
-     */
-    useEffect( async () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = async () => {
         let res = await Axios.post('/user/user/findUserList',{});
         if(res.code===0){
             setMemberList(res.data)
         }
-    },[])
+        setIsModalOpen(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     /**
      * 去往项目公共配置
@@ -54,7 +58,7 @@ const RepositoryEdit = (props) => {
         }
         repositoryRecent(params)
 
-        props.history.push(`/project/${id}/testcase`);
+        history.push(`/project/${id}/testcase`);
     }
 
     /**
@@ -68,8 +72,10 @@ const RepositoryEdit = (props) => {
 
         createRepository(values).then((res)=> {
             if(res.code===0){
+                setIsModalOpen(false);
                 toRepositoryConfig(res.data)
                 findList({}, selectItem)
+
             }
         });
     };
@@ -117,30 +123,35 @@ const RepositoryEdit = (props) => {
         }
     }
 
-
-    /**
-     * 关闭
-     */
-    const onCancel = () => {
-        props.history.push("/project")
-    };
-
-
-
     return (
-        <div className="ws-edit-modal" style={{overflow:"auto"}}>
-            <Row>
-                <Col
-                    lg={{ span: "18", offset: "3" }}
-                    xl={{ span: "14", offset: "5" }}
-                    xxl={{ span: "10", offset: "7" }}
-                    style={{ height: "100%" }}
-                >
+        <>
+            <div
+                className={`menu-box-nav-item `}
+                onClick={showModal}
+            >
+                <div
+                    className={`menu-box-nav-item-${themeColor} ${isExpanded?"menu-box-nav-item-isExpanded":"menu-box-nav-item-not-isExpanded"}`}>
+                    <div className={"menu-box-nav-item-detail"}>
+                        <PlusOutlined  style={{fontSize:"18px",margin:"0 5px"}}/>
+                    </div>
+                    <div  className={`menu-box-nav-item-detail ${isExpanded?"":"menu-box-nav-item-title"}`}>
+                        新建
+                    </div>
+                </div>
+            </div>
+            <Modal
+                title="添加项目"
+                open={isModalOpen}
+                onOk={onFinish}
+                onCancel={handleCancel}
+                okText={"创建"}
+                cancelText={"取消"}
+                centered={true}
+                width={720}
+                className={"ws-add-modal"}
+            >
+                <div className="ws-edit-modal" style={{overflow:"auto"}}>
                     <div className={"ws-edit-box"}>
-                        <div className={"ws-edit-box-header"}>
-                            <div className={"ws-edit-box-header-title"}>添加项目</div>
-                        </div>
-
                         <Form
                             className='ws-edit-modal-form'
                             form={form}
@@ -209,15 +220,12 @@ const RepositoryEdit = (props) => {
                                 <TextArea  rows={4}  placeholder="项目的描述"/>
                             </Form.Item>
                         </Form>
-                        <div className={"ws-edit-box-footer"}>
-                            <Button  onClick={onCancel} style={{margin:"0 10px 0 0"}} className={"ws-edit-box-footer-btn"}> 取消 </Button>
-                            <Button type="primary" onClick={onFinish}  className={"ws-edit-box-footer-btn important-btn"}> 提交 </Button>
-                        </div>
                     </div>
-                </Col>
-            </Row>
-        </div>
+                </div>
+            </Modal>
+        </>
+
     );
 };
 
-export default inject('repositoryStore')(observer(RepositoryEdit));
+export default inject('repositoryStore')(observer(RepositoryAddModal));
