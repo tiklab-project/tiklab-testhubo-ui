@@ -17,6 +17,7 @@
         .system-header-title{
             font-size: 18px;
             font-weight: bold;
+            cursor: pointer;
         }
 
         .system-header-back-home{
@@ -46,7 +47,7 @@
 
         .aside-li{
             cursor: pointer;
-            padding: 0 15px 0 20px;
+            padding: 0 15px 0 16px;
             display: flex;
             align-items: center;
             gap: 5px;

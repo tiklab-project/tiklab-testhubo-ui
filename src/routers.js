@@ -9,6 +9,7 @@ import {ExcludeProductUser, NotFound} from "thoughtware-eam-ui";
 import {BackupRestore, LogTemplate, LogType, MyLog} from "thoughtware-security-ui";
 import {MessageNotice, MessageSendType, MessageType} from "thoughtware-message-ui";
 import {ProductAuth} from "thoughtware-licence-ui";
+import SettingHome from "./setting/system/SettingHome";
 
 //---内部
 let PortalHeader = LazyComponent(() => import("./home/header/PortalContent"));
@@ -135,6 +136,11 @@ const routers =  [
                 path:'/setting',
                 component:SystemContent,
                 routes:[
+                    {
+                        path: "/setting/home",
+                        component: SettingHome,
+                        exact: true,
+                    },
                     //成员与部门
                     {
                         path: "/setting/orga",
@@ -169,18 +175,19 @@ const routers =  [
                     },
                     //消息
                     {
+                        path: "/setting/messageNotice",
+                        key:'MessageType',
+                        exact: true,
+                        render:()=> <MessageNotice bgroup={"teston"} />
+                    },
+                    {
                         path: "/setting/messageSendType",
                         key:'MessageSendType',
                         exact: true,
                         render:()=> <MessageSendType bgroup={"teston"}/>
 
                     },
-                    {
-                        path: "/setting/messageNotice",
-                        key:'MessageType',
-                        exact: true,
-                        render:()=> <MessageNotice bgroup={"teston"} />
-                    },
+
                     {
                         path: "/setting/backups",
                         exact: true,

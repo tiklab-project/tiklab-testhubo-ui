@@ -159,29 +159,29 @@ const LeftNav = (props) =>{
             {
                 isExpanded
                     ?  <li className={`menu-box-nav-item-repository `} >
-                            <Dropdown
-                                overlay={()=>toggleRepositorys(isExpanded)}
-                                trigger={['click']}
-                                visible={visible}
-                                onOpenChange={openToggleWorkspace}
-                            >
-                                <div style={{padding:`15px  0 15px 24px`}} className={`ws-icon-box menu-box-nav-item-isExpanded`}>
-                                    <div style={{"cursor":"pointer"}}>
-                                        <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={`icon-l`}/>
-                                    </div>
-                                    <div className={"text-ellipsis"} style={{maxWidth:"100px"}}>{repositoryInfo?.name}</div>
-                                    <IconCommon
-                                        style={{
-                                            "cursor":"pointer",
-                                            width:"12px",
-                                            height:"12px",
-                                            marginLeft:"3px"
-                                        }}
-                                        icon={"xiala"}
-                                    />
+                        <Dropdown
+                            overlay={()=>toggleRepositorys(isExpanded)}
+                            trigger={['click']}
+                            visible={visible}
+                            onOpenChange={openToggleWorkspace}
+                        >
+                            <div style={{padding:`15px  0 15px 24px`}} className={`ws-icon-box menu-box-nav-item-isExpanded`}>
+                                <div style={{"cursor":"pointer"}}>
+                                    <RepositoryIcon iconUrl={repositoryInfo?.iconUrl} className={`icon-l`}/>
                                 </div>
-                            </Dropdown>
-                        </li>
+                                <div className={"text-ellipsis"} style={{maxWidth:"100px"}}>{repositoryInfo?.name}</div>
+                                <IconCommon
+                                    style={{
+                                        "cursor":"pointer",
+                                        width:"10px",
+                                        height:"10px",
+                                        marginLeft:"3px"
+                                    }}
+                                    icon={"xiala"}
+                                />
+                            </div>
+                        </Dropdown>
+                    </li>
 
                     : <Dropdown
                         overlay={()=>toggleRepositorys(isExpanded)}
@@ -221,7 +221,7 @@ const LeftNav = (props) =>{
                             <div className={"menu-box-nav-item-detail"}>
                                 <HomeOutlined
                                     style={{
-                                        fontSize:`${isExpanded?"18px":"24px"}`,
+                                        fontSize:`18px`,
                                         margin:"0 5px 0 6px",
                                         color:"#777"
                                     }}
@@ -236,7 +236,7 @@ const LeftNav = (props) =>{
                                 <div className={"menu-box-nav-item-detail"}>
                                     <HomeOutlined
                                         style={{
-                                            fontSize:`${isExpanded?"18px":"24px"}`,
+                                            fontSize:`24px`,
                                             margin:"0 5px 0 6px",
                                             color:"#777"
                                         }}

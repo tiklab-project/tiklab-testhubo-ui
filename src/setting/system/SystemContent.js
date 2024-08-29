@@ -46,15 +46,16 @@ const SystemContent = (props) =>{
             id: '/setting',
             children: [
                 {
-                    title: "消息发送方式",
-                    icon: 'rizhijilu',
-                    id: '/setting/messageSendType',
-                    purviewCode: "MSG_SendType",
-                },{
                     title: "消息通知方案",
                     icon: 'rizhijilu',
                     id: '/setting/messageNotice',
                     purviewCode: "MSG_Notice",
+                },
+                {
+                    title: "消息发送方式",
+                    icon: 'rizhijilu',
+                    id: '/setting/messageSendType',
+                    purviewCode: "MSG_SendType",
                 },
             ],
         },{

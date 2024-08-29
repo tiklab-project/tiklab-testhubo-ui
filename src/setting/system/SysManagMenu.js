@@ -5,6 +5,7 @@ import { PrivilegeButton,SystemNav } from "thoughtware-privilege-ui";
 import './sysMana.scss'
 import {getUser} from "thoughtware-core-ui";
 import IconCommon from "../../common/IconCommon";
+import {useLocation} from "react-router";
 
 const SPECIAL_KEYS = [
     "/setting/orga",
@@ -22,12 +23,21 @@ const SystemManagement = (props) => {
     const [expandedTree, setExpandedTree] = useState([]);
 
     const authConfig = JSON.parse(localStorage.getItem('authConfig'));
+    let pathname = useLocation().pathname
 
     useEffect(() => {
         setMenuRouter(settingMenu);
     }, [settingMenu]);
 
-    const isExpandedTree = useCallback((key) => expandedTree.includes(key), [expandedTree]);
+    useEffect(()=>{
+        if(pathname.startsWith("/setting")){
+            setSelectKey(pathname);
+        }
+    },[pathname])
+
+    const isExpandedTree = (key) => {
+        return expandedTree.some(item => item ===key)
+    }
 
     const toggleExpand = useCallback((key) => {
         setExpandedTree(prev =>
@@ -66,7 +76,7 @@ const SystemManagement = (props) => {
     const renderSubMenu = useCallback(({ title, id, children, purviewCode, icon }, deep) => (
         <PrivilegeButton key={id} code={purviewCode || ''}>
             <li>
-                <div className="orga-aside-item aside-li" onClick={() => toggleExpand(id)} style={{ paddingLeft: `${deep * 20}px` }}>
+                <div className="orga-aside-item aside-li" onClick={() => toggleExpand(id)} style={{ paddingLeft: `16px` }}>
                     <div className="menu-name-icon">
                         <IconCommon icon={icon} className="icon-m" />
                         <span>{title}</span>
@@ -102,11 +112,13 @@ const SystemManagement = (props) => {
             applicationRouters={menuRouter}
             outerPath={"/setting"}
             noAccessPath={"/noaccess"}
+            expandedTree={expandedTree} // 树的展开和闭合(非必传)
+            setExpandedTree={setExpandedTree} // 树的展开和闭合(非必传)
         >
             <div className='sysmana-layout'>
                 <div className="thoughtware-orga-aside">
                     <div className="system-header">
-                        <div className="system-header-title system-header-item">设置</div>
+                        <div className="system-header-title system-header-item" onClick={()=>history.push("/setting/home")}>设置</div>
                         <div
                             className="system-header-back-home system-header-item"
                             onClick={() => {
