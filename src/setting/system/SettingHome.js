@@ -50,7 +50,7 @@ const SettingHome = props => {
     },[])
 
     useEffect(async ()=>{
-        let logInfo =  await Axios.post("/oplog/findlogpage", {"bgroup":"teston","userId":getUser().userId});
+        let logInfo =  await Axios.post("/oplog/findlogpage", {"bgroup":"testrubo","userId":getUser().userId});
         setLog(logInfo.data)
     },[])
 
@@ -113,7 +113,7 @@ const SettingHome = props => {
 
     const goAuth = () => {
         if(version==='cloud'){
-            return applyJump('https://work.cloud.thoughtware.cn/#/enterprise/auth/teston')
+            return applyJump('https://work.cloud.thoughtware.cn/#/enterprise/auth/testrubo')
         }
         props.history.push(`/setting/productAuth`)
     }
@@ -160,7 +160,7 @@ const SettingHome = props => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='home-licence-sub' onClick={()=>applySubscription('teston')}>
+                            <div className='home-licence-sub' onClick={()=>applySubscription('testrubo')}>
                                 {showProductInfo()?.expired ? '订阅' : '续订'}
                             </div>
                         </div>

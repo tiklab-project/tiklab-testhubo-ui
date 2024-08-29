@@ -82,7 +82,7 @@ const MessageDrawer = ({isExpanded,themeColor}) =>{
         const param = {
             sendType: 'site',
             receiver: getUser().userId,
-            bgroup:"teston",
+            bgroup:"testrubo",
             ...params
         }
 
@@ -169,7 +169,7 @@ const MessageDrawer = ({isExpanded,themeColor}) =>{
             id:item.id,
             message:{id: item.message.id },
             status:1,
-            bgroup:"teston"
+            bgroup:"testrubo"
         }
         const res =  await Axios.post('/message/messageItem/updateMessageItem', updateParams);
         if(res.code===0){

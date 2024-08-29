@@ -73,7 +73,7 @@ const AfterScript = ({apiUnitId}) => {
                         width={"100%"}
                     />
                 </div>
-                <div className={`action-btn-box ${showBtn?"teston-show":"teston-hide"}`}>
+                <div className={`action-btn-box ${showBtn?"testrubo-show":"testrubo-hide"}`}>
                     <Button onClick={()=>setShowBtn(false)} style={{marginRight:"10px"}}> 取消</Button>
                     <Button onClick={onFinish} className={"important-btn"} type="primary"> 保存</Button>
                 </div>

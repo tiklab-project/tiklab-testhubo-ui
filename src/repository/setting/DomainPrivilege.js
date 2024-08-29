@@ -11,7 +11,7 @@ const DomainPrivilege = props => {
             <DomainRole
                 {...props} 
                 domainId = {repositoryId}
-                bgroup={"teston"}
+                bgroup={"testrubo"}
             />
     )
 }

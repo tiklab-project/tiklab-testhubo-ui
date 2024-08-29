@@ -106,7 +106,7 @@ const ToggleCase = (props) =>{
             </div>
             </Tooltip>
 
-            <div className={`case-toggle-title ${visible === false ? 'teston-hide' : 'teston-show'}`}>
+            <div className={`case-toggle-title ${visible === false ? 'testrubo-hide' : 'testrubo-show'}`}>
                 <Spin spinning={spinning}>
                     <div style={{minHeight:"200px"}}>
                         <div className={"header-title"} style={{padding:"8px 5px 10px"}} >切换用例</div>

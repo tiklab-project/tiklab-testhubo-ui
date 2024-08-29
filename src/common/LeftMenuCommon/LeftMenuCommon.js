@@ -180,9 +180,9 @@ const LeftMenuCommon = (props) =>{
             {
                 isFirst&&<div style={{width:`${isExpanded&&"200px"}`}} className={'product-logo-box'} onClick={()=>clickToPage({router:"/index"})}>
 
-                    <img src={themeColor===THEME_DEFAULT?productImg.teston:productFrameImg?.teston} alt='logo' className={`${isExpanded?"product-logo-expanded":"product-logo"}`}/>
+                    <img src={themeColor===THEME_DEFAULT?productImg.testrubo:productFrameImg?.testrubo} alt='logo' className={`${isExpanded?"product-logo-expanded":"product-logo"}`}/>
                     {
-                        isExpanded&&<div className={"productName"} >{productTitle.teston}</div>
+                        isExpanded&&<div className={"productName"} >{productTitle.testrubo}</div>
                     }
                 </div>
             }
@@ -224,7 +224,7 @@ const LeftMenuCommon = (props) =>{
 
                     {
                         HelpLink&& <HelpLink
-                            bgroup={'teston'}
+                            bgroup={'testrubo'}
                             iconComponent= {
                                 isExpanded
                                     ?<div className={`menu-box-bottom-item-${themeColor} menu-box-bottom-item`}>
@@ -241,7 +241,7 @@ const LeftMenuCommon = (props) =>{
                     }
                     {
                         AppLink&& <AppLink
-                            bgroup={'teston'}
+                            bgroup={'testrubo'}
                             translateX={isExpanded?200:75}
                             iconComponent={
                                 isExpanded

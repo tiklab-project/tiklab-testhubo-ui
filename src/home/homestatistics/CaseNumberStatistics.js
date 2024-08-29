@@ -23,22 +23,22 @@ const CaseNumberStatistics = ({repositoryId}) =>{
     const dataItem = [
         {
             title: "总数",
-            value: dataInfo.total,
+            value: dataInfo?.total,
             color: "#919191"
         },
         {
             title: "未开始",
-            value: dataInfo.notstarted,
+            value: dataInfo?.notstarted,
             color: "#5e70c2"
         },
         {
             title: "进行中",
-            value: dataInfo.inprogress,
+            value: dataInfo?.inprogress,
             color: "#a1ca7d"
         },
         {
             title: "完成",
-            value: dataInfo.completed,
+            value: dataInfo?.completed,
             color: "#efcc6b"
         }
     ];

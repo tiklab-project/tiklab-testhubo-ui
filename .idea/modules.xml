@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/thoughtware-teston-ui.iml" filepath="$PROJECT_DIR$/.idea/thoughtware-teston-ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/thoughtware-testrubo-ui.iml" filepath="$PROJECT_DIR$/.idea/thoughtware-testrubo-ui.iml" />
     </modules>
   </component>
 </project>

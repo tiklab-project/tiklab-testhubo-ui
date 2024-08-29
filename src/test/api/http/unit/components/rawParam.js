@@ -75,7 +75,7 @@ const RawParam = ({apiUnitId}) => {
                         <TextArea autoSize={{minRows: 4, maxRows: 10 }} onFocus={()=>setFocus(true)}/>
                     </Form.Item>
                 </div>
-                <div className={`action-btn-box ${focus?"teston-show":"teston-hide"}`}>
+                <div className={`action-btn-box ${focus?"testrubo-show":"testrubo-hide"}`}>
                     <Button onClick={()=>setFocus(false)} style={{marginRight:"10px"}}> 取消</Button>
                     <Button onClick={onFinish} className={"important-btn"} type="primary"> 保存</Button>
                 </div>

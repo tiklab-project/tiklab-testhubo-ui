@@ -12,8 +12,8 @@ const LoginContent = (props)=> {
     return(
         <Login
             {...props}
-            title={"teston"}
-            bgroup={'teston'}
+            title={"testrubo"}
+            bgroup={'testrubo'}
             loginGoRouter="/"
             vaildUserAuthRouter={"/no-auth"}
         />

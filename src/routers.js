@@ -145,16 +145,16 @@ const routers =  [
                     {
                         path: "/setting/orga",
                         exact: true,
-                        render:(props)=> <Orga {...props} bgroup={'teston'}/>
+                        render:(props)=> <Orga {...props} bgroup={'testrubo'}/>
                     },{
                         path: "/setting/user",
                         exact: true,
-                        render:(props)=> <User {...props} bgroup={'teston'}/>
+                        render:(props)=> <User {...props} bgroup={'testrubo'}/>
                     },{
                         path: "/setting/dir",
                         key:'authConfig',
                         exact: true,
-                        render: () => <Directory isPortal={false} bgroup={"teston"}/>,
+                        render: () => <Directory isPortal={false} bgroup={"testrubo"}/>,
                     },{
                         path: "/setting/userGroup",
                         key:'authConfig',
@@ -171,20 +171,20 @@ const routers =  [
                     {
                         path: "/setting/systemRole",
                         key:'SystemRole',
-                        render: () => <SystemRole group={'system'} bgroup={"teston"}/>,
+                        render: () => <SystemRole group={'system'} bgroup={"testrubo"}/>,
                     },
                     //消息
                     {
                         path: "/setting/messageNotice",
                         key:'MessageType',
                         exact: true,
-                        render:()=> <MessageNotice bgroup={"teston"} />
+                        render:()=> <MessageNotice bgroup={"testrubo"} />
                     },
                     {
                         path: "/setting/messageSendType",
                         key:'MessageSendType',
                         exact: true,
-                        render:()=> <MessageSendType bgroup={"teston"}/>
+                        render:()=> <MessageSendType bgroup={"testrubo"}/>
 
                     },
 
@@ -203,7 +203,7 @@ const routers =  [
                         path: "/setting/log",
                         key:'log',
                         exact: true,
-                        render:(props)=>  <MyLog {...props} bgroup={"teston"}/>,
+                        render:(props)=>  <MyLog {...props} bgroup={"testrubo"}/>,
                     },
                     //版本
                     {
@@ -224,19 +224,19 @@ const routers =  [
                     {
                         path: "/setting/baseSystemRole",
                         exact: true,
-                        render: () => <SystemRole isBase={true} group={'system'} bgroup={"teston"}/>,
+                        render: () => <SystemRole isBase={true} group={'system'} bgroup={"testrubo"}/>,
                     },
                     {
                         path: "/setting/systemFeature",
                         key:'SystemFeature',
                         exact: true,
-                        render: () => <SystemFeature isBase={true} bgroup={"teston"}/>,
+                        render: () => <SystemFeature isBase={true} bgroup={"testrubo"}/>,
                     },
                     {
                         path: "/setting/privilege",
                         key:'ProjectFeature',
                         exact: true,
-                        render: (props) => <ProjectFeature isBase={true} {...props} bgroup={"teston"}/>,
+                        render: (props) => <ProjectFeature isBase={true} {...props} bgroup={"testrubo"}/>,
                     },
                     {
                         path: "/setting/virtual-role",
@@ -248,37 +248,37 @@ const routers =  [
                         path: "/setting/role",
                         key:'ProjectRole',
                         exact: true,
-                        render: (props) => <ProjectRole isBase={true} {...props} bgroup={"teston"}/>,
+                        render: (props) => <ProjectRole isBase={true} {...props} bgroup={"testrubo"}/>,
                     },
                     {
                         path: "/setting/messageSendTypeBase",
                         key:'messageSendTypeBase',
                         exact: true,
-                        render:()=> <MessageSendType bgroup={"teston"} isBase={true}/>
+                        render:()=> <MessageSendType bgroup={"testrubo"} isBase={true}/>
                     },
                     {
                         path: "/setting/message-notice-base",
                         key:'MessageType',
                         exact: true,
-                        render:()=> <MessageNotice bgroup={"teston"} isBase={true}/>
+                        render:()=> <MessageNotice bgroup={"testrubo"} isBase={true}/>
                     },
                     {
                         path: "/setting/messageType",
                         key:'MessageType',
                         exact: true,
-                        render:()=> <MessageType bgroup={"teston"} />
+                        render:()=> <MessageType bgroup={"testrubo"} />
 
                     },
                     {
                         path: "/setting/logTemplate",
                         key:'logTemplate',
                         exact: true,
-                        render:(props)=>  <LogTemplate {...props} bgroup={"teston"}/>,
+                        render:(props)=>  <LogTemplate {...props} bgroup={"testrubo"}/>,
                     },{
                         path: "/setting/logType",
                         key:'logTemplate',
                         exact: true,
-                        render:()=>  <LogType bgroup={"teston"}/>,
+                        render:()=>  <LogType bgroup={"testrubo"}/>,
                     },
                     {
                         path:"/setting",

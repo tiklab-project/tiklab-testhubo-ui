@@ -22,7 +22,7 @@ const CaseDesc = ({form,updateCase}) =>{
                     />
                 </Form.Item>
             </Form>
-            <div className={` ${isFocus?"teston-show":"teston-hide"}`}>
+            <div className={` ${isFocus?"testrubo-show":"testrubo-hide"}`}>
                 <Button
                     onClick={()=>{
                         updateCase()

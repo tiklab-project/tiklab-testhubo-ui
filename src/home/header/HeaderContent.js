@@ -22,9 +22,9 @@ const HeaderContent = props => {
                 {props.AppLink}
                 <div className={"display-flex-gap"} style={{margin:"0 20px"}}>
                     <div className={'frame-header-logo'} onClick={goHome} style={{cursor:"pointer"}}>
-                        <img src={productWhiteImg.teston} alt='logo' />
+                        <img src={productWhiteImg.testrubo} alt='logo' />
                     </div>
-                    <div className={"productName"} onClick={goHome} style={{cursor:"pointer"}}>{productTitle.teston}</div>
+                    <div className={"productName"} onClick={goHome} style={{cursor:"pointer"}}>{productTitle.testrubo}</div>
                 </div>
 
             </div>
