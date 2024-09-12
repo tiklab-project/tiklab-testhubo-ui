@@ -47,17 +47,17 @@ const DetailCommon = (props) =>{
                 >
                     <Row gutter={[0,10]}>
 
-                        <Col span={9}>
+                        <Col span={12}>
                             <Form.Item label={"名称"} name="name" >
                                 <Input placeholder={"名称"} />
                             </Form.Item>
                         </Col>
-                        <Col span={9}>
+                        <Col span={12}>
                             <Form.Item label={"用例类型"} >
                                 <div style={{margin:"0 0 0 10px"}}>{showCaseTypeInList(detailInfo?.testCase?.caseType)}</div>
                             </Form.Item>
                         </Col>
-                        <Col span={9}>
+                        <Col span={12}>
                             <Form.Item label={"模块"} name="category" >
                                 <TreeSelect
                                     fieldNames={{ label: 'name', value: 'id', children: 'children' }}
@@ -73,7 +73,7 @@ const DetailCommon = (props) =>{
                                 />
                             </Form.Item>
                         </Col>
-                        <Col span={9}>
+                        <Col span={12}>
                             <Form.Item label={"状态"} name="status" >
                                 <Select placeholder={"未设置"}>
                                     <Option value={0}><Tag color="#bfc4c6">未开始</Tag></Option>
@@ -82,7 +82,7 @@ const DetailCommon = (props) =>{
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col span={9}>
+                        <Col span={12}>
                             <Form.Item label={"责任人"} name="director">
                                 <Select placeholder={"未设置"}>
                                     {
@@ -93,7 +93,7 @@ const DetailCommon = (props) =>{
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col span={9}>
+                        <Col span={12}>
                             <Form.Item label={"优先级"} name="priorityLevel" >
                                 <Select placeholder={"未设置"}>
                                     <Option value={0}>
@@ -130,19 +130,19 @@ const DetailCommon = (props) =>{
                             </Form.Item>
                         </Col>
 
-                        <Col span={9}>
+                        <Col span={12}>
                             <Form.Item label={"创建时间"} name="createTime" >
                                 <Input disabled={true} placeholder={"创建时间"} />
                             </Form.Item>
                         </Col>
-                        <Col span={9}>
+                        <Col span={12}>
                             <Form.Item label={"更新时间"} name="updateTime" >
                                 <Input disabled={true}  placeholder={"更新时间"}/>
                             </Form.Item>
                         </Col>
                         {
                             demand
-                                ?<Col span={9}>
+                                ?<Col span={12}>
                                         <Form.Item label={"关联需求"} name="updateTime" >
                                             {demand}
                                         </Form.Item>
@@ -153,7 +153,7 @@ const DetailCommon = (props) =>{
                 </Form>
             </div>
             <Row >
-                <Col span={20}>
+                <Col span={24}>
                     <CaseDesc form={form} updateCase={updateCase}/>
                 </Col>
             </Row>

@@ -75,7 +75,7 @@ const FunctionDetail = (props) =>{
         {
             label: `详细信息`,
             key: '1',
-            children: <>
+            children: <div className={"case-detail-center"}>
                 <DetailCommon
                     type={true}
                     detailInfo={funcUnitInfo}
@@ -90,7 +90,7 @@ const FunctionDetail = (props) =>{
                         />
                     }
                 />
-            </>
+            </div>
         },{
             label: <span>测试步骤 <span className={"font-12"}>{funcUnitInfo?.stepNum||0}</span></span>,
             key: '2',
@@ -112,3 +112,4 @@ const FunctionDetail = (props) =>{
 }
 
 export default inject('funcUnitStore',"workItemStore")(observer(FunctionDetail));
+

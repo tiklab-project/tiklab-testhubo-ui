@@ -4,10 +4,14 @@
     height: 100%;
 
     .icon-bg-grey{
-        background:#f8f8f8;
         padding:0 5px;
-        border: 1px solid #f6efef;
         border-radius: 5px;
+        border: 1px solid #fff;
+
+        &:hover{
+            background:#f8f8f8;
+            border: 1px solid #f6efef;
+        }
     }
 
     .case-list-left{

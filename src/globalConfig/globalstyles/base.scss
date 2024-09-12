@@ -432,6 +432,10 @@ table .icon{
     .ant-empty{
         margin: 20px;
     }
+
+    .ant-input, .ant-input-affix-wrapper, .ant-select-selector{
+        background-color: unset;
+    }
 }
 
 

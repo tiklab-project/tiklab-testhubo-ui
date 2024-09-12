@@ -79,8 +79,6 @@ const DynamicWidget = (props) =>{
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         )
                     })

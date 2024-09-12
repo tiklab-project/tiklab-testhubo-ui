@@ -145,11 +145,11 @@ const routers =  [
                     {
                         path: "/setting/orga",
                         exact: true,
-                        render:(props)=> <Orga {...props} bgroup={'testrubo'}/>
+                        render:(props)=> <div className={"table-list-box"}><Orga {...props} bgroup={'testrubo'}/></div>
                     },{
                         path: "/setting/user",
                         exact: true,
-                        render:(props)=> <User {...props} bgroup={'testrubo'}/>
+                        render:(props)=> <div className={"table-list-box"}><User {...props} bgroup={'testrubo'}/></div>
                     },{
                         path: "/setting/dir",
                         key:'authConfig',
@@ -171,7 +171,7 @@ const routers =  [
                     {
                         path: "/setting/systemRole",
                         key:'SystemRole',
-                        render: () => <SystemRole group={'system'} bgroup={"testrubo"}/>,
+                        render: () => <div className={"table-list-box"}><SystemRole group={'system'} bgroup={"testrubo"}/></div>,
                     },
                     //消息
                     {

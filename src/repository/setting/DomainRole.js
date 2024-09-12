@@ -8,11 +8,13 @@ const DomainRole = props => {
     const repositoryId = sessionStorage.getItem('repositoryId')
 
     return (
+        <div className={"table-list-box"}>
             <DomainUser
                 {...props} 
                 domainId = {repositoryId}
                 bgroup={"testrubo"}
             />
+        </div>
     )
 }
 

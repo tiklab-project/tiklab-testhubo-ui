@@ -62,11 +62,13 @@ const ApiPerformDetail = (props) =>{
         {
             label:"详细信息",
             key:"1",
-            children:<DetailCommon
-                detailInfo={caseInfo}
-                updateCase={updateCase}
-                form={form}
-            />
+            children:<div className={"case-detail-center"}>
+                <DetailCommon
+                    detailInfo={caseInfo}
+                    updateCase={updateCase}
+                    form={form}
+                />
+            </div>
         },{
             label:  <span>测试步骤 <span className={"font-12"}>{apiPerfInfo?.stepNum||0}</span></span>,
             key:"2",

@@ -68,7 +68,6 @@ const SettingHome = props => {
     },[])
 
 
-
     const showProductInfo = () =>{
         if(version==="cloud"){
             if(!cloudProductInfo) return ;
@@ -105,7 +104,7 @@ const SettingHome = props => {
         if(!authConfig.authType){
             const isAuth = li.some(item => item===path)
             if(isAuth){
-                return applyJump(`${authConfig.authServiceUrl}/#/user/${path}`)
+                return applyJump(`${authConfig.authServiceUrl}/#/setting/${path}`)
             }
         }
         props.history.push(`/setting/${path}`)
@@ -113,7 +112,7 @@ const SettingHome = props => {
 
     const goAuth = () => {
         if(version==='cloud'){
-            return applyJump('https://work.cloud.thoughtware.cn/#/enterprise/auth/testrubo')
+            return applyJump('https://work.cloud.tiklab.net/#/enterprise/auth/testrubo')
         }
         props.history.push(`/setting/productAuth`)
     }

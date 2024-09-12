@@ -22,12 +22,12 @@ const ProjectAllDefectList = (props) =>{
             //     <a onClick={()=>toWorkItem(record)}>{text}</a>
             // )
         },{
-            title: `功能用例名称`,
+            title: `用例名称`,
             dataIndex:["testCase","name"],
             key: "name",
         },
         {
-            title: `项目名称(Kanass)`,
+            title: `项目名称`,
             dataIndex:["workItem","projectName"],
             key: "projectName",
         },

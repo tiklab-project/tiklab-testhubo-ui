@@ -70,9 +70,9 @@ const CaseList = (props) => {
         setIsModalOpen(false);
 
         if(version==="ce"||version==="ee"){
-            window.open("https://thoughtware.cn/account/subscribe/apply/postin")
+            window.open("https://tiklab.net/account/subscribe/apply/postin")
         }else {
-            window.open("https://work.thoughtware.cn/#/enterprise/application/postin")
+            window.open("https://work.tiklab.net/#/enterprise/application/postin")
         }
     };
 

@@ -57,12 +57,14 @@ const ApiSceneDetail = (props) =>{
         {
             label: `详细信息`,
             key: '1',
-            children:<DetailCommon
-                type={true}
-                detailInfo={apiSceneInfo}
-                updateCase={updateCase}
-                form={form}
-            />
+            children:<div className={"case-detail-center"}>
+                <DetailCommon
+                    type={true}
+                    detailInfo={apiSceneInfo}
+                    updateCase={updateCase}
+                    form={form}
+                />
+            </div>
         },
         {
             label: <span>测试步骤 <span className={"font-12"}>{apiSceneInfo?.stepNum||0}</span></span>,
