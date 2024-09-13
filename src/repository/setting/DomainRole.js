@@ -12,7 +12,7 @@ const DomainRole = props => {
             <DomainUser
                 {...props} 
                 domainId = {repositoryId}
-                bgroup={"testrubo"}
+                bgroup={"testhubo"}
             />
         </div>
     )

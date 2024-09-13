@@ -145,16 +145,16 @@ const routers =  [
                     {
                         path: "/setting/orga",
                         exact: true,
-                        render:(props)=> <div className={"table-list-box"}><Orga {...props} bgroup={'testrubo'}/></div>
+                        render:(props)=> <div className={"table-list-box"}><Orga {...props} bgroup={'testhubo'}/></div>
                     },{
                         path: "/setting/user",
                         exact: true,
-                        render:(props)=> <div className={"table-list-box"}><User {...props} bgroup={'testrubo'}/></div>
+                        render:(props)=> <div className={"table-list-box"}><User {...props} bgroup={'testhubo'}/></div>
                     },{
                         path: "/setting/dir",
                         key:'authConfig',
                         exact: true,
-                        render: () => <Directory isPortal={false} bgroup={"testrubo"}/>,
+                        render: () => <Directory isPortal={false} bgroup={"testhubo"}/>,
                     },{
                         path: "/setting/userGroup",
                         key:'authConfig',
@@ -171,20 +171,20 @@ const routers =  [
                     {
                         path: "/setting/systemRole",
                         key:'SystemRole',
-                        render: () => <div className={"table-list-box"}><SystemRole group={'system'} bgroup={"testrubo"}/></div>,
+                        render: () => <div className={"table-list-box"}><SystemRole group={'system'} bgroup={"testhubo"}/></div>,
                     },
                     //消息
                     {
                         path: "/setting/messageNotice",
                         key:'MessageType',
                         exact: true,
-                        render:()=> <MessageNotice bgroup={"testrubo"} />
+                        render:()=> <MessageNotice bgroup={"testhubo"} />
                     },
                     {
                         path: "/setting/messageSendType",
                         key:'MessageSendType',
                         exact: true,
-                        render:()=> <MessageSendType bgroup={"testrubo"}/>
+                        render:()=> <MessageSendType bgroup={"testhubo"}/>
 
                     },
 
@@ -203,7 +203,7 @@ const routers =  [
                         path: "/setting/log",
                         key:'log',
                         exact: true,
-                        render:(props)=>  <MyLog {...props} bgroup={"testrubo"}/>,
+                        render:(props)=>  <MyLog {...props} bgroup={"testhubo"}/>,
                     },
                     //版本
                     {
@@ -224,19 +224,19 @@ const routers =  [
                     {
                         path: "/setting/baseSystemRole",
                         exact: true,
-                        render: () => <SystemRole isBase={true} group={'system'} bgroup={"testrubo"}/>,
+                        render: () => <SystemRole isBase={true} group={'system'} bgroup={"testhubo"}/>,
                     },
                     {
                         path: "/setting/systemFeature",
                         key:'SystemFeature',
                         exact: true,
-                        render: () => <SystemFeature isBase={true} bgroup={"testrubo"}/>,
+                        render: () => <SystemFeature isBase={true} bgroup={"testhubo"}/>,
                     },
                     {
                         path: "/setting/privilege",
                         key:'ProjectFeature',
                         exact: true,
-                        render: (props) => <ProjectFeature isBase={true} {...props} bgroup={"testrubo"}/>,
+                        render: (props) => <ProjectFeature isBase={true} {...props} bgroup={"testhubo"}/>,
                     },
                     {
                         path: "/setting/virtual-role",
@@ -248,37 +248,37 @@ const routers =  [
                         path: "/setting/role",
                         key:'ProjectRole',
                         exact: true,
-                        render: (props) => <ProjectRole isBase={true} {...props} bgroup={"testrubo"}/>,
+                        render: (props) => <ProjectRole isBase={true} {...props} bgroup={"testhubo"}/>,
                     },
                     {
                         path: "/setting/messageSendTypeBase",
                         key:'messageSendTypeBase',
                         exact: true,
-                        render:()=> <MessageSendType bgroup={"testrubo"} isBase={true}/>
+                        render:()=> <MessageSendType bgroup={"testhubo"} isBase={true}/>
                     },
                     {
                         path: "/setting/message-notice-base",
                         key:'MessageType',
                         exact: true,
-                        render:()=> <MessageNotice bgroup={"testrubo"} isBase={true}/>
+                        render:()=> <MessageNotice bgroup={"testhubo"} isBase={true}/>
                     },
                     {
                         path: "/setting/messageType",
                         key:'MessageType',
                         exact: true,
-                        render:()=> <MessageType bgroup={"testrubo"} />
+                        render:()=> <MessageType bgroup={"testhubo"} />
 
                     },
                     {
                         path: "/setting/logTemplate",
                         key:'logTemplate',
                         exact: true,
-                        render:(props)=>  <LogTemplate {...props} bgroup={"testrubo"}/>,
+                        render:(props)=>  <LogTemplate {...props} bgroup={"testhubo"}/>,
                     },{
                         path: "/setting/logType",
                         key:'logTemplate',
                         exact: true,
-                        render:()=>  <LogType bgroup={"testrubo"}/>,
+                        render:()=>  <LogType bgroup={"testhubo"}/>,
                     },
                     {
                         path:"/setting",

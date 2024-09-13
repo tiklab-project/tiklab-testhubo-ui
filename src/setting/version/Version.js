@@ -78,7 +78,7 @@ const Version = (props) =>{
         },
     ];
     return(
-        <VersionCom  bgroup={'testrubo'}>
+        <VersionCom  bgroup={'testhubo'}>
 
             <div className={"version-function-box"}>
                 <Table

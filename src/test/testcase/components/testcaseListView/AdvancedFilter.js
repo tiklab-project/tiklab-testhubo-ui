@@ -100,7 +100,7 @@ const AdvancedFilter = (props) =>{
                 </div>
             </Tooltip>
 
-            <div className={`advanced-filter-toggle-box  ${visible === false ? 'testrubo-hide' : 'testrubo-show'}`}>
+            <div className={`advanced-filter-toggle-box  ${visible === false ? 'testhubo-hide' : 'testhubo-show'}`}>
                 <div style={{margin:"10px 0 "}}>
                     <div className={"advanced-filter-item-title"}>模块 : </div>
                     <TreeSelect

@@ -24,7 +24,7 @@ const  PageContent =(props)=> {
 
      useEffect(() => {
          if (user.userId) {
-             props.systemRoleStore.getSystemPermissions(user.userId,"testrubo")
+             props.systemRoleStore.getSystemPermissions(user.userId,"testhubo")
          }
      }, [user])
 

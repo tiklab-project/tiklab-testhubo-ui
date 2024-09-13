@@ -68,7 +68,7 @@ const ExtensionCommon =(props)=>{
     const handleOk = () => {
         setIsModalOpen(false);
 
-        applySubscription('testrubo')
+        applySubscription('testhubo')
     };
 
     const handleCancel = () =>  setIsModalOpen(false);

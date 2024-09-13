@@ -10,7 +10,7 @@ const featureList =[
     {
         "id": "TestOn3f85",
         "productType": {
-            "id": "testrubo",
+            "id": "testhubo",
             "code": null,
             "typeName": null
         },
@@ -265,7 +265,7 @@ const featureList =[
     {
         "id": "TestOn3720e",
         "productType": {
-            "id": "testrubo",
+            "id": "testhubo",
             "code": null,
             "typeName": null
         },
@@ -403,7 +403,7 @@ const featureList =[
     {
         "id": "TestOn5b627",
         "productType": {
-            "id": "testrubo",
+            "id": "testhubo",
             "code": null,
             "typeName": null
         },
@@ -650,7 +650,7 @@ const featureList =[
     {
         "id": "TestOn062be",
         "productType": {
-            "id": "testrubo",
+            "id": "testhubo",
             "code": null,
             "typeName": null
         },

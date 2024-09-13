@@ -189,7 +189,7 @@ const StepAssertCommon = (props) =>{
 
     return(
         <div className={"table-list-box step-assert-box"}>
-            <div className={`assert-overflow-auto ${visible?"testrubo-hide":"testrubo-show"}`}>
+            <div className={`assert-overflow-auto ${visible?"testhubo-hide":"testhubo-show"}`}>
                 <div style={{padding:"10px 0"}}>
                     <IconBtn
                         className="pi-icon-btn-grey"
@@ -207,7 +207,7 @@ const StepAssertCommon = (props) =>{
 
 
             </div>
-            <div className={`assert-overflow-auto case-bind_box ${visible?"testrubo-show":"testrubo-hide"}`}>
+            <div className={`assert-overflow-auto case-bind_box ${visible?"testhubo-show":"testhubo-hide"}`}>
 
                 <Form
                     form={form}

@@ -1,7 +1,7 @@
 {
-  "name": "thoughtware-testrubo-ui",
+  "name": "thoughtware-testhubo-ui",
   "version": "1.0.2",
-  "description": "thoughtware-testrubo-ui",
+  "description": "thoughtware-testhubo-ui",
   "main": "es/index.js",
   "files": [
     "es"

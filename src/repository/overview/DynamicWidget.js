@@ -38,7 +38,7 @@ const DynamicWidget = (props) =>{
                 currentPage:1
             },
             ...value,
-            bgroup:"testrubo"
+            bgroup:"testhubo"
         }
         let res = await Axios.post('/oplog/findlogpage', params)
         return res.data;

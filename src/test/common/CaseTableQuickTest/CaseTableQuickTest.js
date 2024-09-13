@@ -42,7 +42,7 @@ const CaseTableQuickTest = (props) =>{
                 />
             </div>
 
-            <div className={`case-toggle-title ${visible === false ? 'testrubo-hide' : 'testrubo-show'}`}>
+            <div className={`case-toggle-title ${visible === false ? 'testhubo-hide' : 'testhubo-show'}`}>
                 <div style={{minHeight:"120px"}}>
                     <Form
                         form={form}

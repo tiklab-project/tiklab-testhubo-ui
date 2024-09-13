@@ -50,7 +50,7 @@ const SettingHome = props => {
     },[])
 
     useEffect(async ()=>{
-        let logInfo =  await Axios.post("/oplog/findlogpage", {"bgroup":"testrubo","userId":getUser().userId});
+        let logInfo =  await Axios.post("/oplog/findlogpage", {"bgroup":"testhubo","userId":getUser().userId});
         setLog(logInfo.data)
     },[])
 
@@ -112,7 +112,7 @@ const SettingHome = props => {
 
     const goAuth = () => {
         if(version==='cloud'){
-            return applyJump('https://work.cloud.tiklab.net/#/enterprise/auth/testrubo')
+            return applyJump('https://work.cloud.tiklab.net/#/enterprise/auth/testhubo')
         }
         props.history.push(`/setting/productAuth`)
     }
@@ -159,7 +159,7 @@ const SettingHome = props => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='home-licence-sub' onClick={()=>applySubscription('testrubo')}>
+                            <div className='home-licence-sub' onClick={()=>applySubscription('testhubo')}>
                                 {showProductInfo()?.expired ? '订阅' : '续订'}
                             </div>
                         </div>
