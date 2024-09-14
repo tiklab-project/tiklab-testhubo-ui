@@ -94,27 +94,27 @@ const CategoryList = (props) => {
                 xxl={{ span: "18", offset: "3" }}
             >
                 <div  className={"header-box-space-between"} >
-                    <div className={'header-box-title'}>模块列表</div>
+                    <div className={'header-box-title'}>模块</div>
                     <CategoryEdit name={`添加模块`} findList={findList}/>
                 </div>
                 <div className={"table-list-box"}>
-                         <Table
-                            columns={columns}
-                            dataSource={categoryTableList}
-                            rowKey={record => record.id}
-                            // expandable={{defaultExpandAllRows: true}}
-                            loading={tableLoading}
-                            pagination={false}
-                            locale={{
-                                emptyText: !tableLoading
-                                    ?<Empty
-                                        imageStyle={{height: 100}}
-                                        description={<span>暂无模块</span>}
-                                    />
-                                    :<div style={{height: 100}}/>,
-                            }}
-                         />
-                    </div>
+                     <Table
+                        columns={columns}
+                        dataSource={categoryTableList}
+                        rowKey={record => record.id}
+                        // expandable={{defaultExpandAllRows: true}}
+                        loading={tableLoading}
+                        pagination={false}
+                        locale={{
+                            emptyText: !tableLoading
+                                ?<Empty
+                                    imageStyle={{height: 100}}
+                                    description={<span>暂无模块</span>}
+                                />
+                                :<div style={{height: 100}}/>,
+                        }}
+                     />
+                </div>
             </Col>
         </Row>
     )

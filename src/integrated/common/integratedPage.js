@@ -3,35 +3,35 @@ import { observer} from "mobx-react";
 import WorkspaceFindList from "../postin/workspaceBind/components/WorkspaceFindList";
 import "./intergatedStyle.scss"
 import workspaceBindStore from "../postin/workspaceBind/store/WorkspaceBindStore";
-import {Button, Col,Row, Collapse, Form, Input} from "antd";
+import {Button, Col, Row, Collapse, Form, Input, Tooltip} from "antd";
 import integratedUrlStore from "../postin/postinUrl/store/IntegratedUrlStore";
+import {AppstoreOutlined, DeleteOutlined} from "@ant-design/icons";
+import IntegratedEdit from "./IntegratedEdit";
 const { Panel } = Collapse;
 
 const IntegratedPage = (props) =>{
-    const {findWorkspaceBindList,workspaceName} = workspaceBindStore
-    const {findIntegratedUrlList,createIntegratedUrl,updateIntegratedUrl} = integratedUrlStore;
+    const {findWorkspaceBindList,workspaceName,deleteWorkspaceBind} = workspaceBindStore
+    const {findIntegratedUrlList,createIntegratedUrl,updateIntegratedUrl,deleteIntegratedUrl} = integratedUrlStore;
 
     const [form] = Form.useForm();
     const [postInCurUrlData, setPostInCurData] = useState();
     const [isPostInUrl, setIsPostInUrl] = useState(false);
     const [teamWireCurData, setTeamWireCurData] = useState();
     const repositoryId = sessionStorage.getItem("repositoryId")
+    const [bindWorkspaceInfo, setBindWorkspaceInfo] = useState();
 
-
-    useEffect(()=>{
-        findWorkspaceBindList({repositoryId:repositoryId})
+    useEffect(async ()=>{
+        let bindWorkspace = findWorkspaceBindList({repositoryId:repositoryId})
+        setBindWorkspaceInfo(bindWorkspace)
     },[])
-
 
     useEffect(()=>{
         findPostInList()
     },[])
 
-
     useEffect(()=>{
         findTeamWireList()
     },[])
-
 
     const findPostInList = () =>{
         let param = {
@@ -49,14 +49,14 @@ const IntegratedPage = (props) =>{
 
                 let integratedUrl = list[0].url;
                 form.setFieldsValue({
-                    postInUrl:integratedUrl
+                    url:integratedUrl
                 })
             }else {
+                setIsPostInUrl(false)
                 setPostInCurData({list:[]})
             }
         })
     }
-
 
     const findTeamWireList = () =>{
         let param = {
@@ -72,13 +72,14 @@ const IntegratedPage = (props) =>{
                 setTeamWireCurData(teamWireInfo)
 
                 form.setFieldsValue({
-                    teamWireUrl:list[0].url
+                    url:list[0].url
                 })
             }else {
                 setTeamWireCurData({list:[]})
             }
         })
     }
+
     /**
      * 公共方法
      * 设置地址
@@ -120,10 +121,14 @@ const IntegratedPage = (props) =>{
         }
     }
 
-
+    const deletePostInServer = async () =>{
+        await deleteIntegratedUrl(postInCurUrlData?.curData?.id)
+        await deleteWorkspaceBind(bindWorkspaceInfo?.id)
+        await findPostInList()
+    }
 
     return(
-        <Row>
+        <Row className={"integrated-content"}>
             <Col
                 xs={{ span: "24" }}
                 sm={{ span: "24" }}
@@ -137,55 +142,66 @@ const IntegratedPage = (props) =>{
                 <div className={'header-box-title'}>系统集成</div>
             </div>
             <Collapse  expandIconPosition={"end"} >
-                <Panel header={<><span style={{padding:"0 5px"}}>POSTIN集成</span></>} key="1">
+                <Panel header={
+                    <>
+                        <div><AppstoreOutlined /> <span style={{padding:"0 5px"}}>POSTIN集成</span></div>
+                        <div className={"collapse-panel-desc"}>集成PostIn产品</div>
+                    </>
+                } key="1">
                     <div className={"url-config-box"}>
-                        <Form
-                            form={form}
-                            layout="vertical"
-                            preserve={false}
-                            onFinish={(e)=>setUrl(e,"postin",postInCurUrlData)}
-                        >
-                            <Form.Item
-                                label="POSTIN服务端地址"
-                                name="postInUrl"
-                                // rules={[{ required: true, message: 'Please input your LOGIN_URL!' }]}
-                            >
-                                <Input />
-                            </Form.Item>
-                            {
-                                isPostInUrl
-                                    ?<div className={"integrated_workspace-bind display-flex-between"}>
-                                        <div><span>空间名 :</span> {workspaceName }</div> <WorkspaceFindList />
-                                    </div>
-                                    :null
-                            }
+                        <Row className={"integrated-row-item"}>
+                            <Col span={4}>服务地址</Col>
+                            <Col span={16}>{postInCurUrlData?.curData?.url||"未设置"}</Col>
+                            <Col span={3} className={"integrated-action"}>
+                                <IntegratedEdit
+                                    product={"postin"}
+                                    type={postInCurUrlData?.curData?.url ?"edit":"add"}
+                                    name={postInCurUrlData?.curData?.url ?"添加":"编辑"}
+                                    findPostInList={findPostInList}
+                                    findTeamWireList={findTeamWireList}
+                                    curUrlData={postInCurUrlData}
+                                    form={form}
+                                    setUrl={setUrl}
+                                />
 
-                            <Form.Item >
-                                <Button type="primary" htmlType="submit" style={{ width: 100,height: 36}}>  保存 </Button>
-                            </Form.Item>
-                        </Form>
+                                {isPostInUrl && <Tooltip title={"删除"}><DeleteOutlined onClick={deletePostInServer}/></Tooltip>}
+                            </Col>
+                        </Row>
+                        {
+                            isPostInUrl&&<Row className={"integrated-row-item"}>
+                                    <Col span={4}>空间名</Col>
+                                    <Col span={16}>{workspaceName }</Col>
+                                    <Col span={3}> <WorkspaceFindList /> </Col>
+                                </Row>
+                        }
                     </div>
-
-
                 </Panel>
-                <Panel header={<><span style={{padding:"0 5px"}}>KANASS集成</span></>} key="2">
+                <Panel header={<>
+                    <div>
+                        <AppstoreOutlined />
+                        <span style={{padding:"0 5px"}}>KANASS集成</span>
+                    </div>
+                    <div className={"collapse-panel-desc"}>集成Kanass产品</div>
+                </>} key="2">
                     <div className={"url-config-box"}>
-                        <Form
-                            form={form}
-                            layout="vertical"
-                            preserve={false}
-                            onFinish={(e)=>setUrl(e,"teamwire",teamWireCurData)}
-                        >
-                            <Form.Item
-                                label="KANASS服务端地址"
-                                name="teamWireUrl"
-                            >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item >
-                                <Button type="primary" htmlType="submit" style={{ width: 100,height: 36}}>  保存 </Button>
-                            </Form.Item>
-                        </Form>
+                        <Row className={"integrated-row-item"}>
+                            <Col span={4}>服务地址</Col>
+                            <Col span={16}>{teamWireCurData?.curData?.url||"未设置"}</Col>
+                            <Col span={3} className={"integrated-action"}>
+                                <IntegratedEdit
+                                    product={"teamwire"}
+                                    type={teamWireCurData?.curData?.url ?"edit":"add"}
+                                    name={teamWireCurData?.curData?.url ?"添加":"编辑"}
+                                    findPostInList={findPostInList}
+                                    findTeamWireList={findTeamWireList}
+                                    curUrlData={teamWireCurData}
+                                    form={form}
+                                    setUrl={setUrl}
+                                />
+
+                                {teamWireCurData?.curData?.url && <Tooltip title={"删除"}><DeleteOutlined onClick={deletePostInServer}/></Tooltip>}
+                            </Col>
+                        </Row>
                     </div>
                 </Panel>
             </Collapse>

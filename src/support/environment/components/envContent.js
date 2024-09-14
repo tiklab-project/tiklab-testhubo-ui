@@ -4,6 +4,7 @@ import ApiEnvList from "./apiEnvList";
 import AppEnvList from "./appEnvList";
 import ApiEnvEdit from "./apiEnvEdit";
 import AppEnvEdit from "./appEnvEdit";
+import "./envStyle.scss"
 
 const { TabPane } = Tabs;
 

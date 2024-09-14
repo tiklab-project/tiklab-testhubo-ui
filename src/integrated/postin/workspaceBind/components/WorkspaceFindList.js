@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import {Modal, Space, Table} from "antd";
-import IconBtn from "../../../../common/iconBtn/IconBtn";
+import {Modal, Space, Table, Tooltip} from "antd";
 import {inject, observer} from "mobx-react";
 import {messageFn} from "../../../../common/messageCommon/MessageCommon";
 import workspaceBindStore from "../store/WorkspaceBindStore";
 import RepositoryIcon from "../../../../common/RepositoryIcon";
+import {PaperClipOutlined} from "@ant-design/icons"
 
 const WorkspaceFindList = (props) =>{
     const {findWorkspaceList,bindWorkspace,findWorkspaceBindList} = workspaceBindStore;
@@ -90,11 +90,10 @@ const WorkspaceFindList = (props) =>{
 
     return(
         <>
-            <IconBtn
-                className="pi-icon-btn-grey"
-                name={"关联空间"}
-                onClick={showModal}
-            />
+            <Tooltip title={"关联空间"}>
+                <PaperClipOutlined onClick={showModal}/>
+            </Tooltip>
+
             <Modal
                 destroyOnClose={true}
                 title="关联空间"

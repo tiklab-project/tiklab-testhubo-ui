@@ -1,10 +1,35 @@
+.integrated-content{
+    min-width: 560px;
 
-.integrated_workspace-bind{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 20px 0;
-    width: 200px;
+    .url-config-box{
+        min-width: 400px;
+        max-width: 780px;
+        overflow: hidden;
+        margin: 0 auto;
+        padding: 10px 15px;
+    }
+
+    .integrated-row-item{
+        margin: 10px;
+    }
+
+    .integrated-action{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .integrated-postin-detail{
+        //display: ;
+    }
+
+    .integrated_workspace-bind{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 20px 0;
+        width: 320px;
+    }
+
 }
-
 
