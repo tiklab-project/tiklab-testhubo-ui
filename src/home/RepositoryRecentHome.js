@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Col, Empty, Row, Spin} from "antd";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 import "./homestyle.scss"
 import RepositoryIcon from "../common/RepositoryIcon";

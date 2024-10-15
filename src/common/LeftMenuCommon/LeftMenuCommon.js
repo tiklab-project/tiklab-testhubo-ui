@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {getUser, productFrameImg, productImg, productWhiteImg} from "thoughtware-core-ui";
+import {getUser, productFrameImg, productImg, productWhiteImg} from "tiklab-core-ui";
 import {useHistory} from "react-router";
-import {productTitle} from "thoughtware-core-ui/es/utils/product";
+import {productTitle} from "tiklab-core-ui/es/utils/product";
 import "./LeftMenuCommonStyle.scss"
 import {CaretLeftOutlined, CaretRightOutlined, QuestionCircleOutlined, SettingOutlined} from "@ant-design/icons";
 import MessageDrawer from "../../setting/message/MessageDrawer";
 import {Dropdown, Tooltip} from "antd";
 import IconCommon from "../IconCommon";
-import {Profile} from 'thoughtware-licence-ui/es/commons'
+import {Profile} from 'tiklab-licence-ui/es/commons'
 import {useTheme} from "../hooks/useTheme";
 import {useMenuExpanded} from "../hooks/useMenuExpanded";
 import {useMenuSelected} from "../hooks/useMenuSelected";

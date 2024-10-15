@@ -12,7 +12,7 @@ import MenuSelect from "../../../common/menuSelect/MenuSelect";
 import CaseTypeSelect from "../../../test/testcase/components/CaseTypeSelect";
 import {CASE_TYPE, caseTypeToRouter} from "../../../common/dictionary/dictionary";
 import ExtensionCommon from "../../../common/ExtensionCommon";
-import {getVersionInfo} from "thoughtware-core-ui";
+import {getVersionInfo} from "tiklab-core-ui";
 import {rowStyle, showCreateUser, ShowDeleteView} from "../../../test/testcase/components/testCaseTableFn";
 import PageCenter from "../../../common/pageContent/PageCenter";
 import IconCommon from "../../../common/IconCommon";

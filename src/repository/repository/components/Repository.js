@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './repository.scss';
 import {Row,Col, Input} from "antd";
 import {inject, observer} from "mobx-react";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import RepositoryRecentHome from "../../../home/RepositoryRecentHome";
 import RepositoryList from "./RepositoryList";
 import IconBtn from "../../../common/iconBtn/IconBtn";

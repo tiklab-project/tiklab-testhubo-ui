@@ -4,7 +4,7 @@ import * as echarts from 'echarts';
 import {Row} from "antd";
 import {CaseTestPie, getPieChartOption} from "./CaseTestPie";
 import {CaseTestPieDoughnut, getPieDoughnutOption} from "./CaseTestPieDoughnut";
-import {Axios} from "thoughtware-core-ui";
+import {Axios} from "tiklab-core-ui";
 
 
 const CaseTestStatistics = (props) => {

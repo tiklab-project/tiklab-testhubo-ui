@@ -11,8 +11,8 @@ import zhCN from "antd/es/locale/zh_CN";
 import {ConfigProvider} from "antd";
 import {HashRouter} from "react-router-dom";
 import {stores} from "./stores";
-import {privilegeStores} from "thoughtware-privilege-ui/es/store";
-import {orgStores} from "thoughtware-user-ui/es/store";
+import {privilegeStores} from "tiklab-privilege-ui/es/store";
+import {orgStores} from "tiklab-user-ui/es/store";
 
  const App = (props) => {
      const {routers} = props;

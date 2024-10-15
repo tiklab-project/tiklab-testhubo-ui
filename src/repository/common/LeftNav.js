@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Dropdown, Space, Tooltip} from "antd";
 import {inject, observer} from "mobx-react";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import IconCommon from "../../common/IconCommon";
 import {useHistory} from "react-router";
 import "./repositoryDetailStyle.scss"

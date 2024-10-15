@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import * as echarts from 'echarts';
-import {Axios} from "thoughtware-core-ui";
+import {Axios} from "tiklab-core-ui";
 import {DatePicker, Radio, Space, Table} from "antd";
 import moment from 'moment';
 const { RangePicker } = DatePicker;

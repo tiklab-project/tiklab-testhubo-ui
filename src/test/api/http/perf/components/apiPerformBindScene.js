@@ -6,7 +6,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import PaginationCommon from "../../../../../common/pagination/Page";
 import IconBtn from "../../../../../common/iconBtn/IconBtn";
 import {CASE_TYPE} from "../../../../../common/dictionary/dictionary";
-import {getVersionInfo} from "thoughtware-core-ui";
+import {getVersionInfo} from "tiklab-core-ui";
 import {showCaseTypeTable} from "../../../../../common/caseCommon/CaseCommonFn";
 import IconCommon from "../../../../../common/IconCommon";
 import {debounce} from "../../../../../common/utils/commonFn";

@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {showCaseTypeInList, showCaseTypeView} from "../../../common/caseCommon/CaseCommonFn";
 import {inject, observer} from "mobx-react";
 import PaginationCommon from "../../../common/pagination/Page";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import {useHistory} from "react-router";
 import {Input, Space, Spin, Tooltip} from "antd";
 import {CASE_TYPE} from "../../../common/dictionary/dictionary";

@@ -9,7 +9,7 @@ import {Empty, Modal, Spin} from "antd";
 import {useHistory} from "react-router";
 import {switchCaseTypeFn} from "../testCaseTableFn";
 import upgradeImg from "../../../../assets/img/upgrade.png";
-import {getVersionInfo} from "thoughtware-core-ui";
+import {getVersionInfo} from "tiklab-core-ui";
 
 const CaseList = (props) => {
     const {testcaseList,loading,clickItemId,setClickItemId} = props;

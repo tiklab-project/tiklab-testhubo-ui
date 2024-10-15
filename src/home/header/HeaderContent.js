@@ -1,7 +1,7 @@
 import React from 'react';
 import MessageDrawer from "../../setting/message/MessageDrawer";
-import {productWhiteImg} from "thoughtware-core-ui"
-import {productTitle} from "thoughtware-core-ui/es/utils/product";
+import {productWhiteImg} from "tiklab-core-ui"
+import {productTitle} from "tiklab-core-ui/es/utils/product";
 import EnterPriseEdition from "./enterpriseEdition/EnterPriseEdition";
 
 /**

@@ -9,7 +9,7 @@ import "../../../../common/styles/caseContantStyle.scss"
 import "../../../../common/styles/unitcase.scss"
 import {showCaseTypeInList} from "../../../../../common/caseCommon/CaseCommonFn";
 import IconCommon from "../../../../../common/IconCommon";
-import {Axios} from "thoughtware-core-ui";
+import {Axios} from "tiklab-core-ui";
 
 const {Option} = Select;
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { observer, inject } from "mobx-react";
 import {Empty, Space, Table, Tooltip,Avatar} from 'antd';
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import emptyImg  from "../../../assets/img/empty.png"
 import repositoryFollowStore from "../store/RepositoryFollowStore";
 import RepositoryIcon from "../../../common/RepositoryIcon";

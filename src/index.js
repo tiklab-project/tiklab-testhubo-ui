@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
-import {enableAxios} from "thoughtware-core-ui"
+import {enableAxios} from "tiklab-core-ui"
 import routes from './routers';
 import {Spin} from "antd";
 

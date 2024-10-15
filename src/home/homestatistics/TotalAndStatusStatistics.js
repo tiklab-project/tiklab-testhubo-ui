@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import * as echarts from 'echarts';
-import {Axios, getUser} from "thoughtware-core-ui";
+import {Axios, getUser} from "tiklab-core-ui";
 import { getPieDoughnutOption} from "../../statistics/casetest/CaseTestPieDoughnut";
 import {Card, Col,Select} from "antd";
 import {inject, observer} from "mobx-react";

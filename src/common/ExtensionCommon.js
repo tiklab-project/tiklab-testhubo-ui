@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, Modal} from "antd";
-import {applySubscription, getVersionInfo} from "thoughtware-core-ui";
+import {applySubscription, getVersionInfo} from "tiklab-core-ui";
 import upgradeImg from "../assets/img/upgrade.png"
 import IconCommon from "./IconCommon"
 

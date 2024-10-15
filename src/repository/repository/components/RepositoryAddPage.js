@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { observer, inject } from "mobx-react";
 import {Form,  Button, Input,  Row, Col, Select} from 'antd';
-import {Axios, getUser} from "thoughtware-core-ui";
+import {Axios, getUser} from "tiklab-core-ui";
 import "./repository.scss"
 import {useHistory} from "react-router";
 

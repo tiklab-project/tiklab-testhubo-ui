@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import {observer} from "mobx-react";
 import {Empty, List, Skeleton} from "antd";
 import IconCommon from "../../common/IconCommon";

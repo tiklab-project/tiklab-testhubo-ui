@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Drawer} from "antd";
 import {useHistory, useLocation} from "react-router";
 import {renderRoutes} from "react-router-config";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 import {CASE_TYPE} from "../../common/dictionary/dictionary";
 

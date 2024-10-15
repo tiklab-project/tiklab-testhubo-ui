@@ -1,7 +1,7 @@
 import React from "react";
 import {CASE_TYPE, caseTypeToRouter} from "../../../common/dictionary/dictionary";
-import {getUser} from "thoughtware-core-ui";
-import {getVersionInfo} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
+import {getVersionInfo} from "tiklab-core-ui";
 import {useHistory} from "react-router";
 import ApiUnitExecuteTest from "../../api/http/unit/components/apiUnitExecuteTest";
 import ApiExecuteTestPage from "../../api/http/scene/components/ApiExecuteTestPage";

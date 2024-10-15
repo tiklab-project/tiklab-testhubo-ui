@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Select} from "antd";
-import {Axios} from "thoughtware-core-ui";
+import {Axios} from "tiklab-core-ui";
 
 const {Option} = Select
 

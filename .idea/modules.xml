@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/thoughtware-testhubo-ui.iml" filepath="$PROJECT_DIR$/.idea/thoughtware-testhubo-ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tiklab-testhubo-ui.iml" filepath="$PROJECT_DIR$/.idea/tiklab-testhubo-ui.iml" />
     </modules>
   </component>
 </project>

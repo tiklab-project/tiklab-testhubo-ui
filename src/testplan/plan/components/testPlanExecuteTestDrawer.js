@@ -3,7 +3,7 @@ import {Drawer, Empty, Spin, Table, Tag} from "antd";
 import {inject, observer} from "mobx-react";
 import {messageFn} from "../../../common/messageCommon/MessageCommon";
 import {showCaseTypeTable,  showTestTypeView} from "../../../common/caseCommon/CaseCommonFn";
-import {Axios} from "thoughtware-core-ui";
+import {Axios} from "tiklab-core-ui";
 import CaseBread from "../../../common/CaseBread";
 import {LoadingOutlined} from "@ant-design/icons";
 

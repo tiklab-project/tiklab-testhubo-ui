@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button,  Input, Modal} from "antd";
-import {PrivilegeProjectButton} from "thoughtware-privilege-ui";
+import {PrivilegeProjectButton} from "tiklab-privilege-ui";
 /**
  * 项目设置中的删除项目
  */
